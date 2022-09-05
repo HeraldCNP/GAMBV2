@@ -17,7 +17,7 @@ import { ForgotComponent } from './pages/forgot/forgot.component';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class AuthModule { }
