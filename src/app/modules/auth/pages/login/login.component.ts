@@ -12,13 +12,15 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup = new FormGroup({});
 
   constructor(private authService: AuthService) { }
+  errorStatus:boolean = false;
+  errorMsj:any = "";
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
       email: new FormControl('', [
         Validators.required,
         Validators.minLength(7),
-        Validators.maxLength(11)
+        Validators.maxLength(30)
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -29,8 +31,18 @@ export class LoginComponent implements OnInit {
   }
 
   sendLogin(form:LoginI){
-    this.authService.loginByUser(form).subscribe(data => {
-      console.log(data);
-    });
+    this.authService.loginByUser(form)
+      .subscribe(
+        res => {
+          let dataRes = res;
+          if(dataRes.token){
+            localStorage.setItem("token", res.token);
+            this.errorStatus = false;
+          }else{
+            this.errorStatus = true;
+            this.errorMsj = "Credenciales incorrectas!!!";
+          }
+          console.log(res);
+      });
   }
 }
