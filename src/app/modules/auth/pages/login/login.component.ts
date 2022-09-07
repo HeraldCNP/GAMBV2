@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LoginI } from '../../models/login.interface';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,11 @@ import { LoginI } from '../../models/login.interface';
 export class LoginComponent implements OnInit {
   formLogin: FormGroup = new FormGroup({});
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private cookie: CookieService,
+    private router: Router
+    ) { }
   errorStatus:boolean = false;
   errorMsj:any = "";
 
@@ -36,13 +42,15 @@ export class LoginComponent implements OnInit {
         res => {
           let dataRes = res;
           if(dataRes.token){
-            localStorage.setItem("token", res.token);
+            this.cookie.set('token', dataRes.token, 1, '/')
             this.errorStatus = false;
+            this.router.navigate(['private'])
           }else{
             this.errorStatus = true;
             this.errorMsj = "Credenciales incorrectas!!!";
           }
           console.log(res);
-      });
+        }
+      );
   }
 }

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PrivateComponent } from './modules/auth/pages/private/private.component';
+import { SessionGuard } from './core/guards/session.guard';
 
 const routes: Routes = [
   {
@@ -9,6 +11,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'private',
+    component: PrivateComponent,
+    canActivate: [SessionGuard]
   },
   {
     path: '**',
