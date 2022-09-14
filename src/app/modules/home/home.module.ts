@@ -6,6 +6,8 @@ import { IndexComponent } from './pages/index/index.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { SliderComponent } from './pages/slider/slider.component';
 import { FooterComponent } from './pages/footer/footer.component';
+import { SecretariesComponent } from './pages/secretaries/secretaries.component';
+import { NewsComponent } from './pages/news/news.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { FooterComponent } from './pages/footer/footer.component';
     IndexComponent,
     MenuComponent,
     SliderComponent,
-    FooterComponent
+    FooterComponent,
+    SecretariesComponent,
+    NewsComponent
   ],
   imports: [
     CommonModule,

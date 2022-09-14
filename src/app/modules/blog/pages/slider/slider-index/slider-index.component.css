@@ -1,0 +1,6 @@
+.icono{
+    cursor: pointer;
+}
+.icono:hover{
+    color: darkslategray;
+}

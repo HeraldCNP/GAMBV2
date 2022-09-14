@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly URL = environment.api
+  private URL = environment.api
   constructor(private http:HttpClient) { }
 
   loginByUser(form:LoginI):Observable<any>{

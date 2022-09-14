@@ -1,0 +1,45 @@
+<div class="m-3">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header">
+              <h3 class="card-title">Crear Nuevo Slider</h3>
+              
+            </div>
+            
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <div class="row">
+                <div class="col-md-4 offset-md-2">
+                  <form (ngSubmit)="sendFormSlider()" [formGroup]="sliderForm">
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Titulo</label>
+                      <input type="text" class="form-control" id="title" formControlName="title">
+                      <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="detail" class="form-label">Detalle</label>
+                      <input type="text" class="form-control" id="detail" formControlName="detail">
+                      <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="image" class="form-label">Detalle</label>
+                      <input class="form-control" id="image" type="file" name="image" id="image" accept="image/*" formControlName="image" (change)="onChange($event)">
+                      <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <button [disabled]="sliderForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+                  </form>
+                </div>
+                <div class="col-md-4">
+                  {{ sliderForm.value | json }}
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+    </div>
+</div>
+
+

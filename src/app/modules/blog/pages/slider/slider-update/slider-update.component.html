@@ -1,0 +1,46 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card-header">
+          <h3 class="card-title">Editar Slider</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive">
+          <div class="row">
+            <div class="col-md-4 offset-md-2">
+              <form [formGroup]="editarForm" (ngSubmit)="editFormSlider()">
+                <div class="mb-3">
+                  <label for="title" class="form-label">Titulo</label>
+                  <input type="text" class="form-control" id="title" formControlName="titulo">
+                  <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="detail" class="form-label">Detalle</label>
+                  <input type="text" class="form-control" id="detail" formControlName="detalle">
+                  <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="image" class="form-label">Imagen</label>
+                  <input class="form-control" id="image2" type="file" name="image2" id="image2" accept="image/*"
+                   (change)="onChange($event)">
+                  <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <button type="submit" class="btn btn-danger">Registrar</button>
+              </form>
+            </div>
+            <div class="col-md-4">
+              {{ editarForm.value | json }}
+              <p>Imagen Actual</p>
+              <figure>
+                <img width="350px" src="{{ URL +'/'+editarForm.value.image }}" alt="">
+              </figure>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
