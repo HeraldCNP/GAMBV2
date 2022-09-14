@@ -51,7 +51,7 @@
                     <td><img width="70px" src="{{ URL+'/'+slider.urislaider }}" alt=""></td>
                     <td>
                       <i (click)="editSlider(slider._id)" class="fas fa-edit ml-3 icono"></i>
-                      <i class="fas fa-trash-alt ml-3 icono"></i>
+                      <i (click)="onDeleteSlider(slider._id)" class="fas fa-trash-alt ml-3 icono"></i>
                     </td>
                   </tr>
                 </tbody>

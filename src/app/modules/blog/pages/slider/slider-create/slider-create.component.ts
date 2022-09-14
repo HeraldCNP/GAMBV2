@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BlogService } from '../../../services/blog.service';
 import { ListSliderI } from '../../../models/listSlider.interface';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-slider-create',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class SliderCreateComponent implements OnInit {
   sliderForm: FormGroup = new FormGroup({});
   files:any;
+
   constructor(
     private api: BlogService,
     private router: Router
@@ -37,11 +39,26 @@ export class SliderCreateComponent implements OnInit {
     this.api.sendSlider(fd).subscribe(
       res => console.log(res),
       err => console.log('HTTP Error', err),
-      () => this.router.navigate(['blog/slider/index'])
+      () => {
+              this.router.navigate(['blog/slider/index']),
+              this.alertOk('top-end', 'success', 'Exito', 'Slider Creado Correctamente', '1500')
+            }
     )
   }
 
   onChange($event:any) {
     this.files = $event.target.files;
   }
+
+
+  alertOk(position:any, icon:any, title:any, text:any, timer:any){
+    Swal.fire({
+      position,
+      icon,
+      title,
+      text,
+      timer
+    })
+  }
+
 }

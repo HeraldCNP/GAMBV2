@@ -3,6 +3,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 import { BlogService } from '../../../services/blog.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { environment } from '../../../../../../environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-slider-update',
@@ -54,7 +55,10 @@ export class SliderUpdateComponent implements OnInit {
     this.api.sendUpdateSlider(fd, this.sliderId).subscribe(
       res => console.log(res),
       err => console.log('HTTP Error', err),
-      () => this.router.navigate(['blog/slider/index'])
+      () => {
+        this.router.navigate(['blog/slider/index']),
+        this.alertOk('success', 'Exito', 'Slider Editado Correctamente', '1500')
+      }
     );
     
   }
@@ -62,6 +66,14 @@ export class SliderUpdateComponent implements OnInit {
 
   onChange($event:any) {
     this.files = $event.target.files;
+  }
+  alertOk(icon:any, title:any, text:any, timer:any){
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer
+    })
   }
 
 }

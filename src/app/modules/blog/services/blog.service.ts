@@ -32,4 +32,9 @@ export class BlogService {
     let dir = `${this.URL}/uploadslider/${id}`;
     return this.http.post<any>(dir, fd)
   }
+
+  deleteSlider(id:any):Observable<any>{
+    let dir = `${this.URL}/slaider/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
 }
