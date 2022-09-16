@@ -1,0 +1,66 @@
+<div class="m-3">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header">
+              <h3 class="card-title">Crear Nuevo Post</h3>         
+            </div>
+            
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <div class="row">
+                <div class="col-md-8">
+                  <form [formGroup]="editarForm" (ngSubmit)="editFormPost()">
+                    <div class="mb-2">
+                      <label for="title" class="form-label">Titulo</label>
+                      <input type="text" class="form-control" id="title" formControlName="title">
+                      <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-2">
+                      <label for="subtitle" class="form-label">Subtitulo</label>
+                      <input type="text" class="form-control" id="subtitle" formControlName="subtitle">
+                      <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="body" class="form-label">Cuerpo</label>
+                        <textarea class="form-control" name="body" id="body" cols="30" rows="8" formControlName="body"></textarea>
+                        <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="iframe" class="form-label">Iframe</label>
+                        <textarea class="form-control" name="iframe" id="iframe" cols="30" rows="3" formControlName="iframe"></textarea>
+                        <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="category" class="form-label">Categoria</label>
+                        <select class="form-control" name="category" id="" formControlName="category">
+                            <option *ngFor="let category of categories.serverResponse" [selected]="category.category === editarForm.value.category" value="{{ category.category }}">{{ category.category}}</option>
+                        </select>
+
+                        <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-2">
+                      <label for="image" class="form-label">Detalle</label>
+                      <input class="form-control" id="image2" type="file" name="image2" id="image2" accept="image/*" (change)="onChange($event)">
+                      <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <button [disabled]="editarForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+                  </form>
+                </div>
+                <div class="col-md-4">
+                  {{ editarForm.value | json }}
+                  <p>Imagen Actual</p>
+                <figure>
+                    <img width="350px" src="{{ URL +'/'+editarForm.value.image }}" alt="">
+                </figure>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+    </div>
+</div>
+
+

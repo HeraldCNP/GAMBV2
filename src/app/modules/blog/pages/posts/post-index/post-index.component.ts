@@ -1,47 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogService } from '../../../services/blog.service';
-import { ListSliderI } from '../../../models/listSlider.interface';
 import { environment } from '../../../../../../environments/environment';
-import { FormGroup } from '@angular/forms';
+import { BlogService } from '../../../services/blog.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-slider-index',
-  templateUrl: './slider-index.component.html',
-  styleUrls: ['./slider-index.component.css']
+  selector: 'app-post-index',
+  templateUrl: './post-index.component.html',
+  styleUrls: ['./post-index.component.css']
 })
-export class SliderIndexComponent implements OnInit {
-  sliders:ListSliderI[] = [];
+export class PostIndexComponent implements OnInit {
+
+  posts:any[] = [];
   URL = environment.api;
-  
-  status =  false;
-  
+
   constructor(
     private api: BlogService,
     private router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    this.getSlider();
+    this.getPosts()
   }
 
-  getSlider(){
-    this.api.getAllSliders().subscribe(res => {
-      this.sliders = res;
+  getPosts(){
+    this.api.getAllPosts().subscribe
+    (res => {
+      this.posts = res;
     });
   }
-  
-  editSlider(id:any){
-    this.router.navigate(['blog/slider/update', id])
-    // console.log(id);
+
+  addPost(){
+    this.router.navigate(['blog/post/create'])
   }
 
-  addSlider(){
-    this.router.navigate(['blog/slider/create'])
-  }
 
-  onDeleteSlider(id:any){
+
+  onDeletePost(id:any){
     Swal.fire({
       title: 'Estas seguro?',
       text: "¡No podrás revertir esto!",
@@ -55,17 +50,19 @@ export class SliderIndexComponent implements OnInit {
       if (result.isConfirmed) {
         Swal.fire(
           '¡Eliminado!',
-          'Su archivo ha sido eliminado.',
+          'El Post ha sido eliminado.',
           'success'
         )
-        this.api.deleteSlider(id).subscribe(
+        this.api.deletePost(id).subscribe(
           res => console.log(res),
           err => console.log('HTTP Error', err),
-          () => this.getSlider() 
+          () => this.getPosts() 
         );
       }
     })
+  }
 
-    
+  onEditPost(id:any){
+    this.router.navigate(['blog/post/update', id])
   }
 }

@@ -10,6 +10,9 @@ import { SliderCreateComponent } from './pages/slider/slider-create/slider-creat
 import { SliderIndexComponent } from './pages/slider/slider-index/slider-index.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SliderUpdateComponent } from './pages/slider/slider-update/slider-update.component';
+import { PostCreateComponent } from './pages/posts/post-create/post-create.component';
+import { PostIndexComponent } from './pages/posts/post-index/post-index.component';
+import { PostUpdateComponent } from './pages/posts/post-update/post-update.component';
 
 
 
@@ -21,7 +24,10 @@ import { SliderUpdateComponent } from './pages/slider/slider-update/slider-updat
     FooterComponent,
     SliderCreateComponent,
     SliderIndexComponent,
-    SliderUpdateComponent
+    SliderUpdateComponent,
+    PostCreateComponent,
+    PostIndexComponent,
+    PostUpdateComponent
   ],
   imports: [
     CommonModule,

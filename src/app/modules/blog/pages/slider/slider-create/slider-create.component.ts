@@ -20,6 +20,10 @@ export class SliderCreateComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.createform()
+  }
+
+  createform(){
     this.sliderForm = new FormGroup({
       title : new FormControl('', Validators.required),
       detail : new FormControl('', Validators.required),
@@ -27,7 +31,6 @@ export class SliderCreateComponent implements OnInit {
     })
   }
   
-
   sendFormSlider(){
     // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
     let fd = new FormData();
@@ -35,7 +38,6 @@ export class SliderCreateComponent implements OnInit {
     fd.append('titulo', this.sliderForm.value.title);
     fd.append('detalle', this.sliderForm.value.detail);
   
-
     this.api.sendSlider(fd).subscribe(
       res => console.log(res),
       err => console.log('HTTP Error', err),
