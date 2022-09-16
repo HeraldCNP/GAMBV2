@@ -13,6 +13,7 @@ import { SliderUpdateComponent } from './pages/slider/slider-update/slider-updat
 import { PostCreateComponent } from './pages/posts/post-create/post-create.component';
 import { PostIndexComponent } from './pages/posts/post-index/post-index.component';
 import { PostUpdateComponent } from './pages/posts/post-update/post-update.component';
+import { CategoryIndexComponent } from './pages/categories/category-index/category-index.component';
 
 
 
@@ -27,7 +28,8 @@ import { PostUpdateComponent } from './pages/posts/post-update/post-update.compo
     SliderUpdateComponent,
     PostCreateComponent,
     PostIndexComponent,
-    PostUpdateComponent
+    PostUpdateComponent,
+    CategoryIndexComponent
   ],
   imports: [
     CommonModule,

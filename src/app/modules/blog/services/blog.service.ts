@@ -72,4 +72,16 @@ export class BlogService {
     return this.http.delete<any>(dir, id)
   }
 
+  /*Finish Servicios para Post*/
+
+  sendCategory(category:any):Observable<any>{
+    let dir = `${this.URL}/category`;
+    return this.http.post<any>(dir, category)
+  }
+  
+  deleteCategory(id:any):Observable<any>{
+    let dir = `${this.URL}/category/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
+
 }

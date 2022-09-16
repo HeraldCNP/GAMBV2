@@ -8,6 +8,7 @@ import { SliderUpdateComponent } from './pages/slider/slider-update/slider-updat
 import { PostIndexComponent } from './pages/posts/post-index/post-index.component';
 import { PostCreateComponent } from './pages/posts/post-create/post-create.component';
 import { PostUpdateComponent } from './pages/posts/post-update/post-update.component';
+import { CategoryIndexComponent } from './pages/categories/category-index/category-index.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
       {path: 'post/index', component: PostIndexComponent},
       {path: 'post/create', component: PostCreateComponent},
       {path: 'post/update/:id', component: PostUpdateComponent},
+      {path: 'category/index', component: CategoryIndexComponent},
       {path: '**', redirectTo:'dashboard'},
     ]
   }
