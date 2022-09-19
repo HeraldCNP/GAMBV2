@@ -17,6 +17,22 @@ export class HomeService {
     let dir = `${this.URL}/slaider`;
     return this.http.get<ListSliderI[]>(dir)
   }
+
+  getAllPosts():Observable<any[]>{
+    let dir = `${this.URL}/blog`;
+    return this.http.get<any[]>(dir)
+  }
+
+
+  getSinglePost(id:any):Observable<any>{
+    let dir = `${this.URL}/blog/${id}`;
+    return this.http.get<any>(dir)
+  }
+
+  getAllCategories():Observable<any[]>{
+    let dir = `${this.URL}/category`;
+    return this.http.get<any[]>(dir)
+  }
 }
 
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../../../environments/environment';
+import { HomeService } from '../../services/home.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-news',
@@ -6,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-
-  constructor() { }
+  posts:any = [];
+  URL = environment.api;
+  constructor(
+    private api: HomeService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
+    this.api.getAllPosts().subscribe(res => {
+      this.posts = res;
+    });
   }
 
+  getPost(id:any){
+    this.router.navigate(['/post', id]);
+  }
 }

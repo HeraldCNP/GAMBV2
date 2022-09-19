@@ -11,7 +11,6 @@ import { HomeService } from '../../services/home.service';
 export class SliderComponent implements OnInit, OnDestroy {
   timerId:any;
   sliders:ListSliderI[] = [];
-  numberSlider = 1;
   URL = environment.api;
 
   constructor(private api: HomeService) {

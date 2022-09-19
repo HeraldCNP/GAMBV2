@@ -1,7 +1,12 @@
 <app-menu></app-menu>
-<app-slider></app-slider>
-<app-secretaries></app-secretaries>
-<app-news></app-news>
+<div class="main-container">
+    <div *ngIf="currentRoute === '/'">
+        <app-slider></app-slider>
+        <app-secretaries></app-secretaries>
+        <app-news></app-news>
+    </div>
+    <router-outlet></router-outlet>
+</div>
 <app-footer></app-footer>
 
 

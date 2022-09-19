@@ -8,6 +8,8 @@ import { SliderComponent } from './pages/slider/slider.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { SecretariesComponent } from './pages/secretaries/secretaries.component';
 import { NewsComponent } from './pages/news/news.component';
+import { PostComponent } from './pages/post/post.component';
+import { AsideComponent } from './pages/post/aside/aside.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { NewsComponent } from './pages/news/news.component';
     SliderComponent,
     FooterComponent,
     SecretariesComponent,
-    NewsComponent
+    NewsComponent,
+    PostComponent,
+    AsideComponent
   ],
   imports: [
     CommonModule,
