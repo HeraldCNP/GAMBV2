@@ -34,10 +34,10 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let post of posts">
-                    <td>{{ post.title }}</td>
-                    <td>{{ post.subtitle }}</td>
-                    <td>{{ post.body }}</td>
-                    <td>{{ post.iframe }}</td>
+                    <td>{{ post.title | slice:0:20 }}</td>
+                    <td>{{ post.subtitle | slice:0:20 }}</td>
+                    <td>{{ post.body | slice:0:20 }}...</td>
+                    <td>{{ post.iframe | slice:0:20 }}</td>
                     <td>{{ post.category }}</td>
                     <td><img width="70px" src="{{ URL+'/'+post.uri }}" alt=""></td>
                     <td>

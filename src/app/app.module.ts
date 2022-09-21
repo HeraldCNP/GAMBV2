@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,7 +14,10 @@ import { CookieService } from 'ngx-cookie-service';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {provide: LOCALE_ID, useValue: 'es'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

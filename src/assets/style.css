@@ -1953,7 +1953,7 @@ label{
   width: 100%;
 }
 .page-banner-area {
-  background: rgba(0, 0, 0, 0) url("img/banner/page-banner/1.jpg") no-repeat scroll center center;
+  background: rgba(0, 0, 0, 0) url("img/banner/blog.jpg") no-repeat scroll center center;
 }
 .page-banner-area.photo-2 {
   background: rgba(0, 0, 0, 0) url("img/banner/page-banner/2.jpg") no-repeat scroll center center; 
@@ -1962,7 +1962,7 @@ label{
   background: rgba(0, 0, 0, 0) url("img/banner/page-banner/3.jpg") no-repeat scroll center center; 
 }
 .page-banner-area.photo-4 {
-  background: rgba(0, 0, 0, 0) url("img/banner/page-banner/4.jpg") no-repeat scroll center center; 
+  background: rgba(0, 0, 0, 0) url("img/banner/blog.jpg") no-repeat scroll center center; 
 }
 /* ---------------- Background Image --------------- */
 .page-banner-area, .page-banner-area.photo-2, .page-banner-area.photo-3, .page-banner-area.photo-4 {

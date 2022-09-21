@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ListSliderI } from '../../../blog/models/listSlider.interface';
-import { HomeService } from '../../services/home.service';
+import { ListSliderI } from '../../../../blog/models/listSlider.interface';
+import { HomeService } from '../../../services/home.service';
 
 @Component({
   selector: 'app-slider',

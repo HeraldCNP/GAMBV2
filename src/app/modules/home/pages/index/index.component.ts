@@ -14,7 +14,7 @@ export class IndexComponent implements OnInit {
 
         if (event instanceof NavigationEnd) {
             this.currentRoute = event.url;
-              console.log(event);
+              // console.log(event);
         }
 
 

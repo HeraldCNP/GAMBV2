@@ -1,4 +1,18 @@
-
+<div class="page-banner-area photo-4 margin-bottom-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-banner-menu">
+                    <h2 class="page-banner-title">{{ post.title }}</h2>
+                    <ul>
+                        <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
+                        <li [routerLinkActive]="'active'">Noticia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="blog-area margin-bottom-80">
     <div class="container">		
         <div class="row animated">
@@ -44,94 +58,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4">
-                <!-- widget-brand start -->
-                <aside class="widget widget-brand">
-                    <h5 class="sidebar-title">Categorias</h5>
-                    <ul>
-                        <li><a href="#">Country Road</a></li>
-                        <li><a href="#">H&amp;M Home</a></li>
-                        <li><a href="#">Urban outfitters</a></li>
-                        <li><a href="#">Zara home</a></li>
-                    </ul>
-                </aside>
-                <!-- widget-brand end -->
-                <!-- widget-top-brand start -->
-                <aside class="widget top-rated">
-                    <h5 class="sidebar-title">top rated</h5>
-                    <div class="sidebar-product">
-                        <!-- Single-product start -->
-                        <div class="single-product">
-                            <div class="product-photo">
-                                <a href="#">
-                                    <img class="primary-photo" src="img/sidebar/1.png" alt=""> 
-                                </a>
-                            </div>
-                            <div class="product-brief">
-                                <h2><a href="#">Randomised Words</a></h2>
-                                <h3>$500.00 <span>$244.00</span></h3>
-                            </div>
-                        </div>	
-                        <!-- Single-product end -->
-                        <!-- Single-product start -->
-                        <div class="single-product">
-                            <div class="product-photo">
-                                <a href="#">
-                                    <img class="primary-photo" src="img/sidebar/2.png" alt=""> 
-                                </a>
-                            </div>
-                            <div class="product-brief">
-                                <h2><a href="#">CLEO POURER</a></h2>
-                                <h3>$500.00 <span>$244.00</span></h3>
-                            </div>
-                        </div>	
-                        <!-- Single-product end -->
-                        <!-- Single-product start -->
-                        <div class="single-product">
-                            <div class="product-photo">
-                                <a href="#">
-                                    <img class="primary-photo" src="img/sidebar/3.png" alt=""> 
-                                </a>
-                            </div>
-                            <div class="product-brief">
-                                <h2><a href="#">TAM SPREADER</a></h2>
-                                <h3>$500.00 <span>$244.00</span></h3>
-                            </div>
-                        </div>	
-                        <!-- Single-product end -->
-                        <!-- Single-product start -->
-                        <div class="single-product">
-                            <div class="product-photo">
-                                <a href="#">
-                                    <img class="primary-photo" src="img/sidebar/4.png" alt=""> 
-                                </a>
-                            </div>
-                            <div class="product-brief">
-                                <h2><a href="#">MARCEL THROW</a></h2>
-                                <h3>$500.00 <span>$244.00</span></h3>
-                            </div>
-                        </div>	
-                        <!-- Single-product end -->
-                        <!-- Single-product start -->
-                        <div class="single-product">
-                            <div class="product-photo">
-                                <a href="#">
-                                    <img class="primary-photo" src="img/sidebar/5.png" alt=""> 
-                                </a>
-                            </div>
-                            <div class="product-brief">
-                                <h2><a href="#">RLIE EXTRA SMALL</a></h2>
-                                <h3>$500.00 <span>$244.00</span></h3>
-                            </div>
-                        </div>	
-                        <!-- Single-product end -->
-                    </div>
-                </aside>
-                <!-- widget-top-brand end -->
-                <!-- widget sidebar-banner start -->
-                <aside class="widget sidebar-banner margin-mbl">
-                    <a href="#"><img src="img/banner/sidebar-1.jpg" alt=""></a>
-                </aside>
-                <!-- widget sidebar-banner start -->
+                <app-aside></app-aside>
             </div>
         </div>
     </div>

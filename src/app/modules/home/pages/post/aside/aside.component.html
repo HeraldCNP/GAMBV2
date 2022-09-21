@@ -1,1 +1,33 @@
-<p>aside works!</p>
+<!-- widget-brand start -->
+<aside class="widget widget-brand">
+    <h5 class="sidebar-title">Categorias</h5>
+    <ul>
+        <li *ngFor="let category of categories.serverResponse"><a routerLink="/category/{{ category.category }}">{{ category.category }}</a></li>
+    </ul>
+</aside>
+<!-- widget-brand end -->
+<!-- widget-top-brand start -->
+<aside class="widget top-rated">
+    <h5 class="sidebar-title">Ultimas Noticias</h5>
+    <div class="sidebar-product">
+        <!-- Single-product start -->
+        <div class="single-product" *ngFor="let post of posts">
+            <div class="product-photo">
+                <a href="#">
+                    <img class="primary-photo" src="{{ URL+'/'+post.uri }}" alt=""> 
+                </a>
+            </div>
+            <div class="product-brief">
+                <h2><a href="#">{{ post.title }}</a></h2>
+                <!-- <h3>$500.00 <span>$244.00</span></h3> -->
+            </div>
+        </div>	
+        <!-- Single-product end -->
+    </div>
+</aside>
+<!-- widget-top-brand end -->
+<!-- widget sidebar-banner start -->
+<aside class="widget sidebar-banner margin-mbl">
+    <a href="#"><img src="img/banner/sidebar-1.jpg" alt=""></a>
+</aside>
+<!-- widget sidebar-banner start -->
