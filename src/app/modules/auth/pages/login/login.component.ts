@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
         res => {
           let dataRes = res;
           if(dataRes.token){
-            this.cookie.set('token', dataRes.token, 1, '/')
+            this.cookie.set('token', dataRes.token, 1, '/');
+            localStorage.setItem("user", JSON.stringify( dataRes ))
             this.errorStatus = false;
             this.router.navigate(['private'])
           }else{
