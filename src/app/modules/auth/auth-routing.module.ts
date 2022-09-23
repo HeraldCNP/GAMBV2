@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ForgotComponent } from './pages/forgot/forgot.component';
-import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UnitsComponent } from './pages/units/units.component';
 
 const routes: Routes = [
   {
     path:'',
+    component: DashboardComponent,
     children:[
       {path: 'forgot', component: ForgotComponent},
-      {path: 'login', component: LoginComponent},
+      // {path: 'index', component: DashboardComponent},
       {path: 'register', component: RegisterComponent},
+      {path: 'unit/index', component: UnitsComponent},
       {path: '**', redirectTo:'login'},
     ]
   }

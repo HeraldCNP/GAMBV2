@@ -4,17 +4,25 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
 import { ForgotComponent } from './pages/forgot/forgot.component';
 import { PrivateComponent } from './pages/private/private.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UnitsComponent } from './pages/units/units.component';
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent,
     ForgotComponent,
-    PrivateComponent
+    PrivateComponent,
+    HeaderComponent,
+    SidebarComponent,
+    FooterComponent,
+    DashboardComponent,
+    UnitsComponent
   ],
   imports: [
     CommonModule,

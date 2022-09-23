@@ -4,6 +4,7 @@ import { PrivateComponent } from './modules/auth/pages/private/private.component
 import { SessionGuard } from './core/guards/session.guard';
 
 import { PostComponent } from './modules/home/pages/post/post.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,12 @@ const routes: Routes = [
   {
     path: 'private',
     component: PrivateComponent,
-    canActivate: [SessionGuard]
+    // canActivate: [SessionGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    // canActivate: [SessionGuard]
   },
   // {
   //   path: 'post',

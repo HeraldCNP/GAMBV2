@@ -1,0 +1,59 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card-header">
+          <h3 class="card-title">Lista de Unidades</h3>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+                
+              <tr *ngFor="let unit of units">
+                <td>{{ unit.nombrecargo }}</td>
+                <td>
+                    
+                  <i (click)="onDeleteUnit(unit._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <div class="col-md-5">
+
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card-header">
+          <h3 class="card-title">Crear Unidad</h3>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+            
+          <form (ngSubmit)="sendFormUnit(unitForm.value)" [formGroup]="unitForm">
+            <div class="mb-3">
+              <label for="Nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="Nombre" formControlName="nombrecargo" placeholder="Nombre de la Unidad">
+            </div>
+            
+            <button [disabled]="unitForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+          </form>
+        </div>
+        <!-- /.card-body -->
+      </div>
+
+      {{ unitForm.value | json }}
+    </div>
+  </div>
+</div>
