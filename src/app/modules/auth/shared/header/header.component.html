@@ -12,7 +12,7 @@
           <a routerLink="/blog/category/index" [routerLinkActive]="['active']" class="nav-link">Lista de Roles</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/blog/category/index" [routerLinkActive]="['active']" class="nav-link">Lista de Usuarios</a>
+          <a routerLink="/auth/users" [routerLinkActive]="['active']" class="nav-link">Lista de Usuarios</a>
         </li>
       </ul>
 
@@ -81,7 +81,7 @@
             </a>
             <div class="dropdown-divider"></div>
             
-            <a (click)="cerrarSesion()" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+            <a (click)="cerrarSesion()" class="dropdown-item dropdown-footer pointer" role="button"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
           </div>
         </li>
         <!-- Notifications Dropdown Menu -->

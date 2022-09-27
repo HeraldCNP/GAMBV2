@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { LoginI } from '../models/login.interface';
 import { ResponseI } from '../models/response.interface';
 import { environment } from '../../../../environments/environment';
@@ -49,7 +49,19 @@ export class AuthService {
     console.log(unit);
     let dir = `${this.URL}/subdir/${id}`;
     return this.http.put<any>(dir, unit);
+      
   }
+
+  /*Servicios para Users*/
+
+  getAllUsers():Observable<any>{
+    let dir = `${this.URL}/users`;
+    return this.http.get<any>(dir)
+    .pipe( map( data => {
+      return data.serverResponse
+    } ) )
+  }
+
 
 
 }

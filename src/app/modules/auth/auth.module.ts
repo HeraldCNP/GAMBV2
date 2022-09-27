@@ -12,6 +12,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UnitsComponent } from './pages/units/units.component';
 import { ChargesComponent } from './pages/charges/charges.component';
+import { UsersIndexComponent } from './pages/users/users-index/users-index.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ChargesComponent } from './pages/charges/charges.component';
     FooterComponent,
     DashboardComponent,
     UnitsComponent,
-    ChargesComponent
+    ChargesComponent,
+    UsersIndexComponent
   ],
   imports: [
     CommonModule,
