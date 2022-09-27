@@ -15,6 +15,7 @@ export class UnitsComponent implements OnInit {
   units:any = [];
   URL = environment.api;
   unitForm: FormGroup = new FormGroup({});
+  
   constructor(
     private api: AuthService,
     private router: Router
@@ -88,5 +89,9 @@ export class UnitsComponent implements OnInit {
         );
       }
     })
+  }
+
+  onRegisterCharge(id:any){
+  this.router.navigate(['auth/charge/index', id])
   }
 }

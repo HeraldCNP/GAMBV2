@@ -10,6 +10,7 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root'
 })
 export class AuthService {
+
   private URL = environment.api
   constructor(private http:HttpClient) { }
 
@@ -34,4 +35,21 @@ export class AuthService {
     let dir = `${this.URL}/org/${id}`;
     return this.http.delete<any>(dir, id)
   }
+
+
+  /* Servicios para Cargos*/
+
+
+  getUnit(id:any):Observable<any>{
+    let dir = `${this.URL}/orgs/${id}`;
+    return this.http.get<any>(dir, id);
+  }
+
+  sendCharge(unit: any, id:any):Observable<any>{
+    console.log(unit);
+    let dir = `${this.URL}/subdir/${id}`;
+    return this.http.put<any>(dir, unit);
+  }
+
+
 }

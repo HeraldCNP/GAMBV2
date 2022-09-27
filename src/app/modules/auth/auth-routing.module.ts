@@ -4,6 +4,7 @@ import { ForgotComponent } from './pages/forgot/forgot.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UnitsComponent } from './pages/units/units.component';
+import { ChargesComponent } from './pages/charges/charges.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       // {path: 'index', component: DashboardComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'unit/index', component: UnitsComponent},
+      {path: 'charge/index/:id', component: ChargesComponent},
       {path: '**', redirectTo:'login'},
     ]
   }
