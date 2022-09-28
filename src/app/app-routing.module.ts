@@ -5,6 +5,7 @@ import { SessionGuard } from './core/guards/session.guard';
 
 import { PostComponent } from './modules/home/pages/post/post.component';
 import { LoginComponent } from './login/login.component';
+import { HojaRutaModule } from './modules/hoja-ruta/hoja-ruta.module';
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
   {
     path: 'blog',
     loadChildren: () => import('./modules/blog/blog.module').then(m => m.BlogModule),
+    // canActivate: [SessionGuard]
+  },
+  {
+    path: 'ruta',
+    loadChildren: () => import('./modules/hoja-ruta/hoja-ruta.module').then(m => m.HojaRutaModule),
     // canActivate: [SessionGuard]
   },
   {
