@@ -6,6 +6,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { OfficeIndexComponent } from './pages/myOffice/office-index/office-index.component';
+import { DerivarSeguimientoComponent } from './pages/derivar-seguimiento/derivar-seguimiento.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    OfficeIndexComponent,
+    DerivarSeguimientoComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,147 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card-header d-flex justify-content-around">
+          <h3 class="card-title">Lista de Correspondencia</h3>
+          <div class="card-tools">
+            <button (click)="getSeguimientos()" type="button" class="btn btn-light btn-sm position-relative mr-4">
+              Todos
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ total }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <button (click)="changeStatus('DERIVADO')" type="button" class="btn btn-info btn-sm position-relative mr-4">
+              Derivados
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ totalDerivados }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <button (click)="changeStatus('RECIBIDO')" type="button"
+              class="btn btn-success btn-sm position-relative mr-4">
+              Recibidos
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ totalRecibidos  }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <button (click)="changeStatus('ENVIADO')" type="button"
+              class="btn btn-danger btn-sm position-relative mr-4">
+              Sin recibir
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ totalEnviados }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <button (click)="changeStatus('MALETIN')" type="button"
+              class="btn btn-warning btn-sm position-relative mr-4">
+              Mi Maletin
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ totalMaletin }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <button (click)="changeStatus('ARCHIVADO')" type="button"
+              class="btn btn-secondary btn-sm position-relative mr-4">
+              Archivo Central
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ totalArchivado }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <!-- <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div> -->
+          </div>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Derivar</th>
+                <th>NúmeroHR</th>
+                <th>Derivado por</th>
+                <th>Origen</th>
+                <th>Referencia</th>
+                <th>Instrucción</th>
+                <th>Fecha Derivado</th>
+                <th>Fecha Recepción</th>
+                <th>Estado</th>
+                <th>Seguim.</th>
+                <th>Adjunto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let seguimiento of seguimientos">
+                <td>
+                  <i [routerLink]="[
+                    '/ruta/derivar',
+                    seguimiento.idhj,
+                    seguimiento._id
+                    ]" class="fas fa-share text-primary" *ngIf="seguimiento.estado === 'RECIBIDO'" data-bs-toggle="tooltip"
+                    data-bs-placement="bottom" title="Derivar">
+                  </i>
+                  <i (click)="reply(seguimiento._id)" class="fas fa-reply-all text-success"
+                    *ngIf="seguimiento.estado === 'DERIVADO'" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Eliminar el Último Derivado"></i>
+                  <i *ngIf="seguimiento.estado == 'RECIBIDO'" class="fas fa-briefcase" (click)="finalizar(seguimiento._id)"
+                    style="color: rgb(189, 109, 4) !important" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Enviar a mi Maletín"></i>
+                </td>
+                <td>{{ seguimiento.nuit }}</td>
+                <td>{{ seguimiento.nombre }}</td>
+                <td>{{ seguimiento.origenhr }}</td>
+                <td>{{ seguimiento.referencia }}</td>
+                <td>{{ seguimiento.detalles }}</td>
+                <td>{{ seguimiento.fechaderivado | date:'shortDate' }}</td>
+                <td>{{ seguimiento.fecharecepcion | date:'shortDate' }}</td>
+                <td [ngSwitch]="seguimiento.estado">
+                  <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
+                    seguimiento.estado
+                  }}</span>
+                  <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguimiento.estado }}
+                  </span>
+                  <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{
+                    seguimiento.estado
+                  }}</span>
+                  <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}
+                  </span>
+                  <!-- (click)="reactivar(seguimiento._id)" -->
+                  <i *ngSwitchCase="'MALETIN'" class="fasre fas fa-file-upload"
+                    style="color: rgb(230, 70, 176) !important" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Reactivar el Tramite"></i>
+                  <i *ngSwitchCase="'MALETIN'" class="fasar fas fa-folder-minus p-0 mt-0"
+                    style="color: rgb(3, 126, 40) !important" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Enviar a Archivos"></i>
+                  <span *ngIf="
+                      seguimiento.estado != 'DERIVADO' &&
+                      seguimiento.estado != 'MALETIN' &&
+                      seguimiento.estado != 'RECIBIDO' &&
+                      seguimiento.estado != 'ENVIADO'
+                    " class="badge badge-secondary text-dark">{{ seguimiento.estado }}</span>
+                </td>
+                <td>{{ seguimiento.nuit }}</td>
+                <td>{{ seguimiento.nuit }}</td>
+                <td>
+                  <!-- <i (click)="onEditPost(post._id)" class="fas fa-edit ml-3 icono"></i>
+                      <i (click)="onDeletePost(post._id)" class="fas fa-trash-alt ml-3 icono"></i> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
