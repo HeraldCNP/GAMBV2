@@ -13,7 +13,7 @@ export class OfficeIndexComponent implements OnInit {
   totales: any = [];
   status: string = "RECIBIDO"
 
-  /*variables de consulta*/
+  /*variables de consulta*/   
   destino1: string = "";
   destino: any = "";
   estado: string = "";

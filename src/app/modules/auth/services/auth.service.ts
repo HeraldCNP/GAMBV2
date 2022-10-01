@@ -18,6 +18,13 @@ export class AuthService {
     let dir = `${this.URL}/login`;
     return this.http.post<any>(dir, form)
   }
+  loggedIn() {
+    if (localStorage.getItem('token')=='undefined'){
+      return !!localStorage.getItem('');
+    }
+    else
+    return !!localStorage.getItem('token');
+  }
 
   /*Servicios para Unidades*/
 
@@ -25,7 +32,9 @@ export class AuthService {
     let dir = `${this.URL}/org`;
     return this.http.get<any>(dir);
   }
-
+  obtenerOrg(params: string): Observable<any> {
+    return this.http.get(this.URL + '/org/' + params);
+  }
   sendUnit(unit: any):Observable<any>{
     let dir = `${this.URL}/org`;
     return this.http.post<any>(dir, unit);
