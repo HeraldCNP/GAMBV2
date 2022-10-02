@@ -32,9 +32,7 @@ export class AuthService {
     let dir = `${this.URL}/org`;
     return this.http.get<any>(dir);
   }
-  obtenerOrg(params: string): Observable<any> {
-    return this.http.get(this.URL + '/org/' + params);
-  }
+
   sendUnit(unit: any):Observable<any>{
     let dir = `${this.URL}/org`;
     return this.http.post<any>(dir, unit);

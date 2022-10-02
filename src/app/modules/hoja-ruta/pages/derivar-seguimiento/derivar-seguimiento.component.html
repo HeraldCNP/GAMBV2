@@ -1,11 +1,8 @@
-<div class="container pt-2">
+<!-- <div class="container pt-2">
   <div class="row">
     <div class="col-lg-6 offset-lg-3">
       <div class="card">
-        <div
-          class="card-body text-center"
-          
-        >
+        <div class="card-body text-center">
           <div class="row">
             <div class="col-md-10">
               <span class="titulo">
@@ -14,90 +11,57 @@
               </span>
             </div>
           </div>
-          <form [formGroup]="derivarForm" (ngSubmit)="registerSegui()" class="mt-0" >
+          <form [formGroup]="derivarForm" (ngSubmit)="registerSegui()" class="mt-0">
             <div class="card p-2">
               <label for="destino" class="mb-0">Destino</label>
               <div class="mb-1">
-                <select
-                  class="form-select"
-                  aria-label="Default select example"
-                  id="destino"
-                  formControlName="destino"
-                  [(ngModel)]="params"
-                               
-                >
+                <select class="form-select" aria-label="Default select example" id="destino" formControlName="destino"
+                  [(ngModel)]="params">
                   <option selected>---Seleccione Destino---</option>
                   <option *ngFor="let orgs of units">{{ orgs.nombredir }}</option>
                 </select>
-                <div
-                  class="text-danger"
-                  *ngIf="
+                <div class="text-danger" *ngIf="
                   derivarForm.get('destino')?.hasError('required') &&
                   derivarForm.get('destino')?.touched
-                  "
-                >
+                  ">
                   <span>El cargo <strong>es obligatoria</strong></span>
                 </div>
               </div>
               <i>{{params}}</i>
               <div class="mb-0">
-                <select
-                  class="form-select"
-                  aria-label="Default select example"
-                  formControlName="destino"
-                >
+                <select class="form-select" aria-label="Default select example" formControlName="destino">
                   <option selected>{{ params }}</option>
                   <option></option>
                 </select>
-                <div
-                  class="text-danger"
-                  *ngIf="
+                <div class="text-danger" *ngIf="
                   derivarForm.get('destino')?.hasError('required') &&
                   derivarForm.get('destino')?.touched
-                  "
-                >
+                  ">
                   <span>El cargo <strong>es obligatoria</strong></span>
                 </div>
-                <div
-                  *ngIf="mostrarError"
-                  class="alert alert-dismissible alert-danger"
-                >
+                <div *ngIf="mostrarError" class="alert alert-dismissible alert-danger">
                   <strong>{{ textError | uppercase }}</strong>
                 </div>
               </div>
             </div>
 
             <div class="mb-2 mt-1">
-              <textarea
-                formControlName="detalles"
-                class="form-control"
-                placeholder="Escriba el detalle de instrucción"
-              ></textarea>
-              <div
-                class="text-danger"
-                *ngIf="
+              <textarea formControlName="detalles" class="form-control"
+                placeholder="Escriba el detalle de instrucción"></textarea>
+              <div class="text-danger" *ngIf="
                 derivarForm.get('detalles')?.hasError('required') &&
                 derivarForm.get('detalles')?.touched
-                "
-              >
-                <span
-                  >Detalle de Instrucción <strong>es obligatoria</strong>
+                ">
+                <span>Detalle de Instrucción <strong>es obligatoria</strong>
                 </span>
               </div>
             </div>
 
             <div class="mb-2 d-flex justify-content-around">
-              <button
-                routerLink="/hoja-ruta/correspondencia"
-                class="btn btn-info text-dark"
-              >
+              <button routerLink="/hoja-ruta/correspondencia" class="btn btn-info text-dark">
                 CANCELAR
               </button>
-              <button
-                type="submit"
-                [disabled]="derivarForm.invalid"
-                class="btn btn-success"
-              >
+              <button type="submit" [disabled]="derivarForm.invalid" class="btn btn-success">
                 ACEPTAR
               </button>
             </div>
@@ -106,4 +70,65 @@
       </div>
     </div>
   </div>
+</div> -->
+
+
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card-header">
+          <h3 class="card-title">Crear Nuevo Post</h3>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body table-responsive">
+          <div class="row">
+            <div class="col-md-8">
+              <form (ngSubmit)="registerSegui()" [formGroup]="derivarForm">
+
+                <div class="mb-2">
+                  <label for="destino" class="form-label">Unidad</label>
+                  <select class="form-control" name="destino" id="" formControlName="destino" (change)="getSub()">
+                    <option value="">Escoja la Unidad</option>
+                    <option *ngFor="let unit of units" value="{{ unit.nombredir}}">
+                      {{ unit.nombredir}}</option>
+                  </select>
+                  <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+
+
+
+                <div class="mb-2">
+                  <label for="destino" class="form-label">Cargo</label>
+                  <select class="form-control" name="destino" id="" formControlName="destino" (change)="getUser()">
+                    <option value="{{ derivarForm.value.destino }}" selected>{{ derivarForm.value.destino }}</option>
+                    <option *ngFor="let cargo of cargos" value="{{ cargo.nombrecargosubdir }}">
+                      {{ cargo.nombrecargosubdir }}</option>
+                  </select>
+                  <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+
+                <div class="mb-2">
+                  <label for="iframe" class="form-label">Detalle</label>
+                  <textarea class="form-control" name="detalles" id="detalles" cols="30" rows="3"
+                    formControlName="detalles"></textarea>
+                  <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <button [disabled]="derivarForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+              </form>
+            </div>
+            <div class="col-md-4">
+              {{ derivarForm.value | json }}
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
 </div>
+
+
+

@@ -16,6 +16,7 @@ export class DerivarSeguimientoComponent implements OnInit {
   idHr: any;
   idSegui: any;
   units: any = [];
+  cargos: any = [];
   derivarForm: FormGroup = new FormGroup({});
 
   /*variables data HR*/
@@ -45,7 +46,6 @@ export class DerivarSeguimientoComponent implements OnInit {
   /* mensaje de error*/
   titulo = 'derivar documento';
   params = this.derivarForm.get('destino')?.value;
-  orgselec: any [] = [];
   constructor(
     private fb: FormBuilder,
     private activeRouter: ActivatedRoute,
@@ -53,10 +53,10 @@ export class DerivarSeguimientoComponent implements OnInit {
     private apiRuta: RutaService,
     private router: Router
   ) {
-    this.derivarForm = this.fb.group({
-      destino: ['', Validators.required],
-      detalles: ['', Validators.required],
-    });
+    // this.derivarForm = this.fb.group({
+    //   destino: ['', Validators.required],
+    //   detalles: ['', Validators.required],
+    // });
     this.mostrarError = false;
     this.textError = '';
     this.mostrarError1 = false;
@@ -77,24 +77,28 @@ export class DerivarSeguimientoComponent implements OnInit {
       console.log(res);
     });
   }
+
+
   getSub() {
-    if (this.params !== null) {
-      this.apiUnit.obtenerOrg(this.params).subscribe(data => {
-        this.orgselec = data.subdirecciones;
-        console.log(data)
+    if (this.derivarForm.value.destino !== null) {
+      this.apiRuta.obtenerOrg(this.derivarForm.value.destino).subscribe(data => {
+        this.cargos = data.subdirecciones;
+        console.log(this.cargos)
       }, error => {
         console.log(error);
       })
     }
   }
+
+  getUser(){
+    
+  }
+
   createform() {
     this.derivarForm = new FormGroup({
-      title: new FormControl('', Validators.required),
-      subtitle: new FormControl('', Validators.required),
-      body: new FormControl('', Validators.required),
-      iframe: new FormControl(''),
-      category: new FormControl('', Validators.required),
-      image: new FormControl('', Validators.required),
+      // unidad: new FormControl('', Validators.required),
+      destino: new FormControl('', Validators.required),
+      detalles: new FormControl('', Validators.required),
     });
   }
 

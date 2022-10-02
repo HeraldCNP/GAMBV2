@@ -68,4 +68,11 @@ export class RutaService {
       return data.serverResponse
     } ) )
   }
+
+
+  obtenerOrg(params: string): Observable<any> {
+    return this.http.get(this.URL + '/org/' + params).pipe( map( data => {
+      return data
+    } ) )
+  }
 }
