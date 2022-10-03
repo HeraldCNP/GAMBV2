@@ -13,11 +13,14 @@ import { Hojaruta } from '../../models/hojaruta';
 })
 export class DerivarSeguimientoComponent implements OnInit {
   URL = environment.api;
+  user:any;
+  data:any;
   idHr: any;
   idSegui: any;
   units: any = [];
   cargos: any = [];
   derivarForm: FormGroup = new FormGroup({});
+  usuario: any = [];
 
   /*variables data HR*/
   nuit: string = '';
@@ -45,7 +48,8 @@ export class DerivarSeguimientoComponent implements OnInit {
   textError1: string;
   /* mensaje de error*/
   titulo = 'derivar documento';
-  params = this.derivarForm.get('destino')?.value;
+  params: string = '';
+  params2: string = '';
   constructor(
     private fb: FormBuilder,
     private activeRouter: ActivatedRoute,
@@ -53,10 +57,10 @@ export class DerivarSeguimientoComponent implements OnInit {
     private apiRuta: RutaService,
     private router: Router
   ) {
-    // this.derivarForm = this.fb.group({
-    //   destino: ['', Validators.required],
-    //   detalles: ['', Validators.required],
-    // });
+    this.derivarForm = this.fb.group({
+      destino: ['', Validators.required],
+      detalles: ['', Validators.required],
+    });
     this.mostrarError = false;
     this.textError = '';
     this.mostrarError1 = false;
@@ -68,7 +72,8 @@ export class DerivarSeguimientoComponent implements OnInit {
     this.idSegui = this.activeRouter.snapshot.paramMap.get('idSegui');
     this.createform(), this.getUnits(), this.getSub();
     this.getHojaderuta(), this.getSegui();
-    console.log(this.derivarForm.get('destino')?.value)
+    this.user = localStorage.getItem("user");
+    this.data = JSON.parse(this.user);
   }
 
   getUnits() {
@@ -80,10 +85,9 @@ export class DerivarSeguimientoComponent implements OnInit {
 
 
   getSub() {
-    if (this.derivarForm.value.destino !== null) {
-      this.apiRuta.obtenerOrg(this.derivarForm.value.destino).subscribe(data => {
+    if (this.params !== null) {
+      this.apiRuta.obtenerOrg(this.params).subscribe(data => {
         this.cargos = data.subdirecciones;
-        console.log(this.cargos)
       }, error => {
         console.log(error);
       })
@@ -91,8 +95,21 @@ export class DerivarSeguimientoComponent implements OnInit {
   }
 
   getUser(){
-    
+    if (this.params !== null) {
+      this.apiRuta.getUserPost(this.derivarForm.get('destino')?.value).subscribe(data => {
+        this.usuario = data;
+        console.log(this.usuario)
+        this.params2 = this.user.post
+        if (this.params2 === this.data.post) {
+          this.flac = "si"
+        } else
+          this.flac = "no"
+      })
+    }
   }
+
+
+
 
   createform() {
     this.derivarForm = new FormGroup({

@@ -1,4 +1,4 @@
-<!-- <div class="container pt-2">
+<div class="container pt-2">
   <div class="row">
     <div class="col-lg-6 offset-lg-3">
       <div class="card">
@@ -16,7 +16,7 @@
               <label for="destino" class="mb-0">Destino</label>
               <div class="mb-1">
                 <select class="form-select" aria-label="Default select example" id="destino" formControlName="destino"
-                  [(ngModel)]="params">
+                  [(ngModel)]="params" (change)="getSub()">
                   <option selected>---Seleccione Destino---</option>
                   <option *ngFor="let orgs of units">{{ orgs.nombredir }}</option>
                 </select>
@@ -29,9 +29,10 @@
               </div>
               <i>{{params}}</i>
               <div class="mb-0">
-                <select class="form-select" aria-label="Default select example" formControlName="destino">
+                <select class="form-select" aria-label="Default select example" formControlName="destino" (change)="getUser()">
                   <option selected>{{ params }}</option>
-                  <option></option>
+                  <option *ngFor="let cargo of cargos">
+                    {{ cargo.nombresubdir }}</option>
                 </select>
                 <div class="text-danger" *ngIf="
                   derivarForm.get('destino')?.hasError('required') &&
@@ -44,7 +45,9 @@
                 </div>
               </div>
             </div>
-
+            <p *ngIf="params" class="text-dark text-start ml-3">
+              {{ usuario.username }} {{ usuario.surnames }}
+            </p>
             <div class="mb-2 mt-1">
               <textarea formControlName="detalles" class="form-control"
                 placeholder="Escriba el detalle de instrucción"></textarea>
@@ -70,65 +73,4 @@
       </div>
     </div>
   </div>
-</div> -->
-
-
-<div class="m-3">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card shadow p-3 mb-5 bg-body rounded">
-        <div class="card-header">
-          <h3 class="card-title">Crear Nuevo Post</h3>
-        </div>
-
-        <!-- /.card-header -->
-        <div class="card-body table-responsive">
-          <div class="row">
-            <div class="col-md-8">
-              <form (ngSubmit)="registerSegui()" [formGroup]="derivarForm">
-
-                <div class="mb-2">
-                  <label for="destino" class="form-label">Unidad</label>
-                  <select class="form-control" name="destino" id="" formControlName="destino" (change)="getSub()">
-                    <option value="">Escoja la Unidad</option>
-                    <option *ngFor="let unit of units" value="{{ unit.nombredir}}">
-                      {{ unit.nombredir}}</option>
-                  </select>
-                  <div class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-
-
-
-                <div class="mb-2">
-                  <label for="destino" class="form-label">Cargo</label>
-                  <select class="form-control" name="destino" id="" formControlName="destino" (change)="getUser()">
-                    <option value="{{ derivarForm.value.destino }}" selected>{{ derivarForm.value.destino }}</option>
-                    <option *ngFor="let cargo of cargos" value="{{ cargo.nombrecargosubdir }}">
-                      {{ cargo.nombrecargosubdir }}</option>
-                  </select>
-                  <div class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-
-                <div class="mb-2">
-                  <label for="iframe" class="form-label">Detalle</label>
-                  <textarea class="form-control" name="detalles" id="detalles" cols="30" rows="3"
-                    formControlName="detalles"></textarea>
-                  <div class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <button [disabled]="derivarForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
-              </form>
-            </div>
-            <div class="col-md-4">
-              {{ derivarForm.value | json }}
-            </div>
-          </div>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-    </div>
-  </div>
 </div>
-
-
-

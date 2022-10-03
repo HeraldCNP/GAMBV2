@@ -80,13 +80,13 @@ export class HojarutasComponent implements OnInit {
   getHojaRutas() {
     this.api.getAllHojaRuta(this.nuit, this.origen, this.limit, this.skip).subscribe(
       data => {
-        
         this.cant=data.totalDocs
         this.hojaRutas = data.serverResponse;
         console.log(data)
       }
     )
   }
+
   cambiarestado(id: any){
     this.api.obtenerHoja(id).subscribe(data => {
       this.hojaRuta = data.serverResponse;

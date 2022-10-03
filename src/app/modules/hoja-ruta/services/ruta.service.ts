@@ -69,9 +69,6 @@ export class RutaService {
   getAllHojaRuta(nuit?:string, origen?:string, limit?:number, skip?:number, order?:string): Observable<any> {
     let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&limit=${limit}&skip=${skip}`;
     return this.http.get<any>(dir)
-    .pipe( map( data => {
-      return data.serverResponse
-    } ) )
   }
 
 
