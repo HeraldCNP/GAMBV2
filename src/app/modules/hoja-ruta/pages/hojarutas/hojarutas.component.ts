@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RutaService } from '../../services/ruta.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Hojaruta } from '../../models/hojaruta';
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-hojarutas',
   templateUrl: './hojarutas.component.html',
@@ -19,13 +22,30 @@ export class HojarutasComponent implements OnInit {
   referencia: string = "";
   limit: number = 100;
   skip: number = 0;
+  page: number = 1;
   /*end variables de consulta*/
   /*variables de estados*/   
   estadoRecibido: string = "RECIBIDO";
 
   /*end variables de estados*/   
+  /*variables de registro*/ 
+  hojaForm: FormGroup;  
+  titulo = 'GENERAR HOJA DE RUTA';
+  cant: number = 0;
+  totalh: string = '';
+  /*end variables de registro*/
   idhr:string=""
-  constructor(private api: RutaService) { }
+
+  constructor(private api: RutaService,
+    private fb: FormBuilder,) {
+    this.hojaForm = this.fb.group({
+      origen: ['', Validators.required],
+      referencia: ['', Validators.required],
+      fechadocumento: ['', Validators.required],
+      tipodoc: [''],
+      contacto: [''],
+    });
+   }
 
   ngOnInit(): void {
     this.user = localStorage.getItem("user");
@@ -33,11 +53,37 @@ export class HojarutasComponent implements OnInit {
     this.getHojaRutas()
   }
 
+  registerHojas() {
+    this.cant = this.cant + 1;
+    this.totalh = this.cant + '-22';
+    const HOJA: Hojaruta = {
+      origen: this.hojaForm.get('origen')?.value,
+      tipodoc: this.hojaForm.get('tipodoc')?.value,
+      contacto: this.hojaForm.get('contacto')?.value,
+      referencia: this.hojaForm.get('referencia')?.value,
+      fechadocumento: this.hojaForm.get('fechadocumento')?.value,
+      nuit: this.totalh,
+    };
+    this.api.register(HOJA).subscribe(
+      (data) => {
+        //this.router.navigate(['/hoja-ruta/listhr']);
+        this.page = 1;
+        this.getHojaRutas()
+        this.hojaForm.reset();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  
   getHojaRutas() {
     this.api.getAllHojaRuta(this.nuit, this.origen, this.limit, this.skip).subscribe(
       data => {
-        this.hojaRutas = data;
-        console.log(this.hojaRutas)
+        
+        this.cant=data.totalDocs
+        this.hojaRutas = data.serverResponse;
+        console.log(data)
       }
     )
   }
@@ -87,6 +133,149 @@ export class HojarutasComponent implements OnInit {
       console.log(error);
     })
     
+  }
+
+  ImprimirPDF() {
+    const DATA: any = document.getElementById('htmlData');
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const img = canvas.toDataURL('image/PNG');
+
+        // Add image Canvas to PDF
+        const bufferX = 3;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(img);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          img,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          'FAST'
+        );
+        return doc;
+      })
+      .then((docResult) => {
+        docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+        //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
+      });
+  }
+
+  ///Descargar
+
+  downloadPDF() {
+    const DATA: any = document.getElementById('htmlData');
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const img = canvas.toDataURL('image/PNG');
+
+        // Add image Canvas to PDF
+        const bufferX = 4;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(img);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          img,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          'FAST'
+        );
+        return doc;
+      })
+      .then((docResult) => {
+        //docResult.output('dataurlnewwindow', {filename: 'comprobante.pdf'});
+        docResult.save(`${new Date().toISOString()}_GAMB_HojaDeRuta.pdf`);
+      });
+  }
+  ImprimirHRPDF() {
+    const DATA: any = document.getElementById('htmlData1');
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const imgp:any = canvas.toDataURL('image/PNG');
+
+        // Add image Canvas to PDFx
+        const bufferX = 3;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(imgp);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          imgp,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          'FAST'
+        );
+        return doc;
+      })
+      .then((docResult) => {
+        docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+        //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
+      });
+  }
+
+  ///Descargar
+
+  downloadHRPDF() {
+    const DATA: any = document.getElementById('htmlData1');
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const imgp = canvas.toDataURL('image/PNG');
+
+        // Add image Canvas to PDF
+        const bufferX = 4;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(imgp);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          imgp,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          'FAST'
+        );
+        return doc;
+      })
+      .then((docResult) => {
+        //docResult.output('dataurlnewwindow', {filename: 'comprobante.pdf'});
+        docResult.save(`${new Date().toISOString()}_GAMB_HojaDeRuta.pdf`);
+      });
   }
 
 }

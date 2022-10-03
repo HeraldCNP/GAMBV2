@@ -1,26 +1,125 @@
 .table{
-    font-size: 0.9rem;
-    text-align: center;
+  font-size: 0.9rem;
+  text-align: center;
 }
 .fas {
-    cursor: pointer;
-    margin-left: 7px;
-    font-size: 170%;
+  cursor: pointer;
+  margin-left: 7px;
+  font-size: 150%;
+}
+.fasre{
+  cursor: pointer;
+  font-size: 120%;
+}
+.fasar{
+  cursor: pointer;
+  font-size: 130%;
+}
+.badge {
+  margin: 2px;
+  font-size: 70%;
+  cursor: pointer;
+
+}
+.badge:active{
+  opacity: 0.07;
+}
+
+.logo{
+  width: 75px;
+  height: 100px;
+}
+.fas {
+  cursor: pointer;
+  margin-left: 7px;
+  font-size: 150%;
+}
+.badge{
+  margin: 2px;
+  font-size: 90%;
+}
+.est {
+  cursor: pointer;
+}
+.est:active{
+  opacity: 0.07;
+}
+.modal-dialog{
+  max-width: 85% !important;
+
+}
+.register{
+  max-width: 50% !important;
+}
+hr{
+  width: 100%;
+  margin-bottom: 0.2px !important;
+}
+.card .container{
+  margin:   1px 10px;
+  padding: 3px;
+}
+span {
+  font-weight: 800;
+}
+p{
+  font-weight: 600;
+}
+.card-text{
+  margin-bottom: 0px;
+  padding: 2px;
+  margin-left: 0px;
+}
+.card-body{
+  margin:   1px 10px;
+  padding: 0px !important;
+}
+label{
+  font-size: 13px;
+}
+.badge {
+  margin: 2px;
+  font-size: 90%;
+}
+.rec{
+  text-transform: capitalize !important;
+  font-size: 15px;
+}
+.segui{
+  margin-top: 0px;
+  margin-left: 60px !important;
+  margin-right: 30px !important;
+}
+@media only screen and (max-width:768px){
+  .modal-dialog{
+    max-width: 100% !important;
   }
-  .fasre{
-    cursor: pointer;
-    font-size: 120%;
+  .segui{
+    background-color: aquamarine;
   }
-  .fasar{
-    cursor: pointer;
-    font-size: 130%;
+  .logo{
+    width: 40px;
+    height: 50px;
+    margin-left: 5px !important;
   }
-  .badge {
-    margin: 2px;
-    font-size: 90%;
-    cursor: pointer;
-  
+  .segui{
+    margin-top: 0px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
   }
-  .badge:active{
-    opacity: 0.07;
-  }
+}
+.cardchek{
+  width: 30px !important;
+  height: 15px !important;
+  margin-bottom: 6px;
+}
+label{
+  font-size: 13px;
+}
+.fw-normal{
+  font-size: 13px;
+}
+
+.boton{
+  cursor: pointer;
+}

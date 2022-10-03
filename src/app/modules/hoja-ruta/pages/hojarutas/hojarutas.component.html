@@ -240,7 +240,7 @@
         <button
           type="button"
           class="btn btn-success p-0 mx-5"
-         
+          (click)="ImprimirPDF()"
         >
           <i class="fas fa-print p-0"></i>
           Imprimir
@@ -248,7 +248,7 @@
         <button
           type="button"
           class="btn btn-primary p-0 ml-5"
-       
+          (click)="downloadPDF()"
         >
           <i class="fas fa-cloud-download-alt p-0"></i>
           Descargar
@@ -265,7 +265,7 @@
           <div class="segui">
             <div class="d-flex justify-content-between ml-3 mb-0">
               <div>
-                <img src="assets/img/logo.png" class="logo ml-4 mb-0" />
+                <img src="../../../../../assets/img/logo.png" class="logo ml-4 mb-0" />
               </div>
               <div class="text-center mt-3 mb-0">
                 <p class="mb-0 fs-5">GOBIERNO AUTÓNOMO MUNICIPAL DE BETANZOS</p>
@@ -456,7 +456,7 @@
         <button
           type="button"
           class="btn btn-success p-0"
-         
+          (click)="ImprimirHRPDF()"
         >
           <i class="fas fa-print p-0"></i>
           Imprimir
@@ -464,18 +464,18 @@
         <button
           type="button"
           class="btn btn-primary p-0"
-        
+          (click)="downloadHRPDF()"
         >
           <i class="fas fa-cloud-download-alt p-0"></i>
           Descargar
         </button>
       </div>
       <div class="modal-body pb-0">
-        <div id="htmlData">
+        <div id="htmlData1">
           <div class="segui">
             <div class="d-flex justify-content-between ml-3 mb-0">
               <div>
-                <img src="assets/img/logo.png" class="logo ml-4 mb-0" />
+                <img src="../../../../../assets/img/logo.png" class="logo ml-4 mb-0" />
               </div>
               <div class="text-center ml-5 mt-3 mb-0">
                 <p class="mb-0 fs-5">GOBIERNO AUTÓNOMO MUNICIPAL DE BETANZOS</p>
@@ -765,6 +765,118 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal reguister-->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog register">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container pt-3">
+              <div class="card">
+                <div class="card-body text-center">
+                  <span class="titulo"> {{ titulo | uppercase}} </span>
+                  <p class="fw-bold fa-2x">{{ cant +1 }}</p>
+                  <form
+                    class="mt-3"
+                    [formGroup]="hojaForm"
+                    (ngSubmit)="registerHojas()"
+                  >
+                    <div class="mb-2">
+                      <input
+                        type="text"
+                        formControlName="origen"
+                        class="form-control"
+                        placeholder="Origen"
+                      />
+                      <div
+                        class="text-danger"
+                        *ngIf="
+                          hojaForm.get('origen')?.hasError('required') &&
+                          hojaForm.get('origen')?.touched
+                        "
+                      >
+                        <span>El origen <strong>es obligatorio</strong></span>
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <input
+                        type="text"
+                        formControlName="tipodoc"
+                        class="form-control"
+                        placeholder="Tipo del Documento"
+                      />
+                      <div
+                        class="text-danger"
+                        *ngIf="
+                          hojaForm.get('tipodoc')?.hasError('required') &&
+                          hojaForm.get('tipodoc')?.touched
+                        "
+                      >
+                        <span>El campo <strong>es obligatorios</strong></span>
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <input
+                        type="text"
+                        formControlName="contacto"
+                        class="form-control"
+                        placeholder="Numero de Telefono o Celular"
+                      />
+                    </div>
+                    <div class="mb-2">
+                      <textarea
+                        formControlName="referencia"
+                        class="form-control"
+                        placeholder="Escriba el detalle de referencia"
+                      ></textarea>
+                      <div
+                        class="text-danger"
+                        *ngIf="
+                          hojaForm.get('referencia')?.hasError('required') &&
+                          hojaForm.get('referencia')?.touched
+                        "
+                      >
+                        <span>Detalle de referencia <strong>es obligatorios</strong></span>
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <label for="fecha" class="mb-0">Fecha de Documento </label>
+                      <input
+                        type="date"
+                        formControlName="fechadocumento"
+                        class="form-control"
+                        placeholder="Fecha de Nacimiento"
+                      />
+                      <div
+                        class="text-danger"
+                        *ngIf="
+                          hojaForm.get('fechadocumento')?.hasError('required') &&
+                          hojaForm.get('fechadocumento')?.touched
+                        "
+                      >
+                        <span>Fecha <strong>es obligatoria</strong></span>
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal" (click)=" getHojaRutas()" >CERRAR</button>
+                      <button
+                        type="submit"
+                        [disabled]="hojaForm.invalid"
+                        class="btn btn-success float-end"
+                      >
+                        ACEPTAR
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
         </div>
       </div>
     </div>
