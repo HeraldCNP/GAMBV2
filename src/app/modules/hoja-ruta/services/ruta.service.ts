@@ -30,6 +30,7 @@ export class RutaService {
       return data.serverResponse
     } ) )
   }
+
   register(hoja: Hojaruta): Observable<any> {
     return this.http.post(this.URL + '/hoja/', hoja);
   }
@@ -60,13 +61,17 @@ export class RutaService {
   EditarHoja(id: string, hoja:Hojaruta): Observable<any> {
     return this.http.put(this.URL + '/hoja/' + id, hoja);
   }
+  
   buscarnuit(nuit: string): Observable<any> {
     return this.http.get(this.URL + '/seguias/' + nuit);
   }
 
   getAllHojaRuta(nuit?:string, origen?:string, limit?:number, skip?:number, order?:string): Observable<any> {
     let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&limit=${limit}&skip=${skip}`;
-    return this.http.get<any>(dir);
+    return this.http.get<any>(dir)
+    .pipe( map( data => {
+      return data.serverResponse
+    } ) )
   }
 
 
