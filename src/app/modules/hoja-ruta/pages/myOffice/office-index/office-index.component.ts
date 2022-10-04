@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+
 @Component({
   selector: 'app-office-index',
   templateUrl: './office-index.component.html',
@@ -21,8 +22,12 @@ export class OfficeIndexComponent implements OnInit {
   destino1: string = "";
   destino: any = "";
   estado: string = "";
-  limit: number = 0;
-  skip: number = 0;
+  limit: number = 10;
+  skip: number = 1;
+  totalSeguimientos = 0;
+  totalPages = 0;
+  nuit: string = '';
+  order: string = "";
   /*end variables de consulta*/
 
   /* contadores */
@@ -66,12 +71,23 @@ export class OfficeIndexComponent implements OnInit {
 
 
   getSeguimientos() {
-    this.api.getAllSeguimientos(this.destino, this.estado, this.limit, this.skip).subscribe(
+    this.api.getAllSeguimientos(this.destino, this.estado, this.limit, this.skip, this.nuit).subscribe(
       data => {
-        this.seguimientos = data;
+        this.seguimientos = data.serverResponse;
+        this.nuit = ''
+        this.totalSeguimientos = data.totalDocs;
         console.log(this.seguimientos)
+        this.totalPages = Math.ceil(this.totalPages/this.limit)
       }
     )
+  }
+
+  paginaAnterior(){
+    this.skip--
+  }
+
+  paginaSiguiente(){
+    this.skip++
   }
 
   changeStatus(status:any){
@@ -85,9 +101,9 @@ export class OfficeIndexComponent implements OnInit {
     let RegExp = /[^()]*/g;
     this.destino1 = this.data.post;
     this.destino = RegExp.exec(this.destino1);
-    this.api.getAllSeguimientos(this.destino, this.estado, this.limit, this.skip).subscribe(data => {
+    this.api.getTotalSeguimientos(this.destino, this.estado).subscribe(data => {
       // this.loading = false;
-      this.totales = data;
+      this.totales = data.serverResponse;
       this.total = this.totales.length;
       this.totalRecibidos = this.totales.filter((list: { estado: string; }) => list.estado === 'RECIBIDO').length;
       this.totalDerivados = this.totales.filter((list: { estado: string; }) => list.estado === 'DERIVADO').length;

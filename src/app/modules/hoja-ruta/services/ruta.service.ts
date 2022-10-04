@@ -14,12 +14,15 @@ export class RutaService {
 
 
   /*Servicios para Seguimientos*/
-  getAllSeguimientos(destino?:string, estado?:string, limit?:number, skip?:number, order?:string): Observable<any> {
-    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&limit=${limit}&skip=${skip}`;
+  getAllSeguimientos(destino?:string, estado?:string, limit?:number, skip?:number, nuit?:string): Observable<any> {
+    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&limit=${limit}&skip=${skip}&nuit=${nuit}`;
+    console.log(dir)
     return this.http.get<any>(dir)
-    .pipe( map( data => {
-      return data.serverResponse
-    } ) )
+  }
+  getTotalSeguimientos(destino?:string, estado?:string): Observable<any> {
+    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}`;
+    console.log(dir)
+    return this.http.get<any>(dir)
   }
 
 
