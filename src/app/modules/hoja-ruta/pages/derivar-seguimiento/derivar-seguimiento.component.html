@@ -11,37 +11,58 @@
               </span>
             </div>
           </div>
-          <form [formGroup]="derivarForm" (ngSubmit)="registerSegui()" class="mt-0">
+          <form
+            [formGroup]="derivarForm"
+            (ngSubmit)="registerSegui()"
+            class="mt-0"
+          >
             <div class="card p-2">
               <label for="destino" class="mb-0">Destino</label>
               <div class="mb-1">
-                <select class="form-select" aria-label="Default select example" id="destino" formControlName="destino"
-                  [(ngModel)]="params" (change)="getSub()">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="destino"
+                  formControlName="destino"
+                  [(ngModel)]="params"
+                  (change)="getSub()"
+                  (change)="getUser()"
+                >
                   <option selected>---Seleccione Destino---</option>
-                  <option *ngFor="let orgs of units">{{ orgs.nombredir }}</option>
+                  <option *ngFor="let orgs of units">
+                    {{ orgs.nombredir }}
+                  </option>
                 </select>
-                <div class="text-danger" *ngIf="
-                  derivarForm.get('destino')?.hasError('required') &&
-                  derivarForm.get('destino')?.touched
-                  ">
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    derivarForm.get('destino')?.hasError('required') &&
+                    derivarForm.get('destino')?.touched
+                  "
+                >
                   <span>El cargo <strong>es obligatoria</strong></span>
                 </div>
               </div>
-              <i>{{params}}</i>
               <div class="mb-0">
-                <select class="form-select" aria-label="Default select example" formControlName="destino" (change)="getUser()">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  formControlName="destino"
+                  (change)="getUser()"
+                >
                   <option selected>{{ params }}</option>
                   <option *ngFor="let cargo of cargos">
-                    {{ cargo.nombresubdir }}</option>
+                    {{ cargo.nombresubdir }}
+                  </option>
                 </select>
-                <div class="text-danger" *ngIf="
-                  derivarForm.get('destino')?.hasError('required') &&
-                  derivarForm.get('destino')?.touched
-                  ">
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    derivarForm.get('destino')?.hasError('required') &&
+                    derivarForm.get('destino')?.touched
+                  "
+                >
                   <span>El cargo <strong>es obligatoria</strong></span>
-                </div>
-                <div *ngIf="mostrarError" class="alert alert-dismissible alert-danger">
-                  <strong>{{ textError | uppercase }}</strong>
                 </div>
               </div>
             </div>
@@ -49,22 +70,41 @@
               {{ usuario.username }} {{ usuario.surnames }}
             </p>
             <div class="mb-2 mt-1">
-              <textarea formControlName="detalles" class="form-control"
-                placeholder="Escriba el detalle de instrucción"></textarea>
-              <div class="text-danger" *ngIf="
-                derivarForm.get('detalles')?.hasError('required') &&
-                derivarForm.get('detalles')?.touched
-                ">
-                <span>Detalle de Instrucción <strong>es obligatoria</strong>
+              <textarea
+                formControlName="detalles"
+                class="form-control"
+                placeholder="Escriba el detalle de instrucción"
+              ></textarea>
+              <div
+                class="text-danger"
+                *ngIf="
+                  derivarForm.get('detalles')?.hasError('required') &&
+                  derivarForm.get('detalles')?.touched
+                "
+              >
+                <span
+                  >Detalle de Instrucción <strong>es obligatoria</strong>
                 </span>
               </div>
             </div>
-
+            <div
+            *ngIf="mostrarError"
+            class="alert alert-dismissible alert-danger"
+          >
+            <strong>{{ textError | uppercase }}</strong>
+          </div>
             <div class="mb-2 d-flex justify-content-around">
-              <button routerLink="/hoja-ruta/correspondencia" class="btn btn-info text-dark">
+              <button
+                routerLink="/hoja-ruta/correspondencia"
+                class="btn btn-info text-dark"
+              >
                 CANCELAR
               </button>
-              <button type="submit" [disabled]="derivarForm.invalid" class="btn btn-success">
+              <button
+                type="submit"
+                [disabled]="derivarForm.invalid"
+                class="btn btn-success"
+              >
                 ACEPTAR
               </button>
             </div>

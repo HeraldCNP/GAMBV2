@@ -52,11 +52,11 @@ export class RutaService {
   }
 
   EditarSegui(id: string, segui:Segui): Observable<any> {
-    return this.http.put(this.URL + 'segui/' + id, segui);
+    return this.http.put(this.URL + '/segui/' + id, segui);
   }
   
   EditarSeguis(id: string, segui:Segui): Observable<any> {
-    return this.http.put(this.URL + 'seguis/' + id, segui);
+    return this.http.put(this.URL + '/seguis/' + id, segui);
   }
   obtenerHoja(id: string): Observable<any> {
     return this.http.get(this.URL + '/hoja/' + id);

@@ -14,7 +14,7 @@ export interface Segui{
     asociado?: Boolean;
     smsarchivo?:string;
     fecharespuesta?:Date;
-    copia?:Boolean;
+    copia?:string;
     oficina?:string;
     nombre?:string;
   }

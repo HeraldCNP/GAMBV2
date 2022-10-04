@@ -29,7 +29,7 @@ export class DerivarSeguimientoComponent implements OnInit {
   /*end variables data HR*/
 
   /* variablesSeguimiento*/
-  copiaSegui: boolean = false;
+  copiaSegui: string = "";
   asociadoSegui: boolean = false;
   oficinaSegui: string = '';
   /*end variablesSeguimiento*/
@@ -70,7 +70,7 @@ export class DerivarSeguimientoComponent implements OnInit {
   ngOnInit(): void {
     this.idHr = this.activeRouter.snapshot.paramMap.get('idHr');
     this.idSegui = this.activeRouter.snapshot.paramMap.get('idSegui');
-    this.createform(), this.getUnits(), this.getSub();
+    this.getUnits(), this.getSub();
     this.getHojaderuta(), this.getSegui();
     this.user = localStorage.getItem("user");
     this.data = JSON.parse(this.user);
@@ -79,11 +79,8 @@ export class DerivarSeguimientoComponent implements OnInit {
   getUnits() {
     this.apiUnit.getAllUnits().subscribe((res) => {
       this.units = res;
-      console.log(res);
     });
   }
-
-
   getSub() {
     if (this.params !== null) {
       this.apiRuta.obtenerOrg(this.params).subscribe(data => {
@@ -98,8 +95,7 @@ export class DerivarSeguimientoComponent implements OnInit {
     if (this.params !== null) {
       this.apiRuta.getUserPost(this.derivarForm.get('destino')?.value).subscribe(data => {
         this.usuario = data;
-        console.log(this.usuario)
-        this.params2 = this.user.post
+        this.params2 = this.usuario.post
         if (this.params2 === this.data.post) {
           this.flac = "si"
         } else
@@ -107,18 +103,6 @@ export class DerivarSeguimientoComponent implements OnInit {
       })
     }
   }
-
-
-
-
-  createform() {
-    this.derivarForm = new FormGroup({
-      // unidad: new FormControl('', Validators.required),
-      destino: new FormControl('', Validators.required),
-      detalles: new FormControl('', Validators.required),
-    });
-  }
-
   getHojaderuta() {
     if (this.idHr !== null) {
       this.apiRuta.getHr(this.idHr).subscribe(
@@ -141,27 +125,9 @@ export class DerivarSeguimientoComponent implements OnInit {
           this.copiaSegui = data.copia;
           this.asociadoSegui = data.asociado;
           this.oficinaSegui = data.destino;
-          this.apiRuta.getUserPost(this.oficinaSegui).subscribe(
-            (data) => {
-              // this.users = data.serverResponse;
-              // console.log(this.users)
-              // this.nombre = this.users.username + " " + this.users.surnames
-              // console.log(this.nombre)
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-          //  this.nombre=this.segui.nombre;
-        },
-        (error) => {
-          // console.log(error);
         }
       );
-    } else {
-      // this.nombre = this.identity.username + " " + this.identity.surnames;
-      // this.oficinaSegui = this.identity.post
-    }
+    } 
   }
 
   registerSegui() {
@@ -172,7 +138,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       copia: this.copiaSegui,
       asociado: this.asociadoSegui,
       oficina: this.oficinaSegui,
-      //nombre:this.nombre,
+      nombre:this.data.username + " " + this.data.surnames,
       destino: this.derivarForm.get('destino')?.value,
       detalles: this.derivarForm.get('detalles')?.value,
     };
@@ -186,7 +152,7 @@ export class DerivarSeguimientoComponent implements OnInit {
     if (this.idHr !== null && this.flac === 'no') {
       this.apiRuta.EditarSegui(this.idHr, SEGUI).subscribe(
         (data) => {
-          this.router.navigate(['/hoja-ruta/correspondencia']);
+          this.router.navigate(['/ruta/office/index']);
           if (this.idSegui !== null) {
             this.apiRuta.EditarSeguis(this.idSegui, SEGUIS).subscribe(
               (data) => {},
@@ -195,11 +161,10 @@ export class DerivarSeguimientoComponent implements OnInit {
               }
             );
           }
-          console.log(SEGUI);
         },
         (error) => {
           console.log(error);
-          //this.seguiForm.reset();
+          this.derivarForm.reset();
         }
       );
       this.apiRuta.EditarHoja(this.idHr, HOJA).subscribe(
