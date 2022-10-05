@@ -149,14 +149,14 @@
       <!-- /.card -->
       <nav *ngIf="seguimientos.length > 0" aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" (click)="paginaAnterior()" aria-label="Previous">
+          <li class="page-item pointer" *ngIf="pageOne()">
+            <a class="page-link" (click)="paginaAnterior()" aria-label="Anterior">
               <span aria-hidden="true">&laquo; Anterior</span>
             </a>
           </li>
           <li class="page-item">{{ skip }}</li>
-          <li class="page-item">
-            <a class="page-link" (click)="paginaSiguiente()" aria-label="Next">
+          <li class="page-item pointer" *ngIf="pageFinish()">
+            <a class="page-link" (click)="paginaSiguiente()" aria-label="Siguiente">
               <span aria-hidden="true">Siguiente &raquo;</span>
             </a>
           </li>

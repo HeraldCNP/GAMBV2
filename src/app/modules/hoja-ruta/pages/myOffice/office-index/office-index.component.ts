@@ -74,26 +74,48 @@ export class OfficeIndexComponent implements OnInit {
     this.api.getAllSeguimientos(this.destino, this.estado, this.limit, this.skip, this.nuit).subscribe(
       data => {
         this.seguimientos = data.serverResponse;
-        this.nuit = ''
+        this.nuit = '';
+        
         this.totalSeguimientos = data.totalDocs;
         console.log(this.seguimientos)
-        this.totalPages = Math.ceil(this.totalPages/this.limit)
+        this.totalPages = Math.ceil(this.totalSeguimientos/this.limit)
+        console.log("pagestotal", this.totalPages)
+        console.log("pagestotal", this.totalPages)
       }
     )
   }
 
   paginaAnterior(){
-    this.skip--
+    this.skip--;
+    this.seguimientos = [];
+    this.getSeguimientos();
+  }
+
+  pageOne(){
+    if(this.skip === 1){
+      return false;
+    }else{
+      return true
+    }
+  }
+  pageFinish(){
+    if(this.skip === this.totalPages){
+      return false;
+    }else{
+      return true
+    }
   }
 
   paginaSiguiente(){
-    this.skip++
+    this.skip++;
+    this.seguimientos = [];
+    this.getSeguimientos();
   }
 
   changeStatus(status:any){
     this.estado = status;
     this.getSeguimientos();
-    this.estado = "";
+    this.skip = 1;
   }
 
   obtenertotal() {
