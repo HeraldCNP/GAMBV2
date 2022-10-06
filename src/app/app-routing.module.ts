@@ -14,12 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
+    canActivate: [SessionGuard]
   },
   {
     path: 'private',
     component: PrivateComponent,
-    // canActivate: [SessionGuard]
+    canActivate: [SessionGuard]
   },
   {
     path: 'login',
@@ -34,12 +35,12 @@ const routes: Routes = [
   {
     path: 'blog',
     loadChildren: () => import('./modules/blog/blog.module').then(m => m.BlogModule),
-    // canActivate: [SessionGuard]
+    canActivate: [SessionGuard]
   },
   {
     path: 'ruta',
     loadChildren: () => import('./modules/hoja-ruta/hoja-ruta.module').then(m => m.HojaRutaModule),
-    // canActivate: [SessionGuard]
+    canActivate: [SessionGuard]
   },
   {
     path: '**',
