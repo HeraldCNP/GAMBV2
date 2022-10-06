@@ -143,3 +143,8 @@ label{
   margin-left: 325px;
 }
 
+.activate{
+  box-shadow: 5px 5px rgb(4, 119, 234);
+  /* box-shadow: 2px 5px 8px blue, 8px 8px 8px black; */
+  transform: translateY(-10px);
+}

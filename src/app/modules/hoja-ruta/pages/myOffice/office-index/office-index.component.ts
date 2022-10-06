@@ -24,7 +24,7 @@ export class OfficeIndexComponent implements OnInit {
   /*variables de consulta*/
   destino1: string = '';
   destino: any = '';
-  estado: string = '';
+  estado: string = 'RECIBIDO';
   limit: number = 10;
   skip: number = 1;
   totalSeguimientos = 0;
