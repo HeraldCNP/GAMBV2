@@ -13,6 +13,8 @@ import { DerivarSeguimientoComponent } from './pages/derivar-seguimiento/derivar
 import { HojarutasComponent } from './pages/hojarutas/hojarutas.component';
 import { MomentModule } from 'angular2-moment';
 import { HomeComponent } from './pages/home/home.component';
+import { AsociarComponent } from './pages/asociar/asociar.component';
+import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { HomeComponent } from './pages/home/home.component';
     OfficeIndexComponent,
     DerivarSeguimientoComponent,
     HojarutasComponent,
-    HomeComponent
+    HomeComponent,
+    AsociarComponent,
+    EditHojaComponent
   ],
   imports: [
     CommonModule,

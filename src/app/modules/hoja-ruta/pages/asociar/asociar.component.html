@@ -1,0 +1,52 @@
+<div *ngIf="mostrarError" class="alert alert-dismissible alert-danger">
+    <strong>{{ textError | uppercase  }}</strong>
+  </div>
+  <div class="container pt-5">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <span class="titulo"> {{ titulo | uppercase }} {{nuit}}</span>
+            <form
+            class="mt-3"
+            [formGroup]="hojaForm"
+            (ngSubmit)="asociar()"
+            >
+              <div class="mb-2">
+                <input
+                  type="text"
+                  formControlName="nuit"
+                  class="form-control"
+                  placeholder="Numero de Hoja de Ruta... Ej:... 2222-22"
+                />
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hojaForm.get('nuit')?.hasError('required') &&
+                    hojaForm.get('nuit')?.touched"
+                >
+                  <span>El origen <strong>es obligatorio</strong></span>
+                </div>
+              </div>
+              <div class="mb-2">
+                <button
+                  routerLink="/ruta/office/index"
+                  class="btn btn-secondary btn-lg float-start"
+                >
+                  VOLVER
+                </button>
+                <button
+                  type="submit"
+                  [disabled]="hojaForm.invalid"
+                  class="btn btn-success btn-lg float-end"
+                >
+                  ACEPTAR
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

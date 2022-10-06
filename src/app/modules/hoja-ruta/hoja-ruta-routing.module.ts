@@ -5,6 +5,8 @@ import { OfficeIndexComponent } from './pages/myOffice/office-index/office-index
 import { DerivarSeguimientoComponent } from './pages/derivar-seguimiento/derivar-seguimiento.component';
 import { HojarutasComponent } from './pages/hojarutas/hojarutas.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AsociarComponent } from './pages/asociar/asociar.component';
+import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,8 @@ const routes: Routes = [
       {path: '', component: HomeComponent},
       {path: 'office/index', component: OfficeIndexComponent},
       {path: 'hojaRutas', component: HojarutasComponent},
+      {path: 'asociar/:nuit', component: AsociarComponent},
+      {path: 'editHoja/:id', component: EditHojaComponent},
       {path: 'derivar/:idHr/:idSegui', component: DerivarSeguimientoComponent},
       {path: 'derivar/:idHr', component: DerivarSeguimientoComponent},
       {path: '**', redirectTo:'dashboard', pathMatch: 'full'},

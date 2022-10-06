@@ -22,7 +22,10 @@
         <table class="table table-striped mt-0 table-responsive">
           <thead>
             <tr>
-              <th scope="col">
+              <th scope="col" *ngIf="
+              (data && data.roles === 'SUPER_ADMIN') ||
+              data.roles === 'SECRETARIA'
+            ">
                 Enviar
               </th>
               <th scope="col">Numero</th>
@@ -33,11 +36,17 @@
               <th scope="col">Referencia</th>
               <th scope="col">Estado</th>
               <th scope="col">Seguimiento</th>
-              <th scope="col">
+              <th scope="col" *ngIf="
+              (data && data.roles === 'SUPER_ADMIN') ||
+              data.roles === 'SECRETARIA'
+            ">
                 Imprimir
               </th>
               <th scope="col">Adjunto</th>
-              <th scope="col">
+              <th scope="col" *ngIf="
+              (data && data.roles === 'SUPER_ADMIN') ||
+              data.roles === 'SECRETARIA'
+            ">
                 Acciones
               </th>
             </tr>
@@ -93,10 +102,10 @@
               <td>
                 <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                   (click)="seguimi(hoja._id)" title="Ver Seguimiento"></i>
-                <i *ngIf="hoja.asociado.length > 0" class="fas fa-paperclip text-primary" data-bs-toggle="tooltip"
+                <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0" class="fas fa-paperclip text-primary" data-bs-toggle="tooltip"
                   data-bs-placement="bottom" title="Ver Asociados"></i>
 
-                <i [routerLink]="['/hoja-ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary" *ngIf="
+                <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary" *ngIf="
                       (hoja.estado !== 'REGISTRADO' &&
                         hoja.estado !== 'RECIBIDO' &&
                         data &&
@@ -112,21 +121,21 @@
                   (click)="seguimi(hoja._id)" title="Imprimir"></i>
               </td>
               <td>
-                <i [routerLink]="['/hoja-ruta/list-files', hoja._id]" class="fas fa-cloud-download-alt"
+                <i [routerLink]="[]" class="fas fa-cloud-download-alt"
                   style="color: rgb(29, 14, 248) !important"></i>
               </td>
               <td *ngIf="
                     (data && data.roles === 'SUPER_ADMIN') ||
                     data.roles === 'SECRETARIA'
                   ">
-                <i [routerLink]="['/hoja-ruta/hoja-add/', hoja._id]" class="fas fa-edit text-primary"></i>
+                <i [routerLink]="['/ruta/editHoja/', hoja._id]" class="fas fa-edit text-primary"></i>
 
-                <i class="fas fa-trash text-danger" *ngIf="hoja.estado === 'REGISTRADO'"></i>
+                <i (click)="eliminarHoja(hoja._id)"class="fas fa-trash text-danger" *ngIf="hoja.estado === 'REGISTRADO'"></i>
                 <i class="fas fa-trash text-danger" style="color: rgb(216, 139, 103) !important"
                   *ngIf="hoja.estado === 'ENVIADO'"></i>
                 <i class="fas fa-trash text-danger" style="color: rgb(250, 146, 98) !important"
                   *ngIf="hoja.estado === 'RECIBIDO'"></i>
-                <i [routerLink]="['/hoja-ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary"
+                <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary"
                   *ngIf="hoja.estado !== 'REGISTRADO'" data-bs-toggle="tooltip" data-bs-placement="bottom"
                   title="Asociar"></i>
               </td>

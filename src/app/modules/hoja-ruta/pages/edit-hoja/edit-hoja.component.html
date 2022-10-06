@@ -1,0 +1,110 @@
+<div class="container pt-3">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <span class="titulo"> {{ titulo | uppercase}} </span>
+            <p class="fw-bold fa-2x">{{ hoja.nuit }}</p>
+            <form
+              class="mt-3"
+              [formGroup]="hojaForm"
+              (ngSubmit)="registerHojas()"
+            >
+              <div class="mb-2">
+                <input
+                  type="text"
+                  formControlName="origen"
+                  class="form-control"
+                  placeholder="Origen"
+                />
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hojaForm.get('origen')?.hasError('required') &&
+                    hojaForm.get('origen')?.touched
+                  "
+                >
+                  <span>El origen <strong>es obligatorio</strong></span>
+                </div>
+              </div>
+              <div class="mb-2">
+                <input
+                  type="text"
+                  formControlName="tipodoc"
+                  class="form-control"
+                  placeholder="Tipo del Documento"
+                />
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hojaForm.get('tipodoc')?.hasError('required') &&
+                    hojaForm.get('tipodoc')?.touched
+                  "
+                >
+                  <span>El campo <strong>es obligatorios</strong></span>
+                </div>
+              </div>
+              <div class="mb-2">
+                <input
+                  type="text"
+                  formControlName="contacto"
+                  class="form-control"
+                  placeholder="Numero de Telefono o Celular"
+                />
+              </div>
+              <div class="mb-2">
+                <textarea
+                  formControlName="referencia"
+                  class="form-control"
+                  placeholder="Escriba el detalle de referencia"
+                ></textarea>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hojaForm.get('referencia')?.hasError('required') &&
+                    hojaForm.get('referencia')?.touched
+                  "
+                >
+                  <span>Detalle de referencia <strong>es obligatorios</strong></span>
+                </div>
+              </div>
+              <div class="mb-2">
+                <label for="fecha" class="mb-0">Fecha de Documento </label>
+                <input
+                  type="date"
+                  formControlName="fechadocumento"
+                  class="form-control"
+                  placeholder="Fecha de Nacimiento"
+                />
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hojaForm.get('fechadocumento')?.hasError('required') &&
+                    hojaForm.get('fechadocumento')?.touched
+                  "
+                >
+                  <span>Fecha <strong>es obligatoria</strong></span>
+                </div>
+              </div>
+              <div class="mb-2">
+                <button
+                  routerLink="/ruta/hojaRutas"
+                  class="btn btn-secondary btn-lg float-start"
+                >
+                  VOLVER
+                </button>
+                <button
+                  type="submit"
+                  [disabled]="hojaForm.invalid"
+                  class="btn btn-success btn-lg float-end"
+                >
+                  ACEPTAR
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

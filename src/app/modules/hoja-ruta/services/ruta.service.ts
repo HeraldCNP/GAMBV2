@@ -89,4 +89,16 @@ export class RutaService {
       return data
     } ) )
   }
+  busacrnuit(nuit: string): Observable<any> {
+    return this.http.get(this.URL + '/asociar/' + nuit);
+  }
+  Asociar(nuit: string, hoja:Hojaruta): Observable<any> {
+    return this.http.put(this.URL + '/asociar/' + nuit, hoja);
+  }
+  EditarSeguiaso(nuit: string, segui:Segui): Observable<any> {
+    return this.http.put(this.URL + '/seguiaso/' + nuit, segui);
+  }
+  eliminarHoja(id: string): Observable<any> {
+    return this.http.delete(this.URL + '/hoja/' + id);
+  }
 }

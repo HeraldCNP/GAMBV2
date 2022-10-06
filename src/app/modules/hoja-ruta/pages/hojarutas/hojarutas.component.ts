@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RutaService } from '../../services/ruta.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Hojaruta } from '../../models/hojaruta';
 import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
@@ -38,7 +39,10 @@ export class HojarutasComponent implements OnInit {
   /*end variables de registro*/
   idhr:string=""
   today = new Date();
+  aso: any = [];
+  lisaso: string = ' ';
   constructor(private api: RutaService,
+    private router: Router,
     private fb: FormBuilder,) {
     this.hojaForm = this.fb.group({
       origen: ['', Validators.required],
@@ -85,8 +89,6 @@ export class HojarutasComponent implements OnInit {
         this.cant=data.totalDocs
         this.hojaRutas = data.serverResponse;
         this.totalPages = Math.ceil(this.cant / this.limit);
-        console.log(this.hojaRutas)
-        console.log("Total paginas", this.totalPages)
       }
     )
   }
@@ -159,7 +161,38 @@ export class HojarutasComponent implements OnInit {
       console.log(error);
     })
   }
+  listAso(id: any) {
+    this.api.obtenerHoja(id).subscribe(
+      (data) => {
+        let nuitAso = data.serverResponse.nuit;
+        this.aso = data.serverResponse.asociado;
 
+        for (let i = 0; i < this.aso.length; i++) {
+          let asonuit = this.aso[i];
+          this.lisaso = this.lisaso + asonuit.nuit + ' | ';
+        }
+
+        Swal.fire({
+          title: 'ASOCIADO N°' + ' ' + this.lisaso,
+          text: 'A N°' + ' ' + nuitAso,
+          //text: "You won't be able to revert this!",
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Ir a Ver',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['', id]);
+          }
+        });
+        this.lisaso = '';
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
   seguimi(idh: any){
     //this.loading = true;
     this.idhr=idh
@@ -175,6 +208,37 @@ export class HojarutasComponent implements OnInit {
       console.log(error);
     })
     
+  }
+  eliminarHoja(id: any) {
+    //Alerta
+    Swal.fire({
+      title: '¿Estás seguro Eliminar?',
+      text: 'Una vez borrado no podrás recuperarlo!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sì, Eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.eliminarHoja(id).subscribe(
+          (data) => {
+            this.getHojaRutas()
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+        Swal.fire(
+          'Eliminado!',
+          'El tramite se ha eliminado',
+          'success'
+        );
+       // this.router.navigate(['/ruta/office/index']);
+       
+      }
+    });
   }
 
   ImprimirPDF() {
