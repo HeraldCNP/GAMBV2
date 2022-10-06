@@ -20,9 +20,11 @@ export class HojarutasComponent implements OnInit {
   nuit: string = "";
   origen: any = "";
   referencia: string = "";
-  limit: number = 100;
-  skip: number = 0;
+  search: string = "";
+  limit: number = 10;
+  skip: number = 1;
   page: number = 1;
+  totalPages = 0;
   /*end variables de consulta*/
   /*variables de estados*/   
   estadoRecibido: string = "RECIBIDO";
@@ -82,9 +84,49 @@ export class HojarutasComponent implements OnInit {
       data => {
         this.cant=data.totalDocs
         this.hojaRutas = data.serverResponse;
-        console.log(data)
+        this.totalPages = Math.ceil(this.cant / this.limit);
+        console.log(this.hojaRutas)
+        console.log("Total paginas", this.totalPages)
       }
     )
+  }
+
+  getHojaRuta(){
+    this.api.buscarHoja(this.search).subscribe(
+      data => {
+        this.hojaRutas = data.serverResponse;
+        this.search = '';
+        this.totalPages=1;
+      }
+    )
+  }
+
+
+  paginaAnterior() {
+    this.skip--;
+    this.hojaRutas = [];
+    this.getHojaRutas();
+  }
+
+  pageOne() {
+    if (this.skip === 1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  pageFinish() {
+    if (this.skip === this.totalPages) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  paginaSiguiente() {
+    this.skip++;
+    this.hojaRutas = [];
+    this.getHojaRutas();
   }
 
   cambiarestado(id: any){

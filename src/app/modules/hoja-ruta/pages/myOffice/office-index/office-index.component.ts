@@ -108,7 +108,6 @@ export class OfficeIndexComponent implements OnInit {
         console.log(this.seguimientos);
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
         console.log('pagestotal', this.totalPages);
-        console.log('pagestotal', this.totalPages);
       });
   }
 

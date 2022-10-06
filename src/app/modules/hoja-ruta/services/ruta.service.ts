@@ -79,6 +79,10 @@ export class RutaService {
     return this.http.get<any>(dir)
   }
 
+  buscarHoja(search: string): Observable<any> {
+    return this.http.get(this.URL + '/hojasearch/' + search);
+  }
+
 
   obtenerOrg(params: string): Observable<any> {
     return this.http.get(this.URL + '/org/' + params).pipe( map( data => {

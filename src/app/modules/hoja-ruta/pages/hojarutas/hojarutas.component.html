@@ -1,22 +1,22 @@
 <div class="pt-3">
   <div class="row">
     <div class="card">
-      <div class="card-header d-flex justify-content-between">
-        <div class="input-group input-group-sm" style="width: 300px;">
-          <input type="text" name="table_search" class="form-control float-right" placeholder="Buscar">
+      <div class="card-header d-flex justify-content-around">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          NUEVO
+        </button>
+        
+        <h3 class="card-title">Lista de Hojas de Ruta</h3>
+        
+        <div class="input-group input-group-sm" style="width: 200px">
+          <input type="text" (keyup.enter)="getHojaRuta()" [(ngModel)]="search" name="table_search"
+            class="form-control float-right" placeholder="Buscar" />
           <div class="input-group-append">
-            <button type="submit" class="btn btn-default">
+            <button type="submit" class="btn btn-default" (click)="getHojaRuta()">
               <i class="fas fa-search"></i>
             </button>
           </div>
         </div>
-
-        <h3 class="card-title">Lista de Hojas de Ruta</h3>
-
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          NUEVO
-        </button>
-
       </div>
       <div class="card-body text-center">
         <table class="table table-striped mt-0 table-responsive">
@@ -134,19 +134,20 @@
           </tbody>
         </table>
       </div>
-      <div class="d-flex justify-content-center mt-2">
-        <ul class="pagination pagination-lg">
-          <li class="page-item mr-2">
-            <a class="btn btn-info boton">&laquo; Anterior</a>
+      <nav *ngIf="hojaRutas.length > 0" aria-label="Page navigation example" class="mt-2">
+        <ul class="pagination justify-content-center">
+          <li class="page-item pointer" *ngIf="pageOne()">
+            <a class="page-link boton" (click)="paginaAnterior()" aria-label="Anterior">
+              <span aria-hidden="true">&laquo; Anterior</span>
+            </a>
           </li>
-          <li class="text-center">
-
-          </li>
-          <li class="page-item ml-2">
-            <a class="btn btn-info boton">Siguiente &raquo;</a>
+          <li class="page-item pointer" *ngIf="pageFinish()">
+            <a class="page-link boton" (click)="paginaSiguiente()" aria-label="Siguiente">
+              <span aria-hidden="true">Siguiente &raquo;</span>
+            </a>
           </li>
         </ul>
-      </div>
+      </nav>
     </div>
   </div>
 </div>
@@ -250,8 +251,10 @@
                           </p>
                         </td>
                         <td *ngIf="idhr===seguiss.idhj">
-                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"> {{seguiss.fechaderivado | amLocale: 'es' | amTimeAgo}} </span><br>
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"> {{seguiss.fechaderivado | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
+                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                            {{seguiss.fechaderivado | amLocale: 'es' | amTimeAgo}} </span><br>
+                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                            {{seguiss.fechaderivado | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <span *ngIf="seguiss.fecharespuesta != null">{{
@@ -292,9 +295,12 @@
                         <td *ngIf="idhr===seguiss.idhj">
 
                           <i [ngClass]="seguiss.fecharecepcion === 'SIN RESEPCIONAR' ? 'badge badge-danger' : '' ">
-                            <span *ngIf="seguiss.fecharecepcion === 'SIN RESEPCIONAR'"> {{seguiss.fecharecepcion}}</span>
-                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'"> {{seguiss.fecharecepcion | amLocale: 'es' | amTimeAgo}} </span><br>
-                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'"> {{seguiss.fecharecepcion | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
+                            <span *ngIf="seguiss.fecharecepcion === 'SIN RESEPCIONAR'">
+                              {{seguiss.fecharecepcion}}</span>
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'">
+                              {{seguiss.fecharecepcion | amLocale: 'es' | amTimeAgo}} </span><br>
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'">
+                              {{seguiss.fecharecepcion | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
                           </i>
                         </td>
                         <td [ngSwitch]="seguiss.estado" *ngIf="idhr === seguiss.idhj">
