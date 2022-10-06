@@ -147,9 +147,9 @@ export class OfficeIndexComponent implements OnInit {
 
   obtenertotal() {
     // this.loading = true;
-    let RegExp = /[^()]*/g;
-    this.destino1 = this.data.post;
-    this.destino = RegExp.exec(this.destino1);
+    // let RegExp = /[^()]*/g;
+    // this.destino1 = this.data.post;
+    // this.destino = RegExp.exec(this.destino1);
     this.api.getTotalSeguimientos(this.destino, this.estado).subscribe(
       (data) => {
         // this.loading = false;
@@ -176,7 +176,7 @@ export class OfficeIndexComponent implements OnInit {
             this.ale = this.totales[i];
             if (
               this.ale.estado === 'ENVIADO' &&
-              this.hoy.diff(this.ale.fechaderivado, 'd') >= 0
+              this.hoy.diff(this.ale.fechaderivado, 'd') >= 1
             ) {
               this.alerta = true;
             }
@@ -188,6 +188,7 @@ export class OfficeIndexComponent implements OnInit {
       }
     );
   }
+
   cambiarEstado(id: any) {
     const SEGUI: Segui = {
       fecharecepcion: this.today,
@@ -201,6 +202,7 @@ export class OfficeIndexComponent implements OnInit {
         if (this.segui.fecharecepcion === 'SIN RESEPCIONAR') {
           this.api.EditarSeguis(ids, SEGUI).subscribe(
             (data) => {
+              this.estado = '';
               this.getSeguimientos();
               this.obtenertotal();
               this.router.navigate(['/ruta/office/index']);
@@ -216,6 +218,7 @@ export class OfficeIndexComponent implements OnInit {
       }
     );
   }
+
   listAso(id: any) {
     this.api.obtenerHoja(id).subscribe(
       (data) => {
@@ -302,9 +305,10 @@ export class OfficeIndexComponent implements OnInit {
         this.api.EditarSeguis(id, SEGUI).subscribe(
           (data) => {
             Swal.fire('', 'El tramite se reactivo', 'success');
-            this.router.navigate(['/ruta/office/index']);
+            this.estado = '';
             this.getSeguimientos();
             this.obtenertotal();
+            this.router.navigate(['/ruta/office/index']);
           },
           (error) => {
             console.log(error);

@@ -1,0 +1,72 @@
+.linea{
+    width: auto;
+    height: auto;
+  }
+  
+  
+  .border-left-primary {
+    border-left: 0.70rem solid #4e73df!important;
+  
+  }
+  .border-left-success {
+    border-left: 0.70rem solid #1cc88a!important;
+  
+  }
+  .border-left-info {
+    border-left: 0.70rem solid #36b9cc!important;
+  
+  }
+  .border-left-warning {
+    border-left: 0.70rem solid #ce3014!important;
+  
+  }
+  .border-left-total {
+    border-left: 0.70rem solid #4e73df!important;
+    cursor: pointer;
+  }
+  .border-left-recibidos {
+    border-left: 0.70rem solid #1cc88a!important;
+    cursor: pointer;
+  }
+  .border-left-derivados {
+    border-left: 0.70rem solid #36b9cc!important;
+    cursor: pointer;
+  }
+  .border-left-sinrecibir {
+    border-left: 0.70rem solid #ce3014!important;
+    cursor: pointer;
+  }
+  .border-left-warningg {
+    border-left: 0.70rem solid #d6a620!important;
+    cursor: pointer;
+  }
+  .border-left-archivo {
+    border-left: 0.70rem solid #e85eb7!important;
+    cursor: pointer;
+  }
+  .border-left-otro {
+    border-left: 0.70rem solid #98f6cd!important;
+    cursor: pointer;
+  }
+  .border-left-otro2 {
+    border-left: 0.70rem solid #9de3f3!important;
+    cursor: pointer;
+  
+  }
+  .align-items-center {
+    align-items: center!important;
+  }
+  .h5, h5 {
+    font-size: 1.90rem;
+  }
+  .text-xs {
+    font-size: 1.50rem;
+  }
+  .no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  pb-2, .py-2 {
+    padding-bottom: 0.5rem!important;
+  }
+  

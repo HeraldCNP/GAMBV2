@@ -133,3 +133,12 @@ label{
 .boton{
   cursor: pointer;
 }
+.btnale{
+  position:fixed;
+  right: 50px;
+  top: 50px;
+}
+
+.alertita{
+  margin-left: 325px;
+}

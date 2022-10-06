@@ -12,7 +12,7 @@
 
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
+        <!-- <div class="form-inline">
           <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -21,7 +21,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -29,58 +29,19 @@
             <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a class="nav-link">
-                <i class="fas fa-images nav-icon"></i>
-                <p class="space">
-                   Sliders
-                  <i class="right fas fa-angle-left"></i>
+              <a routerLink="/ruta/office/index" class="nav-link">
+                <i class="nav-icon fas fa-mail-bulk"></i>
+                <p>
+                  Mi Oficina
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a routerLink="/blog/slider/index" class="nav-link">
-                    <i class="fas fa-list nav-icon"></i>
-                    <p class="space">Listado de Slider</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/blog/slider/create" class="nav-link">
-                    <i class="fas fa-plus nav-icon"></i>
-                    <p class="space">Crear Nuevo</p>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
-                <i class="nav-icon far fa-clipboard"></i>
+              <a routerLink="/ruta/hojaRutas" class="nav-link">
+                <i class="nav-icon fas fa-clipboard-list"></i>
                 <p>
-                  Posts
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a routerLink="/blog/post/index" class="nav-link">
-                    <i class="fas fa-list nav-icon"></i>
-                    <p>Listado de Posts</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/blog/post/create" class="nav-link">
-                    <i class="fas fa-plus nav-icon"></i>
-                    <p>Crear Nuevo</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li class="nav-item">
-              <a routerLink="/blog/category/index" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Categorias
-                  <span class="right badge badge-danger">New</span>
+                  Hoja de Ruta
+                  <!-- <span class="right badge badge-danger">New</span> -->
                 </p>
               </a>
             </li>

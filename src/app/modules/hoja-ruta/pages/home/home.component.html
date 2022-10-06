@@ -1,260 +1,259 @@
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Panel de Control</h1>
-        <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-          <i [routerLink]="['/hoja-ruta/reportes']" class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-    </div>
-  
-  
-    <!-- Content Row -->
-    <div *ngIf="data && data.roles==='SUPER_ADMIN' || data.roles==='SECRETARIA'"  class="row">
-  
-      <!-- Earnings (Monthly) Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-primary shadow h-100 py-2">
-              <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                              ENVIADOS</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">{{canten}}</div>
-                      </div>
-                      <div class="col-auto">
-                          <i class="fas fa-calendar-plus fa-4x text-gray-300" style="color:rgb(24, 43, 219) !important"></i>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  
-      <!-- Earnings (Monthly) Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-success shadow h-100 py-2">
-              <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                              RECIBIDOS</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">{{cantrec}}</div>
-                      </div>
-                      <div class="col-auto">
-                          <i class="fas fa-arrow-alt-circle-down fa-4x  text-gray-300" style="color:rgb(87, 201, 42) !important"></i>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  
-      <!-- Earnings (Monthly) Card Example -->
-  
-      <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-info shadow h-100 py-2">
-              <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-info text-uppercase mb-1">EN PROCESO
-                          </div>
-                          <div class="row no-gutters align-items-center">
-                              <div class="col-auto">
-                                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 text-center">50</div>
-                              </div>
-                              <div class="col">
-                                  <div class="progress progress-sm mr-2">
-                                      <div class="progress-bar bg-info" role="progressbar"
-                                          style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                          aria-valuemax="100"></div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-auto">
-                          <i class="fas fa-clipboard-list fa-4x text-gray-300 " style="color:rgb(63, 170, 219) !important"></i>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  
-      <!-- Pending Requests Card Example -->
-      <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-warning shadow h-100 py-2">
-              <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                      <div class="col ">
-                          <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                              REGISTRADOS</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">{{cantre}}</div>
-                      </div>
-                      <div class="col-auto">
-                          <i class="fas fa-comments fa-3x text-gray-300" style="color:rgb(230, 43, 29) !important"></i>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Panel de Control</h1>
+    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+      <i [routerLink]="['/hoja-ruta/reportes']" class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
   </div>
-  
-        <!-- Content Row -->
+
+
+  <!-- Content Row -->
+  <div *ngIf="data && data.roles==='SUPER_ADMIN' || data.roles==='SECRETARIA'" class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                ENVIADOS</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">{{canten}}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-calendar-plus fa-4x text-gray-300" style="color:rgb(24, 43, 219) !important"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                RECIBIDOS</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">{{cantrec}}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-arrow-alt-circle-down fa-4x  text-gray-300"
+                style="color:rgb(87, 201, 42) !important"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">EN PROCESO
+              </div>
+              <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 text-center">50</div>
+                </div>
+                <div class="col">
+                  <div class="progress progress-sm mr-2">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-clipboard-list fa-4x text-gray-300 " style="color:rgb(63, 170, 219) !important"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col ">
+              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                REGISTRADOS</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">{{cantre}}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-comments fa-3x text-gray-300" style="color:rgb(230, 43, 29) !important"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Row -->
   <div class="card p-2">
     <h1 class="h3 mb-0 text-gray-800">Panel de Control MI OFICINA</h1>
     <div class="row ">
-  
-  
-          <!-- Earnings (Monthly) Card Example -->
-          <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-total shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                TOTAL</div>
-                            <div class="h5 mb-0 font-weight-bold text-primary text-center">{{total}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-folder-plus fa-4x text-primary" ></i>
-                        </div>
-                    </div>
-                </div>
+
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-total shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                  TOTAL</div>
+                <div class="h5 mb-0 font-weight-bold text-primary text-center">{{total}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-folder-plus fa-4x text-primary"></i>
+              </div>
             </div>
+          </div>
         </div>
-  
-          <!-- Earnings (Monthly) Card Example -->
-          <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-derivados shadow h-100 py-2">
-                  <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                  DERIVADOS</div>
-                              <div class="h5 mb-0 font-weight-bold text-info text-center">{{totalDerivados}}</div>
-                          </div>
-                          <div class="col-auto">
-                            <i class="fas fa-share fa-4x text-info"></i>
-                        </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-  
-          <!-- Earnings (Monthly) Card Example -->
-          <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-recibidos shadow h-100 py-2">
-                  <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                  RECIBIDOS</div>
-                              <div class="h5 mb-0 font-weight-bold text-success text-center">{{totalRecibidos}}</div>
-                          </div>
-                          <div class="col-auto">
-                              <i class="fas fa-arrow-alt-circle-down fa-4x  text-success"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-  
-          <!-- Pending Requests Card Example -->
-          <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-sinrecibir shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col ">
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                SIN RECIBIR</div>
-                            <div class="h5 mb-0 font-weight-bold text-danger text-center">{{totalEnviados}}
-                              <div  *ngIf="totalEnviados > 0 "  class="spinner-grow  text-danger" role="status">
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-file-excel fa-3x text-danger"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-  
-          <!-- Earnings (Monthly) Card Example -->
-  
-          <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warningg shadow h-100 py-2"style="color:rgb(230, 197, 29) !important">
-                  <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">MI MALETIN</div>
-                              <div class="h5 mb-0 font-weight-bold text-warning text-center">{{totalMaletin}}</div>
-                          </div>
-                          <div class="col-auto">
-                              <i class="fas fa-business-time fa-4x text-warning"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-  
-          <!-- Pending Requests Card Example -->
-          <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-archivo shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col ">
-                            <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color:rgb(219, 108, 191) !important">
-                                ARCHIVO CENTRAL</div>
-                            <div class="h5 mb-0 font-weight-bold text-center" style="color:rgb(219, 108, 191) !important">{{totalArchivado}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-archive fa-3x" style="color:rgb(219, 108, 191) !important"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-  
-        <!-- Pending Requests Card Example -->
-        <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-otro shadow h-100 py-2">
-              <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                      <div class="col ">
-                          <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color:rgb(149, 246, 209) !important">
-                              OTROS</div>
-                          <div class="h5 mb-0 font-weight-bold text-center"style="color:rgb(149, 246, 209) !important">---</div>
-                      </div>
-                      <div class="col-auto">
-                          <i class="fas fa-archway fa-3x" style="color:rgb(149, 246, 209) !important"></i>
-                      </div>
-                  </div>
-              </div>
-          </div>
       </div>
-  
-      <!-- Pending Requests Card Example -->
-      <div [routerLink]="['/hoja-ruta/correspondencia']" class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-otro2 shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col ">
-                        <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color:rgb(172, 226, 253) !important">
-                           OTROS 2</div>
-                        <div class="h5 mb-0 font-weight-bold text-center" style="color:rgb(172, 226, 253) !important">...</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-feather fa-3x" style="color:rgb(172, 226, 253) !important"></i>
-                    </div>
-                </div>
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-derivados shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                  DERIVADOS</div>
+                <div class="h5 mb-0 font-weight-bold text-info text-center">{{totalDerivados}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-share fa-4x text-info"></i>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-recibidos shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                  RECIBIDOS</div>
+                <div class="h5 mb-0 font-weight-bold text-success text-center">{{totalRecibidos}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-arrow-alt-circle-down fa-4x  text-success"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Requests Card Example -->
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-sinrecibir shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col ">
+                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                  SIN RECIBIR</div>
+                <div class="h5 mb-0 font-weight-bold text-danger text-center">{{totalEnviados}}
+                  <div *ngIf="totalEnviados > 0 " class="spinner-grow  text-danger" role="status">
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-file-excel fa-3x text-danger"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Earnings (Monthly) Card Example -->
+
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warningg shadow h-100 py-2" style="color:rgb(230, 197, 29) !important">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">MI MALETIN</div>
+                <div class="h5 mb-0 font-weight-bold text-warning text-center">{{totalMaletin}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-business-time fa-4x text-warning"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Requests Card Example -->
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-archivo shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col ">
+                <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color:rgb(219, 108, 191) !important">
+                  ARCHIVO CENTRAL</div>
+                <div class="h5 mb-0 font-weight-bold text-center" style="color:rgb(219, 108, 191) !important">
+                  {{totalArchivado}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-archive fa-3x" style="color:rgb(219, 108, 191) !important"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Requests Card Example -->
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-otro shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col ">
+                <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color:rgb(149, 246, 209) !important">
+                  OTROS</div>
+                <div class="h5 mb-0 font-weight-bold text-center" style="color:rgb(149, 246, 209) !important">---</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-archway fa-3x" style="color:rgb(149, 246, 209) !important"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Requests Card Example -->
+      <div [routerLink]="['/ruta/office/index']" class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-otro2 shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col ">
+                <div class="text-xs font-weight-bold  text-uppercase mb-1" style="color:rgb(172, 226, 253) !important">
+                  OTROS 2</div>
+                <div class="h5 mb-0 font-weight-bold text-center" style="color:rgb(172, 226, 253) !important">...</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-feather fa-3x" style="color:rgb(172, 226, 253) !important"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
-  
-  
-  
+
+
+
+
   <!-- /.container-fluid -->
-  
