@@ -4,12 +4,14 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { OfficeIndexComponent } from './pages/myOffice/office-index/office-index.component';
 import { DerivarSeguimientoComponent } from './pages/derivar-seguimiento/derivar-seguimiento.component';
 import { HojarutasComponent } from './pages/hojarutas/hojarutas.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {
     path:'',
     component: DashboardComponent,
     children:[
+      {path: '', component: HomeComponent},
       {path: 'office/index', component: OfficeIndexComponent},
       {path: 'hojaRutas', component: HojarutasComponent},
       {path: 'derivar/:idHr/:idSegui', component: DerivarSeguimientoComponent},

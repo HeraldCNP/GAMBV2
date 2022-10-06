@@ -250,18 +250,40 @@
                           </p>
                         </td>
                         <td *ngIf="idhr===seguiss.idhj">
-
+                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"> {{seguiss.fechaderivado | amLocale: 'es' | amTimeAgo}} </span><br>
+                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"> {{seguiss.fechaderivado | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <span *ngIf="seguiss.fecharespuesta != null"></span>
+                          <span *ngIf="seguiss.fecharespuesta != null">{{
+                            seguiss.fecharespuesta
+                              | amDifference
+                                : seguiss.fechaderivado
+                                : "seconds"
+                                : true
+                              | amDuration: "seconds"
+                          }}</span>
                           <span *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'DERIVADO'
-                            "></span>
+                            ">{{
+                              seguiss.fecharecepcion
+                                | amDifference
+                                  : seguiss.fechaderivado
+                                  : "seconds"
+                                  : true
+                                | amDuration: "seconds"
+                            }}</span>
                           <span *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'MALETIN'
-                            "></span>
+                            ">{{
+                              seguiss.fecharecepcion
+                                | amDifference
+                                  : seguiss.fechaderivado
+                                  : "seconds"
+                                  : true
+                                | amDuration: "seconds"
+                            }}</span>
                           <samp *ngIf="
                               seguiss.estado === 'ENVIADO' ||
                               seguiss.estado === 'RECIBIDO'
@@ -270,9 +292,9 @@
                         <td *ngIf="idhr===seguiss.idhj">
 
                           <i [ngClass]="seguiss.fecharecepcion === 'SIN RESEPCIONAR' ? 'badge badge-danger' : '' ">
-                            <span *ngIf="seguiss.fecharecepcion === 'SIN RESEPCIONAR'"> {{seguiss.fecharecepcion}}
-                            </span>
-
+                            <span *ngIf="seguiss.fecharecepcion === 'SIN RESEPCIONAR'"> {{seguiss.fecharecepcion}}</span>
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'"> {{seguiss.fecharecepcion | amLocale: 'es' | amTimeAgo}} </span><br>
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'"> {{seguiss.fecharecepcion | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
                           </i>
                         </td>
                         <td [ngSwitch]="seguiss.estado" *ngIf="idhr === seguiss.idhj">
@@ -297,7 +319,7 @@
               <div>
                 <i class="ml-3">Usuario: {{ data.username }} {{ data.surnames }}</i>
                 <i class="mr-3 float-end">Fecha Descarga:
-
+                  {{ today | amLocal | amDateFormat: "DD-MM-YY HH:mm" }}
                 </i>
               </div>
             </div>

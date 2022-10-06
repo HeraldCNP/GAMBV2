@@ -35,7 +35,7 @@ export class HojarutasComponent implements OnInit {
   totalh: string = '';
   /*end variables de registro*/
   idhr:string=""
-
+  today = new Date();
   constructor(private api: RutaService,
     private fb: FormBuilder,) {
     this.hojaForm = this.fb.group({
