@@ -188,4 +188,23 @@ export class DerivarSeguimientoComponent implements OnInit {
       this.mostrarError = false;
     }, 4000);
   }
+///probar
+  Editar() {
+    if (this.id !== null) {
+      this.titulo = 'Editar Hoja de Ruta';
+      this.api.obtenerHoja(this.id).subscribe(data => {
+        this.hoja=data.serverResponse
+        this.hojaForm.setValue({
+          origen: data.serverResponse.origen,
+          tipodoc: null,
+          contacto: null,
+          referencia: data.serverResponse.referencia,
+          fechadocumento: data.serverResponse.fechadocumento,
+        })
+
+      }, error => {
+        console.log("no hay id" + error);
+      })
+    }
+  }
 }
