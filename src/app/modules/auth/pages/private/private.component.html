@@ -1,54 +1,60 @@
 <div class="body text-center">
   <main class="px-3">
-    <img class="mb-4" src="../../../../../assets/img/logo2.png" alt="" width="120" height="57">
+    <img class="mb-4" src="assets/img/logo2.png" alt="" width="120" height="57">
     <h1>Bienvenido: {{ data.username }} {{ data.surnames }}</h1>
     <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autonomo Municipal de Betanzos</p>
 
     <div class="contenedor">
       <div class="contenedor-cards">
         <div class="contenedor-card-item">
-          <div class="contenedor-card-item-wrapper">
-            <a routerLink="/blog">
-              <img src="https://images.unsplash.com/photo-1448932223592-d1fc686e76ea" alt="">
-              <div class="contenedor-info">
-                <div class="info">
-                  <p class="titulo">Sistema Blog</p>
-                </div>
-                <div class="fondo"></div>
-              </div>
-            </a>
+          <div class="card-header">
+            <h2>Sistema Hoja de Ruta</h2>
           </div>
-        </div>
-        <div class="contenedor-card-item">
-          <div class="contenedor-card-item-wrapper">
-            <a routerLink="/auth">
-              <img src="https://images.unsplash.com/photo-1473186505569-9c61870c11f9" alt="">
-              <div class="contenedor-info">
-                <div class="info">
-                  <p class="titulo">Usuarios</p>
-                </div>
-                <div class="fondo"></div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="contenedor-card-item">
           <div class="contenedor-card-item-wrapper">
             <a routerLink="/ruta">
-              <img src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32" alt="">
+              <img src="assets/img/private/hojaRuta.jpg" alt="">
               <div class="contenedor-info">
                 <div class="info">
-                  <p class="titulo">HOJA DE RUTA</p>
+                  <p class="titulo">Ingresar</p>
                 </div>
                 <div class="fondo"></div>
               </div>
             </a>
           </div>
         </div>
-
-
+        <div class="contenedor-card-item">
+          <div class="card-header">
+            <h2>Sistema Blog</h2>
+          </div>
+          <div class="contenedor-card-item-wrapper">
+            <a routerLink="/blog">
+              <img src="assets/img/private/blog.jpg" alt="">
+              <div class="contenedor-info">
+                <div class="info">
+                  <p class="titulo">Ingresar</p>
+                </div>
+                <div class="fondo"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="contenedor-card-item">
+          <div class="card-header">
+            <h2>Sistema Usuarios</h2>
+          </div>
+          <div class="contenedor-card-item-wrapper">
+            <a routerLink="/auth">
+              <img src="assets/img/private/usuarios.jpg" alt="">
+              <div class="contenedor-info">
+                <div class="info">
+                  <p class="titulo">Ingresar</p>
+                </div>
+                <div class="fondo"></div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-
   </main>
 </div>
