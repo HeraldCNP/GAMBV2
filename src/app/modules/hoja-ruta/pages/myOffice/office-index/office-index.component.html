@@ -144,9 +144,18 @@
                     </span>
                     <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
                       {{
+                        seguimiento.fecharecepcion
+                          | amLocal
+                          | amDateFormat: "DD-MM-YY HH:mm"
+                      }}
+                    </i>
+                    <!--
+                    <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
+                      {{
                         seguimiento.fecharecepcion | amLocale: "es" | amTimeAgo
                       }}
                     </i>
+                    -->
                   </i>
                 </td>
                 <td [ngSwitch]="seguimiento.estado">
