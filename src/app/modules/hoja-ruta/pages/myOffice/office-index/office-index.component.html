@@ -119,7 +119,9 @@
                     (click)="finalizar(seguimiento._id)" style="color: rgb(189, 109, 4) !important"
                     title="Enviar a mi Maletín"></i>
                 </td>
-                <td>{{ seguimiento.nuit }}</td>
+                <td>{{ seguimiento.nuit }}
+                  <i>{{ seguimiento.copia }}</i>
+                </td>
                 <td>{{ seguimiento.nombre }}</td>
                 <td>{{ seguimiento.origenhr }}</td>
                 <td>{{ seguimiento.referencia }}</td>

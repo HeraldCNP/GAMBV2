@@ -25,6 +25,7 @@ export class OfficeIndexComponent implements OnInit {
   destino1: string = '';
   destino: any = '';
   estado: string = 'RECIBIDO';
+  estado2: string = '';
   limit: number = 10;
   skip: number = 1;
   totalSeguimientos = 0;
@@ -105,9 +106,7 @@ export class OfficeIndexComponent implements OnInit {
         this.nuit = '';
 
         this.totalSeguimientos = data.totalDocs;
-        console.log(this.seguimientos);
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
-        console.log('pagestotal', this.totalPages);
       });
   }
 
@@ -149,7 +148,7 @@ export class OfficeIndexComponent implements OnInit {
     // let RegExp = /[^()]*/g;
     // this.destino1 = this.data.post;
     // this.destino = RegExp.exec(this.destino1);
-    this.api.getTotalSeguimientos(this.destino, this.estado).subscribe(
+    this.api.getTotalSeguimientos(this.destino, this.estado2).subscribe(
       (data) => {
         // this.loading = false;
         this.totales = data.serverResponse;
@@ -199,6 +198,16 @@ export class OfficeIndexComponent implements OnInit {
         this.segui = data;
         let ids = this.segui._id;
         if (this.segui.fecharecepcion === 'SIN RESEPCIONAR') {
+          Swal.fire({
+            title: 'Estás seguro de Recibir?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Recibir'
+          }).then((result) => {
+            if (result.isConfirmed) {
           this.api.EditarSeguis(ids, SEGUI).subscribe(
             (data) => {
               this.estado = '';
@@ -210,6 +219,8 @@ export class OfficeIndexComponent implements OnInit {
               console.log(error);
             }
           );
+            }
+        })
         }
       },
       (error) => {
@@ -373,7 +384,7 @@ export class OfficeIndexComponent implements OnInit {
                 });
               } else {
                 Swal.fire(
-                  'Ya fue recibido la derivación motivo que no se puede realizar este acción'
+                  'No puede eliminar la derivaciòn que ya fue recibida '
                 );
               }
             }

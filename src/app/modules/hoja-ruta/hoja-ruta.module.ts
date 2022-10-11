@@ -15,6 +15,7 @@ import { MomentModule } from 'angular2-moment';
 import { HomeComponent } from './pages/home/home.component';
 import { AsociarComponent } from './pages/asociar/asociar.component';
 import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
+import { ListAsociadosComponent } from './pages/list-asociados/list-asociados.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
     HojarutasComponent,
     HomeComponent,
     AsociarComponent,
-    EditHojaComponent
+    EditHojaComponent,
+    ListAsociadosComponent
   ],
   imports: [
     CommonModule,

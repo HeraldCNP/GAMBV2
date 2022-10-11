@@ -76,7 +76,7 @@ export class AsociarComponent implements OnInit {
                       }
                       if (this.nuit !== null && this.nuitB == this.nuitA && this.asociarProcesada == true) {
                         this.api.Asociar(this.nuit, asocia).subscribe(data => {
-                          this.router.navigate(['/ruta/office/index']);
+                          this.router.navigate(['/ruta/hojaRutas']);
                           this.cambiarestado(this.idsegui)
                           console.log(this.res.nuit)
                           this.cambiaraso(this.res.nuit)

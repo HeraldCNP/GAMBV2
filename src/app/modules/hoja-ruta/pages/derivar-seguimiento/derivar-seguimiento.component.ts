@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../../auth/services/auth.service';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { RutaService } from '../../services/ruta.service';
 import { Segui } from '../../models/seguimiento';
 import { Hojaruta } from '../../models/hojaruta';
@@ -12,9 +17,23 @@ import { Hojaruta } from '../../models/hojaruta';
   styleUrls: ['./derivar-seguimiento.component.css'],
 })
 export class DerivarSeguimientoComponent implements OnInit {
+  //--------copias--------//
+  copy:string="";
+  formularioIncorrecto = false;
+  copia:boolean=false;
+  orgc: any = [];
+  detallesc = '';
+  paramsc: string = '';
+  userc: any = [];
+  params2c = '';
+  orgseleco: any[] = [];
+  catco: number = 0;
+  cant: number = 0;
+  seg: any = [];
+  ///
   URL = environment.api;
-  user:any;
-  data:any;
+  user: any;
+  data: any;
   idHr: any;
   idSegui: any;
   units: any = [];
@@ -29,7 +48,7 @@ export class DerivarSeguimientoComponent implements OnInit {
   /*end variables data HR*/
 
   /* variablesSeguimiento*/
-  copiaSegui: string = "";
+  copiaSegui: string = '';
   asociadoSegui: boolean = false;
   oficinaSegui: string = '';
   /*end variablesSeguimiento*/
@@ -72,7 +91,7 @@ export class DerivarSeguimientoComponent implements OnInit {
     this.idSegui = this.activeRouter.snapshot.paramMap.get('idSegui');
     this.getUnits(), this.getSub();
     this.getHojaderuta(), this.getSegui();
-    this.user = localStorage.getItem("user");
+    this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
   }
 
@@ -83,24 +102,28 @@ export class DerivarSeguimientoComponent implements OnInit {
   }
   getSub() {
     if (this.params !== null) {
-      this.apiRuta.obtenerOrg(this.params).subscribe(data => {
-        this.cargos = data.subdirecciones;
-      }, error => {
-        console.log(error);
-      })
+      this.apiRuta.obtenerOrg(this.params).subscribe(
+        (data) => {
+          this.cargos = data.subdirecciones;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
   }
 
-  getUser(){
+  getUser() {
     if (this.params !== null) {
-      this.apiRuta.getUserPost(this.derivarForm.get('destino')?.value).subscribe(data => {
-        this.usuario = data;
-        this.params2 = this.usuario.post
-        if (this.params2 === this.data.post) {
-          this.flac = "si"
-        } else
-          this.flac = "no"
-      })
+      this.apiRuta
+        .getUserPost(this.derivarForm.get('destino')?.value)
+        .subscribe((data) => {
+          this.usuario = data;
+          this.params2 = this.usuario.post;
+          if (this.params2 === this.data.post) {
+            this.flac = 'si';
+          } else this.flac = 'no';
+        });
     }
   }
   getHojaderuta() {
@@ -120,14 +143,12 @@ export class DerivarSeguimientoComponent implements OnInit {
 
   getSegui() {
     if (this.idSegui !== null) {
-      this.apiRuta.getSegui(this.idSegui).subscribe(
-        (data) => {
-          this.copiaSegui = data.copia;
-          this.asociadoSegui = data.asociado;
-          this.oficinaSegui = data.destino;
-        }
-      );
-    } 
+      this.apiRuta.getSegui(this.idSegui).subscribe((data) => {
+        this.copiaSegui = data.copia;
+        this.asociadoSegui = data.asociado;
+        this.oficinaSegui = data.destino;
+      });
+    }
   }
 
   registerSegui() {
@@ -138,7 +159,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       copia: this.copiaSegui,
       asociado: this.asociadoSegui,
       oficina: this.oficinaSegui,
-      nombre:this.data.username + " " + this.data.surnames,
+      nombre: this.data.username + ' ' + this.data.surnames,
       destino: this.derivarForm.get('destino')?.value,
       detalles: this.derivarForm.get('detalles')?.value,
     };
@@ -188,8 +209,111 @@ export class DerivarSeguimientoComponent implements OnInit {
       this.mostrarError = false;
     }, 4000);
   }
-///probar
-  Editar() {
-   
+  copias(): void {
+    this.getOrgac();
+    this.getSubc();
+    this.getuserc();
+    this.apiRuta.buscarnuit(this.nuit).subscribe(
+      (data) => {
+        this.seg = data;
+        this.catco = this.seg.filter(
+          (list: { copia: string }) => list.copia
+        ).length;
+        this.cant = this.catco + 1;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  agregarCita() {
+    if(this.paramsc == '' || this.detallesc == ''){
+      this.error1('todos los campos deben ser llenados');
+      return;
+    }
+    this.formularioIncorrecto = false;
+    this.apiRuta.buscarnuit(this.nuit).subscribe(data => {
+      this.seg=data
+      this.catco = this.seg.filter((list: { copia: string; }) => list.copia).length;
+      console.log(this.catco)
+      this.cant=this.catco+1
+      this.copy="copia"+this.cant
+      // Creamos objeto para enviarselo al padre
+    const SEGUIC: Segui = {
+      nuit: this.nuit,
+      referencia: this.referenciaHr,
+      origenhr: this.origenHr,
+      destino:  this.paramsc,
+      detalles: this.detallesc,
+      copia:this.copy,
+      oficina:this.data.post,
+      nombre: this.data.username + ' ' + this.data.surnames,
+    }
+    if (this.idHr !== null && this.flac === "no") {
+      this.apiRuta.EditarSegui(this.idHr, SEGUIC).subscribe(data => {
+      }, error => {
+        console.log(error);
+      })
+    }
+    else {
+      this.error1('No se puede derivar a su propia oficina');
+      return;
+    }
+    this.resetCampos();
+    this.copias();
+    }, error => {
+      console.log(error)
+    })
+  }
+  getuserc() {
+    if (this.paramsc !== null) {
+      this.apiRuta.getUserPost(this.paramsc).subscribe((data) => {
+        this.userc = data;
+        this.params2c = this.userc.post;
+        if (this.params2c === this.data.post) {
+          this.flac = 'si';
+        } else this.flac = 'no';
+      });
+    }
+  }
+  getSubc() {
+    if (this.paramsc !== null) {
+      this.apiRuta.obtenerOrg(this.paramsc).subscribe(
+        (data) => {
+          this.orgseleco = data.subdirecciones;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
+  getOrgac() {
+    this.apiUnit.getAllUnits().subscribe(
+      (data) => {
+        this.orgc = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  cerrar(): void {
+    this.copia=false
+    this.resetCampos()
+  }
+  resetCampos() {
+    this.detallesc = '';
+    this.paramsc = '';
+    this.params2c = '';
+  }
+  error1(valor: string) {
+    this.mostrarError1 = true;
+    this.textError1 = valor;
+
+    // Mostramos error por 4 segundos
+    setTimeout(() => {
+      this.mostrarError1 = false;
+    }, 4000);
   }
 }

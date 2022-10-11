@@ -2,9 +2,12 @@
   <div class="row">
     <div class="card">
       <div class="card-header d-flex justify-content-around">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="
+        (data && data.roles === 'SUPER_ADMIN') ||
+        data.roles === 'SECRETARIA'
+      ">
           NUEVO
-        </button>
+        </button >
         
         <h3 class="card-title">Lista de Hojas de Ruta</h3>
         

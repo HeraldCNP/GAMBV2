@@ -10,6 +10,17 @@
                 <p class="fw-bold fa-2x">{{ nuit }}</p>
               </span>
             </div>
+            <div class="col-md-2">
+              <i
+                (click)="copias()"
+                class="fas fa-plus badge bg-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                #initmodal
+              >
+                Copias</i
+              >
+            </div>
           </div>
           <form
             [formGroup]="derivarForm"
@@ -88,11 +99,11 @@
               </div>
             </div>
             <div
-            *ngIf="mostrarError"
-            class="alert alert-dismissible alert-danger"
-          >
-            <strong>{{ textError | uppercase }}</strong>
-          </div>
+              *ngIf="mostrarError"
+              class="alert alert-dismissible alert-danger"
+            >
+              <strong>{{ textError | uppercase }}</strong>
+            </div>
             <div class="mb-2 d-flex justify-content-around">
               <button
                 routerLink="/ruta/office/index"
@@ -109,6 +120,89 @@
               </button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header p-0"></div>
+      <div class="card m-1">   
+        <h5 class="card-title text-center mb-0">Enviar Copia {{ cant }}</h5>
+        <div class="card-body p-1">
+   
+          <div
+            *ngIf="mostrarError1"
+            class="alert alert-dismissible alert-danger"
+          >
+            <strong>{{ textError1 | uppercase }}</strong>
+          </div>
+          <div class="card p-1 mt-0">
+            <div class="form-group text-center mb-1">
+              <label for="nombre" class="mb-0">Destino</label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="destino"
+                [(ngModel)]="paramsc"
+                (change)="getSubc()"
+                (change)="getuserc()"
+              >
+                <option selected>---Seleccione Destino---</option>
+                <option *ngFor="let orgsc of orgc">
+                  {{ orgsc.nombredir }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group mb-1">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                [(ngModel)]="paramsc"
+                (change)="getuserc()"
+              >
+                <option selected>{{ paramsc }}</option>
+                <option *ngFor="let orgselectc of orgseleco">
+                  {{ orgselectc.nombresubdir }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <p class="text-dark pl-3">
+            {{ userc.username }} {{ userc.surnames }}
+          </p>
+          <div class="form-group mb-3">
+            <textarea
+              id="sintomas"
+              rows="2"
+              [(ngModel)]="detallesc"
+              class="form-control"
+              placeholder="Escriba el detalle de instrucción"
+            ></textarea>
+          </div>
+          <div class="mb-2 d-flex justify-content-evenly">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetCampos()"
+            >
+              CERRAR
+            </button>
+            <button (click)="agregarCita()" class="btn btn-primary">
+              ENVIAR COPIA
+            </button>
+          </div>
         </div>
       </div>
     </div>

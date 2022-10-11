@@ -1,0 +1,16 @@
+fas {
+    cursor: pointer;
+    margin-left: 7px;
+    font-size: 170%;
+  }
+  
+  .badge {
+    padding: auto;
+    margin: 0px;
+    font-size: 15px;
+    cursor: pointer;
+  
+  }
+  .badge:active{
+    opacity: 0.07;
+  }

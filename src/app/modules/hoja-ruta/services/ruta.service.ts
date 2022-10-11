@@ -21,7 +21,6 @@ export class RutaService {
   }
   getTotalSeguimientos(destino?:string, estado?:string): Observable<any> {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}`;
-    console.log(dir)
     return this.http.get<any>(dir)
   }
 
