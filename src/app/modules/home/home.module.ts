@@ -12,6 +12,7 @@ import { PostComponent } from './pages/post/post.component';
 import { AsideComponent } from './pages/post/aside/aside.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { NewComponent } from './pages/index/new/new.component';
+import { DomseguroPipe } from '../../core/pipes/domseguro.pipe';
 
 
 @NgModule({
@@ -25,11 +26,13 @@ import { NewComponent } from './pages/index/new/new.component';
     PostComponent,
     AsideComponent,
     CategoryComponent,
-    NewComponent
+    NewComponent,
+    DomseguroPipe
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    
   ]
 })
 export class HomeModule { }
