@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'private',
     component: PrivateComponent,
-    // canActivate: [SessionGuard]
+    canActivate: [SessionGuard]
   },
   {
     path: 'login',
