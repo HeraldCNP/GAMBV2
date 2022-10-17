@@ -58,7 +58,7 @@ export class OfficeIndexComponent implements OnInit {
   alerta: boolean = false;
   hoy = moment();
   nombreus: string = '';
-  constructor(private api: RutaService, private router: Router) {}
+  constructor(private api: RutaService, private router: Router) { }
 
   ngOnInit(): void {
     this.user = localStorage.getItem('user');
@@ -204,19 +204,19 @@ export class OfficeIndexComponent implements OnInit {
             confirmButtonText: 'Si, Recibir'
           }).then((result) => {
             if (result.isConfirmed) {
-          this.api.EditarSeguis(ids, SEGUI).subscribe(
-            (data) => {
-              this.estado = '';
-              this.getSeguimientos();
-              this.obtenertotal();
-              this.router.navigate(['/ruta/office/index']);
-            },
-            (error) => {
-              console.log(error);
+              this.api.EditarSeguis(ids, SEGUI).subscribe(
+                (data) => {
+                  this.estado = '';
+                  this.getSeguimientos();
+                  this.obtenertotal();
+                  this.router.navigate(['/ruta/office/index']);
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
             }
-          );
-            }
-        })
+          })
         }
       },
       (error) => {
@@ -357,13 +357,13 @@ export class OfficeIndexComponent implements OnInit {
                 }).then((result) => {
                   if (result.isConfirmed) {
                     this.api.eliminarSegui(this.res._id).subscribe(
-                      (data) => {},
+                      (data) => { },
                       (error) => {
                         console.log(error);
                       }
                     );
                     this.api.EditarSeguis(id, SEGUID).subscribe(
-                      (data) => {},
+                      (data) => { },
                       (error) => {
                         console.log(error);
                       }
@@ -406,61 +406,108 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         this.seguireply = data;
         this.nuitreply = this.seguireply.nuit;
-        
+
         this.api.buscarnuit(this.nuitreply).subscribe(
           (data) => {
             this.nuitre = data;
-            console.log(this.nuitre)
-            for (let i = 0; i < this.nuitre.length; i++) {
-              if (i === this.nuitre.length - 2) {
-                
-                this.res = this.nuitre[i];
-                console.log(this.res.destino);
-                this.api.getUserPost(this.res.destino).subscribe(
-                  (data) => {
-                    this.user = data;
-                    this.nombreus =
-                      this.user.username + ' ' + this.user.surnames;
-                    Swal.fire({
-                      title: this.res.destino,
-                      text:
-                        'A cargo de: ' +
-                        ' ' +
-                        this.nombreus +
-                        '................................   ' +
-                        'Origen: ' +
-                        this.seguireply.origenhr +
-                        '....................................         ' +
-                        ' Referencia: ' +
-                        this.seguireply.referencia,
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      cancelButtonText: 'Cancelar',
-                      confirmButtonText: 'Sì, Recibir',
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        this.api.EditarSeguis(id, SEGUI).subscribe(
-                          (data) => {
-                            this.getSeguimientos();
-                            this.obtenertotal();
-                            this.router.navigate(['/ruta/office/index']);
-                          },
-                          (error) => {
-                            console.log(error);
-                          }
-                        );
-                        this.router.navigate(['/ruta/office/index']);
+            if (this.nuitre.length > 1) {
+              for (let i = 0; i < this.nuitre.length; i++) {
+                if (i === this.nuitre.length - 2) {
+                  this.res = this.nuitre[i];
+                  console.log(this.res.destino);
+                  this.api.getUserPost(this.res.destino).subscribe(
+                    (data) => {
+                      this.user = data;
+                      this.nombreus =
+                        this.user.username + ' ' + this.user.surnames;
+                      Swal.fire({
+                        title: this.res.destino,
+                        text:
+                          'A cargo de: ' +
+                          ' ' +
+                          this.nombreus +
+                          '................................   ' +
+                          'Origen: ' +
+                          this.seguireply.origenhr +
+                          '....................................         ' +
+                          ' Referencia: ' +
+                          this.seguireply.referencia,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Sì, Recibir',
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          this.api.EditarSeguis(id, SEGUI).subscribe(
+                            (data) => {
+                              this.getSeguimientos();
+                              this.obtenertotal();
+                              this.router.navigate(['/ruta/office/index']);
+                            },
+                            (error) => {
+                              console.log(error);
+                            }
+                          );
+                          this.router.navigate(['/ruta/office/index']);
 
-                      }
-                    });
-                  },
-                  (error) => {
-                    console.log(error);
-                  }
-                );
+                        }
+                      });
+                    },
+                    (error) => {
+                      console.log(error);
+                    }
+                  );
+                }
               }
+            } else {
+              this.res = this.nuitre[0];
+              console.log(this.res.destino);
+              this.api.getUserPost(this.res.destino).subscribe(
+                (data) => {
+                  this.user = data;
+                  this.nombreus =
+                    this.user.username + ' ' + this.user.surnames;
+                  Swal.fire({
+                    title: this.res.destino,
+                    text:
+                      'A cargo de: ' +
+                      ' ' +
+                      this.nombreus +
+                      '................................   ' +
+                      'Origen: ' +
+                      this.seguireply.origenhr +
+                      '....................................         ' +
+                      ' Referencia: ' +
+                      this.seguireply.referencia,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Sì, Recibir',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      this.api.EditarSeguis(id, SEGUI).subscribe(
+                        (data) => {
+                          this.getSeguimientos();
+                          this.obtenertotal();
+                          this.router.navigate(['/ruta/office/index']);
+                        },
+                        (error) => {
+                          console.log(error);
+                        }
+                      );
+                      this.router.navigate(['/ruta/office/index']);
+
+                    }
+                  });
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
             }
+
           },
           (error) => {
             console.log(error);
