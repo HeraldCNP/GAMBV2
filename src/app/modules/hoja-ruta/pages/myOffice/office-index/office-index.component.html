@@ -5,30 +5,30 @@
         <div class="card-header d-flex justify-content-around">
           <h3 class="card-title">Lista de Correspondencia</h3>
           <div class="card-tools">
-            <button (click)="changeStatus('')" type="button" [ngClass]="estado == '' ? 'activate' : ''" class="btn btn-light btn-sm position-relative mr-4">
+            <button (click)="changeStatus('')" type="button" [ngClass]="estado == '' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
               Todos
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ total }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
             <button (click)="changeStatus('DERIVADO')" type="button" [ngClass]="estado == 'DERIVADO' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
               Derivados
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ totalDerivados }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
             <button (click)="changeStatus('RECIBIDO')" type="button" [ngClass]="estado == 'RECIBIDO' ? 'activate' : ''"
-              class="btn btn-success btn-sm position-relative mr-4">
+              class="btn btn-info btn-sm position-relative mr-4">
               Recibidos
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ totalRecibidos }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
             <button (click)="changeStatus('ENVIADO')" type="button" [ngClass]="estado == 'ENVIADO' ? 'activate' : ''"
-              class="btn btn-danger btn-sm position-relative mr-4">
+              class="btn btn-info btn-sm position-relative mr-4">
               Sin recibir
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ totalEnviados }}
@@ -36,17 +36,17 @@
               </span>
             </button>
             <button (click)="changeStatus('MALETIN')" [ngClass]="estado == 'MALETIN' ? 'activate' : ''" type="button"
-              class="btn btn-warning btn-sm position-relative mr-4">
+              class="btn btn-info btn-sm position-relative mr-4">
               Mi Maletin
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ totalMaletin }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
             <button (click)="changeStatus('ARCHIVADO')" type="button" [ngClass]="estado == 'ARCHIVADO' ? 'activate' : ''"
-              class="btn btn-secondary btn-sm position-relative mr-4">
+              class="btn btn-info btn-sm position-relative mr-4">
               Archivo Central
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ totalArchivado }}
                 <span class="visually-hidden">unread messages</span>
               </span>
