@@ -462,9 +462,10 @@ export class OfficeIndexComponent implements OnInit {
               }
             } else {
               this.res = this.nuitre[0];
-              console.log(this.res.destino);
+              console.log(this.res);
               this.api.getUserPost(this.res.destino).subscribe(
                 (data) => {
+                  console.log(data)
                   this.user = data;
                   this.nombreus =
                     this.user.username + ' ' + this.user.surnames;
