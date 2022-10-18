@@ -43,6 +43,11 @@ const routes: Routes = [
     canActivate: [SessionGuard]
   },
   {
+    path: 'convenio',
+    loadChildren: () => import('./modules/convenio/convenio.module').then(m => m.ConvenioModule),
+    // canActivate: [SessionGuard]
+  },
+  {
     path: '**',
     redirectTo:''
   }

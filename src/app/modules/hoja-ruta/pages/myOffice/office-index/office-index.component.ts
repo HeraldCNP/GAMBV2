@@ -462,53 +462,41 @@ export class OfficeIndexComponent implements OnInit {
               }
             } else {
               this.res = this.nuitre[0];
-              console.log(this.res);
-              this.api.getUserPost(this.res.destino).subscribe(
-                (data) => {
-                  console.log(data)
-                  this.user = data;
-                  this.nombreus =
-                    this.user.username + ' ' + this.user.surnames;
-                  Swal.fire({
-                    title: this.res.destino,
-                    text:
-                      'A cargo de: ' +
-                      ' ' +
-                      this.nombreus +
-                      '................................   ' +
-                      'Origen: ' +
-                      this.seguireply.origenhr +
-                      '....................................         ' +
-                      ' Referencia: ' +
-                      this.seguireply.referencia,
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonText: 'Sì, Recibir',
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      this.api.EditarSeguis(id, SEGUI).subscribe(
-                        (data) => {
-                          this.getSeguimientos();
-                          this.obtenertotal();
-                          this.router.navigate(['/ruta/office/index']);
-                        },
-                        (error) => {
-                          console.log(error);
-                        }
-                      );
+              console.log(this.res.nombre);
+              Swal.fire({
+                title: 'SECRETARIA DE DESPACHO',
+                text:
+                  'A cargo de: ' +
+                  ' ' +
+                  this.res.nombre +
+                  '................................   ' +
+                  'Origen: ' +
+                  this.seguireply.origenhr +
+                  '....................................         ' +
+                  ' Referencia: ' +
+                  this.seguireply.referencia,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Sì, Recibir',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.api.EditarSeguis(id, SEGUI).subscribe(
+                    (data) => {
+                      this.getSeguimientos();
+                      this.obtenertotal();
                       this.router.navigate(['/ruta/office/index']);
-
+                    },
+                    (error) => {
+                      console.log(error);
                     }
-                  });
-                },
-                (error) => {
-                  console.log(error);
-                }
-              );
-            }
+                  );
+                  this.router.navigate(['/ruta/office/index']);
 
+                }
+              });
+            }
           },
           (error) => {
             console.log(error);
