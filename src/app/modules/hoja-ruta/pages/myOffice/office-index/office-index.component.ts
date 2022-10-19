@@ -17,7 +17,7 @@ export class OfficeIndexComponent implements OnInit {
   data: any;
   seguimientos: any = [];
   totales: any = [];
-  status: string = 'RECIBIDO';
+  status: string = '';
   hojaRuta: any = [];
   seguim: any = [];
   segui: any = [];
@@ -66,8 +66,8 @@ export class OfficeIndexComponent implements OnInit {
     let RegExp = /[^()]*/g;
     this.destino1 = this.data.post;
     this.destino = RegExp.exec(this.destino1);
-    this.getSeguimientos();
     this.obtenertotal();
+    this.getSeguimientos();
   }
 
   seguimi(idh: any) {
@@ -104,7 +104,6 @@ export class OfficeIndexComponent implements OnInit {
       .subscribe((data) => {
         this.seguimientos = data.serverResponse;
         this.nuit = '';
-
         this.totalSeguimientos = data.totalDocs;
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
       });
@@ -172,10 +171,8 @@ export class OfficeIndexComponent implements OnInit {
         if (this.totalEnviados > 0) {
           for (let i = 0; i < this.totales.length; i++) {
             this.ale = this.totales[i];
-            if (
-              this.ale.estado === 'ENVIADO' &&
-              this.hoy.diff(this.ale.fechaderivado, 'd') >= 1
-            ) {
+            if (this.ale.estado === 'ENVIADO' && this.hoy.diff(this.ale.fechaderivado, 'd') >= 1) {
+              console.log(this.hoy.diff(this.ale.fechaderivado, 'd'))
               this.alerta = true;
             }
           }

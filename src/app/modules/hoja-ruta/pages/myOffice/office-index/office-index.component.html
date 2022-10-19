@@ -65,10 +65,11 @@
 
         <div *ngIf="alerta" class="aler pt-5 alert alert-dismissible">
           <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close"></button>
-          <div *ngFor="let seguimiento of seguimientos" class="alerta">
-            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') >= 1">
+          <div *ngFor="let seguimiento of totales" class="alerta">
+            
+            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') > 1">          
               <div *ngIf="seguimiento.fecharecepcion === 'SIN RESEPCIONAR'"
-                class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
+              class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
                 <strong class="d-flex fs-6"><span>Reciba el documento <i class="fw-bold">{{ seguimiento.nuit }}</i>, si
                     no ha sido entregado fisicamente a su persona,
                     comunicarse con
