@@ -17,7 +17,7 @@ export class OfficeIndexComponent implements OnInit {
   data: any;
   seguimientos: any = [];
   totales: any = [];
-  status: string = '';
+  status: string = 'RECIBIDO';
   hojaRuta: any = [];
   seguim: any = [];
   segui: any = [];
@@ -172,7 +172,6 @@ export class OfficeIndexComponent implements OnInit {
           for (let i = 0; i < this.totales.length; i++) {
             this.ale = this.totales[i];
             if (this.ale.estado === 'ENVIADO' && this.hoy.diff(this.ale.fechaderivado, 'd') >= 1) {
-              console.log(this.hoy.diff(this.ale.fechaderivado, 'd'))
               this.alerta = true;
             }
           }
@@ -407,11 +406,14 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         this.seguireply = data;
         this.nuitreply = this.seguireply.nuit;
+        
         this.api.buscarnuit(this.nuitreply).subscribe(
           (data) => {
             this.nuitre = data;
+            console.log(this.nuitre)
             for (let i = 0; i < this.nuitre.length; i++) {
               if (i === this.nuitre.length - 2) {
+                
                 this.res = this.nuitre[i];
                 console.log(this.res.destino);
                 this.api.getUserPost(this.res.destino).subscribe(
@@ -449,8 +451,7 @@ export class OfficeIndexComponent implements OnInit {
                           }
                         );
                         this.router.navigate(['/ruta/office/index']);
-                        this.getSeguimientos();
-                        this.obtenertotal();
+
                       }
                     });
                   },
