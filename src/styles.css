@@ -34,3 +34,19 @@ button:disabled{
   .fadeIn {
     animation-name: fadeIn;
   }
+
+/* Colores errors en forms */
+  input.ng-invalid.ng-touched {
+    border: solid 3px red;
+  }
+  
+  input.ng-valid.ng-touched {
+    border: solid 3px greenyellow;
+  }
+  /* for icons  */
+.icono{
+    cursor: pointer;
+}
+.icono:hover{
+    color: darkslategray;
+}

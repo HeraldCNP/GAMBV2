@@ -1,0 +1,53 @@
+<div class="m-3">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header">
+              <h3 class="card-title">Editar representante</h3>         
+            </div>
+            
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <div class="row">
+                <div class="col-md-8">
+                  <form (ngSubmit)="editarRepresentante(editarForm.value)" [formGroup]="editarForm">
+                    <div class="mb-1">
+                      <label for="nombre" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                    </div>
+                    <div class="mb-1">
+                      <label for="apellidos" class="form-label">Apellidos</label>
+                      <input type="text" class="form-control" id="apellidos" formControlName="apellidos">
+                    </div>
+                    <div class="mb-1">
+                      <label for="cargo" class="form-label">Cargo</label>
+                      <input type="text" class="form-control" id="cargo" formControlName="cargo">
+                    </div>
+                    <div class="mb-1">
+                      <label for="telefono" class="form-label">Telefono</label>
+                      <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                    </div>
+                    <div class="mb-1">
+                      <label for="ci" class="form-label">CI</label>
+                      <input type="text" class="form-control" id="ci" formControlName="ci">
+                    </div>
+                    <div class="mb-1">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="text" class="form-control" id="email" formControlName="email">
+                    </div>
+                    <button [disabled]="editarForm.invalid" type="submit" class="btn btn-danger">Actualizar</button>
+                  </form>
+                </div>
+                <div class="col-md-4">
+                  {{ editarForm.value | json }}
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+    </div>
+</div>
+
+

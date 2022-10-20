@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare function customInitFunctions():void;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,7 +12,9 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    customInitFunctions();
   }
+
 
 
 }
