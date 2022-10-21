@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RepreCreateComponent } from './pages/representantes/repre-create/repre-create.component';
 import { RepreIndexComponent } from './pages/representantes/repre-index/repre-index.component';
 import { RepreUpdateComponent } from './pages/representantes/repre-update/repre-update.component';
+import { EntiIndexComponent } from './pages/entidades/enti-index/enti-index.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       {path: 'representante/index', component: RepreIndexComponent},
       {path: 'representante/create', component: RepreCreateComponent},
       {path: 'representante/update/:id', component: RepreUpdateComponent},
+      {path: 'entidad/index', component: EntiIndexComponent},
       {path: '**', redirectTo:'dashboard', pathMatch: 'full'},
       
     ]

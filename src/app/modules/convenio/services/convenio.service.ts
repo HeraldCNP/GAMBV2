@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class ConvenioService {
   private readonly URL = environment.api;
   constructor(private http:HttpClient) { }
-
+  /*Services for Representante*/
   crearRepresentante(form:any):Observable<any>{
     let dir = `${this.URL}/repres`;
     return this.http.post<any>(dir, form)
@@ -33,4 +33,12 @@ export class ConvenioService {
     let dir = `${this.URL}/repres/${id}`;
     return this.http.delete<any>(dir, id)
   }
+  /*End Services for Representante*/
+
+  /*Services for Entidad*/
+  getAllEntidades():Observable<any[]>{
+    let dir = `${this.URL}/entidad`;
+    return this.http.get<any[]>(dir)
+  }
+  /*End Services for Entidad*/
 }
