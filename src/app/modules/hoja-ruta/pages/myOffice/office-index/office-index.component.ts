@@ -58,6 +58,9 @@ export class OfficeIndexComponent implements OnInit {
   alerta: boolean = false;
   hoy = moment();
   nombreus: string = '';
+
+  search: string = "";
+  hojaRutas: any = [];
   constructor(private api: RutaService, private router: Router) { }
 
   ngOnInit(): void {
@@ -90,6 +93,24 @@ export class OfficeIndexComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  buscarSeguimientos() {
+    this.estado = '';
+    this.api
+      .getAllSeguimientos(
+        this.destino,
+        this.estado,
+        this.limit,
+        this.skip,
+        this.nuit
+      )
+      .subscribe((data) => {
+        this.seguimientos = data.serverResponse;
+        this.nuit = '';
+        this.totalSeguimientos = data.totalDocs;
+        this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
+      });
   }
 
   getSeguimientos() {
@@ -172,6 +193,7 @@ export class OfficeIndexComponent implements OnInit {
           for (let i = 0; i < this.totales.length; i++) {
             this.ale = this.totales[i];
             if (this.ale.estado === 'ENVIADO' && this.hoy.diff(this.ale.fechaderivado, 'd') >= 1) {
+              console.log(this.ale.estado)
               this.alerta = true;
             }
           }

@@ -53,10 +53,10 @@
             </button>
           </div>
           <div class="input-group input-group-sm" style="width: 200px">
-            <input type="text" (keyup.enter)="getSeguimientos()" [(ngModel)]="nuit" name="table_search"
+            <input type="text" (keyup.enter)="buscarSeguimientos()" [(ngModel)]="nuit" name="table_search"
               class="form-control float-right" placeholder="Buscar" />
             <div class="input-group-append" *ngIf="!alerta">
-              <button type="submit" class="btn btn-default" (click)="getSeguimientos()">
+              <button type="submit" class="btn btn-default" (click)="buscarSeguimientos()">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -67,8 +67,9 @@
           <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close"></button>
           <div *ngFor="let seguimiento of totales" class="alerta">
             
-            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') > 1">          
-              <div *ngIf="seguimiento.fecharecepcion === 'SIN RESEPCIONAR'"
+            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') > 1">  
+              {{ (today | amDifference: seguimiento.fechaderivado:'d') }}        
+              <div *ngIf="seguimiento.fecharecepcion == 'SIN RESEPCIONAR'"
               class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
                 <strong class="d-flex fs-6"><span>Reciba el documento <i class="fw-bold">{{ seguimiento.nuit }}</i>, si
                     no ha sido entregado fisicamente a su persona,
