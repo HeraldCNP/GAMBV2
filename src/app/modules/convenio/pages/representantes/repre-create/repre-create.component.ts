@@ -19,7 +19,6 @@ export class RepreCreateComponent implements OnInit {
     telefono: ['', [] ],
     ci: ['', [] ],
     email: ['', [] ],
-    entidad: ['', [] ],
   })
 
   constructor(

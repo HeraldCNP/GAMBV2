@@ -28,6 +28,10 @@ export class EntiIndexComponent implements OnInit {
     });
   }
 
+  addEntidad(){
+    this.router.navigate(['convenio/entidad/create'])
+  }
+
   updateEntidad(id:any){
 
   }

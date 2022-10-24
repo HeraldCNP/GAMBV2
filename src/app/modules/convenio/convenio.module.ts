@@ -12,6 +12,7 @@ import { RepreCreateComponent } from './pages/representantes/repre-create/repre-
 import { RepreIndexComponent } from './pages/representantes/repre-index/repre-index.component';
 import { RepreUpdateComponent } from './pages/representantes/repre-update/repre-update.component';
 import { EntiIndexComponent } from './pages/entidades/enti-index/enti-index.component';
+import { EntiCreateComponent } from './pages/entidades/enti-create/enti-create.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { EntiIndexComponent } from './pages/entidades/enti-index/enti-index.comp
     RepreCreateComponent,
     RepreIndexComponent,
     RepreUpdateComponent,
-    EntiIndexComponent
+    EntiIndexComponent,
+    EntiCreateComponent
   ],
   imports: [
     CommonModule,

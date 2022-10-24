@@ -40,5 +40,11 @@ export class ConvenioService {
     let dir = `${this.URL}/entidad`;
     return this.http.get<any[]>(dir)
   }
+
+  crearEntidad(form:any):Observable<any>{
+    let dir = `${this.URL}/repres`;
+    return this.http.post<any>(dir, form)
+  }
+
   /*End Services for Entidad*/
 }

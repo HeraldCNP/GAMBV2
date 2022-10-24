@@ -1,0 +1,53 @@
+<div class="m-3">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header">
+              <h3 class="card-title">Crear Nueva Entidad</h3>         
+            </div>
+            
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+              <div class="row">
+                <div class="col-md-8">
+                  <form (ngSubmit)="crearEntidad(entidadForm.value)" [formGroup]="entidadForm">
+                    <div class="mb-1">
+                      <label for="nombre" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                    </div>
+                    <div class="mb-2">
+                        <label for="representante" class="form-label">Representante</label>
+                        <select class="form-control" name="representante" id="" formControlName="representante">
+                            <option value="">Escoja la Categoria</option>
+                            <option *ngFor="let representante of representantes.serverResponse" value="{{ representante._id}}">{{ representante.nombre}}</option>
+                        </select>
+                        <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-1">
+                      <label for="telefono" class="form-label">Telefono</label>
+                      <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                    </div>
+                    <div class="mb-1">
+                      <label for="nit" class="form-label">NIT</label>
+                      <input type="text" class="form-control" id="nit" formControlName="nit">
+                    </div>
+                    <div class="mb-1">
+                      <label for="cuenta" class="form-label">Cuenta</label>
+                      <input type="text" class="form-control" id="cuenta" formControlName="cuenta">
+                    </div>
+                    <button [disabled]="entidadForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+                  </form>
+                </div>
+                <div class="col-md-4">
+                  {{ entidadForm.value | json }}
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+    </div>
+</div>
+
+
