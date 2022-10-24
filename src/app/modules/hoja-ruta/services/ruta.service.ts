@@ -23,7 +23,10 @@ export class RutaService {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}`;
     return this.http.get<any>(dir)
   }
-
+  getPendientes(destino?:string, estado?:string): Observable<any> {
+    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}`;
+    return this.http.get<any>(dir)
+  }
 
   getHr(id: string): Observable<any> {
     let dir = `${this.URL}/hoja/${id}`;

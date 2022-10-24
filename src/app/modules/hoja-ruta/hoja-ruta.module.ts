@@ -16,6 +16,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AsociarComponent } from './pages/asociar/asociar.component';
 import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 import { ListAsociadosComponent } from './pages/list-asociados/list-asociados.component';
+import { PendientesComponent } from './pages/pendientes/pendientes.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ListAsociadosComponent } from './pages/list-asociados/list-asociados.co
     HomeComponent,
     AsociarComponent,
     EditHojaComponent,
-    ListAsociadosComponent
+    ListAsociadosComponent,
+    PendientesComponent
   ],
   imports: [
     CommonModule,
