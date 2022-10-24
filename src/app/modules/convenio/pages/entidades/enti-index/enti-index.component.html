@@ -33,10 +33,10 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let entidad of entidades">
-                    <td>{{ entidad.nombre | slice:0:20 }}</td>
-                    <td>{{ entidad.representante | slice:0:20 }}</td>
-                    <td>{{ entidad.telefono | slice:0:20 }}...</td>
-                    <td>{{ entidad.nit | slice:0:20 }}</td>
+                    <td>{{ entidad.nombre }}</td>
+                    <td>{{ entidad.representante.nombre }} {{ entidad.representante.apellidos }}</td>
+                    <td>{{ entidad.telefono }}</td>
+                    <td>{{ entidad.nit }}</td>
                     <td>{{ entidad.cuenta }}</td>
                     <td>
                       <i (click)="updateEntidad(entidad._id)" class="fas fa-edit ml-3 icono"></i>

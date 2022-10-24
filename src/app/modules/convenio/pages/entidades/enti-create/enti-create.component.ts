@@ -16,9 +16,9 @@ export class EntiCreateComponent implements OnInit {
   public entidadForm = this.fb.group({
     nombre: ['', [Validators.required, Validators.minLength(3)] ],
     representante: ['', [Validators.required, Validators.minLength(3)] ],
-    telefono: ['', [] ],
-    nit: ['', [] ],
-    cuenta: ['', [] ],
+    telefono: ['', [Validators.required, Validators.minLength(3)] ],
+    nit: ['', [Validators.required, Validators.minLength(3)] ],
+    cuenta: ['', [Validators.required, Validators.minLength(3)] ],
   })
   constructor(
     private fb: FormBuilder,
@@ -27,6 +27,7 @@ export class EntiCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getRepresentantes();
   }
 
   crearEntidad(form:any){
@@ -37,6 +38,14 @@ export class EntiCreateComponent implements OnInit {
             this.alertOk('success', 'Exito', 'Entidad Creada Correctamente', '2000')
         }
       );
+  }
+
+  getRepresentantes(){
+    this.api.getAllRepresentantes().subscribe
+    (res => {
+      this.representantes = res; 
+      // console.log(this.representantes);
+    });
   }
 
   alertOk(icon:any, title:any, text:any, timer:any){

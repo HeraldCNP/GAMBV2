@@ -18,8 +18,8 @@
                     <div class="mb-2">
                         <label for="representante" class="form-label">Representante</label>
                         <select class="form-control" name="representante" id="" formControlName="representante">
-                            <option value="">Escoja la Categoria</option>
-                            <option *ngFor="let representante of representantes.serverResponse" value="{{ representante._id}}">{{ representante.nombre}}</option>
+                            <option value="">Escoja el Representante</option>
+                            <option *ngFor="let representante of representantes" value="{{ representante._id}}">{{ representante.nombre}} {{ representante.apellidos}}</option>
                         </select>
                         <div class="form-text">We'll never share your email with anyone else.</div>
                     </div>
