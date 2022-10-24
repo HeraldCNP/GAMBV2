@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { RutaService } from '../../../services/ruta.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -11,6 +11,9 @@ import { Segui } from '../../../models/seguimiento';
   selector: 'app-office-index',
   templateUrl: './office-index.component.html',
   styleUrls: ['./office-index.component.css'],
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class OfficeIndexComponent implements OnInit {
   user: any;
@@ -58,7 +61,7 @@ export class OfficeIndexComponent implements OnInit {
   alerta: boolean = false;
   hoy = moment();
   nombreus: string = '';
-
+  totales1: Segui[] = [];
   search: string = "";
   hojaRutas: any = [];
   constructor(private api: RutaService, private router: Router) { }
@@ -69,10 +72,30 @@ export class OfficeIndexComponent implements OnInit {
     let RegExp = /[^()]*/g;
     this.destino1 = this.data.post;
     this.destino = RegExp.exec(this.destino1);
+    console.log(this.destino)
     this.obtenertotal();
     this.getSeguimientos();
+    this.getpendientes();
+    }
+  getpendientes(){
+    let estado3="ENVIADO"
+    this.api.getPendientes(this.destino,estado3).subscribe((data)=>{
+      this.totales1 = data.serverResponse;
+      if(data.totalDocs > 0){
+        for(let i=0 ; i < data.totalDocs; i ++){
+          this.ale=this.totales1[i]
+          if((this.hoy.diff(this.ale.fechaderivado, 'd') > 1)){
+            this.alerta=true;
+          }
+        }
+      } else{
+        this.alerta=false
+      }    
+    })
   }
-
+  pendintes(){
+      return true
+  }
   seguimi(idh: any) {
     //this.loading = true;
     this.idhr = idh;
@@ -188,16 +211,6 @@ export class OfficeIndexComponent implements OnInit {
         this.totalArchivado = this.totales.filter(
           (list: { estado: string }) => list.estado === 'ARCHIVADO'
         ).length;
-
-        if (this.totalEnviados > 0) {
-          for (let i = 0; i < this.totales.length; i++) {
-            this.ale = this.totales[i];
-            if (this.ale.estado === 'ENVIADO' && this.hoy.diff(this.ale.fechaderivado, 'd') >= 1) {
-              console.log(this.ale.estado)
-              this.alerta = true;
-            }
-          }
-        }
       },
       (error) => {
         console.log(error);
@@ -428,7 +441,6 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         this.seguireply = data;
         this.nuitreply = this.seguireply.nuit;
-
         this.api.buscarnuit(this.nuitreply).subscribe(
           (data) => {
             this.nuitre = data;

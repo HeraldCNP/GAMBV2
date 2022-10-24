@@ -67,8 +67,7 @@
           <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close"></button>
           <div *ngFor="let seguimiento of totales" class="alerta">
             
-            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') > 1">  
-              {{ (today | amDifference: seguimiento.fechaderivado:'d') }}        
+            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') > 1">     
               <div *ngIf="seguimiento.fecharecepcion == 'SIN RESEPCIONAR'"
               class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
                 <strong class="d-flex fs-6"><span>Reciba el documento <i class="fw-bold">{{ seguimiento.nuit }}</i>, si

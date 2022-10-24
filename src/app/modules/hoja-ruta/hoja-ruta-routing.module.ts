@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { GuardGuard } from './guard/guard.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { OfficeIndexComponent } from './pages/myOffice/office-index/office-index.component';
@@ -7,6 +8,7 @@ import { HojarutasComponent } from './pages/hojarutas/hojarutas.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AsociarComponent } from './pages/asociar/asociar.component';
 import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
+import { PendientesComponent } from './pages/pendientes/pendientes.component';
 
 const routes: Routes = [
   {
@@ -14,7 +16,8 @@ const routes: Routes = [
     component: DashboardComponent,
     children:[
       {path: '', component: HomeComponent},
-      {path: 'office/index', component: OfficeIndexComponent},
+      {path: 'office/index', component: OfficeIndexComponent,canActivate:[GuardGuard]},
+      {path: 'pendientes', component: PendientesComponent},
       {path: 'hojaRutas', component: HojarutasComponent},
       {path: 'asociar/:nuit', component: AsociarComponent},
       {path: 'editHoja/:id', component: EditHojaComponent},
