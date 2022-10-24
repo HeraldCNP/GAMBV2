@@ -25,7 +25,7 @@ export class EntiIndexComponent implements OnInit {
     this.api.getAllEntidades().subscribe
       (res => {
         this.entidades = res;
-        console.log(res)
+        // console.log(res)
       });
   }
 
@@ -34,7 +34,7 @@ export class EntiIndexComponent implements OnInit {
   }
 
   updateEntidad(id: any) {
-
+    this.router.navigate(['convenio/entidad/update', id])
   }
 
   deleteEntidad(id: any) {

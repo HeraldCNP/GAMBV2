@@ -40,11 +40,21 @@ export class ConvenioService {
     let dir = `${this.URL}/entidad`;
     return this.http.get<any[]>(dir)
   }
+  
+  getSingleEntidad(id:any):Observable<any>{
+    let dir = `${this.URL}/entidad/${id}`;
+    return this.http.get<any>(dir) 
+  }
 
   crearEntidad(form:any):Observable<any>{
     let dir = `${this.URL}/entidad`;
     return this.http.post<any>(dir, form)
-  } 
+  }
+
+  editarEntidad(form:any, id:any):Observable<any>{
+    let dir = `${this.URL}/entidad/${id}`;
+    return this.http.put<any>(dir, form)
+  }
 
   deleteEntidad(id:any):Observable<any>{
     let dir = `${this.URL}/entidad/${id}`;
