@@ -19,13 +19,6 @@ export class ConveCreateComponent implements OnInit {
 
   convenioForm;
 
-
-
-
-
-
-
-
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,
@@ -36,36 +29,49 @@ export class ConveCreateComponent implements OnInit {
       codigo: ['', [Validators.required, Validators.minLength(3)]],
       objeto: ['', [Validators.required, Validators.minLength(3)]],
       entidades: this.fb.array([
-        this.fb.control('', [Validators.required, Validators.minLength(3)])
+        this.fb.group({
+          entidad: ['', [Validators.required]],
+          monto: ['', [Validators.required]]
+        })
       ]),
       firma: ['', [Validators.required]],
-      monto: ['', [Validators.required]],
+      monto2: ['', [Validators.required]],
       plazo: ['', [Validators.required]],
       cuenta: ['',],
     })
 
 
     this.getEntidades();
-
-
   }
-  
-  get form(){
+
+  get form() {
     return this.convenioForm.controls;
   }
+  get formEnt() {
+    return this.convenioForm.controls.entidades.controls;
+  }
 
-  get entidades(){
+  get entidades() {
     return this.convenioForm.get('entidades') as FormArray;
   }
 
-  addEntidad(){
-    this.entidades.push(this.fb.control('', [Validators.required, Validators.minLength(3)]));
+  addEntidad() {
+    // this.entidades.push(this.fb.control('', [Validators.required, Validators.minLength(3)]));
+    const entidadFormGroup = this.fb.group({
+      entidad: ['', [Validators.required]],
+      monto: ['', [Validators.required]]
+    });
+    this.entidades.push(entidadFormGroup);
+  }
+
+  removeEntidad(indice: number) {
+    this.entidades.removeAt(indice);
   }
 
 
 
   ngOnInit() {
-    
+
   }
 
   crearConvenio(form: any) {
@@ -78,7 +84,7 @@ export class ConveCreateComponent implements OnInit {
         () => {
 
           this.router.navigate(['convenio/convenio/index']),
-          this.alertOk('success', 'Exito', 'Convenio Creado Correctamente', '2000')
+            this.alertOk('success', 'Exito', 'Convenio Creado Correctamente', '2000')
         }
       );
   }
@@ -86,26 +92,26 @@ export class ConveCreateComponent implements OnInit {
 
 
 
-getEntidades(){
-  this.api.getAllEntidades().subscribe
-    (res => {
-      this.entidades2 = res;
+  getEntidades() {
+    this.api.getAllEntidades().subscribe
+      (res => {
+        this.entidades2 = res;
 
-      // this.entidades.forEach((entidad:any) => {
-      //   this.exampleData.push({id: entidad._id,
-      //     text: entidad.nombre});
-      // });
+        // this.entidades.forEach((entidad:any) => {
+        //   this.exampleData.push({id: entidad._id,
+        //     text: entidad.nombre});
+        // });
 
-    });
+      });
 
-}
+  }
 
-alertOk(icon: any, title: any, text: any, timer: any){
-  Swal.fire({
-    icon,
-    title,
-    text,
-    timer
-  })
-}
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer
+    })
+  }
 }
