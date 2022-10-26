@@ -62,4 +62,18 @@ export class ConvenioService {
   }
 
   /*End Services for Entidad*/
+
+    /*Services for Convenios*/ 
+
+    crearConvenio(form:any):Observable<any>{
+      let dir = `${this.URL}/convenio`;
+      return this.http.post<any>(dir, form)
+    }
+  
+    getAllConvenios():Observable<any[]>{
+      let dir = `${this.URL}/convenio`;
+      return this.http.get<any[]>(dir)
+    }
+    
+    /*End Services for Convenios*/ 
 }

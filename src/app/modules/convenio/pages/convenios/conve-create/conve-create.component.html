@@ -1,0 +1,97 @@
+<div class="m-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card-header">
+                    <h3 class="card-title">Crear Nuevo Convenio</h3>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body table-responsive">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form (ngSubmit)="crearConvenio(convenioForm.value)" [formGroup]="convenioForm">
+                                <div class="mb-1">
+                                    <label for="codigo" class="form-label">Código *</label>
+                                    <input type="text" class="form-control" id="codigo" formControlName="codigo">
+                                    <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
+                                        <div *ngIf="form['codigo'].errors && form['codigo'].errors['required']">* Código es Requerido.</div>
+                                        <div *ngIf="form['codigo'].errors && form['codigo'].errors['minlength']">Código no puede tener menos de 3 caracteres.</div>
+                                    </div>
+                                </div>
+                                <div class="mb-1">
+                                    <label for="objeto" class="form-label">Objeto *</label>
+                                    <input type="text" class="form-control" id="objeto" formControlName="objeto">
+                                    <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
+                                        <div *ngIf="form['objeto'].errors && form['objeto'].errors['required']">* Objeto es Requerido.</div>
+                                        <div *ngIf="form['objeto'].errors && form['objeto'].errors['minlength']">* Objeto no puede tener menos de 3 caracteres.</div>
+                                    </div>
+                                </div>
+                                <!-- <div formArrayName="entidades">
+                                    <button class="btn btn-danger" type="button" (click)="addEntidad()">Agregar</button>
+                                    <ng-container *ngFor="let entidad of entidades.controls; let i = index;">
+                                        <div class="mb-1">
+                                            <label for="entidad" class="form-label">Entidad *</label>
+                                            <input type="text" class="form-control" id="entidad" [formControlName]="i">
+                                            <div class="form-text" *ngIf="entidad.touched && entidad.invalid">
+                                                <div *ngIf="entidad.errors && entidad.errors['required']">* entidad es Requerido.</div>
+                                                <div *ngIf="entidad.errors && entidad.errors['minlength']">* entidad no puede tener menos de 3 caracteres.</div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div> -->
+
+                                <div formArrayName="entidades">
+                                    <button class="btn btn-danger" type="button" (click)="addEntidad()">Agregar</button>
+                                    <ng-container *ngFor="let entidad of entidades.controls; let i = index;">
+                                        <div class="mb-1">
+                                            <label for="entidad" class="form-label">Entidad *</label>
+                                            <select class="form-control" [formControlName]="i">
+                                                <option value="{{ enti.id }}" *ngFor="let enti of entidades2">{{ enti.text }}</option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" id="entidad" [formControlName]="i"> -->
+                                            <!-- <div class="form-text" *ngIf="entidad.touched && entidad.invalid">
+                                                <div *ngIf="entidad.errors && entidad.errors['required']">* entidad es Requerido.</div>
+                                                <div *ngIf="entidad.errors && entidad.errors['minlength']">* entidad no puede tener menos de 3 caracteres.</div>
+                                            </div> -->
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                
+   
+                                <div class="mb-1">
+                                    <label for="firma" class="form-label">Fecha de Firma</label>
+                                    <input type="date" class="form-control" id="firma" formControlName="firma">
+                                </div>
+                                <!-- <div class="mb-2">
+                        <label for="representante" class="form-label">Representante</label>
+                        <select class="form-control" name="representante" id="" formControlName="representante">
+                            <option value="">Escoja el Representante</option>
+                            <option *ngFor="let representante of representantes" value="{{ representante._id}}">{{ representante.nombre}} {{ representante.apellidos}}</option>
+                        </select>
+                        <div class="form-text">We'll never share your email with anyone else.</div>
+                    </div> -->
+                                <div class="mb-1">
+                                    <label for="monto" class="form-label">Monto Total</label>
+                                    <input type="number" class="form-control" id="monto" formControlName="monto">
+                                </div>
+                                <div class="mb-1">
+                                    <label for="plazo" class="form-label">Plazo (días)</label>
+                                    <input type="number" class="form-control" id="plazo" formControlName="plazo">
+                                </div>
+                                <button [disabled]="convenioForm.invalid" type="submit"
+                                    class="btn btn-danger">Registrar</button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            {{ convenioForm.value | json }}
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>

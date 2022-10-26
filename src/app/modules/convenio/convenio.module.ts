@@ -14,6 +14,8 @@ import { RepreUpdateComponent } from './pages/representantes/repre-update/repre-
 import { EntiIndexComponent } from './pages/entidades/enti-index/enti-index.component';
 import { EntiCreateComponent } from './pages/entidades/enti-create/enti-create.component';
 import { EntiUpdateComponent } from './pages/entidades/enti-update/enti-update.component';
+import { ConveCreateComponent } from './pages/convenios/conve-create/conve-create.component';
+import { ConveIndexComponent } from './pages/convenios/conve-index/conve-index.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { EntiUpdateComponent } from './pages/entidades/enti-update/enti-update.c
     RepreUpdateComponent,
     EntiIndexComponent,
     EntiCreateComponent,
-    EntiUpdateComponent
+    EntiUpdateComponent,
+    ConveCreateComponent,
+    ConveIndexComponent
   ],
   imports: [
     CommonModule,
