@@ -25,6 +25,7 @@ export class ConveIndexComponent implements OnInit {
     this.router.navigate(['convenio/convenio/create'])
   }
 
+
   getConvenios(){
     this.api.getAllConvenios().subscribe(
       res => {
@@ -32,6 +33,28 @@ export class ConveIndexComponent implements OnInit {
         console.log(this.convenios)
       }
     );
+  }
+
+  getMontoTotal(){
+    let montoTotal: number = 0;
+    if(this.convenios){
+      this.convenios.forEach(convenio => {
+        convenio.entidades.forEach(function (con: any) {
+            montoTotal = montoTotal + con.monto 
+          })
+          console.log(montoTotal)
+          montoTotal = 0
+      })
+    }
+    return montoTotal;
+  }
+
+
+  sumarDias(fecha: any, dias: any){
+    let fechaFin = new Date(fecha)
+    fechaFin.setDate(fechaFin.getDate() + dias);
+    // console.log(fechaFin.toISOString())
+    return fechaFin.toISOString();
   }
 
 }

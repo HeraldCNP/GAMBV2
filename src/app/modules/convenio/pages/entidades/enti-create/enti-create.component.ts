@@ -14,9 +14,9 @@ export class EntiCreateComponent implements OnInit {
   URL = environment.api;
   representantes:any = [];
   public entidadForm = this.fb.group({
-    text: ['', [Validators.required, Validators.minLength(3)] ],
-    representante: ['', [Validators.required, Validators.minLength(3)] ],
-    telefono: ['', [Validators.required, Validators.minLength(3)] ],
+    nombre: ['', [Validators.required, Validators.minLength(3)] ],
+    representante: ['', [Validators.required] ],
+    telefono: ['', [Validators.required, Validators.minLength(7)] ],
     nit: ['', [Validators.required, Validators.minLength(3)] ],
     cuenta: ['', ],
   })
@@ -28,6 +28,10 @@ export class EntiCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRepresentantes();
+  }
+
+  get form() {
+    return this.entidadForm.controls;
   }
 
   crearEntidad(form:any){

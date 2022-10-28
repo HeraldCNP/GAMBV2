@@ -14,7 +14,7 @@ import { ConvenioService } from '../../../services/convenio.service';
 export class ConveCreateComponent implements OnInit {
   URL = environment.api;
   entidades2: any = [];
-
+  montoTotal: any = 0;
   example: any = [];
 
   convenioForm;
@@ -27,17 +27,17 @@ export class ConveCreateComponent implements OnInit {
 
     this.convenioForm = this.fb.group({
       codigo: ['', [Validators.required, Validators.minLength(3)]],
-      objeto: ['', [Validators.required, Validators.minLength(3)]],
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      objeto: [''],
       entidades: this.fb.array([
-        this.fb.group({
-          entidad: ['', [Validators.required]],
-          monto: ['', [Validators.required]]
-        })
+        // this.fb.group({
+        //   entidad: ['', [Validators.required]],
+        //   representante:[''],
+        //   monto: ['0', [Validators.required]]
+        // })
       ]),
       firma: ['', [Validators.required]],
-      monto2: ['', [Validators.required]],
       plazo: ['', [Validators.required]],
-      cuenta: ['',],
     })
 
 
@@ -47,18 +47,30 @@ export class ConveCreateComponent implements OnInit {
   get form() {
     return this.convenioForm.controls;
   }
-  get formEnt() {
-    return this.convenioForm.controls.entidades.controls;
-  }
+  // get formEnt() {
+  //   return this.convenioForm.controls.entidades.controls;
+  // }
 
   get entidades() {
     return this.convenioForm.get('entidades') as FormArray;
   }
 
+
+  // getRepresentante(id: any) {
+  //   this.entidades2.forEach((entidad:any) => {
+  //     let i = 0;
+  //     if(entidad.text === id.target.value){
+  //       this.entidades.controls[i].value.representante = entidad.representante.nombre + ' ' + entidad.representante.apellidos
+  //       i++
+  //     }
+  //   });
+  // }
+
   addEntidad() {
     // this.entidades.push(this.fb.control('', [Validators.required, Validators.minLength(3)]));
     const entidadFormGroup = this.fb.group({
       entidad: ['', [Validators.required]],
+      representante: [''],
       monto: ['', [Validators.required]]
     });
     this.entidades.push(entidadFormGroup);
@@ -96,7 +108,7 @@ export class ConveCreateComponent implements OnInit {
     this.api.getAllEntidades().subscribe
       (res => {
         this.entidades2 = res;
-
+        console.log(this.entidades2)
         // this.entidades.forEach((entidad:any) => {
         //   this.exampleData.push({id: entidad._id,
         //     text: entidad.nombre});

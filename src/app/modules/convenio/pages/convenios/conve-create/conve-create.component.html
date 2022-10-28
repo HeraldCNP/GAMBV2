@@ -1,18 +1,17 @@
-<div class="m-3">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card shadow p-3 mb-5 bg-body rounded">
+<div class="container">
+    <div class="row p-3">
+        <div class="col-md-8 ">
+            <div class="card shadow p-3 mb-5 rounded">
                 <div class="card-header">
                     <h3 class="card-title">Crear Nuevo Convenio</h3>
                 </div>
-
                 <!-- /.card-header -->
-                <div class="card-body table-responsive">
-                    <div class="row">
-                        <div class="col-md-8">
+                <div class="card-body">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-10">
                             <form (ngSubmit)="crearConvenio(convenioForm.value)" [formGroup]="convenioForm">
                                 <div class="mb-1">
-                                    <label for="codigo" class="form-label">Código *</label>
+                                    <label for="codigo" class="form-label">Convenio # *</label>
                                     <input type="text" class="form-control" id="codigo" formControlName="codigo">
                                     <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
                                         <div *ngIf="form['codigo'].errors && form['codigo'].errors['required']">* Código
@@ -22,14 +21,18 @@
                                     </div>
                                 </div>
                                 <div class="mb-1">
-                                    <label for="objeto" class="form-label">Objeto *</label>
-                                    <input type="text" class="form-control" id="objeto" formControlName="objeto">
-                                    <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
-                                        <div *ngIf="form['objeto'].errors && form['objeto'].errors['required']">* Objeto
-                                            es Requerido.</div>
-                                        <div *ngIf="form['objeto'].errors && form['objeto'].errors['minlength']">*
+                                    <label for="nombre" class="form-label">Nombre del convenio *</label>
+                                    <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                                    <div class="form-text" *ngIf="form['nombre'].touched && form['nombre'].invalid">
+                                        <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* El nombre del convenio
+                                            es requerido.</div>
+                                        <div *ngIf="form['nombre'].errors && form['nombre'].errors['minlength']">*
                                             Objeto no puede tener menos de 3 caracteres.</div>
                                     </div>
+                                </div>
+                                <div class="mb-1">
+                                    <label for="objeto" class="form-label">Objeto del convenio</label>
+                                    <input type="text" class="form-control" id="objeto" formControlName="objeto">
                                 </div>
                                 <!-- ARRAY PARA UN INPUT
                                     <div formArrayName="entidades">
@@ -62,7 +65,7 @@
                                     </ng-container>
                                 </div> -->
 
-                                <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i class="fas fa-plus-circle"></i> Entidad</button>
+                                <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i class="fas fa-plus-circle"></i> Añadir entidad</button>
 
                                 <div formArrayName="entidades"
                                     *ngFor="let entidad of entidades.controls; let i = index;" class="m-2">
@@ -70,27 +73,26 @@
                                         <div class="row">
                                             
                                             <label for="entidad" class="form-label col-auto">Entidad *</label>
-                                            <div class="col-auto">
+                                            <div class="col-md-4">
                                                 <select class="form-select" formControlName="entidad">
-                                                    <option value="{{ enti.id }}" *ngFor="let enti of entidades2">{{
+                                                    <option value="{{ enti.text }}" *ngFor="let enti of entidades2" >{{
                                                         enti.text }}</option>
                                                 </select>
-                                                <!-- <input type="text" class="form-control" id="entidad" [formControlName]="i"> -->
-                                                <div class="form-text" *ngIf="entidad.touched && entidad.invalid">
+                                                <!-- <div class="form-text" *ngIf="entidad.touched && entidad.invalid">
                                                     <div *ngIf="entidad.errors && entidad.errors['required']">* entidad
                                                         es Requerido.</div>
-                                                </div>
+                                                </div> -->
                                             </div>
-                                            <label for="monto" class="form-label col-auto">Monto *</label>
-                                            <div class="col-md-2">
-                                                <input type="text" class="form-control" id="monto"
+                                            <label for="monto" class="form-label col-md-auto">Monto *</label>
+                                            <div class="col-md-3">
+                                                <input type="number" class="form-control" id="monto"
                                                     formControlName="monto">
-                                                    <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
+                                                    <!-- <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
                                                         <div *ngIf="form['objeto'].errors && form['objeto'].errors['required']">* Objeto
                                                             es Requerido.</div>
                                                         <div *ngIf="form['objeto'].errors && form['objeto'].errors['minlength']">*
                                                             Objeto no puede tener menos de 3 caracteres.</div>
-                                                    </div>
+                                                    </div> -->
                                             </div>
                                             <div class="col-auto">
                                                 <button class="btn btn-danger btn-sm" (click)="removeEntidad(i)"><i class="fas fa-trash-alt"></i></button>
@@ -98,35 +100,34 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="mb-1">
-                                    <label for="firma" class="form-label">Fecha de Firma</label>
+                                    <label for="firma" class="form-label">Fecha de Firma *</label>
                                     <input type="date" class="form-control" id="firma" formControlName="firma">
+                                    <div class="form-text" *ngIf="form['firma'].touched && form['firma'].invalid">
+                                        <div *ngIf="form['firma'].errors && form['firma'].errors['required']">* firma
+                                            es Requerido.</div>
+                                    </div>
                                 </div>
                                 <div class="mb-1">
-                                    <label for="monto" class="form-label">Monto Total</label>
-                                    <input type="number" class="form-control" id="monto" formControlName="monto2">
-                                </div>
-                                <div class="mb-1">
-                                    <label for="plazo" class="form-label">Plazo (días)</label>
+                                    <label for="plazo" class="form-label">Plazo (días) *</label>
                                     <input type="number" class="form-control" id="plazo" formControlName="plazo">
                                 </div>
                                 <div class="d-grid mt-3">
                                     <button [disabled]="convenioForm.invalid" type="submit"
                                     class="btn btn-danger">Registrar</button>
                                   </div>
-
                             </form>
-                        </div>
-                        <div class="col-md-4">
-                            {{ convenioForm.value | json }}
-
                         </div>
                     </div>
                 </div>
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                    {{ convenioForm.value | json }}
+            </div>
         </div>
     </div>
 </div>

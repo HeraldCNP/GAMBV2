@@ -24,35 +24,46 @@
                 <thead>
                   <tr>
                     <th>Fecha de Firma</th>
-                    <th>Código</th>
+                    <th>Convenio N°</th>
+                    <th>Nombre</th>
                     <th>Objeto</th>
-                    <th>Entidad</th>
+                    <th>Entidades</th>
                     <th>Monto</th>
-                    <th>Plazo</th>
-                    <th>Representantes</th>
+                    <th>Monto Total</th>
+                    <th>Fecha de Finalización</th>
+                    <!-- <th>Representantes</th> -->
                     <th>Estado</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let convenio of convenios">
-                    <td>{{ convenio.firma }}</td>
+                    <td>{{ convenio.firma | date }}</td>
                     <td>{{ convenio.codigo }}</td>
+                    <td>{{ convenio.nombre }}</td>
                     <td>{{ convenio.objeto }}</td>
                     <td>
-                      <i *ngFor="let entidad of convenio.entidad">
-                        {{entidad.text}} <br>
+                      <i *ngFor="let entidad of convenio.entidades">
+                        {{entidad.entidad}} <br>
                       </i>
-                      
                     </td>
-                    <td>{{ convenio.cuenta }}</td>
-                    <td>{{ convenio.cuenta }}</td>
+                    <td>
+                      <i *ngFor="let entidad of convenio.entidades">
+                        {{entidad.monto }} <br>
+                      </i>
+                    </td>
+                    <td>
+                      {{ convenio.montototal | currency: 'USD': 'Bs' }}
+                    </td>
+                    <td>{{ sumarDias(convenio.firma, convenio.plazo) | date }}</td>
+                    <td></td>
                     <td>
                       <i *ngFor="let entidad of convenio.entidad">
                       {{entidad.representante}} <br>
                     </i>
                   </td>
                     <!-- <td>
+
                       <i (click)="updateEntidad(entidad._id)" class="fas fa-edit ml-3 icono"></i>
                       <i (click)="deleteEntidad(entidad._id)" class="fas fa-trash-alt ml-3 icono"></i>
                     </td> -->
