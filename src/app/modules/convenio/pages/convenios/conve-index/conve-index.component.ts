@@ -35,25 +35,19 @@ export class ConveIndexComponent implements OnInit {
     );
   }
 
-  getMontoTotal(){
-    let montoTotal: number = 0;
-    if(this.convenios){
-      this.convenios.forEach(convenio => {
-        convenio.entidades.forEach(function (con: any) {
-            montoTotal = montoTotal + con.monto 
-          })
-          console.log(montoTotal)
-          montoTotal = 0
-      })
-    }
-    return montoTotal;
+  updateConvenio(id:string){
+    this.router.navigate(['convenio/convenio/update', id])
+  }
+
+  deleteConvenio(id:string){
+
   }
 
 
   sumarDias(fecha: any, dias: any){
     let fechaFin = new Date(fecha)
     fechaFin.setDate(fechaFin.getDate() + dias);
-    // console.log(fechaFin.toISOString())
+    // console.log(fechaFin.toISOString());
     return fechaFin.toISOString();
   }
 

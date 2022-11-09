@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { borderRightStyle } from 'html2canvas/dist/types/css/property-descriptors/border-style';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ConvenioService } from '../../../services/convenio.service';
@@ -30,13 +29,12 @@ export class ConveCreateComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       objeto: [''],
       entidades: this.fb.array([
-        // this.fb.group({
-        //   entidad: ['', [Validators.required]],
-        //   representante:[''],
-        //   monto: ['0', [Validators.required]]
-        // })
+        this.fb.group({
+          entidad: ['', [Validators.required]],
+          monto: ['0', [Validators.required]]
+        })
       ]),
-      firma: ['', [Validators.required]],
+      firma: [''],
       plazo: ['', [Validators.required]],
     })
 
@@ -70,7 +68,6 @@ export class ConveCreateComponent implements OnInit {
     // this.entidades.push(this.fb.control('', [Validators.required, Validators.minLength(3)]));
     const entidadFormGroup = this.fb.group({
       entidad: ['', [Validators.required]],
-      representante: [''],
       monto: ['', [Validators.required]]
     });
     this.entidades.push(entidadFormGroup);

@@ -1,13 +1,13 @@
 <div class="m-3">
-    <div class="row">
-        <div class="col-md-12">
-          <div class="card shadow p-3 mb-5 bg-body rounded">
-            <div class="card-header">
-              <h3 class="card-title">Lista de Entidades</h3>
-              <div class="card-tools">
-                
-                <button (click)="addConvenio()" class="btn btn-primary">Agregar Nuevo</button>  
-                <!-- <div class="input-group input-group-sm" style="width: 150px;">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card-header">
+          <h3 class="card-title">Lista de Convenios</h3>
+          <div class="card-tools">
+
+            <button (click)="addConvenio()" class="btn btn-primary">Agregar Nuevo</button>
+            <!-- <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
@@ -15,67 +15,62 @@
                     </button>
                   </div>
                 </div> -->
-              </div>
-            </div>
-            
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th>Fecha de Firma</th>
-                    <th>Convenio N°</th>
-                    <th>Nombre</th>
-                    <th>Objeto</th>
-                    <th>Entidades</th>
-                    <th>Monto</th>
-                    <th>Monto Total</th>
-                    <th>Fecha de Finalización</th>
-                    <!-- <th>Representantes</th> -->
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let convenio of convenios">
-                    <td>{{ convenio.firma | date }}</td>
-                    <td>{{ convenio.codigo }}</td>
-                    <td>{{ convenio.nombre }}</td>
-                    <td>{{ convenio.objeto }}</td>
-                    <td>
-                      <i *ngFor="let entidad of convenio.entidades">
-                        {{entidad.entidad}} <br>
-                      </i>
-                    </td>
-                    <td>
-                      <i *ngFor="let entidad of convenio.entidades">
-                        {{entidad.monto }} <br>
-                      </i>
-                    </td>
-                    <td>
-                      {{ convenio.montototal | currency: 'USD': 'Bs' }}
-                    </td>
-                    <td>{{ sumarDias(convenio.firma, convenio.plazo) | date }}</td>
-                    <td></td>
-                    <td>
-                      <i *ngFor="let entidad of convenio.entidad">
-                      {{entidad.representante}} <br>
-                    </i>
-                  </td>
-                    <!-- <td>
-
-                      <i (click)="updateEntidad(entidad._id)" class="fas fa-edit ml-3 icono"></i>
-                      <i (click)="deleteEntidad(entidad._id)" class="fas fa-trash-alt ml-3 icono"></i>
-                    </td> -->
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
+
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover text-nowrap">
+            <thead>
+              <tr>
+                <th>Fecha de Firma</th>
+                <th>Convenio N°</th>
+                <th>Nombre</th>
+                <th>Objeto</th>
+                <th>Entidades</th>
+                <th>Monto</th>
+                <th>Monto Total</th>
+                <th>Fecha de Finalización</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let convenio of convenios; let i=index">
+                <td>{{ convenio.firma | date:'shortDate': 'UTC' }}</td>
+                <td>{{ convenio.codigo }}</td>
+                <td>{{ convenio.nombre }}</td>
+                <td>{{ convenio.objeto }}</td>
+                <td>
+                  <i *ngFor="let entidad of convenio.entidades">
+                    {{entidad.entidad}} <br>
+                  </i>
+                </td>
+                <td>
+                  <i *ngFor="let entidad of convenio.entidades">
+                    {{entidad.monto }} <br>
+                  </i>
+                </td>
+                <td>
+                  {{ convenio.montototal | currency: 'USD': 'Bs' }}
+                </td>
+                <td *ngIf="convenio.firma">
+                  {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }} - {{ i }}
+                </td>
+                <td *ngIf="!convenio.firma">EN REGISTRO</td>
+                <td>{{ convenio.estado }}</td>
+                <td>
+
+                      <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar"></i>
+                      <i (click)="deleteConvenio(convenio._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                    </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
+  </div>
 </div>
-
-

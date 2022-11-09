@@ -74,6 +74,11 @@ export class ConvenioService {
       let dir = `${this.URL}/convenio`;
       return this.http.get<any[]>(dir)
     }
+
+    getSingleConvenio(id:any):Observable<any>{
+      let dir = `${this.URL}/convenio/${id}`;
+      return this.http.get<any>(dir) 
+    }
     
     /*End Services for Convenios*/ 
 }
