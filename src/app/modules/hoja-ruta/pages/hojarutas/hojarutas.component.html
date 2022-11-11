@@ -1,5 +1,5 @@
-<div class="pt-3">
-  <div class="row">
+<div class="p-3">
+  <div class="row p-0">
     <div class="card">
       <div class="card-header d-flex justify-content-around">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="
@@ -10,16 +10,6 @@
         </button >
         
         <h3 class="card-title">Lista de Hojas de Ruta</h3>
-        
-        <div class="input-group input-group-sm" style="width: 200px">
-          <input type="text" (keyup.enter)="getHojaRuta()" [(ngModel)]="search" name="table_search"
-            class="form-control float-right" placeholder="Buscar" />
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-default" (click)="getHojaRuta()">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
       </div>
       <div class="card-body text-center">
         <table class="table table-striped mt-0 table-responsive">
@@ -70,10 +60,10 @@
                 <i [routerLink]="null" class="fas fa-space-shuttle text-primary"
                   style="color: rgb(171, 178, 241) !important" *ngIf="hoja.estado === 'ENVIADO'"></i>
               </td>
-              <td>{{ hoja.nuit }}</td>
-              <td>{{ hoja.fecharesepcion | date: "dd/MM/yy" }}</td>
-              <td>{{ hoja.fecharesepcion | date: "HH:MM:ss" }}</td>
-              <td>{{ hoja.fechadocumento | date: "dd/MM/yy" }}</td>
+              <td>{{ hoja.nuit }}              </td>
+              <td>{{ hoja.fecharesepcion | date: "shortDate" : "UTC-4" }}</td>
+              <td>{{ hoja.fecharesepcion | date: "mediumTime" : "UTC-4" }}</td>
+              <td>{{ hoja.fechadocumento | date: "shortDate" : "UTC" }}</td>
               <td>{{ hoja.origen }}</td>
 
               <td>{{ hoja.referencia }}</td>
@@ -204,13 +194,13 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
-                    <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion | date: "dd/MM/yyyy" }}
+                    <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion | date: "shortDate" : "UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date: "HH:MM:ss" }}
+                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date:"mediumTime" : "UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date: "dd/MM/yyyy" }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date: "shortDate" : "UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -387,13 +377,13 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
-                    <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion | date: "dd/MM/yyyy" }}
+                    <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion |date: "shortDate" : "UTC-4"  }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date: "HH:MM:ss" }}
+                    <span>Hora: </span>{{ hojaRuta.fecharesepcion |date: "mediumTime" : "UTC-4"}}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date: "dd/MM/yyyy" }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date: "shortDate" : "UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}

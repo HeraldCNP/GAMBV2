@@ -15,11 +15,12 @@ export class HomeComponent implements OnInit {
   destino: any = '';
   totales: any = [];
   estado: string = '';
-  limit: number = 10;
+  limit: number = 0;
   skip: number = 1;
   totalSeguimientos = 0;
   totalPages = 0;
   nuit: string = '';
+  origen: any = "";
   order: string = '';
   /*end variables de consulta*/
   /* contadores */
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
   totalEnviados: number = 0;
   totalMaletin: number = 0;
   totalArchivado: number = 0;
+  totalDocs: number = 0;
   canten:number = 0;
   cantre:number = 0;
   cantrec:number = 0;
@@ -74,9 +76,9 @@ export class HomeComponent implements OnInit {
   }
 
   getHojas() {
-    this.api.getAllHojaRuta().subscribe(data => {
+    this.api.getAllHojaRuta(this.nuit, this.origen, this.limit, this.skip).subscribe(data => {
       this.hojaRutas = data.serverResponse;
-      console.log(this.hojaRutas)
+      this.totalDocs=data.totalDocs;
       this.cantre = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'REGISTRADO').length;
       this.canten = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'ENVIADO').length;
       this.cantrec = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'RECIBIDO').length;

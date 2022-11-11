@@ -1,0 +1,107 @@
+<div class="container pt-2">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="row">
+              <div class="col-md-10">
+                <span class="titulo">
+                  {{ titulo | uppercase }}
+                  <p class="fw-bold fa-2x"></p>
+                </span>
+              </div>
+            </div>
+            <form
+              [formGroup]="derivarForm"
+              (ngSubmit)="SendFile()"
+              class="mt-0"
+            >
+              <div class="card p-2">
+                <label for="destino" class="mb-0">Destino</label>
+                <div class="mb-1">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    id="destino"
+                    formControlName="destino"
+                   
+                  >
+                    <option selected>---Seleccione Destino---</option>
+                    <option>
+                     
+                    </option>
+                  </select>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      derivarForm.get('destino')?.hasError('required') &&
+                      derivarForm.get('destino')?.touched
+                    "
+                  >
+                    <span>El cargo <strong>es obligatoria</strong></span>
+                  </div>
+                </div>
+                <div class="mb-0">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    formControlName="destino"
+                   
+                  >
+                    <option selected></option>
+                    <option >
+                      
+                    </option>
+                  </select>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      derivarForm.get('destino')?.hasError('required') &&
+                      derivarForm.get('destino')?.touched
+                    "
+                  >
+                    <span>El cargo <strong>es obligatoria</strong></span>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="mb-2 mt-1">
+                <textarea
+                  formControlName="detalles"
+                  class="form-control"
+                  placeholder="Escriba el detalle de instrucción"
+                ></textarea>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    derivarForm.get('detalles')?.hasError('required') &&
+                    derivarForm.get('detalles')?.touched
+                  "
+                >
+                  <span
+                    >Detalle de Instrucción <strong>es obligatoria</strong>
+                  </span>
+                </div>
+              </div>
+        
+              <div class="mb-2 d-flex justify-content-around">
+                <button
+                  routerLink="/ruta/office/index"
+                  class="btn btn-info text-dark"
+                >
+                  CANCELAR
+                </button>
+                <button
+                  type="submit"
+                  [disabled]="derivarForm.invalid"
+                  class="btn btn-success"
+                >
+                  ACEPTAR
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
