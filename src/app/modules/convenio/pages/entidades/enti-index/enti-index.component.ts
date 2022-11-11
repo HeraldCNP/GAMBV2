@@ -30,11 +30,11 @@ export class EntiIndexComponent implements OnInit {
   }
 
   addEntidad() {
-    this.router.navigate(['convenio/entidad/create'])
+    this.router.navigate(['convenio/convenio/create'])
   }
 
   updateEntidad(id: any) {
-    this.router.navigate(['convenio/entidad/update', id])
+    this.router.navigate(['convenio/convenio/update', id])
   }
 
   deleteEntidad(id: any) {
