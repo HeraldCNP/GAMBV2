@@ -10,6 +10,7 @@ import { EntiUpdateComponent } from './pages/entidades/enti-update/enti-update.c
 import { ConveIndexComponent } from './pages/convenios/conve-index/conve-index.component';
 import { ConveCreateComponent } from './pages/convenios/conve-create/conve-create.component';
 import { ConveUpdateComponent } from './pages/convenios/conve-update/conve-update.component';
+import { ConveFileComponent } from './pages/convenios/conve-file/conve-file.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path: 'convenio/index', component: ConveIndexComponent},
       {path: 'convenio/create', component: ConveCreateComponent},
       {path: 'convenio/update/:id', component: ConveUpdateComponent},
+      {path: 'convenio/addFile/:id', component: ConveFileComponent},
       {path: '**', redirectTo:'dashboard', pathMatch: 'full'},
     ]
   }

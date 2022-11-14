@@ -60,10 +60,11 @@
                 <td *ngIf="!convenio.firma">EN REGISTRO</td>
                 <td>{{ convenio.estado }}</td>
                 <td>
-
-                      <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip" data-bs-placement="top" title="Modificar"></i>
-                      <i (click)="deleteConvenio(convenio._id)" class="fas fa-trash-alt ml-3 icono"></i>
-                    </td>
+                  <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Modificar"></i>
+                  <i (click)="deleteConvenio(convenio._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                  <i (click)="addFile(convenio._id)" class="fas fa-folder-plus ml-3 icono"></i>
+                </td>
               </tr>
             </tbody>
           </table>
