@@ -4,6 +4,7 @@ import { BlogService } from '../../../services/blog.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-create',
@@ -15,6 +16,7 @@ export class PostCreateComponent implements OnInit {
   files:any;
   categories:any = [];
   URL = environment.api;
+  progress: number = 0;
   constructor(
     private api: BlogService,
     private router: Router
@@ -61,15 +63,24 @@ export class PostCreateComponent implements OnInit {
 
 
   
-    this.api.registerPost(fd).subscribe(
-      res => console.log(res),
-      err => console.log('HTTP Error', err),
-      () => {
-              this.router.navigate(['blog/post/index']),
-              this.alertOk('success', 'Exito', 'Post Creado Correctamente', '2000')
-            }
+    this.api.registerPost(fd).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      }
+    },
+    err => {
+      console.log('HTTP Error', err)
+      this.progress = 0;
+    },
+    () => {
+            this.progress = 0;
+            this.router.navigate(['blog/post/index']),
+            this.alertOk('success', 'Exito', 'Post Creado Correctamente', '2000')
+          }
     )
   }
+
+
 
   alertOk(icon:any, title:any, text:any, timer:any){
     Swal.fire({
