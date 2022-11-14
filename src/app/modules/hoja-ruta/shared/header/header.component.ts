@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  public searchString: string="";
 
   user:any;
   data:any;
@@ -33,5 +34,7 @@ export class HeaderComponent implements OnInit {
     this.cookieService.delete('token');
     this.router.navigate(['/'])
   }
-
+  goSearch(){
+    this.router.navigate(['/ruta/hojaRutas', this.searchString]);
+  }
 }

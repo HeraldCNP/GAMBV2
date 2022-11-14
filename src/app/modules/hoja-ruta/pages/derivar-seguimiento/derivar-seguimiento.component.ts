@@ -2,12 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../../auth/services/auth.service';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { RutaService } from '../../services/ruta.service';
 import { Segui } from '../../models/seguimiento';
 import { Hojaruta } from '../../models/hojaruta';

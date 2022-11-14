@@ -12,12 +12,14 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
+                  <th>Archivo Oficina</th>
                 </tr>
               </thead>
               <tbody>
                   
                 <tr *ngFor="let char of charge.subdirecciones">
                   <td>{{ char.nombresubdir }}</td>
+                  <td>{{ char.archivofi }}</td>
                 </tr>
               </tbody>
             </table>

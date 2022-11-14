@@ -17,6 +17,7 @@ import { AsociarComponent } from './pages/asociar/asociar.component';
 import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 import { ListAsociadosComponent } from './pages/list-asociados/list-asociados.component';
 import { PendientesComponent } from './pages/pendientes/pendientes.component';
+import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-ofi.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { PendientesComponent } from './pages/pendientes/pendientes.component';
     AsociarComponent,
     EditHojaComponent,
     ListAsociadosComponent,
-    PendientesComponent
+    PendientesComponent,
+    SendArchivoOfiComponent
   ],
   imports: [
     CommonModule,

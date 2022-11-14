@@ -14,14 +14,14 @@ import html2canvas from 'html2canvas';
 export class HojarutasComponent implements OnInit {
   user: any;
   data: any;
-  hojaRutas: any = [];
+  hojaRutas: any[] = [];
   hojaRuta: any = [];
   seguim: any = [];
   /*variables de consulta*/   
   nuit: string = "";
   origen: any = "";
   referencia: string = "";
-  search: string = "";
+  public search: string = "";
   limit: number = 10;
   skip: number = 1;
   page: number = 1;
@@ -43,7 +43,8 @@ export class HojarutasComponent implements OnInit {
   lisaso: string = ' ';
   constructor(private api: RutaService,
     private router: Router,
-    private fb: FormBuilder,) {
+    private fb: FormBuilder,
+    private aRouter: ActivatedRoute) {
     this.hojaForm = this.fb.group({
       origen: ['', Validators.required],
       referencia: ['', Validators.required],
@@ -57,6 +58,7 @@ export class HojarutasComponent implements OnInit {
     this.user = localStorage.getItem("user");
     this.data = JSON.parse(this.user)
     this.getHojaRutas()
+    //this.getHojaRuta()
   }
 
   registerHojas() {
@@ -88,19 +90,39 @@ export class HojarutasComponent implements OnInit {
       data => {
         this.cant=data.totalDocs
         this.hojaRutas = data.serverResponse;
-        this.totalPages = Math.ceil(this.cant / this.limit);
+        this.totalPages = data.totalpage;
       }
     )
   }
 
   getHojaRuta(){
-    this.api.buscarHoja(this.search).subscribe(
+    /*this.api.buscarHoja(this.search).subscribe(
       data => {
         this.hojaRutas = data.serverResponse;
         this.search = '';
         this.totalPages=1;
       }
-    )
+    )*/
+
+    this.aRouter.params.subscribe (params => {
+      var search = params['search'];
+      this.search = search;
+      this.api.buscarHoja(this.search).subscribe(
+        data => {
+          if(data.serverResponse){
+            this.hojaRutas = data.serverResponse;
+            this.totalPages=1;
+          }else{
+            this.hojaRutas = [];
+          }
+        },
+        error => {
+          console.log(error);
+          this.hojaRutas = [];
+
+        }
+      )
+    });
   }
 
 

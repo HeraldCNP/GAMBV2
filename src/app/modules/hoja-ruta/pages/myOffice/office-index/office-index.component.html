@@ -102,7 +102,7 @@
                 <th>Fecha Recepción</th>
                 <th>Estado</th>
                 <th>Seguim.</th>
-                <th>Adjunto</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -119,6 +119,13 @@
                   <i *ngIf="seguimiento.estado == 'RECIBIDO'" class="fas fa-briefcase"
                     (click)="finalizar(seguimiento._id)" style="color: rgb(189, 109, 4) !important"
                     title="Enviar a mi Maletín"></i>
+                    <i *ngIf="seguimiento.estado == 'RECIBIDO'" class="fas fa-share-square"
+                    [routerLink]="[
+                    '/ruta/sendArchivoOfi',
+                    seguimiento.idhj,
+                    seguimiento._id
+                  ]" style="color: rgb(171, 185, 90) !important"
+                    title="Enviar a mi Archivo Oficina"></i>
                 </td>
                 <td>{{ seguimiento.nuit }}
                   <i>{{ seguimiento.copia }}</i>
@@ -189,7 +196,8 @@
                     class="text-primary fas fa-paperclip" title="Ver Asociados"></i>
                 </td>
                 <td>
-                  <i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>
+                  <i class="fas fa-chevron-down" style="color: rgb(138, 137, 151) !important" title="Ver Acciones"></i>
+                  <!--<i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>-->
                 </td>
                 <td>
                   <!-- <i (click)="onEditPost(post._id)" class="fas fa-edit ml-3 icono"></i>
@@ -333,7 +341,7 @@
                           </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <span *ngIf="seguiss.fecharespuesta != null">{{
+                          <span *ngIf="seguiss.fecharespuesta != null" translate="yes">{{
                             seguiss.fecharespuesta
                               | amDifference
                                 : seguiss.fechaderivado

@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AsociarComponent } from './pages/asociar/asociar.component';
 import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 import { PendientesComponent } from './pages/pendientes/pendientes.component';
+import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-ofi.component';
 
 const routes: Routes = [
   {
@@ -19,9 +20,11 @@ const routes: Routes = [
       {path: 'office/index', component: OfficeIndexComponent,canActivate:[GuardGuard]},
       {path: 'pendientes', component: PendientesComponent},
       {path: 'hojaRutas', component: HojarutasComponent},
+      {path: 'hojaRutas/:search', component: HojarutasComponent},
       {path: 'asociar/:nuit', component: AsociarComponent},
       {path: 'editHoja/:id', component: EditHojaComponent},
       {path: 'derivar/:idHr/:idSegui', component: DerivarSeguimientoComponent},
+      {path: 'sendArchivoOfi/:idHr/:idSegui', component: SendArchivoOfiComponent},
       {path: 'derivar/:idHr', component: DerivarSeguimientoComponent},
       {path: '**', redirectTo:'dashboard', pathMatch: 'full'},
       
