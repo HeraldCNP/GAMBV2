@@ -1,3 +1,4 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,6 +18,7 @@ export class ConveFileComponent implements OnInit {
   montoTotal: any = 0;
   example: any = [];
   files:any;
+  progress = 0;
 
   fileForm;
 
@@ -55,17 +57,22 @@ export class ConveFileComponent implements OnInit {
 
   }
 
-  crearConvenio(form: any) {
+  uploadFile(form: any) {
     this.api.crearConvenio(form)
       .subscribe(
-        res => {
-          console.log(res)
+        event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round(100 * event.loaded / event.total);
+          }
         },
-        err => console.log('HTTP Error', err),
+        err => {
+          console.log('HTTP Error', err)
+          this.progress = 0;
+        },
         () => {
-
-          this.router.navigate(['convenio/convenio/index']),
-            this.alertOk('success', 'Exito', 'Convenio Creado Correctamente', '2000')
+            this.progress = 0;
+            this.router.navigate(['convenio/convenio/index']),
+            this.alertOk('success', 'Exito', 'Archivo adjuntando Correctamente', '2000')
         }
       );
   }

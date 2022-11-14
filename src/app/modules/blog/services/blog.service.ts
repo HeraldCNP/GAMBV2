@@ -52,7 +52,10 @@ export class BlogService {
 
   registerPost(fd: FormData):Observable<any>{
     let dir = `${this.URL}/uploadpost`;
-    return this.http.post<any>(dir, fd)
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
   }
 
   getSinglePost(id:any):Observable<any>{
