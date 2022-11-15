@@ -91,6 +91,11 @@ export class RutaService {
       return data
     } ) )
   }
+  obtenerSubUni(params: string): Observable<any> {
+    return this.http.get(this.URL + '/subdir/' + params).pipe( map( data => {
+      return data
+    } ) )
+  }
   busacrnuit(nuit: string): Observable<any> {
     return this.http.get(this.URL + '/asociar/' + nuit);
   }
@@ -102,5 +107,8 @@ export class RutaService {
   }
   eliminarHoja(id: string): Observable<any> {
     return this.http.delete(this.URL + '/hoja/' + id);
+  }
+  addArch(id: string, segui:Segui): Observable<any> {
+    return this.http.put(this.URL + '/addarch/' + id, segui);
   }
 }

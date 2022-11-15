@@ -196,7 +196,15 @@
                     class="text-primary fas fa-paperclip" title="Ver Asociados"></i>
                 </td>
                 <td>
-                  <i class="fas fa-chevron-down" style="color: rgb(138, 137, 151) !important" title="Ver Acciones"></i>
+                  <div class="dropdown-center" title="Ver Acciones">
+                    <button class="btn btn-info dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i>Action</a></li>
+                      <li><a class="dropdown-item" href="#"><i [routerLink]="['/hoja-ruta/reportes']" class="fas fa-download"></i>Action two</a></li>
+                      <li><a class="dropdown-item" href="#">Action three</a></li>
+                    </ul>
+                  </div>
                   <!--<i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>-->
                 </td>
                 <td>

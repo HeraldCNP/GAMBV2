@@ -72,7 +72,6 @@ export class OfficeIndexComponent implements OnInit {
     let RegExp = /[^()]*/g;
     this.destino1 = this.data.post;
     this.destino = RegExp.exec(this.destino1);
-    console.log(this.destino)
     this.obtenertotal();
     this.getSeguimientos();
     this.getpendientes();

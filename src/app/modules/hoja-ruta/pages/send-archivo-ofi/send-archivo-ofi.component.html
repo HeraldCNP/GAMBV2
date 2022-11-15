@@ -7,7 +7,7 @@
               <div class="col-md-10">
                 <span class="titulo">
                   {{ titulo | uppercase }}
-                  <p class="fw-bold fa-2x"></p>
+                  <p class="fw-bold fa-2x">{{segui.nuit}}</p>
                 </span>
               </div>
             </div>
@@ -16,7 +16,7 @@
               (ngSubmit)="SendFile()"
               class="mt-0"
             >
-              <div class="card p-2">
+              <div class="card p-2" >
                 <label for="destino" class="mb-0">Destino</label>
                 <div class="mb-1">
                   <select
@@ -27,10 +27,11 @@
                    
                   >
                     <option selected>---Seleccione Destino---</option>
-                    <option>
-                     
+                    <option *ngFor="let cargo of cargos">
+                      {{ cargo }}
                     </option>
                   </select>
+                  
                   <div
                     class="text-danger"
                     *ngIf="
@@ -41,28 +42,7 @@
                     <span>El cargo <strong>es obligatoria</strong></span>
                   </div>
                 </div>
-                <div class="mb-0">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                    formControlName="destino"
-                   
-                  >
-                    <option selected></option>
-                    <option >
-                      
-                    </option>
-                  </select>
-                  <div
-                    class="text-danger"
-                    *ngIf="
-                      derivarForm.get('destino')?.hasError('required') &&
-                      derivarForm.get('destino')?.touched
-                    "
-                  >
-                    <span>El cargo <strong>es obligatoria</strong></span>
-                  </div>
-                </div>
+                
               </div>
             
               <div class="mb-2 mt-1">
