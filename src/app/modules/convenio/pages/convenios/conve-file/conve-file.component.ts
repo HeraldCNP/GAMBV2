@@ -1,7 +1,7 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ConvenioService } from '../../../services/convenio.service';
@@ -15,24 +15,30 @@ export class ConveFileComponent implements OnInit {
 
   URL = environment.api;
   entidades2: any = [];
-  montoTotal: any = 0;
+  convenioId: any;
   example: any = [];
   files:any;
   progress = 0;
 
-  fileForm;
+  fileForm: any;
 
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,
-    private router: Router
+    private router: Router,
+    private activeRouter: ActivatedRoute,
   ) {
 
     this.fileForm = this.fb.group({
-      tipo: ['', [Validators.required]],
+      typefile: ['', [Validators.required]],
       file: ['', [Validators.required]],
     })
 
+
+  }
+
+  ngOnInit() {
+    this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
 
   }
 
@@ -53,12 +59,15 @@ export class ConveFileComponent implements OnInit {
 
 
 
-  ngOnInit() {
 
-  }
 
-  uploadFile(form: any) {
-    this.api.crearConvenio(form)
+  uploadFile() {
+    let fd = new FormData();
+    fd.append('typefile', this.fileForm.value.typefile);
+    fd.append('file', this.files[0]);
+
+
+    this.api.addFile(fd, this.convenioId)
       .subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {

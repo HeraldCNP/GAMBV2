@@ -79,6 +79,16 @@ export class ConvenioService {
       let dir = `${this.URL}/convenio/${id}`;
       return this.http.get<any>(dir) 
     }
+
+    addFile(fd: FormData, id:any):Observable<any>{
+      let dir = `${this.URL}/uploadconvenio/${id}`;
+      console.log(fd.get('typefile'))
+      return this.http.post<any>(dir, fd, {
+        reportProgress: true,
+        observe: 'events',
+      })
+    }
+
     
     /*End Services for Convenios*/ 
 }

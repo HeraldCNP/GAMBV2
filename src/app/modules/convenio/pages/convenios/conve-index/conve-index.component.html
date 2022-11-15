@@ -32,6 +32,7 @@
                 <th>Monto Total</th>
                 <th>Fecha de Finalización</th>
                 <th>Estado</th>
+                <th>Documentos</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -59,6 +60,12 @@
                 </td>
                 <td *ngIf="!convenio.firma">EN REGISTRO</td>
                 <td>{{ convenio.estado }}</td>
+                <td>
+                  <i *ngFor="let file of convenio.files">
+                    <a href="{{ URL+'/'+file.uriconvenio }}" target="_blank">{{file.typefile}}</a>
+                     <br>
+                  </i>
+                </td>
                 <td>
                   <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Modificar"></i>

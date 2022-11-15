@@ -9,20 +9,20 @@
                 <div class="card-body">
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-10">
-                            <form (ngSubmit)="uploadFile(fileForm.value)" [formGroup]="fileForm">
+                            <form (ngSubmit)="uploadFile()" [formGroup]="fileForm">
                                 <div class="mb-1">
-                                    <label for="tipo" class="form-label col-auto">Tipo *</label>
+                                    <label for="typefile" class="form-label col-auto">Tipo *</label>
 
-                                    <select class="form-select" formControlName="tipo">
-                                        <option value="0">Convenio</option>
-                                        <option value="1">Contrato</option>
-                                        <option value="2">Informe Administrativo</option>
-                                        <option value="3">Informe Tecnico</option>
-                                        <option value="4">Informe Legal</option>
-                                        <option value="5">Resolución de Consejo</option>
+                                    <select class="form-select" formControlName="typefile">
+                                        <option value="Convenio">Convenio</option>
+                                        <option value="Contrato">Contrato</option>
+                                        <option value="Informe Administrativo">Informe Administrativo</option>
+                                        <option value="Informe Tecnico">Informe Tecnico</option>
+                                        <option value="Informe Legal">Informe Legal</option>
+                                        <option value="Resolución de Consejo">Resolución de Consejo</option>
                                     </select>
-                                    <div class="form-text" *ngIf="form['tipo'].touched && form['tipo'].invalid">
-                                        <div *ngIf="form['tipo'].errors && form['tipo'].errors['required']">* Tipo es
+                                    <div class="form-text" *ngIf="form['typefile'].touched && form['typefile'].invalid">
+                                        <div *ngIf="form['typefile'].errors && form['typefile'].errors['required']">* Tipo es
                                             Requerido.
                                         </div>
                                     </div>
@@ -30,7 +30,7 @@
                                 <div class="mb-1">
                                     <label for="file" class="form-label">Archivo *</label>
                                     <input class="form-control" id="file" type="file" name="file" id="file"
-                                        formControlName="file" (change)="onChange($event)">
+                                        formControlName="file" (change)="onChange($event)" accept=".jpg, .jpeg, .png, .docx, .pdf">
                                     <div class="form-text" *ngIf="form['file'].touched && form['file'].invalid">
                                         <div *ngIf="form['file'].errors && form['file'].errors['required']">* Archivo es
                                             Requerido.
