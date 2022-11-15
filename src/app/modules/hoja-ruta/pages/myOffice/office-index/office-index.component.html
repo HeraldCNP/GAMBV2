@@ -5,14 +5,16 @@
         <div class="card-header d-flex justify-content-around">
           <h3 class="card-title">Lista de Correspondencia</h3>
           <div class="card-tools">
-            <button (click)="changeStatus('')" type="button" [ngClass]="estado == '' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
+            <button (click)="changeStatus('')" type="button" [ngClass]="estado == '' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4">
               Todos
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ total }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <button (click)="changeStatus('DERIVADO')" type="button" [ngClass]="estado == 'DERIVADO' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
+            <button (click)="changeStatus('DERIVADO')" type="button" [ngClass]="estado == 'DERIVADO' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4">
               Derivados
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ totalDerivados }}
@@ -43,9 +45,18 @@
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <button (click)="changeStatus('ARCHIVADO')" type="button" [ngClass]="estado == 'ARCHIVADO' ? 'activate' : ''"
-              class="btn btn-info btn-sm position-relative mr-4">
+            <button (click)="changeStatus('ARCHIVADO')" type="button"
+              [ngClass]="estado == 'ARCHIVADO' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
               Archivo Central
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                {{ totalArchivado }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <button (click)="changeStatus('ARCHIVO OFICINA')" type="button"
+              [ngClass]="estado == 'ARCHIVO OFICINA' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4">
+              Otros
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ totalArchivado }}
                 <span class="visually-hidden">unread messages</span>
@@ -61,15 +72,24 @@
               </button>
             </div>
           </div>
+          
+          <div class="d-flex flex-row mb-3"> Mostrar:   
+            <select class="form-select form-select-sm" [(ngModel)]="limit" (change)="getSeguimientos()">
+              <option value=10>10</option>
+              <option value=30>30</option>
+              <option value=0>50</option>
+              <option value=100>100</option>
+            </select>
+          </div>
         </div>
 
         <div *ngIf="alerta" class="aler pt-5 alert alert-dismissible">
           <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close"></button>
           <div *ngFor="let seguimiento of totales" class="alerta">
-            
-            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') > 1">     
+
+            <div *ngIf="(today | amDifference: seguimiento.fechaderivado:'d') > 1">
               <div *ngIf="seguimiento.fecharecepcion == 'SIN RESEPCIONAR'"
-              class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
+                class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
                 <strong class="d-flex fs-6"><span>Reciba el documento <i class="fw-bold">{{ seguimiento.nuit }}</i>, si
                     no ha sido entregado fisicamente a su persona,
                     comunicarse con
@@ -116,16 +136,8 @@
                   </i>
                   <i (click)="reply(seguimiento._id)" class="fas fa-reply-all text-success"
                     *ngIf="seguimiento.estado === 'DERIVADO'" title="Eliminar el Último Derivado"></i>
-                  <i *ngIf="seguimiento.estado == 'RECIBIDO'" class="fas fa-briefcase"
-                    (click)="finalizar(seguimiento._id)" style="color: rgb(189, 109, 4) !important"
-                    title="Enviar a mi Maletín"></i>
-                    <i *ngIf="seguimiento.estado == 'RECIBIDO'" class="fas fa-share-square"
-                    [routerLink]="[
-                    '/ruta/sendArchivoOfi',
-                    seguimiento.idhj,
-                    seguimiento._id
-                  ]" style="color: rgb(171, 185, 90) !important"
-                    title="Enviar a mi Archivo Oficina"></i>
+
+                  
                 </td>
                 <td>{{ seguimiento.nuit }}
                   <i>{{ seguimiento.copia }}</i>
@@ -136,9 +148,9 @@
                 <td>{{ seguimiento.detalles }}</td>
                 <td>
                   {{
-                    seguimiento.fechaderivado
-                      | amLocal
-                      | amDateFormat: "DD-MM-YY HH:mm"
+                  seguimiento.fechaderivado
+                  | amLocal
+                  | amDateFormat: "DD-MM-YY HH:mm"
                   }}
                 </td>
                 <td>
@@ -152,9 +164,9 @@
                     </span>
                     <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
                       {{
-                        seguimiento.fecharecepcion
-                          | amLocal
-                          | amDateFormat: "DD-MM-YY HH:mm"
+                      seguimiento.fecharecepcion
+                      | amLocal
+                      | amDateFormat: "DD-MM-YY HH:mm"
                       }}
                     </i>
                     <!--
@@ -169,12 +181,12 @@
                 <td [ngSwitch]="seguimiento.estado">
                   <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
                     seguimiento.estado
-                  }}</span>
+                    }}</span>
                   <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguimiento.estado }}
                   </span>
                   <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{
                     seguimiento.estado
-                  }}</span>
+                    }}</span>
                   <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}
                   </span>
                   <!-- (click)="reactivar(seguimiento._id)" -->
@@ -197,11 +209,16 @@
                 </td>
                 <td>
                   <div class="dropdown-center" title="Ver Acciones">
-                    <button class="btn btn-info dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i>Action</a></li>
-                      <li><a class="dropdown-item" href="#"><i [routerLink]="['/hoja-ruta/reportes']" class="fas fa-download"></i>Action two</a></li>
+                      <li *ngIf="seguimiento.estado == 'RECIBIDO'"><a class="dropdown-item" (click)="finalizar(seguimiento._id)"><i class="fas fa-briefcase" title="Enviar a mi Maletín"></i> Maletin</a></li>
+                      <li><a class="dropdown-item" [routerLink]="[
+                        '/ruta/sendArchivoOfi',
+                        seguimiento.idhj,
+                        seguimiento._id
+                      ]"><i *ngIf="seguimiento.estado == 'RECIBIDO'" class="fas fa-share-square"  style="color: rgb(171, 185, 90) !important" title="Enviar a mi Archivo Oficina"></i> Oficina</a></li>
                       <li><a class="dropdown-item" href="#">Action three</a></li>
                     </ul>
                   </div>
@@ -334,50 +351,51 @@
                           <p *ngIf="seguiss.estado === 'MALETIN'" class="badge badge-warning text-dark">
                             {{ seguiss.smsarchivo }}
                           </p>
+
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
                             {{
-                              seguiss.fechaderivado | amLocale: "es" | amTimeAgo
+                            seguiss.fechaderivado | amLocale: "es" | amTimeAgo
                             }} </span><br />
                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
                             {{
-                              seguiss.fechaderivado
-                                | amLocal
-                                | amDateFormat: "DD-MM-YY HH:mm"
+                            seguiss.fechaderivado
+                            | amLocal
+                            | amDateFormat: "DD-MM-YY HH:mm"
                             }}
                           </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <span *ngIf="seguiss.fecharespuesta != null" translate="yes">{{
                             seguiss.fecharespuesta
-                              | amDifference
-                                : seguiss.fechaderivado
-                                : "seconds"
-                                : true
-                              | amDuration: "seconds"
-                          }}</span>
+                            | amDifference
+                            : seguiss.fechaderivado
+                            : "seconds"
+                            : true
+                            | amDuration: "seconds"
+                            }}</span>
                           <span *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'DERIVADO'
                             ">{{
-                              seguiss.fecharecepcion
-                                | amDifference
-                                  : seguiss.fechaderivado
-                                  : "seconds"
-                                  : true
-                                | amDuration: "seconds"
+                            seguiss.fecharecepcion
+                            | amDifference
+                            : seguiss.fechaderivado
+                            : "seconds"
+                            : true
+                            | amDuration: "seconds"
                             }}</span>
                           <span *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'MALETIN'
                             ">{{
-                              seguiss.fecharecepcion
-                                | amDifference
-                                  : seguiss.fechaderivado
-                                  : "seconds"
-                                  : true
-                                | amDuration: "seconds"
+                            seguiss.fecharecepcion
+                            | amDifference
+                            : seguiss.fechaderivado
+                            : "seconds"
+                            : true
+                            | amDuration: "seconds"
                             }}</span>
                           <samp *ngIf="
                               seguiss.estado === 'ENVIADO' ||
@@ -398,17 +416,17 @@
                                 seguiss.fecharecepcion != 'SIN RESEPCIONAR'
                               ">
                               {{
-                                seguiss.fecharecepcion
-                                  | amLocale: "es"
-                                  | amTimeAgo
+                              seguiss.fecharecepcion
+                              | amLocale: "es"
+                              | amTimeAgo
                               }} </span><br />
                             <span *ngIf="
                                 seguiss.fecharecepcion != 'SIN RESEPCIONAR'
                               ">
                               {{
-                                seguiss.fecharecepcion
-                                  | amLocal
-                                  | amDateFormat: "DD-MM-YY HH:mm"
+                              seguiss.fecharecepcion
+                              | amLocal
+                              | amDateFormat: "DD-MM-YY HH:mm"
                               }}
                             </span>
                           </i>
@@ -426,6 +444,9 @@
                             " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span>
                           <br />
                           <i>{{ seguiss.copia }}</i>
+                          <p *ngIf="seguiss.estado === 'ARCHIVO OFICINA'" class="badge badge-warning text-dark">
+                            {{ seguiss.archivofi[0].destino }} <br><br> {{ seguiss.archivofi[0].description }}
+                          </p>
                         </td>
                       </tr>
                     </tbody>

@@ -147,6 +147,8 @@ export class OfficeIndexComponent implements OnInit {
       .subscribe((data) => {
         this.seguimientos = data.serverResponse;
         this.nuit = '';
+        
+        console.log(this.seguimientos)
         this.totalSeguimientos = data.totalDocs;
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
       });
