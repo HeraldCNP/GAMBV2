@@ -38,6 +38,9 @@ export class ConveIndexComponent implements OnInit {
   updateConvenio(id:string){
     this.router.navigate(['convenio/convenio/update', id])
   }
+  addFile(id:string){
+    this.router.navigate(['convenio/convenio/addFile', id])
+  }
 
   deleteConvenio(id:string){
 
