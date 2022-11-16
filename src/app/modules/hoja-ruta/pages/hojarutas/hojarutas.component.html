@@ -1,24 +1,46 @@
 <div class="p-3">
   <div class="row p-0">
     <div class="card">
-      <div class="card-header d-flex justify-content-around">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN') ||
-        data.roles === 'SECRETARIA'
-      ">
-          NUEVO
-        </button >
-        
+      <div class="card-header d-flex justify-content-between">        
+        <div class="d-flex flex-row p-0">
+          Mostrar:
+          <select
+            class="form-select form-select-sm"
+            [(ngModel)]="limit"
+            (change)="getHojaRutas()"
+          >
+            <option value="10">10</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
         <h3 class="card-title">Lista de Hojas de Ruta</h3>
+        <div class="">
+          <button
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            *ngIf="
+              (data && data.roles === 'SUPER_ADMIN') ||
+              data.roles === 'SECRETARIA'
+            "
+          >
+            NUEVO
+          </button>         
+        </div>
       </div>
       <div class="card-body text-center">
         <table class="table table-striped mt-0 table-responsive">
           <thead>
             <tr>
-              <th scope="col" *ngIf="
-              (data && data.roles === 'SUPER_ADMIN') ||
-              data.roles === 'SECRETARIA'
-            ">
+              <th
+                scope="col"
+                *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                "
+              >
                 Enviar
               </th>
               <th scope="col">Numero</th>
@@ -29,122 +51,214 @@
               <th scope="col">Referencia</th>
               <th scope="col">Estado</th>
               <th scope="col">Seguimiento</th>
-              <th scope="col" *ngIf="
-              (data && data.roles === 'SUPER_ADMIN') ||
-              data.roles === 'SECRETARIA'
-            ">
+              <th
+                scope="col"
+                *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                "
+              >
                 Imprimir
               </th>
               <th scope="col">Adjunto</th>
-              <th scope="col" *ngIf="
-              (data && data.roles === 'SUPER_ADMIN') ||
-              data.roles === 'SECRETARIA'
-            ">
+              <th
+                scope="col"
+                *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                "
+              >
                 Acciones
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr [ngClass]="
-                  hoja.estado === 'REGISTRADO'
-                    ? 'table-danger border-2 border-danger'
-                    : 'table-success border-2 border-success'
-                " *ngFor="
-                  let hoja of hojaRutas">
-              <td *ngIf="
-                    (data && data.roles === 'SUPER_ADMIN') ||
-                    data.roles === 'SECRETARIA'
-                  ">
-                <i [routerLink]="['/ruta/derivar', hoja._id]" class="fas fa-space-shuttle text-primary"
-                  *ngIf="hoja.estado === 'RECIBIDO'"></i>
-                <i [routerLink]="null" class="fas fa-space-shuttle text-primary"
-                  style="color: rgb(171, 178, 241) !important" *ngIf="hoja.estado === 'ENVIADO'"></i>
+            <tr
+              [ngClass]="
+                hoja.estado === 'REGISTRADO'
+                  ? 'table-danger border-2 border-danger'
+                  : 'table-success border-2 border-success'
+              "
+              *ngFor="let hoja of hojaRutas"
+            >
+              <td
+                *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                "
+              >
+                <i
+                  [routerLink]="['/ruta/derivar', hoja._id]"
+                  class="fas fa-space-shuttle text-primary"
+                  *ngIf="hoja.estado === 'RECIBIDO'"
+                ></i>
+                <i
+                  [routerLink]="null"
+                  class="fas fa-space-shuttle text-primary"
+                  style="color: rgb(171, 178, 241) !important"
+                  *ngIf="hoja.estado === 'ENVIADO'"
+                ></i>
               </td>
-              <td>{{ hoja.nuit }}              </td>
-              <td>{{ hoja.fecharesepcion | date: "shortDate" : "UTC-4" }}</td>
-              <td>{{ hoja.fecharesepcion | date: "mediumTime" : "UTC-4" }}</td>
-              <td>{{ hoja.fechadocumento | date: "shortDate" : "UTC" }}</td>
+              <td>{{ hoja.nuit }}</td>
+              <td>{{ hoja.fecharesepcion | date: "shortDate":"UTC-4" }}</td>
+              <td>{{ hoja.fecharesepcion | date: "mediumTime":"UTC-4" }}</td>
+              <td>{{ hoja.fechadocumento | date: "shortDate":"UTC" }}</td>
               <td>{{ hoja.origen }}</td>
 
               <td>{{ hoja.referencia }}</td>
-              <td *ngIf="
-                    (data && data.roles === 'SUPER_ADMIN') ||
-                    data.roles === 'SECRETARIA'
-                  " (click)="cambiarestado(hoja._id)" [ngSwitch]="hoja.estado">
-                <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger">{{ hoja.estado }}</span>
-                <span *ngSwitchCase="'RECIBIDO'" class="badge est badge-success">{{ hoja.estado }}</span>
+              <td
+                *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                "
+                (click)="cambiarestado(hoja._id)"
+                [ngSwitch]="hoja.estado"
+              >
+                <span
+                  *ngSwitchCase="'REGISTRADO'"
+                  class="badge est badge-danger"
+                  >{{ hoja.estado }}</span
+                >
+                <span
+                  *ngSwitchCase="'RECIBIDO'"
+                  class="badge est badge-success"
+                  >{{ hoja.estado }}</span
+                >
                 <span *ngSwitchCase="'ENVIADO'" class="badge est badge-info">{{
-                    hoja.estado
-                  }}</span>
+                  hoja.estado
+                }}</span>
               </td>
-              <td [ngSwitch]="hoja.estado" *ngIf="
+              <td
+                [ngSwitch]="hoja.estado"
+                *ngIf="
                   data.roles === 'ADMIN' ||
                   data.roles === 'SUPER_USER' ||
                   data.roles === 'USER'
-                  ">
+                "
+              >
                 <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger">{{
-                    hoja.estado
-                  }}</span>
+                  hoja.estado
+                }}</span>
                 <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{
-                    hoja.estado
-                  }}</span>
+                  hoja.estado
+                }}</span>
                 <span *ngSwitchCase="'ENVIADO'" class="badge badge-info">{{
-                    hoja.estado
-                  }}</span>
+                  hoja.estado
+                }}</span>
               </td>
               <td>
-                <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                  (click)="seguimi(hoja._id)" title="Ver Seguimiento"></i>
-                <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0" class="fas fa-paperclip text-primary" data-bs-toggle="tooltip"
-                  data-bs-placement="bottom" title="Ver Asociados"></i>
+                <i
+                  class="fas fa-align-justify text-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  (click)="seguimi(hoja._id)"
+                  title="Ver Seguimiento"
+                ></i>
+                <i
+                  (click)="listAso(hoja._id)"
+                  *ngIf="hoja.asociado.length > 0"
+                  class="fas fa-paperclip text-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Ver Asociados"
+                ></i>
 
-                <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary" *ngIf="
-                      (hoja.estado !== 'REGISTRADO' &&
-                        hoja.estado !== 'RECIBIDO' &&
-                        data &&
-                        data.roles === 'SUPER_USER') ||
-                      (data.roles === 'ADMIN' && hoja.estado !== 'REGISTRADO')
-                    " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Asociar"></i>
+                <i
+                  [routerLink]="['/ruta/asociar', hoja.nuit]"
+                  class="fas fa-paste text-primary"
+                  *ngIf="
+                    (hoja.estado !== 'REGISTRADO' &&
+                      hoja.estado !== 'RECIBIDO' &&
+                      data &&
+                      data.roles === 'SUPER_USER') ||
+                    (data.roles === 'ADMIN' && hoja.estado !== 'REGISTRADO')
+                  "
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Asociar"
+                ></i>
               </td>
-              <td *ngIf="
-                    (data && data.roles === 'SUPER_ADMIN') ||
-                    data.roles === 'SECRETARIA'
-                  ">
-                <i class="fas fa-print text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                  (click)="seguimi(hoja._id)" title="Imprimir"></i>
+              <td
+                *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                "
+              >
+                <i
+                  class="fas fa-print text-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal1"
+                  (click)="seguimi(hoja._id)"
+                  title="Imprimir"
+                ></i>
               </td>
               <td>
-                <i [routerLink]="[]" class="fas fa-cloud-download-alt"
-                  style="color: rgb(29, 14, 248) !important"></i>
+                <i
+                  [routerLink]="[]"
+                  class="fas fa-cloud-download-alt"
+                  style="color: rgb(29, 14, 248) !important"
+                ></i>
               </td>
-              <td *ngIf="
-                    (data && data.roles === 'SUPER_ADMIN') ||
-                    data.roles === 'SECRETARIA'
-                  ">
-                <i [routerLink]="['/ruta/editHoja/', hoja._id]" class="fas fa-edit text-primary"></i>
+              <td
+                *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                "
+              >
+                <i
+                  [routerLink]="['/ruta/editHoja/', hoja._id]"
+                  class="fas fa-edit text-primary"
+                ></i>
 
-                <i (click)="eliminarHoja(hoja._id)"class="fas fa-trash text-danger" *ngIf="hoja.estado === 'REGISTRADO'"></i>
-                <i class="fas fa-trash text-danger" style="color: rgb(216, 139, 103) !important"
-                  *ngIf="hoja.estado === 'ENVIADO'"></i>
-                <i class="fas fa-trash text-danger" style="color: rgb(250, 146, 98) !important"
-                  *ngIf="hoja.estado === 'RECIBIDO'"></i>
-                <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary"
-                  *ngIf="hoja.estado !== 'REGISTRADO'" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                  title="Asociar"></i>
+                <i
+                  (click)="eliminarHoja(hoja._id)"
+                  class="fas fa-trash text-danger"
+                  *ngIf="hoja.estado === 'REGISTRADO'"
+                ></i>
+                <i
+                  class="fas fa-trash text-danger"
+                  style="color: rgb(216, 139, 103) !important"
+                  *ngIf="hoja.estado === 'ENVIADO'"
+                ></i>
+                <i
+                  class="fas fa-trash text-danger"
+                  style="color: rgb(250, 146, 98) !important"
+                  *ngIf="hoja.estado === 'RECIBIDO'"
+                ></i>
+                <i
+                  [routerLink]="['/ruta/asociar', hoja.nuit]"
+                  class="fas fa-paste text-primary"
+                  *ngIf="hoja.estado !== 'REGISTRADO'"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="Asociar"
+                ></i>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <nav *ngIf="hojaRutas.length > 0" aria-label="Page navigation example" class="mt-2">
+      <nav
+        *ngIf="hojaRutas.length > 0"
+        aria-label="Page navigation example"
+        class="mt-2"
+      >
         <ul class="pagination justify-content-center">
           <li class="page-item pointer" *ngIf="pageOne()">
-            <a class="page-link boton" (click)="paginaAnterior()" aria-label="Anterior">
+            <a
+              class="page-link boton"
+              (click)="paginaAnterior()"
+              aria-label="Anterior"
+            >
               <span aria-hidden="true">&laquo; Anterior</span>
             </a>
           </li>
           <li class="page-item pointer" *ngIf="pageFinish()">
-            <a class="page-link boton" (click)="paginaSiguiente()" aria-label="Siguiente">
+            <a
+              class="page-link boton"
+              (click)="paginaSiguiente()"
+              aria-label="Siguiente"
+            >
               <span aria-hidden="true">Siguiente &raquo;</span>
             </a>
           </li>
@@ -154,26 +268,48 @@
   </div>
 </div>
 <!--MODAL SEGUIMIENTO-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
-        <button type="button" class="btn btn-success p-0 mx-5" (click)="ImprimirPDF()">
+        <button
+          type="button"
+          class="btn btn-success p-0 mx-5"
+          (click)="ImprimirPDF()"
+        >
           <i class="fas fa-print p-0"></i>
           Imprimir
         </button>
-        <button type="button" class="btn btn-primary p-0 ml-5" (click)="downloadPDF()">
+        <button
+          type="button"
+          class="btn btn-primary p-0 ml-5"
+          (click)="downloadPDF()"
+        >
           <i class="fas fa-cloud-download-alt p-0"></i>
           Descargar
         </button>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body pb-0">
         <div id="htmlData">
           <div class="segui">
             <div class="d-flex justify-content-between ml-3 mb-0">
               <div>
-                <img src="../../../../../assets/img/logo.png" class="logo ml-4 mb-0" />
+                <img
+                  src="../../../../../assets/img/logo.png"
+                  class="logo ml-4 mb-0"
+                />
               </div>
               <div class="text-center mt-3 mb-0">
                 <p class="mb-0 fs-5">GOBIERNO AUTÓNOMO MUNICIPAL DE BETANZOS</p>
@@ -186,7 +322,8 @@
               <div class="p-3 mt-4">
                 <h5 class="text-center mb-0 fs-5 mb-1">NUIT</h5>
                 <div class="badge bg-light text-dark text-center fs-5">
-                  N°:&nbsp;&nbsp;<strong></strong>{{ hojaRuta.nuit | uppercase }}
+                  N°:&nbsp;&nbsp;<strong></strong
+                  >{{ hojaRuta.nuit | uppercase }}
                 </div>
               </div>
             </div>
@@ -194,13 +331,16 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
-                    <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion | date: "shortDate" : "UTC-4" }}
+                    <span>Fecha de recepcion: </span
+                    >{{ hojaRuta.fecharesepcion | date: "shortDate":"UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date:"mediumTime" : "UTC-4" }}
+                    <span>Hora: </span
+                    >{{ hojaRuta.fecharesepcion | date: "mediumTime":"UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date: "shortDate" : "UTC" }}
+                    <span>Fecha de documento: </span
+                    >{{ hojaRuta.fechadocumento | date: "shortDate":"UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -248,15 +388,30 @@
                         <td *ngIf="idhr === seguiss.idhj">
                           {{ seguiss.detalles }}
                           <br />
-                          <p *ngIf="seguiss.estado === 'MALETIN'" class="badge badge-warning text-dark">
+                          <p
+                            *ngIf="seguiss.estado === 'MALETIN'"
+                            class="badge badge-warning text-dark"
+                          >
                             {{ seguiss.smsarchivo }}
                           </p>
                         </td>
-                        <td *ngIf="idhr===seguiss.idhj">
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
-                            {{seguiss.fechaderivado | amLocale: 'es' | amTimeAgo}} </span><br>
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
-                            {{seguiss.fechaderivado | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
+                        <td *ngIf="idhr === seguiss.idhj">
+                          <span
+                            *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"
+                          >
+                            {{
+                              seguiss.fechaderivado | amLocale: "es" | amTimeAgo
+                            }} </span
+                          ><br />
+                          <span
+                            *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"
+                          >
+                            {{
+                              seguiss.fechaderivado
+                                | amLocal
+                                | amDateFormat: "DD-MM-YY HH:mm"
+                            }}
+                          </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <span *ngIf="seguiss.fecharespuesta != null">{{
@@ -267,55 +422,115 @@
                                 : true
                               | amDuration: "seconds"
                           }}</span>
-                          <span *ngIf="
+                          <span
+                            *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'DERIVADO'
-                            ">{{
+                            "
+                            >{{
                               seguiss.fecharecepcion
                                 | amDifference
                                   : seguiss.fechaderivado
                                   : "seconds"
                                   : true
                                 | amDuration: "seconds"
-                            }}</span>
-                          <span *ngIf="
+                            }}</span
+                          >
+                          <span
+                            *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'MALETIN'
-                            ">{{
+                            "
+                            >{{
                               seguiss.fecharecepcion
                                 | amDifference
                                   : seguiss.fechaderivado
                                   : "seconds"
                                   : true
                                 | amDuration: "seconds"
-                            }}</span>
-                          <samp *ngIf="
+                            }}</span
+                          >
+                          <samp
+                            *ngIf="
                               seguiss.estado === 'ENVIADO' ||
                               seguiss.estado === 'RECIBIDO'
-                            ">Sin Responder</samp>
+                            "
+                            >Sin Responder</samp
+                          >
                         </td>
-                        <td *ngIf="idhr===seguiss.idhj">
-
-                          <i [ngClass]="seguiss.fecharecepcion === 'SIN RESEPCIONAR' ? 'badge badge-danger' : '' ">
-                            <span *ngIf="seguiss.fecharecepcion === 'SIN RESEPCIONAR'">
-                              {{seguiss.fecharecepcion}}</span>
-                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'">
-                              {{seguiss.fecharecepcion | amLocale: 'es' | amTimeAgo}} </span><br>
-                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR'">
-                              {{seguiss.fecharecepcion | amLocal | amDateFormat: 'DD-MM-YY HH:mm'}} </span>
+                        <td *ngIf="idhr === seguiss.idhj">
+                          <i
+                            [ngClass]="
+                              seguiss.fecharecepcion === 'SIN RESEPCIONAR'
+                                ? 'badge badge-danger'
+                                : ''
+                            "
+                          >
+                            <span
+                              *ngIf="
+                                seguiss.fecharecepcion === 'SIN RESEPCIONAR'
+                              "
+                            >
+                              {{ seguiss.fecharecepcion }}</span
+                            >
+                            <span
+                              *ngIf="
+                                seguiss.fecharecepcion != 'SIN RESEPCIONAR'
+                              "
+                            >
+                              {{
+                                seguiss.fecharecepcion
+                                  | amLocale: "es"
+                                  | amTimeAgo
+                              }} </span
+                            ><br />
+                            <span
+                              *ngIf="
+                                seguiss.fecharecepcion != 'SIN RESEPCIONAR'
+                              "
+                            >
+                              {{
+                                seguiss.fecharecepcion
+                                  | amLocal
+                                  | amDateFormat: "DD-MM-YY HH:mm"
+                              }}
+                            </span>
                           </i>
                         </td>
-                        <td [ngSwitch]="seguiss.estado" *ngIf="idhr === seguiss.idhj">
-                          <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguiss.estado }}</span>
-                          <span *ngIf="
+                        <td
+                          [ngSwitch]="seguiss.estado"
+                          *ngIf="idhr === seguiss.idhj"
+                        >
+                          <span
+                            *ngSwitchCase="'ENVIADO'"
+                            class="badge badge-danger"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngSwitchCase="'RECIBIDO'"
+                            class="badge badge-success"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngSwitchCase="'DERIVADO'"
+                            class="badge badge-info"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngSwitchCase="'MALETIN'"
+                            class="badge badge-warning"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngIf="
                               seguiss.estado != 'DERIVADO' &&
                               seguiss.estado != 'MALETIN' &&
                               seguiss.estado != 'RECIBIDO' &&
                               seguiss.estado != 'ENVIADO'
-                            " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span>
+                            "
+                            class="badge badge-secondary text-dark"
+                            >{{ seguiss.estado }}</span
+                          >
                           <br />
                           <i>{{ seguiss.copia }}</i>
                         </td>
@@ -325,8 +540,11 @@
                 </div>
               </div>
               <div>
-                <i class="ml-3">Usuario: {{ data.username }} {{ data.surnames }}</i>
-                <i class="mr-3 float-end">Fecha Descarga:
+                <i class="ml-3"
+                  >Usuario: {{ data.username }} {{ data.surnames }}</i
+                >
+                <i class="mr-3 float-end"
+                  >Fecha Descarga:
                   {{ today | amLocal | amDateFormat: "DD-MM-YY HH:mm" }}
                 </i>
               </div>
@@ -338,15 +556,29 @@
   </div>
 </div>
 <!--MODAL IMPRIMIR-->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal1"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
-        <button type="button" class="btn btn-success p-0" (click)="ImprimirHRPDF()">
+        <button
+          type="button"
+          class="btn btn-success p-0"
+          (click)="ImprimirHRPDF()"
+        >
           <i class="fas fa-print p-0"></i>
           Imprimir
         </button>
-        <button type="button" class="btn btn-primary p-0" (click)="downloadHRPDF()">
+        <button
+          type="button"
+          class="btn btn-primary p-0"
+          (click)="downloadHRPDF()"
+        >
           <i class="fas fa-cloud-download-alt p-0"></i>
           Descargar
         </button>
@@ -356,7 +588,10 @@
           <div class="segui">
             <div class="d-flex justify-content-between ml-3 mb-0">
               <div>
-                <img src="../../../../../assets/img/logo.png" class="logo ml-4 mb-0" />
+                <img
+                  src="../../../../../assets/img/logo.png"
+                  class="logo ml-4 mb-0"
+                />
               </div>
               <div class="text-center ml-5 mt-3 mb-0">
                 <p class="mb-0 fs-5">GOBIERNO AUTÓNOMO MUNICIPAL DE BETANZOS</p>
@@ -369,7 +604,8 @@
               <div class="p-3 mt-4">
                 <h5 class="text-center mb-0 fs-5 mb-1">NUIT</h5>
                 <div class="badge badge-info text-dark text-center fs-5">
-                  N°:&nbsp;&nbsp;<strong></strong>{{ hojaRuta.nuit | uppercase }}
+                  N°:&nbsp;&nbsp;<strong></strong
+                  >{{ hojaRuta.nuit | uppercase }}
                 </div>
               </div>
             </div>
@@ -377,13 +613,16 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
-                    <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion |date: "shortDate" : "UTC-4"  }}
+                    <span>Fecha de recepcion: </span
+                    >{{ hojaRuta.fecharesepcion | date: "shortDate":"UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Hora: </span>{{ hojaRuta.fecharesepcion |date: "mediumTime" : "UTC-4"}}
+                    <span>Hora: </span
+                    >{{ hojaRuta.fecharesepcion | date: "mediumTime":"UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date: "shortDate" : "UTC" }}
+                    <span>Fecha de documento: </span
+                    >{{ hojaRuta.fechadocumento | date: "shortDate":"UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -422,24 +661,25 @@
                       <p class="fw-normal lh-1 mb-2">Asesoría Legal</p>
                       <p class="fw-normal lh-1 mb-2">Stria Mcpal Adm.Fin.</p>
                       <p class="fw-normal lh-1 mb-2">Stia. Mcipal de DDHH</p>
-                      <p class="fw-normal lh-1 mb-2">Stria Mcpal de infraestructura</p>
+                      <p class="fw-normal lh-1 mb-2">
+                        Stria Mcpal de infraestructura
+                      </p>
                       <p class="fw-normal lh-1 mb-2">Stria Mcpal de DD EE</p>
                       <p class="fw-normal lh-1 mb-2">Planificación</p>
                       <p class="fw-normal lh-1 mb-2">Recursos Humanos</p>
                       <p class="fw-normal lh-1 mb-2">Contabilidad</p>
                     </div>
                     <div class="mr-0">
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
                     </div>
                     <div class="">
                       <p class="fw-normal lh-1 mb-2">Activos Fijos</p>
@@ -454,18 +694,18 @@
                       <p class="fw-normal lh-1 mb-2">__________________</p>
                     </div>
                     <div class="">
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
                     </div>
-                    <div class=" mt-2 ml-4">
+                    <div class="mt-2 ml-4">
                       <p class="fw-normal lh-1 mb-2">Remita informe</p>
                       <p class="fw-normal lh-1 mb-2">Dar el curso al trámite</p>
                       <p class="fw-normal lh-1 mb-2">Supervisé</p>
@@ -474,229 +714,268 @@
                       <p class="fw-normal lh-1 mb-2">Revíse</p>
                       <p class="fw-normal lh-1 mb-2">Resuelva</p>
                       <p class="fw-normal lh-1 mb-2">Para su conocimiento</p>
-                      <p class="fw-normal lh-1 ">___________________</p>
+                      <p class="fw-normal lh-1">___________________</p>
                     </div>
                     <div class="mr-3 mt-2">
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
-                      <p class="card cardchek border-2 border-secondary "></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
+                      <p class="card cardchek border-2 border-secondary"></p>
                     </div>
                   </div>
                 </div>
 
                 <div class="col-md-4">
-                  <div class=" mt-5 ml-0">
-                    <br>
-                    <br>
-                    <p class="fw-normal lh-1 mb-2 text-center">Firma y sello MAE</p>
+                  <div class="mt-5 ml-0">
+                    <br />
+                    <br />
+                    <p class="fw-normal lh-1 mb-2 text-center">
+                      Firma y sello MAE
+                    </p>
                     <p class="fw-normal lh-1 mb-2">
-                      ........................................................................................</p>
+                      ........................................................................................
+                    </p>
                     <p class="fw-normal lh-1 mb-2">
-                      ........................................................................................</p>
+                      ........................................................................................
+                    </p>
                     <p class="fw-normal lh-1 mb-2">
-                      ........................................................................................</p>
+                      ........................................................................................
+                    </p>
                     <p class="fw-normal lh-1 mb-2">
-                      ........................................................................................</p>
-                    <p class="fw-normal lh-1 mb-2 mt-4 text-center">Fecha:........./.........../...........</p>
+                      ........................................................................................
+                    </p>
+                    <p class="fw-normal lh-1 mb-2 mt-4 text-center">
+                      Fecha:........./.........../...........
+                    </p>
                   </div>
                 </div>
-
               </div>
             </div>
 
-            <div class="mt-1  ">
+            <div class="mt-1">
               <div class="row pl-0 pr-0">
                 <div class="col mr-0 pr-0 pl-3">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
                 <div class="col pl-1">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="mt-1  ">
-              <div class="row ">
+            <div class="mt-1">
+              <div class="row">
                 <div class="col mr-0 pr-0 pl-3">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
                 <div class="col pl-1">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="mt-1  ">
-              <div class="row ">
+            <div class="mt-1">
+              <div class="row">
                 <div class="col mr-0 pr-0 pl-3">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
                 <div class="col pl-1">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./.....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="mt-1  ">
-              <div class="row ">
+            <div class="mt-1">
+              <div class="row">
                 <div class="col mr-0 pr-0 pl-3">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
                 <div class="col pl-1">
                   <div class="card border-3 border-primary p-2 pb-0">
-                    <label class="form-check-label mt-1 "> Fecha de
+                    <label class="form-check-label mt-1">
+                      Fecha de
                       recepción:.............../................./....................
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      Hora:.............:............ </label>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <label class="form-check-label"> Fecha:....../......../..........Hora:......:......Derivado
-                      A:............................................................ </label>
+                      Hora:.............:............
+                    </label>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <label class="form-check-label">
+                      Fecha:....../......../..........Hora:......:......Derivado
+                      A:............................................................
+                    </label>
                     <label class="form-check-label">
                       Instrucción:........................................................................................................................
                     </label>
-                    <label
-                      class="form-check-label">............................................................................................................................................
+                    <label class="form-check-label"
+                      >............................................................................................................................................
                     </label>
                   </div>
                 </div>
@@ -712,64 +991,121 @@
 <!--modal reguister-->
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog register">
     <div class="modal-content">
       <div class="modal-body">
         <div class="container pt-3">
           <div class="card">
             <div class="card-body text-center">
-              <span class="titulo"> {{ titulo | uppercase}} </span>
-              <p class="fw-bold fa-2x">{{ cant +1 }}</p>
-              <form class="mt-3" [formGroup]="hojaForm" (ngSubmit)="registerHojas()">
+              <span class="titulo"> {{ titulo | uppercase }} </span>
+              <p class="fw-bold fa-2x">{{ cant + 1 }}</p>
+              <form
+                class="mt-3"
+                [formGroup]="hojaForm"
+                (ngSubmit)="registerHojas()"
+              >
                 <div class="mb-2">
-                  <input type="text" formControlName="origen" class="form-control" placeholder="Origen" />
-                  <div class="text-danger" *ngIf="
-                          hojaForm.get('origen')?.hasError('required') &&
-                          hojaForm.get('origen')?.touched
-                        ">
+                  <input
+                    type="text"
+                    formControlName="origen"
+                    class="form-control"
+                    placeholder="Origen"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      hojaForm.get('origen')?.hasError('required') &&
+                      hojaForm.get('origen')?.touched
+                    "
+                  >
                     <span>El origen <strong>es obligatorio</strong></span>
                   </div>
                 </div>
                 <div class="mb-2">
-                  <input type="text" formControlName="tipodoc" class="form-control" placeholder="Tipo del Documento" />
-                  <div class="text-danger" *ngIf="
-                          hojaForm.get('tipodoc')?.hasError('required') &&
-                          hojaForm.get('tipodoc')?.touched
-                        ">
+                  <input
+                    type="text"
+                    formControlName="tipodoc"
+                    class="form-control"
+                    placeholder="Tipo del Documento"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      hojaForm.get('tipodoc')?.hasError('required') &&
+                      hojaForm.get('tipodoc')?.touched
+                    "
+                  >
                     <span>El campo <strong>es obligatorios</strong></span>
                   </div>
                 </div>
                 <div class="mb-2">
-                  <input type="text" formControlName="contacto" class="form-control"
-                    placeholder="Numero de Telefono o Celular" />
+                  <input
+                    type="text"
+                    formControlName="contacto"
+                    class="form-control"
+                    placeholder="Numero de Telefono o Celular"
+                  />
                 </div>
                 <div class="mb-2">
-                  <textarea formControlName="referencia" class="form-control"
-                    placeholder="Escriba el detalle de referencia"></textarea>
-                  <div class="text-danger" *ngIf="
-                          hojaForm.get('referencia')?.hasError('required') &&
-                          hojaForm.get('referencia')?.touched
-                        ">
-                    <span>Detalle de referencia <strong>es obligatorios</strong></span>
+                  <textarea
+                    formControlName="referencia"
+                    class="form-control"
+                    placeholder="Escriba el detalle de referencia"
+                  ></textarea>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      hojaForm.get('referencia')?.hasError('required') &&
+                      hojaForm.get('referencia')?.touched
+                    "
+                  >
+                    <span
+                      >Detalle de referencia
+                      <strong>es obligatorios</strong></span
+                    >
                   </div>
                 </div>
                 <div class="mb-2">
                   <label for="fecha" class="mb-0">Fecha de Documento </label>
-                  <input type="date" formControlName="fechadocumento" class="form-control"
-                    placeholder="Fecha de Nacimiento" />
-                  <div class="text-danger" *ngIf="
-                          hojaForm.get('fechadocumento')?.hasError('required') &&
-                          hojaForm.get('fechadocumento')?.touched
-                        ">
+                  <input
+                    type="date"
+                    formControlName="fechadocumento"
+                    class="form-control"
+                    placeholder="Fecha de Nacimiento"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      hojaForm.get('fechadocumento')?.hasError('required') &&
+                      hojaForm.get('fechadocumento')?.touched
+                    "
+                  >
                     <span>Fecha <strong>es obligatoria</strong></span>
                   </div>
                 </div>
                 <div class="mb-2">
-                  <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal"
-                    (click)=" getHojaRutas()">CERRAR</button>
-                  <button type="submit" [disabled]="hojaForm.invalid" class="btn btn-success float-end">
+                  <button
+                    type="button"
+                    class="btn btn-secondary float-start"
+                    data-bs-dismiss="modal"
+                    (click)="getHojaRutas()"
+                  >
+                    CERRAR
+                  </button>
+                  <button
+                    type="submit"
+                    [disabled]="hojaForm.invalid"
+                    class="btn btn-success float-end"
+                  >
                     ACEPTAR
                   </button>
                 </div>
