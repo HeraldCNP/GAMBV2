@@ -48,6 +48,7 @@ export class ConvenioService {
 
   crearEntidad(form:any):Observable<any>{
     let dir = `${this.URL}/entidad`;
+    console.log(form)
     return this.http.post<any>(dir, form)
   }
 
@@ -82,7 +83,16 @@ export class ConvenioService {
 
     addFile(fd: FormData, id:any):Observable<any>{
       let dir = `${this.URL}/uploadconvenio/${id}`;
-      console.log(fd.get('typefile'))
+      // console.log(fd.get('typefile'))
+      return this.http.post<any>(dir, fd, {
+        reportProgress: true,
+        observe: 'events',
+      })
+    }
+
+    addTransfe(fd: FormData, id:any):Observable<any>{
+      let dir = `${this.URL}/addtransferencia/${id}`;
+      // console.log(fd.get('typefile'))
       return this.http.post<any>(dir, fd, {
         reportProgress: true,
         observe: 'events',

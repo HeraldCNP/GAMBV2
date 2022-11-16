@@ -34,7 +34,7 @@ export class PostCreateComponent implements OnInit {
       body : new FormControl('', Validators.required),
       iframe : new FormControl(''),
       category : new FormControl('', Validators.required),
-      image: new FormControl('', Validators.required)
+      image: new FormControl('')
     })
   }
 
@@ -60,7 +60,6 @@ export class PostCreateComponent implements OnInit {
     fd.append('body', this.postForm.value.body);
     fd.append('iframe', this.postForm.value.iframe);
     fd.append('category', this.postForm.value.category);
-
 
   
     this.api.registerPost(fd).subscribe(event => {

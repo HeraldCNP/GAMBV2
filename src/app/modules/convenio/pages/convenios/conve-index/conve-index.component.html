@@ -28,7 +28,7 @@
                 <th>Nombre</th>
                 <th>Objeto</th>
                 <th>Entidades</th>
-                <th>Monto</th>
+                <th>Transferencias</th>
                 <th>Monto Total</th>
                 <th>Fecha de Finalización</th>
                 <th>Estado</th>
@@ -44,12 +44,12 @@
                 <td>{{ convenio.objeto }}</td>
                 <td>
                   <i *ngFor="let entidad of convenio.entidades">
-                    {{entidad.entidad}} <br>
+                    {{entidad.entidad}} - {{entidad.monto }} Bs<br>
                   </i>
                 </td>
                 <td>
-                  <i *ngFor="let entidad of convenio.entidades">
-                    {{entidad.monto }} <br>
+                  <i *ngFor="let transferencia of convenio.transferencia">
+                     {{ transferencia.entidad }} - {{ transferencia.importe }}<br>
                   </i>
                 </td>
                 <td>
@@ -71,6 +71,7 @@
                     data-bs-placement="top" title="Modificar"></i>
                   <i (click)="deleteConvenio(convenio._id)" class="fas fa-trash-alt ml-3 icono"></i>
                   <i (click)="addFile(convenio._id)" class="fas fa-folder-plus ml-3 icono"></i>
+                  <i (click)="addTransfe(convenio._id)" class="fas fa-hand-holding-usd ml-3 icono"></i>
                 </td>
               </tr>
             </tbody>
@@ -80,5 +81,33 @@
       </div>
       <!-- /.card -->
     </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-md">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default" *ngFor="let convenio of convenios; let i=index">
+                  <div class="panel-heading" role="tab" id="{{'h'+i}}">
+                      <h4 class="panel-title">
+                          <a role="button" data-toggle="collapse" data-parent="#accordion" [attr.href]="'#f'+i" aria-expanded="true" aria-controls="" [attr.aria-controls] = "'f'+i">
+                              En fecha: {{ convenio.firma | date:'shortDate': 'UTC' }} se realizó el convenio: {{ convenio.codigo }} - {{ convenio.nombre }}
+                          </a>
+                      </h4>
+                  </div>
+                  <div id="{{'f'+i}}" class="panel-collapse collapse in" role="tabpanel" [attr.aria-labelledby]="'h'+i">
+                      <div class="panel-body">
+                          <p><b>OBJETO: </b> {{ convenio.objeto }}</p>
+                          <hr>
+                          <p> <b>PARTES SUSCRIBIENTES: </b> <span *ngFor="let entidad of convenio.entidades">{{ entidad.entidad }} - </span> </p>
+                          <hr>
+                          <p><b>VIGENCIA:</b> {{ convenio.plazo }} días  <b>VENCIMIENTO:</b> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }} - {{ i }} </p>
+                      </div>
+                  </div>
+              </div>             
+          </div>
+      </div>
   </div>
 </div>

@@ -25,16 +25,16 @@ export class EntiIndexComponent implements OnInit {
     this.api.getAllEntidades().subscribe
       (res => {
         this.entidades = res;
-        // console.log(res)
+        console.log(res)
       });
   }
 
   addEntidad() {
-    this.router.navigate(['convenio/convenio/create'])
+    this.router.navigate(['convenio/entidad/create'])
   }
 
   updateEntidad(id: any) {
-    this.router.navigate(['convenio/convenio/update', id])
+    this.router.navigate(['convenio/entidad/update', id])
   }
 
   deleteEntidad(id: any) {

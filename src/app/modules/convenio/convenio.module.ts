@@ -18,6 +18,7 @@ import { ConveCreateComponent } from './pages/convenios/conve-create/conve-creat
 import { ConveIndexComponent } from './pages/convenios/conve-index/conve-index.component';
 import { ConveUpdateComponent } from './pages/convenios/conve-update/conve-update.component';
 import { ConveFileComponent } from './pages/convenios/conve-file/conve-file.component';
+import { ConveTransfeComponent } from './pages/convenios/conve-transfe/conve-transfe.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ConveFileComponent } from './pages/convenios/conve-file/conve-file.comp
     ConveCreateComponent,
     ConveIndexComponent,
     ConveUpdateComponent,
-    ConveFileComponent
+    ConveFileComponent,
+    ConveTransfeComponent
   ],
   imports: [
     CommonModule,

@@ -50,25 +50,42 @@ export class ConveUpdateComponent implements OnInit {
 
   ngOnInit(): void {
 
-            this.getEntidades();
-            this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
-            this.api.getSingleConvenio(this.convenioId).subscribe(data => {
-              this.datosConvenio = data;
-              console.log("convenio", this.datosConvenio);
-              
-              this.editarForm.setValue({
-                'codigo': this.datosConvenio.codigo,
-                'nombre': this.datosConvenio.nombre,
-                'objeto': this.datosConvenio.objeto,
-                'modificaciones': [],
-                'firma': this.datosConvenio.firma.substr(0, 10),
-                'plazo': this.datosConvenio.plazo,
-                // 'representante': this.datosConvenio.representante,
-                // 'telefono': this.datosConvenio.telefono,
-                // 'nit': this.datosConvenio.nit,
-                // 'cuenta': this.datosConvenio.cuenta,
-              });
-            })
+    this.getEntidades();
+    this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
+    this.api.getSingleConvenio(this.convenioId).subscribe(data => {
+      this.datosConvenio = data;
+      console.log("convenio", this.datosConvenio);
+      
+      if(this.datosConvenio.firma){
+        this.editarForm.setValue({
+          'codigo': this.datosConvenio.codigo,
+          'nombre': this.datosConvenio.nombre,
+          'objeto': this.datosConvenio.objeto,
+          'modificaciones': [],
+          'firma': this.datosConvenio.firma.substr(0, 10),
+          'plazo': this.datosConvenio.plazo,
+          // 'representante': this.datosConvenio.representante,
+          // 'telefono': this.datosConvenio.telefono,
+          // 'nit': this.datosConvenio.nit,
+          // 'cuenta': this.datosConvenio.cuenta,
+        });
+      }else{
+        this.editarForm.setValue({
+          'codigo': this.datosConvenio.codigo,
+          'nombre': this.datosConvenio.nombre,
+          'objeto': this.datosConvenio.objeto,
+          'modificaciones': [],
+          'firma': this.datosConvenio.firma,
+          'plazo': this.datosConvenio.plazo,
+          // 'representante': this.datosConvenio.representante,
+          // 'telefono': this.datosConvenio.telefono,
+          // 'nit': this.datosConvenio.nit,
+          // 'cuenta': this.datosConvenio.cuenta,
+        });
+      }
+
+      
+    })
     // console.log(this.datosConvenio)
     
   }
@@ -92,6 +109,7 @@ export class ConveUpdateComponent implements OnInit {
       });
 
   }
+
   addEntidad() {
     // this.entidades.push(this.fb.control('', [Validators.required, Validators.minLength(3)]));
     const entidadFormGroup = this.fb.group({

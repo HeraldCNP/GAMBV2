@@ -1,6 +1,3 @@
-
-
-
 <!-- BLOG-AREA START -->
 <div class="blog-area my-3">
     <div class="container">
@@ -10,19 +7,21 @@
                     <h2>Noticias</h2>
                 </div>
             </div>
-        </div>			
+        </div>
         <div class="row animated fadeIn">
             <div *ngFor="let post of posts" class="col-lg-4 col-md-6">
-                <div class="single-blog" >
+                <div class="single-blog">
                     <div class="ratio ratio-16x9" *ngIf="post.iframe">
-                        <iframe [src] = "post.iframe" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-                        
+                        <div class="fb-video"
+                            [attr.data-href]="post.iframe"
+                            data-width="500" data-allowfullscreen="true"></div>
                     </div>
                     <div class="blog-photo" *ngIf="!post.iframe">
-                        <a [routerLink]="['/post', post._id]" class="img-fluid" height="150px" href="#"><img src="{{ URL+'/'+post.uri }}" alt="{{ post.title }}" /></a>
+                        <a [routerLink]="['/post', post._id]" class="img-fluid" height="150px" href="#"><img
+                                src="{{ URL+'/'+post.uri }}" alt="{{ post.title }}" /></a>
                         <div class="blog-post-date">
                             <span>15th</span>
-                            <span>{{ post.category }}</span> 
+                            <span>{{ post.category }}</span>
                         </div>
                     </div>
                     <div class="blog-brief">
@@ -31,13 +30,12 @@
                         <!-- <div class="like-comment">
                             <a href="#"><i class="sp-comment"></i>60 comment</a>
                         </div> -->
-                        <a class="shop-now" [routerLink]="['/post', post._id]" >Leer Más</a>
+                        <a class="shop-now" [routerLink]="['/post', post._id]">Leer Más</a>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
 <!-- BLOG-AREA END -->
-

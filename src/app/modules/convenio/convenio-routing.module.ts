@@ -11,6 +11,7 @@ import { ConveIndexComponent } from './pages/convenios/conve-index/conve-index.c
 import { ConveCreateComponent } from './pages/convenios/conve-create/conve-create.component';
 import { ConveUpdateComponent } from './pages/convenios/conve-update/conve-update.component';
 import { ConveFileComponent } from './pages/convenios/conve-file/conve-file.component';
+import { ConveTransfeComponent } from './pages/convenios/conve-transfe/conve-transfe.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       {path: 'convenio/create', component: ConveCreateComponent},
       {path: 'convenio/update/:id', component: ConveUpdateComponent},
       {path: 'convenio/addFile/:id', component: ConveFileComponent},
+      {path: 'convenio/addTransfe/:id', component: ConveTransfeComponent},
       {path: '**', redirectTo:'dashboard', pathMatch: 'full'},
     ]
   }

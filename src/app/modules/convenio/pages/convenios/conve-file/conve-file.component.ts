@@ -14,7 +14,7 @@ import { ConvenioService } from '../../../services/convenio.service';
 export class ConveFileComponent implements OnInit {
 
   URL = environment.api;
-  entidades2: any = [];
+
   convenioId: any;
   example: any = [];
   files:any;

@@ -75,8 +75,8 @@
                                             <label for="entidad" class="form-label col-auto">Entidad *</label>
                                             <div class="col-md-4">
                                                 <select class="form-select" formControlName="entidad">
-                                                    <option value="{{ enti.text }}" *ngFor="let enti of entidades2" >{{
-                                                        enti.text }}</option>
+                                                    <option value="{{ enti.nombre }}" *ngFor="let enti of entidades2" >{{
+                                                        enti.nombre }}</option>
                                                 </select>
                                                 <!-- <div class="form-text" *ngIf="entidad.touched && entidad.invalid">
                                                     <div *ngIf="entidad.errors && entidad.errors['required']">* entidad
