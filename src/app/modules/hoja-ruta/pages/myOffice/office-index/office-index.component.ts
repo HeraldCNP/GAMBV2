@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as moment from 'moment';
+import 'moment/locale/es';
 import { Segui } from '../../../models/seguimiento';
 
 @Component({
@@ -83,7 +84,7 @@ export class OfficeIndexComponent implements OnInit {
       if(data.totalDocs > 0){
         for(let i=0 ; i < data.totalDocs; i ++){
           this.ale=this.totales1[i]
-          if((this.hoy.diff(this.ale.fechaderivado, 'd') > 1)){
+          if((this.hoy.diff(this.ale.fechaderivado, 'hours') > 12)){
             this.alerta=true;
           }
         }
@@ -147,8 +148,6 @@ export class OfficeIndexComponent implements OnInit {
       .subscribe((data) => {
         this.seguimientos = data.serverResponse;
         this.nuit = '';
-        
-        console.log(this.seguimientos)
         this.totalSeguimientos = data.totalDocs;
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
       });

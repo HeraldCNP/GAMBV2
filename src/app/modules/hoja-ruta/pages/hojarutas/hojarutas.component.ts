@@ -55,10 +55,11 @@ export class HojarutasComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.search=" "
     this.user = localStorage.getItem("user");
     this.data = JSON.parse(this.user)
     this.getHojaRutas()
-    //this.getHojaRuta()
+    this.getHojaRuta()
   }
 
   registerHojas() {
@@ -91,6 +92,7 @@ export class HojarutasComponent implements OnInit {
         this.cant=data.totalDocs
         this.hojaRutas = data.serverResponse;
         this.totalPages = data.totalpage;
+        this.search=" ";
       }
     )
   }
@@ -107,21 +109,26 @@ export class HojarutasComponent implements OnInit {
     this.aRouter.params.subscribe (params => {
       var search = params['search'];
       this.search = search;
-      this.api.buscarHoja(this.search).subscribe(
-        data => {
-          if(data.serverResponse){
-            this.hojaRutas = data.serverResponse;
-            this.totalPages=1;
-          }else{
+      console.log(search)
+      if(search != undefined){
+        this.api.buscarHoja(this.search).subscribe(
+          data => {
+            if(data.serverResponse){
+              this.hojaRutas = data.serverResponse;
+              this.totalPages=1;
+            }else{
+              this.hojaRutas = [];
+              search=" ";
+            }
+          },
+          error => {
+            console.log(error);
             this.hojaRutas = [];
+            search=" ";
           }
-        },
-        error => {
-          console.log(error);
-          this.hojaRutas = [];
-
-        }
-      )
+        )
+      }
+     
     });
   }
 
