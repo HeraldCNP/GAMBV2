@@ -7,6 +7,7 @@ import { NewsComponent } from './pages/news/news.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { NewComponent } from './pages/index/new/new.component';
 import { MisionComponent } from './pages/mision/mision.component';
+import { ObjetivoComponent } from './pages/objetivo/objetivo.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       {path: 'news', component: NewsComponent},
       {path: 'new', component: NewComponent},
       {path: 'mision', component: MisionComponent},
+      {path: 'objetivo', component: ObjetivoComponent},
     ]
   }
 ];

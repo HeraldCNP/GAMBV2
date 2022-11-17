@@ -15,6 +15,10 @@ import { NewComponent } from './pages/index/new/new.component';
 import { DomseguroPipe } from '../../core/pipes/domseguro.pipe';
 import { InfoComponent } from './pages/index/info/info.component';
 import { MisionComponent } from './pages/mision/mision.component';
+import { ObjetivoComponent } from './pages/objetivo/objetivo.component';
+import { HistoriaComponent } from './pages/historia/historia.component';
+import { AlcaldeComponent } from './pages/alcalde/alcalde.component';
+import { ConsejoComponent } from './pages/consejo/consejo.component';
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import { MisionComponent } from './pages/mision/mision.component';
     NewComponent,
     DomseguroPipe,
     InfoComponent,
-    MisionComponent
+    MisionComponent,
+    ObjetivoComponent,
+    HistoriaComponent,
+    AlcaldeComponent,
+    ConsejoComponent
   ],
   imports: [
     CommonModule,
