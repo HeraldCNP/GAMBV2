@@ -14,6 +14,7 @@ import { ConvenioService } from '../../../services/convenio.service';
 export class ConveTransfeComponent implements OnInit {
   URL = environment.api;
   convenioId: any;
+  enti:any;
   transfeForm: any;
   files:any;
   progress = 0;
@@ -37,7 +38,10 @@ export class ConveTransfeComponent implements OnInit {
     this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
     this.api.getSingleConvenio(this.convenioId).subscribe(data => {
       this.datosConvenio = data.entidades;
-      console.log("entidades", this.datosConvenio);
+      console.log(data)
+      console.log("entidades", this.datosConvenio)
+      console.log(data.transferencia.length);
+      this.enti=data.transferencia;
     })
   }
 
@@ -49,10 +53,26 @@ export class ConveTransfeComponent implements OnInit {
     fd.append('importe', this.transfeForm.value.importe);
     fd.append('fuente', this.transfeForm.value.fuente);
     fd.append('comprobante', this.files[0]);
+    let saldo:any = 0;
+    let total =0;
+    this.datosConvenio.forEach((element:any) => {
+      if(this.transfeForm.value.entidad==element.entidad){
+        total = element.monto
+      }
+   });
+    let totaltrans=this.transfeForm.value.importe
+    this.enti.forEach((element: any) => {
+      if(this.transfeForm.value.entidad==element.entidad){
+        totaltrans = totaltrans + element.importe
 
-    
-
-    this.api.addTransfe(fd, this.convenioId)
+      }
+    });
+    saldo=total-totaltrans
+    console.log(saldo)
+    fd.append('totaldes', totaltrans);
+    fd.append('saldo', saldo);
+    if(totaltrans<=total){
+      this.api.addTransfe(fd, this.convenioId)
       .subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {
@@ -69,6 +89,14 @@ export class ConveTransfeComponent implements OnInit {
             this.alertOk('success', 'Exito', 'Transferencia Registrada Correctamente', '2000')
         }
       );
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El total de tranferencias no debe superar el monto total', 
+      })
+    }
+    
   }
 
   alertOk(icon: any, title: any, text: any, timer: any) {
