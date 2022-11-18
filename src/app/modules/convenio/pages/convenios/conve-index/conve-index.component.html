@@ -49,12 +49,11 @@
                     {{entidad.entidad}} - {{entidad.monto }} Bs<br>
                   </i>
                 </td>
-                <!--<td class="text-nowrap">
+                <td>
                   <i *ngFor="let transferencia of convenio.transferencia">
                      {{ transferencia.entidad }} - {{ transferencia.importe }}<br>
                   </i>
-                </td>-->
-                
+                </td>
                 <td>
                   {{ convenio.montototal | currency: 'USD': 'Bs' }}
                 </td>
@@ -72,7 +71,6 @@
                   <i *ngIf="convenio.firma">Vigente</i>
                   <i *ngIf="!convenio.firma">En Registro</i>
                 </td>
-                
                 <td>
                   <i *ngFor="let file of convenio.files">
                     <a href="{{ URL+'/'+file.uriconvenio }}" target="_blank">{{file.typefile}}</a>
