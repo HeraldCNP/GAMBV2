@@ -98,6 +98,10 @@ export class ConvenioService {
         observe: 'events',
       })
     }
+    editarConvenio(form:any, id:any):Observable<any>{
+      let dir = `${this.URL}/convenio/${id}`;
+      return this.http.put<any>(dir, form)
+    }
 
     
     /*End Services for Convenios*/ 

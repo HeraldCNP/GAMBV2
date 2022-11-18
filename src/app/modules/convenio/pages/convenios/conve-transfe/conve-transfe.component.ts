@@ -15,7 +15,10 @@ export class ConveTransfeComponent implements OnInit {
   URL = environment.api;
   convenioId: any;
   enti:any;
+  saldocv:any;
+  montototaltrans:number=0;
   transfeForm: any;
+  total:any;
   files:any;
   progress = 0;
   datosConvenio: any;
@@ -36,15 +39,34 @@ export class ConveTransfeComponent implements OnInit {
 
   ngOnInit(): void {
     this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
+    this.getconvenio();
+  }
+ getconvenio(){
+  if(this.convenioId){
     this.api.getSingleConvenio(this.convenioId).subscribe(data => {
       this.datosConvenio = data.entidades;
+      this.total=data.montototal;
+      if(data.montototaltrans!=undefined){
+        this.montototaltrans=data.montototaltrans;
+        console.log(this.montototaltrans);
+      }else{
+        this.montototaltrans=0;
+        console.log(this.montototaltrans);
+      }
+      if(data.saldo!=undefined){
+        this.saldocv=data.saldo;
+        console.log(this.saldocv);
+      }else{
+        this.saldocv=data.montototal;
+        console.log(this.saldocv);
+      }
       console.log(data)
       console.log("entidades", this.datosConvenio)
       console.log(data.transferencia.length);
       this.enti=data.transferencia;
     })
   }
-
+ }
 
   uploadTransfe() {
     let fd = new FormData();
@@ -72,12 +94,22 @@ export class ConveTransfeComponent implements OnInit {
     fd.append('totaldes', totaltrans);
     fd.append('saldo', saldo);
     if(totaltrans<=total){
+      console.log(this.montototaltrans);
+      console.log( parseInt(this.saldocv));
+      let montototaltransfe = this.transfeForm.value.importe+this.montototaltrans
+      let saldocv:any = this.total-montototaltransfe
+      let fdv = new FormData();
+      fdv.append('montototaltrans', montototaltransfe );
+      fdv.append('saldo', saldocv );
+      console.log(fdv)
       this.api.addTransfe(fd, this.convenioId)
       .subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round(100 * event.loaded / event.total);
           }
+          this.api.editarConvenio(fdv, this.convenioId).subscribe(data =>{
+          })
         },
         err => {
           console.log('HTTP Error', err)
@@ -93,7 +125,8 @@ export class ConveTransfeComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'El total de tranferencias no debe superar el monto total', 
+        text: 'El total de tranferencias no debe superar el monto total',
+       
       })
     }
     

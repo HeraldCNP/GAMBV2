@@ -19,17 +19,19 @@
         </div>
 
         <!-- /.card-header -->
-        <div class="card-body table-responsive p-0">
-          <table class="table table-hover text-nowrap">
+        <div class="card-body table-responsive p-0 lh-1">
+          <table class="table table-active table-success table-striped">
             <thead>
               <tr>
-                <th>Fecha de Firma</th>
+                <th>Fecha Firma</th>
                 <th>Convenio N°</th>
                 <th>Nombre</th>
                 <th>Objeto</th>
                 <th>Entidades</th>
-                <th>Transferencias</th>
+                <!--<th>Transferencias</th>-->
                 <th>Monto Total</th>
+                <th>Total Transf.</th>
+                <th>Saldo</th>
                 <th>Fecha de Finalización</th>
                 <th>Estado</th>
                 <th>Documentos</th>
@@ -42,24 +44,35 @@
                 <td>{{ convenio.codigo }}</td>
                 <td>{{ convenio.nombre }}</td>
                 <td>{{ convenio.objeto }}</td>
-                <td>
+                <td class="text-nowrap">
                   <i *ngFor="let entidad of convenio.entidades">
                     {{entidad.entidad}} - {{entidad.monto }} Bs<br>
                   </i>
                 </td>
-                <td>
+                <!--<td class="text-nowrap">
                   <i *ngFor="let transferencia of convenio.transferencia">
                      {{ transferencia.entidad }} - {{ transferencia.importe }}<br>
                   </i>
-                </td>
+                </td>-->
+                
                 <td>
                   {{ convenio.montototal | currency: 'USD': 'Bs' }}
                 </td>
-                <td *ngIf="convenio.firma">
-                  {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }} - {{ i }}
+                <td>
+                  {{ convenio.montototaltrans | currency: 'USD': 'Bs' }}
                 </td>
-                <td *ngIf="!convenio.firma">EN REGISTRO</td>
-                <td>{{ convenio.estado }}</td>
+                <td>
+                  {{ convenio.saldo | currency: 'USD': 'Bs' }}
+                </td>
+                <td >
+                  <samp *ngIf="convenio.firma"> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }}</samp>
+                  <i *ngIf="!convenio.firma">En Registro</i>
+                </td>
+                <td >
+                  <i *ngIf="convenio.firma">Vigente</i>
+                  <i *ngIf="!convenio.firma">En Registro</i>
+                </td>
+                
                 <td>
                   <i *ngFor="let file of convenio.files">
                     <a href="{{ URL+'/'+file.uriconvenio }}" target="_blank">{{file.typefile}}</a>
