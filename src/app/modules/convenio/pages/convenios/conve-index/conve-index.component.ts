@@ -47,6 +47,10 @@ export class ConveIndexComponent implements OnInit {
     this.router.navigate(['convenio/convenio/addTransfe', id])
   }
 
+  seeTransfe(id:string){
+    this.router.navigate(['convenio/convenio/seeTransfe', id])
+  }
+
   deleteConvenio(id:string){
 
   }

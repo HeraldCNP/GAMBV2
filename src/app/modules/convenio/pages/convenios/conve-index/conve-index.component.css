@@ -83,3 +83,8 @@ a:hover,a:focus{
     color: #305275;
     line-height: 28px;
 }
+
+.dropdown-item{
+    font-size: 0.8rem;
+    cursor: pointer;
+  }

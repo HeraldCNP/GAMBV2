@@ -19,6 +19,7 @@ import { ConveIndexComponent } from './pages/convenios/conve-index/conve-index.c
 import { ConveUpdateComponent } from './pages/convenios/conve-update/conve-update.component';
 import { ConveFileComponent } from './pages/convenios/conve-file/conve-file.component';
 import { ConveTransfeComponent } from './pages/convenios/conve-transfe/conve-transfe.component';
+import { SeeTransfeComponent } from './pages/convenios/see-transfe/see-transfe.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ConveTransfeComponent } from './pages/convenios/conve-transfe/conve-tra
     ConveIndexComponent,
     ConveUpdateComponent,
     ConveFileComponent,
-    ConveTransfeComponent
+    ConveTransfeComponent,
+    SeeTransfeComponent
   ],
   imports: [
     CommonModule,

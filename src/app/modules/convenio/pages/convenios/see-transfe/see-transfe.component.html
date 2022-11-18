@@ -1,0 +1,122 @@
+<div class="m-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card-header">
+                    <h3 class="card-title"> <b>En fecha:</b> {{ convenio.firma | date:'shortDate': 'UTC' }} se realizó
+                        el
+                        <b> Convenio:</b> {{ convenio.codigo }} - {{ convenio.nombre }}
+                    </h3><br>
+                    <hr>
+                    <p><b>OBJETO: </b> {{ convenio.objeto }}</p>
+                    <hr>
+                    <p> <b>PARTES SUSCRIBIENTES: </b> <span *ngFor="let entidad of convenio.entidades">{{
+                            entidad.entidad }} - </span> </p>
+                    <hr>
+                    <p><b>VIGENCIA:</b> {{ convenio.plazo }} días <b>VENCIMIENTO:</b> {{ sumarDias(convenio.firma,
+                        convenio.plazo) | date: 'shortDate' }} </p>
+                    <hr>
+                    <p><b>MONTO TOTAL:</b> {{ convenio.montototal }} Bs - <b>TOTAL TRANSFERIDO: </b> {{
+                        convenio.montototaltrans }} Bs - <b>SALDO: </b> {{ convenio.montototal -
+                        convenio.montototaltrans }} Bs</p>
+                    <div class="card-tools">
+
+                        <!-- <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+                    </div>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0 lh-1">
+                    <table class="table table-active table-success table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha de Transacción</th>
+                                <th>Cuenta</th>
+                                <th>Entidad</th>
+                                <th>Fuente</th>
+                                <th>Monto</th>
+                                <th>Total Transf.</th>
+                                <th>Saldo</th>
+                                <th>Comprobante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let transfe of convenio.transferencia; let i=index">
+                                <td>{{ transfe.createdAt | date:'shortDate': 'UTC' }}</td>
+                                <td>{{ transfe.cuenta }}</td>
+                                <td>{{ transfe.entidad }}</td>
+                                <td>{{ transfe.fuente }}</td>
+                                <td>{{ transfe.importe }}</td>
+                                <td>{{ transfe.totaldes }}</td>
+                                <td>{{ transfe.saldo }}</td>
+                                <td><img width="70px" src="{{ URL+'/'+convenio.uricompro }}" alt=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
+
+
+<!-- 
+
+
+namefile
+:
+"GAMB_f6ea797_pngwing.com (2).png"
+pathcompro
+:
+"/opt/app/uploadhojaruta/GAMB_f6ea797_pngwing.com (2).png"
+saldo
+:
+244500
+totaldes
+:
+155500
+updatedAt
+:
+"2022-11-18T00:55:31.818Z"
+uricompro
+:
+"getcomprovante/GAMB_f6ea797_pngwing.com (2).png"
+_id
+:
+"6376d8033e741400136132fa" -->
+
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default" *ngFor="let convenio of convenios; let i=index">
+                    <div class="panel-heading" role="tab" id="{{'h'+i}}">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" [attr.href]="'#f'+i" aria-expanded="true" aria-controls="" [attr.aria-controls] = "'f'+i">
+                                En fecha: {{ convenio.firma | date:'shortDate': 'UTC' }} se realizó el convenio: {{ convenio.codigo }} - {{ convenio.nombre }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="{{'f'+i}}" class="panel-collapse collapse in" role="tabpanel" [attr.aria-labelledby]="'h'+i">
+                        <div class="panel-body">
+                            <p><b>OBJETO: </b> {{ convenio.objeto }}</p>
+                            <hr>
+                            <p> <b>PARTES SUSCRIBIENTES: </b> <span *ngFor="let entidad of convenio.entidades">{{ entidad.entidad }} - </span> </p>
+                            <hr>
+                            <p><b>VIGENCIA:</b> {{ convenio.plazo }} días  <b>VENCIMIENTO:</b> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }} - {{ i }} </p>
+                        </div>
+                    </div>
+                </div>             
+            </div>
+        </div>
+    </div>
+  </div> -->

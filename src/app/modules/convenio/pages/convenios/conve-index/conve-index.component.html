@@ -49,11 +49,11 @@
                     {{entidad.entidad}} - {{entidad.monto }} Bs<br>
                   </i>
                 </td>
-                <td>
+                <!-- <td>
                   <i *ngFor="let transferencia of convenio.transferencia">
                      {{ transferencia.entidad }} - {{ transferencia.importe }}<br>
                   </i>
-                </td>
+                </td> -->
                 <td>
                   {{ convenio.montototal | currency: 'USD': 'Bs' }}
                 </td>
@@ -78,11 +78,24 @@
                   </i>
                 </td>
                 <td>
-                  <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip"
+                  <div class="dropdown-center" title="Ver Acciones">
+                    <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" (click)="seeTransfe(convenio._id)"> <i class="fas fa-money-check-alt mr-3 icono"> Ver Transacciones</i>  </a></li>
+                      <li><a class="dropdown-item" (click)="addFile(convenio._id)"> <i class="fas fa-folder-plus mr-3 icono">  Añadir Archivo</i> </a></li>
+                      <li><a class="dropdown-item" (click)="addTransfe(convenio._id)"> <i class="fas fa-hand-holding-usd mr-3 icono">  Añadir Transferencia</i> </a></li>
+                      <li><a class="dropdown-item" (click)="updateConvenio(convenio._id)"> <i class="fas fa-edit mr-3 icono">  Modificar</i> </a></li>
+                      <li><a class="dropdown-item" (click)="deleteConvenio(convenio._id)"> <i class="fas fa-trash-alt mr-3 icono">  Eliminar</i> </a></li>
+                      <!-- <li><a class="dropdown-item">Action three</a></li> -->
+                    </ul>
+                  </div>
+                  <!-- <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Modificar"></i>
                   <i (click)="deleteConvenio(convenio._id)" class="fas fa-trash-alt ml-3 icono"></i>
                   <i (click)="addFile(convenio._id)" class="fas fa-folder-plus ml-3 icono"></i>
-                  <i (click)="addTransfe(convenio._id)" class="fas fa-hand-holding-usd ml-3 icono"></i>
+                  <i (click)="addTransfe(convenio._id)" class="fas fa-hand-holding-usd ml-3 icono"></i> -->
                 </td>
               </tr>
             </tbody>

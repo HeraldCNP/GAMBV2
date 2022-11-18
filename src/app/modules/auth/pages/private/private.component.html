@@ -58,6 +58,24 @@
             </a>
           </div>
         </div>
+        <div class="contenedor-card-item" *ngIf="
+        (data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')
+      ">
+          <div class="card-header">
+            <h2>Sistema Convenios</h2>
+          </div>
+          <div class="contenedor-card-item-wrapper">
+            <a routerLink="/convenio">
+              <img src="assets/img/private/convenio.jpg" loading="lazy" alt="">
+              <div class="contenedor-info">
+                <div class="info">
+                  <p class="titulo">Ingresar</p>
+                </div>
+                <div class="fondo"></div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </main>
