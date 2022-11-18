@@ -129,7 +129,7 @@ label{
 }
 .panel-heading {
   color: #333;
-  background-color: #f5f5f5;
+  background-color: #fff;
   border-top: 1px solid #ddd;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
@@ -278,10 +278,10 @@ label{
   background: #333 none repeat scroll 0 0;
 }
 .nav-item .nav-link{
-  color: #fff !important;
+  color: #000 ;
 }
 .navbar-brand .title{
-  color: #fff;
+  color: #000;
 }
 
 /*----------------------------------------*/

@@ -92,12 +92,13 @@ export class ConvenioService {
 
     addTransfe(fd: FormData, id:any):Observable<any>{
       let dir = `${this.URL}/addtransferencia/${id}`;
-      // console.log(fd.get('typefile'))
+      console.log(fd.get('comprobante'))
       return this.http.post<any>(dir, fd, {
         reportProgress: true,
         observe: 'events',
       })
     }
+
     editarConvenio(form:any, id:any):Observable<any>{
       let dir = `${this.URL}/convenio/${id}`;
       return this.http.put<any>(dir, form)
