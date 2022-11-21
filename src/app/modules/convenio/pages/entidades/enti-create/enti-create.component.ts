@@ -16,8 +16,8 @@ export class EntiCreateComponent implements OnInit {
   public entidadForm = this.fb.group({
     nombre: ['', [Validators.required, Validators.minLength(3)] ],
     representante: ['', [Validators.required] ],
-    telefono: ['', [Validators.required, Validators.minLength(7)] ],
-    nit: ['', [Validators.required, Validators.minLength(3)] ],
+    telefono: ['', [Validators.minLength(7)] ],
+    nit: ['', [Validators.minLength(3)] ],
     cuenta: ['', ],
   })
   constructor(

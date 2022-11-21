@@ -49,4 +49,8 @@ export class RepreCreateComponent implements OnInit {
     })
   }
 
+  get form() {
+    return this.representanteForm.controls;
+  }
+
 }

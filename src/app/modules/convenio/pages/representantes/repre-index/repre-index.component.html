@@ -1,12 +1,13 @@
-<div class="m-3">
+<div class="container">
+  <div class="m-3">
     <div class="row">
-        <div class="col-md-12">
-          <div class="card shadow p-3 mb-5 bg-body rounded">
-            <div class="card-header">
-              <h3 class="card-title">Lista de Representantes</h3>
-              <div class="card-tools">
-                <button (click)="addRepresentante()"  class="btn btn-primary">Agregar Nuevo</button>  
-                <!-- <div class="input-group input-group-sm" style="width: 150px;">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Lista de Representantes</h3>
+            <div class="card-tools">
+              <button (click)="addRepresentante()" class="btn btn-primary">Agregar Nuevo</button>
+              <!-- <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
@@ -14,44 +15,43 @@
                     </button>
                   </div>
                 </div> -->
-              </div>
             </div>
-            
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Cargo</th>
-                    <th>Telefono</th>
-                    <th>CI</th>
-                    <th>Email</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let repre of representantes">
-                    <td>{{ repre.nombre | slice:0:20 }}</td>
-                    <td>{{ repre.apellidos | slice:0:20 }}</td>
-                    <td>{{ repre.cargo | slice:0:20 }}...</td>
-                    <td>{{ repre.telefono | slice:0:20 }}</td>
-                    <td>{{ repre.ci }}</td>
-                    <td>{{ repre.email }}</td>
-                    <td>
-                      <i (click)="updateRepresentante(repre._id)" class="fas fa-edit ml-3 icono"></i>
-                      <i (click)="deleteRepresentante(repre._id)" class="fas fa-trash-alt ml-3 icono"></i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th>Cargo</th>
+                  <th>Telefono</th>
+                  <th>CI</th>
+                  <th>Email</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let repre of representantes">
+                  <td>{{ repre.nombre | slice:0:20 }}</td>
+                  <td>{{ repre.apellidos | slice:0:20 }}</td>
+                  <td>{{ repre.cargo | slice:0:20 }}...</td>
+                  <td>{{ repre.telefono | slice:0:20 }}</td>
+                  <td>{{ repre.ci }}</td>
+                  <td>{{ repre.email }}</td>
+                  <td>
+                    <i (click)="updateRepresentante(repre._id)" class="fas fa-edit ml-3 icono"></i>
+                    <i (click)="deleteRepresentante(repre._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
+        <!-- /.card -->
+      </div>
     </div>
+  </div>
 </div>
-
-

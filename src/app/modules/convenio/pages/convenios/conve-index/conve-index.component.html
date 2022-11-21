@@ -4,9 +4,13 @@
       <div class="card shadow p-3 mb-5 bg-body rounded">
         <div class="card-header">
           <h3 class="card-title">Lista de Convenios</h3>
-          <div class="card-tools">
+          <div class="card-tools d-flex flex-row">
+            <div class="input-group input-group-sm" style="width: 200px">
+              <input type="text" (keyup.enter)="filtrarConvenios()" [(ngModel)]="search" name="table_search"
+                class="form-control float-right" placeholder="Buscar" />
 
-            <button (click)="addConvenio()" class="btn btn-primary">Agregar Nuevo</button>
+            </div>
+            <button (click)="addConvenio()" class="btn btn-primary ml-5">Agregar Nuevo</button>
             <!-- <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">
@@ -54,7 +58,7 @@
                      {{ transferencia.entidad }} - {{ transferencia.importe }}<br>
                   </i>
                 </td> -->
-                <td>
+                <td valign="middle" align="center">
                   {{ convenio.montototal | currency: 'USD': 'Bs' }}
                 </td>
                 <td>
@@ -109,7 +113,9 @@
 </div>
 
 
-<div class="container">
+
+
+<!-- <div class="container">
   <div class="row">
       <div class="col-md">
           <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -134,4 +140,4 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->

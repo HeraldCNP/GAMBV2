@@ -1,53 +1,66 @@
-<div class="m-3">
-    <div class="row">
-        <div class="col-md-12">
-          <div class="card shadow p-3 mb-5 bg-body rounded">
-            <div class="card-header">
-              <h3 class="card-title">Crear Nuevo representante</h3>         
-            </div>
-            
-            <!-- /.card-header -->
-            <div class="card-body table-responsive">
-              <div class="row">
-                <div class="col-md-8">
-                  <form (ngSubmit)="crearRepresentante(representanteForm.value)" [formGroup]="representanteForm">
-                    <div class="mb-1">
-                      <label for="nombre" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="nombre" formControlName="nombre">
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Crear Nuevo representante</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+                <form (ngSubmit)="crearRepresentante(representanteForm.value)" [formGroup]="representanteForm">
+                  <div class="mb-1">
+                    <label for="nombre" class="form-label">Nombre *</label>
+                    <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                    <div class="form-text" *ngIf="form['nombre'].touched && form['nombre'].invalid">
+                      <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* Nombre
+                        es requerido.</div>
+                      <div *ngIf="form['nombre'].errors && form['nombre'].errors['minlength']">Nombre
+                        no puede tener menos de 3 caracteres.</div>
                     </div>
-                    <div class="mb-1">
-                      <label for="apellidos" class="form-label">Apellidos</label>
-                      <input type="text" class="form-control" id="apellidos" formControlName="apellidos">
+                  </div>
+                  <div class="mb-1">
+                    <label for="apellidos" class="form-label">Apellidos *</label>
+                    <input type="text" class="form-control" id="apellidos" formControlName="apellidos">
+                    <div class="form-text" *ngIf="form['apellidos'].touched && form['apellidos'].invalid">
+                      <div *ngIf="form['apellidos'].errors && form['apellidos'].errors['required']">* Apellidos
+                        es requerido.</div>
+                      <div *ngIf="form['apellidos'].errors && form['apellidos'].errors['minlength']"> * Apellidos
+                        no puede tener menos de 3 caracteres.</div>
                     </div>
-                    <div class="mb-1">
-                      <label for="cargo" class="form-label">Cargo</label>
-                      <input type="text" class="form-control" id="cargo" formControlName="cargo">
+                  </div>
+                  <div class="mb-1">
+                    <label for="cargo" class="form-label">Cargo *</label>
+                    <input type="text" class="form-control" id="cargo" formControlName="cargo">
+                    <div class="form-text" *ngIf="form['cargo'].touched && form['cargo'].invalid">
+                      <div *ngIf="form['cargo'].errors && form['cargo'].errors['required']">* Cargo
+                        es requerido.</div>
                     </div>
-                    <div class="mb-1">
-                      <label for="telefono" class="form-label">Telefono</label>
-                      <input type="text" class="form-control" id="telefono" formControlName="telefono">
-                    </div>
-                    <div class="mb-1">
-                      <label for="ci" class="form-label">CI</label>
-                      <input type="text" class="form-control" id="ci" formControlName="ci">
-                    </div>
-                    <div class="mb-1">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="text" class="form-control" id="email" formControlName="email">
-                    </div>
-                    <button [disabled]="representanteForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
-                  </form>
-                </div>
-                <div class="col-md-4">
-                  {{ representanteForm.value | json }}
-                </div>
+                  </div>
+                  <div class="mb-1">
+                    <label for="telefono" class="form-label">Telefono</label>
+                    <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                  </div>
+                  <div class="mb-1">
+                    <label for="ci" class="form-label">CI</label>
+                    <input type="text" class="form-control" id="ci" formControlName="ci">
+                  </div>
+                  <div class="mb-1">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" formControlName="email">
+                  </div>
+                  <button [disabled]="representanteForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+                </form>
               </div>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
+          <!-- /.card-body -->
         </div>
+        <!-- /.card -->
+      </div>
     </div>
+  </div>
 </div>
-
-

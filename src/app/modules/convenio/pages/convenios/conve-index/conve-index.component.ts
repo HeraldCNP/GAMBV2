@@ -9,9 +9,15 @@ import { ConvenioService } from '../../../services/convenio.service';
   styleUrls: ['./conve-index.component.css']
 })
 export class ConveIndexComponent implements OnInit {
-  convenios: any[] = [];
+  convenios: any = [];
   URL = environment.api;
+  search:any;
 
+  destino: any = '';
+  estado: string = '';
+  nombre: string = '';
+  limit: number = 10;
+  skip: number = 1;
   constructor(
     private api: ConvenioService,
     private router: Router
@@ -30,10 +36,12 @@ export class ConveIndexComponent implements OnInit {
     this.api.getAllConvenios().subscribe(
       res => {
         this.convenios = res;
-        console.log(this.convenios)
+        console.log(res)
       }
     );
   }
+
+
 
   updateConvenio(id:string){
     this.router.navigate(['convenio/convenio/update', id])
@@ -63,4 +71,37 @@ export class ConveIndexComponent implements OnInit {
     return fechaFin.toISOString();
   }
 
+  // getSeguimientos() {
+  //   this.api
+  //     .getAllSeguimientos(
+  //       this.destino,
+  //       this.estado,
+  //       this.limit,
+  //       this.skip,
+  //       this.nuit
+  //     )
+  //     .subscribe((data) => {
+  //       this.seguimientos = data.serverResponse;
+  //       this.nuit = '';
+  //       this.totalSeguimientos = data.totalDocs;
+  //       this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
+  //     });
+  // }
+  
+
+  filtrarConvenios(){
+    // this.estado = '';
+    this.api
+      .filtrarConvenios(
+        this.nombre,
+        this.search
+      )
+      .subscribe((data) => {
+        this.convenios = data.serverResponse;
+        console.log(this.convenios)
+        // this.nuit = '';
+        // this.totalSeguimientos = data.totalDocs;
+        // this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
+      });
+  }
 }

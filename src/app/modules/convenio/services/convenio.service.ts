@@ -99,6 +99,13 @@ export class ConvenioService {
       })
     }
 
+    filtrarConvenios(codigo?:string, nombre?:string):Observable<any>{
+      let dir = `${this.URL}/convenios?codigo=${codigo}&nombre=${nombre}`;
+      console.log(dir)
+      return this.http.get<any>(dir)
+    }
+
+
     editarConvenio(form:any, id:any):Observable<any>{
       let dir = `${this.URL}/convenio/${id}`;
       return this.http.put<any>(dir, form)

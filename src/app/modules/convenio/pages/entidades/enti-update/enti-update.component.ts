@@ -17,7 +17,7 @@ export class EntiUpdateComponent implements OnInit {
   entidadId: any;
   representantes:any = [];
   editarForm: any = new FormGroup({
-    text: new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
     representante: new FormControl('', Validators.required),
     telefono: new FormControl('', Validators.required),
     nit: new FormControl(''),
@@ -38,7 +38,7 @@ export class EntiUpdateComponent implements OnInit {
       this.datosEntidad = data;
       // console.log(this.datosEntidad);
       this.editarForm.setValue({
-        'text': this.datosEntidad.text,
+        'nombre': this.datosEntidad.nombre,
         'representante': this.datosEntidad.representante,
         'telefono': this.datosEntidad.telefono,
         'nit': this.datosEntidad.nit,

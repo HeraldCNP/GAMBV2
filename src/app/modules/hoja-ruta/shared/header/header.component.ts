@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
     this.cookieService.delete('token');
     this.router.navigate(['/'])
   }
+  
   goSearch(){
     this.router.navigate(['/ruta/hojaRutas', this.searchString]);
   }

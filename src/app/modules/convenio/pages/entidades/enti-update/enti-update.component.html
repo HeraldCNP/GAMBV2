@@ -1,34 +1,37 @@
-<div class="m-3">
-  <div class="row">
-      <div class="col-md-12">
+<div class="container">
+  <div class="m-3">
+    <div class="row mb-5 justify-content-md-center">
+      <div class="col-md-6">
         <div class="card shadow p-3 mb-5 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Editar Entidad</h3>         
+            <h3 class="card-title">Editar Entidad</h3>
           </div>
-          
+
           <!-- /.card-header -->
           <div class="card-body table-responsive">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md">
                 <form (ngSubmit)="editarEntidad(editarForm.value)" [formGroup]="editarForm">
                   <div class="mb-1">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" formControlName="text">
+                    <input type="text" class="form-control" id="nombre" formControlName="nombre">
                   </div>
                   <div class="mb-2">
-                      <label for="representante" class="form-label">Representante</label>
-                      <select class="form-control" name="representante" id="" formControlName="representante">
-                          <option *ngFor="let representante of representantes" [selected]="representante._id === editarForm.value.representante" value="{{ representante._id}}">{{ representante.nombre}} {{ representante.apellidos}}</option>
-                      </select>
-                      <div class="form-text">We'll never share your email with anyone else.</div>
+                    <label for="representante" class="form-label">Representante</label>
+                    <select class="form-select" name="representante" id="" formControlName="representante">
+                      <option *ngFor="let representante of representantes"
+                        [selected]="representante._id === editarForm.value.representante"
+                        value="{{ representante._id}}">{{ representante.nombre}} {{ representante.apellidos}}</option>
+                    </select>
+                    <div class="form-text">We'll never share your email with anyone else.</div>
                   </div>
 
                   <!-- <div class="mb-2">
-                      <label for="category" class="form-label">Categoria</label>
-                      <select class="form-control" name="category" id="" formControlName="category">
-                          <option *ngFor="let category of categories.serverResponse" [selected]="category.category === editarForm.value.category" value="{{ category.category }}">{{ category.category}}</option>
-                      </select>
-                  </div> -->
+                        <label for="category" class="form-label">Categoria</label>
+                        <select class="form-control" name="category" id="" formControlName="category">
+                            <option *ngFor="let category of categories.serverResponse" [selected]="category.category === editarForm.value.category" value="{{ category.category }}">{{ category.category}}</option>
+                        </select>
+                    </div> -->
 
                   <div class="mb-1">
                     <label for="telefono" class="form-label">Telefono</label>
@@ -45,16 +48,12 @@
                   <button [disabled]="editarForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
                 </form>
               </div>
-              <div class="col-md-4">
-                {{ editarForm.value | json }}
-              </div>
             </div>
           </div>
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
       </div>
+    </div>
   </div>
 </div>
-
-
