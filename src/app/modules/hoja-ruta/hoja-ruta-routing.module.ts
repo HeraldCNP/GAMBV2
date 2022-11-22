@@ -10,6 +10,7 @@ import { AsociarComponent } from './pages/asociar/asociar.component';
 import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 import { PendientesComponent } from './pages/pendientes/pendientes.component';
 import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-ofi.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'office/index', component: OfficeIndexComponent,canActivate:[GuardGuard]},
       {path: 'pendientes', component: PendientesComponent},
       {path: 'hojaRutas', component: HojarutasComponent},
+      {path: 'reportes', component: ReportesComponent},
       {path: 'hojaRutas/:search', component: HojarutasComponent},
       {path: 'asociar/:nuit', component: AsociarComponent},
       {path: 'editHoja/:id', component: EditHojaComponent},

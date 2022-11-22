@@ -18,6 +18,7 @@ import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 import { ListAsociadosComponent } from './pages/list-asociados/list-asociados.component';
 import { PendientesComponent } from './pages/pendientes/pendientes.component';
 import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-ofi.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-o
     EditHojaComponent,
     ListAsociadosComponent,
     PendientesComponent,
-    SendArchivoOfiComponent
+    SendArchivoOfiComponent,
+    ReportesComponent
   ],
   imports: [
     CommonModule,

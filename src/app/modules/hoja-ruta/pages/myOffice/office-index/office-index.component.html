@@ -3,11 +3,20 @@
     <div class="col-md-12">
       <div class="card shadow p-3 mb-5 bg-body rounded">
         <div class="card-header d-flex justify-content-around">
-          <div class="d-flex flex-row "> Gestión:     
+          <!--<div class="d-flex flex-row "> Gestión:     
             <select class="form-select form-select-sm">
               <option value=10>{{ today| date:"Y"}}</option>
               <option value=30>2022</option>
             </select>
+          </div>-->
+          <div class="input-group input-group-sm" style="width: 190px">
+            <input type="search" (keyup)="buscarSeguimientos()" [(ngModel)]="nuit" name="table_search"
+              class="form-control float-right" placeholder="Filtrar por N° hoja de ruta" autocomplete="off"/>
+            <!--<div class="input-group-append" *ngIf="!alerta">
+              <button type="submit" class="btn btn-default" (click)="buscarSeguimientos()">
+                <i class="fas fa-search m-0"></i>
+              </button>
+            </div>-->
           </div>
           <div class="card-tools">
             <button (click)="changeStatus('')" type="button" [ngClass]="estado == '' ? 'activate' : ''"
@@ -61,23 +70,13 @@
             <button (click)="changeStatus('ARCHIVO OFICINA')" type="button"
               [ngClass]="estado == 'ARCHIVO OFICINA' ? 'activate' : ''"
               class="btn btn-info btn-sm position-relative mr-4">
-              Otros
+              Adjuntos
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                 {{ totalArchivado }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-          </div>
-          <div class="input-group input-group-sm" style="width: 200px">
-            <input type="text" (keyup.enter)="buscarSeguimientos()" [(ngModel)]="nuit" name="table_search"
-              class="form-control float-right" placeholder="Buscar" />
-            <div class="input-group-append" *ngIf="!alerta">
-              <button type="submit" class="btn btn-default" (click)="buscarSeguimientos()">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-          
+          </div>      
           <div class="d-flex flex-row "> Mostrar:     
             <select class="form-select form-select-sm" [(ngModel)]="limit" (change)="getSeguimientos()">
               <option value=10>10</option>
@@ -110,14 +109,12 @@
             </div>
           </div>
         </div>
-
-
         <!-- /.card-header -->
         <div class="">
           <table class="table table-striped table-responsive">
             <thead>
               <tr>
-                <th>Derivar</th>
+                <th>Acciones</th>
                 <th>Número</th>
                 <th>Derivado por</th>
                 <th>Origen</th>
@@ -127,7 +124,6 @@
                 <th>Fecha Recepción</th>
                 <th>Estado</th>
                 <th>Seguim.</th>
-                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -142,7 +138,27 @@
                   <i (click)="reply(seguimiento._id)" class="fas fa-reply-all text-success"
                     *ngIf="seguimiento.estado === 'DERIVADO'" title="Eliminar el Último Derivado"></i>
 
-                  
+                    <div class="dropdown-center" title="Ver más acciones" *ngIf="!alerta">
+                      <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li *ngIf="seguimiento.estado == 'RECIBIDO'"><a class="dropdown-item" (click)="finalizar(seguimiento._id)"><i class="fas fa-briefcase" title="Enviar a mi Maletín"></i> Maletin</a></li>
+                        <li  *ngIf="seguimiento.estado == 'RECIBIDO'"><a class="dropdown-item" [routerLink]="[
+                          '/ruta/sendArchivoOfi',
+                          seguimiento.idhj,
+                          seguimiento._id
+                        ]"><i class="fas fa-share-square"  style="color: rgb(171, 185, 90) !important" title="Enviar a mi Archivo Oficina"></i> Oficina</a></li>
+                        <li *ngIf="seguimiento.estado == 'MALETIN'" title="Reactivar el Tramite"><a class="dropdown-item"  (click)="reactivar(seguimiento._id)"><i  class="fasre fas fa-file-upload"
+                          style="color: rgb(230, 70, 176) !important" ></i>  Reactivar</a></li>
+                        <li *ngIf="seguimiento.estado == 'MALETIN'" title="Enviar a Archivos"><a [routerLink]="[
+                          '/ruta/derivar',
+                          seguimiento.idhj,
+                          seguimiento._id
+                        ]" class="dropdown-item"><i  class="fasar fas fa-folder-minus "
+                          style="color: rgb(3, 126, 40) !important" ></i>  Enviar a Archivos</a></li>
+                      </ul>
+                    </div>
                 </td>
                 <td>{{ seguimiento.nuit }}
                   <i>{{ seguimiento.copia }}</i>
@@ -208,24 +224,7 @@
                     class="text-primary fas fa-paperclip" title="Ver Asociados"></i>
                 </td>
                 <td>
-                  <div class="dropdown-center" title="Ver Acciones" *ngIf="!alerta">
-                    <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li *ngIf="seguimiento.estado == 'RECIBIDO'"><a class="dropdown-item" (click)="finalizar(seguimiento._id)"><i class="fas fa-briefcase" title="Enviar a mi Maletín"></i> Maletin</a></li>
-                      <li  *ngIf="seguimiento.estado == 'RECIBIDO'"><a class="dropdown-item" [routerLink]="[
-                        '/ruta/sendArchivoOfi',
-                        seguimiento.idhj,
-                        seguimiento._id
-                      ]"><i class="fas fa-share-square"  style="color: rgb(171, 185, 90) !important" title="Enviar a mi Archivo Oficina"></i> Oficina</a></li>
-                      <li *ngIf="seguimiento.estado == 'MALETIN'" title="Reactivar el Tramite"><a class="dropdown-item"  (click)="reactivar(seguimiento._id)"><i  class="fasre fas fa-file-upload"
-                        style="color: rgb(230, 70, 176) !important" ></i>  Reactivar</a></li>
-                      <li *ngIf="seguimiento.estado == 'MALETIN' || seguimiento.estado == 'RECIBIDO'" title="Enviar a Archivos"><a class="dropdown-item"><i  class="fasar fas fa-folder-minus "
-                        style="color: rgb(3, 126, 40) !important" ></i>  Enviar a Archivos</a></li>
-                      <li><a class="dropdown-item">Action three</a></li>
-                    </ul>
-                  </div>
+                  
                   <!--<i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>-->
                 </td>
                 <td>

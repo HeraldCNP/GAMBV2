@@ -130,7 +130,7 @@ export class OfficeIndexComponent implements OnInit {
       )
       .subscribe((data) => {
         this.seguimientos = data.serverResponse;
-        this.nuit = '';
+        //this.nuit = '';
         this.totalSeguimientos = data.totalDocs;
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
       });
