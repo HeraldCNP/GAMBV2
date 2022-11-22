@@ -17,7 +17,7 @@ export class ConveFileComponent implements OnInit {
 
   convenioId: any;
   example: any = [];
-  files:any;
+  files: any;
   progress = 0;
 
   fileForm: any;
@@ -42,7 +42,7 @@ export class ConveFileComponent implements OnInit {
 
   }
 
-  onChange($event:any) {
+  onChange($event: any) {
     this.files = $event.target.files;
   }
 
@@ -79,14 +79,14 @@ export class ConveFileComponent implements OnInit {
           this.progress = 0;
         },
         () => {
-            this.progress = 0;
-            this.router.navigate(['convenio/convenio/index']),
+          this.progress = 0;
+          this.router.navigate(['convenio/convenio/index']),
             this.alertOk('success', 'Exito', 'Archivo adjuntando Correctamente', '2000')
         }
       );
   }
 
-  get form(){
+  get form() {
     return this.fileForm.controls;
   }
 

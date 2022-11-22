@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 import { ConvenioService } from '../../../services/convenio.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { ConvenioService } from '../../../services/convenio.service';
 export class ConveIndexComponent implements OnInit {
   convenios: any = [];
   URL = environment.api;
-  search:any;
+  search: any;
 
   destino: any = '';
   estado: string = '';
@@ -27,12 +28,12 @@ export class ConveIndexComponent implements OnInit {
     this.getConvenios()
   }
 
-  addConvenio(){
+  addConvenio() {
     this.router.navigate(['convenio/convenio/create'])
   }
 
 
-  getConvenios(){
+  getConvenios() {
     this.api.getAllConvenios().subscribe(
       res => {
         this.convenios = res;
@@ -43,28 +44,28 @@ export class ConveIndexComponent implements OnInit {
 
 
 
-  updateConvenio(id:string){
+  updateConvenio(id: string) {
     this.router.navigate(['convenio/convenio/update', id])
   }
 
-  addFile(id:string){
+  addFile(id: string) {
     this.router.navigate(['convenio/convenio/addFile', id])
   }
 
-  addTransfe(id:string){
+  addTransfe(id: string) {
     this.router.navigate(['convenio/convenio/addTransfe', id])
   }
 
-  seeTransfe(id:string){
+  seeTransfe(id: string) {
     this.router.navigate(['convenio/convenio/seeTransfe', id])
   }
 
-  deleteConvenio(id:string){
+  deleteConvenio(id: string) {
 
   }
 
 
-  sumarDias(fecha: any, dias: any){
+  sumarDias(fecha: any, dias: any) {
     let fechaFin = new Date(fecha)
     fechaFin.setDate(fechaFin.getDate() + dias);
     // console.log(fechaFin.toISOString());
@@ -87,9 +88,9 @@ export class ConveIndexComponent implements OnInit {
   //       this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
   //     });
   // }
-  
 
-  filtrarConvenios(){
+
+  filtrarConvenios() {
     // this.estado = '';
     this.api
       .filtrarConvenios(
@@ -103,5 +104,40 @@ export class ConveIndexComponent implements OnInit {
         // this.totalSeguimientos = data.totalDocs;
         // this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
       });
+  }
+
+  changeStatus(id: string) {
+    Swal.fire({
+      title: '¿Deseas aprobar este convenio?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, Aprobar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Aprobado!',
+          'El Convenio ha sido aprobado.',
+          'success'
+        )
+        let fd = new FormData();
+        fd.append('estado', "VIGENTE");
+        console.log(fd.get('estado'))
+        this.api.editarEstado(fd, id).subscribe(
+          res => {
+            // console.log(res)
+          },
+          err => {
+            console.log('HTTP Error', err)
+          },
+          () => {
+            this.getConvenios()
+          }
+        )
+      }
+    })
   }
 }

@@ -111,6 +111,11 @@ export class ConvenioService {
       return this.http.put<any>(dir, form)
     }
 
+    editarEstado(form:any, id:any):Observable<any>{
+      let dir = `${this.URL}/editarestado/${id}`;
+      return this.http.put<any>(dir, form)
+    }
+
     
     /*End Services for Convenios*/ 
 }

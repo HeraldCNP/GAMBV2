@@ -53,11 +53,11 @@
                                 <td>{{ transfe.cuenta }}</td>
                                 <td>{{ transfe.entidad }}</td>
                                 <td>{{ transfe.fuente }}</td>
-                                <td>{{ transfe.importe }}</td>
-                                <td>{{ transfe.totaldes }}</td>
-                                <td>{{ transfe.saldo }}</td>
+                                <td>{{ transfe.importe | currency: 'USD': 'Bs' }}</td>
+                                <td>{{ transfe.totaldes | currency: 'USD': 'Bs' }}</td>
+                                <td>{{ transfe.saldo | currency: 'USD': 'Bs' }}</td>
                                 <td><img width="70px" src="{{ URL+'/'+transfe.uricompro }}" alt=""></td>
-                            </tr>
+                            </tr> 
                         </tbody>
                     </table>
                 </div>

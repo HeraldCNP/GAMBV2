@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="row p-3">
-        <div class="col-md-8 ">
+    <div class="row p-3 justify-content-md-center">
+        <div class="col-md-8">
             <div class="card shadow p-3 mb-5 rounded">
                 <div class="card-header">
                     <h3 class="card-title">Editar convenio: {{ datosConvenio.nombre }}</h3>
-                    
+
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -25,7 +25,8 @@
                                     <label for="nombre" class="form-label">Nombre del convenio *</label>
                                     <input type="text" class="form-control" id="nombre" formControlName="nombre">
                                     <div class="form-text" *ngIf="form['nombre'].touched && form['nombre'].invalid">
-                                        <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* El nombre del convenio
+                                        <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* El
+                                            nombre del convenio
                                             es requerido.</div>
                                         <div *ngIf="form['nombre'].errors && form['nombre'].errors['minlength']">*
                                             Objeto no puede tener menos de 3 caracteres.</div>
@@ -65,19 +66,25 @@
                                         </div>
                                     </ng-container>
                                 </div> -->
+                                <div class="alert alert-info" role="alert">
+                                    <p *ngFor="let enti of datosConvenio.entidades">
+                                        <b> Entidad:</b> {{ enti.entidad }} <b>Monto:</b> {{ enti.monto }} <br>
+                                    </p>
+                                </div>
+                                <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i
+                                        class="fas fa-plus-circle"></i> Editar entidad</button>
 
-                                <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i class="fas fa-plus-circle"></i> Añadir modificación</button>
-
-                                <div formArrayName="modificaciones"
+                                <div formArrayName="entidades"
                                     *ngFor="let entidad of entidades.controls; let i = index;" class="m-2">
                                     <div [formGroupName]="i">
                                         <div class="row">
-                                            
+
                                             <label for="entidad" class="form-label col-auto">Entidad *</label>
                                             <div class="col-md-4">
                                                 <select class="form-select" formControlName="entidad">
-                                                    <option value="{{ enti.text }}" *ngFor="let enti of entidades2" >{{
-                                                        enti.text }}</option>
+                                                    <option value="{{ enti.entidad }}" *ngFor="let enti of entidades2">
+                                                        {{
+                                                        enti.entidad }}</option>
                                                 </select>
                                                 <div class="form-text" *ngIf="entidad.touched && entidad.invalid">
                                                     <div *ngIf="entidad.errors && entidad.errors['required']">* entidad
@@ -88,20 +95,26 @@
                                             <div class="col-md-3">
                                                 <input type="number" class="form-control" id="monto"
                                                     formControlName="monto">
-                                                    <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
-                                                        <div *ngIf="form['objeto'].errors && form['objeto'].errors['required']">* Objeto
-                                                            es Requerido.</div>
-                                                        <div *ngIf="form['objeto'].errors && form['objeto'].errors['minlength']">*
-                                                            Objeto no puede tener menos de 3 caracteres.</div>
-                                                    </div>
+                                                <div class="form-text"
+                                                    *ngIf="form['objeto'].touched && form['objeto'].invalid">
+                                                    <div
+                                                        *ngIf="form['objeto'].errors && form['objeto'].errors['required']">
+                                                        * Objeto
+                                                        es Requerido.</div>
+                                                    <div
+                                                        *ngIf="form['objeto'].errors && form['objeto'].errors['minlength']">
+                                                        *
+                                                        Objeto no puede tener menos de 3 caracteres.</div>
+                                                </div>
                                             </div>
                                             <div class="col-auto">
-                                                <button class="btn btn-danger btn-sm" (click)="removeEntidad(i)"><i class="fas fa-trash-alt"></i></button>
+                                                <button class="btn btn-danger btn-sm" (click)="removeEntidad(i)"><i
+                                                        class="fas fa-trash-alt"></i></button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-1">
                                     <label for="firma" class="form-label">Fecha de Firma *</label>
                                     <input type="date" class="form-control" id="firma" formControlName="firma">
@@ -114,10 +127,11 @@
                                     <label for="plazo" class="form-label">Plazo (días) *</label>
                                     <input type="number" class="form-control" id="plazo" formControlName="plazo">
                                 </div>
-                                <div class="d-grid mt-3">
+                                <div class="mt-3 d-flex justify-content-around">
+                                    <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
                                     <button [disabled]="editarForm.invalid" type="submit"
-                                    class="btn btn-danger">Registrar</button>
-                                  </div>
+                                        class="btn btn-primary">Registrar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -125,11 +139,6 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow p-3 mb-5 bg-body rounded">
-                    {{ editarForm.value | json }}
-            </div>
         </div>
     </div>
 </div>

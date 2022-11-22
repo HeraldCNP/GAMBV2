@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 import { ConvenioService } from '../../../services/convenio.service';
 
@@ -18,8 +19,8 @@ export class ConveUpdateComponent implements OnInit {
   editarForm: any = new FormGroup({
     codigo: new FormControl('', Validators.required),
     nombre: new FormControl('', Validators.required),
-    objeto: new FormControl('', Validators.required),
-    modificaciones: new FormArray([]),
+    objeto: new FormControl(''),
+    entidades: new FormArray([]),
     firma: new FormControl(''),
     plazo: new FormControl(''),
   })
@@ -50,18 +51,20 @@ export class ConveUpdateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getEntidades();
+    // this.getEntidades();
     this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
     this.api.getSingleConvenio(this.convenioId).subscribe(data => {
       this.datosConvenio = data;
+      this.entidades2 = data.entidades;
       console.log("convenio", this.datosConvenio);
+      console.log("entidades", this.entidades2);
       
       if(this.datosConvenio.firma){
         this.editarForm.setValue({
           'codigo': this.datosConvenio.codigo,
           'nombre': this.datosConvenio.nombre,
           'objeto': this.datosConvenio.objeto,
-          'modificaciones': [],
+          'entidades': [],
           'firma': this.datosConvenio.firma.substr(0, 10),
           'plazo': this.datosConvenio.plazo,
           // 'representante': this.datosConvenio.representante,
@@ -74,7 +77,7 @@ export class ConveUpdateComponent implements OnInit {
           'codigo': this.datosConvenio.codigo,
           'nombre': this.datosConvenio.nombre,
           'objeto': this.datosConvenio.objeto,
-          'modificaciones': [],
+          'entidades': [],
           'firma': this.datosConvenio.firma,
           'plazo': this.datosConvenio.plazo,
           // 'representante': this.datosConvenio.representante,
@@ -93,21 +96,38 @@ export class ConveUpdateComponent implements OnInit {
 
 
   editarConvenio(form:any){
+    this.api.editarConvenio(form, this.convenioId).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log('HTTP Error', err)
+      },
+      () => {
+        this.router.navigate(['convenio/convenio/index']),
+          this.alertOk('success', 'Exito', 'Convenio editado Correctamente', '2000')
+      }
+    )
 
   }
 
-  getEntidades() {
-    this.api.getAllEntidades().subscribe
-      (res => {
-        this.entidades2 = res;
-        console.log(this.entidades2)
-        // this.entidades.forEach((entidad:any) => {
-        //   this.exampleData.push({id: entidad._id,
-        //     text: entidad.nombre});
-        // });
+  // getEntidades() {
+  //   this.api.getAllEntidades().subscribe
+  //     (res => {
+  //       this.entidades2 = res;
+  //       console.log(this.entidades2)
+  //       // this.entidades.forEach((entidad:any) => {
+  //       //   this.exampleData.push({id: entidad._id,
+  //       //     text: entidad.nombre});
+  //       // });
 
-      });
+  //     });
 
+  // }
+
+
+  cancel(){
+    this.router.navigate(['convenio/convenio/index'])
   }
 
   addEntidad() {
@@ -120,7 +140,7 @@ export class ConveUpdateComponent implements OnInit {
   }
 
   get entidades() {
-    return this.editarForm.get('modificaciones') as FormArray;
+    return this.editarForm.get('entidades') as FormArray;
   }
 
   removeEntidad(indice: number) {
@@ -129,6 +149,15 @@ export class ConveUpdateComponent implements OnInit {
 
   get form() {
     return this.editarForm.controls;
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer
+    })
   }
 
 }
