@@ -20,9 +20,11 @@ export class NewComponent implements OnInit {
     this.api.getAllPosts().subscribe(res => {
       this.posts = res;
     });
+    
   }
-
+  
   getPost(id:any){
     this.router.navigate(['/post', id]);
   }
+
 }

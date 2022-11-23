@@ -29,15 +29,18 @@ export class PostCreateComponent implements OnInit {
 
   createform(){
     this.postForm = new FormGroup({
-      title : new FormControl('', Validators.required),
-      subtitle : new FormControl('', Validators.required),
-      body : new FormControl('', Validators.required),
-      iframe : new FormControl(''),
+      title : new FormControl('', [Validators.required, Validators.minLength(6)]),
+      subtitle : new FormControl('', [Validators.required, Validators.minLength(6)]),
+      body : new FormControl('', [Validators.required, Validators.minLength(15)]),
+      iframe : new FormControl('', [Validators.minLength(15)]),
       category : new FormControl('', Validators.required),
-      image: new FormControl('')
+      image: new FormControl('', Validators.required)
     })
   }
 
+  get form() {
+    return this.postForm.controls;
+  }
   
   getCategories(){
     this.api.getAllCategories().subscribe

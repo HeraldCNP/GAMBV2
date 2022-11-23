@@ -1,68 +1,99 @@
-<div class="m-3">
-    <div class="row">
-        <div class="col-md-12">
-          <div class="card shadow p-3 mb-5 bg-body rounded">
-            <div class="card-header">
-              <h3 class="card-title">Crear Nuevo Post</h3>         
-            </div>
-            
-            <!-- /.card-header -->
-            <div class="card-body table-responsive">
-              <div class="row">
-                <div class="col-md-8">
-                  <form (ngSubmit)="sendFormPost()" [formGroup]="postForm">
-                    <div class="mb-2">
-                      <label for="title" class="form-label">Titulo</label>
-                      <input type="text" class="form-control" id="title" formControlName="title">
-                      <div class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-2">
-                      <label for="subtitle" class="form-label">Subtitulo</label>
-                      <input type="text" class="form-control" id="subtitle" formControlName="subtitle">
-                      <div class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="body" class="form-label">Cuerpo</label>
-                        <textarea class="form-control" name="body" id="body" cols="30" rows="8" formControlName="body"></textarea>
-                        <div class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="iframe" class="form-label">Iframe</label>
-                        <textarea class="form-control" name="iframe" id="iframe" cols="30" rows="3" formControlName="iframe"></textarea>
-                        <div class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="category" class="form-label">Categoria</label>
-                        <select class="form-control" name="category" id="" formControlName="category">
-                            <option value="">Escoja la Categoria</option>
-                            <option *ngFor="let category of categories.serverResponse" value="{{ category.category}}">{{ category.category}}</option>
-                        </select>
-                        <div class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-2">
-                      <label for="image" class="form-label">Detalle</label>
-                      <input class="form-control" id="image" type="file" name="image" id="image" accept="image/*" formControlName="image" (change)="onChange($event)">
-                      <div class="form-text">We'll never share your email with anyone else.</div>
-                      <div class="progress mt-1" *ngIf="progress > 0">
-                        <div class="progress-bar bg-danger" role="progressbar"
-                            [style.width]="progress + '%'" aria-valuemin="0"
-                            aria-valuemax="100">{{ progress + '%' }}</div>
-                    </div>
-                    </div>
-                    
-                    <button [disabled]="postForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
-                  </form>
-                </div>
-                <div class="col-md-4">
-                  {{ postForm.value | json }}
-                </div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
+<div class="container">
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card-header">
+          <h3 class="card-title">Crear Nuevo Post</h3>
         </div>
+
+        <!-- /.card-header -->
+        <div class="card-body table-responsive">
+          <div class="row">
+            <div class="col-md-8">
+              <form (ngSubmit)="sendFormPost()" [formGroup]="postForm">
+                <div class="mb-2">
+                  <label for="title" class="form-label">Titulo</label>
+                  <input type="text" class="form-control" id="title" formControlName="title">
+                  <div class="form-text" *ngIf="form['title'].touched && form['title'].invalid">
+                    <div *ngIf="form['title'].errors && form['title'].errors['required']">* Titulo
+                      es Requerido.</div>
+                    <div *ngIf="form['title'].errors && form['title'].errors['minlength']">Titulo
+                      no puede tener menos de 6 caracteres.</div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label for="subtitle" class="form-label">Subtitulo</label>
+                  <input type="text" class="form-control" id="subtitle" formControlName="subtitle">
+                  <div class="form-text" *ngIf="form['subtitle'].touched && form['subtitle'].invalid">
+                    <div *ngIf="form['subtitle'].errors && form['subtitle'].errors['required']">* Subtitulo
+                      es Requerido.</div>
+                    <div *ngIf="form['subtitle'].errors && form['subtitle'].errors['minlength']">Subtitulo
+                      no puede tener menos de 6 caracteres.</div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label for="body" class="form-label">Cuerpo</label>
+                  <textarea class="form-control" name="body" id="body" cols="30" rows="8"
+                    formControlName="body"></textarea>
+                  <div class="form-text" *ngIf="form['body'].touched && form['body'].invalid">
+                    <div *ngIf="form['body'].errors && form['body'].errors['required']">* Cuerpo de noticia
+                      es Requerido.</div>
+                    <div *ngIf="form['body'].errors && form['body'].errors['minlength']">Cuerpo de noticia
+                      no puede tener menos de 15 caracteres.</div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label for="iframe" class="form-label">Iframe</label>
+                  <textarea class="form-control" name="iframe" id="iframe" cols="30" rows="3"
+                    formControlName="iframe"></textarea>
+                  <div class="form-text" *ngIf="form['iframe'].touched && form['iframe'].invalid">
+                    <div *ngIf="form['iframe'].errors && form['iframe'].errors['required']">* Iframe
+                      es Requerido.</div>
+                    <div *ngIf="form['iframe'].errors && form['iframe'].errors['minlength']">Iframe
+                      no puede tener menos de 15 caracteres.</div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label for="category" class="form-label">Categoria</label>
+                  <select class="form-control" name="category" id="" formControlName="category">
+                    <option value="">Escoja la Categoria</option>
+                    <option *ngFor="let category of categories.serverResponse" value="{{ category.category}}">{{
+                      category.category}}</option>
+                  </select>
+                  <div class="form-text" *ngIf="form['category'].touched && form['category'].invalid">
+                    <div *ngIf="form['category'].errors && form['category'].errors['required']">* Categoria
+                      es Requerido.</div>
+                    <div *ngIf="form['category'].errors && form['category'].errors['minlength']">Categoria
+                      no puede tener menos de 15 caracteres.</div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label for="image" class="form-label">Detalle</label>
+                  <input class="form-control" id="image" type="file" name="image" id="image" accept="image/*"
+                    formControlName="image" (change)="onChange($event)">
+                  <div class="form-text" *ngIf="form['image'].touched && form['image'].invalid">
+                    <div *ngIf="form['image'].errors && form['image'].errors['required']">* Imagen
+                      es Requerido.</div>
+                  </div>
+                  <div class="progress mt-1" *ngIf="progress > 0">
+                    <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'"
+                      aria-valuemin="0" aria-valuemax="100">{{ progress + '%' }}</div>
+                  </div>
+
+                </div>
+
+                <button [disabled]="postForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+              </form>
+            </div>
+            <div class="col-md-4">
+              {{ postForm.value | json }}
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
+  </div>
 </div>
-
-

@@ -8,6 +8,7 @@ import { CategoryComponent } from './pages/category/category.component';
 import { NewComponent } from './pages/index/new/new.component';
 import { MisionComponent } from './pages/mision/mision.component';
 import { ObjetivoComponent } from './pages/objetivo/objetivo.component';
+import { HistoriaComponent } from './pages/historia/historia.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       {path: 'new', component: NewComponent},
       {path: 'mision', component: MisionComponent},
       {path: 'objetivo', component: ObjetivoComponent},
+      {path: 'historia', component: HistoriaComponent},
     ]
   }
 ];

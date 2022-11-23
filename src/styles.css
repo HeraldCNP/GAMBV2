@@ -44,6 +44,7 @@ button:disabled{
     border: solid 3px greenyellow;
   }
   /* for icons  */
+  
 .icono{
     cursor: pointer;
 }
