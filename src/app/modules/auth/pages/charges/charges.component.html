@@ -13,6 +13,7 @@
                 <tr>
                   <th>Nombre</th>
                   <th>Archivo Oficina</th>
+                  <th>Sigla</th>
                 </tr>
               </thead>
               <tbody>
@@ -20,6 +21,7 @@
                 <tr *ngFor="let char of charge.subdirecciones">
                   <td>{{ char.nombresubdir }}</td>
                   <td>{{ char.archivofi }}</td>
+                  <td>{{ char.sigla }}</td>
                 </tr>
               </tbody>
             </table>
