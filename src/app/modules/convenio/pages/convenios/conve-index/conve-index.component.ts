@@ -19,6 +19,7 @@ export class ConveIndexComponent implements OnInit {
   nombre: string = '';
   limit: number = 10;
   skip: number = 1;
+  finFecha:any;
   constructor(
     private api: ConvenioService,
     private router: Router
@@ -72,6 +73,14 @@ export class ConveIndexComponent implements OnInit {
     return fechaFin.toISOString();
   }
 
+  calcDias(fechaFin: any){
+    let hoy = new Date().getTime();
+    let fin = new Date(fechaFin).getTime();
+    let diff = fin - hoy;
+    let restante = Math.ceil(diff / (1000 * 3600 * 24));
+    return restante;
+  }
+
   // getSeguimientos() {
   //   this.api
   //     .getAllSeguimientos(
@@ -94,7 +103,6 @@ export class ConveIndexComponent implements OnInit {
     // this.estado = '';
     this.api
       .filtrarConvenios(
-        this.nombre,
         this.search
       )
       .subscribe((data) => {
@@ -106,7 +114,11 @@ export class ConveIndexComponent implements OnInit {
       });
   }
 
+
   changeStatus(id: string) {
+    this.api.getSingleConvenio(id).subscribe(data => {
+      this.finFecha = this.sumarDias(data.firma, data.plazo)
+    })
     Swal.fire({
       title: '¿Deseas aprobar este convenio?',
       text: "¡No podrás revertir esto!",
@@ -123,9 +135,11 @@ export class ConveIndexComponent implements OnInit {
           'El Convenio ha sido aprobado.',
           'success'
         )
+        
         let fd = new FormData();
         fd.append('estado', "VIGENTE");
-        console.log(fd.get('estado'))
+        fd.append('fechafin', this.finFecha);
+        console.log(fd.get('fechafin'))
         this.api.editarEstado(fd, id).subscribe(
           res => {
             // console.log(res)

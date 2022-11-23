@@ -45,7 +45,10 @@
                     <label for="cuenta" class="form-label">Cuenta</label>
                     <input type="text" class="form-control" id="cuenta" formControlName="cuenta">
                   </div>
-                  <button [disabled]="editarForm.invalid" type="submit" class="btn btn-danger">Registrar</button>
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
+                    <button [disabled]="editarForm.invalid" type="submit" class="btn btn-primary">Registrar</button>
+                  </div>
                 </form>
               </div>
             </div>

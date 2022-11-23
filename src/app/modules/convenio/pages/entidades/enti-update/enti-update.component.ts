@@ -76,5 +76,9 @@ export class EntiUpdateComponent implements OnInit {
       timer
     })
   }
+  
+  cancel(){
+    this.router.navigate(['convenio/entidad/index'])
+  }
 
 }

@@ -24,7 +24,8 @@
                                     <label for="nombre" class="form-label">Nombre del convenio *</label>
                                     <input type="text" class="form-control" id="nombre" formControlName="nombre">
                                     <div class="form-text" *ngIf="form['nombre'].touched && form['nombre'].invalid">
-                                        <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* El nombre del convenio
+                                        <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* El
+                                            nombre del convenio
                                             es requerido.</div>
                                         <div *ngIf="form['nombre'].errors && form['nombre'].errors['minlength']">*
                                             Objeto no puede tener menos de 3 caracteres.</div>
@@ -65,17 +66,18 @@
                                     </ng-container>
                                 </div> -->
 
-                                <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i class="fas fa-plus-circle"></i> Añadir entidad</button>
+                                <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i
+                                        class="fas fa-plus-circle"></i> Añadir entidad</button>
 
                                 <div formArrayName="entidades"
                                     *ngFor="let entidad of entidades.controls; let i = index;" class="m-2">
                                     <div [formGroupName]="i">
                                         <div class="row">
-                                            
+
                                             <label for="entidad" class="form-label col-auto">Entidad *</label>
                                             <div class="col-md-4">
                                                 <select class="form-select" formControlName="entidad">
-                                                    <option value="{{ enti.nombre }}" *ngFor="let enti of entidades2" >{{
+                                                    <option value="{{ enti.nombre }}" *ngFor="let enti of entidades2">{{
                                                         enti.nombre }}</option>
                                                 </select>
                                                 <!-- <div class="form-text" *ngIf="entidad.touched && entidad.invalid">
@@ -87,7 +89,7 @@
                                             <div class="col-md-3">
                                                 <input type="number" class="form-control" id="monto"
                                                     formControlName="monto">
-                                                    <!-- <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
+                                                <!-- <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
                                                         <div *ngIf="form['objeto'].errors && form['objeto'].errors['required']">* Objeto
                                                             es Requerido.</div>
                                                         <div *ngIf="form['objeto'].errors && form['objeto'].errors['minlength']">*
@@ -95,7 +97,8 @@
                                                     </div> -->
                                             </div>
                                             <div class="col-auto">
-                                                <button class="btn btn-danger btn-sm" (click)="removeEntidad(i)"><i class="fas fa-trash-alt"></i></button>
+                                                <button class="btn btn-danger btn-sm" (click)="removeEntidad(i)"><i
+                                                        class="fas fa-trash-alt"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -112,10 +115,11 @@
                                     <label for="plazo" class="form-label">Plazo (días) *</label>
                                     <input type="number" class="form-control" id="plazo" formControlName="plazo">
                                 </div>
-                                <div class="d-grid mt-3">
+                                <div class="mt-3 d-flex justify-content-around">
+                                    <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
                                     <button [disabled]="convenioForm.invalid" type="submit"
-                                    class="btn btn-danger">Registrar</button>
-                                  </div>
+                                        class="btn btn-primary">Registrar</button>
+                                </div>
                             </form>
                         </div>
                     </div>

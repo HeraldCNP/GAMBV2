@@ -148,4 +148,9 @@ export class ConveTransfeComponent implements OnInit {
   onChange($event:any) {
     this.files = $event.target.files;
   }
+
+  cancel(){
+    this.router.navigate(['convenio/convenio/index'])
+  }
+
 }

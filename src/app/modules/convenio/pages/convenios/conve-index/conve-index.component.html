@@ -6,8 +6,8 @@
           <h3 class="card-title">Lista de Convenios</h3>
           <div class="card-tools d-flex flex-row">
             <div class="input-group input-group-sm" style="width: 200px">
-              <input type="text" (keyup.enter)="filtrarConvenios()" [(ngModel)]="search" name="table_search"
-                class="form-control float-right" placeholder="Buscar" />
+              <input type="text" (keyup)="filtrarConvenios()" [(ngModel)]="search" name="table_search"
+                class="form-control float-right" placeholder="Filtrar" />
 
             </div>
             <button (click)="addConvenio()" class="btn btn-primary ml-5">Agregar Nuevo</button>
@@ -39,6 +39,7 @@
                 <th>Fecha de Finalización</th>
                 <th>Estado</th>
                 <th>Documentos</th>
+                <th>Vencimiento</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -58,13 +59,13 @@
                      {{ transferencia.entidad }} - {{ transferencia.importe }}<br>
                   </i>
                 </td> -->
-                <td valign="middle" align="center">
+                <td valign="middle" align="center" class="pt-3">
                   {{ convenio.montototal | currency: 'USD': 'Bs' }}
                 </td>
-                <td>
+                <td class="pt-3">
                   {{ convenio.montototaltrans | currency: 'USD': 'Bs' }}
                 </td>
-                <td>
+                <td class="pt-3">
                   {{ convenio.saldo | currency: 'USD': 'Bs' }}
                 </td>
                 <td >
@@ -80,6 +81,9 @@
                     <a href="{{ URL+'/'+file.uriconvenio }}" target="_blank">{{file.typefile}}</a>
                      <br>
                   </i>
+                </td>
+                <td >
+                  <span *ngIf="convenio.estado == 'VIGENTE'">{{ calcDias(convenio.fechafin)  }} días</span>
                 </td>
                 <td>
                   <div class="dropdown-center" title="Ver Acciones">

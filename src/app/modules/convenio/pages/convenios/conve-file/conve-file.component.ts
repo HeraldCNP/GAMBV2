@@ -102,4 +102,8 @@ export class ConveFileComponent implements OnInit {
     })
   }
 
+  cancel(){
+    this.router.navigate(['convenio/convenio/index'])
+  }
+
 }

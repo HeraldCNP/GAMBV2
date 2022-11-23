@@ -103,6 +103,7 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         // this.loading = false;
         this.hojaRuta = data.serverResponse;
+        console.log(data)
         this.api.buscarnuit(this.hojaRuta.nuit).subscribe(
           (data) => {
             this.seguim = data;

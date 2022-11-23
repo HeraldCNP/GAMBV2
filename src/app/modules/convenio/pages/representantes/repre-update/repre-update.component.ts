@@ -64,4 +64,8 @@ export class RepreUpdateComponent implements OnInit {
     })
   }
 
+  cancel(){
+    this.router.navigate(['convenio/representante/index'])
+  }
+
 }

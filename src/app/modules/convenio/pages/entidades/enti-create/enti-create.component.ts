@@ -61,4 +61,8 @@ export class EntiCreateComponent implements OnInit {
     })
   }
 
+  cancel(){
+    this.router.navigate(['convenio/entidad/index'])
+  }
+
 }

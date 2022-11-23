@@ -21,7 +21,9 @@ export class SendArchivoOfiComponent implements OnInit {
   segui: any = [];
   idHr: any;
   idSegui: any;
-  estadoEnv: string = 'ARCHIVO OFICINA';
+  estadoEnv: string = 'FILE OFICINA';
+  sigla:any;
+  ofi:any;
   constructor( private apiRuta: RutaService,
     private activeRouter: ActivatedRoute,
     private fb: FormBuilder,
@@ -29,6 +31,7 @@ export class SendArchivoOfiComponent implements OnInit {
     ) {  this.derivarForm = this.fb.group({
       destino: ['', Validators.required],
       detalles: ['', Validators.required],
+      status: ['']
     });}
 
   ngOnInit(): void {
@@ -43,6 +46,7 @@ export class SendArchivoOfiComponent implements OnInit {
     const ARCH: Arch = {
       destino: this.derivarForm.get('destino')?.value,
       description: this.derivarForm.get('detalles')?.value,
+      status: `${this.sigla}/${this.derivarForm.get('destino')?.value}/${this.derivarForm.get('detalles')?.value}`
     };
     const ARCH1: Segui = {
       estado: this.estadoEnv
@@ -65,6 +69,8 @@ export class SendArchivoOfiComponent implements OnInit {
       this.apiRuta.obtenerSubUni(this.data.post).subscribe(
         (data) => {
           this.cargos = data.archivofi;
+          this.sigla = data.sigla
+          this.ofi = data.nombresubdir
         },
         (error) => {
           console.log(error);

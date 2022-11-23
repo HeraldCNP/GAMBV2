@@ -27,7 +27,9 @@ export class HeaderComponent implements OnInit {
 
 
 
-
+  inicio(){
+    this.router.navigate(['private'])
+  }
   cerrarSesion(){
     localStorage.removeItem('user');
     this.cookieService.delete('token');

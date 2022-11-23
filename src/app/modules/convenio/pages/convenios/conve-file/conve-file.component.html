@@ -42,9 +42,10 @@
                                             aria-valuemax="100">{{ progress + '%' }}</div>
                                     </div>
                                 </div>
-                                <div class="d-grid mt-3">
+                                <div class="mt-3 d-flex justify-content-around">
+                                    <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
                                     <button [disabled]="fileForm.invalid" type="submit"
-                                        class="btn btn-danger">Registrar</button>
+                                        class="btn btn-primary">Registrar</button>
                                 </div>
                             </form>
                         </div>

@@ -53,4 +53,8 @@ export class RepreCreateComponent implements OnInit {
     return this.representanteForm.controls;
   }
 
+
+  cancel(){
+    this.router.navigate(['convenio/representante/index'])
+  }
 }

@@ -123,4 +123,8 @@ export class ConveCreateComponent implements OnInit {
       timer
     })
   }
+  
+  cancel(){
+    this.router.navigate(['convenio/convenio/index'])
+  }
 }
