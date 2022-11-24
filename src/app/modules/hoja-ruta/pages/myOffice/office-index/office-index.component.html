@@ -38,7 +38,7 @@
             <button (click)="changeStatus('RECIBIDO')" type="button" [ngClass]="estado == 'RECIBIDO' ? 'activate' : ''"
               class="btn btn-info btn-sm position-relative mr-4">
               Recibidos
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-success">
                 {{ totalRecibidos }}
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -54,7 +54,7 @@
             <button (click)="changeStatus('MALETIN')" [ngClass]="estado == 'MALETIN' ? 'activate' : ''" type="button"
               class="btn btn-info btn-sm position-relative mr-4">
               Mi Maletin
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
                 {{ totalMaletin }}
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -62,7 +62,7 @@
             <button (click)="changeStatus('FILE OFICINA')" type="button"
               [ngClass]="estado == 'FILE OFICINA' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
               T. Finalizados
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary bg">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark bg">
                 {{ totalOfi }}
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -136,6 +136,7 @@
                   <i *ngIf="seguimiento.estado === 'RECIBIDO'" [routerLink]="['/ruta/sendArchivoOfi', seguimiento.idhj, seguimiento._id]"
                     class="fas fa-folder-open" style="color: rgb(238, 128, 94) !important"
                     title="Finalizar Trámite"></i>
+                    <i (click)="reactivar(seguimiento._id)"  *ngIf="seguimiento.estado === 'MALETIN'"  class="fas fa-file-upload " style="color: rgb(230, 70, 176) !important"></i>
                 </td>
                 <td>
                   {{ seguimiento.nuit }}
