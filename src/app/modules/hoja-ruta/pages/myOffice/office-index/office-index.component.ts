@@ -45,6 +45,7 @@ export class OfficeIndexComponent implements OnInit {
   totalEnviados: number = 0;
   totalMaletin: number = 0;
   totalArchivado: number = 0;
+  totalOfi: number = 0;
   /*end contadores */
   idhr: string = '';
   today = new Date();
@@ -211,6 +212,9 @@ export class OfficeIndexComponent implements OnInit {
         ).length;
         this.totalArchivado = this.totales.filter(
           (list: { estado: string }) => list.estado === 'ARCHIVADO'
+        ).length;
+        this.totalOfi = this.totales.filter(
+          (list: { estado: string }) => list.estado === 'FILE OFICINA'
         ).length;
       },
       (error) => {
