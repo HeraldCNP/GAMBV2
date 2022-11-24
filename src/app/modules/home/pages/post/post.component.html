@@ -30,7 +30,7 @@
                             <div class="blog-brief">
 
                                 <p class="blog-quote">{{ post.subtitle }}</p>
-                                <p>{{ post.body }}</p>
+                                <p [innerHTML]="post.body"></p>
                                 <!-- <div class="like-comment">
                                     <a href="#"><i class="sp-like"></i>120 like</a>
                                     <a href="#"><i class="sp-comment"></i>60 comment</a>

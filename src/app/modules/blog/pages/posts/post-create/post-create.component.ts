@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 
+import { Editor, Toolbar } from 'ngx-editor';
+
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
@@ -22,9 +24,29 @@ export class PostCreateComponent implements OnInit {
     private router: Router
   ) { }
 
+  editor:any = Editor;
+
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    // ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+  placeholder:string = '';
+
   ngOnInit(): void {
     this.createform(),
     this.getCategories()
+    this.editor = new Editor();
+  }
+
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   createform(){
