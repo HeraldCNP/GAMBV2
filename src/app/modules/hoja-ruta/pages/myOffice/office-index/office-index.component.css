@@ -43,6 +43,9 @@
   margin: 2px;
   font-size: 90%;
 }
+.bg{
+  background-color:  rgb(230, 137, 109)!important;
+}
 .est {
   cursor: pointer;
 }

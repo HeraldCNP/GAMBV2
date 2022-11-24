@@ -61,8 +61,11 @@
             </button>
             <button (click)="changeStatus('FILE OFICINA')" type="button"
               [ngClass]="estado == 'FILE OFICINA' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
-              File Oficina
-
+              T. Finanizados
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary bg">
+                {{ totalOfi }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
             </button>
           </div>
           <div class="d-flex flex-row">
@@ -131,8 +134,8 @@
                     class="fas fa-briefcase" title="Enviar a mi Maletín"
                     *ngIf="seguimiento.estado === 'RECIBIDO'"></i><br>
                   <i *ngIf="seguimiento.estado === 'RECIBIDO'" [routerLink]="['/ruta/sendArchivoOfi', seguimiento.idhj, seguimiento._id]"
-                    class="fas fa-folder-open" style="color: rgb(171, 185, 90) !important"
-                    title="Enviar a mi Archivo Oficina"></i>
+                    class="fas fa-folder-open" style="color: rgb(238, 128, 94) !important"
+                    title="Finalizar Trámite"></i>
                 </td>
                 <td>
                   {{ seguimiento.nuit }}
@@ -190,7 +193,7 @@
                       seguimiento.estado != 'MALETIN' &&
                       seguimiento.estado != 'RECIBIDO' &&
                       seguimiento.estado != 'ENVIADO'
-                    " class="badge badge-light text-dark">{{ seguimiento.estado }}</span>
+                    " class="bg badge text-dark">{{ seguimiento.estado }}</span>
                 </td>
                 <td>
                   <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -420,7 +423,7 @@
                               seguiss.estado != 'ENVIADO'
                             " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span> -->
                           <i>{{ seguiss.copia }}</i>
-                          <p *ngIf="seguiss.estado === 'FILE OFICINA'" class="badge badge-dark">
+                          <p *ngIf="seguiss.estado === 'FILE OFICINA'" class="bg badge text-dark fw-bold">
                             {{ seguiss.archivofi[0].status }} <br />
                             <!-- {{ seguiss.archivofi[0].description }} -->
                           </p>

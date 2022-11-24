@@ -3,5 +3,8 @@
     /* text-decoration: underline; */
 }
 .navbar-dark{
-    background-color: rgba(3, 109, 40, 0.583) !important;
-  }
+    background-color: #017439!important;
+}
+.fas{
+    cursor: pointer !important;
+}
