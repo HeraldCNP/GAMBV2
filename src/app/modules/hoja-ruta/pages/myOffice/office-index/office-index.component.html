@@ -136,7 +136,7 @@
                   <i *ngIf="seguimiento.estado === 'RECIBIDO'" [routerLink]="['/ruta/sendArchivoOfi', seguimiento.idhj, seguimiento._id]"
                     class="fas fa-folder-open" style="color: rgb(238, 128, 94) !important"
                     title="Finalizar Trámite"></i>
-                    <i (click)="reactivar(seguimiento._id)"  *ngIf="seguimiento.estado === 'MALETIN'"  class="fas fa-file-upload " style="color: rgb(230, 70, 176) !important"></i>
+                    <i (click)="reactivar(seguimiento._id)"  *ngIf="seguimiento.estado === 'MALETIN' || seguimiento.estado === 'FILE OFICINA'"  class="fas fa-file-upload " style="color: rgb(230, 70, 176) !important" title="Reactivar el trámite"></i>
                 </td>
                 <td>
                   {{ seguimiento.nuit }}

@@ -14,7 +14,7 @@ import { Segui } from '../../../models/seguimiento';
   styleUrls: ['./office-index.component.css'],
 })
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OfficeIndexComponent implements OnInit {
   user: any;
@@ -64,9 +64,9 @@ export class OfficeIndexComponent implements OnInit {
   hoy = moment();
   nombreus: string = '';
   totales1: Segui[] = [];
-  search: string = "";
+  search: string = '';
   hojaRutas: any = [];
-  constructor(private api: RutaService, private router: Router) { }
+  constructor(private api: RutaService, private router: Router) {}
 
   ngOnInit(): void {
     this.user = localStorage.getItem('user');
@@ -77,25 +77,25 @@ export class OfficeIndexComponent implements OnInit {
     this.obtenertotal();
     this.getSeguimientos();
     this.getpendientes();
-    }
-  getpendientes(){
-    let estado3="ENVIADO"
-    this.api.getPendientes(this.destino,estado3).subscribe((data)=>{
+  }
+  getpendientes() {
+    let estado3 = 'ENVIADO';
+    this.api.getPendientes(this.destino, estado3).subscribe((data) => {
       this.totales1 = data.serverResponse;
-      if(data.totalDocs > 0){
-        for(let i=0 ; i < data.totalDocs; i ++){
-          this.ale=this.totales1[i]
-          if((this.hoy.diff(this.ale.fechaderivado, 'hours') > 12)){
-            this.alerta=true;
+      if (data.totalDocs > 0) {
+        for (let i = 0; i < data.totalDocs; i++) {
+          this.ale = this.totales1[i];
+          if (this.hoy.diff(this.ale.fechaderivado, 'hours') > 12) {
+            this.alerta = true;
           }
         }
-      } else{
-        this.alerta=false
-      }    
-    })
+      } else {
+        this.alerta = false;
+      }
+    });
   }
-  pendintes(){
-      return true
+  pendintes() {
+    return true;
   }
   seguimi(idh: any) {
     //this.loading = true;
@@ -104,7 +104,7 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         // this.loading = false;
         this.hojaRuta = data.serverResponse;
-        console.log(data)
+        console.log(data);
         this.api.buscarnuit(this.hojaRuta.nuit).subscribe(
           (data) => {
             this.seguim = data;
@@ -236,12 +236,12 @@ export class OfficeIndexComponent implements OnInit {
         if (this.segui.fecharecepcion === 'SIN RESEPCIONAR') {
           Swal.fire({
             title: 'Estás seguro de Recibir?',
-            text: "",
+            text: '',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Recibir'
+            confirmButtonText: 'Si, Recibir',
           }).then((result) => {
             if (result.isConfirmed) {
               this.api.EditarSeguis(ids, SEGUI).subscribe(
@@ -256,7 +256,7 @@ export class OfficeIndexComponent implements OnInit {
                 }
               );
             }
-          })
+          });
         }
       },
       (error) => {
@@ -397,13 +397,13 @@ export class OfficeIndexComponent implements OnInit {
                 }).then((result) => {
                   if (result.isConfirmed) {
                     this.api.eliminarSegui(this.res._id).subscribe(
-                      (data) => { },
+                      (data) => {},
                       (error) => {
                         console.log(error);
                       }
                     );
                     this.api.EditarSeguis(id, SEGUID).subscribe(
-                      (data) => { },
+                      (data) => {},
                       (error) => {
                         console.log(error);
                       }
@@ -489,7 +489,6 @@ export class OfficeIndexComponent implements OnInit {
                             }
                           );
                           this.router.navigate(['/ruta/office/index']);
-
                         }
                       });
                     },
@@ -532,7 +531,6 @@ export class OfficeIndexComponent implements OnInit {
                     }
                   );
                   this.router.navigate(['/ruta/office/index']);
-
                 }
               });
             }

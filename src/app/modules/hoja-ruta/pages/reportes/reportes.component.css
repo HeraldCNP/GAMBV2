@@ -1,0 +1,15 @@
+div {
+    margin:10px;
+    width:800px;
+    height:800px;
+    background-color: #eceef3;
+}
+
+.pattern1{
+    background-image: repeating-linear-gradient(36deg, rgba(255, 255, 255, 0.007), rgba(104, 100, 100, 0.884) 1px, transparent 0px, transparent 2px);
+}
+
+.pattern2 {
+    background-image: repeating-linear-gradient(-45deg, rgba(255,255,255, 0.1), rgba(255,255,255, 0.1) 1px, transparent 1px, transparent 6px);
+    background-size: 4px 4px;
+}
