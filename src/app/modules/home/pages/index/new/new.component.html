@@ -16,10 +16,10 @@
                             data-allowfullscreen="true"></div>
                     </div>
                     <div class="blog-photo" *ngIf="!post.iframe">
-                        <a [routerLink]="['/post', post._id]" class="img-fluid" height="150px" href="#"><img
+                        <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
                                 src="{{ URL+'/'+post.uri }}" alt="{{ post.title }}" /></a>
                         <div class="blog-post-date">
-                            <span>15th</span>
+                            <span>{{ post.createdAt | date:'longDate' }}</span>
                             <span>{{ post.category }}</span>
                         </div>
                     </div>

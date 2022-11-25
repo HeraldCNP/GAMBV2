@@ -23,7 +23,7 @@
                             <div class="blog-photo">
                                 <img class="img-fluid" src="{{ URL+'/'+post.uri }}" alt="" />
                                 <div class="blog-post-date">
-                                    <span>13th</span>
+                                    <span>{{ post.createdAt | date:'longDate' }}</span>
                                     <span>{{ post.category }}</span>
                                 </div>
                             </div>
@@ -38,13 +38,13 @@
                             </div>
                         </div>
                         <div class="social-sharing">
-                            <h3>Share this post</h3>
+                            <!-- <h3>Share this post</h3>
                             <div class="sharing-icon">
                                 <a href="#"><i class="sp-facebook"></i></a>
                                 <a href="#"><i class="sp-twitter"></i></a>
                                 <a href="#"><i class="sp-linkedin"></i></a>
                                 <a href="#"><i class="sp-google"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- <div class="author-info">
                             <div class="author-avatar"><img alt="" src="img/author.jpg"></div>
