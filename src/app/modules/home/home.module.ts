@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { IndexComponent } from './pages/index/index.component';
@@ -24,6 +26,8 @@ import { DefensoriaComponent } from './pages/defensoria/defensoria.component';
 import { SlimComponent } from './pages/slim/slim.component';
 import { AmbienteComponent } from './pages/ambiente/ambiente.component';
 import { ImpuestosComponent } from './pages/impuestos/impuestos.component';
+import { TuristicoComponent } from './pages/index/turistico/turistico.component';
+
 
 
 @NgModule({
@@ -49,12 +53,14 @@ import { ImpuestosComponent } from './pages/impuestos/impuestos.component';
     DefensoriaComponent,
     SlimComponent,
     AmbienteComponent,
-    ImpuestosComponent
+    ImpuestosComponent,
+    TuristicoComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    
+    // BrowserAnimationsModule,
+    CarouselModule 
   ]
 })
 export class HomeModule { }
