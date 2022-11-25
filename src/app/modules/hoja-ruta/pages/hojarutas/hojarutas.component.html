@@ -521,16 +521,14 @@
                             class="badge badge-warning"
                             >{{ seguiss.estado }}</span
                           >
-                          <span
-                            *ngIf="
+                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg">{{ seguiss.archivofi[0].status }}</span>
+                          <span *ngIf="
                               seguiss.estado != 'DERIVADO' &&
                               seguiss.estado != 'MALETIN' &&
                               seguiss.estado != 'RECIBIDO' &&
-                              seguiss.estado != 'ENVIADO'
-                            "
-                            class=" bg badge  text-dark"
-                            >{{ seguiss.archivofi[0].status }}</span
-                          >
+                              seguiss.estado != 'ENVIADO' &&
+                              seguiss.estado != 'FILE OFICINA'
+                            " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span> 
                           <br />
                           <i>{{ seguiss.copia }}</i>
                         </td>

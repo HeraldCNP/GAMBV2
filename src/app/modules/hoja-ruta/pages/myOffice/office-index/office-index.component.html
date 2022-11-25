@@ -80,7 +80,7 @@
         </div>
 
         <div *ngIf="alerta" class="aler pt-5 alert alert-dismissible">
-          <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close"></button>
+          <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close" *ngIf="!alerta"></button>
           <div *ngFor="let seguimiento of totales" class="alerta">
             <div *ngIf="
                 (today | amDifference: seguimiento.fechaderivado:'hours') > 12
@@ -417,17 +417,16 @@
                           <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguiss.estado }}</span>
-                          <!-- <span *ngIf="
+                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg">{{ seguiss.archivofi[0].status }}</span>
+                          <span *ngIf="
                               seguiss.estado != 'DERIVADO' &&
                               seguiss.estado != 'MALETIN' &&
                               seguiss.estado != 'RECIBIDO' &&
-                              seguiss.estado != 'ENVIADO'
-                            " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span> -->
+                              seguiss.estado != 'ENVIADO' &&
+                              seguiss.estado != 'FILE OFICINA'
+                            " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span>
+                            <br>
                           <i>{{ seguiss.copia }}</i>
-                          <p *ngIf="seguiss.estado === 'FILE OFICINA'" class="bg badge text-dark fw-bold">
-                            {{ seguiss.archivofi[0].status }} <br />
-                            <!-- {{ seguiss.archivofi[0].description }} -->
-                          </p>
                         </td>
                       </tr>
                     </tbody>

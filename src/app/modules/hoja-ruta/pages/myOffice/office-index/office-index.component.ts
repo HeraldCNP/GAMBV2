@@ -104,7 +104,6 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         // this.loading = false;
         this.hojaRuta = data.serverResponse;
-        console.log(data);
         this.api.buscarnuit(this.hojaRuta.nuit).subscribe(
           (data) => {
             this.seguim = data;
@@ -348,6 +347,14 @@ export class OfficeIndexComponent implements OnInit {
       confirmButtonText: 'Sì, Reactivar',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.api.getSegui(id).subscribe((data)=>{
+          if(data.estado=="FILE OFICINA"){
+            data.archivofi.forEach((element:any) => {
+              this.api.eliminarArc(element).subscribe((data)=>{
+              })
+            });
+          }
+        })
         this.api.EditarSeguis(id, SEGUI).subscribe(
           (data) => {
             Swal.fire('', 'El tramite se reactivo', 'success');
@@ -435,7 +442,6 @@ export class OfficeIndexComponent implements OnInit {
       }
     );
   }
-
   ver(id: any) {
     const SEGUI: Segui = {
       fecharecepcion: this.today,
