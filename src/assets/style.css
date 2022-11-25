@@ -97,11 +97,11 @@ body {
 	line-height: 24px;
 }
 ::-moz-selection {
-    background: #b3d4fc;
+    background: rgba(123, 255, 71, 0.5);
     text-shadow: none;
 }
 ::selection {
-    background: #b3d4fc;
+    background: rgba(123, 255, 71, 0.5);
     text-shadow: none;
 }
 .browserupgrade {
@@ -1661,7 +1661,7 @@ label{
   margin-left: 0;
 }
 .footer-social a:hover {
-  background: #f6416c none repeat scroll 0 0;
+  background: rgba(73, 255, 28, 0.7) none repeat scroll 0 0;
   color: #fff;
 }
 /* ====================================== 

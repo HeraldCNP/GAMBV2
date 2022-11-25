@@ -19,6 +19,11 @@ import { ObjetivoComponent } from './pages/objetivo/objetivo.component';
 import { HistoriaComponent } from './pages/historia/historia.component';
 import { AlcaldeComponent } from './pages/alcalde/alcalde.component';
 import { ConsejoComponent } from './pages/consejo/consejo.component';
+import { ServiciosComponent } from './pages/index/servicios/servicios.component';
+import { DefensoriaComponent } from './pages/defensoria/defensoria.component';
+import { SlimComponent } from './pages/slim/slim.component';
+import { AmbienteComponent } from './pages/ambiente/ambiente.component';
+import { ImpuestosComponent } from './pages/impuestos/impuestos.component';
 
 
 @NgModule({
@@ -39,7 +44,12 @@ import { ConsejoComponent } from './pages/consejo/consejo.component';
     ObjetivoComponent,
     HistoriaComponent,
     AlcaldeComponent,
-    ConsejoComponent
+    ConsejoComponent,
+    ServiciosComponent,
+    DefensoriaComponent,
+    SlimComponent,
+    AmbienteComponent,
+    ImpuestosComponent
   ],
   imports: [
     CommonModule,

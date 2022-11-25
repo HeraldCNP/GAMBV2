@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit {
-  posts:any = [];
+  posts:any  = [];
   URL = environment.api;
   constructor(
     private api: HomeService,
@@ -19,6 +19,7 @@ export class NewComponent implements OnInit {
   ngOnInit(): void {
     this.api.getAllPosts().subscribe(res => {
       this.posts = res;
+      console.log(res)
     });
     
   }

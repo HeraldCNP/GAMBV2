@@ -1,10 +1,11 @@
 <app-menu></app-menu>
-<div class="main-container">
+<div class="main-container font">
     <div *ngIf="currentRoute === '/'">
         <app-slider></app-slider>
         <!-- <app-info></app-info> -->
         <app-secretaries></app-secretaries>
         <app-new></app-new>
+        <app-servicios></app-servicios>
     </div>
     <router-outlet></router-outlet>
 </div>

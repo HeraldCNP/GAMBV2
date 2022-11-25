@@ -9,6 +9,10 @@ import { NewComponent } from './pages/index/new/new.component';
 import { MisionComponent } from './pages/mision/mision.component';
 import { ObjetivoComponent } from './pages/objetivo/objetivo.component';
 import { HistoriaComponent } from './pages/historia/historia.component';
+import { AlcaldeComponent } from './pages/alcalde/alcalde.component';
+import { ConsejoComponent } from './pages/consejo/consejo.component';
+import { DefensoriaComponent } from './pages/defensoria/defensoria.component';
+import { SlimComponent } from './pages/slim/slim.component';
 
 const routes: Routes = [
   {
@@ -23,6 +27,10 @@ const routes: Routes = [
       {path: 'mision', component: MisionComponent},
       {path: 'objetivo', component: ObjetivoComponent},
       {path: 'historia', component: HistoriaComponent},
+      {path: 'alcalde', component: AlcaldeComponent},
+      {path: 'concejo', component: ConsejoComponent},
+      {path: 'defensoria', component: DefensoriaComponent},
+      {path: 'slim', component: SlimComponent},
     ]
   }
 ];
