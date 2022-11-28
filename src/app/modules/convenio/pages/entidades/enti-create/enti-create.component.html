@@ -13,16 +13,36 @@
               <div class="col-md">
                 <form (ngSubmit)="crearEntidad(entidadForm.value)" [formGroup]="entidadForm">
                   <div class="mb-1">
-                    <label for="nombre" class="form-label">Nombre *</label>
-                    <input type="text" class="form-control" id="nombre" formControlName="nombre" required>
-                    <div class="form-text " *ngIf="form['nombre'].touched && form['nombre'].invalid">
-                      <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* El Nombre de la entidad es
+                    <label for="codigo" class="form-label">Codigo *</label>
+                    <input type="text" class="form-control" id="codigo" formControlName="codigo" required>
+                    <div class="form-text " *ngIf="form['codigo'].touched && form['codigo'].invalid">
+                      <div *ngIf="form['codigo'].errors && form['codigo'].errors['required']">* El codigo de la entidad es
                         Requerido.</div>
-                      <div *ngIf="form['nombre'].errors && form['nombre'].errors['minlength']">El Nombre de la entidad
+                      <div *ngIf="form['codigo'].errors && form['codigo'].errors['minlength']">El codigo de la entidad
                         no puede tener menos de 3 caracteres.</div>
                     </div>
                   </div>
-                  <div class="mb-2">
+                  <div class="mb-1">
+                    <label for="sigla" class="form-label">Sigla *</label>
+                    <input type="text" class="form-control" id="sigla" formControlName="sigla" required>
+                    <div class="form-text " *ngIf="form['sigla'].touched && form['sigla'].invalid">
+                      <div *ngIf="form['sigla'].errors && form['sigla'].errors['required']">* La sigla de la entidad es
+                        Requerido.</div>
+                      <div *ngIf="form['sigla'].errors && form['sigla'].errors['minlength']">La sigla de la entidad
+                        no puede tener menos de 3 caracteres.</div>
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label for="denominacion" class="form-label">Denominacion *</label>
+                    <input type="text" class="form-control" id="denominacion" formControlName="denominacion" required>
+                    <div class="form-text " *ngIf="form['denominacion'].touched && form['denominacion'].invalid">
+                      <div *ngIf="form['denominacion'].errors && form['denominacion'].errors['required']">* La denominacion de la entidad es
+                        Requerido.</div>
+                      <div *ngIf="form['denominacion'].errors && form['denominacion'].errors['minlength']">La denominacion de la entidad
+                        no puede tener menos de 3 caracteres.</div>
+                    </div>
+                  </div>
+                  <!-- <div class="mb-2">
                     <label for="representante" class="form-label">Representante *</label>
                     <select class="form-select" name="representante" id="" formControlName="representante">
                       <option value="">Escoja el Representante</option>
@@ -33,7 +53,7 @@
                       <div *ngIf="form['representante'].errors && form['representante'].errors['required']">* El Representante es
                         Requerido.</div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="mb-1">
                     <label for="telefono" class="form-label">Telefono</label>
                     <input type="text" class="form-control" id="telefono" formControlName="telefono">
@@ -61,6 +81,7 @@
                     <button [disabled]="entidadForm.invalid" type="submit" class="btn btn-primary">Registrar</button>
                   </div>
                 </form>
+                {{ entidadForm.value | json }}
               </div>
             </div>
           </div>

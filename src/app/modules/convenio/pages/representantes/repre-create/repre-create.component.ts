@@ -12,25 +12,28 @@ import { Router } from '@angular/router';
 })
 export class RepreCreateComponent implements OnInit {
   URL = environment.api;
+  entidades:any = [];
   public representanteForm = this.fb.group({
-    nombre: ['', [Validators.required, Validators.minLength(3)] ],
-    apellidos: ['', [Validators.required, Validators.minLength(3)] ],
-    cargo: ['', [Validators.required] ],
-    telefono: ['', [] ],
-    ci: ['', [] ],
-    email: ['', [] ],
+    entidad: ['', [Validators.required]],
+    nombre: ['', [Validators.required, Validators.minLength(3)]],
+    apellidos: ['', [Validators.required, Validators.minLength(3)]],
+    cargo: ['', [Validators.required]],
+    telefono: ['', []],
+    ci: ['', []],
+    email: ['', []],
   })
 
   constructor(
-      private fb: FormBuilder,
-      private api: ConvenioService,
-      private router: Router
+    private fb: FormBuilder,
+    private api: ConvenioService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.getEntidades()
   }
 
-  crearRepresentante(form:any){
+  crearRepresentante(form: any) {
     this.api.crearRepresentante(form)
       .subscribe(
         res => {
@@ -40,7 +43,15 @@ export class RepreCreateComponent implements OnInit {
       );
   }
 
-  alertOk(icon:any, title:any, text:any, timer:any){
+  getEntidades(){
+    this.api.getAllEntidades().subscribe
+    (res => {
+      this.entidades = res; 
+      // console.log(this.entidades);
+    });
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({
       icon,
       title,
@@ -54,7 +65,7 @@ export class RepreCreateComponent implements OnInit {
   }
 
 
-  cancel(){
+  cancel() {
     this.router.navigate(['convenio/representante/index'])
   }
 }
