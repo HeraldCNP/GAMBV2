@@ -24,8 +24,9 @@
             <table class="table table-hover text-nowrap">
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Representante</th>
+                  <th>Codigo</th>
+                  <th>Denominacion</th>
+                  <th>Sigla</th>
                   <th>Telefono</th>
                   <th>NIT</th>
                   <th>Cuenta</th>
@@ -34,14 +35,16 @@
               </thead>
               <tbody>
                 <tr *ngFor="let entidad of entidades">
-                  <td>{{ entidad.nombre }}</td>
-                  <td>{{ entidad.representante.nombre }} {{ entidad.representante.apellidos }}</td>
+                  <td>{{ entidad.codigo }}</td>
+                  <td>{{ entidad.denominacion }}</td>
+                  <td>{{ entidad.sigla }}</td>
                   <td>{{ entidad.telefono }}</td>
                   <td>{{ entidad.nit }}</td>
                   <td>{{ entidad.cuenta }}</td>
                   <td>
                     <i (click)="updateEntidad(entidad._id)" class="fas fa-edit ml-3 icono"></i>
                     <i (click)="deleteEntidad(entidad._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                    <i (click)="addRepresentante(entidad._id)" class="fas fa-user-plus ml-3 icono"></i>
                   </td>
                 </tr>
               </tbody>

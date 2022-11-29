@@ -52,6 +52,11 @@ export class ConvenioService {
     return this.http.post<any>(dir, form)
   }
 
+  addrepresentante(form:any, id:any):Observable<any>{
+    let dir = `${this.URL}/addrepresentante/${id}`;
+    return this.http.put<any>(dir, form)
+  }
+
   editarEntidad(form:any, id:any):Observable<any>{
     let dir = `${this.URL}/entidad/${id}`;
     return this.http.put<any>(dir, form)

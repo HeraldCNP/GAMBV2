@@ -12,17 +12,9 @@
             <div class="row">
               <div class="col-md">
                 <form (ngSubmit)="crearRepresentante(representanteForm.value)" [formGroup]="representanteForm">
-                  <div class="mb-2">
-                    <label for="entidad" class="form-label">Entidad *</label>
-                    <select class="form-select" name="entidad" id="" formControlName="entidad">
-                      <option value="">Escoja la Entidad</option>
-                      <option *ngFor="let entidad of entidades" value="{{ entidad._id}}">{{
-                        entidad.nombre}}</option>
-                    </select>
-                    <div class="form-text " *ngIf="form['entidad'].touched && form['entidad'].invalid">
-                      <div *ngIf="form['entidad'].errors && form['entidad'].errors['required']">* La entidad es
-                        Requerida.</div>
-                    </div>
+                  <div class="mb-1">
+                    <label for="entidad" class="form-label">{{ datoEntidad.nombre }} </label>
+                    <input type="hidden"  class="form-control" id="entidad" formControlName="entidad" [attr.value]="datoEntidad.nombre">
                   </div>
                   <div class="mb-1">
                     <label for="nombre" class="form-label">Nombre *</label>
@@ -69,6 +61,7 @@
                     <button [disabled]="representanteForm.invalid" type="submit" class="btn btn-primary">Registrar</button>
                   </div>
                 </form>
+                {{ representanteForm.value | json }}
               </div>
             </div>
           </div>

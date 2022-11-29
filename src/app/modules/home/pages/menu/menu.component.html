@@ -1,94 +1,120 @@
 <!-- HEADER-AREA START -->
 <header class="header-area">
-    <nav class="navbar navbar-expand-lg navbar-dark fondo">
-        <div class="container-fluid">
-            <a class="navbar-brand" [routerLink]="'/'">
-                <img src="../../../../../assets/img/logo.png" alt="" width="35" height="" class="d-inline-block">
-                <i class="title ml-1 text-white">Gobierno Autónomo Municipal de Betanzos</i>
-            </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
-              <li class="nav-item">
-                <a class="nav-link" [routerLink]="''">Inicio</a>
-              </li>
+  <nav class="navbar navbar-expand-lg navbar-dark fondo">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="'/'">
+        <img src="../../../../../assets/img/logo.png" alt="" width="35" height="" class="d-inline-block">
+        <i class="title ml-1 text-white">Gobierno Autónomo Municipal de Betanzos</i>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="''">Inicio</a>
+          </li>
 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Institución
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" routerLink="historia">Historia</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" routerLink="mision">Misión - Visión</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" routerLink="objetivo">Objetivos Institucionales</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" routerLink="alcalde">Alcalde Municipal</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" routerLink="concejo">Concejo Municipal</a></li>
-                </ul>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Institución
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="historia">Historia</a></li>
+              <li>
+                <hr class="dropdown-divider">
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Transparencia
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Rendición Publica de Cuentas</a></li>
-                  <li><a class="dropdown-item" href="#">Auditoria Interna</a></li>
-                </ul>
+              <li><a class="dropdown-item" routerLink="mision">Misión - Visión</a></li>
+              <li>
+                <hr class="dropdown-divider">
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Gestión Municipal
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Programa Operativo Anual</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Convenios</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Plan Territorial de Desarrollo Integral</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Plan Estrategico Institucional</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Reglamentos y Manuales</a></li>
-                </ul>
+              <li><a class="dropdown-item" routerLink="objetivo">Objetivos Institucionales</a></li>
+              <li>
+                <hr class="dropdown-divider">
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Secretarias Municipales
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Secretaria Municipal Administrativa y Financiera</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Secretaria Municipal Desarrollo Economico Productivo y Medio Ambiente</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Secretaria Municipal Desarrollo Humano y Social</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Secretaria Municipal Infraestructura y Desarrollo Urbano</a></li>
-                </ul>
+              <li><a class="dropdown-item" routerLink="alcalde">Alcalde Municipal</a></li>
+              <li>
+                <hr class="dropdown-divider">
               </li>
-              <!-- <li class="nav-item">
+              <li><a class="dropdown-item" routerLink="concejo">Concejo Municipal</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Transparencia
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Rendición Publica de Cuentas</a></li>
+              <li><a class="dropdown-item" href="#">Auditoria Interna</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Gestión Municipal
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Programa Operativo Anual</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Plan Estrategico Institucional</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Plan Territorial de Desarrollo Integral</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Convenios</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Reglamentos y Manuales</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Secretarias Municipales
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Administrativa y Financiera</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Desarrollo Economico Productivo y Medio Ambiente</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Desarrollo Humano y Social</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Infraestructura y Desarrollo Urbano</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Turismo</a>
+          </li>
+          <!-- <li class="nav-item">
                 <a class="nav-link" href="#">Gaceta Oficial</a>
               </li> -->
-              <!-- <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a class="nav-link disabled">Disabled</a>
               </li> -->
-              <li class="nav-item" *ngIf="data && data.email">
-                <a class="nav-link" routerLink="private">Oficina Virtual</a>
-              </li>
-              <li class="nav-item" *ngIf="!data ">
-                <a class="nav-link" routerLink="login">Oficina Virtual</a>
-              </li>
-            </ul>
-            <!-- <form class="d-flex" role="search">
+          <li class="nav-item" *ngIf="data && data.email">
+            <a class="nav-link" routerLink="private">Oficina Virtual</a>
+          </li>
+          <li class="nav-item" *ngIf="!data ">
+            <a class="nav-link" routerLink="login">Oficina Virtual</a>
+          </li>
+        </ul>
+        <!-- <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
-          </div>
-        </div>
-      </nav>
+      </div>
+    </div>
+  </nav>
 </header>
 <!-- HEADER-AREA END -->
