@@ -44,7 +44,7 @@
   font-size: 90%;
 }
 .bg{
-  background-color:  rgb(230, 137, 109)!important;
+  background-color:  rgba(230, 137, 109, 0.568)!important;
 }
 .est {
   cursor: pointer;

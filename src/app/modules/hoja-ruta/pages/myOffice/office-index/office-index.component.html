@@ -61,7 +61,7 @@
             </button>
             <button (click)="changeStatus('FILE OFICINA')" type="button"
               [ngClass]="estado == 'FILE OFICINA' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
-              T. Finalizados
+              Finalizados
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark bg">
                 {{ totalOfi }}
                 <span class="visually-hidden">unread messages</span>
@@ -417,7 +417,8 @@
                           <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg">{{ seguiss.archivofi[0].status }}</span>
+                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark"> <i *ngFor="let fin of seguiss.archivofi"> {{fin.status}} <br></i><br>
+                          </span>
                           <span *ngIf="
                               seguiss.estado != 'DERIVADO' &&
                               seguiss.estado != 'MALETIN' &&
