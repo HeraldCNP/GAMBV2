@@ -112,8 +112,6 @@ export class ReportesComponent implements OnInit {
               totalofi: this.totalOfi
             }
             this.repor1.push(report1);
-            console.log(this.repor1)
-            console.log(report1)
            /*  this.usuario = ""
             this.cargo = ""
             this.total = 0
