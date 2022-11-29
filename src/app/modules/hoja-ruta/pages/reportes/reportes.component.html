@@ -1,4 +1,48 @@
-<section style='display:flex'>
+<!-- <section style='display:flex'>
     <div class='pattern1'></div>
     <div class='pattern2'></div>
-  </section>
+</section> -->
+<div>
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Cargo</th>
+        <th>Total</th>
+        <th>Recibidos</th>
+        <th>Derivados</th>
+        <th>Sin Recibir</th>
+        <th>Maletín</th>
+        <th>T. Finalizados</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let report of repor1">
+        <td>
+          {{report.user}}
+        </td>
+        <td>
+          {{report.cargo}}
+        </td>
+        <td>
+          {{report.total}}
+        </td>
+        <td>
+          {{report.totalrec}}
+        </td>
+        <td>
+          {{report.totalder}}
+        </td>
+        <td>
+          {{report.totalsin}}
+        </td>
+        <td>
+          {{report.totalmale}}
+        </td>
+        <td>
+          {{report.totalofi}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
