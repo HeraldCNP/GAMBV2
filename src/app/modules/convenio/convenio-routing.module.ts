@@ -20,7 +20,7 @@ const routes: Routes = [
     component: DashboardComponent,
     children:[
       {path: 'representante/index', component: RepreIndexComponent},
-      {path: 'representante/create', component: RepreCreateComponent},
+      {path: 'representante/create/:id', component: RepreCreateComponent},
       {path: 'representante/update/:id', component: RepreUpdateComponent},
       {path: 'entidad/index', component: EntiIndexComponent},
       {path: 'entidad/create', component: EntiCreateComponent},

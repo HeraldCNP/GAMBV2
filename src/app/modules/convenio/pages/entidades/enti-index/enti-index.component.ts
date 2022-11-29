@@ -33,6 +33,10 @@ export class EntiIndexComponent implements OnInit {
     this.router.navigate(['convenio/entidad/create'])
   }
 
+  addRepresentante(id: any) {
+    this.router.navigate(['convenio/representante/create', id])
+  }
+
   updateEntidad(id: any) {
     this.router.navigate(['convenio/entidad/update', id])
   }

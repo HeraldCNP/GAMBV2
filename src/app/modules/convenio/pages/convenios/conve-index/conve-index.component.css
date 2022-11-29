@@ -88,3 +88,7 @@ a:hover,a:focus{
     font-size: 0.8rem;
     cursor: pointer;
   }
+
+  .card{
+    min-height: 400px;
+  }

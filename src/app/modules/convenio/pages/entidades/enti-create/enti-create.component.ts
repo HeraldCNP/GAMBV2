@@ -14,7 +14,7 @@ export class EntiCreateComponent implements OnInit {
   URL = environment.api;
   representantes:any = [];
   public entidadForm = this.fb.group({
-    codigo: ['', [Validators.required, Validators.minLength(3)] ],
+    codigo: ['', [Validators.required, Validators.minLength(1)] ],
     sigla: ['', [Validators.required, Validators.minLength(3)] ],
     denominacion: ['', [Validators.required, Validators.minLength(3)] ],
     // representante: ['', [Validators.required] ],

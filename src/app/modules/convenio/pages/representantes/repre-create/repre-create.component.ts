@@ -3,7 +3,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ConvenioService } from '../../../services/convenio.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-repre-create',
@@ -13,32 +13,53 @@ import { Router } from '@angular/router';
 export class RepreCreateComponent implements OnInit {
   URL = environment.api;
   entidades:any = [];
-  public representanteForm = this.fb.group({
-    entidad: ['', [Validators.required]],
-    nombre: ['', [Validators.required, Validators.minLength(3)]],
-    apellidos: ['', [Validators.required, Validators.minLength(3)]],
-    cargo: ['', [Validators.required]],
-    telefono: ['', []],
-    ci: ['', []],
-    email: ['', []],
-  })
+  entidadId:any;
+  datoEntidad:any;
+  representanteForm:any;
+
 
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,
-    private router: Router
+    private router: Router,
+    private activeRouter: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.getEntidades()
+    // this.getEntidades(),
+    this.entidadId = this.activeRouter.snapshot.paramMap.get('id');
+    this.api.getSingleEntidad(this.entidadId).subscribe(data => {
+      this.datoEntidad = data;
+      // console.log(this.datoEntidad);
+      this.representanteForm = this.fb.group({
+        entidad: [this.datoEntidad._id, [Validators.required]],
+        nombre: ['', [Validators.required, Validators.minLength(3)]],
+        apellidos: ['', [Validators.required, Validators.minLength(3)]],
+        cargo: ['', [Validators.required]],
+        telefono: ['', []],
+        ci: ['', []],
+        email: ['', []],
+      })
+    })
   }
 
   crearRepresentante(form: any) {
-    this.api.crearRepresentante(form)
+    this.api.addrepresentante(form, this.entidadId)
       .subscribe(
         res => {
-          this.router.navigate(['convenio/representante/index']),
+          this.router.navigate(['convenio/entidad/index']),
             this.alertOk('success', 'Exito', 'Representante Creado Correctamente', '2000')
+        }
+      );
+  }
+
+  editarEntidad(form:any){
+    
+    this.api.editarEntidad(form, this.entidadId)
+      .subscribe(
+        res => {
+          this.router.navigate(['convenio/entidad/index']),
+            this.alertOk('success', 'Exito', 'Entidad Editada Correctamente', '2000')
         }
       );
   }

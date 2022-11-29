@@ -108,7 +108,7 @@ export class ConveTransfeComponent implements OnInit {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round(100 * event.loaded / event.total);
           }
-          this.api.editarConvenio(fdv, this.convenioId).subscribe(data =>{
+          this.api.editarEstado(fdv, this.convenioId).subscribe(data =>{
           })
         },
         err => {
