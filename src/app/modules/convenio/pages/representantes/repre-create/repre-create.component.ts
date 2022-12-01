@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ConvenioService } from '../../../services/convenio.service';
 import Swal from 'sweetalert2';
@@ -23,10 +23,8 @@ export class RepreCreateComponent implements OnInit {
     private api: ConvenioService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-  ) { }
+  ) {
 
-  ngOnInit(): void {
-    // this.getEntidades(),
     this.entidadId = this.activeRouter.snapshot.paramMap.get('id');
     this.api.getSingleEntidad(this.entidadId).subscribe(data => {
       this.datoEntidad = data;
@@ -41,6 +39,11 @@ export class RepreCreateComponent implements OnInit {
         email: ['', []],
       })
     })
+
+   }
+
+  ngOnInit(): void {
+    // this.getEntidades(),
   }
 
   crearRepresentante(form: any) {

@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <div class="card shadow p-3 mb-5 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Crear Nueva Entidad</h3>
+            <h3 class="card-title">Seleccionar Entidad</h3>
           </div>
   
           <!-- /.card-header -->
@@ -42,40 +42,8 @@
                         no puede tener menos de 3 caracteres.</div>
                     </div>
                   </div>
-                  <!-- <div class="mb-2">
-                    <label for="representante" class="form-label">Representante *</label>
-                    <select class="form-select" name="representante" id="" formControlName="representante">
-                      <option value="">Escoja el Representante</option>
-                      <option *ngFor="let representante of representantes" value="{{ representante._id}}">{{
-                        representante.nombre}} {{ representante.apellidos}}</option>
-                    </select>
-                    <div class="form-text " *ngIf="form['representante'].touched && form['representante'].invalid">
-                      <div *ngIf="form['representante'].errors && form['representante'].errors['required']">* El Representante es
-                        Requerido.</div>
-                    </div>
-                  </div> -->
-                  <div class="mb-1">
-                    <label for="telefono" class="form-label">Telefono</label>
-                    <input type="text" class="form-control" id="telefono" formControlName="telefono">
-                    <div class="form-text " *ngIf="form['telefono'].touched && form['telefono'].invalid">
-                        <div *ngIf="form['telefono'].errors && form['telefono'].errors['minlength']">El telefono
-                          no puede tener menos de 7 caracteres.
-                        </div>
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label for="nit" class="form-label">NIT</label>
-                    <input type="text" class="form-control" id="nit" formControlName="nit">
-                    <div class="form-text " *ngIf="form['nit'].touched && form['nit'].invalid">
-                      <div *ngIf="form['nit'].errors && form['nit'].errors['minlength']">El nit
-                        no puede tener menos de 3 caracteres.
-                      </div>
-                  </div>
-                  </div>
-                  <div class="mb-1">
-                    <label for="cuenta" class="form-label">N° de Cuenta Bancaria </label>
-                    <input type="text" class="form-control" id="cuenta" formControlName="cuenta">
-                  </div>
+
+
                   <div class="mt-3 d-flex justify-content-around">
                     <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
                     <button [disabled]="entidadForm.invalid" type="submit" class="btn btn-primary">Registrar</button>

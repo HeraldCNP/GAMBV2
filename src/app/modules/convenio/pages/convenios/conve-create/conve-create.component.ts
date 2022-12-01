@@ -5,12 +5,16 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ConvenioService } from '../../../services/convenio.service';
 
+import { NgxSelectModule } from 'ngx-select-ex';
+
 declare function currencyInput(): void;
 @Component({
   selector: 'app-conve-create',
   templateUrl: './conve-create.component.html',
   styleUrls: ['./conve-create.component.css']
 })
+
+
 export class ConveCreateComponent implements OnInit {
   URL = environment.api;
   entidades2: any = [];
@@ -19,6 +23,11 @@ export class ConveCreateComponent implements OnInit {
 
   convenioForm;
 
+  items:any[] = ["1", "2"];
+
+  itemId:any = 3;
+
+  
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,

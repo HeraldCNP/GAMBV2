@@ -21,6 +21,8 @@ import { ConveFileComponent } from './pages/convenios/conve-file/conve-file.comp
 import { ConveTransfeComponent } from './pages/convenios/conve-transfe/conve-transfe.component';
 import { SeeTransfeComponent } from './pages/convenios/see-transfe/see-transfe.component';
 
+import { NgxSelectModule } from 'ngx-select-ex';
+import { EntiSelectComponent } from './pages/entidades/enti-select/enti-select.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +41,15 @@ import { SeeTransfeComponent } from './pages/convenios/see-transfe/see-transfe.c
     ConveUpdateComponent,
     ConveFileComponent,
     ConveTransfeComponent,
-    SeeTransfeComponent
+    SeeTransfeComponent,
+    EntiSelectComponent
   ],
   imports: [
     CommonModule,
     ConvenioRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxSelectModule
   ]
 })
 export class ConvenioModule { }

@@ -4,10 +4,12 @@
       <div class="col-md-12">
         <div class="card shadow p-3 mb-5 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Lista de Entidades</h3>
+            <h3 class="card-title">Lista de Entidades Seleccionadas</h3>
             <div class="card-tools">
-
-              <button (click)="addEntidad()" class="btn btn-primary">Agregar Nuevo</button>
+              <span class="mr-3">
+                <button (click)="selectEntidad()" class="btn btn-primary">Agregar Entidad</button>
+              </span>
+              <button (click)="addEntidad()" class="btn btn-info">Crear Nuevo</button>
               <!-- <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">

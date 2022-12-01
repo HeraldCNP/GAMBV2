@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class CategoryIndexComponent implements OnInit {
 
-  categories:any = [];
+  categories: any = [];
   URL = environment.api;
   categoryForm: FormGroup = new FormGroup({});
 
@@ -23,26 +23,26 @@ export class CategoryIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.createform(),
-    this.getCategories()
+      this.getCategories()
   }
 
-  getCategories(){
+  getCategories() {
     this.api.getAllCategories().subscribe
-    (res => {
-      this.categories = res;
-      console.log(res)
-    });
+      (res => {
+        this.categories = res;
+        console.log(res)
+      });
   }
 
-  createform(){
+  createform() {
     this.categoryForm = new FormGroup({
-      category : new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required),
     })
   }
 
 
 
-  onDeleteCategory(id:any){
+  onDeleteCategory(id: any) {
     Swal.fire({
       title: 'Estas seguro?',
       text: "¡No podrás revertir esto!",
@@ -62,26 +62,26 @@ export class CategoryIndexComponent implements OnInit {
         this.api.deleteCategory(id).subscribe(
           res => console.log(res),
           err => console.log('HTTP Error', err),
-          () => this.getCategories() 
+          () => this.getCategories()
         );
       }
     })
   }
-  
-  sendFormCategory(category: any){
+
+  sendFormCategory(category: any) {
     this.api.sendCategory(category).subscribe(
       res => console.log(res),
       err => console.log('HTTP Error', err),
       () => {
-              this.router.navigate(['blog/category/index']),
-              this.alertOk('success', 'Exito', 'Categoria Creada Correctamente', '2000'),
-              this.getCategories(),
-              this.createform()
-            }
+        this.router.navigate(['blog/category/index']),
+          this.alertOk('success', 'Exito', 'Categoria Creada Correctamente', '2000'),
+          this.getCategories(),
+          this.createform()
+      }
     )
   }
 
-  alertOk( icon:any, title:any, text:any, timer:any){
+  alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({
       icon,
       title,
