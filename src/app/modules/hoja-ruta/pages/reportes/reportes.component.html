@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr  *ngFor="let report of repor1">
+      <tr  *ngFor="let report of repor1 | report1Order">
         <td>
           {{report.user}}
         </td>
