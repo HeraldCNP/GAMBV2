@@ -13,8 +13,8 @@
               <div class="col-md">
                 <form (ngSubmit)="crearRepresentante(representanteForm.value)" [formGroup]="representanteForm">
                   <div class="mb-1">
-                    <label for="entidad" class="form-label">{{ datoEntidad.nombre }} </label>
-                    <input type="hidden"  class="form-control" id="entidad" formControlName="entidad" [attr.value]="datoEntidad.nombre">
+                    <label for="entidad" class="form-label">{{ datoEntidad.denominacion }} </label>
+                    <input type="hidden"  class="form-control" id="entidad" formControlName="entidad">
                   </div>
                   <div class="mb-1">
                     <label for="nombre" class="form-label">Nombre *</label>

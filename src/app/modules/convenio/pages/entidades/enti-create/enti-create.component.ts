@@ -17,10 +17,6 @@ export class EntiCreateComponent implements OnInit {
     codigo: ['', [Validators.required, Validators.minLength(1)] ],
     sigla: ['', [Validators.required, Validators.minLength(3)] ],
     denominacion: ['', [Validators.required, Validators.minLength(3)] ],
-    // representante: ['', [Validators.required] ],
-    telefono: ['', [Validators.minLength(7)] ],
-    nit: ['', [Validators.minLength(3)] ],
-    cuenta: ['', ],
   })
   constructor(
     private fb: FormBuilder,
@@ -29,7 +25,6 @@ export class EntiCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getRepresentantes();
   }
 
   get form() {
@@ -37,7 +32,7 @@ export class EntiCreateComponent implements OnInit {
   }
 
   crearEntidad(form:any){
-    this.api.crearEntidad(form)
+    this.api.addEntidad(form)
       .subscribe(
         res => {
           this.router.navigate(['convenio/entidad/index']),
@@ -46,13 +41,7 @@ export class EntiCreateComponent implements OnInit {
       );
   }
 
-  getRepresentantes(){
-    this.api.getAllRepresentantes().subscribe
-    (res => {
-      this.representantes = res; 
-      // console.log(this.representantes);
-    });
-  }
+
 
   alertOk(icon:any, title:any, text:any, timer:any){
     Swal.fire({

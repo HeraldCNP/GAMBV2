@@ -521,7 +521,8 @@
                             class="badge badge-warning"
                             >{{ seguiss.estado }}</span
                           >
-                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg">{{ seguiss.archivofi[0].status }}</span>
+                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark"> <i *ngFor="let fin of seguiss.archivofi"> {{fin.status}} <br></i>
+                          </span>
                           <span *ngIf="
                               seguiss.estado != 'DERIVADO' &&
                               seguiss.estado != 'MALETIN' &&

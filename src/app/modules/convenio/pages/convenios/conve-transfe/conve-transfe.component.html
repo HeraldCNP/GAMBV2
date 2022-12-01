@@ -14,10 +14,12 @@
                                     <label for="entidad" class="form-label col-auto">Entidad *</label>
 
                                     <select class="form-select" formControlName="entidad">
-                                        <option value="{{ enti.entidad }}" *ngFor="let enti of datosConvenio">{{ enti.entidad }}</option>
+                                        <option value="{{ enti.entidad }}" *ngFor="let enti of datosConvenio">{{
+                                            enti.entidad }}</option>
                                     </select>
                                     <div class="form-text" *ngIf="form['entidad'].touched && form['entidad'].invalid">
-                                        <div *ngIf="form['entidad'].errors && form['entidad'].errors['required']">* Entidad es
+                                        <div *ngIf="form['entidad'].errors && form['entidad'].errors['required']">*
+                                            Entidad es
                                             Requerida.
                                         </div>
                                     </div>
@@ -36,13 +38,16 @@
                                     <label for="importe" class="form-label">Importe *</label>
                                     <input type="number" class="form-control" id="importe" formControlName="importe">
                                     <div class="form-text" *ngIf="form['importe'].touched && form['importe'].invalid">
-                                        <div *ngIf="form['importe'].errors && form['importe'].errors['required']">* Importe
+                                        <div *ngIf="form['importe'].errors && form['importe'].errors['required']">*
+                                            Importe
                                             es Requerido.</div>
-                                        <div *ngIf="form['importe'].errors && form['importe'].errors['minlength']">Importe
+                                        <div *ngIf="form['importe'].errors && form['importe'].errors['minlength']">
+                                            Importe
                                             no puede tener menos de 3 caracteres.</div>
                                     </div>
                                 </div>
-                                <div class="mb-1">
+
+                                <!-- <div class="mb-1">
                                     <label for="fuente" class="form-label">Fuente *</label>
                                     <input type="text" class="form-control" id="fuente" formControlName="fuente">
                                     <div class="form-text" *ngIf="form['fuente'].touched && form['fuente'].invalid">
@@ -51,20 +56,61 @@
                                         <div *ngIf="form['fuente'].errors && form['fuente'].errors['minlength']">Fuente
                                             no puede tener menos de 3 caracteres.</div>
                                     </div>
+                                </div> -->
+
+
+                                <div class="mb-1">
+                                    <label for="fuente" class="form-label col-auto">Fuente *</label>
+                                    <select class="form-select" formControlName="fuente">
+                                        <option value="20-210">Recursos Específicos / Recursos Específicos de las
+                                            Municipalidades e Indígena Originario Campesino
+                                        </option>
+                                        <option value="20-220">Recursos Específicos / Regalías
+                                        </option>
+                                        <option value="20-230">Recursos Específicos / Otros Recursos Específicos
+                                        </option>
+                                        <option value="41-113">Transferencias T.G.N / Coparticipación Tributaria
+                                        </option>
+                                        <option value="41-119">Transferencias T.G.N / Impuesto Directo a los
+                                            Hidrocarburos
+                                        </option>
+                                        <option value="41-120">Transferencia TGN / Juegos al aszar
+                                        </option>
+                                        <option value="42-210">Transferencias de Recursos Específicos / Recursos
+                                            Específicos
+                                            de las Municipalidades e Indígena Originario Campesino
+                                        </option>
+                                        <option value="42-220">Transferencias de Recursos Específicos / Regalías
+                                        </option>
+                                        <option value="42-230">Transferencias de Recursos Específicos / Otros Recursos
+                                            Específicos
+                                        </option>
+                                    </select>
+                                    <div class="form-text" *ngIf="form['fuente'].touched && form['fuente'].invalid">
+                                        <div *ngIf="form['fuente'].errors && form['fuente'].errors['required']">* Fuente
+                                            es Requerido.</div>
+                                    </div>
                                 </div>
+
+
+
                                 <div class="mb-1">
                                     <label for="comprobante" class="form-label">Comprobante *</label>
-                                    <input class="form-control" id="comprobante" type="file" name="comprobante" id="comprobante"
-                                        formControlName="comprobante" (change)="onChange($event)" accept=".jpg, .jpeg, .png, .docx, .pdf">
-                                    <div class="form-text" *ngIf="form['comprobante'].touched && form['comprobante'].invalid">
-                                        <div *ngIf="form['comprobante'].errors && form['comprobante'].errors['required']">* Archivo es
+                                    <input class="form-control" id="comprobante" type="file" name="comprobante"
+                                        id="comprobante" formControlName="comprobante" (change)="onChange($event)"
+                                        accept=".jpg, .jpeg, .png, .docx, .pdf">
+                                    <div class="form-text"
+                                        *ngIf="form['comprobante'].touched && form['comprobante'].invalid">
+                                        <div
+                                            *ngIf="form['comprobante'].errors && form['comprobante'].errors['required']">
+                                            * Archivo es
                                             Requerido.
                                         </div>
                                     </div>
                                     <div class="progress mt-1" *ngIf="progress > 0">
                                         <div class="progress-bar bg-danger" role="progressbar"
-                                            [style.width]="progress + '%'" aria-valuemin="0"
-                                            aria-valuemax="100">{{ progress + '%' }}</div>
+                                            [style.width]="progress + '%'" aria-valuemin="0" aria-valuemax="100">{{
+                                            progress + '%' }}</div>
                                     </div>
                                 </div>
                                 <div class="mt-3 d-flex justify-content-around">

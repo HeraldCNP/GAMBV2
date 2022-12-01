@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Seleccionar Entidad</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row mb-2">
+              <div class="col-md">
+                <input type="search" class="form-control" placeholder="Codigo" (keyup.enter)="buscar(txtCodigo.value)"
+                  #txtCodigo>
+                <div *ngIf="datosEnti">
+                  <p class="mt-3"><b>Denominacion:</b> {{ datosEnti.denominacion }} </p>
+                  <p><b>Sigla:</b> {{ datosEnti.sigla }} </p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md">
+                <form (ngSubmit)="crearEntidad(entidadForm.value)" [formGroup]="entidadForm">
+                  <div class="mb-1">
+                    <label for="telefono" class="form-label">Telefono</label>
+                    <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                    <div class="form-text " *ngIf="form['telefono'].touched && form['telefono'].invalid">
+                      <div *ngIf="form['telefono'].errors && form['telefono'].errors['minlength']">El telefono
+                        no puede tener menos de 7 caracteres.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label for="nit" class="form-label">NIT</label>
+                    <input type="text" class="form-control" id="nit" formControlName="nit">
+                    <div class="form-text " *ngIf="form['nit'].touched && form['nit'].invalid">
+                      <div *ngIf="form['nit'].errors && form['nit'].errors['minlength']">El nit
+                        no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label for="cuenta" class="form-label">N° de Cuenta Bancaria </label>
+                    <input type="text" class="form-control" id="cuenta" formControlName="cuenta">
+                  </div>
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
+                    <button [disabled]="!datosEnti"  type="submit" class="btn btn-primary">Registrar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>

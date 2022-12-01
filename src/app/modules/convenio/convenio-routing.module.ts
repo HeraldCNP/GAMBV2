@@ -13,6 +13,7 @@ import { ConveUpdateComponent } from './pages/convenios/conve-update/conve-updat
 import { ConveFileComponent } from './pages/convenios/conve-file/conve-file.component';
 import { ConveTransfeComponent } from './pages/convenios/conve-transfe/conve-transfe.component';
 import { SeeTransfeComponent } from './pages/convenios/see-transfe/see-transfe.component';
+import { EntiSelectComponent } from './pages/entidades/enti-select/enti-select.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
       {path: 'representante/update/:id', component: RepreUpdateComponent},
       {path: 'entidad/index', component: EntiIndexComponent},
       {path: 'entidad/create', component: EntiCreateComponent},
+      {path: 'entidad/select', component: EntiSelectComponent},
       {path: 'entidad/update/:id', component: EntiUpdateComponent},
       {path: 'convenio/index', component: ConveIndexComponent},
       {path: 'convenio/create', component: ConveCreateComponent},
