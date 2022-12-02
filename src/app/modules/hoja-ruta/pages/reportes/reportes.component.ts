@@ -46,6 +46,7 @@ export class ReportesComponent implements OnInit {
     this.destino = RegExp.exec(this.destino1);
     this.getSeguimientos();
     this.obtenertotal()
+    console.log(this.repor1)
   }
   getSeguimientos() {
     this.api
@@ -112,14 +113,9 @@ export class ReportesComponent implements OnInit {
               totalofi: this.totalOfi
             }
             this.repor1.push(report1);
-           /*  this.usuario = ""
-            this.cargo = ""
-            this.total = 0
-            this.totalRecibidos= 0
-            this.totalDerivados= 0
-            this.totalEnviados= 0
-            this.totalMaletin= 0
-            this. totalOfi= 0 */
+            /* this.repor1.sort((a, b) => {
+              return b.total - a.total;
+          }); */
           },
           (error) => {
             console.log(error);

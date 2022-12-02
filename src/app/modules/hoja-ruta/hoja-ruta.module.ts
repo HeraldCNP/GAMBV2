@@ -19,6 +19,7 @@ import { ListAsociadosComponent } from './pages/list-asociados/list-asociados.co
 import { PendientesComponent } from './pages/pendientes/pendientes.component';
 import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-ofi.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
+import { Report1OrderPipe } from './pages/report1-order.pipe';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
     ListAsociadosComponent,
     PendientesComponent,
     SendArchivoOfiComponent,
-    ReportesComponent
+    ReportesComponent,
+    Report1OrderPipe
   ],
   imports: [
     CommonModule,

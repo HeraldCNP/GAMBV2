@@ -65,6 +65,15 @@ export class SendArchivoOfiComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           })
+          if(this.data.post !== "PRESUPUESTOS TESORERIA Y CREDITO PÚBLICO" && this.data.post !== "ASISTENTE CONTABLE" ){
+            console.log(this.data.post)
+            this.router.navigate(['/ruta/office/index'])
+            console.log("es")
+          }else{
+            console.log("no es")
+          }
+          
+          
         },(error) => {
           console.log(error);
         })

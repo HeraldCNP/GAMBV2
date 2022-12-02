@@ -417,7 +417,7 @@
                           <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark"> <i *ngFor="let fin of seguiss.archivofi"> {{fin.status}} <br></i><br>
+                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark"> <i *ngFor="let fin of seguiss.archivofi"> {{fin.status}} <br></i>
                           </span>
                           <span *ngIf="
                               seguiss.estado != 'DERIVADO' &&
