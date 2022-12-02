@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UnitsComponent } from './pages/units/units.component';
 import { ChargesComponent } from './pages/charges/charges.component';
 import { UsersIndexComponent } from './pages/users/users-index/users-index.component';
+import { UserEditComponent } from './pages/users/user-edit/user-edit.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       {path: 'unit/index', component: UnitsComponent},
       {path: 'charge/index/:id', component: ChargesComponent},
       {path: 'users', component: UsersIndexComponent},
+      {path: 'users/update/:id', component: UserEditComponent},
       {path: '**', redirectTo:'login'},
     ]
   }

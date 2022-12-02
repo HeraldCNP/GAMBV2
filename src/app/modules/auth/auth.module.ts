@@ -13,6 +13,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UnitsComponent } from './pages/units/units.component';
 import { ChargesComponent } from './pages/charges/charges.component';
 import { UsersIndexComponent } from './pages/users/users-index/users-index.component';
+import { UserEditComponent } from './pages/users/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { UsersIndexComponent } from './pages/users/users-index/users-index.compo
     DashboardComponent,
     UnitsComponent,
     ChargesComponent,
-    UsersIndexComponent
+    UsersIndexComponent,
+    UserEditComponent
   ],
   imports: [
     CommonModule,

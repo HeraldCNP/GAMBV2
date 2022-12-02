@@ -6,7 +6,7 @@
               <h3 class="card-title">Lista de Usuarios</h3>
               <div class="card-tools">
                 
-                <button class="btn btn-primary">Agregar Nuevo</button>  
+                <button class="btn btn-primary" routerLink="/auth/register" >Agregar Nuevo</button>  
                 <!-- <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">
@@ -44,8 +44,8 @@
                     <td>{{ user.roles }}</td>
                     <td><img width="70px" src="" alt=""></td>
                     <td>
-                      <!-- <i (click)="onEditPost(post._id)" class="fas fa-edit ml-3 icono"></i>
-                      <i (click)="onDeletePost(post._id)" class="fas fa-trash-alt ml-3 icono"></i> -->
+                      <i (click)="editUser(user)" class="fas fa-edit ml-3 icono"></i>
+                      <i (click)="deleteUser(user)" class="fas fa-trash-alt ml-3 icono"></i>
                     </td>
                   </tr>
                 </tbody>

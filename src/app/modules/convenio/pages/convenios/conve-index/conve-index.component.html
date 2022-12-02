@@ -33,9 +33,6 @@
                 <th>Objeto</th>
                 <th>Entidades</th>
                 <!--<th>Transferencias</th>-->
-                <th>Monto Total</th>
-                <th>Total Transf.</th>
-                <th>Saldo</th>
                 <th>Fecha de Finalización</th>
                 <th>Estado</th>
                 <th>Documentos</th>
@@ -59,15 +56,7 @@
                      {{ transferencia.entidad }} - {{ transferencia.importe }}<br>
                   </i>
                 </td> -->
-                <td valign="middle" align="center" class="pt-3">
-                  {{ convenio.montototal | currency: 'USD': 'Bs' }}
-                </td>
-                <td class="pt-3">
-                  {{ convenio.montototaltrans | currency: 'USD': 'Bs' }}
-                </td>
-                <td class="pt-3">
-                  {{ convenio.saldo | currency: 'USD': 'Bs' }}
-                </td>
+
                 <td >
                   <samp *ngIf="convenio.firma"> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }}</samp>
                   <i *ngIf="!convenio.firma">En Registro</i>

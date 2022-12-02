@@ -5,6 +5,8 @@ import { LoginI } from '../models/login.interface';
 import { ResponseI } from '../models/response.interface';
 import { environment } from '../../../../environments/environment';
 import { FormGroup } from '@angular/forms';
+import { Usuario } from '../models/usuario.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +71,18 @@ export class AuthService {
     } ) )
   }
 
+  addUser(form:Usuario):Observable<Usuario>{
+    let dir = `${this.URL}/users`;
+    return this.http.post<any>(dir, form)
+    // .pipe( map( data => {
+    //   return data.serverResponse
+    // } ) )
+  }
 
+  getSingleUser(id:any):Observable<any>{
+    let dir = `${this.URL}/user/${id}`;
+    console.log(dir)
+    return this.http.get<any>(dir);
+  }
 
 }
