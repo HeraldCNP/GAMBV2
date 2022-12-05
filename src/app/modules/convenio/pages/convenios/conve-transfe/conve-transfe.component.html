@@ -14,9 +14,10 @@
                                     <label for="entidad" class="form-label col-auto">Entidad *</label>
 
                                     <select class="form-select" formControlName="entidad">
-                                        <option value="{{ enti.entidad }}" *ngFor="let enti of datosConvenio">{{
-                                            enti.entidad }}</option>
+                                        <option value="{{ enti._id }}" *ngFor="let enti of datosConvenio">{{
+                                            enti.entidad.denominacion }}</option>
                                     </select>
+                                    
                                     <div class="form-text" *ngIf="form['entidad'].touched && form['entidad'].invalid">
                                         <div *ngIf="form['entidad'].errors && form['entidad'].errors['required']">*
                                             Entidad es
@@ -119,6 +120,8 @@
                                         class="btn btn-primary">Registrar</button>
                                 </div>
                             </form>
+
+                            {{ transfeForm.value | json }}
                         </div>
                     </div>
                 </div>

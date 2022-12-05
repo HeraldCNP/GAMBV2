@@ -20,32 +20,40 @@ export class ConveCreateComponent implements OnInit {
   entidades2: any = [];
   montoTotal: any = 0;
   example: any = [];
+  convenio:any;
+  convenioForm: any;
+  finanForm: any;
 
-  convenioForm;
+  items: any[] = ["1", "2"];
 
-  items:any[] = ["1", "2"];
+  itemId: any = 3;
 
-  itemId:any = 3;
-
-  
+  showModal: boolean = true;
+  texto = "";
+  convenioId: any;
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,
     private router: Router
   ) {
-
     this.convenioForm = this.fb.group({
       codigo: ['', [Validators.required, Validators.minLength(3)]],
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       objeto: [''],
-      entidades: this.fb.array([
-        this.fb.group({
-          entidad: ['', [Validators.required]],
-          monto: ['', [Validators.required]]
-        })
-      ]),
+      // entidades: this.fb.array([
+      //   this.fb.group({
+      //     entidad: ['', [Validators.required]],
+      //     monto: ['', [Validators.required]]
+      //   })
+      // ]),
       firma: [''],
       plazo: ['', [Validators.required]],
+    });
+
+    this.finanForm = this.fb.group({
+      entidad: [''],
+      monto: ['', [Validators.required, Validators.minLength(3)]],
+      tipo: ['', [Validators.required,]],
     })
 
 
@@ -55,50 +63,16 @@ export class ConveCreateComponent implements OnInit {
   get form() {
     return this.convenioForm.controls;
   }
-  // get formEnt() {
-  //   return this.convenioForm.controls.entidades.controls;
-  // }
-
-  get entidades() {
-    return this.convenioForm.get('entidades') as FormArray;
-  }
-
-
-  // getRepresentante(id: any) {
-  //   this.entidades2.forEach((entidad:any) => {
-  //     let i = 0;
-  //     if(entidad.text === id.target.value){
-  //       this.entidades.controls[i].value.representante = entidad.representante.nombre + ' ' + entidad.representante.apellidos
-  //       i++
-  //     }
-  //   });
-  // }
-
-  addEntidad() {
-    // this.entidades.push(this.fb.control('', [Validators.required, Validators.minLength(3)]));
-    const entidadFormGroup = this.fb.group({
-      entidad: ['', [Validators.required]],
-      monto: ['', [Validators.required]]
-    });
-    this.entidades.push(entidadFormGroup);
-    this.callCurrency()
-  }
-
-  removeEntidad(indice: number) {
-    this.entidades.removeAt(indice);
-  }
-
-
 
   ngOnInit() {
     this.callCurrency()
   }
 
-
-  callCurrency(){
+  //para llamar inputs type currency o moneda
+  callCurrency() {
     setTimeout(function () {
       currencyInput()
-      console.log("Hola Mundo");
+      // console.log("Hola Mundo");
     }, 1000);
   }
 
@@ -106,19 +80,18 @@ export class ConveCreateComponent implements OnInit {
     this.api.crearConvenio(form)
       .subscribe(
         res => {
+          this.texto = res.serverResponse.nombre;
+          this.convenioId = res.serverResponse._id;
           console.log(res)
         },
         err => console.log('HTTP Error', err),
         () => {
 
-          this.router.navigate(['convenio/convenio/index']),
-            this.alertOk('success', 'Exito', 'Convenio Creado Correctamente', '2000')
+          this.convenioForm.reset();
+
         }
       );
   }
-
-
-
 
   getEntidades() {
     this.api.getAllEntidades().subscribe
@@ -134,6 +107,14 @@ export class ConveCreateComponent implements OnInit {
 
   }
 
+  getConvenio(id:string){
+    this.api.getSingleConvenio(id).subscribe
+      (res => {
+        this.convenio = res;
+        console.log(this.convenio)
+      });
+  }
+
   alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({
       icon,
@@ -146,4 +127,62 @@ export class ConveCreateComponent implements OnInit {
   cancel() {
     this.router.navigate(['convenio/convenio/index'])
   }
+
+  show() {
+    this.showModal = !this.showModal;
+
+  }
+
+  crearFinan(form: any) {
+    this.api.addfinanc(form, this.convenioId)
+      .subscribe(
+        res => {
+          console.log(res)
+        },
+        err => console.log('HTTP Error', err),
+        () => {
+          this.finanForm.reset();
+          this.getConvenio(this.convenioId)
+        }
+      );
+  }
+
+
+
+
+
+  // get formEnt() {
+  //   return this.convenioForm.controls.entidades.controls;
+  // }
+
+  // get entidades() {
+  //   return this.convenioForm.get('entidades') as FormArray;
+  // }
+
+
+  // getRepresentante(id: any) {
+  //   this.entidades2.forEach((entidad:any) => {
+  //     let i = 0;
+  //     if(entidad.text === id.target.value){
+  //       this.entidades.controls[i].value.representante = entidad.representante.nombre + ' ' + entidad.representante.apellidos
+  //       i++
+  //     }
+  //   });
+  // }
+
+  // addEntidad() {
+  //   // this.entidades.push(this.fb.control('', [Validators.required, Validators.minLength(3)]));
+  //   const entidadFormGroup = this.fb.group({
+  //     entidad: ['', [Validators.required]],
+  //     monto: ['', [Validators.required]]
+  //   });
+  //   this.entidades.push(entidadFormGroup);
+  //   this.callCurrency()
+  // }
+
+  // removeEntidad(indice: number) {
+  //   this.entidades.removeAt(indice);
+  // }
+
+
 }

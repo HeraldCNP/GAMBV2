@@ -38,7 +38,7 @@ export class ConveIndexComponent implements OnInit {
     this.api.getAllConvenios().subscribe(
       res => {
         this.convenios = res;
-        console.log(res)
+        console.log("conves", this.convenios)
       }
     );
   }

@@ -41,14 +41,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let convenio of convenios; let i=index" [ngSwitch]="convenio.estado">
-                <td>{{ convenio.firma | date:'shortDate': 'UTC' }}</td>
+              <tr *ngFor="let convenio of convenios.serverResponse; let i=index" [ngSwitch]="convenio.estado">
+
+                <td *ngIf="convenio.firma"> {{ convenio.firma | date:'shortDate': 'UTC' }} </td>
+                <td><i *ngIf="!convenio.firma">Sin firma</i></td>
+                
                 <td>{{ convenio.codigo }}</td>
                 <td>{{ convenio.nombre }}</td>
                 <td>{{ convenio.objeto }}</td>
                 <td class="text-nowrap">
-                  <i *ngFor="let entidad of convenio.entidades">
-                    {{entidad.entidad}} - {{entidad.monto }} Bs<br>
+                  <i *ngFor="let entidad of convenio.financiadoras">
+                    {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{entidad.monto }} Bs<br>
                   </i>
                 </td>
                 <!-- <td>

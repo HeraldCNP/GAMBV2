@@ -44,7 +44,8 @@ export class ConveTransfeComponent implements OnInit {
  getconvenio(){
   if(this.convenioId){
     this.api.getSingleConvenio(this.convenioId).subscribe(data => {
-      this.datosConvenio = data.entidades;
+      this.datosConvenio = data.financiadoras;
+      console.log("convenio",data)
       this.total=data.montototal;
       if(data.montototaltrans!=undefined){
         this.montototaltrans=data.montototaltrans;
@@ -79,6 +80,7 @@ export class ConveTransfeComponent implements OnInit {
     let total =0;
     this.datosConvenio.forEach((element:any) => {
       if(this.transfeForm.value.entidad==element.entidad){
+        console.log(element.entidad)
         total = element.monto
       }
    });
@@ -102,6 +104,7 @@ export class ConveTransfeComponent implements OnInit {
       fdv.append('montototaltrans', montototaltransfe );
       fdv.append('saldo', saldocv );
       console.log(fdv)
+
       this.api.addTransfe(fd, this.convenioId)
       .subscribe(
         event => {
