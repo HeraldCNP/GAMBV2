@@ -4,13 +4,8 @@
 
 export const environment = {
   production: false,
-<<<<<<< HEAD
-  // api: "http://159.223.119.115:8000/api"
- api: "http://192.168.1.107:8000/api"
-=======
   api: "http://159.223.119.115:8000/api"
  //api: "http://192.168.1.2:8000/api"
->>>>>>> 964e18433c4fe2039b0fd51ac0e23b5d29563461
 };
 
 /*
