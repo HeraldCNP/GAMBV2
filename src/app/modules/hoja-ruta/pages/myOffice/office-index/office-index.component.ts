@@ -286,7 +286,8 @@ export class OfficeIndexComponent implements OnInit {
           confirmButtonText: 'Ir a Ver',
         }).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['hoja-ruta/list-asociar', id]);
+            this.seguimi(id)
+            //this.router.navigate(['/', id]);
           }
         });
         this.lisaso = '';
