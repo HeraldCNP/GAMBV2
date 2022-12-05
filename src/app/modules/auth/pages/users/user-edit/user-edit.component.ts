@@ -35,8 +35,8 @@ export class UserEditComponent implements OnInit {
       email: ['', [Validators.required]],
       username: ['', [Validators.required]],
       surnames: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      birthday: ['', [Validators.required]],
+      password: ['', ],
+      birthday: ['', ],
       roles: ['', [Validators.required]],
       image:['', [Validators.required]]
     })
@@ -45,9 +45,9 @@ export class UserEditComponent implements OnInit {
 
   cargarUser(id:string){
     this.api.getSingleUser(id).subscribe(usuario => {
-      this.datosUser = usuario;
+      this.datosUser = usuario.serverResponse;
       console.log(this.datosUser);
-      const { ci, email, post, roles, surnames, username } = usuario;
+      const { ci, email, post, roles, surnames, username } = this.datosUser;
       this.editarForm.setValue({
         ci,
         email,
