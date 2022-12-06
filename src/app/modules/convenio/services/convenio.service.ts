@@ -88,7 +88,7 @@ export class ConvenioService {
     }
   
     getAllConvenios():Observable<any[]>{
-      let dir = `${this.URL}/convenio`;
+      let dir = `${this.URL}/convenios`;
       return this.http.get<any[]>(dir)
     }
 
@@ -130,6 +130,12 @@ export class ConvenioService {
     editarEstado(form:any, id:any):Observable<any>{
       let dir = `${this.URL}/editarestado/${id}`;
       return this.http.put<any>(dir, form)
+    }
+
+    addfinanc(form:any, id:any):Observable<any>{
+      let dir = `${this.URL}/addfinanc/${id}`;
+      console.log(dir)
+      return this.http.post<any>(dir, form)
     }
 
     

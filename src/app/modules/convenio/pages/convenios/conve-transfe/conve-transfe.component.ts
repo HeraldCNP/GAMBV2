@@ -15,7 +15,7 @@ export class ConveTransfeComponent implements OnInit {
   URL = environment.api;
   convenioId: any;
   enti:any;
-  saldocv:any;
+  saldocv:any=0;
   montototaltrans:number=0;
   transfeForm: any;
   total:any;
@@ -44,8 +44,10 @@ export class ConveTransfeComponent implements OnInit {
  getconvenio(){
   if(this.convenioId){
     this.api.getSingleConvenio(this.convenioId).subscribe(data => {
-      this.datosConvenio = data.entidades;
+      this.datosConvenio = data.financiadoras;
+      console.log("convenio",data.financiadoras)
       this.total=data.montototal;
+      console.log(data)
       if(data.montototaltrans!=undefined){
         this.montototaltrans=data.montototaltrans;
         console.log(this.montototaltrans);
@@ -60,10 +62,8 @@ export class ConveTransfeComponent implements OnInit {
         this.saldocv=data.montototal;
         console.log(this.saldocv);
       }
-      console.log(data)
-      console.log("entidades", this.datosConvenio)
-      console.log(data.transferencia.length);
       this.enti=data.transferencia;
+      console.log(this.enti)
     })
   }
  }
@@ -76,32 +76,37 @@ export class ConveTransfeComponent implements OnInit {
     fd.append('fuente', this.transfeForm.value.fuente);
     fd.append('comprobante', this.files[0]);
     let saldo:any = 0;
-    let total =0;
+    let total:any =0;
     this.datosConvenio.forEach((element:any) => {
-      if(this.transfeForm.value.entidad==element.entidad){
-        total = element.monto
+      if(this.transfeForm.value.entidad==element.entidad.denominacion){
+        console.log(element.entidad.denominacion)
+        total = parseFloat(element.monto) 
+        console.log(total)
       }
    });
     let totaltrans=this.transfeForm.value.importe
     this.enti.forEach((element: any) => {
       if(this.transfeForm.value.entidad==element.entidad){
-        totaltrans = totaltrans + element.importe
+        totaltrans = parseInt(totaltrans + element.importe) 
 
       }
     });
-    saldo=total-totaltrans
+    console.log(totaltrans)
+    saldo=total-totaltrans 
     console.log(saldo)
     fd.append('totaldes', totaltrans);
     fd.append('saldo', saldo);
     if(totaltrans<=total){
       console.log(this.montototaltrans);
-      console.log( parseInt(this.saldocv));
+      console.log( this.saldocv);
       let montototaltransfe = this.transfeForm.value.importe+this.montototaltrans
       let saldocv:any = this.total-montototaltransfe
+      console.log(montototaltransfe)
+      console.log(saldocv)
       let fdv = new FormData();
       fdv.append('montototaltrans', montototaltransfe );
       fdv.append('saldo', saldocv );
-      console.log(fdv)
+      console.log(this.convenioId)
       this.api.addTransfe(fd, this.convenioId)
       .subscribe(
         event => {
