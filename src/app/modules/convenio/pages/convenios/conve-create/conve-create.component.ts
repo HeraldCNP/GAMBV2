@@ -52,7 +52,7 @@ export class ConveCreateComponent implements OnInit {
 
     this.finanForm = this.fb.group({
       entidad: [''],
-      monto: ['', [Validators.required, Validators.minLength(3)]],
+      monto: ['', [Validators.required]],
       tipo: ['', [Validators.required,]],
     })
 
@@ -134,6 +134,7 @@ export class ConveCreateComponent implements OnInit {
   }
 
   crearFinan(form: any) {
+    console.log(this.finanForm.value.monto.replace(/\./g, ''));
     this.api.addfinanc(form, this.convenioId)
       .subscribe(
         res => {

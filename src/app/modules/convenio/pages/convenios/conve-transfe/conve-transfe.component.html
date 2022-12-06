@@ -5,11 +5,26 @@
                 <div class="card-header">
                     <h3 class="card-title">Añadir Transferencia</h3>
                 </div>
+                <div>
+                    <ol *ngIf="datosConvenio">
+                        <li *ngFor="let entidad of datosConvenio">
+                           {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{ entidad.monto }}
+                        </li>
+                    </ol>
+                </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-10">
                             <form (ngSubmit)="uploadTransfe()" [formGroup]="transfeForm">
+                                <div class="mb-1">
+                                    <label for="fecha" class="form-label">Fecha *</label>
+                                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                                    <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                                        <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
+                                            es Requerida.</div>
+                                    </div>
+                                </div>
                                 <div class="mb-1">
                                     <label for="entidad" class="form-label col-auto">Entidad *</label>
 

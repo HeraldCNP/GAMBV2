@@ -29,6 +29,7 @@ export class ConveTransfeComponent implements OnInit {
     private activeRouter: ActivatedRoute,
   ) {
     this.transfeForm = this.fb.group({
+      fecha: ['', [Validators.required]],
       entidad: ['', [Validators.required]],
       cuenta: ['', [Validators.required]],
       importe: ['', [Validators.required]],
@@ -45,15 +46,15 @@ export class ConveTransfeComponent implements OnInit {
   if(this.convenioId){
     this.api.getSingleConvenio(this.convenioId).subscribe(data => {
       this.datosConvenio = data.financiadoras;
-      console.log("convenio",data.financiadoras)
+      console.log("convenio", data.financiadoras)
       this.total=data.montototal;
       console.log(data)
-      if(data.montototaltrans!=undefined){
+      if(data.montototaltrans != undefined){
         this.montototaltrans=data.montototaltrans;
         console.log(this.montototaltrans);
       }else{
         this.montototaltrans=0;
-        console.log(this.montototaltrans);
+        console.log("monto Total Transferido:", this.montototaltrans);
       }
       if(data.saldo!=undefined){
         this.saldocv=data.saldo;
@@ -70,6 +71,7 @@ export class ConveTransfeComponent implements OnInit {
 
   uploadTransfe() {
     let fd = new FormData();
+    fd.append('fecha', this.transfeForm.value.fecha);
     fd.append('entidad', this.transfeForm.value.entidad);
     fd.append('cuenta', this.transfeForm.value.cuenta);
     fd.append('importe', this.transfeForm.value.importe);
@@ -78,7 +80,7 @@ export class ConveTransfeComponent implements OnInit {
     let saldo:any = 0;
     let total:any =0;
     this.datosConvenio.forEach((element:any) => {
-      if(this.transfeForm.value.entidad==element.entidad.denominacion){
+      if(this.transfeForm.value.entidad == element.entidad.denominacion){
         console.log(element.entidad.denominacion)
         total = parseFloat(element.monto) 
         console.log(total)

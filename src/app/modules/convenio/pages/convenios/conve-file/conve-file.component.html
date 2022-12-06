@@ -14,12 +14,12 @@
                                     <label for="typefile" class="form-label col-auto">Tipo *</label>
 
                                     <select class="form-select" formControlName="typefile">
-                                        <option value="Convenio">Convenio</option>
-                                        <option value="Contrato">Contrato</option>
-                                        <option value="Informe Administrativo">Informe Administrativo</option>
+                                        <option value="Convenio">Convenio en Borrador</option>
                                         <option value="Informe Tecnico">Informe Tecnico</option>
-                                        <option value="Informe Legal">Informe Legal</option>
-                                        <option value="Resolución de Consejo">Resolución de Consejo</option>
+                                        <option value="Informe Administrativo">Informe Administrativo</option>
+                                        <option value="Informe Legal">Ley/Resolución/Decreto</option>
+                                        <option value="Contrato">Convenio Firmado</option>
+                                        <option value="Resolución de Consejo">Contrato</option>
                                     </select>
                                     <div class="form-text" *ngIf="form['typefile'].touched && form['typefile'].invalid">
                                         <div *ngIf="form['typefile'].errors && form['typefile'].errors['required']">* Tipo es

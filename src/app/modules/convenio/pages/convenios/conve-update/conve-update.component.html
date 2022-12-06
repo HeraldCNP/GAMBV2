@@ -66,12 +66,8 @@
                                         </div>
                                     </ng-container>
                                 </div> -->
-                                <div class="alert alert-info" role="alert">
-                                    <p *ngFor="let enti of datosConvenio.entidades">
-                                        <b> Entidad:</b> {{ enti.entidad }} <b>Monto:</b> {{ enti.monto }} <br>
-                                    </p>
-                                </div>
-                                <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i
+
+                                <!-- <button class="btn btn-primary btn-sm" type="button" (click)="addEntidad()"><i
                                         class="fas fa-plus-circle"></i> Editar entidad</button>
 
                                 <div formArrayName="entidades"
@@ -113,7 +109,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="mb-1">
                                     <label for="firma" class="form-label">Fecha de Firma *</label>
@@ -133,6 +129,12 @@
                                         class="btn btn-primary">Registrar</button>
                                 </div>
                             </form>
+
+                            <div class="alert alert-info mt-2" role="alert">
+                                <p *ngFor="let enti of datosConvenio.financiadoras">
+                                    <b> Entidad {{ enti.tipo }}:</b>  {{ enti.entidad.denominacion }} <b>Monto:</b> {{ enti.monto }} <br>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

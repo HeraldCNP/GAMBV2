@@ -57,7 +57,6 @@ export class ConveUpdateComponent implements OnInit {
       this.datosConvenio = data;
       this.entidades2 = data.entidades;
       console.log("convenio", this.datosConvenio);
-      console.log("entidades", this.entidades2);
       
       if(this.datosConvenio.firma){
         this.editarForm.setValue({
