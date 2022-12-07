@@ -115,8 +115,8 @@
                                     <input type="number" class="form-control" id="plazo" formControlName="plazo">
                                 </div>
 
-                                 <!-- Button trigger modal -->
-                                 <div>
+                                <!-- Button trigger modal -->
+                                <div>
                                     <button type="button" [disabled]="showModal" class="btn btn-primary"
                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                         Añadir Entidad
@@ -126,17 +126,17 @@
                                 <br>
                                 <ol *ngIf="convenio">
                                     <li *ngFor="let entidad of convenio.financiadoras">
-                                       {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{ entidad.monto }}
+                                        {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{ entidad.monto }}
                                     </li>
                                 </ol>
-                                <div  class="mt-3 d-flex justify-content-around">
+                                <div class="mt-3 d-flex justify-content-around">
                                     <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
                                     <button (click)="show()" [disabled]="convenioForm.invalid" type="submit"
                                         class="btn btn-primary">Registrar</button>
                                 </div>
 
-                               
-                               
+
+
 
 
                                 <!-- Modal -->
@@ -157,8 +157,7 @@
                                                             *</label>
                                                         <!-- Para Mandar id // optionValueField="_id" -->
                                                         <ngx-select [allowClear]="true" [items]="entidades2"
-                                                            optionTextField="denominacion"
-                                                            optionValueField="_id"
+                                                            optionTextField="denominacion" optionValueField="_id"
                                                             placeholder="Seleccione una Entidad"
                                                             formControlName="entidad">
                                                         </ngx-select>
@@ -166,9 +165,12 @@
                                                     <div class="mb-1">
                                                         <label for="monto" class="form-label col-md-auto">Monto
                                                             *</label>
-                                                        <input class="form-control" type="text" name="currency-field"
+                                                        <input class="form-control" type="number" 
+                                                             
+                                                             formControlName="monto">
+                                                        <!-- <input class="form-control" type="text" name="currency-field"
                                                             id="currency-field" value="" data-type="currency"
-                                                            placeholder="$1,000,000.00" formControlName="monto">
+                                                            placeholder="$1,000,000.00" formControlName="monto"> -->
                                                     </div>
                                                     <div class="m-1">
                                                         <label for="monto" class="form-label col-md-auto">Monto
@@ -176,32 +178,39 @@
                                                         <fieldset class="row mb-3">
                                                             <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
                                                             <div class="col-sm-10">
-                                                              <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="tipo" id="gridRadios1" formControlName="tipo" value="Ejecutora" checked>
-                                                                <label class="form-check-label" for="gridRadios1">
-                                                                  Ejecutora
-                                                                </label>
-                                                              </div>
-                                                              <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="tipo" id="gridRadios2" formControlName="tipo" value="Financiadora">
-                                                                <label class="form-check-label" for="gridRadios2">
-                                                                    Financiadora
-                                                                </label>
-                                                              </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="tipo" id="gridRadios1"
+                                                                        formControlName="tipo" value="Ejecutora"
+                                                                        checked>
+                                                                    <label class="form-check-label" for="gridRadios1">
+                                                                        Ejecutora
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="tipo" id="gridRadios2"
+                                                                        formControlName="tipo" value="Financiadora">
+                                                                    <label class="form-check-label" for="gridRadios2">
+                                                                        Financiadora
+                                                                    </label>
+                                                                </div>
                                                             </div>
-                                                          </fieldset>
+                                                        </fieldset>
                                                     </div>
 
-                                                   
+
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Registrar</button>
+                                                        <button type="submit" class="btn btn-primary"
+                                                            data-bs-dismiss="modal">Registrar</button>
                                                     </div>
+                                                    {{ finanForm.value | json }}
                                                 </form>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>

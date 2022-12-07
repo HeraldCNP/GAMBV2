@@ -51,6 +51,15 @@
                                     </div>
                                 </div>
                                 <div class="mb-1">
+                                    <label for="entidad" class="form-label col-auto">Partida de Gasto *</label>
+                                    <!-- Para Mandar id // optionValueField="_id" -->
+                                    <ngx-select [allowClear]="true" [items]="partidas"
+                                        optionTextField="codigo" optionValueField="_id"
+                                        placeholder="Seleccione una Partida de Gastos"
+                                        formControlName="partida">
+                                    </ngx-select>
+                                </div>
+                                <div class="mb-1">
                                     <label for="importe" class="form-label">Importe *</label>
                                     <input type="number" class="form-control" id="importe" formControlName="importe">
                                     <div class="form-text" *ngIf="form['importe'].touched && form['importe'].invalid">

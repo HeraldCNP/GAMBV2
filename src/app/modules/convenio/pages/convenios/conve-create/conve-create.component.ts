@@ -37,7 +37,7 @@ export class ConveCreateComponent implements OnInit {
     private router: Router
   ) {
     this.convenioForm = this.fb.group({
-      codigo: ['', [Validators.required, Validators.minLength(3)]],
+      codigo: ['', [Validators.required, Validators.minLength(1)]],
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       objeto: [''],
       // entidades: this.fb.array([
@@ -134,7 +134,7 @@ export class ConveCreateComponent implements OnInit {
   }
 
   crearFinan(form: any) {
-    console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
     this.api.addfinanc(form, this.convenioId)
       .subscribe(
         res => {

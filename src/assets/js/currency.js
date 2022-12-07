@@ -13,7 +13,7 @@ const currencyInput = () => {
 
     function formatNumber(n) {
         // format number 1000000 to 1,234,567
-        return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
 
@@ -34,12 +34,12 @@ const currencyInput = () => {
         var caret_pos = input.prop("selectionStart");
 
         // check for decimal
-        if (input_val.indexOf(",") >= 0) {
+        if (input_val.indexOf(".") >= 0) {
 
             // get position of first decimal
             // this prevents multiple decimals from
             // being entered
-            var decimal_pos = input_val.indexOf(",");
+            var decimal_pos = input_val.indexOf(".");
 
             // split number by decimal point
             var left_side = input_val.substring(0, decimal_pos);
@@ -60,7 +60,7 @@ const currencyInput = () => {
             right_side = right_side.substring(0, 2);
 
             // join number by .
-            input_val = left_side + "," + right_side;
+            input_val = left_side + "." + right_side;
 
         } else {
             // no decimal entered
@@ -71,7 +71,7 @@ const currencyInput = () => {
 
             // final formatting
             if (blur === "blur") {
-                input_val += ",00";
+                input_val += ".00";
             }
         }
 

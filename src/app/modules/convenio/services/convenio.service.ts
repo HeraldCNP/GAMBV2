@@ -138,6 +138,16 @@ export class ConvenioService {
       return this.http.post<any>(dir, form)
     }
 
+
+    deleteConvenio(id:any):Observable<any>{
+      let dir = `${this.URL}/convenio/${id}`;
+      return this.http.delete<any>(dir, id)
+    }
     
+
+    getAllPartidas(){
+      let dir = `${this.URL}/partidas`;
+      return this.http.get<any[]>(dir)
+    }
     /*End Services for Convenios*/ 
 }
