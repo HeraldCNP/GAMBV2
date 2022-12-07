@@ -149,5 +149,11 @@ export class ConvenioService {
       let dir = `${this.URL}/partidas`;
       return this.http.get<any[]>(dir)
     }
+
+    editarFinan(form:any, id:any):Observable<any>{
+      let dir = `${this.URL}/financiadora/${id}`;
+      return this.http.put<any>(dir, form)
+    }
+
     /*End Services for Convenios*/ 
 }

@@ -16,6 +16,7 @@ export class ConveUpdateComponent implements OnInit {
   datosConvenio :any = [];
   convenioId: any;
   entidades2:any = [];
+  idFinan:any;
   editarForm: any = new FormGroup({
     codigo: new FormControl('', Validators.required),
     nombre: new FormControl('', Validators.required),
@@ -23,6 +24,10 @@ export class ConveUpdateComponent implements OnInit {
     entidades: new FormArray([]),
     firma: new FormControl(''),
     plazo: new FormControl(''),
+  })
+
+  editarFinan: any = new FormGroup({
+    monto: new FormControl('', Validators.required),
   })
 
   constructor(
@@ -108,6 +113,31 @@ export class ConveUpdateComponent implements OnInit {
       }
     )
 
+  }
+
+  editMonto(id: string, monto:any){
+    console.log(id)
+    console.log(monto)
+    this.editarFinan.setValue({
+      'monto': monto
+    })
+    this.idFinan=id;
+
+  } 
+
+  editFinan(form:any){
+    this.api.editarFinan(form, this.idFinan).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log('HTTP Error', err)
+      },
+      () => {
+        this.router.navigate(['convenio/convenio/index']),
+          this.alertOk('success', 'Exito', 'Monto editado Correctamente', '2000')
+      }
+    )
   }
 
   // getEntidades() {

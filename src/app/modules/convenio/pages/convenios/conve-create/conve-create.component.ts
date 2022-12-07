@@ -29,8 +29,11 @@ export class ConveCreateComponent implements OnInit {
   itemId: any = 3;
 
   showModal: boolean = true;
+  showButton: boolean = false;
   texto = "";
   convenioId: any;
+
+
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,
@@ -88,7 +91,8 @@ export class ConveCreateComponent implements OnInit {
         () => {
 
           this.convenioForm.reset();
-
+          this.showButton = true;
+          this.showModal = !this.showModal;
         }
       );
   }
@@ -129,8 +133,7 @@ export class ConveCreateComponent implements OnInit {
   }
 
   show() {
-    this.showModal = !this.showModal;
-
+    
   }
 
   crearFinan(form: any) {

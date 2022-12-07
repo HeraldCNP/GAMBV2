@@ -122,21 +122,29 @@
                                         Añadir Entidad
                                     </button>
                                 </div>
-                                <p *ngIf="texto">El convenio {{ texto }} fue creado</p>
+                                <p class="text-center" *ngIf="texto">El convenio {{ texto }} fue creado</p>
                                 <br>
                                 <ol *ngIf="convenio">
                                     <li *ngFor="let entidad of convenio.financiadoras">
-                                        {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{ entidad.monto }}
+                                        {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{ entidad.monto | currency: 'USD': 'Bs' }}
                                     </li>
                                 </ol>
                                 <div class="mt-3 d-flex justify-content-around">
-                                    <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
-                                    <button (click)="show()" [disabled]="convenioForm.invalid" type="submit"
-                                        class="btn btn-primary">Registrar</button>
+                                    <div>
+                                        <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
+
+                                    </div>
+                                    <div *ngIf="!showButton">
+                                        <button [disabled]="convenioForm.invalid" type="submit"
+                                        class="btn btn-primary">Siguiente</button>
+                                    </div>
+
+                                    <div *ngIf="showButton">
+                                        <button (click)="cancel()" type="submit"
+                                        class="btn btn-primary">Finalizar</button>
+                                    </div>
+                                    
                                 </div>
-
-
-
 
 
                                 <!-- Modal -->
@@ -146,7 +154,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Registrar Entidades</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -173,10 +181,10 @@
                                                             placeholder="$1,000,000.00" formControlName="monto"> -->
                                                     </div>
                                                     <div class="m-1">
-                                                        <label for="monto" class="form-label col-md-auto">Monto
+                                                        <label for="monto" class="form-label col-md-auto">Tipo de Entidad
                                                             *</label>
                                                         <fieldset class="row mb-3">
-                                                            <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+                                                            <!-- <legend class="col-form-label col-sm-2 pt-0">Tipo de Entidad</legend> -->
                                                             <div class="col-sm-10">
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
@@ -195,6 +203,14 @@
                                                                         Financiadora
                                                                     </label>
                                                                 </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="tipo" id="gridRadios3"
+                                                                        formControlName="tipo" value="Mixta">
+                                                                    <label class="form-check-label" for="gridRadios3">
+                                                                        Mixta
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </fieldset>
                                                     </div>
@@ -207,7 +223,7 @@
                                                         <button type="submit" class="btn btn-primary"
                                                             data-bs-dismiss="modal">Registrar</button>
                                                     </div>
-                                                    {{ finanForm.value | json }}
+                                                    <!-- {{ finanForm.value | json }} -->
                                                 </form>
                                             </div>
 
