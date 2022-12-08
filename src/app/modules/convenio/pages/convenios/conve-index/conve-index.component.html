@@ -85,9 +85,9 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li *ngIf="convenio.estado == 'REGISTRADO' && convenio.firma"><a class="dropdown-item" (click)="changeStatus(convenio._id)"> <i class="fas fa-check-square mr-3 icono">  Aprobar</i> </a></li>
-                      <li><a class="dropdown-item" (click)="seeTransfe(convenio._id)"> <i class="fas fa-money-check-alt mr-3 icono"> Ver Transacciones</i>  </a></li>
+                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="addTransfe(convenio._id)"> <i class="fas fa-hand-holding-usd mr-3 icono">  Registrar Gasto</i> </a></li>
+                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="seeTransfe(convenio._id)"> <i class="fas fa-money-check-alt mr-3 icono"> Ver Transferencias</i>  </a></li>
                       <li><a class="dropdown-item" (click)="addFile(convenio._id)"> <i class="fas fa-folder-plus mr-3 icono">  Añadir Archivo</i> </a></li>
-                      <li><a class="dropdown-item" (click)="addTransfe(convenio._id)"> <i class="fas fa-hand-holding-usd mr-3 icono">  Añadir Transferencia</i> </a></li>
                       <li><a class="dropdown-item" (click)="updateConvenio(convenio._id)"> <i class="fas fa-edit mr-3 icono">  Modificar</i> </a></li>
                       <li><a class="dropdown-item" (click)="deleteConvenio(convenio._id)"> <i class="fas fa-trash-alt mr-3 icono">  Eliminar</i> </a></li>
                       <!-- <li><a class="dropdown-item">Action three</a></li> -->

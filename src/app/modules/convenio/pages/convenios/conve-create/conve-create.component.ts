@@ -29,15 +29,18 @@ export class ConveCreateComponent implements OnInit {
   itemId: any = 3;
 
   showModal: boolean = true;
+  showButton: boolean = false;
   texto = "";
   convenioId: any;
+
+
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,
     private router: Router
   ) {
     this.convenioForm = this.fb.group({
-      codigo: ['', [Validators.required, Validators.minLength(3)]],
+      codigo: ['', [Validators.required, Validators.minLength(1)]],
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       objeto: [''],
       // entidades: this.fb.array([
@@ -88,7 +91,8 @@ export class ConveCreateComponent implements OnInit {
         () => {
 
           this.convenioForm.reset();
-
+          this.showButton = true;
+          this.showModal = !this.showModal;
         }
       );
   }
@@ -128,13 +132,10 @@ export class ConveCreateComponent implements OnInit {
     this.router.navigate(['convenio/convenio/index'])
   }
 
-  show() {
-    this.showModal = !this.showModal;
 
-  }
 
   crearFinan(form: any) {
-    console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
     this.api.addfinanc(form, this.convenioId)
       .subscribe(
         res => {

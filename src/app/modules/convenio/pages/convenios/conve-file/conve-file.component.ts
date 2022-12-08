@@ -33,8 +33,6 @@ export class ConveFileComponent implements OnInit {
       typefile: ['', [Validators.required]],
       file: ['', [Validators.required]],
     })
-
-
   }
 
   ngOnInit() {
@@ -66,7 +64,6 @@ export class ConveFileComponent implements OnInit {
     fd.append('typefile', this.fileForm.value.typefile);
     fd.append('file', this.files[0]);
 
-
     this.api.addFile(fd, this.convenioId)
       .subscribe(
         event => {
@@ -89,9 +86,6 @@ export class ConveFileComponent implements OnInit {
   get form() {
     return this.fileForm.controls;
   }
-
-
-
 
   alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({

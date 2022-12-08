@@ -132,8 +132,47 @@
 
                             <div class="alert alert-info mt-2" role="alert">
                                 <p *ngFor="let enti of datosConvenio.financiadoras">
-                                    <b> Entidad {{ enti.tipo }}:</b>  {{ enti.entidad.denominacion }} <b>Monto:</b> {{ enti.monto }} <br>
+                                    <b> Entidad {{ enti.tipo }}:</b> {{ enti.entidad.denominacion }} <b>Monto:</b> {{
+                                    enti.monto }}
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn-sm ml-3" (click)="editMonto(enti._id, enti.monto)" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <br>
                                 </p>
+                            </div>
+
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form (ngSubmit)="editFinan(editarFinan.value)" [formGroup]="editarFinan">
+                                                <div class="mb-1">
+                                                    <label for="monto" class="form-label">Monto:</label>
+                                                    <input type="text" class="form-control" id="monto" formControlName="monto">
+                                                </div>
+                                                <!-- {{ editarFinan.value | json }} -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Editar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

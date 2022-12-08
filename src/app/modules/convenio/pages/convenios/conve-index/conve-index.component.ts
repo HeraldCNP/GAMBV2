@@ -62,7 +62,29 @@ export class ConveIndexComponent implements OnInit {
   }
 
   deleteConvenio(id: string) {
-
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          '¡Eliminado!',
+          'La Entidad ha sido eliminada.',
+          'success'
+        )
+        this.api.deleteConvenio(id).subscribe(
+          res => console.log(res),
+          err => console.log('HTTP Error', err),
+          () => this.getConvenios()
+        );
+      }
+    })
   }
 
 

@@ -10,8 +10,8 @@
                     <hr>
                     <p><b>OBJETO: </b> {{ convenio.objeto }}</p>
                     <hr>
-                    <p> <b>PARTES SUSCRIBIENTES: </b> <span *ngFor="let entidad of convenio.entidades">{{
-                            entidad.entidad }} - </span> </p>
+                    <p> <b>PARTES SUSCRIBIENTES: <br> </b> <span *ngFor="let entidad of convenio.financiadoras"><b>Entidad {{ entidad.tipo }}:</b> {{
+                            entidad.entidad.denominacion }} - {{ entidad.monto | currency: 'USD': 'Bs' }} <br> </span> </p>
                     <hr>
                     <p><b>VIGENCIA:</b> {{ convenio.plazo }} días <b>VENCIMIENTO:</b> {{ sumarDias(convenio.firma,
                         convenio.plazo) | date: 'shortDate' }} </p>
@@ -40,8 +40,9 @@
                                 <th>Fecha de Transacción</th>
                                 <th>Cuenta</th>
                                 <th>Entidad</th>
+                                <th>Partida de Gasto</th>
                                 <th>Fuente</th>
-                                <th>Monto</th>
+                                <th>Importe</th>
                                 <th>Total Transf.</th>
                                 <th>Saldo</th>
                                 <th>Comprobante</th>
@@ -52,6 +53,7 @@
                                 <td>{{ transfe.createdAt | date:'shortDate': 'UTC' }}</td>
                                 <td>{{ transfe.cuenta }}</td>
                                 <td>{{ transfe.entidad }}</td>
+                                <td>{{ transfe.partida.codigo }}</td>
                                 <td>{{ transfe.fuente }}</td>
                                 <td>{{ transfe.importe | currency: 'USD': 'Bs' }}</td>
                                 <td>{{ transfe.totaldes | currency: 'USD': 'Bs' }}</td>
