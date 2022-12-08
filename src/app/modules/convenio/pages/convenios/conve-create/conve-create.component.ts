@@ -132,9 +132,7 @@ export class ConveCreateComponent implements OnInit {
     this.router.navigate(['convenio/convenio/index'])
   }
 
-  show() {
-    
-  }
+
 
   crearFinan(form: any) {
     // console.log(this.finanForm.value.monto.replace(/\./g, ''));
