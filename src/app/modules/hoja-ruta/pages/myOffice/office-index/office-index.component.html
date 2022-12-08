@@ -10,8 +10,15 @@
             </select>
           </div>-->
           <div class="input-group input-group-sm" style="width: 190px">
-            <input type="search" (keyup)="buscarSeguimientos()" [(ngModel)]="nuit" name="table_search"
-              class="form-control float-right" placeholder="Filtrar por N° hoja de ruta" autocomplete="off" />
+            <input
+              type="search"
+              (keyup)="buscarSeguimientos()"
+              [(ngModel)]="nuit"
+              name="table_search"
+              class="form-control float-right"
+              placeholder="Filtrar por N° hoja de ruta"
+              autocomplete="off"
+            />
             <!--<div class="input-group-append" *ngIf="!alerta">
               <button type="submit" class="btn btn-default" (click)="buscarSeguimientos()">
                 <i class="fas fa-search m-0"></i>
@@ -19,50 +26,86 @@
             </div>-->
           </div>
           <div class="card-tools">
-            <button (click)="changeStatus('')" type="button" [ngClass]="estado == '' ? 'activate' : ''"
-              class="btn btn-info btn-sm position-relative mr-4">
+            <button
+              (click)="changeStatus('')"
+              type="button"
+              [ngClass]="estado == '' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4"
+            >
               Todos
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+              >
                 {{ total }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <button (click)="changeStatus('DERIVADO')" type="button" [ngClass]="estado == 'DERIVADO' ? 'activate' : ''"
-              class="btn btn-info btn-sm position-relative mr-4">
+            <button
+              (click)="changeStatus('DERIVADO')"
+              type="button"
+              [ngClass]="estado == 'DERIVADO' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4"
+            >
               Derivados
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+              >
                 {{ totalDerivados }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <button (click)="changeStatus('RECIBIDO')" type="button" [ngClass]="estado == 'RECIBIDO' ? 'activate' : ''"
-              class="btn btn-info btn-sm position-relative mr-4">
+            <button
+              (click)="changeStatus('RECIBIDO')"
+              type="button"
+              [ngClass]="estado == 'RECIBIDO' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4"
+            >
               Recibidos
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-success">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-success"
+              >
                 {{ totalRecibidos }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <button (click)="changeStatus('ENVIADO')" type="button" [ngClass]="estado == 'ENVIADO' ? 'activate' : ''"
-              class="btn btn-info btn-sm position-relative mr-4">
+            <button
+              (click)="changeStatus('ENVIADO')"
+              type="button"
+              [ngClass]="estado == 'ENVIADO' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4"
+            >
               Sin recibir
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              >
                 {{ totalEnviados }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <button (click)="changeStatus('MALETIN')" [ngClass]="estado == 'MALETIN' ? 'activate' : ''" type="button"
-              class="btn btn-info btn-sm position-relative mr-4">
+            <button
+              (click)="changeStatus('MALETIN')"
+              [ngClass]="estado == 'MALETIN' ? 'activate' : ''"
+              type="button"
+              class="btn btn-info btn-sm position-relative mr-4"
+            >
               Mi Maletin
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+              >
                 {{ totalMaletin }}
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <button (click)="changeStatus('FILE OFICINA')" type="button"
-              [ngClass]="estado == 'FILE OFICINA' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-4">
+            <button
+              (click)="changeStatus('FILE OFICINA')"
+              type="button"
+              [ngClass]="estado == 'FILE OFICINA' ? 'activate' : ''"
+              class="btn btn-info btn-sm position-relative mr-4"
+            >
               Finalizados
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark bg">
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary text-dark bg"
+              >
                 {{ totalOfi }}
                 <span class="visually-hidden">unread messages</span>
               </span>
@@ -70,7 +113,11 @@
           </div>
           <div class="d-flex flex-row">
             Mostrar:
-            <select class="form-select form-select-sm" [(ngModel)]="limit" (change)="getSeguimientos()">
+            <select
+              class="form-select form-select-sm"
+              [(ngModel)]="limit"
+              (change)="getSeguimientos()"
+            >
               <option value="10">10</option>
               <option value="30">30</option>
               <option value="50">50</option>
@@ -80,24 +127,50 @@
         </div>
 
         <div *ngIf="alerta" class="aler pt-5 alert alert-dismissible">
-          <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close" *ngIf="!alerta"></button>
+          <button
+            type="button"
+            class="btn-close btnale"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            *ngIf="!alerta"
+          ></button>
           <div *ngFor="let seguimiento of totales" class="alerta">
-            <div *ngIf="
-                (today | amDifference: seguimiento.fechaderivado:'hours') > 12
-              ">
-              <div *ngIf="seguimiento.fecharecepcion == 'SIN RESEPCIONAR'"
-                class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
-                <strong class="d-flex fs-6"><span>Reciba el documento
-                    <i class="fw-bold">{{ seguimiento.nuit }}</i>, si no ha sido entregado fisicamente a su persona,
+            <div
+              *ngIf="
+                (today | amDifference : seguimiento.fechaderivado : 'hours') >
+                12
+              "
+            >
+              <div
+                *ngIf="seguimiento.fecharecepcion == 'SIN RESEPCIONAR'"
+                class="alert alertita alert-danger alert-dismissible fade show mb-0"
+                role="alert"
+              >
+                <strong class="d-flex fs-6"
+                  ><span
+                    >Reciba el documento
+                    <i class="fw-bold">{{ seguimiento.nuit }}</i
+                    >, si no ha sido entregado fisicamente a su persona,
                     comunicarse con
-                    <i (click)="ver(seguimiento._id)" class="fas fa-eye badge badge-info" title="Ver Detalles">
+                    <i
+                      (click)="ver(seguimiento._id)"
+                      class="fas fa-eye badge badge-info"
+                      title="Ver Detalles"
+                    >
                       VER
                     </i>
-                    <i (click)="cambiarEstado(seguimiento._id)" class="badge badge-danger">
+                    <i
+                      (click)="cambiarEstado(seguimiento._id)"
+                      class="badge badge-danger"
+                    >
                       Recibir
-                    </i></span>
+                    </i></span
+                  >
                 </strong>
-                <button type="button" class="btn-close fas fa-circle text-danger"></button>
+                <button
+                  type="button"
+                  class="btn-close fas fa-circle text-danger"
+                ></button>
               </div>
             </div>
           </div>
@@ -122,21 +195,53 @@
             <tbody>
               <tr *ngFor="let seguimiento of seguimientos">
                 <td>
-                  <i [routerLink]="[
+                  <i
+                    [routerLink]="[
                       '/ruta/derivar',
                       seguimiento.idhj,
                       seguimiento._id
-                    ]" class="fas fa-share text-primary" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Derivar">
+                    ]"
+                    class="fas fa-share text-primary"
+                    *ngIf="seguimiento.estado === 'RECIBIDO'"
+                    title="Derivar"
+                  >
                   </i>
-                  <i (click)="reply(seguimiento._id)" class="fas fa-reply-all text-success"
-                    *ngIf="seguimiento.estado === 'DERIVADO'" title="Eliminar el Último Derivado"></i><br>
-                  <i (click)="finalizar(seguimiento._id)" style="color: rgb(131, 117, 56) !important"
-                    class="fas fa-briefcase" title="Enviar a mi Maletín"
-                    *ngIf="seguimiento.estado === 'RECIBIDO'"></i><br>
-                  <i *ngIf="seguimiento.estado === 'RECIBIDO'" [routerLink]="['/ruta/sendArchivoOfi', seguimiento.idhj, seguimiento._id]"
-                    class="fas fa-folder-open" style="color: rgb(238, 128, 94) !important"
-                    title="Finalizar Trámite"></i>
-                    <i (click)="reactivar(seguimiento._id)"  *ngIf="seguimiento.estado === 'MALETIN' || seguimiento.estado === 'FILE OFICINA'"  class="fas fa-file-upload " style="color: rgb(230, 70, 176) !important" title="Reactivar el trámite"></i>
+                  <i
+                    (click)="reply(seguimiento._id)"
+                    class="fas fa-reply-all text-success"
+                    *ngIf="seguimiento.estado === 'DERIVADO'"
+                    title="Eliminar el Último Derivado"
+                  ></i
+                  ><br />
+                  <i
+                    (click)="finalizar(seguimiento._id)"
+                    style="color: rgb(131, 117, 56) !important"
+                    class="fas fa-briefcase"
+                    title="Enviar a mi Maletín"
+                    *ngIf="seguimiento.estado === 'RECIBIDO'"
+                  ></i
+                  ><br />
+                  <i
+                    *ngIf="seguimiento.estado === 'RECIBIDO'"
+                    [routerLink]="[
+                      '/ruta/sendArchivoOfi',
+                      seguimiento.idhj,
+                      seguimiento._id
+                    ]"
+                    class="fas fa-folder-open"
+                    style="color: rgb(238, 128, 94) !important"
+                    title="Finalizar Trámite"
+                  ></i>
+                  <i
+                    (click)="reactivar(seguimiento._id)"
+                    *ngIf="
+                      seguimiento.estado === 'MALETIN' ||
+                      seguimiento.estado === 'FILE OFICINA'
+                    "
+                    class="fas fa-file-upload"
+                    style="color: rgb(230, 70, 176) !important"
+                    title="Reactivar el trámite"
+                  ></i>
                 </td>
                 <td>
                   {{ seguimiento.nuit }}
@@ -148,25 +253,30 @@
                 <td>{{ seguimiento.detalles }}</td>
                 <td>
                   {{
-                  seguimiento.fechaderivado
-                  | amLocal
-                  | amDateFormat: "DD-MM-YY HH:mm"
+                    seguimiento.fechaderivado
+                      | amLocal
+                      | amDateFormat : "DD-MM-YY HH:mm"
                   }}
                 </td>
                 <td>
-                  <i (click)="cambiarEstado(seguimiento._id)" [ngClass]="
+                  <i
+                    (click)="cambiarEstado(seguimiento._id)"
+                    [ngClass]="
                       seguimiento.fecharecepcion === 'SIN RESEPCIONAR'
                         ? 'badge badge-danger'
                         : ''
-                    ">
-                    <span *ngIf="seguimiento.fecharecepcion === 'SIN RESEPCIONAR'">
+                    "
+                  >
+                    <span
+                      *ngIf="seguimiento.fecharecepcion === 'SIN RESEPCIONAR'"
+                    >
                       Recibir
                     </span>
                     <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
                       {{
-                      seguimiento.fecharecepcion
-                      | amLocal
-                      | amDateFormat: "DD-MM-YY HH:mm"
+                        seguimiento.fecharecepcion
+                          | amLocal
+                          | amDateFormat : "DD-MM-YY HH:mm"
                       }}
                     </i>
                     <!--
@@ -181,26 +291,41 @@
                 <td [ngSwitch]="seguimiento.estado">
                   <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
                     seguimiento.estado
-                    }}</span>
-                  <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguimiento.estado }}
+                  }}</span>
+                  <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success"
+                    >{{ seguimiento.estado }}
                   </span>
                   <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{
                     seguimiento.estado
-                    }}</span>
-                  <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}
+                  }}</span>
+                  <span *ngSwitchCase="'MALETIN'" class="badge badge-warning"
+                    >{{ seguimiento.estado }}
                   </span>
-                  <span *ngIf="
+                  <span
+                    *ngIf="
                       seguimiento.estado != 'DERIVADO' &&
                       seguimiento.estado != 'MALETIN' &&
                       seguimiento.estado != 'RECIBIDO' &&
                       seguimiento.estado != 'ENVIADO'
-                    " class="bg badge text-dark">{{ seguimiento.estado }}</span>
+                    "
+                    class="bg badge text-dark"
+                    >{{ seguimiento.estado }}</span
+                  >
                 </td>
                 <td>
-                  <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="seguimi(seguimiento.idhj)" title="Ver Seguimiento"></i>
-                  <i (click)="listAso(seguimiento.idhj)" *ngIf="seguimiento.asociado"
-                    class="text-primary fas fa-paperclip" title="Ver Asociados"></i>
+                  <i
+                    class="fas fa-align-justify text-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    (click)="seguimi(seguimiento.idhj)"
+                    title="Ver Seguimiento"
+                  ></i>
+                  <i
+                    (click)="listAso(seguimiento.idhj)"
+                    *ngIf="seguimiento.asociado"
+                    class="text-primary fas fa-paperclip"
+                    title="Ver Asociados"
+                  ></i>
                 </td>
                 <td>
                   <!--<i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>-->
@@ -219,13 +344,21 @@
       <nav *ngIf="seguimientos.length > 0" aria-label="Page navigation example">
         <ul *ngIf="!alerta" class="pagination justify-content-center">
           <li class="page-item pointer" *ngIf="pageOne()">
-            <a class="page-link" (click)="paginaAnterior()" aria-label="Anterior">
+            <a
+              class="page-link"
+              (click)="paginaAnterior()"
+              aria-label="Anterior"
+            >
               <span aria-hidden="true">&laquo; Anterior</span>
             </a>
           </li>
 
           <li class="page-item pointer" *ngIf="pageFinish()">
-            <a class="page-link" (click)="paginaSiguiente()" aria-label="Siguiente">
+            <a
+              class="page-link"
+              (click)="paginaSiguiente()"
+              aria-label="Siguiente"
+            >
               <span aria-hidden="true">Siguiente &raquo;</span>
             </a>
           </li>
@@ -236,26 +369,48 @@
 </div>
 
 <!--MODAL SEGUIMIENTO-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
-        <button type="button" class="btn btn-success p-0 mx-5" (click)="ImprimirPDF()">
+        <button
+          type="button"
+          class="btn btn-success p-0 mx-5"
+          (click)="ImprimirPDF()"
+        >
           <i class="fas fa-print p-0"></i>
           Imprimir
         </button>
-        <button type="button" class="btn btn-primary p-0 ml-5" (click)="downloadPDF()">
+        <button
+          type="button"
+          class="btn btn-primary p-0 ml-5"
+          (click)="downloadPDF()"
+        >
           <i class="fas fa-cloud-download-alt p-0"></i>
           Descargar
         </button>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body pb-0">
         <div id="htmlData">
           <div class="segui">
             <div class="d-flex justify-content-between ml-3 mb-0">
               <div>
-                <img src="../../../../../assets/img/logo.png" class="logo ml-4 mb-0" />
+                <img
+                  src="../../../../../assets/img/logo.png"
+                  class="logo ml-4 mb-0"
+                />
               </div>
               <div class="text-center mt-3 mb-0">
                 <p class="mb-0 fs-5">GOBIERNO AUTÓNOMO MUNICIPAL DE BETANZOS</p>
@@ -268,7 +423,8 @@
               <div class="p-3 mt-4">
                 <h5 class="text-center mb-0 fs-5 mb-1">NUIT</h5>
                 <div class="badge bg-light text-dark text-center fs-5">
-                  N°:&nbsp;&nbsp;<strong></strong>{{ hojaRuta.nuit | uppercase }}
+                  N°:&nbsp;&nbsp;<strong></strong
+                  >{{ hojaRuta.nuit | uppercase }}
                 </div>
               </div>
             </div>
@@ -276,13 +432,16 @@
               <div class="card-body">
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
-                    <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion | date: "dd/MM/yyyy" }}
+                    <span>Fecha de recepcion: </span
+                    >{{ hojaRuta.fecharesepcion | date : "dd/MM/yyyy" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date: "HH:MM:ss" }}
+                    <span>Hora: </span
+                    >{{ hojaRuta.fecharesepcion | date : "HH:MM:ss" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date: "dd/MM/yyyy" }}
+                    <span>Fecha de documento: </span
+                    >{{ hojaRuta.fechadocumento | date : "dd/MM/yyyy" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -330,116 +489,180 @@
                         <td *ngIf="idhr === seguiss.idhj">
                           {{ seguiss.detalles }}
                           <br />
-                          <p *ngIf="seguiss.estado === 'MALETIN'" class="badge badge-warning text-dark">
+                          <p
+                            *ngIf="seguiss.estado === 'MALETIN'"
+                            class="badge badge-warning text-dark"
+                          >
                             {{ seguiss.smsarchivo }}
                           </p>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                          <span
+                            *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"
+                          >
                             {{
-                            seguiss.fechaderivado | amLocale: "es" | amTimeAgo
-                            }} </span><br />
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                              seguiss.fechaderivado
+                                | amLocale : "es"
+                                | amTimeAgo
+                            }} </span
+                          ><br />
+                          <span
+                            *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"
+                          >
                             {{
-                            seguiss.fechaderivado
-                            | amLocal
-                            | amDateFormat: "DD-MM-YY HH:mm"
+                              seguiss.fechaderivado
+                                | amLocal
+                                | amDateFormat : "DD-MM-YY HH:mm"
                             }}
                           </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <span *ngIf="seguiss.fecharespuesta != null">{{
                             seguiss.fecharespuesta
-                            | amDifference
-                            : seguiss.fechaderivado
-                            : "seconds"
-                            : true
-                            | amDuration: "seconds"
-                            }}</span>
-                          <span *ngIf="
+                              | amDifference
+                                : seguiss.fechaderivado
+                                : "seconds"
+                                : true
+                              | amDuration : "seconds"
+                          }}</span>
+                          <span
+                            *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'DERIVADO'
-                            ">{{
-                            seguiss.fecharecepcion
-                            | amDifference
-                            : seguiss.fechaderivado
-                            : "seconds"
-                            : true
-                            | amDuration: "seconds"
-                            }}</span>
-                          <span *ngIf="
+                            "
+                            >{{
+                              seguiss.fecharecepcion
+                                | amDifference
+                                  : seguiss.fechaderivado
+                                  : "seconds"
+                                  : true
+                                | amDuration : "seconds"
+                            }}</span
+                          >
+                          <span
+                            *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'MALETIN'
-                            ">{{
-                            seguiss.fecharecepcion
-                            | amDifference
-                            : seguiss.fechaderivado
-                            : "seconds"
-                            : true
-                            | amDuration: "seconds"
-                            }}</span>
-                          <samp *ngIf="
+                            "
+                            >{{
+                              seguiss.fecharecepcion
+                                | amDifference
+                                  : seguiss.fechaderivado
+                                  : "seconds"
+                                  : true
+                                | amDuration : "seconds"
+                            }}</span
+                          >
+                          <samp
+                            *ngIf="
                               seguiss.estado === 'ENVIADO' ||
                               seguiss.estado === 'RECIBIDO'
-                            ">Sin Responder</samp>
+                            "
+                            >Sin Responder</samp
+                          >
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <i [ngClass]="
+                          <i
+                            [ngClass]="
                               seguiss.fecharecepcion === 'SIN RESEPCIONAR'
                                 ? 'badge badge-danger'
                                 : ''
-                            ">
-                            <span *ngIf="
+                            "
+                          >
+                            <span
+                              *ngIf="
                                 seguiss.fecharecepcion === 'SIN RESEPCIONAR'
-                              ">
-                              {{ seguiss.fecharecepcion }}</span>
-                            <span *ngIf="
+                              "
+                            >
+                              {{ seguiss.fecharecepcion }}</span
+                            >
+                            <span
+                              *ngIf="
                                 seguiss.fecharecepcion != 'SIN RESEPCIONAR'
-                              ">
+                              "
+                            >
                               {{
-                              seguiss.fecharecepcion
-                              | amLocale: "es"
-                              | amTimeAgo
-                              }} </span><br />
-                            <span *ngIf="
+                                seguiss.fecharecepcion
+                                  | amLocale : "es"
+                                  | amTimeAgo
+                              }} </span
+                            ><br />
+                            <span
+                              *ngIf="
                                 seguiss.fecharecepcion != 'SIN RESEPCIONAR'
-                              ">
+                              "
+                            >
                               {{
-                              seguiss.fecharecepcion
-                              | amLocal
-                              | amDateFormat: "DD-MM-YY HH:mm"
+                                seguiss.fecharecepcion
+                                  | amLocal
+                                  | amDateFormat : "DD-MM-YY HH:mm"
                               }}
                             </span>
                           </i>
                         </td>
-                        <td [ngSwitch]="seguiss.estado" *ngIf="idhr === seguiss.idhj">
-                          <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguiss.estado }}</span>
-                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark"> <i *ngFor="let fin of seguiss.archivofi"> {{fin.status}} <br></i>
+                        <td
+                          [ngSwitch]="seguiss.estado"
+                          *ngIf="idhr === seguiss.idhj"
+                        >
+                          <span
+                            *ngSwitchCase="'ENVIADO'"
+                            class="badge badge-danger"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngSwitchCase="'RECIBIDO'"
+                            class="badge badge-success"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngSwitchCase="'DERIVADO'"
+                            class="badge badge-info"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngSwitchCase="'MALETIN'"
+                            class="badge badge-warning"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <span
+                            *ngSwitchCase="'FILE OFICINA'"
+                            class="badge bg text-dark"
+                          >
+                            <i *ngFor="let fin of seguiss.archivofi">
+                              {{ fin.status }} <br
+                            /></i>
                           </span>
-                          <span *ngIf="
+                          <span
+                            *ngIf="
                               seguiss.estado != 'DERIVADO' &&
                               seguiss.estado != 'MALETIN' &&
                               seguiss.estado != 'RECIBIDO' &&
                               seguiss.estado != 'ENVIADO' &&
                               seguiss.estado != 'FILE OFICINA'
-                            " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span>
-                            <br>
+                            "
+                            class="badge badge-secondary text-dark"
+                            >{{ seguiss.estado }}</span
+                          >
+                          <br />
                           <i>{{ seguiss.copia }}</i>
+                          
                         </td>
+                       
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
               <div>
-                <i class="ml-3">Usuario: {{ data.username }} {{ data.surnames }}</i>
-                <i class="mr-3 float-end">Fecha Descarga:
-                  {{ today | amLocal | amDateFormat: "DD-MM-YY HH:mm" }}
+                <i class="ml-3"
+                  >Usuario: {{ data.username }} {{ data.surnames }}</i
+                >
+                <i class="mr-3 float-end"
+                  >Fecha Descarga:
+                  {{ today | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                 </i>
               </div>
+               
             </div>
           </div>
         </div>
@@ -447,3 +670,4 @@
     </div>
   </div>
 </div>
+
