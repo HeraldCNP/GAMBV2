@@ -3,7 +3,7 @@
         <div class="col-md-8 ">
             <div class="card shadow p-3 mb-5 rounded">
                 <div class="card-header">
-                    <h3 class="card-title">Registrar G asto</h3>
+                    <h3 class="card-title">Registrar Transferencia</h3>
                 </div>
                 <div>
                     <ol *ngIf="datosConvenio">
@@ -28,9 +28,14 @@
                                 <div class="mb-1">
                                     <label for="entidad" class="form-label col-auto">Entidad *</label>
 
+                                    <!-- <select class="form-select" formControlName="entidad">
+                                        <option value="{{ finan.entidad.denominacion }}" *ngFor="let finan of datosConvenio">
+                                            <i >{{finan.entidad.denominacion }}</i></option>
+                                    </select> -->
+
                                     <select class="form-select" formControlName="entidad">
-                                        <option value="{{ enti.entidad.denominacion }}" *ngFor="let enti of datosConvenio">{{
-                                            enti.entidad.denominacion }}</option>
+                                        <option value="{{ finan.entidad.denominacion }}" *ngFor="let finan of datosConvenio">
+                                            <i >{{finan.entidad.denominacion }}</i></option>
                                     </select>
                                     
                                     <div class="form-text" *ngIf="form['entidad'].touched && form['entidad'].invalid">
@@ -50,14 +55,39 @@
                                             no puede tener menos de 3 caracteres.</div>
                                     </div>
                                 </div>
-                                <div class="mb-1">
+                                <div *ngIf="gamb.tipo == 'Financiadora'" class="mb-1">
                                     <label for="entidad" class="form-label col-auto">Partida de Gasto *</label>
-                                    <!-- Para Mandar id // optionValueField="_id" -->
                                     <ngx-select [allowClear]="true" [items]="partidas"
-                                        optionTextField="codigo" optionValueField="_id"
+                                        optionTextField="codigo" optionValueField="codigo"
                                         placeholder="Seleccione una Partida de Gastos"
                                         formControlName="partida">
                                     </ngx-select>
+                                </div>
+                                <div *ngIf="gamb.tipo == 'Ejecutora'" class="mb-1">
+                                    <label for="entidad" class="form-label col-auto">Rubros *</label>
+                                    <ngx-select [allowClear]="true" [items]="rubros"
+                                        optionTextField="codigo" optionValueField="codigo"
+                                        placeholder="Seleccione Rubro"
+                                        formControlName="rubro">
+                                    </ngx-select>
+                                </div>
+                                <div *ngIf="gamb.tipo == 'Mixta'">
+                                    <div class="mb-1">
+                                        <label for="entidad" class="form-label col-auto">Partida de Gasto *</label>
+                                        <ngx-select [allowClear]="true" [items]="partidas"
+                                            optionTextField="codigo" optionValueField="codigo"
+                                            placeholder="Seleccione una Partida de Gastos"
+                                            formControlName="partida">
+                                        </ngx-select>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="entidad" class="form-label col-auto">Rubros *</label>
+                                        <ngx-select [allowClear]="true" [items]="rubros"
+                                            optionTextField="codigo" optionValueField="codigo"
+                                            placeholder="Seleccione Rubro"
+                                            formControlName="rubro">
+                                        </ngx-select>
+                                    </div>
                                 </div>
                                 <div class="mb-1">
                                     <label for="importe" class="form-label">Importe *</label>

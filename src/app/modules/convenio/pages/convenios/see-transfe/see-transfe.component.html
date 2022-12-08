@@ -40,7 +40,8 @@
                                 <th>Fecha de Transacción</th>
                                 <th>Cuenta</th>
                                 <th>Entidad</th>
-                                <th>Partida de Gasto</th>
+                                <th>Gasto</th>
+                                <th>Rubro</th>
                                 <th>Fuente</th>
                                 <th>Importe</th>
                                 <th>Total Transf.</th>
@@ -54,6 +55,7 @@
                                 <td>{{ transfe.cuenta }}</td>
                                 <td>{{ transfe.entidad }}</td>
                                 <td>{{ transfe.partida.codigo }}</td>
+                                <td>{{ transfe.rubro.codigo }}</td>
                                 <td>{{ transfe.fuente }}</td>
                                 <td>{{ transfe.importe | currency: 'USD': 'Bs' }}</td>
                                 <td>{{ transfe.totaldes | currency: 'USD': 'Bs' }}</td>
