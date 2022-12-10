@@ -77,6 +77,7 @@ export class BlogService {
 
   /*Finish Servicios para Post*/
 
+  /*Servicios para Categoria*/
   sendCategory(category:any):Observable<any>{
     let dir = `${this.URL}/category`;
     return this.http.post<any>(dir, category)
@@ -86,5 +87,17 @@ export class BlogService {
     let dir = `${this.URL}/category/${id}`;
     return this.http.delete<any>(dir, id)
   }
+  /*Finish Servicios para Categoria*/
+
+
+  /*Servicios para Gaceta*/
+  registerGaceta(fd: FormData):Observable<any>{
+    let dir = `${this.URL}/uploadgaceta`;
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
 
 }

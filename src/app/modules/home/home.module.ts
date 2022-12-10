@@ -27,6 +27,7 @@ import { SlimComponent } from './pages/slim/slim.component';
 import { AmbienteComponent } from './pages/ambiente/ambiente.component';
 import { ImpuestosComponent } from './pages/impuestos/impuestos.component';
 import { TuristicoComponent } from './pages/index/turistico/turistico.component';
+import { GacetaComponent } from './pages/gaceta/gaceta.component';
 
 
 
@@ -54,7 +55,8 @@ import { TuristicoComponent } from './pages/index/turistico/turistico.component'
     SlimComponent,
     AmbienteComponent,
     ImpuestosComponent,
-    TuristicoComponent
+    TuristicoComponent,
+    GacetaComponent
   ],
   imports: [
     CommonModule,
