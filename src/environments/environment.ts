@@ -5,7 +5,11 @@
 export const environment = {
   production: false,
   api: "http://159.223.119.115:8000/api"
+<<<<<<< HEAD
 //  api: "http://192.168.1.107:8000/api"
+=======
+ //api: "http://192.168.1.107:8000/api"
+>>>>>>> 3b19b775e36713ce3de10021304ab904a9b98cad
 };
 
 /*
@@ -15,4 +19,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular C

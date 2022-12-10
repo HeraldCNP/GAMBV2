@@ -78,6 +78,11 @@ export class OfficeIndexComponent implements OnInit {
     this.getSeguimientos();
     this.getpendientes();
   }
+  onclick(id:any){
+    this.onclick
+    console.log("se hizo un click")
+    console.log(id)
+  }
   getpendientes() {
     let estado3 = 'ENVIADO';
     this.api.getPendientes(this.destino, estado3).subscribe((data) => {
