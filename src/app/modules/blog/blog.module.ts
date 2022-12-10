@@ -15,6 +15,10 @@ import { PostIndexComponent } from './pages/posts/post-index/post-index.componen
 import { PostUpdateComponent } from './pages/posts/post-update/post-update.component';
 import { CategoryIndexComponent } from './pages/categories/category-index/category-index.component';
 import { NgxEditorModule } from 'ngx-editor';
+import { GacetaCreateComponent } from './pages/gaceta/gaceta-create/gaceta-create.component';
+import { GacetaIndexComponent } from './pages/gaceta/gaceta-index/gaceta-index.component';
+import { GacetaUpdateComponent } from './pages/gaceta/gaceta-update/gaceta-update.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 
 
@@ -30,7 +34,10 @@ import { NgxEditorModule } from 'ngx-editor';
     PostCreateComponent,
     PostIndexComponent,
     PostUpdateComponent,
-    CategoryIndexComponent
+    CategoryIndexComponent,
+    GacetaCreateComponent,
+    GacetaIndexComponent,
+    GacetaUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -73,6 +80,7 @@ import { NgxEditorModule } from 'ngx-editor';
         remove: 'Remove',
       },
     }),
+    NgxSelectModule,
   ]
 })
 export class BlogModule { }

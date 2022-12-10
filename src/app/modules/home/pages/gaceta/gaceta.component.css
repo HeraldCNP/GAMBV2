@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.title {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    font-size: 2.2em;
+    color: black;
+    text-align: justify;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.5) ;
+}
+.text-alcalde {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    white-space: wrap;
+    text-align: justify;
+    line-height: 1.2em;
+}
+
+.text {
+    font-size: 1.2em;
+    white-space: wrap;
+    text-align: justify;
+    line-height: 1.2em;
+}

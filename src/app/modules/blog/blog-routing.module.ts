@@ -9,6 +9,9 @@ import { PostIndexComponent } from './pages/posts/post-index/post-index.componen
 import { PostCreateComponent } from './pages/posts/post-create/post-create.component';
 import { PostUpdateComponent } from './pages/posts/post-update/post-update.component';
 import { CategoryIndexComponent } from './pages/categories/category-index/category-index.component';
+import { GacetaIndexComponent } from './pages/gaceta/gaceta-index/gaceta-index.component';
+import { GacetaCreateComponent } from './pages/gaceta/gaceta-create/gaceta-create.component';
+import { GacetaUpdateComponent } from './pages/gaceta/gaceta-update/gaceta-update.component';
 
 
 const routes: Routes = [
@@ -23,6 +26,9 @@ const routes: Routes = [
       {path: 'post/create', component: PostCreateComponent},
       {path: 'post/update/:id', component: PostUpdateComponent},
       {path: 'category/index', component: CategoryIndexComponent},
+      {path: 'gaceta/index', component: GacetaIndexComponent},
+      {path: 'gaceta/create', component: GacetaCreateComponent},
+      {path: 'gaceta/update/:id', component: GacetaUpdateComponent},
       {path: '**', redirectTo:'dashboard'},
     ]
   }
