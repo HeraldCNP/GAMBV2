@@ -21,8 +21,10 @@ export class ConveTransfeComponent implements OnInit {
   total: any;
   files: any;
   progress = 0;
-  datosConvenio: any;
+  datosConvenio: any[] = [];
   partidas: any;
+  rubros: any;
+  gamb: any;
   constructor(
     private fb: FormBuilder,
     private api: ConvenioService,
@@ -32,8 +34,9 @@ export class ConveTransfeComponent implements OnInit {
     this.transfeForm = this.fb.group({
       fecha: ['', [Validators.required]],
       entidad: ['', [Validators.required]],
-      cuenta: ['', [Validators.required]],
-      partida: ['', [Validators.required]],
+      cuenta: ['',],
+      partida: ['',],
+      rubro: ['',],
       importe: ['', [Validators.required]],
       fuente: ['', [Validators.required]],
       comprobante: ['', [Validators.required]],
@@ -43,15 +46,41 @@ export class ConveTransfeComponent implements OnInit {
   ngOnInit(): void {
     this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
     this.getconvenio();
-    this.getPartidas()
   }
+  
   getconvenio() {
     if (this.convenioId) {
       this.api.getSingleConvenio(this.convenioId).subscribe(data => {
-        this.datosConvenio = data.financiadoras;
-        console.log("convenio", data.financiadoras)
+        console.log(data.financiadoras)
+        data.financiadoras.forEach((finan: any) => {
+          if (finan.entidad.codigo == 1508) {
+            this.gamb = finan;
+            console.log(this.gamb)
+          }
+        });
+        data.financiadoras.forEach((finan: any) => {
+          if (this.gamb.tipo == 'Financiadora') {
+            if (finan.tipo == 'Financiadora') {
+              this.datosConvenio.push(finan);
+              this.getPartidas();
+            }
+          } else if (this.gamb.tipo == 'Ejecutora') {
+            if (finan.tipo == 'Financiadora') {
+              this.datosConvenio.push(finan);
+              this.getRubros();
+            }
+          }else{
+            this.getPartidas();
+            this.getRubros();
+            this.datosConvenio = data.financiadoras;
+          }
+        });
+        console.log(this.datosConvenio)
+
+        // this.datosConvenio = data.financiadoras;
+        // console.log("financiadoras", data.financiadoras)
         this.total = data.montototal;
-        console.log(data)
+        // console.log(data.financiadoras)
         if (data.montototaltrans != undefined) {
           this.montototaltrans = data.montototaltrans;
           console.log(this.montototaltrans);
@@ -67,7 +96,7 @@ export class ConveTransfeComponent implements OnInit {
           console.log(this.saldocv);
         }
         this.enti = data.transferencia;
-        console.log(this.enti)
+        // console.log(this.enti)
       })
     }
   }
@@ -75,8 +104,16 @@ export class ConveTransfeComponent implements OnInit {
   getPartidas() {
     this.api.getAllPartidas().subscribe(data => {
       this.partidas = data;
-      console.log("partidas", this.partidas)
-      console.log("partidas", data)
+      // console.log("partidas", this.partidas)
+      // console.log("partidas", data)
+    })
+  }
+
+  getRubros() {
+    this.api.getAllRubros().subscribe(data => {
+      this.rubros = data;
+      // console.log("partidas", this.partidas)
+      // console.log("partidas", data)
     })
   }
 
@@ -86,6 +123,7 @@ export class ConveTransfeComponent implements OnInit {
     fd.append('entidad', this.transfeForm.value.entidad);
     fd.append('cuenta', this.transfeForm.value.cuenta);
     fd.append('partida', this.transfeForm.value.partida);
+    fd.append('rubro', this.transfeForm.value.rubro);
     fd.append('importe', this.transfeForm.value.importe);
     fd.append('fuente', this.transfeForm.value.fuente);
     fd.append('comprobante', this.files[0]);

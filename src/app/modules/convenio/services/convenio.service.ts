@@ -108,7 +108,8 @@ export class ConvenioService {
 
     addTransfe(fd: FormData, id:any):Observable<any>{
       let dir = `${this.URL}/addtransferencia/${id}`;
-      console.log(fd.get('comprobante'))
+      // console.log(fd.get('comprobante'))
+      console.log(fd)
       return this.http.post<any>(dir, fd, {
         reportProgress: true,
         observe: 'events',
@@ -147,6 +148,11 @@ export class ConvenioService {
 
     getAllPartidas(){
       let dir = `${this.URL}/partidas`;
+      return this.http.get<any[]>(dir)
+    }
+
+    getAllRubros(){
+      let dir = `${this.URL}/rubros`;
       return this.http.get<any[]>(dir)
     }
 
