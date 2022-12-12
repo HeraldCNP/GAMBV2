@@ -14,7 +14,7 @@
                 <form (ngSubmit)="crearEntidad(entidadForm.value)" [formGroup]="entidadForm">
                   <div class="mb-1">
                     <label for="codigo" class="form-label">Codigo *</label>
-                    <input type="number" class="form-control" id="codigo" formControlName="codigo" required>
+                    <input type="text" class="form-control" id="codigo" formControlName="codigo" required>
                     <div class="form-text " *ngIf="form['codigo'].touched && form['codigo'].invalid">
                       <div *ngIf="form['codigo'].errors && form['codigo'].errors['required']">* El codigo de la entidad es
                         Requerido.</div>
