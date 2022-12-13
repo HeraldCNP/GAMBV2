@@ -30,6 +30,7 @@
                   <th>Titulo</th>
                   <th>Detalle</th>
                   <th>Archivo</th>
+                  <th>Confirmación</th>
                 </tr>
               </thead>
               <tbody>
@@ -38,19 +39,29 @@
                   <td>
                     <div class="form-check form-switch">
                       <span *ngIf="gaceta.estado == '1'">
-                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)" type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">
-                        
+                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">
+
                       </span>
                       <span *ngIf="gaceta.estado == '0'">
-                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)" type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">
-                        
+                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">
                       </span>
                     </div>
                   </td>
                   <td>{{ gaceta.titulo }} {{ gaceta.numero }}</td>
                   <td>{{ gaceta.detalle }}</td>
                   <td><a href="{{ URL+'/'+gaceta.uri }}" target="_blank">Descargar</a></td>
-
+                  <td>
+                    <!-- Button trigger modal -->
+                    <div>
+                      <!-- Button trigger modal -->
+                      <button type="button" (click)="getGaceta(gaceta._id)" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Imprimir
+                      </button>
+                    </div>
+                  </td>
                   <td>
                     <i (click)="updateGaceta(gaceta._id)" class="fas fa-edit ml-3 icono"></i>
                     <i (click)="deleteGaceta(gaceta._id)" class="fas fa-trash-alt ml-3 icono"></i>
@@ -62,6 +73,49 @@
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body" id="content" #content>
+        <div class="card fondito1">
+          <div class="row">
+            <div class="col-md text-center">
+              <img src="/assets/img/logo2.png" alt="" width="80px">
+              <h2>CONFIRMACIÓN DE PUBLICACIÓN</h2>
+            </div>
+          </div>
+          <div class="row">
+            <span class="text-center mb-3">El Gobierno Autonomo Municipal de Betanzos confirma el registro y publicación de la siguiente informacion:</span>
+            <div class="col-md-6 text-end">
+              <p class="text-bold">Documento:</p>
+              <p class="text-bold">Código de identificación:</p>
+              <p class="text-bold">Fecha de publicación:</p>
+              <p class="text-bold">Responsable de publicación:</p>
+              <p class="text-bold">Cargo del responsable:</p>
+            </div>
+            <div *ngIf="showModal" class="col-md-6 text-start">
+              <p>{{ gaceta.titulo }} {{ gaceta.numero }}</p>
+              <p>{{ gaceta.numero }}</p>
+              <p>{{ gaceta.createdAt | date:'long' }}</p>
+              <p>{{ gaceta.usuario.username }} {{ gaceta.usuario.surnames }}</p>
+              <p>{{ gaceta.usuario.post }}</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <button type="button" (click)="generatePDF()" class="btn btn-primary">Imprimir</button>
       </div>
     </div>
   </div>

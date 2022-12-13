@@ -15,6 +15,7 @@ import { DefensoriaComponent } from './pages/defensoria/defensoria.component';
 import { SlimComponent } from './pages/slim/slim.component';
 import { GacetaComponent } from './pages/gaceta/gaceta.component';
 
+
 const routes: Routes = [
   {
     path: '', 
@@ -33,6 +34,7 @@ const routes: Routes = [
       {path: 'defensoria', component: DefensoriaComponent},
       {path: 'slim', component: SlimComponent},
       {path: 'gaceta', component: GacetaComponent},
+
     ]
   }
 ];

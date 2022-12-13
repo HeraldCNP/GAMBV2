@@ -117,7 +117,8 @@ export class GacetaCreateComponent implements OnInit {
   }
 
   cancel() {
-
+    this.router.navigate(['blog/gaceta/index'])
   }
 
+  
 }

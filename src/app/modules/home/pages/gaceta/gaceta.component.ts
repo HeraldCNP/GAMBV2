@@ -9,6 +9,7 @@ import { HomeService } from '../../services/home.service';
 })
 export class GacetaComponent implements OnInit {
   gacetas: any = [];
+  gacetasTemp: any = [];
   URL = environment.api;
   constructor(private api: HomeService) { }
 
@@ -20,8 +21,30 @@ export class GacetaComponent implements OnInit {
     this.api.getAllGacetas().subscribe
     (res => {
       this.gacetas = res;
+      this.gacetasTemp = res;
       console.log(this.gacetas)
     });
   }
 
+  buscar(termino:string){
+    if(termino.length === 0){
+      return this.gacetas = this.gacetasTemp;
+    }
+    this.api.searchGaceta(termino).subscribe
+    (res => {
+      this.gacetas = res;
+      // console.log(this.gacetas)
+    });
+  }
+  
+  filtrar(titulo:string){
+    if(titulo.length === 0){
+      return this.gacetas = this.gacetasTemp;
+    }
+    this.api.getGacetas(titulo).subscribe
+    (res => {
+      this.gacetas = res;
+      // console.log(this.gacetas)
+    });
+  }
 }

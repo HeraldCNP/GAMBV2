@@ -24,6 +24,20 @@
                         <p>En esta sección usted podrá encontrar Decretos Municipales, Decretos Ediles y Decretos Ejecutivos</p>
                     </div>
                     <div class="card-body">
+                        <div class="card">
+                            <div class="row m-3">
+                                <div class="col-md-8">
+                                    <input type="search" placeholder="Buscar Documento" class="form-control" #termino (keyup)="buscar(termino.value)">
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" #selectTermino (change)="filtrar(selectTermino.value)">
+                                        <option value="" selected>Seleccionar Tipo de Documento</option>
+                                        <option value="Ley">Ley</option>
+                                        <option value="Decreto">Decreto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6" *ngFor="let gaceta of gacetas.serverResponse">
                                 <div class="card shadow">

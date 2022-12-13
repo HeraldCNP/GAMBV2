@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 export class HomeService {
   private readonly URL = environment.api;
 
-
   constructor(private http: HttpClient) { }
 
   getAllSliders():Observable<ListSliderI[]>{
@@ -23,7 +22,6 @@ export class HomeService {
     console.log(dir)
     return this.http.get<any[]>(dir)
   }
-
 
   getSinglePost(id:any):Observable<any>{
     let dir = `${this.URL}/blog/${id}`;
@@ -40,6 +38,20 @@ export class HomeService {
     // console.log(dir)
     return this.http.get<any[]>(dir)
   }
+
+  getGacetas(titulo:any):Observable<any[]>{
+    let dir = `${this.URL}/gacetas?titulo=${titulo}&estado=true`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  searchGaceta(termino:any):Observable<any[]>{
+    let dir = `${this.URL}/searchgaceta/${termino}`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+
 }
 
 

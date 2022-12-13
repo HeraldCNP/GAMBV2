@@ -14,6 +14,7 @@ import { GacetaCreateComponent } from './pages/gaceta/gaceta-create/gaceta-creat
 import { GacetaUpdateComponent } from './pages/gaceta/gaceta-update/gaceta-update.component';
 
 
+
 const routes: Routes = [
   {
     path:'',
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path: 'gaceta/index', component: GacetaIndexComponent},
       {path: 'gaceta/create', component: GacetaCreateComponent},
       {path: 'gaceta/update/:id', component: GacetaUpdateComponent},
+
       {path: '**', redirectTo:'dashboard'},
     ]
   }

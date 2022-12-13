@@ -22,6 +22,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 
 
 
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -37,7 +38,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
     CategoryIndexComponent,
     GacetaCreateComponent,
     GacetaIndexComponent,
-    GacetaUpdateComponent
+    GacetaUpdateComponent,
   ],
   imports: [
     CommonModule,

@@ -99,6 +99,14 @@ export class BlogService {
     })
   }
 
+  editarGaceta(fd: FormData, id:string):Observable<any>{
+    let dir = `${this.URL}/uploadgaceta/${id}`;
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
   getAllGacetas():Observable<any[]>{
     let dir = `${this.URL}/gacetas`;
     console.log(dir)
@@ -109,6 +117,16 @@ export class BlogService {
     let dir = `${this.URL}/gaceta/${id}`;
     console.log(dir)
     return this.http.put<any>(dir, fd)
+  }
+
+  getGaceta(id:any):Observable<any>{
+    let dir = `${this.URL}/gaceta/${id}`;
+    return this.http.get<any>(dir)
+  }
+
+  deleteGaceta(id:any):Observable<any>{
+    let dir = `${this.URL}/gaceta/${id}`;
+    return this.http.delete<any>(dir, id)
   }
 
 
