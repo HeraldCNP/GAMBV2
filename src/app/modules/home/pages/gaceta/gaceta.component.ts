@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HomeService } from '../../services/home.service';
 
 @Component({
   selector: 'app-gaceta',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gaceta.component.css']
 })
 export class GacetaComponent implements OnInit {
-
-  constructor() { }
+  gacetas: any = [];
+  URL = environment.api;
+  constructor(private api: HomeService) { }
 
   ngOnInit(): void {
+    this.getGacetas()
+  }
+
+  getGacetas(){
+    this.api.getAllGacetas().subscribe
+    (res => {
+      this.gacetas = res;
+      console.log(this.gacetas)
+    });
   }
 
 }

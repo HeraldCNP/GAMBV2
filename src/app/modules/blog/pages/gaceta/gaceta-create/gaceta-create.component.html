@@ -35,16 +35,14 @@
                                     </div>
                                     <div class="mb-1">
                                         <label for="detalle" class="form-label">Detalle *</label>
-                                        <input type="number" class="form-control" id="detalle" formControlName="detalle"
+                                        <input type="text" class="form-control" id="detalle" formControlName="detalle"
                                             required>
                                         <div class="form-text "
                                             *ngIf="form['detalle'].touched && form['detalle'].invalid">
                                             <div *ngIf="form['detalle'].errors && form['detalle'].errors['required']">*
-                                                El detalle es
-                                                Requerido.</div>
+                                                El detalle es requerido.</div>
                                             <div *ngIf="form['detalle'].errors && form['detalle'].errors['minlength']">
-                                                El detalle
-                                                no puede tener menos de 3 caracteres.</div>
+                                                El detalle no puede tener menos de 3 caracteres.</div>
                                         </div>
                                     </div>
                                     <div class="mb-2">

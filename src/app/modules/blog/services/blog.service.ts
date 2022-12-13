@@ -99,5 +99,17 @@ export class BlogService {
     })
   }
 
+  getAllGacetas():Observable<any[]>{
+    let dir = `${this.URL}/gacetas`;
+    console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  changeEstado(id:any, fd: FormData):Observable<any>{
+    let dir = `${this.URL}/gaceta/${id}`;
+    console.log(dir)
+    return this.http.put<any>(dir, fd)
+  }
+
 
 }

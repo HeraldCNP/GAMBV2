@@ -34,6 +34,12 @@ export class HomeService {
     let dir = `${this.URL}/category`;
     return this.http.get<any[]>(dir)
   }
+
+  getAllGacetas():Observable<any[]>{
+    let dir = `${this.URL}/gacetas?estado=true`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
 }
 
 

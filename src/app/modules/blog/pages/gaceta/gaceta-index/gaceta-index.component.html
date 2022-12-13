@@ -1,1 +1,68 @@
-<p>gaceta-index works!</p>
+<div class="container">
+  <div class="m-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Lista de Documentos - Gaceta Oficial</h3>
+            <div class="card-tools">
+              <span class="mr-3">
+                <button (click)="addGaceta()" class="btn btn-primary">Agregar Documento</button>
+              </span>
+              <!-- <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+            </div>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Estado</th>
+                  <th>Titulo</th>
+                  <th>Detalle</th>
+                  <th>Archivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let gaceta of gacetas.serverResponse; let i = index">
+                  <td>{{ gaceta.usuario.username }} {{ gaceta.usuario.surnames }}</td>
+                  <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="gaceta.estado == '1'">
+                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)" type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">
+                        
+                      </span>
+                      <span *ngIf="gaceta.estado == '0'">
+                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)" type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">
+                        
+                      </span>
+                    </div>
+                  </td>
+                  <td>{{ gaceta.titulo }} {{ gaceta.numero }}</td>
+                  <td>{{ gaceta.detalle }}</td>
+                  <td><a href="{{ URL+'/'+gaceta.uri }}" target="_blank">Descargar</a></td>
+
+                  <td>
+                    <i (click)="updateGaceta(gaceta._id)" class="fas fa-edit ml-3 icono"></i>
+                    <i (click)="deleteGaceta(gaceta._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
