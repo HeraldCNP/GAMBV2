@@ -87,8 +87,10 @@
     <div class="modal-content">
       <div class="modal-body" id="content" #content>
         <div class="card fondito1">
+          
           <div class="row">
             <div class="col-md text-center">
+              <a href="{{ URL+'/'+gaceta.uri }}">{{ URL+'/'+gaceta.uri }}</a><br>
               <img src="/assets/img/logo2.png" alt="" width="80px">
               <h2>CONFIRMACIÓN DE PUBLICACIÓN</h2>
             </div>
@@ -100,7 +102,7 @@
               <p class="text-bold">Descripción de la Entidad:</p>
               <p class="text-bold">Documento:</p>
               <p class="text-bold">Descripción:</p>
-              <p class="text-bold">Código de identificación:</p>
+              <p class="text-bold">Código de verificación interno:</p>
               <p class="text-bold">Fecha de publicación:</p>
               <p class="text-bold">Responsable de publicación:</p>
               <p class="text-bold">Cargo del responsable:</p>
@@ -118,7 +120,9 @@
 
           </div>
         </div>
-        Fecha de Impresión: {{ date | date:'short'  }}
+        <span class="fecha">
+          Fecha de Impresión: {{ date | date:'short'  }}
+        </span>  
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
