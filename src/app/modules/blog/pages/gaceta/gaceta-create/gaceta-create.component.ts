@@ -65,6 +65,7 @@ export class GacetaCreateComponent implements OnInit {
       detalle: new FormControl('', [Validators.required, Validators.minLength(3)]),
       numero: new FormControl('', [Validators.required, Validators.minLength(2)]),
       archivo: new FormControl('', Validators.required),
+      fecha: new FormControl('', Validators.required),
       usuario: new FormControl(this.idUser, Validators.required)
     });
   }
@@ -84,6 +85,7 @@ export class GacetaCreateComponent implements OnInit {
     fd.append('titulo', this.gacetaForm.value.titulo);
     fd.append('detalle', this.gacetaForm.value.detalle);
     fd.append('numero', this.gacetaForm.value.numero);
+    fd.append('fecha', this.gacetaForm.value.fecha);
     fd.append('usuario', this.idUser);
 
 

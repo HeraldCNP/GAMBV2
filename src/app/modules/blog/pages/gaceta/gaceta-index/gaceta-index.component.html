@@ -87,37 +87,56 @@
     <div class="modal-content">
       <div class="modal-body" id="content" #content>
         <div class="card fondito1">
-          
           <div class="row">
             <div class="col-md text-center">
-              <a href="{{ URL+'/'+gaceta.uri }}">{{ URL+'/'+gaceta.uri }}</a><br>
               <img src="/assets/img/logo2.png" alt="" width="80px">
               <h2>CONFIRMACIÓN DE PUBLICACIÓN</h2>
             </div>
           </div>
           <div class="row">
-            <span class="text-center mb-3">El Gobierno Autonomo Municipal de Betanzos confirma el registro y publicación de la siguiente norma:</span>
-            <div class="col-md-6 text-end">
-              <p class="text-bold">Código de Entidad:</p>
-              <p class="text-bold">Descripción de la Entidad:</p>
-              <p class="text-bold">Documento:</p>
-              <p class="text-bold">Descripción:</p>
-              <p class="text-bold">Código de verificación interno:</p>
-              <p class="text-bold">Fecha de publicación:</p>
-              <p class="text-bold">Responsable de publicación:</p>
-              <p class="text-bold">Cargo del responsable:</p>
+            <div class="col-md-12">
+              <span class="text-center mb-3">El Gobierno Autonomo Municipal de Betanzos confirma el registro y publicación de la siguiente norma:</span>
+              <table *ngIf="gaceta">
+                <tbody>
+                  <tr>
+                    <td class="text-end"><b>Código de Entidad:</b></td>
+                    <td>1508</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Descripción de la Entidad:</b></td>
+                    <td>Gobierno Autónomo Municipal de Betanzos</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Documento:</b></td>
+                    <td>{{ gaceta.titulo }} {{ gaceta.numero }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Código de verificación interno:</b></td>
+                    <td>{{ gaceta._id }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Fecha de publicación:</b></td>
+                    <td>{{ gaceta.createdAt | date:'short' }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Fecha de Aprobación:</b></td>
+                    <td>{{ gaceta.fecha | date: "shortDate":"UTC"  }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Responsable de publicación:</b></td>
+                    <td>{{ gaceta.usuario.username }} {{ gaceta.usuario.surnames }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Cargo del responsable:</b></td>
+                    <td>{{ gaceta.usuario.post }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Enlace:</b></td>
+                    <td><a *ngIf="gaceta.uri" href="{{ URL+'/'+gaceta.uri }}">{{ URL+'/'+gaceta.uri }}</a></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div *ngIf="showModal" class="col-md-6 text-start">
-              <p>1508</p>
-              <p>Gobierno Autonomo Municipal de Betanzos </p>
-              <p>{{ gaceta.titulo }} {{ gaceta.numero }}</p>
-              <p>{{ gaceta.detalle }}</p>
-              <p>{{ gaceta._id }}</p>
-              <p>{{ gaceta.createdAt | date:'short' }}</p>
-              <p>{{ gaceta.usuario.username }} {{ gaceta.usuario.surnames }}</p>
-              <p>{{ gaceta.usuario.post }}</p>
-            </div>
-
           </div>
         </div>
         <span class="fecha">

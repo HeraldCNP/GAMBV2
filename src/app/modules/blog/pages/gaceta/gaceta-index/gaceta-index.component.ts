@@ -19,7 +19,8 @@ export class GacetaIndexComponent implements OnInit {
   constructor(
     private router: Router,
     private api: BlogService
-  ) { }
+  ) { 
+  }
   date = new Date();
   gacetas: any = [];
   gaceta:any;

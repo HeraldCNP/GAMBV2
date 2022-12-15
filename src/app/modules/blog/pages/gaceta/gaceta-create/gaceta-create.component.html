@@ -45,20 +45,36 @@
                                                 El detalle no puede tener menos de 3 caracteres.</div>
                                         </div>
                                     </div>
+                                    <div class="mb-1">
+                                        <label for="fecha" class="form-label">fecha *</label>
+                                        <input type="date" class="form-control" id="fecha" formControlName="fecha"
+                                            required>
+                                        <div class="form-text "
+                                            *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                                            <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">*
+                                                El fecha es requerido.</div>
+                                            <div *ngIf="form['fecha'].errors && form['fecha'].errors['minlength']">
+                                                El detalle no puede tener menos de 3 caracteres.</div>
+                                        </div>
+                                    </div>
                                     <div class="mb-2">
                                         <label for="archivo" class="form-label">Archivo</label>
-                                        <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
-                                          formControlName="archivo" (change)="onChange($event)">
-                                        <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
-                                          <div *ngIf="form['archivo'].errors && form['archivo'].errors['required']">* archivo
-                                            es Requerido.</div>
+                                        <input class="form-control" id="archivo" type="file" name="archivo" id="archivo"
+                                            accept="archivo/*" formControlName="archivo" (change)="onChange($event)">
+                                        <div class="form-text"
+                                            *ngIf="form['archivo'].touched && form['archivo'].invalid">
+                                            <div *ngIf="form['archivo'].errors && form['archivo'].errors['required']">*
+                                                archivo
+                                                es Requerido.</div>
                                         </div>
                                         <div class="progress mt-1" *ngIf="progress > 0">
-                                          <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'"
-                                            aria-valuemin="0" aria-valuemax="100">{{ progress + '%' }}</div>
+                                            <div class="progress-bar bg-danger" role="progressbar"
+                                                [style.width]="progress + '%'" aria-valuemin="0" aria-valuemax="100">{{
+                                                progress + '%' }}</div>
                                         </div>
-                      
-                                      </div>
+
+                                    </div>
+                                    
 
 
                                     <!-- {{ gacetaForm.value | json }} -->
