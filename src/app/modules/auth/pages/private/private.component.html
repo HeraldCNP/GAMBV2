@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="contenedor-card-item" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN')
+        (data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' )
       ">
           <div class="card-header">
             <h2>Sistema Blog</h2>

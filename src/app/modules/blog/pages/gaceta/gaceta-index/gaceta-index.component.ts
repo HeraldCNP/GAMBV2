@@ -20,7 +20,7 @@ export class GacetaIndexComponent implements OnInit {
     private router: Router,
     private api: BlogService
   ) { }
-
+  date = new Date();
   gacetas: any = [];
   gaceta:any;
   ngOnInit(): void {

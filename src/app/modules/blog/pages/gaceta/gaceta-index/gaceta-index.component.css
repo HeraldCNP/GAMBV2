@@ -1,7 +1,11 @@
 .fondito1{
-    background-color: rgba(145, 241, 209, 0.418);
+    background-color: rgb(255, 255, 255);
 }
 
 .doc{
     max-width: 200px;
+}
+
+.pointer{
+    cursor: pointer;
 }

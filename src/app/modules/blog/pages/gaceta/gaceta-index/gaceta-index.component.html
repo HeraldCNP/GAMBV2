@@ -39,13 +39,13 @@
                   <td>
                     <div class="form-check form-switch">
                       <span *ngIf="gaceta.estado == '1'">
-                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)"
-                          type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">
+                        <input class="form-check-input pointer" (change)="changeStatus(gaceta._id, !gaceta.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Vigente
 
                       </span>
                       <span *ngIf="gaceta.estado == '0'">
-                        <input class="form-check-input" (change)="changeStatus(gaceta._id, !gaceta.estado)"
-                          type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">
+                        <input class="form-check-input pointer" (change)="changeStatus(gaceta._id, !gaceta.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Abrogada
                       </span>
                     </div>
                   </td>
@@ -94,24 +94,31 @@
             </div>
           </div>
           <div class="row">
-            <span class="text-center mb-3">El Gobierno Autonomo Municipal de Betanzos confirma el registro y publicación de la siguiente informacion:</span>
+            <span class="text-center mb-3">El Gobierno Autonomo Municipal de Betanzos confirma el registro y publicación de la siguiente norma:</span>
             <div class="col-md-6 text-end">
+              <p class="text-bold">Código de Entidad:</p>
+              <p class="text-bold">Descripción de la Entidad:</p>
               <p class="text-bold">Documento:</p>
+              <p class="text-bold">Descripción:</p>
               <p class="text-bold">Código de identificación:</p>
               <p class="text-bold">Fecha de publicación:</p>
               <p class="text-bold">Responsable de publicación:</p>
               <p class="text-bold">Cargo del responsable:</p>
             </div>
             <div *ngIf="showModal" class="col-md-6 text-start">
+              <p>1508</p>
+              <p>Gobierno Autonomo Municipal de Betanzos </p>
               <p>{{ gaceta.titulo }} {{ gaceta.numero }}</p>
-              <p>{{ gaceta.numero }}</p>
-              <p>{{ gaceta.createdAt | date:'long' }}</p>
+              <p>{{ gaceta.detalle }}</p>
+              <p>{{ gaceta._id }}</p>
+              <p>{{ gaceta.createdAt | date:'short' }}</p>
               <p>{{ gaceta.usuario.username }} {{ gaceta.usuario.surnames }}</p>
               <p>{{ gaceta.usuario.post }}</p>
             </div>
 
           </div>
         </div>
+        Fecha de Impresión: {{ date | date:'short'  }}
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->

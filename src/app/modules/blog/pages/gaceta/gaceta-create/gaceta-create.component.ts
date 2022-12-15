@@ -34,16 +34,16 @@ export class GacetaCreateComponent implements OnInit {
          "name": "Ley"
       },
       {
-         "name": "Decreto"
+         "name": "Resolución Municipal"
       },
       {
-         "name": "Decreto1"
+         "name": "Ordenanza Municipal"
       },
       {
-         "name": "Decreto2"
+         "name": "Decreto Municipal"
       },
       {
-         "name": "Decreto3"
+         "name": "Decreto Edil"
       }
    ]
 } 
