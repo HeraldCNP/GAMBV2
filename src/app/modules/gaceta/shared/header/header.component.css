@@ -1,0 +1,12 @@
+.active{
+    font-weight: bold;
+    /* text-decoration: underline; */
+}
+
+.fondo{
+    background-color: rgb(1, 116, 57)!important;
+}
+
+.fas{
+    cursor: pointer !important;
+}

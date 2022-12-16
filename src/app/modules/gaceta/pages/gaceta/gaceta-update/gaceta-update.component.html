@@ -4,14 +4,14 @@
             <div class="col-md-6">
                 <div class="card shadow p-3 mb-5 bg-body rounded">
                     <div class="card-header">
-                        <h3 class="card-title">Crear Archivo para Gaceta</h3>
+                        <h3 class="card-title">Editar Archivo para Gaceta</h3>
                     </div>
 
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
                         <div class="row">
                             <div class="col-md">
-                                <form (ngSubmit)="crearGaceta()" [formGroup]="gacetaForm">
+                                <form (ngSubmit)="editarGaceta()" [formGroup]="editarForm">
                                     <div class="mb-1">
                                         <label for="entidad" class="form-label col-auto">Tipo *</label>
                                         <ngx-select [allowClear]="true" [items]="titulos.list" optionTextField="name"
@@ -59,28 +59,24 @@
                                     </div>
                                     <div class="mb-2">
                                         <label for="archivo" class="form-label">Archivo</label>
-                                        <input class="form-control" id="archivo" type="file" name="archivo" id="archivo"
-                                            accept="archivo/*" formControlName="archivo" (change)="onChange($event)">
-                                        <div class="form-text"
-                                            *ngIf="form['archivo'].touched && form['archivo'].invalid">
-                                            <div *ngIf="form['archivo'].errors && form['archivo'].errors['required']">*
-                                                archivo
-                                                es Requerido.</div>
+                                        <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+                                           (change)="onChange($event)">
+                                        <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
+                                          <div *ngIf="form['archivo'].errors && form['archivo'].errors['required']">* archivo
+                                            es Requerido.</div>
                                         </div>
                                         <div class="progress mt-1" *ngIf="progress > 0">
-                                            <div class="progress-bar bg-danger" role="progressbar"
-                                                [style.width]="progress + '%'" aria-valuemin="0" aria-valuemax="100">{{
-                                                progress + '%' }}</div>
+                                          <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'"
+                                            aria-valuemin="0" aria-valuemax="100">{{ progress + '%' }}</div>
                                         </div>
+                      
+                                      </div>
 
-                                    </div>
-                                    
 
-
-                                    <!-- {{ gacetaForm.value | json }} -->
+                                    {{ editarForm.value | json }}
                                     <div class="mt-3 d-flex justify-content-around">
                                         <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
-                                        <button [disabled]="gacetaForm.invalid" type="submit"
+                                        <button [disabled]="editarForm.invalid" type="submit"
                                             class="btn btn-primary">Registrar</button>
                                     </div>
                                 </form>

@@ -2,8 +2,10 @@
   <main class="px-3">
     <img class="mb-4" src="assets/img/logo2.png" loading="lazy" alt="" width="120" height="57">
     <h1>Bienvenido: {{ data.username }} {{ data.surnames }}</h1>
-    <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autonomo Municipal de Betanzos</p>
-
+    <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autónomo Municipal de Betanzos</p>
+    <div>
+        <a routerLink="/"><i class="fas fa-home fa-1x mr-2 mt-2 app" style="color:rgb(202, 206, 202) !important" title="Inicio" > Inicio</i></a> 
+    </div>
     <div class="contenedor">
       <div class="contenedor-cards">
         <div class="contenedor-card-item">
@@ -23,7 +25,7 @@
           </div>
         </div>
         <div class="contenedor-card-item" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' )
+        (data && data.roles === 'SUPER_ADMIN' )
       ">
           <div class="card-header">
             <h2>Sistema Blog</h2>
@@ -67,6 +69,24 @@
           <div class="contenedor-card-item-wrapper">
             <a routerLink="/convenio">
               <img src="assets/img/private/convenio.jpg" loading="lazy" alt="">
+              <div class="contenedor-info">
+                <div class="info">
+                  <p class="titulo">Ingresar</p>
+                </div>
+                <div class="fondo"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="contenedor-card-item" *ngIf="
+        (data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' )
+      ">
+          <div class="card-header">
+            <h2>Sistema Gaceta Oficial</h2>
+          </div>
+          <div class="contenedor-card-item-wrapper">
+            <a routerLink="/gaceta/gaceta/index">
+              <img src="assets/img/private/gaceta.jpg" loading="lazy" alt="">
               <div class="contenedor-info">
                 <div class="info">
                   <p class="titulo">Ingresar</p>

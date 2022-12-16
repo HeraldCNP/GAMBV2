@@ -94,12 +94,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <span class="text-center mb-3">El Gobierno Autonomo Municipal de Betanzos confirma el registro y publicación de la siguiente norma:</span>
+            <div class="col-md-12"><br>
+              <span class="text-center mb-3">El Gobierno Autónomo Municipal de Betanzos confirma el registro y publicación de la siguiente norma:</span> <br><br>
               <table *ngIf="gaceta">
                 <tbody>
                   <tr>
-                    <td class="text-end"><b>Código de Entidad:</b></td>
+                    <td class="text-end" width="250px"><b>Código de Entidad:</b></td>
                     <td>1508</td>
                   </tr>
                   <tr>
@@ -109,6 +109,10 @@
                   <tr>
                     <td class="text-end"><b>Documento:</b></td>
                     <td>{{ gaceta.titulo }} {{ gaceta.numero }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end"><b>Descripción:</b></td>
+                    <td>{{ gaceta.detalle }}</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Código de verificación interno:</b></td>

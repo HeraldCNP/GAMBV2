@@ -48,6 +48,11 @@ const routes: Routes = [
     canActivate: [SessionGuard]
   },
   {
+    path: 'gaceta',
+    loadChildren: () => import('./modules/gaceta/gaceta.module').then(m => m.GacetaModule),
+    canActivate: [SessionGuard]
+  },
+  {
     path: '**',
     redirectTo:''
   }

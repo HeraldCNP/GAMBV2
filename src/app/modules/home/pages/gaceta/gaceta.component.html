@@ -21,7 +21,7 @@
                 <div class="card my-3 p-3 rounded">
                     <div class="card-header rounded">
                         <div class="title my-1  text-center">Gaceta</div>
-                        <p>En esta sección usted podrá encontrar Decretos Municipales, Decretos Ediles, Ordenanzas Municipales, Resoluciónes Municipales y Leyes</p>
+                        <p>En esta sección usted podrá encontrar Leyes, Decretos Municipales, Decretos Ediles, Ordenanzas Municipales y Resoluciónes Municipales  </p>
                     </div>
                     <div class="card-body">
                         <div class="card">
@@ -48,12 +48,13 @@
                                         <div class="mx-2">
                                             <img class="img-fluid" alt="Icono" src="/assets/img/docDownload.png" width="60px">
                                         </div>
-                                        <div style="min-width: 400px;">
+                                        <div>
                                             <h3 class="media-heading" style="padding-top: 0px;border:0px;margin: 0 0 5px 0;font-size:12pt;">
                                                 <a style="font-weight: 700" href="{{ URL+'/'+gaceta.uri }}" target="_blank">{{ gaceta.titulo }} {{ gaceta.numero }}</a>
                                                 
                                             </h3>
-                                            {{ gaceta.detalle }} <br>
+                                            <p class="text-justify mx-2">{{ gaceta.detalle }}</p>
+                                             
                                             <span style="font-size:0.8em;font-weight:300" class="text-muted ">
                                                 <i class="fas fa-calendar-alt mr-1"></i> Fecha de Publicación {{ gaceta.createdAt | date:'medium'}}
                                             </span>
@@ -61,7 +62,7 @@
                                                 <i class="fas fa-calendar-alt mr-1"></i> Fecha de Aprobación {{ gaceta.fecha | date:'shortDate'}}
                                             </span>
                                         </div>
-                                        <div>
+                                        <div class="mx-2">
                                             <a class="btn btn-primary btn-sm" href="{{ URL+'/'+gaceta.uri }}" target="_blank">Descargar</a>
                                         </div>
                                     </div>

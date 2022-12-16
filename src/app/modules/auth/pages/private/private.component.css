@@ -105,6 +105,10 @@
       -o-transform: rotate(-5deg) scale(2);
       transform: rotate(-5deg) scale(2);
   }
+
+  app{
+    cursor: pointer;
+  }
   
   @media screen and (max-width: 900px) {
       .contenedor-card-item:hover img {
