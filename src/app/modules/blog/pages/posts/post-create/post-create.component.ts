@@ -15,10 +15,11 @@ import { Editor, Toolbar } from 'ngx-editor';
 })
 export class PostCreateComponent implements OnInit {
   postForm: FormGroup = new FormGroup({});
-  files:any;
+  files:any = [];
   categories:any = [];
   URL = environment.api;
   progress: number = 0;
+  urlYoutube:string = "https://www.youtube.com/embed/";
   constructor(
     private api: BlogService,
     private router: Router
@@ -54,7 +55,7 @@ export class PostCreateComponent implements OnInit {
       title : new FormControl('', [Validators.required, Validators.minLength(6)]),
       subtitle : new FormControl('', [Validators.required, Validators.minLength(6)]),
       body : new FormControl('', [Validators.required, Validators.minLength(15)]),
-      iframe : new FormControl('', [Validators.minLength(15)]),
+      iframe : new FormControl('', [Validators.minLength(5)]),
       category : new FormControl('', Validators.required),
       image: new FormControl('', Validators.required)
     })
@@ -78,15 +79,20 @@ export class PostCreateComponent implements OnInit {
 
   sendFormPost(){
     // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
+    
     let fd = new FormData();
-    fd.append('image', this.files[0]);
+    for (let index = 0; index < this.files.length; index++) {
+      const element = this.files[index];
+      fd.append('images', element);
+    }
+
+
     fd.append('title', this.postForm.value.title);
     fd.append('subtitle', this.postForm.value.subtitle);
     fd.append('body', this.postForm.value.body);
-    fd.append('iframe', this.postForm.value.iframe);
+    fd.append('iframe', this.urlYoutube+this.postForm.value.iframe);
     fd.append('category', this.postForm.value.category);
-
-  
+    console.log(fd.get('images')?.valueOf())
     this.api.registerPost(fd).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);

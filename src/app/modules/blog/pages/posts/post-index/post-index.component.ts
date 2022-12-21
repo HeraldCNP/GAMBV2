@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class PostIndexComponent implements OnInit {
 
-  posts:any[] = [];
+  posts:any = [];
   URL = environment.api;
 
   constructor(
@@ -33,6 +33,22 @@ export class PostIndexComponent implements OnInit {
 
   addPost(){
     this.router.navigate(['blog/post/create'])
+  }
+
+  changeStatus(id:any, estado:any){
+    let fd = new FormData();
+    fd.append('status', estado);
+    console.log(estado)
+    this.api.changeEstado(id, fd)
+      .subscribe(
+        res => {
+          console.log(res)
+        },
+        err => console.log('HTTP Error', err),
+        () => {
+          this.getPosts();
+        }
+      );
   }
 
 

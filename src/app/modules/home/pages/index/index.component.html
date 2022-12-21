@@ -1,9 +1,37 @@
+<div class="sticky-container colored-icons">
+    <ul class="sticky">
+        <li>
+            <a href="https://www.facebook.com/GamBetanzos20" target="_blank">
+                <i class="link-facebook fab fa-facebook-square" style="font-size:35px;margin-left: 2px"></i>
+                <p>Gam Betanzos en<br> Facebook</p>
+            </a>
+        </li>
+        <!-- <li>
+            <a href="https://twitter.com/intent/tweet?status=Tutoriales En Linea es un portal web de tutoriales, cursos online y de aprendizaje que pretenden simular al maestro mostrando al usuario el desarrollo de algún procedimiento o los pasos para realizar determinada actividad... Leer Mas...https://tutorialesenlinea.es/"
+                title="Conectar con twitter" data-tag="Conectar con twitter "
+                onclick="window.open(this.href, this.target, 'width=770,height=368'); return false;">
+                <i class="link-twitter fab fa-twitter" style="font-size: 35px; margin-top: -12px;"></i>
+                <p> Enviar en<br> twitter</p>
+            </a>
+        </li> -->
+        <li>
+            <a href="https://www.youtube.com/channel/UCmLh2x63ZgtDnbTr3ZEi3TQ?sub_confirmation=1" target="_blank">
+                <i class="link-youtube fab fa-youtube" style="font-size: 35px; margin-top: -12px;"></i>
+                <p> Gam Betanzos en<br> Youtube</p>
+            </a>
+        </li>
+    </ul>
+</div>
+
 <app-menu></app-menu>
+
 <div class="main-container font">
     <div *ngIf="currentRoute === '/'">
         <app-slider></app-slider>
         <!-- <app-info></app-info> -->
         <!-- <app-secretaries></app-secretaries> -->
+
+
         <app-new></app-new>
         <app-servicios></app-servicios>
         <app-turistico></app-turistico>
@@ -11,7 +39,3 @@
     <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>
-
-
-
-

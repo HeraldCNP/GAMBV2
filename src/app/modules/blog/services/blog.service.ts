@@ -41,7 +41,7 @@ export class BlogService {
 
   /*Servicios para Post*/
   getAllPosts():Observable<any[]>{
-    let dir = `${this.URL}/blog`;
+    let dir = `${this.URL}/blogs`;
     return this.http.get<any[]>(dir)
   }
 
@@ -52,6 +52,7 @@ export class BlogService {
 
   registerPost(fd: FormData):Observable<any>{
     let dir = `${this.URL}/uploadpost`;
+    console.log(fd.get('image'))
     return this.http.post<any>(dir, fd, {
       reportProgress: true,
       observe: 'events',
@@ -73,6 +74,12 @@ export class BlogService {
   deletePost(id:any):Observable<any>{
     let dir = `${this.URL}/blog/${id}`;
     return this.http.delete<any>(dir, id)
+  }
+
+  changeEstado(id:any, fd: FormData):Observable<any>{
+    let dir = `${this.URL}/blog/${id}`;
+    console.log(dir)
+    return this.http.put<any>(dir, fd)
   }
 
   /*Finish Servicios para Post*/
@@ -113,11 +120,7 @@ export class BlogService {
     return this.http.get<any[]>(dir)
   }
 
-  changeEstado(id:any, fd: FormData):Observable<any>{
-    let dir = `${this.URL}/gaceta/${id}`;
-    console.log(dir)
-    return this.http.put<any>(dir, fd)
-  }
+
 
   getGaceta(id:any):Observable<any>{
     let dir = `${this.URL}/gaceta/${id}`;

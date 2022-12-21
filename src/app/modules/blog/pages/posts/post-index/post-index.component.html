@@ -23,23 +23,38 @@
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
+                    <th>Estado</th>
                     <th>Titulo</th>
                     <th>Subtitulo</th>
                     <th>Cuerpo</th>
                     <th>Iframe</th>
                     <th>Categoria</th>
-                    <th>Imagen</th>
+                    <th>Imagenes</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let post of posts">
+                  <tr *ngFor="let post of posts.serverResponse; let i = index">
+                    <td>
+                      <div class="form-check form-switch">
+                        <span *ngIf="post.status == '1'">
+                          <input class="form-check-input pointer" (change)="changeStatus(post._id, !post.status)"
+                            type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Vigente
+  
+                        </span>
+                        <span *ngIf="post.status == '0'">
+                          <input class="form-check-input pointer" (change)="changeStatus(post._id, !post.status)"
+                            type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Abrogada
+                        </span>
+                      </div>
+                    </td>
                     <td>{{ post.title | slice:0:20 }}</td>
                     <td>{{ post.subtitle | slice:0:20 }}</td>
                     <td>{{ post.body | slice:0:20 }}...</td>
                     <td>{{ post.iframe | slice:0:20 }}</td>
                     <td>{{ post.category }}</td>
-                    <td><img width="70px" src="{{ URL+'/'+post.uri }}" alt=""></td>
+                    <!-- <td><img width="70px" src="{{ URL+'/'+post.uri }}" alt=""></td> -->
+                    <td>{{ post.imgs.length }} </td>
                     <td>
                       <i (click)="onEditPost(post._id)" class="fas fa-edit ml-3 icono"></i>
                       <i (click)="onDeletePost(post._id)" class="fas fa-trash-alt ml-3 icono"></i>

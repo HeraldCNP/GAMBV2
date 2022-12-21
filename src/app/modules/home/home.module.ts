@@ -28,6 +28,11 @@ import { AmbienteComponent } from './pages/ambiente/ambiente.component';
 import { ImpuestosComponent } from './pages/impuestos/impuestos.component';
 import { TuristicoComponent } from './pages/index/turistico/turistico.component';
 import { GacetaComponent } from './pages/gaceta/gaceta.component';
+import { PoaComponent } from './pages/gestion/poa/poa.component';
+import { PeiComponent } from './pages/gestion/pei/pei.component';
+import { PtdiComponent } from './pages/gestion/ptdi/ptdi.component';
+import { ConvenioComponent } from './pages/gestion/convenio/convenio.component';
+import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.component';
 
 
 
@@ -56,7 +61,12 @@ import { GacetaComponent } from './pages/gaceta/gaceta.component';
     AmbienteComponent,
     ImpuestosComponent,
     TuristicoComponent,
-    GacetaComponent
+    GacetaComponent,
+    PoaComponent,
+    PeiComponent,
+    PtdiComponent,
+    ConvenioComponent,
+    ReglamentoComponent
   ],
   imports: [
     CommonModule,

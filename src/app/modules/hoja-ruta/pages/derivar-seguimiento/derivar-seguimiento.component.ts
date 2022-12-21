@@ -121,6 +121,7 @@ export class DerivarSeguimientoComponent implements OnInit {
         });
     }
   }
+
   getHojaderuta() {
     if (this.idHr !== null) {
       this.apiRuta.getHr(this.idHr).subscribe(
@@ -204,6 +205,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       this.mostrarError = false;
     }, 4000);
   }
+
   copias(): void {
     this.getOrgac();
     this.getSubc();
@@ -221,6 +223,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       }
     );
   }
+
   agregarCita() {
     if(this.paramsc == '' || this.detallesc == ''){
       this.error1('todos los campos deben ser llenados');
@@ -260,6 +263,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       console.log(error)
     })
   }
+
   getuserc() {
     if (this.paramsc !== null) {
       this.apiRuta.getUserPost(this.paramsc).subscribe((data) => {
@@ -271,6 +275,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       });
     }
   }
+
   getSubc() {
     if (this.paramsc !== null) {
       this.apiRuta.obtenerOrg(this.paramsc).subscribe(
@@ -283,6 +288,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       );
     }
   }
+  
   getOrgac() {
     this.apiUnit.getAllUnits().subscribe(
       (data) => {

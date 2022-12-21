@@ -12,12 +12,18 @@
             <div *ngFor="let post of posts.serverResponse" class="col-lg-4 col-md-6">
                 <div class="single-blog">
                     <div class="ratio ratio-16x9" *ngIf="post.iframe">
-                        <div class="fb-video" [attr.data-href]="post.iframe" data-width="500"
-                            data-allowfullscreen="true"></div>
+                        <!-- <div class="fb-video" [attr.data-href]="post.iframe" data-width="500"
+                            data-allowfullscreen="true"></div> -->
+                            <iframe width="560" height="315" [attr.src]="post.iframe | domseguro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
                     </div>
                     <div class="blog-photo" *ngIf="!post.iframe">
                         <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
-                                src="{{ URL+'/'+post.uri }}" alt="{{ post.title }}" /></a>
+                            src="{{ URL+'/'+post.imgs[0].uri }}" alt="{{ post.imgs[0].title }}" /></a>
+                        <!-- <div *ngFor="let image of post.imgs">
+                            <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
+                                src="{{ URL+'/'+image.uri }}" alt="{{ image.title }}" /></a>
+                        </div> -->
+
                         <div class="blog-post-date">
                             <span>{{ post.createdAt | date:'longDate' }}</span>
                             <span>{{ post.category }}</span>
@@ -33,11 +39,9 @@
                     </div>
                 </div>
             </div>
-
+            
         </div>
-        
+
     </div>
 </div>
 <!-- BLOG-AREA END -->
-
-

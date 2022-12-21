@@ -2,11 +2,11 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-historia',
-  templateUrl: './historia.component.html',
-  styleUrls: ['./historia.component.css']
+  selector: 'app-poa',
+  templateUrl: './poa.component.html',
+  styleUrls: ['./poa.component.css']
 })
-export class HistoriaComponent implements OnInit {
+export class PoaComponent implements OnInit {
 
   constructor(private location: Location) { }
 
@@ -16,4 +16,5 @@ export class HistoriaComponent implements OnInit {
   goBack(){
     this.location.back();
   }
+
 }

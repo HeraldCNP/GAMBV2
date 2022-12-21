@@ -26,7 +26,7 @@ export class PostUpdateComponent implements OnInit {
       body : new FormControl('', Validators.required),
       iframe : new FormControl(''),
       category : new FormControl('', Validators.required),
-      image: new FormControl('')
+      // image: new FormControl('')
   })
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class PostUpdateComponent implements OnInit {
         'body': this.datosPost.body,
         'iframe': this.datosPost.iframe,
         'category': this.datosPost.category,
-        'image': this.datosPost.uri,
+        // 'image': this.datosPost.uri,
       });
       
     })

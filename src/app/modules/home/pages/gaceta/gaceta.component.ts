@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HomeService } from '../../services/home.service';
@@ -11,11 +12,19 @@ export class GacetaComponent implements OnInit {
   gacetas: any = [];
   gacetasTemp: any = [];
   URL = environment.api;
-  constructor(private api: HomeService) { }
+  constructor(
+    private api: HomeService,
+    private location: Location
+    ) { }
 
   ngOnInit(): void {
     this.getGacetas()
   }
+
+  goBack(){
+    this.location.back();
+  }
+
 
   getGacetas(){
     this.api.getAllGacetas().subscribe
