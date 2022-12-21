@@ -18,7 +18,7 @@ export class HomeService {
   }
 
   getAllPosts():Observable<any[]>{
-    let dir = `${this.URL}/blogs?limit=3`;
+    let dir = `${this.URL}/blogs?limit=3&status=true`;
     console.log(dir)
     return this.http.get<any[]>(dir)
   }

@@ -14,18 +14,21 @@ import { Editor, Toolbar } from 'ngx-editor';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit {
+  idUser: any;
+  user: any;
+  data: any;
   postForm: FormGroup = new FormGroup({});
-  files:any = [];
-  categories:any = [];
+  files: any = [];
+  categories: any = [];
   URL = environment.api;
   progress: number = 0;
-  urlYoutube:string = "https://www.youtube.com/embed/";
+  urlYoutube: string = "https://www.youtube.com/embed/";
   constructor(
     private api: BlogService,
     private router: Router
   ) { }
 
-  editor:any = Editor;
+  editor: any = Editor;
 
   toolbar: Toolbar = [
     ['bold', 'italic'],
@@ -37,11 +40,14 @@ export class PostCreateComponent implements OnInit {
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
-  placeholder:string = '';
+  placeholder: string = '';
 
   ngOnInit(): void {
+    this.user = localStorage.getItem("user");
+    this.data = JSON.parse(this.user)
+    this.idUser = this.data.id;
     this.createform(),
-    this.getCategories()
+      this.getCategories()
     this.editor = new Editor();
   }
 
@@ -50,13 +56,13 @@ export class PostCreateComponent implements OnInit {
     this.editor.destroy();
   }
 
-  createform(){
+  createform() {
     this.postForm = new FormGroup({
-      title : new FormControl('', [Validators.required, Validators.minLength(6)]),
-      subtitle : new FormControl('', [Validators.required, Validators.minLength(6)]),
-      body : new FormControl('', [Validators.required, Validators.minLength(15)]),
-      iframe : new FormControl('', [Validators.minLength(5)]),
-      category : new FormControl('', Validators.required),
+      title: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      subtitle: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      body: new FormControl('', [Validators.required, Validators.minLength(15)]),
+      iframe: new FormControl('', [Validators.minLength(5)]),
+      category: new FormControl('', Validators.required),
       image: new FormControl('', Validators.required)
     })
   }
@@ -64,55 +70,70 @@ export class PostCreateComponent implements OnInit {
   get form() {
     return this.postForm.controls;
   }
-  
-  getCategories(){
+
+  getCategories() {
     this.api.getAllCategories().subscribe
-    (res => {
-      this.categories = res; 
-      // console.log(res);
-    });
+      (res => {
+        this.categories = res;
+        // console.log(res);
+      });
   }
 
-  onChange($event:any) {
+  onChange($event: any) {
     this.files = $event.target.files;
   }
 
-  sendFormPost(){
+  sendFormPost() {
     // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
-    
+
     let fd = new FormData();
-    for (let index = 0; index < this.files.length; index++) {
-      const element = this.files[index];
-      fd.append('images', element);
+
+
+    if (this.postForm.value.iframe) {
+      for (let index = 0; index < this.files.length; index++) {
+        const element = this.files[index];
+        fd.append('images', element);
+      }
+      fd.append('title', this.postForm.value.title);
+      fd.append('subtitle', this.postForm.value.subtitle);
+      fd.append('body', this.postForm.value.body);
+      fd.append('iframe', this.urlYoutube + this.postForm.value.iframe);
+      fd.append('category', this.postForm.value.category);
+      fd.append('user', this.idUser);
+    } else {
+      for (let index = 0; index < this.files.length; index++) {
+        const element = this.files[index];
+        fd.append('images', element);
+      }
+      fd.append('title', this.postForm.value.title);
+      fd.append('subtitle', this.postForm.value.subtitle);
+      fd.append('body', this.postForm.value.body);
+      fd.append('category', this.postForm.value.category);
+      fd.append('user', this.idUser);
     }
 
 
-    fd.append('title', this.postForm.value.title);
-    fd.append('subtitle', this.postForm.value.subtitle);
-    fd.append('body', this.postForm.value.body);
-    fd.append('iframe', this.urlYoutube+this.postForm.value.iframe);
-    fd.append('category', this.postForm.value.category);
-    console.log(fd.get('images')?.valueOf())
+
     this.api.registerPost(fd).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
       }
     },
-    err => {
-      console.log('HTTP Error', err)
-      this.progress = 0;
-    },
-    () => {
-            this.progress = 0;
-            this.router.navigate(['blog/post/index']),
-            this.alertOk('success', 'Exito', 'Post Creado Correctamente', '2000')
-          }
+      err => {
+        console.log('HTTP Error', err)
+        this.progress = 0;
+      },
+      () => {
+        this.progress = 0;
+        this.router.navigate(['blog/post/index']),
+          this.alertOk('success', 'Exito', 'Post Creado Correctamente', '2000')
+      }
     )
   }
 
 
 
-  alertOk(icon:any, title:any, text:any, timer:any){
+  alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({
       icon,
       title,

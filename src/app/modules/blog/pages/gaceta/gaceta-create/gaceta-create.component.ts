@@ -48,9 +48,6 @@ export class GacetaCreateComponent implements OnInit {
    ]
 } 
 
-
-
-
   constructor(
     private api: BlogService,
     private router: Router
