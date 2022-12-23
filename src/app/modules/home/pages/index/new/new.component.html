@@ -9,35 +9,39 @@
             </div>
         </div>
         <div class="row animated fadeIn">
-            <div *ngFor="let post of posts.serverResponse" class="col-lg-4 col-md-6">
-                <div class="single-blog">
-                    <div class="ratio ratio-16x9" *ngIf="post.iframe">
-                        <!-- <div class="fb-video" [attr.data-href]="post.iframe" data-width="500"
-                            data-allowfullscreen="true"></div> -->
-                            <iframe width="560" height="315" [attr.src]="post.iframe | domseguro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
-                    </div>
-                    <div class="blog-photo" *ngIf="!post.iframe">
-                        <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
-                            src="{{ URL+'/'+post.imgs[0].uri }}" alt="{{ post.imgs[0].title }}" /></a>
-                        <!-- <div *ngFor="let image of post.imgs">
-                            <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
-                                src="{{ URL+'/'+image.uri }}" alt="{{ image.title }}" /></a>
-                        </div> -->
 
-                        <div class="blog-post-date">
-                            <span>{{ post.createdAt | date:'longDate' }}</span>
-                            <span>{{ post.category }}</span>
+            <div *ngFor="let post of posts.serverResponse" class="col-md-4">
+                <div class="card shadow rounded">
+                    <div class="single-blog">
+                        <div class="ratio ratio-16x9" *ngIf="post.iframe">
+                            <!-- <div class="fb-video" [attr.data-href]="post.iframe" data-width="500"
+                                data-allowfullscreen="true"></div> -->
+                                <iframe width="560" height="315" [attr.src]="post.iframe | domseguro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+                        </div>
+                        <div class="blog-photo" *ngIf="!post.iframe">
+                            <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
+                                src="{{ URL+'/'+post.imgs[0].uri }}" alt="{{ post.imgs[0].title }}" /></a>
+                            <!-- <div *ngFor="let image of post.imgs">
+                                <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
+                                    src="{{ URL+'/'+image.uri }}" alt="{{ image.title }}" /></a>
+                            </div> -->
+    
+                            <div class="blog-post-date">
+                                <span>{{ post.createdAt | date:'longDate' }}</span>
+                                <span>{{ post.category }}</span>
+                            </div>
+                        </div>
+                        <div class="blog-brief">
+                            <h5>{{ post.title | slice:0:80 }}</h5>
+                            <p>{{ post.subtitle | slice:0:200 }}...</p>
+                            <!-- <div class="like-comment">
+                                <a href="#"><i class="sp-comment"></i>60 comment</a>
+                            </div> -->
+                            <a class="shop-now" [routerLink]="['/post', post.slug]">Leer Más</a>
                         </div>
                     </div>
-                    <div class="blog-brief">
-                        <h5>{{ post.title | slice:0:80 }}</h5>
-                        <p>{{ post.subtitle | slice:0:200 }}...</p>
-                        <!-- <div class="like-comment">
-                            <a href="#"><i class="sp-comment"></i>60 comment</a>
-                        </div> -->
-                        <a class="shop-now" [routerLink]="['/post', post._id]">Leer Más</a>
-                    </div>
                 </div>
+
             </div>
             
         </div>

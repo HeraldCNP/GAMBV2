@@ -20,6 +20,7 @@ export class AsideComponent implements OnInit {
     });
     this.api.getAllPosts().subscribe(res => {
       this.posts = res;
+      console.log(this.posts)
     });
   }
 

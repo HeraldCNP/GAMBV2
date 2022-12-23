@@ -17,11 +17,14 @@ export class PostComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getNoticia()
+  }
+  getNoticia(){
     this.postId = this.activeRouter.snapshot.paramMap.get('id');
     this.api.getSinglePost(this.postId).subscribe(data => {
       this.post = data.serverResponse;
-      console.log(data.serverResponse);
+      // console.log(data.serverResponse);
+      this.getNoticia()
     })
   }
-
 }
