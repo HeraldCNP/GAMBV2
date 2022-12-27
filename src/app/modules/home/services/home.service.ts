@@ -33,6 +33,12 @@ export class HomeService {
     return this.http.get<any[]>(dir)
   }
 
+  getNoticias(name:any):Observable<any[]>{
+    let dir = `${this.URL}/blogs?category=${name}`;
+    return this.http.get<any[]>(dir)
+  }
+
+
   getAllGacetas():Observable<any[]>{
     let dir = `${this.URL}/gacetas?estado=true`;
     // console.log(dir)
@@ -50,6 +56,7 @@ export class HomeService {
     // console.log(dir)
     return this.http.get<any[]>(dir)
   }
+
 
 
 }

@@ -19,7 +19,7 @@
                                 <iframe width="560" height="315" [attr.src]="post.iframe | domseguro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
                         </div>
                         <div class="blog-photo" *ngIf="!post.iframe">
-                            <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img
+                            <a [routerLink]="['/post', post.slug]" class="img-fluid" href="#"><img
                                 src="{{ URL+'/'+post.imgs[0].uri }}" alt="{{ post.imgs[0].title }}" /></a>
                             <!-- <div *ngFor="let image of post.imgs">
                                 <a [routerLink]="['/post', post._id]" class="img-fluid" href="#"><img

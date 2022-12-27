@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from '../../services/home.service';
 import { environment } from '../../../../../environments/environment';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -15,16 +16,17 @@ export class PostComponent implements OnInit {
   URL = environment.api;
   constructor(private activeRouter: ActivatedRoute, private router: Router, private api:HomeService) { }
 
-
   ngOnInit(): void {
-    this.getNoticia()
-  }
-  getNoticia(){
-    this.postId = this.activeRouter.snapshot.paramMap.get('id');
-    this.api.getSinglePost(this.postId).subscribe(data => {
-      this.post = data.serverResponse;
-      // console.log(data.serverResponse);
-      this.getNoticia()
+
+    this.activeRouter.params
+    .pipe(
+      switchMap( ({ id }) => this.api.getSinglePost( id ) )
+    )
+    .subscribe( resp => {
+      this.post = resp.serverResponse;
+      console.log(resp)
     })
   }
+  
+
 }
