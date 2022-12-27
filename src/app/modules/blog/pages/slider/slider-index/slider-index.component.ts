@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../../services/blog.service';
-import { ListSliderI } from '../../../models/listSlider.interface';
 import { environment } from '../../../../../../environments/environment';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./slider-index.component.css']
 })
 export class SliderIndexComponent implements OnInit {
-  sliders:ListSliderI[] = [];
+  sliders:any = [];
   URL = environment.api;
   
   status =  false;
@@ -29,7 +28,24 @@ export class SliderIndexComponent implements OnInit {
   getSlider(){
     this.api.getAllSliders().subscribe(res => {
       this.sliders = res;
+      // console.log(this.sliders)
     });
+  }
+
+  changeStatus(id:any, estado:any){
+    let fd = new FormData();
+    fd.append('estado', estado);
+    // console.log(estado)
+    this.api.changeEstadoSlider(id, fd)
+      .subscribe(
+        res => {
+          // console.log(res)
+        },
+        err => console.log('HTTP Error', err),
+        () => {
+          this.getSlider();
+        }
+      );
   }
   
   editSlider(id:any){

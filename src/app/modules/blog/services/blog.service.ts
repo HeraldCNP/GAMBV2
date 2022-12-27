@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { ListSliderI } from '../models/listSlider.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +12,9 @@ export class BlogService {
   
   constructor(private http:HttpClient) { }
   /*Servicios para Slider*/
-  getAllSliders():Observable<ListSliderI[]>{
+  getAllSliders():Observable<any[]>{
     let dir = `${this.URL}/slaider`;
-    return this.http.get<ListSliderI[]>(dir)
+    return this.http.get<any[]>(dir)
   }
 
   sendSlider(fd: FormData):Observable<any>{
@@ -36,6 +35,12 @@ export class BlogService {
   deleteSlider(id:any):Observable<any>{
     let dir = `${this.URL}/slaider/${id}`;
     return this.http.delete<any>(dir, id)
+  }
+
+  changeEstadoSlider(id:any, fd: FormData):Observable<any>{
+    let dir = `${this.URL}/slaider/${id}`;
+    console.log(dir)
+    return this.http.put<any>(dir, fd)
   }
   /*Finish Servicios para Slider*/
 

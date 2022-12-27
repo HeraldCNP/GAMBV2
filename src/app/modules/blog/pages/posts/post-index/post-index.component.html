@@ -39,12 +39,12 @@
                       <div class="form-check form-switch">
                         <span *ngIf="post.status == '1'">
                           <input class="form-check-input pointer" (change)="changeStatus(post._id, !post.status)"
-                            type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Vigente
+                            type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Publicado
   
                         </span>
                         <span *ngIf="post.status == '0'">
                           <input class="form-check-input pointer" (change)="changeStatus(post._id, !post.status)"
-                            type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Abrogada
+                            type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Reservado
                         </span>
                       </div>
                     </td>

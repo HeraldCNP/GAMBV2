@@ -1,14 +1,21 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Lobster&display=swap');
+
+.sliderText {
+    font-family: 'Exo 2', sans-serif
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-#container-slider
-{
+
+#container-slider {
     position: relative;
     display: block;
     width: 100%;
 }
+
 #slider {
     position: relative;
     display: block;
@@ -16,6 +23,7 @@
     height: 93vh;
     min-height: 500px;
 }
+
 #slider li {
     background-repeat: no-repeat;
     background-size: cover;
@@ -34,46 +42,61 @@
     z-index: -1;
     opacity: 0;
 }
-#container-slider .arrowPrev, #container-slider .arrowNext{
+
+#container-slider .arrowPrev,
+#container-slider .arrowNext {
     font-size: 30pt;
     color: rgba(204, 204, 204, 0.65);
     cursor: pointer;
     position: absolute;
     top: 50%;
     left: 50px;
-    z-index: 2; 
+    z-index: 2;
 }
+
 #container-slider .arrowNext {
     left: initial;
     right: 50px !important;
 }
-.content_slider{
+
+.content_slider {
     padding: 15px 30px;
     color: #FFF;
     width: 100%;
     height: 100%;
 }
-.content_slider div{
+
+.content_slider div {
     text-align: center;
 }
-.content_slider h2{
-    font-family: 'arial';
+
+.content_slider h2 {
     font-size: 30pt;
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: 20px;
+    text-shadow: -1px 1px 0 rgba(0, 0, 0, 0.432),
+        1px 1px 0 rgba(0, 0, 0, 0.432),
+        1px -1px 0 rgba(0, 0, 0, 0.432),
+        -1px -1px 0 rgba(0, 0, 0, 0.432);
 }
+
 .content_slider p {
     font-size: 15pt;
-    font-family: 'arial';
     color: #FFF;
     margin-bottom: 20px;
+    text-shadow: -1px 1px 0 rgba(0, 0, 0, 0.432),
+        1px 1px 0 rgba(0, 0, 0, 0.432),
+        1px -1px 0 rgba(0, 0, 0, 0.432),
+        -1px -1px 0 rgba(0, 0, 0, 0.432);
 }
-#slider li .content_slider{
+
+#slider li .content_slider {
     background: rgba(0, 0, 0, 0.10);
     padding: 10px 125px;
 }
-.content_slider{
+
+.content_slider {
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -82,7 +105,8 @@
     justify-content: center;
     align-items: center;
 }
-.btnSlider{
+
+.btnSlider {
     color: #FFF;
     font-size: 15pt;
     font-family: 'arial';
@@ -94,10 +118,12 @@
     text-decoration: none;
     transition: .5s all;
 }
-.btnSlider:hover{
+
+.btnSlider:hover {
     background: #111;
     border: 1px solid #111;
 }
+
 .listslider {
     position: absolute;
     display: -webkit-flex;
@@ -113,6 +139,7 @@
     z-index: 2;
     transform: translateX(-50%);
 }
+
 .listslider li {
     border-radius: 50%;
     width: 10px;
@@ -120,6 +147,7 @@
     cursor: pointer;
     margin: 0 5px;
 }
+
 .listslider li a {
     background: #CCC;
     border-radius: 50%;
@@ -127,35 +155,44 @@
     height: 100%;
     display: block;
 }
+
 .item-select-slid {
-    background: #FFF  !important;
+    background: #FFF !important;
 }
 
-@media screen and (max-width: 460px){
-	.content_slider h2 {
-	    font-size: 15pt !important;
-	}
-	.content_slider p {
-	    font-size: 12pt !important;
-	}
-	#container-slider .arrowPrev, #container-slider .arrowNext{
-		font-size: 20pt;
-	}
-	#container-slider .arrowPrev{
-		left: 15px;
-	}
-	#container-slider .arrowNext{
-		right: 15px !important;
-	}
-	#slider{
-		height: 400px;
-		min-height: 400px;
-	}
-	#slider li .content_slider{
-		padding: 10px 35px;
-	}
-	.btnSlider{
-		padding: 10px 30px;
-    	font-size: 10pt;
-	}
+@media screen and (max-width: 460px) {
+    .content_slider h2 {
+        font-size: 15pt !important;
+    }
+
+    .content_slider p {
+        font-size: 12pt !important;
+    }
+
+    #container-slider .arrowPrev,
+    #container-slider .arrowNext {
+        font-size: 20pt;
+    }
+
+    #container-slider .arrowPrev {
+        left: 15px;
+    }
+
+    #container-slider .arrowNext {
+        right: 15px !important;
+    }
+
+    #slider {
+        height: 400px;
+        min-height: 400px;
+    }
+
+    #slider li .content_slider {
+        padding: 10px 35px;
+    }
+
+    .btnSlider {
+        padding: 10px 30px;
+        font-size: 10pt;
+    }
 }

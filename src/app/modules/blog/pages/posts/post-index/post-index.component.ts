@@ -38,11 +38,11 @@ export class PostIndexComponent implements OnInit {
   changeStatus(id:any, estado:any){
     let fd = new FormData();
     fd.append('status', estado);
-    console.log(estado)
+    // console.log(estado)
     this.api.changeEstado(id, fd)
       .subscribe(
         res => {
-          console.log(res)
+          // console.log(res)
         },
         err => console.log('HTTP Error', err),
         () => {

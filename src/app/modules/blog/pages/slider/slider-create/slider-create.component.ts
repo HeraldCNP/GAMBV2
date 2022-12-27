@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BlogService } from '../../../services/blog.service';
-import { ListSliderI } from '../../../models/listSlider.interface';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 

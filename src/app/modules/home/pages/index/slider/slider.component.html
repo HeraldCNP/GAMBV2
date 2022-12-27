@@ -3,24 +3,24 @@
   <a href="javascript: funcionEjecutar('siguiente');" class="arrowNext"><i class="fas fa-chevron-circle-right"></i></a>
   <ul class="listslider">
     <li><a itlist="itList_0" href="#" class="item-select-slid"></a></li>
-    <li *ngFor="let slider of sliders"><a itlist="itList_1" href="#"></a></li>
+    <li *ngFor="let slider of sliders.serverResponse"><a itlist="itList_1" href="#"></a></li>
   </ul>
   <ul id="slider">
 
     <li style="background-image: url('assets/img/slider/gamb.jpg'); z-index:0; opacity: 1;">
       <div class="content_slider" >
         <div>
-          <h2>Gobierno Autónomo Municipal de Betanzos</h2>
-          <p>Edificio Central</p>
+          <h2 class="sliderText">Gobierno Autónomo Municipal de Betanzos</h2>
+          <p class="sliderText">Edificio Central</p>
         </div>
       </div>
     </li>
     
-    <li *ngFor="let slider of sliders" style="background-image: url('{{ URL+'/'+slider.urislaider }}');">
+    <li *ngFor="let slider of sliders.serverResponse" style="background-image: url('{{ URL+'/'+slider.urislaider }}');">
       <div class="content_slider" >
         <div>
-          <h2>{{ slider.titulo }}</h2>
-          <p>{{ slider.detalle }}</p>
+          <h2 class="sliderText">{{ slider.titulo }}</h2>
+          <p class="sliderText">{{ slider.detalle }}</p>
         </div>
       </div>
     </li>

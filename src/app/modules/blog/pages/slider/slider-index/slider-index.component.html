@@ -31,21 +31,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let slider of sliders">
+                  <tr *ngFor="let slider of sliders.serverResponse; let i = index">
                     <td>{{ slider.titulo }}</td>
                     <td>{{ slider.detalle }}</td>
-                    <td><span class="tag tag-success">{{ slider.estado }}</span>
-                      <div class="form-group">
-                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                          <input type="checkbox"
-                              class="custom-control-input"
-                              id="customSwitch3"
-                              name="status"
-                              [(ngModel)]="status"
-                              [checked]="status"
-                          >
-                          <label class="custom-control-label" for="customSwitch3">{{ status ? "si" : "no" }}</label>
-                        </div>
+                    <td>
+                      <div class="form-check form-switch">
+                        <span *ngIf="slider.estado == '1'">
+                          <input class="form-check-input pointer" (change)="changeStatus(slider._id, !slider.estado)"
+                            type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Publicado
+  
+                        </span>
+                        <span *ngIf="slider.estado == '0'">
+                          <input class="form-check-input pointer" (change)="changeStatus(slider._id, !slider.estado)"
+                            type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Reservado
+                        </span>
                       </div>
                     </td>
                     <td><img width="70px" src="{{ URL+'/'+slider.urislaider }}" alt=""></td>

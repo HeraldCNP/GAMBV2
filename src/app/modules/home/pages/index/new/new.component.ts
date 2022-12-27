@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NewComponent implements OnInit {
   posts:any  = [];
+
   URL = environment.api;
   constructor(
     private api: HomeService,
@@ -19,7 +20,7 @@ export class NewComponent implements OnInit {
   ngOnInit(): void {
     this.api.getAllPosts().subscribe(res => {
       this.posts = res;
-      console.log(res)
+      console.log(this.posts)
     });
     
   }

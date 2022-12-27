@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ListSliderI } from '../../blog/models/listSlider.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,9 +11,9 @@ export class HomeService {
 
   constructor(private http: HttpClient) { }
 
-  getAllSliders():Observable<ListSliderI[]>{
+  getAllSliders():Observable<any[]>{
     let dir = `${this.URL}/slaider`;
-    return this.http.get<ListSliderI[]>(dir)
+    return this.http.get<any[]>(dir)
   }
 
   getAllPosts():Observable<any[]>{

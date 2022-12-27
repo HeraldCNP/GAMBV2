@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ListSliderI } from '../../../../blog/models/listSlider.interface';
 import { HomeService } from '../../../services/home.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { HomeService } from '../../../services/home.service';
 })
 export class SliderComponent implements OnInit, OnDestroy {
   timerId:any;
-  sliders:ListSliderI[] = [];
+  sliders:any = [];
   URL = environment.api;
 
   constructor(private api: HomeService) {
@@ -22,6 +21,7 @@ export class SliderComponent implements OnInit, OnDestroy {
     }
     this.api.getAllSliders().subscribe(res => {
       this.sliders = res;
+      console.log(this.sliders)
     });
   }
   ngOnDestroy():void{

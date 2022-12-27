@@ -31,7 +31,7 @@
                                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="contenedor" *ngFor="let img of post.imgs; first as isFirst">
-                                            <div class="carousel-item"  [ngClass]="isFirst ? 'active' : ''" >
+                                            <div class="carousel-item" data-bs-interval="3000"  [ngClass]="isFirst ? 'active' : ''" >
                                                 <img class="img-fluid" src="{{ URL+'/'+img.uri }}" alt="" />
                                               </div>
                                         </div>
