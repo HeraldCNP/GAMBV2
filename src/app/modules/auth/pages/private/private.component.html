@@ -25,10 +25,10 @@
           </div>
         </div>
         <div class="contenedor-card-item" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN' )
+        (data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )
       ">
           <div class="card-header">
-            <h2>Sistema Blog</h2>
+            <h2>Sistema Noticias</h2>
           </div>
           <div class="contenedor-card-item-wrapper">
             <a routerLink="/blog">
