@@ -29,6 +29,7 @@
                     <th>Cuerpo</th>
                     <th>Iframe</th>
                     <th>Categoria</th>
+                    <th>Fecha</th>
                     <th>Imagenes</th>
                     <th>Acciones</th>
                   </tr>
@@ -53,6 +54,7 @@
                     <td>{{ post.body | slice:0:20 }}...</td>
                     <td>{{ post.iframe | slice:0:20 }}</td>
                     <td>{{ post.category }}</td>
+                    <td>{{ post.fecha | date:'shortDate': 'UTC' }}</td>
                     <!-- <td><img width="70px" src="{{ URL+'/'+post.uri }}" alt=""></td> -->
                     <td>{{ post.imgs.length }} </td>
                     <td>

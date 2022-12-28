@@ -47,7 +47,7 @@
                                   </div>
                                 <!-- <img class="img-fluid" src="{{ URL+'/'+post.uri }}" alt="" /> -->
                                 <div class="blog-post-date">
-                                    <span>{{ post.createdAt | date:'longDate' }}</span>
+                                    <span>{{ post.fecha | date:'longDate': 'UTC' }}</span>
                                     <span>{{ post.category }}</span>
                                 </div>
                             </div>

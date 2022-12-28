@@ -13,17 +13,24 @@ import { HomeService } from '../../services/home.service';
 export class CategoryComponent implements OnInit {
   URL = environment.api;
   categoryName: any;
-  posts:any; 
+  posts:any = []; 
   constructor(private activeRouter: ActivatedRoute, private router: Router, private api:HomeService) { }
 
   ngOnInit(): void {
+    // this.activeRouter.params
+    // .pipe(
+    //   switchMap( ({ name }) => this.api.getNoticias( name ) )
+    // )
+    // .subscribe(resp => {
+    //   this.posts = resp
+    // })
     this.activeRouter.params
-    .pipe(
-      switchMap( ({ name }) => this.api.getNoticias( name ) )
-    )
-    .subscribe(resp => {
-      this.posts = resp
-      console.log(resp)
+    .subscribe( ({ name }) => {
+      this.categoryName = name;
+      this.api.getNoticias(name)
+      .subscribe(resp => {
+        this.posts = resp
+      })
     })
   }
 

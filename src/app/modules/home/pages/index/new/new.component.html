@@ -27,7 +27,7 @@
                             </div> -->
     
                             <div class="blog-post-date">
-                                <span>{{ post.createdAt | date:'longDate' }}</span>
+                                <span>{{ post.fecha | date:'longDate': 'UTC' }}</span>
                                 <span>{{ post.category }}</span>
                             </div>
                         </div>

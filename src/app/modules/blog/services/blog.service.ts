@@ -65,7 +65,7 @@ export class BlogService {
   }
 
   getSinglePost(id:any):Observable<any>{
-    let dir = `${this.URL}/blog/${id}`;
+    let dir = `${this.URL}/blogid/${id}`;
     return this.http.get<any>(dir)
   }
 
@@ -74,6 +74,10 @@ export class BlogService {
     return this.http.post<any>(dir, fd)
   }
 
+  deleteImage(id:any):Observable<any>{
+    let dir = `${this.URL}/imgpost/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
 
 
   deletePost(id:any):Observable<any>{

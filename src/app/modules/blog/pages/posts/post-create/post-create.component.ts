@@ -63,6 +63,7 @@ export class PostCreateComponent implements OnInit {
       body: new FormControl('', [Validators.required, Validators.minLength(15)]),
       iframe: new FormControl('', [Validators.minLength(5)]),
       category: new FormControl('', Validators.required),
+      fecha: new FormControl('', Validators.required),
       image: new FormControl('', Validators.required)
     })
   }
@@ -99,6 +100,7 @@ export class PostCreateComponent implements OnInit {
       fd.append('body', this.postForm.value.body);
       fd.append('iframe', this.urlYoutube + this.postForm.value.iframe);
       fd.append('category', this.postForm.value.category);
+      fd.append('fecha', this.postForm.value.fecha);
       fd.append('user', this.idUser);
     } else {
       for (let index = 0; index < this.files.length; index++) {
@@ -109,6 +111,7 @@ export class PostCreateComponent implements OnInit {
       fd.append('subtitle', this.postForm.value.subtitle);
       fd.append('body', this.postForm.value.body);
       fd.append('category', this.postForm.value.category);
+      fd.append('fecha', this.postForm.value.fecha);
       fd.append('user', this.idUser);
     }
 

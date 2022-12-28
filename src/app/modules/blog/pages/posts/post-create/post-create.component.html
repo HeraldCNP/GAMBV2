@@ -13,7 +13,7 @@
             <div class="col-md">
               <form (ngSubmit)="sendFormPost()" [formGroup]="postForm">
                 <div class="mb-2">
-                  <label for="title" class="form-label">Titulo</label>
+                  <label for="title" class="form-label">Titulo *</label>
                   <input type="text" class="form-control" id="title" formControlName="title">
                   <div class="form-text" *ngIf="form['title'].touched && form['title'].invalid">
                     <div *ngIf="form['title'].errors && form['title'].errors['required']">* Titulo
@@ -23,7 +23,7 @@
                   </div>
                 </div>
                 <div class="mb-2">
-                  <label for="subtitle" class="form-label">Subtitulo</label>
+                  <label for="subtitle" class="form-label">Subtitulo *</label>
                   <input type="text" class="form-control" id="subtitle" formControlName="subtitle">
                   <div class="form-text" *ngIf="form['subtitle'].touched && form['subtitle'].invalid">
                     <div *ngIf="form['subtitle'].errors && form['subtitle'].errors['required']">* Subtitulo
@@ -33,7 +33,7 @@
                   </div>
                 </div>
                 <div class="mb-2">
-                  <label for="body" class="form-label">Cuerpo</label>
+                  <label for="body" class="form-label">Cuerpo *</label>
                   <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [disabled]="false"> </ngx-editor-menu>
                   <ngx-editor [editor]="editor" formControlName="body"></ngx-editor>
                   <div class="form-text" *ngIf="form['body'].touched && form['body'].invalid">
@@ -46,8 +46,7 @@
                 </div>
                 <div class="mb-2">
                   <label for="iframe" class="form-label">Iframe</label>
-                  <textarea class="form-control" name="iframe" id="iframe" cols="30" rows="3"
-                    formControlName="iframe"></textarea>
+                  <input type="text" class="form-control" name="iframe" id="iframe" formControlName="iframe">
                   <div class="form-text" *ngIf="form['iframe'].touched && form['iframe'].invalid">
                     <div *ngIf="form['iframe'].errors && form['iframe'].errors['required']">* Iframe
                       es Requerido.</div>
@@ -56,7 +55,7 @@
                   </div>
                 </div>
                 <div class="mb-2">
-                  <label for="category" class="form-label">Categoria</label>
+                  <label for="category" class="form-label">Categoria *</label>
                   <select class="form-control" name="category" id="" formControlName="category">
                     <option value="">Escoja la Categoria</option>
                     <option *ngFor="let category of categories.serverResponse" value="{{ category.category}}">{{
@@ -69,8 +68,20 @@
                       no puede tener menos de 15 caracteres.</div>
                   </div>
                 </div>
+                <div class="mb-1">
+                  <label for="fecha" class="form-label">Fecha *</label>
+                  <input type="date" class="form-control" id="fecha" formControlName="fecha"
+                      required>
+                  <div class="form-text"
+                      *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">*
+                          El fecha es requerido.</div>
+                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['minlength']">
+                          El detalle no puede tener menos de 3 caracteres.</div>
+                  </div>
+              </div>
                 <div class="mb-2">
-                  <label for="image" class="form-label">Detalle</label>
+                  <label for="image" class="form-label">Imagenes</label>
                   <input class="form-control" id="image" type="file" name="image" id="image" accept="image/*"
                     formControlName="image" (change)="onChange($event)" multiple>
                   <div class="form-text" *ngIf="form['image'].touched && form['image'].invalid">
