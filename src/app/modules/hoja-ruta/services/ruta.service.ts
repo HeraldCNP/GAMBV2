@@ -79,8 +79,9 @@ export class RutaService {
     return this.http.get(this.URL + '/seguias/' + nuit);
   }
 
-  getAllHojaRuta(nuit?:string, origen?:string, limit?:number, skip?:number, order?:string): Observable<any> {
-    let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&limit=${limit}&skip=${skip}`;
+  getAllHojaRuta(nuit?:string, origen?:string, dategt?:any,datelt?:any, limit?:number, skip?:number, order?:string): Observable<any> {
+    let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&dategt=${dategt}&datelt=${datelt}&limit=${limit}&skip=${skip}`;
+    console.log(dir)
     return this.http.get<any>(dir)
   }
 
