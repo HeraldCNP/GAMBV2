@@ -22,6 +22,7 @@ export class HojarutasComponent implements OnInit {
   nuit: string = "";
   origen: any = "";
   year:any=this.today.getFullYear()
+  campo:any = this.year;
   dategt:any = this.year;
   datelt:any=this.dategt+1;
   referencia: string = "";
@@ -58,7 +59,6 @@ export class HojarutasComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.today.getUTCFullYear())
     this.search=" "
     this.user = localStorage.getItem("user");
     this.data = JSON.parse(this.user)
@@ -93,19 +93,24 @@ export class HojarutasComponent implements OnInit {
   }
   
   getHojaRutas() {
-    if(this.dategt==this.year-1){
-      this.dategt=this.dategt-1
-      this.datelt=this.datelt-1
+    this.campo=parseInt(this.campo)
+    if(this.campo==this.year-1){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1; 
+    }else if(this.campo==this.year){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1;
+    }else{
+      this.dategt=this.campo;
+      this.datelt=this.year+1;
     }
-    console.log(this.dategt)
+    console.log(this.campo)
     this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(
       data => {
         this.cant=data.totalDocs
         this.hojaRutas = data.serverResponse;
         this.totalPages = data.totalpage;
         this.search=" ";
-        this.dategt = this.year;
-        this.datelt=this.dategt+1;
       }
     )
   }
@@ -140,8 +145,7 @@ export class HojarutasComponent implements OnInit {
             search=" ";
           }
         )
-      }
-     
+      }  
     });
   }
 

@@ -36,6 +36,10 @@ export class ReportesComponent implements OnInit {
   cargo: string="";
   post: string="";
   usuario: string="";
+  today = new Date();
+  year:any=this.today.getFullYear()
+  dategt:any = this.year;
+  datelt:any=this.dategt+1;
   constructor(private api: RutaService, private apiUs: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -53,6 +57,8 @@ export class ReportesComponent implements OnInit {
       .getAllSeguimientos(
         this.destino,
         this.estado,
+        this.dategt,
+        this.datelt,
         this.limit,
         this.skip,
         this.nuit
