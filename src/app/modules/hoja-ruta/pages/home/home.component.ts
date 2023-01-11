@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   nuit: string = '';
   origen: any = "";
   order: string = '';
+  today = new Date();
   /*end variables de consulta*/
   /* contadores */
   total: number = 0;
@@ -34,6 +35,9 @@ export class HomeComponent implements OnInit {
   canten:number = 0;
   cantre:number = 0;
   cantrec:number = 0;
+  year:any=this.today.getFullYear()
+  dategt:any = this.year;
+  datelt:any=this.dategt+1;
   /*end contadores */
   constructor(private api: RutaService) {}
 
@@ -48,7 +52,7 @@ export class HomeComponent implements OnInit {
     let RegExp = /[^()]*/g;
     this.destino1 = this.data.post;
     this.destino = RegExp.exec(this.destino1);
-    this.api.getTotalSeguimientos(this.destino, this.estado).subscribe(
+    this.api.getTotalSeguimientos(this.destino, this.estado, this.dategt, this.datelt).subscribe(
       (data) => {
         // this.loading = false;
         this.totales = data.serverResponse;
@@ -76,7 +80,7 @@ export class HomeComponent implements OnInit {
   }
 
   getHojas() {
-    this.api.getAllHojaRuta(this.nuit, this.origen, this.limit, this.skip).subscribe(data => {
+    this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(data => {
       this.hojaRutas = data.serverResponse;
       this.totalDocs=data.totalDocs;
       this.cantre = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'REGISTRADO').length;

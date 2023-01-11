@@ -17,9 +17,14 @@ export class HojarutasComponent implements OnInit {
   hojaRutas: any[] = [];
   hojaRuta: any = [];
   seguim: any = [];
+  today = new Date();
   /*variables de consulta*/   
   nuit: string = "";
   origen: any = "";
+  year:any=this.today.getFullYear()
+  campo:any = this.year;
+  dategt:any = this.year;
+  datelt:any=this.dategt+1;
   referencia: string = "";
   public search: string = "";
   limit: number = 10;
@@ -38,7 +43,6 @@ export class HojarutasComponent implements OnInit {
   totalh: string = '';
   /*end variables de registro*/
   idhr:string=""
-  today = new Date();
   aso: any = [];
   lisaso: string = ' ';
   constructor(private api: RutaService,
@@ -63,8 +67,10 @@ export class HojarutasComponent implements OnInit {
   }
 
   registerHojas() {
+    let finyear=this.year.toString().slice(-2)
+    console.log(finyear)
     this.cant = this.cant + 1;
-    this.totalh = this.cant + '-22';
+    this.totalh = this.cant +"-" +finyear;
     const HOJA: Hojaruta = {
       origen: this.hojaForm.get('origen')?.value,
       tipodoc: this.hojaForm.get('tipodoc')?.value,
@@ -87,7 +93,19 @@ export class HojarutasComponent implements OnInit {
   }
   
   getHojaRutas() {
-    this.api.getAllHojaRuta(this.nuit, this.origen, this.limit, this.skip).subscribe(
+    this.campo=parseInt(this.campo)
+    if(this.campo==this.year-1){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1; 
+    }else if(this.campo==this.year){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1;
+    }else{
+      this.dategt=this.campo;
+      this.datelt=this.year+1;
+    }
+    console.log(this.campo)
+    this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(
       data => {
         this.cant=data.totalDocs
         this.hojaRutas = data.serverResponse;
@@ -127,8 +145,7 @@ export class HojarutasComponent implements OnInit {
             search=" ";
           }
         )
-      }
-     
+      }  
     });
   }
 

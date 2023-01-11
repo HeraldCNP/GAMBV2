@@ -66,6 +66,10 @@ export class OfficeIndexComponent implements OnInit {
   totales1: Segui[] = [];
   search: string = '';
   hojaRutas: any = [];
+  year:any=this.today.getFullYear()
+  dategt:any = this.year;
+  datelt:any=this.dategt+1;
+  campo:any = this.year;
   constructor(private api: RutaService, private router: Router) {}
 
   ngOnInit(): void {
@@ -85,7 +89,7 @@ export class OfficeIndexComponent implements OnInit {
   }
   getpendientes() {
     let estado3 = 'ENVIADO';
-    this.api.getPendientes(this.destino, estado3).subscribe((data) => {
+    this.api.getPendientes(this.destino, estado3,this.dategt, this.datelt,).subscribe((data) => {
       this.totales1 = data.serverResponse;
       if (data.totalDocs > 0) {
         for (let i = 0; i < data.totalDocs; i++) {
@@ -125,11 +129,24 @@ export class OfficeIndexComponent implements OnInit {
   }
 
   buscarSeguimientos() {
+    this.campo=parseInt(this.campo)
+    if(this.campo==this.year-1){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1; 
+    }else if(this.campo==this.year){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1;
+    }else{
+      this.dategt=this.campo;
+      this.datelt=this.year+1;
+    }
     this.estado = '';
     this.api
       .getAllSeguimientos(
         this.destino,
         this.estado,
+        this.dategt,
+        this.datelt,
         this.limit,
         this.skip,
         this.nuit
@@ -143,10 +160,23 @@ export class OfficeIndexComponent implements OnInit {
   }
 
   getSeguimientos() {
+    this.campo=parseInt(this.campo)
+    if(this.campo==this.year-1){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1; 
+    }else if(this.campo==this.year){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1;
+    }else{
+      this.dategt=this.campo;
+      this.datelt=this.year+1;
+    }
     this.api
       .getAllSeguimientos(
         this.destino,
         this.estado,
+        this.dategt,
+        this.datelt,
         this.limit,
         this.skip,
         this.nuit
@@ -156,6 +186,7 @@ export class OfficeIndexComponent implements OnInit {
         this.nuit = '';
         this.totalSeguimientos = data.totalDocs;
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
+        this.obtenertotal()
       });
   }
 
@@ -193,11 +224,18 @@ export class OfficeIndexComponent implements OnInit {
   }
 
   obtenertotal() {
-    // this.loading = true;
-    // let RegExp = /[^()]*/g;
-    // this.destino1 = this.data.post;
-    // this.destino = RegExp.exec(this.destino1);
-    this.api.getTotalSeguimientos(this.destino, this.estado2).subscribe(
+    this.campo=parseInt(this.campo)
+    if(this.campo==this.year-1){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1; 
+    }else if(this.campo==this.year){
+      this.dategt=this.campo;
+      this.datelt=this.campo+1;
+    }else{
+      this.dategt=this.campo;
+      this.datelt=this.year+1;
+    }
+    this.api.getTotalSeguimientos(this.destino, this.estado2, this.dategt, this.datelt, ).subscribe(
       (data) => {
         // this.loading = false;
         this.totales = data.serverResponse;

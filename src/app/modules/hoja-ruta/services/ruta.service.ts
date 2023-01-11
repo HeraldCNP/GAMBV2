@@ -14,17 +14,17 @@ export class RutaService {
 
 
   /*Servicios para Seguimientos*/
-  getAllSeguimientos(destino?:string, estado?:string, limit?:number, skip?:number, nuit?:string): Observable<any> {
-    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&limit=${limit}&skip=${skip}&nuit=${nuit}`;
+  getAllSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any, limit?:number, skip?:number, nuit?:string): Observable<any> {
+    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}&limit=${limit}&skip=${skip}&nuit=${nuit}`;
     console.log(dir)
     return this.http.get<any>(dir)
   }
-  getTotalSeguimientos(destino?:string, estado?:string): Observable<any> {
-    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}`;
+  getTotalSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
+    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}`;
     return this.http.get<any>(dir)
   }
-  getPendientes(destino?:string, estado?:string): Observable<any> {
-    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}`;
+  getPendientes(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
+    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}`;
     return this.http.get<any>(dir)
   }
 
@@ -79,8 +79,9 @@ export class RutaService {
     return this.http.get(this.URL + '/seguias/' + nuit);
   }
 
-  getAllHojaRuta(nuit?:string, origen?:string, limit?:number, skip?:number, order?:string): Observable<any> {
-    let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&limit=${limit}&skip=${skip}`;
+  getAllHojaRuta(nuit?:string, origen?:string, dategt?:any,datelt?:any, limit?:number, skip?:number, order?:string): Observable<any> {
+    let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&dategt=${dategt}&datelt=${datelt}&limit=${limit}&skip=${skip}`;
+    console.log(dir)
     return this.http.get<any>(dir)
   }
 

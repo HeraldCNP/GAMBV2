@@ -1,33 +1,51 @@
 <div class="p-3">
   <div class="row p-0">
     <div class="card">
-      <div class="card-header d-flex justify-content-between">        
-        <div class="d-flex flex-row p-0">
-          Mostrar:
-          <select
-            class="form-select form-select-sm"
-            [(ngModel)]="limit"
-            (change)="getHojaRutas()"
-          >
-            <option value="10">10</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
+      <div class="card-header d-flex justify-content-between">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-row p-0">
+            Mostrar:
+            <select
+              class="form-select form-select-sm"
+              [(ngModel)]="limit"
+              (change)="getHojaRutas()"
+            >
+              <option value="10">10</option>
+              <option value="30">30</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            registros
+          </div>
+          <div class="d-flex flex-row ml-4">
+            Gestión:
+            <select
+              class="form-select form-select-sm"
+              [(ngModel)]="campo"
+              (change)="getHojaRutas()"
+            >
+              <option value="{{ year }}">{{ year }}</option>
+              <option value="2022">2022</option>
+              <option value="0">Todos</option>
+            </select>
+          </div>
         </div>
-        <h3 class="card-title">Lista de Hojas de Ruta</h3>
-        <div class="">
-          <button
-            class="btn btn-success"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-            *ngIf="
-              (data && data.roles === 'SUPER_ADMIN') ||
-              data.roles === 'SECRETARIA'
-            "
-          >
-            NUEVO
-          </button>         
+        <!-- <h3 class="card-title">Lista de Hojas de Ruta</h3> -->
+        <div class="d-flex justify-content-between">
+          <div *ngIf="year == dategt">
+            <button
+              class="btn btn-success"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              *ngIf="
+                (data && data.roles === 'SUPER_ADMIN') ||
+                data.roles === 'SECRETARIA'
+              "
+            >
+              NUEVO
+            </button>
+          </div>
         </div>
       </div>
       <div class="card-body text-center">
@@ -100,9 +118,9 @@
                 ></i>
               </td>
               <td>{{ hoja.nuit }}</td>
-              <td>{{ hoja.fecharesepcion | date: "shortDate":"UTC-4" }}</td>
-              <td>{{ hoja.fecharesepcion | date: "mediumTime":"UTC-4" }}</td>
-              <td>{{ hoja.fechadocumento | date: "shortDate":"UTC" }}</td>
+              <td>{{ hoja.fecharesepcion | date : "shortDate" : "UTC-4" }}</td>
+              <td>{{ hoja.fecharesepcion | date : "mediumTime" : "UTC-4" }}</td>
+              <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC" }}</td>
               <td>{{ hoja.origen }}</td>
 
               <td>{{ hoja.referencia }}</td>
@@ -332,15 +350,19 @@
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
                     <span>Fecha de recepcion: </span
-                    >{{ hojaRuta.fecharesepcion | date: "shortDate":"UTC-4" }}
+                    >{{
+                      hojaRuta.fecharesepcion | date : "shortDate" : "UTC-4"
+                    }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Hora: </span
-                    >{{ hojaRuta.fecharesepcion | date: "mediumTime":"UTC-4" }}
+                    >{{
+                      hojaRuta.fecharesepcion | date : "mediumTime" : "UTC-4"
+                    }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Fecha de documento: </span
-                    >{{ hojaRuta.fechadocumento | date: "shortDate":"UTC" }}
+                    >{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -400,7 +422,9 @@
                             *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'"
                           >
                             {{
-                              seguiss.fechaderivado | amLocale: "es" | amTimeAgo
+                              seguiss.fechaderivado
+                                | amLocale : "es"
+                                | amTimeAgo
                             }} </span
                           ><br />
                           <span
@@ -409,7 +433,7 @@
                             {{
                               seguiss.fechaderivado
                                 | amLocal
-                                | amDateFormat: "DD-MM-YY HH:mm"
+                                | amDateFormat : "DD-MM-YY HH:mm"
                             }}
                           </span>
                         </td>
@@ -420,7 +444,7 @@
                                 : seguiss.fechaderivado
                                 : "seconds"
                                 : true
-                              | amDuration: "seconds"
+                              | amDuration : "seconds"
                           }}</span>
                           <span
                             *ngIf="
@@ -433,7 +457,7 @@
                                   : seguiss.fechaderivado
                                   : "seconds"
                                   : true
-                                | amDuration: "seconds"
+                                | amDuration : "seconds"
                             }}</span
                           >
                           <span
@@ -447,7 +471,7 @@
                                   : seguiss.fechaderivado
                                   : "seconds"
                                   : true
-                                | amDuration: "seconds"
+                                | amDuration : "seconds"
                             }}</span
                           >
                           <samp
@@ -480,7 +504,7 @@
                             >
                               {{
                                 seguiss.fecharecepcion
-                                  | amLocale: "es"
+                                  | amLocale : "es"
                                   | amTimeAgo
                               }} </span
                             ><br />
@@ -492,7 +516,7 @@
                               {{
                                 seguiss.fecharecepcion
                                   | amLocal
-                                  | amDateFormat: "DD-MM-YY HH:mm"
+                                  | amDateFormat : "DD-MM-YY HH:mm"
                               }}
                             </span>
                           </i>
@@ -521,15 +545,25 @@
                             class="badge badge-warning"
                             >{{ seguiss.estado }}</span
                           >
-                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark"> <i *ngFor="let fin of seguiss.archivofi"> {{fin.status}} <br></i>
+                          <span
+                            *ngSwitchCase="'FILE OFICINA'"
+                            class="badge bg text-dark"
+                          >
+                            <i *ngFor="let fin of seguiss.archivofi">
+                              {{ fin.status }} <br
+                            /></i>
                           </span>
-                          <span *ngIf="
+                          <span
+                            *ngIf="
                               seguiss.estado != 'DERIVADO' &&
                               seguiss.estado != 'MALETIN' &&
                               seguiss.estado != 'RECIBIDO' &&
                               seguiss.estado != 'ENVIADO' &&
                               seguiss.estado != 'FILE OFICINA'
-                            " class="badge badge-secondary text-dark">{{ seguiss.estado }}</span> 
+                            "
+                            class="badge badge-secondary text-dark"
+                            >{{ seguiss.estado }}</span
+                          >
                           <br />
                           <i>{{ seguiss.copia }}</i>
                         </td>
@@ -544,7 +578,7 @@
                 >
                 <i class="mr-3 float-end"
                   >Fecha Descarga:
-                  {{ today | amLocal | amDateFormat: "DD-MM-YY HH:mm" }}
+                  {{ today | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                 </i>
               </div>
             </div>
@@ -613,15 +647,19 @@
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
                     <span>Fecha de recepcion: </span
-                    >{{ hojaRuta.fecharesepcion | date: "shortDate":"UTC-4" }}
+                    >{{
+                      hojaRuta.fecharesepcion | date : "shortDate" : "UTC-4"
+                    }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Hora: </span
-                    >{{ hojaRuta.fecharesepcion | date: "mediumTime":"UTC-4" }}
+                    >{{
+                      hojaRuta.fecharesepcion | date : "mediumTime" : "UTC-4"
+                    }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Fecha de documento: </span
-                    >{{ hojaRuta.fechadocumento | date: "shortDate":"UTC" }}
+                    >{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
