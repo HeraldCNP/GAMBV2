@@ -13,7 +13,7 @@
 
 
         <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_USER' || data.post === 'SECRETARIA' || data.post === 'SUPER_ADMIN' || data.post === 'ADMIN' )">
+          <div class="card" *ngIf="(data && data.roles === 'SUPER_USER' || data.roles === 'SECRETARIA' || data.roles === 'SUPER_ADMIN' || data.roles === 'ADMIN' )">
             <a routerLink="/ruta">
               <div class="imgbox">
                 <div>
