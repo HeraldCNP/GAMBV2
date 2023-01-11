@@ -115,12 +115,7 @@
                                 </div>
 
                                 <!-- Button trigger modal -->
-                                <div>
-                                    <button type="button" [disabled]="showModal" class="btn btn-primary"
-                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        Añadir Entidad
-                                    </button>
-                                </div>
+   
                                 <p class="text-center" *ngIf="texto">El convenio {{ texto }} fue creado</p>
                                 <br>
                                 <ol *ngIf="convenio">
@@ -143,6 +138,12 @@
                                         class="btn btn-primary">Finalizar</button>
                                     </div>
                                     
+                                </div>
+                                <div class="my-5">
+                                    <button type="button" [disabled]="showModal" class="btn btn-primary"
+                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Añadir Entidad
+                                    </button>
                                 </div>
 
 

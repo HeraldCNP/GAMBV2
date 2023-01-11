@@ -27,29 +27,51 @@
           <table class="table table-active table-success table-striped">
             <thead>
               <tr>
+                <th>Acciones</th>
                 <th>Fecha Firma</th>
                 <th>Convenio N°</th>
                 <th>Nombre</th>
-                <th>Objeto</th>
+                <!-- <th>Objeto</th> -->
                 <th>Entidades</th>
                 <!--<th>Transferencias</th>-->
                 <th>Fecha de Finalización</th>
                 <th>Estado</th>
                 <th>Documentos</th>
                 <th>Vencimiento</th>
-                <th>Acciones</th>
+
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let convenio of convenios.serverResponse; let i=index" [ngSwitch]="convenio.estado">
+                <td>
+                  <div class="dropdown-center" title="Ver Acciones">
+                    <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li *ngIf="convenio.estado == 'REGISTRADO' && convenio.firma"><a class="dropdown-item" (click)="changeStatus(convenio._id)"> <i class="fas fa-check-square mr-3 icono">  Aprobar</i> </a></li>
+                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="addTransfe(convenio._id)"> <i class="fas fa-hand-holding-usd mr-3 icono">  Registrar Transferencias</i> </a></li>
+                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="seeTransfe(convenio._id)"> <i class="fas fa-money-check-alt mr-3 icono"> Ver Transferencias</i>  </a></li>
+                      <li><a class="dropdown-item" (click)="addFile(convenio._id)"> <i class="fas fa-folder-plus mr-3 icono">  Añadir Archivo</i> </a></li>
+                      <li><a class="dropdown-item" (click)="updateConvenio(convenio._id)"> <i class="fas fa-edit mr-3 icono">  Modificar</i> </a></li>
+                      <li><a class="dropdown-item" (click)="deleteConvenio(convenio._id)"> <i class="fas fa-trash-alt mr-3 icono">  Eliminar</i> </a></li>
+                      <!-- <li><a class="dropdown-item">Action three</a></li> -->
+                    </ul>
 
+                  </div>
+                  <!-- <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Modificar"></i>
+                  <i (click)="deleteConvenio(convenio._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                  <i (click)="addFile(convenio._id)" class="fas fa-folder-plus ml-3 icono"></i>
+                  <i (click)="addTransfe(convenio._id)" class="fas fa-hand-holding-usd ml-3 icono"></i> -->
+                </td>
                 <td > 
                   <i *ngIf="convenio.firma">{{ convenio.firma | date:'shortDate': 'UTC' }} </i>
                   <i *ngIf="!convenio.firma">Sin firma</i>
                 </td>
                 <td>{{ convenio.codigo }}</td>
                 <td>{{ convenio.nombre }}</td>
-                <td>{{ convenio.objeto }}</td>
+                <!-- <td>{{ convenio.objeto }}</td> -->
                 <td class="text-nowrap">
                   <i *ngFor="let entidad of convenio.financiadoras">
                     {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{entidad.monto }} Bs<br>
@@ -76,30 +98,9 @@
                   </i>
                 </td>
                 <td >
-                  <span *ngIf="convenio.estado == 'VIGENTE'">{{ calcDias(convenio.fechafin)  }} días</span>
+                  <span *ngIf="convenio.estado == 'VIGENTE'">{{ calcDias(convenio.fechafin)  }} </span>
                 </td>
-                <td>
-                  <div class="dropdown-center" title="Ver Acciones">
-                    <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li *ngIf="convenio.estado == 'REGISTRADO' && convenio.firma"><a class="dropdown-item" (click)="changeStatus(convenio._id)"> <i class="fas fa-check-square mr-3 icono">  Aprobar</i> </a></li>
-                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="addTransfe(convenio._id)"> <i class="fas fa-hand-holding-usd mr-3 icono">  Registrar Transferencias</i> </a></li>
-                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="seeTransfe(convenio._id)"> <i class="fas fa-money-check-alt mr-3 icono"> Ver Transferencias</i>  </a></li>
-                      <li><a class="dropdown-item" (click)="addFile(convenio._id)"> <i class="fas fa-folder-plus mr-3 icono">  Añadir Archivo</i> </a></li>
-                      <li><a class="dropdown-item" (click)="updateConvenio(convenio._id)"> <i class="fas fa-edit mr-3 icono">  Modificar</i> </a></li>
-                      <li><a class="dropdown-item" (click)="deleteConvenio(convenio._id)"> <i class="fas fa-trash-alt mr-3 icono">  Eliminar</i> </a></li>
-                      <!-- <li><a class="dropdown-item">Action three</a></li> -->
-                    </ul>
-
-                  </div>
-                  <!-- <i (click)="updateConvenio(convenio._id)" class="fas fa-edit ml-3 icono" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Modificar"></i>
-                  <i (click)="deleteConvenio(convenio._id)" class="fas fa-trash-alt ml-3 icono"></i>
-                  <i (click)="addFile(convenio._id)" class="fas fa-folder-plus ml-3 icono"></i>
-                  <i (click)="addTransfe(convenio._id)" class="fas fa-hand-holding-usd ml-3 icono"></i> -->
-                </td>
+                
               </tr>
             </tbody>
           </table>

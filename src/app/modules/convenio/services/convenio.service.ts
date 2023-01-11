@@ -41,8 +41,13 @@ export class ConvenioService {
     return this.http.get<any[]>(dir)
   }
   
+  getAllEntitys():Observable<any[]>{
+    let dir = `${this.URL}/entity`;
+    return this.http.get<any[]>(dir)
+  }
+  
   getSingleEntidad(id:any):Observable<any>{
-    let dir = `${this.URL}/entidad/${id}`;
+    let dir = `${this.URL}/entity/${id}`;
     return this.http.get<any>(dir) 
   }
 
@@ -70,6 +75,11 @@ export class ConvenioService {
 
   editarEntidad(form:any, id:any):Observable<any>{
     let dir = `${this.URL}/entidad/${id}`;
+    return this.http.put<any>(dir, form)
+  }
+
+  editarEntity(form:any, id:any):Observable<any>{
+    let dir = `${this.URL}/entity/${id}`;
     return this.http.put<any>(dir, form)
   }
 

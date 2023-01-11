@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="m-3">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <div class="card shadow p-3 mb-5 bg-body rounded">
+                    <div class="card-header">
+                        <h3 class="card-title">Crear Archivo para POA</h3>
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive">
+                        <div class="row">
+                            <div class="col-md">
+                                <form (ngSubmit)="crearPoa()" [formGroup]="poaForm">
+                                    <div class="mb-1">
+                                        <label for="entidad" class="form-label col-auto">Tipo *</label>
+                                        <ngx-select [allowClear]="true" [items]="titulos.list" optionTextField="name"
+                                            optionValueField="name" placeholder="Seleccione una opción"
+                                            formControlName="titulo">
+                                        </ngx-select>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="numero" class="form-label">Numero *</label>
+                                        <input type="text" class="form-control" id="numero" formControlName="numero"
+                                            required>
+                                        <div class="form-text "
+                                            *ngIf="form['numero'].touched && form['numero'].invalid">
+                                            <div *ngIf="form['numero'].errors && form['numero'].errors['required']">* El
+                                                numero es
+                                                Requerido.</div>
+                                            <div *ngIf="form['numero'].errors && form['numero'].errors['minlength']">El
+                                                numero
+                                                no puede tener menos de 3 caracteres.</div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="detalle" class="form-label">Detalle *</label>
+
+
+                                        <textarea class="form-control" id="detalle" formControlName="detalle" cols="30" rows="5">
+                                        </textarea>
+                                        <div class="form-text"
+                                        *ngIf="form['detalle'].touched && form['detalle'].invalid">
+                                        <div *ngIf="form['detalle'].errors && form['detalle'].errors['required']">*
+                                            El detalle es requerido.</div>
+                                        <div *ngIf="form['detalle'].errors && form['detalle'].errors['minlength']">
+                                            El detalle no puede tener menos de 3 caracteres.</div>
+                                    </div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="fecha" class="form-label">Fecha *</label>
+                                        <input type="date" class="form-control" id="fecha" formControlName="fecha"
+                                            required>
+                                        <div class="form-text "
+                                            *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                                            <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">*
+                                                El fecha es requerido.</div>
+                                            <div *ngIf="form['fecha'].errors && form['fecha'].errors['minlength']">
+                                                El detalle no puede tener menos de 3 caracteres.</div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="archivo" class="form-label">Archivo</label>
+                                        <input class="form-control" id="archivo" type="file" name="archivo" id="archivo"
+                                            accept="archivo/*" formControlName="archivo" (change)="onChange($event)">
+                                        <div class="form-text"
+                                            *ngIf="form['archivo'].touched && form['archivo'].invalid">
+                                            <div *ngIf="form['archivo'].errors && form['archivo'].errors['required']">*
+                                                archivo
+                                                es Requerido.</div>
+                                        </div>
+                                        <div class="progress mt-1" *ngIf="progress > 0">
+                                            <div class="progress-bar bg-danger" role="progressbar"
+                                                [style.width]="progress + '%'" aria-valuemin="0" aria-valuemax="100">{{
+                                                progress + '%' }}</div>
+                                        </div>
+
+                                    </div>
+                                    
+
+                                    <!-- {{ poaForm.value | json }} -->
+                                    <div class="mt-3 d-flex justify-content-around">
+                                        <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
+                                        <button [disabled]="poaForm.invalid" type="submit"
+                                            class="btn btn-primary">Registrar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</div>

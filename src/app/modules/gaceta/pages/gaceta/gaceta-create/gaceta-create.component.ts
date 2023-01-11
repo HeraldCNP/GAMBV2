@@ -15,10 +15,11 @@ export class GacetaCreateComponent implements OnInit {
   idUser: any;
   user: any;
   data: any;
-
+  gacetaForm: any;
+  
   files: any;
   progress: number = 0;
-  gacetaForm: any;
+
   // titulos: string[] = [
   //   "Iron Man",
   //   "Spiderman",

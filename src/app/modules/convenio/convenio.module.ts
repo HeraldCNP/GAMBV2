@@ -23,6 +23,8 @@ import { SeeTransfeComponent } from './pages/convenios/see-transfe/see-transfe.c
 
 import { NgxSelectModule } from 'ngx-select-ex';
 import { EntiSelectComponent } from './pages/entidades/enti-select/enti-select.component';
+import { EntiListComponent } from './pages/entidades/enti-list/enti-list.component';
+import { EntiUpdatedComponent } from './pages/entidades/enti-updated/enti-updated.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { EntiSelectComponent } from './pages/entidades/enti-select/enti-select.c
     ConveFileComponent,
     ConveTransfeComponent,
     SeeTransfeComponent,
-    EntiSelectComponent
+    EntiSelectComponent,
+    EntiListComponent,
+    EntiUpdatedComponent
   ],
   imports: [
     CommonModule,

@@ -100,7 +100,11 @@ export class ConveIndexComponent implements OnInit {
     let fin = new Date(fechaFin).getTime();
     let diff = fin - hoy;
     let restante = Math.ceil(diff / (1000 * 3600 * 24));
-    return restante;
+    if(restante < 0){
+      let restante = "vencido"
+      return restante;
+    }
+    return restante + "días";
   }
 
   // getSeguimientos() {

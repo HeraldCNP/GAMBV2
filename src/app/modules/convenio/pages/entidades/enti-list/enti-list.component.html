@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="m-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header">
+              <h3 class="card-title">Lista de Entidades</h3>
+              <div class="card-tools">
+                <span class="mr-3">
+                  <!-- <button (click)="selectEntidad()" class="btn btn-primary">Agregar Entidad</button> -->
+                </span>
+                <button (click)="addEntidad()" class="btn btn-info">Crear Nuevo</button>
+                <!-- <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+              </div>
+            </div>
+  
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>Codigo</th>
+                    <th>Denominacion</th>
+                    <th>Sigla</th>
+
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let entidad of entidades">
+                    <td>{{ entidad.codigo }}</td>
+                    <td>{{ entidad.denominacion }}</td>
+                    <td>{{ entidad.sigla }}</td>
+                    <td>
+                      <i (click)="updateEntidad(entidad._id)" class="fas fa-edit ml-3 icono"></i>
+                      <!-- <i (click)="deleteEntidad(entidad._id)" class="fas fa-trash-alt ml-3 icono"></i> -->
+                      <!-- <i (click)="addRepresentante(entidad._id)" class="fas fa-user-plus ml-3 icono"></i> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </div>

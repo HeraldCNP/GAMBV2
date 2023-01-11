@@ -48,7 +48,7 @@ const routes: Routes = [
     canActivate: [SessionGuard]
   },
   {
-    path: 'gaceta',
+    path: 'docAdmin',
     loadChildren: () => import('./modules/gaceta/gaceta.module').then(m => m.GacetaModule),
     canActivate: [SessionGuard]
   },

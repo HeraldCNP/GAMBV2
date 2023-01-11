@@ -1,102 +1,96 @@
+
 <div class="body text-center">
   <main class="px-3">
-    <img class="mb-4" src="assets/img/logo2.png" loading="lazy" alt="" width="120" height="57">
+   
     <h1>Bienvenido: {{ data.username }} {{ data.surnames }}</h1>
     <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autónomo Municipal de Betanzos</p>
     <div>
-        <a routerLink="/"><i class="fas fa-home fa-1x mr-2 mt-2 app" style="color:rgb(202, 206, 202) !important" title="Inicio" > Inicio</i></a> 
+      <a routerLink="/"><i class="fas fa-home fa-1x mr-2 mt-2 app" style="color:rgb(202, 206, 202) !important"
+          title="Inicio"> Inicio</i></a>
     </div>
     <div class="contenedor">
       <div class="contenedor-cards">
+
+
         <div class="contenedor-card-item">
-          <div class="card-header">
-            <h2>Sistema Hoja de Ruta</h2>
-          </div>
-          <div class="contenedor-card-item-wrapper">
+          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )">
             <a routerLink="/ruta">
-              <img src="assets/img/private/hojaRuta.jpg" loading="lazy" alt="">
-              <div class="contenedor-info">
-                <div class="info">
-                  <p class="titulo">Ingresar</p>
+              <div class="imgbox">
+                <div>
+                  <img class="img-fluid" src="assets/img/private/ruta.jpg" loading="lazy" alt="">
                 </div>
-                <div class="fondo"></div>
+              </div>
+              <div class="details">
+                <span class="caption">INGRESAR</span>
               </div>
             </a>
           </div>
         </div>
-        <div class="contenedor-card-item" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )
-      ">
-          <div class="card-header">
-            <h2>Sistema Noticias</h2>
-          </div>
-          <div class="contenedor-card-item-wrapper">
+
+
+        <div class="contenedor-card-item">
+          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )">
             <a routerLink="/blog">
-              <img src="assets/img/private/blog.jpg" loading="lazy" alt="">
-              <div class="contenedor-info">
-                <div class="info">
-                  <p class="titulo">Ingresar</p>
+              <div class="imgbox">
+                <div>
+                  <img class="img-fluid" src="assets/img/private/noticias.jpg" loading="lazy" alt="">
                 </div>
-                <div class="fondo"></div>
+              </div>
+              <div class="details">
+                <span class="caption">INGRESAR</span>
               </div>
             </a>
           </div>
         </div>
-        <div class="contenedor-card-item" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN')
-      ">
-          <div class="card-header">
-            <h2>Sistema Usuarios</h2>
-          </div>
-          <div class="contenedor-card-item-wrapper">
+
+        <div class="contenedor-card-item">
+          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN')">
             <a routerLink="/auth">
-              <img src="assets/img/private/usuarios.jpg" loading="lazy" alt="">
-              <div class="contenedor-info">
-                <div class="info">
-                  <p class="titulo">Ingresar</p>
+              <div class="imgbox">
+                <div>
+                  <img class="img-fluid" src="assets/img/private/usuarios.jpg" loading="lazy" alt="">
                 </div>
-                <div class="fondo"></div>
+              </div>
+              <div class="details">
+                <span class="caption">INGRESAR</span>
               </div>
             </a>
           </div>
         </div>
-        <div class="contenedor-card-item" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')
-      ">
-          <div class="card-header">
-            <h2>Sistema Convenios</h2>
-          </div>
-          <div class="contenedor-card-item-wrapper">
+
+        <div class="contenedor-card-item">
+          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
             <a routerLink="/convenio">
-              <img src="assets/img/private/convenio.jpg" loading="lazy" alt="">
-              <div class="contenedor-info">
-                <div class="info">
-                  <p class="titulo">Ingresar</p>
+              <div class="imgbox">
+                <div>
+                  <img class="img-fluid" src="assets/img/private/convenios.jpg" loading="lazy" alt="">
                 </div>
-                <div class="fondo"></div>
+              </div>
+              <div class="details">
+                <span class="caption">INGRESAR</span>
               </div>
             </a>
           </div>
         </div>
-        <div class="contenedor-card-item" *ngIf="
-        (data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' )
-      ">
-          <div class="card-header">
-            <h2>Sistema Gaceta Oficial</h2>
-          </div>
-          <div class="contenedor-card-item-wrapper">
-            <a routerLink="/gaceta/gaceta/index">
-              <img src="assets/img/private/gaceta.jpg" loading="lazy" alt="">
-              <div class="contenedor-info">
-                <div class="info">
-                  <p class="titulo">Ingresar</p>
+        <div class="contenedor-card-item">
+          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' )">
+            <a routerLink="/docAdmin">
+              <div class="imgbox">
+                <div>
+                  <img class="img-fluid" src="assets/img/private/documentos.jpg" loading="lazy" alt="">
                 </div>
-                <div class="fondo"></div>
+              </div>
+              <div class="details">
+                <span class="caption">INGRESAR</span>
               </div>
             </a>
           </div>
         </div>
+        
       </div>
+    </div>
+    <div>
+
     </div>
   </main>
 </div>

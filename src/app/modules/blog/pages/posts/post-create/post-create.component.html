@@ -42,7 +42,7 @@
                     <div *ngIf="form['body'].errors && form['body'].errors['minlength']">Cuerpo de noticia
                       no puede tener menos de 15 caracteres.</div>
                   </div>
-                  
+
                 </div>
                 <div class="mb-2">
                   <label for="iframe" class="form-label">Iframe</label>
@@ -68,18 +68,16 @@
                       no puede tener menos de 15 caracteres.</div>
                   </div>
                 </div>
-                <div class="mb-1">
+                <div class="mb-2">
                   <label for="fecha" class="form-label">Fecha *</label>
-                  <input type="date" class="form-control" id="fecha" formControlName="fecha"
-                      required>
-                  <div class="form-text"
-                      *ngIf="form['fecha'].touched && form['fecha'].invalid">
-                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">*
-                          El fecha es requerido.</div>
-                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['minlength']">
-                          El detalle no puede tener menos de 3 caracteres.</div>
+                  <input type="date" class="form-control" id="fecha" formControlName="fecha" required>
+                  <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                    <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">*
+                      El fecha es requerido.</div>
+                    <div *ngIf="form['fecha'].errors && form['fecha'].errors['minlength']">
+                      El detalle no puede tener menos de 3 caracteres.</div>
                   </div>
-              </div>
+                </div>
                 <div class="mb-2">
                   <label for="image" class="form-label">Imagenes</label>
                   <input class="form-control" id="image" type="file" name="image" id="image" accept="image/*"

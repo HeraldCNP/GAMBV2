@@ -16,28 +16,28 @@ export class GacetaIndexComponent implements OnInit {
   URL = environment.api;
   status: any;
   showModal: boolean = false;
-  @ViewChild('content',{static:false}) el!: ElementRef
+  @ViewChild('content', { static: false }) el!: ElementRef
   constructor(
     private router: Router,
     private api: GacetaService
-  ) { 
+  ) {
   }
   date = new Date();
   gacetas: any = [];
-  gaceta:any;
+  gaceta: any;
   ngOnInit(): void {
     this.getGacetas();
   }
 
-  getGacetas(){
+  getGacetas() {
     this.api.getAllGacetas().subscribe
-    (res => {
-      this.gacetas = res;
-      console.log(this.gacetas)
-    });
+      (res => {
+        this.gacetas = res;
+        console.log(this.gacetas)
+      });
   }
 
-  changeStatus(id:any, estado:any){
+  changeStatus(id: any, estado: any) {
     let fd = new FormData();
     fd.append('estado', estado);
     console.log(estado)
@@ -53,7 +53,7 @@ export class GacetaIndexComponent implements OnInit {
       );
   }
 
-  getGaceta(id:any){
+  getGaceta(id: any) {
     this.api.getGaceta(id)
       .subscribe(
         res => {
@@ -67,15 +67,15 @@ export class GacetaIndexComponent implements OnInit {
       );
   }
 
-  generatePDF(){
+  generatePDF() {
     // let pdf = new jsPDF( 'p', 'mm', [215, 280]);
- 
+
     // pdf.html(this.el.nativeElement,{
     //   callback:(pdf) => {
     //     pdf.save("output.pdf")
     //   }
     // })
-    const DATA: any = document.getElementById('content'); 
+    const DATA: any = document.getElementById('content');
     const doc = new jsPDF('p', 'pt', 'letter');
     const options = {
       background: 'white',
@@ -110,24 +110,24 @@ export class GacetaIndexComponent implements OnInit {
   }
 
   crearConvenio(form: any) {
-    
-  }
-
-  
-
-  registerGaceta(){
 
   }
 
-  addGaceta(){
-    this.router.navigate(['gaceta/gaceta/create'])
+
+
+  registerGaceta() {
+
   }
 
-  updateGaceta(id:string){
-    this.router.navigate(['gaceta/gaceta/update', id])
+  addGaceta() {
+    this.router.navigate(['docAdmin/gaceta/create'])
   }
 
-  deleteGaceta(id:string){
+  updateGaceta(id: string) {
+    this.router.navigate(['docAdmin/gaceta/update', id])
+  }
+
+  deleteGaceta(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: "¡No podrás revertir esto!",
