@@ -97,3 +97,7 @@ input.ng-valid.ng-touched {
 .fondo{
   background-color: rgb(1, 116, 57)!important;
 }
+
+.w100{
+  width: 100px;
+}

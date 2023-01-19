@@ -28,8 +28,6 @@ import { PtdiUpdateComponent } from './pages/ptdi/ptdi-update/ptdi-update.compon
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    
-
     GacetaCreateComponent,
     GacetaIndexComponent,
     GacetaUpdateComponent,

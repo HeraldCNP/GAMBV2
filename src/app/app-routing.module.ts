@@ -53,6 +53,11 @@ const routes: Routes = [
     canActivate: [SessionGuard]
   },
   {
+    path: 'almacen',
+    loadChildren: () => import('./modules/almacen/almacen.module').then(m => m.AlmacenModule),
+    canActivate: [SessionGuard]
+  },
+  {
     path: '**',
     redirectTo:''
   }

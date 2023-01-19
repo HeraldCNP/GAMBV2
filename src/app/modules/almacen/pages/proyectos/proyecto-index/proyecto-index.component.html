@@ -1,0 +1,188 @@
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-8">
+                <h3 class="card-title">
+                  Total de proyectos ({{ totalProyectos }})
+                </h3>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  Nuevo Proyecto
+                </button>
+              </div>
+            </div>
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Buscar proyecto"
+              (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')"
+              #txtTermino
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Categoría Programática</th>
+                  <th>Proyecto</th>
+                  <th>Denominacion</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let proyecto of proyectos.serverResponse">
+                  <td>{{ proyecto.cat_prog }}</td>
+                  <td>{{ proyecto.codigo }}</td>
+                  <td>{{ proyecto.denominacion }}</td>
+                  <td>
+                    <i class="fas fa-edit ml-3 icono"></i>
+                    <i
+                      class="fas fa-trash-alt ml-3 icono"
+                      (click)="borrarProyecto(proyecto._id)"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center" *ngIf="txtTermino.value.length === 0">
+              <button
+                (click)="cambiarPagina(-1)"
+                *ngIf="page > 1"
+                class="btn btn-info text-sm"
+              >
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button
+                (click)="cambiarPagina(1)"
+                *ngIf="page < totalPages"
+                class="btn btn-info text-sm"
+              >
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Registrar proyecto
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          (ngSubmit)="crearProyecto(proyectoForm.value)"
+          [formGroup]="proyectoForm"
+        >
+          <div class="mb-1">
+            <label for="entidad" class="form-label col-auto">Programa *</label>
+            <!-- Para Mandar id // optionValueField="_id" -->
+            <ngx-select
+              [allowClear]="true"
+              [items]="programas"
+              optionTextField="codigo"
+              optionValueField="_id"
+              placeholder="Seleccione un Programa"
+              formControlName="id_programa"
+              (select)="doSelect($event)"
+
+            >
+              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                <span [innerHtml]="text"></span>
+                &nbsp;({{option.data.denominacion}})
+              </ng-template>
+            </ngx-select>
+
+          </div>
+          <div class="mb-1">
+            <label for="codigo" class="form-label col-md-auto">Codigo *</label>
+            <input
+              class="form-control"
+              type="number"
+              formControlName="codigo"
+            />
+          </div>
+          <div class="mb-1">
+            <label for="denominacion" class="form-label col-md-auto"
+              >Denominacion *</label
+            >
+            <input
+              class="form-control"
+              type="text"
+              formControlName="denominacion"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Registrar
+            </button>
+          </div>
+          {{ proyectoForm.value | json }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->

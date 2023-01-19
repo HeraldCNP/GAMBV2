@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-8">
+                <h3 class="card-title">
+                  Total de Categorias ({{ totalCategorias }})
+                </h3>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  Nueva Categoria
+                </button>
+              </div>
+            </div>
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Buscar Categoria"
+              (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')"
+              #txtTermino
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Codigo</th>
+                  <th>Denominacion</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let categoria of categorias.serverResponse">
+                  <!-- <td>
+                                        <div class="form-check form-switch">
+                                            <span *ngIf="gaceta.estado == '1'">
+                                                <input class="form-check-input pointer" (change)="changeStatus(gaceta._id, !gaceta.estado)"
+                                                    type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Vigente
+
+                                            </span>
+                                            <span *ngIf="gaceta.estado == '0'">
+                                                <input class="form-check-input pointer" (change)="changeStatus(gaceta._id, !gaceta.estado)"
+                                                    type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Abrogada
+                                            </span>
+                                        </div>
+                                    </td> -->
+                  <td>{{ categoria.codigo }}</td>
+                  <td>{{ categoria.denominacion }}</td>
+
+                  <td class="">
+                    <i class="fas fa-plus ml-3 icono"></i>
+                    <i class="fas fa-edit ml-3 icono"></i>
+                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCategoria(categoria._id)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center" *ngIf="txtTermino.value.length === 0">
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Registrar Categoria
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="crearCategoria(categoriaForm.value)" [formGroup]="categoriaForm">
+          <div class="mb-1">
+            <label for="codigo" class="form-label col-md-auto">Codigo *</label>
+            <input class="form-control" type="text" formControlName="codigo" />
+          </div>
+          <div class="mb-1">
+            <label for="denominacion" class="form-label col-md-auto">Denominacion *</label>
+            <input class="form-control" type="text" formControlName="denominacion" />
+          </div>
+
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Registrar
+            </button>
+          </div>
+          <!-- {{ categoriaForm.value | json }} -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
