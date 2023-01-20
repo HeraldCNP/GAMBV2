@@ -24,11 +24,11 @@
                         <div class="title my-1  text-center">Programa Operativo Anual</div>
                         <p>En esta sección usted podrá encontrar el Programa Operativo Anual</p>
                     </div>
-                    
+
                     <div class="card-body">
-                        <div class="card">
+                        <!-- <div class="card">
                             <div class="row m-3">
-                                <!-- <div class="col-md-8">
+                                <div class="col-md-8">
                                     <input type="search" placeholder="Buscar Documento" class="form-control" #termino (keyup)="buscar(termino.value)">
                                 </div>
                                 <div class="col-md-4">
@@ -40,12 +40,12 @@
                                         <option value="Decreto Municipal">Decreto Municipal</option>
                                         <option value="Decreto Edil">Decreto Edil</option>
                                     </select>
-                                </div> -->
+                                </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="card shadow">
+                                <div class="card shadow" *ngFor="let poa of poas.serverResponse">
                                     <div class="d-flex justify-content-around align-items-center">
                                         <div class="mx-2">
                                             <img class="img-fluid" alt="Icono" src="/assets/img/iconPDF.svg" width="60px">
@@ -53,22 +53,23 @@
                                         <div>
                                             <h3 class="media-heading" style="padding-top: 0px;border:0px;margin: 0 0 5px 0;font-size:12pt;">
                                                 <a style="font-weight: 700" href="" target="_blank"></a>
-                                                
+                                                {{poa.titulo}}
                                             </h3>
-                                            <p class="text-justify mx-2"></p>
-                                             
+                                            <p class="text-justify mx-2">{{poa.detalle}}</p>
+
                                             <span style="font-size:0.8em;font-weight:300" class="text-muted ">
-                                                <i class="fas fa-calendar-alt mr-1"></i> Fecha de Publicación 
+                                                <i class="fas fa-calendar-alt mr-1"></i> Fecha de Publicación {{ poa.createdAt | date:'medium'}}
                                             </span>
                                             <span style="font-size:0.8em;font-weight:300" class="text-muted ">
-                                                <i class="fas fa-calendar-alt mr-1"></i> Fecha de Aprobación 
+                                                <i class="fas fa-calendar-alt mr-1"></i> Fecha de Aprobación {{ poa.fecha | date:'shortDate'}}
                                             </span>
                                         </div>
                                         <div class="mx-2">
-                                            <a class="btn btn-primary btn-sm" href="" target="_blank">Descargar</a>
+                                            <a class="btn btn-primary btn-sm" href="{{ URL+'/'+poa.uri }}" target="_blank">Descargar</a>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

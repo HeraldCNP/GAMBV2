@@ -56,6 +56,11 @@ export class HomeService {
     return this.http.get<any[]>(dir)
   }
 
+  getAllPoas():Observable<any[]>{
+    let dir = `${this.URL}/poas?estado=true`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
 
 
 }

@@ -44,7 +44,7 @@ export class PoaIndexComponent implements OnInit {
     let fd = new FormData();
     fd.append('estado', estado);
     console.log(estado)
-    this.api.changeEstado(id, fd)
+    this.api.changeEstadoPoa(id, fd)
       .subscribe(
         res => {
           console.log(res)

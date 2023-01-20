@@ -67,6 +67,12 @@ export class GacetaService {
       observe: 'events',
     })
   }
+
+  changeEstadoPoa(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadpoa/${id}`;
+    console.log(dir)
+    return this.http.post<any>(dir, fd)
+  }
   /*End Servicios para POA*/
 
   /*Servicios para PTDI*/
