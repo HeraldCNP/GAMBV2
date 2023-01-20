@@ -1,7 +1,7 @@
 
 <div class="body text-center">
   <main class="px-3">
-   
+
     <h1>Bienvenido: {{ data.username }} {{ data.surnames }}</h1>
     <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autónomo Municipal de Betanzos</p>
     <div>
@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' )">
+          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )">
             <a routerLink="/docAdmin">
               <div class="imgbox">
                 <div>
@@ -86,7 +86,7 @@
             </a>
           </div>
         </div>
-        
+
       </div>
     </div>
     <div>
