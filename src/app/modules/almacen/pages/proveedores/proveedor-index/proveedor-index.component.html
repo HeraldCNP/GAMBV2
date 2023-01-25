@@ -61,7 +61,7 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let proveedor of proveedores.serverResponse">
+                <tr *ngFor="let proveedor of proveedores.serverResponse; let i = index">
                   <td>{{ proveedor.compania }}</td>
                   <td>{{ proveedor.representante }}</td>
                   <td>{{ proveedor.razon_social }}</td>
@@ -69,9 +69,25 @@
                   <td>{{ proveedor.telefono }}</td>
                   <td>{{ proveedor.direccion }}</td>
                   <td>{{ proveedor.ciudad }}</td>
-                  <td>{{ proveedor.estado }}</td>
                   <td>
-                    <i class="fas fa-edit ml-3 icono"></i>
+                    <div class="form-check form-switch">
+                      <span *ngIf="proveedor.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(proveedor._id, !proveedor.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Activo
+                      </span>
+                      <span *ngIf="proveedor.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(proveedor._id, !proveedor.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Inactivo
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <i
+                      class="fas fa-edit ml-3 icono"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(proveedor)"
+                    ></i>
                     <i
                       class="fas fa-trash-alt ml-3 icono"
                       (click)="borrarProveedor(proveedor._id)"
@@ -171,9 +187,7 @@
           </div>
 
           <div class="mb-1">
-            <label for="nit" class="form-label col-md-auto"
-              >Nit *</label
-            >
+            <label for="nit" class="form-label col-md-auto">Nit *</label>
             <input
               id="nit"
               class="form-control"
@@ -207,9 +221,7 @@
           </div>
 
           <div class="mb-1">
-            <label for="ciudad" class="form-label col-md-auto"
-              >Ciudad</label
-            >
+            <label for="ciudad" class="form-label col-md-auto">Ciudad</label>
             <input
               id="ciudad"
               class="form-control"
@@ -217,7 +229,6 @@
               formControlName="ciudad"
             />
           </div>
-
 
           <div class="modal-footer">
             <button
@@ -231,7 +242,8 @@
             <button
               type="submit"
               class="btn btn-primary"
-
+              data-bs-dismiss="modal"
+              [disabled]="proveedorForm.invalid"
             >
               Registrar
             </button>
@@ -243,3 +255,119 @@
   </div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal Edit -->
+<div
+  class="modal fade"
+  id="modalEdit"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalEditLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Proveedor</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editProveedor(editForm.value)" [formGroup]="editForm">
+
+          <div class="mb-1">
+            <label for="representante" class="form-label">Representante:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="representante"
+              formControlName="representante"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="compania" class="form-label">Compañia:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="compania"
+              formControlName="compania"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="razon_social" class="form-label">Razon Social:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="razon_social"
+              formControlName="razon_social"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="nit" class="form-label">Nit:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="nit"
+              formControlName="nit"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="telefono" class="form-label">Telefono:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="telefono"
+              formControlName="telefono"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="direccion"
+              formControlName="direccion"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="ciudad" class="form-label">Ciudad:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ciudad"
+              formControlName="ciudad"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

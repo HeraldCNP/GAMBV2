@@ -135,6 +135,12 @@ export class AlmacenService {
     return this.http.post<any>(dir, form);
   }
 
+
+  editProveedor(form:any, id:any):Observable<any>{
+    let dir = `${this.URL}/proveedor/${id}`;
+    return this.http.put<any>(dir, form)
+  }
+
   searchProveedor(termino: any): Observable<any[]> {
     let dir = `${this.URL}/searchProveedor/${termino}`;
     console.log(dir);
