@@ -96,7 +96,7 @@ export class PoaIndexComponent implements OnInit {
           'El Documento ha sido eliminado.',
           'success'
         )
-        this.api.deleteGaceta(id).subscribe(
+        this.api.deletePoa(id).subscribe(
           res => console.log(res),
           err => console.log('HTTP Error', err),
           () => this.getPoas()

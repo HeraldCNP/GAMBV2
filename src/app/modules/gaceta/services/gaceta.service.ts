@@ -89,4 +89,9 @@ export class GacetaService {
       observe: 'events',
     })
   }
+
+  deletePoa(id: any): Observable<any> {
+    let dir = `${this.URL}/poa/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
 }

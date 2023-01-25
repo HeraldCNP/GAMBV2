@@ -12,6 +12,8 @@ import { ProgramaIndexComponent } from './pages/programas/programa-index/program
 import { ProyectoIndexComponent } from './pages/proyectos/proyecto-index/proyecto-index.component';
 import { ActividadIndexComponent } from './pages/actividades/actividad-index/actividad-index.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { ProveedorIndexComponent } from './pages/proveedores/proveedor-index/proveedor-index.component';
+import { ArticuloIndexComponent } from './pages/articulos/articulo-index/articulo-index.component';
 
 
 
@@ -26,6 +28,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     ProgramaIndexComponent,
     ProyectoIndexComponent,
     ActividadIndexComponent,
+    ProveedorIndexComponent,
+    ArticuloIndexComponent,
   ],
   imports: [
     CommonModule,

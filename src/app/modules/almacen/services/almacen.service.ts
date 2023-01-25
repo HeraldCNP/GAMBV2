@@ -44,9 +44,9 @@ export class AlmacenService {
     return this.http.get<any>(dir);
   }
 
-  getSinglePrograma(id:any):Observable<any>{
+  getSinglePrograma(id: any): Observable<any> {
     let dir = `${this.URL}/programa/${id}`;
-    return this.http.get<any>(dir)
+    return this.http.get<any>(dir);
   }
 
   createPrograma(form: any): Observable<any> {
@@ -121,5 +121,34 @@ export class AlmacenService {
     let dir = `${this.URL}/actividad/${id}`;
     return this.http.delete<any>(dir, id);
   }
-  /*End Actividades*/
+  /*End Proyectos*/
+
+  /* Proveedores */
+  getAllProveedores(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/proveedores?limit=${limit}&skip=${skip}`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  createProveedor(form: any): Observable<any> {
+    let dir = `${this.URL}/proveedor`;
+    return this.http.post<any>(dir, form);
+  }
+
+  searchProveedor(termino: any): Observable<any[]> {
+    let dir = `${this.URL}/searchProveedor/${termino}`;
+    console.log(dir);
+    return this.http.get<any[]>(dir);
+    // .pipe(
+    //   map((resp:any) => resp.serverResponse)
+    // );
+  }
+
+  deleteProveedor(id: any) {
+    let dir = `${this.URL}/proveedor/${id}`;
+    return this.http.delete<any>(dir, id);
+  }
+
+
+  /* End Proveedores */
 }
