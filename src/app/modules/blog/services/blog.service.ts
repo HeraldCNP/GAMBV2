@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class BlogService {
   private readonly URL = environment.api;
   // private readonly URL = 'http://192.168.1.120:8000/api';
-  
+
   constructor(private http:HttpClient) { }
   /*Servicios para Slider*/
   getAllSliders():Observable<any[]>{
@@ -57,7 +57,7 @@ export class BlogService {
 
   registerPost(fd: FormData):Observable<any>{
     let dir = `${this.URL}/uploadpost`;
-    console.log(fd.get('image'))
+    // console.log(fd.get('image'))
     return this.http.post<any>(dir, fd, {
       reportProgress: true,
       observe: 'events',
@@ -98,7 +98,7 @@ export class BlogService {
     let dir = `${this.URL}/category`;
     return this.http.post<any>(dir, category)
   }
-  
+
   deleteCategory(id:any):Observable<any>{
     let dir = `${this.URL}/category/${id}`;
     return this.http.delete<any>(dir, id)

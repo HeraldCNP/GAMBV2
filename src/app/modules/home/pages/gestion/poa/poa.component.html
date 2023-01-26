@@ -1,32 +1,32 @@
 <div class="page-banner-area photo-4 mb-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="page-banner-menu">
-                    <h2 class="page-banner-title">Programa Operativo Anual</h2>
-                    <ul>
-                        <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
-                        <li [routerLinkActive]="'active'">Programa Operativo Anual</li>
-                    </ul>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-banner-menu">
+          <h2 class="page-banner-title">Plan Operativo Anual</h2>
+          <ul>
+            <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
+            <li [routerLinkActive]="'active'">Plan Operativo Anual</li>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="blog-area margin-bottom-80">
-    <div class="container">
-        <i class="fas fa-arrow-left atras" (click)="goBack()"> Atras</i>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card my-3 p-3 rounded">
-                    <div class="card-header rounded">
-                        <div class="title my-1  text-center">Programa Operativo Anual</div>
-                        <p>En esta sección usted podrá encontrar el Programa Operativo Anual</p>
-                    </div>
+  <div class="container">
+    <i class="fas fa-arrow-left atras" (click)="goBack()"> Atras</i>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card my-3 p-3 rounded">
+          <div class="card-header rounded">
+            <div class="title my-1 text-center">Plan Operativo Anual (POA)</div>
+            <p>En esta sección usted podrá encontrar el Plan Operativo Anual</p>
+          </div>
 
-                    <div class="card-body">
-                        <!-- <div class="card">
+          <div class="card-body">
+            <!-- <div class="card">
                             <div class="row m-3">
                                 <div class="col-md-8">
                                     <input type="search" placeholder="Buscar Documento" class="form-control" #termino (keyup)="buscar(termino.value)">
@@ -43,38 +43,51 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card shadow" *ngFor="let poa of poas.serverResponse">
-                                    <div class="d-flex justify-content-around align-items-center">
-                                        <div class="mx-2">
-                                            <img class="img-fluid" alt="Icono" src="/assets/img/iconPDF.svg" width="60px">
-                                        </div>
-                                        <div>
-                                            <h3 class="media-heading" style="padding-top: 0px;border:0px;margin: 0 0 5px 0;font-size:12pt;">
-                                                <a style="font-weight: 700" href="" target="_blank"></a>
-                                                {{poa.titulo}}
-                                            </h3>
-                                            <p class="text-justify mx-2">{{poa.detalle}}</p>
-
-                                            <span style="font-size:0.8em;font-weight:300" class="text-muted ">
-                                                <i class="fas fa-calendar-alt mr-1"></i> Fecha de Publicación {{ poa.createdAt | date:'medium'}}
-                                            </span>
-                                            <span style="font-size:0.8em;font-weight:300" class="text-muted ">
-                                                <i class="fas fa-calendar-alt mr-1"></i> Fecha de Aprobación {{ poa.fecha | date:'shortDate'}}
-                                            </span>
-                                        </div>
-                                        <div class="mx-2">
-                                            <a class="btn btn-primary btn-sm" href="{{ URL+'/'+poa.uri }}" target="_blank">Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+            <div class="row">
+              <div class="col-md-10 offset-md-1">
+                <div
+                  class="card shadow my-5"
+                  *ngFor="let poa of poas.serverResponse"
+                >
+                  <div class="d-flex justify-content-around align-items-center">
+                    <div class="mx-2">
+                      <span *ngFor="let file of poa.archivo">
+                        <img class="img-fluid rounded" *ngIf="file.descripcion == 'portada'" src="{{ URL + '/' + file.uri }}" width="180px" alt="">
+                      </span>
                     </div>
+                    <div>
+                      <h3
+                        class="media-heading"
+                        style="
+                          padding-top: 0px;
+                          border: 0px;
+                          margin: 0 0 5px 0;
+                          font-size: 1.5rem;
+                        "
+                      >
+                        {{ poa.descripcion }} {{ poa.gestion }}
+                      </h3>
+                    </div>
+                    <div class="mx-2">
+                      <ul class="text-end">
+                        <li *ngFor="let file of poa.archivo">
+                          <i *ngIf="file.descripcion != 'portada'">
+                            {{ file.descripcion }}
+                            <a href="{{ URL + '/' + file.uri }}" target="_blank" style="color:red; font-size: 1.5rem;"
+                              ><i class="fas fa-file-pdf"></i
+                            ></a>
+                            <br />
+                          </i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

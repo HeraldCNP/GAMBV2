@@ -8,7 +8,7 @@ import { GacetaService } from '../../../services/gaceta.service';
 @Component({
   selector: 'app-poa-create',
   templateUrl: './poa-create.component.html',
-  styleUrls: ['./poa-create.component.css']
+  styleUrls: ['./poa-create.component.css'],
 })
 export class PoaCreateComponent implements OnInit {
   idUser: any;
@@ -19,35 +19,36 @@ export class PoaCreateComponent implements OnInit {
   files: any;
   progress: number = 0;
 
-  constructor(
-    private api: GacetaService,
-    private router: Router
-  ) { }
+  constructor(private api: GacetaService, private router: Router) {}
 
   ngOnInit(): void {
-    this.user = localStorage.getItem("user");
-    this.data = JSON.parse(this.user)
+    this.user = localStorage.getItem('user');
+    this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
     this.poaForm = new FormGroup({
-      titulo: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      detalle: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      numero: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      gestion: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      descripcion: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
       archivo: new FormControl('', Validators.required),
-      fecha: new FormControl('', Validators.required),
-      usuario: new FormControl(this.idUser, Validators.required)
+      usuario: new FormControl(this.idUser, Validators.required),
     });
   }
 
   titulos = {
-    "list": [
+    list: [
       {
-        "name": "POA Inicial"
+        name: 'POA Inicial',
       },
       {
-        "name": "POA Corregido"
+        name: 'POA Corregido',
       },
-    ]
-  }
+    ],
+  };
 
   get form() {
     return this.poaForm.controls;
@@ -56,30 +57,32 @@ export class PoaCreateComponent implements OnInit {
   crearPoa() {
     // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
     let fd = new FormData();
-    fd.append('archivo', this.files[0]);
-    fd.append('titulo', this.poaForm.value.titulo);
-    fd.append('detalle', this.poaForm.value.detalle);
-    fd.append('numero', this.poaForm.value.numero);
-    fd.append('fecha', this.poaForm.value.fecha);
+    fd.append('gestion', this.poaForm.value.gestion);
+    fd.append('descripcion', this.poaForm.value.descripcion);
     fd.append('usuario', this.idUser);
+    fd.append('file', this.files[0]);
 
-
-
-    this.api.registerPoa(fd).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress = Math.round(100 * event.loaded / event.total);
-      }
-    },
-      err => {
-        console.log('HTTP Error', err)
+    this.api.registerPoa(fd).subscribe(
+      (event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round((100 * event.loaded) / event.total);
+        }
+      },
+      (err) => {
+        console.log('HTTP Error', err);
         this.progress = 0;
       },
       () => {
         this.progress = 0;
-        this.router.navigate(['docAdmin/poa/index']),
-          this.alertOk('success', 'Exito', 'Documento Creado Correctamente', '2000')
+        this.router.navigate(['docAdmin/poa/index']);
+        this.alertOk(
+          'success',
+          'Exito',
+          'Documento Creado Correctamente',
+          '2000'
+        );
       }
-    )
+    );
   }
 
   onChange($event: any) {
@@ -91,13 +94,11 @@ export class PoaCreateComponent implements OnInit {
       icon,
       title,
       text,
-      timer
-    })
+      timer,
+    });
   }
 
   cancel() {
-    this.router.navigate(['docAdmin/poa/index'])
+    this.router.navigate(['docAdmin/poa/index']);
   }
-
-
 }

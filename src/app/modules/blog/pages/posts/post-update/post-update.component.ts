@@ -114,7 +114,7 @@ export class PostUpdateComponent implements OnInit {
       fd.append('title', this.editarForm.value.title);
       fd.append('subtitle', this.editarForm.value.subtitle);
       fd.append('body', this.editarForm.value.body);
-      fd.append('iframe', this.urlYoutube + this.editarForm.value.iframe);
+      fd.append('iframe', this.editarForm.value.iframe);
       fd.append('category', this.editarForm.value.category);
       fd.append('fecha', this.editarForm.value.fecha);
       fd.append('user', this.idUser);

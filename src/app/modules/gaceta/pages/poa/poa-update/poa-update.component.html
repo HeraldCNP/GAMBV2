@@ -1,1 +1,127 @@
-<p>poa-update works!</p>
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Editar POA</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+                <form (ngSubmit)="editarPoa()" [formGroup]="editarForm">
+                  <div class="mb-1">
+                    <label for="gestion" class="form-label">Gestión *</label>
+                    <select
+                      id="gestion"
+                      formControlName="gestion"
+                      class="form-select"
+                      required
+                    >
+                      <option value="">Seleccione una opción</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                    </select>
+                    <div
+                      class="form-text"
+                      *ngIf="form['gestion'].touched && form['gestion'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['gestion'].errors &&
+                          form['gestion'].errors['required']
+                        "
+                      >
+                        * La gestión es Requerida.
+                      </div>
+                      <div
+                        *ngIf="
+                          form['gestion'].errors &&
+                          form['gestion'].errors['minlength']
+                        "
+                      >
+                        La gestión no puede tener menos de 4 caracteres.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label for="descripcion" class="form-label"
+                      >Descripción *</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="descripcion"
+                      formControlName="descripcion"
+                      required
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['descripcion'].touched &&
+                        form['descripcion'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['descripcion'].errors &&
+                          form['descripcion'].errors['required']
+                        "
+                      >
+                        * La descripcion es Requerida.
+                      </div>
+                      <div
+                        *ngIf="
+                          form['descripcion'].errors &&
+                          form['descripcion'].errors['minlength']
+                        "
+                      >
+                        El descripcion no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- {{ editarForm.value | json }} -->
+                  <div class="mt-3" *ngIf="datosPoa">
+                    <label for="documentos" class="form-label"
+                      >Lista de Documentos</label
+                    >
+                    <ol id="documentos">
+                      <li *ngFor="let file of datosPoa.archivo">
+                        {{ file.descripcion }} -
+                        <i
+                          class="fas fa-trash-alt pointer"
+                          (click)="deleteDocumento(file._id)"
+                        ></i>
+                      </li>
+                    </ol>
+                  </div>
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button
+                      (click)="cancel()"
+                      type="reset"
+                      class="btn btn-danger"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      [disabled]="editarForm.invalid"
+                      type="submit"
+                      class="btn btn-primary"
+                    >
+                      Registrar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>

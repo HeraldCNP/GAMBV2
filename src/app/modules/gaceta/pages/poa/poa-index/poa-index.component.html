@@ -1,15 +1,17 @@
 <div class="container">
-    <div class="m-3">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card shadow p-3 mb-5 bg-body rounded">
-            <div class="card-header">
-              <h3 class="card-title">Lista de Documentos - POA</h3>
-              <div class="card-tools">
-                <span class="mr-3">
-                  <button (click)="addPoa()" class="btn btn-primary">Agregar Documento</button>
-                </span>
-                <!-- <div class="input-group input-group-sm" style="width: 150px;">
+  <div class="m-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Lista de Documentos - POA</h3>
+            <div class="card-tools">
+              <span class="mr-3">
+                <button (click)="addPoa()" class="btn btn-primary">
+                  Agregar Documento
+                </button>
+              </span>
+              <!-- <div class="input-group input-group-sm" style="width: 150px;">
                       <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">
@@ -17,141 +19,203 @@
                         </button>
                       </div>
                     </div> -->
-              </div>
             </div>
-  
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-              <table  class="table table-hover ">
-                <thead>
-                  <tr>
-                    <th>Usuario</th>
-                    <th>Estado</th>
-                    <th>Titulo</th>
-                    <th>Detalle</th>
-                    <th>Archivo</th>
-                    <th>Confirmación</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let poa of poas.serverResponse; let i = index">
-                    <td>{{ poa.usuario.username }} {{ poa.usuario.surnames }}</td>
-                    <td>
-                      <div class="form-check form-switch">
-                        <span *ngIf="poa.estado == '1'">
-                          <input class="form-check-input pointer" (change)="changeStatus(poa._id, !poa.estado)"
-                            type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Vigente
-  
-                        </span>
-                        <span *ngIf="poa.estado == '0'">
-                          <input class="form-check-input pointer" (change)="changeStatus(poa._id, !poa.estado)"
-                            type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Abrogada
-                        </span>
-                      </div>
-                    </td>
-                    <td>{{ poa.titulo }} {{ poa.numero }}</td>
-                    <td>{{ poa.detalle }}</td>
-                    <td><a href="{{ URL+'/'+poa.uri }}" target="_blank">Descargar</a></td>
-                    <td>
-                      <!-- Button trigger modal -->
-                      <div>
-                        <!-- Button trigger modal -->
-                        <button type="button" (click)="getPoa(poa._id)" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal">
-                          Imprimir
-                        </button>
-                      </div>
-                    </td>
-                    <td>
-                      <i (click)="updatePoa(poa._id)" class="fas fa-edit ml-3 icono"></i>
-                      <i (click)="deletePoa(poa._id)" class="fas fa-trash-alt ml-3 icono"></i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Estado</th>
+                  <th>Gestión</th>
+                  <th>Descripción</th>
+                  <th>Documentos</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let poa of poas.serverResponse; let i = index">
+                  <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="poa.estado == '1'">
+                        <input
+                          class="form-check-input pointer"
+                          (change)="changeStatus(poa._id, !poa.estado)"
+                          type="checkbox"
+                          [checked]="true"
+                          role="switch"
+                          id="{{ 'toogle' + i }}"
+                        />Publicado
+                      </span>
+                      <span *ngIf="poa.estado == '0'">
+                        <input
+                          class="form-check-input pointer"
+                          (change)="changeStatus(poa._id, !poa.estado)"
+                          type="checkbox"
+                          [checked]="false"
+                          role="switch"
+                          id="{{ 'toogle' + i }}"
+                        />No Publicado
+                      </span>
+                    </div>
+                  </td>
+                  <td>{{ poa.gestion }}</td>
+                  <td>{{ poa.descripcion }}</td>
+                  <!-- <td><a href="{{ URL+'/'+poa.uri }}" target="_blank">Descargar</a></td> -->
+                  <td class="text-center">
+                    <i *ngFor="let file of poa.archivo">
+                      {{ file.descripcion }}
+                      <a  href="{{ URL + '/' + file.uri }}" target="_blank"
+                        ><i class="fas fa-file-download "></i
+                      ></a>
+                      <br />
+                    </i>
+                  </td>
+                  <td>
+                    <i
+                      class="fas fa-plus ml-3 icono"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalAddFile"
+                      (click)="getId(poa._id)"
+                    ></i>
+                    <i
+                      (click)="updatePoa(poa._id)"
+                      class="fas fa-edit ml-3 icono"
+                    ></i>
+                    <i
+                      (click)="deletePoa(poa._id)"
+                      class="fas fa-trash-alt ml-3 icono"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
+        <!-- /.card -->
       </div>
     </div>
   </div>
-  
-  
-  
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-body" id="content" #content>
-          <div class="card fondito1">
-            <div class="row">
-              <div class="col-md text-center">
-                <img src="/assets/img/logo2.png" alt="" width="80px">
-                <h2>CONFIRMACIÓN DE PUBLICACIÓN</h2>
+</div>
+
+<!-- Modal Edit -->
+<div
+  class="modal fade"
+  id="modalAddFile"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalAddFileLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalAddFileLabel">
+          Añadir Documento
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addArchivo(addForm.value)" [formGroup]="addForm">
+          <div class="mb-1">
+            <label for="descripcion" class="form-label">Descripción *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="descripcion"
+              formControlName="descripcion"
+              required
+            />
+            <div
+              class="form-text"
+              *ngIf="form['descripcion'].touched && form['descripcion'].invalid"
+            >
+              <div
+                *ngIf="
+                  form['descripcion'].errors &&
+                  form['descripcion'].errors['required']
+                "
+              >
+                * La descripcion es Requerida.
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12"><br>
-                <span class="text-center mb-3">El Gobierno Autónomo Municipal de Betanzos confirma el registro y publicación de la siguiente norma:</span> <br><br>
-                <table *ngIf="poa">
-                  <tbody>
-                    <tr>
-                      <td class="text-end" width="250px"><b>Código de Entidad:</b></td>
-                      <td>1508</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Descripción de la Entidad:</b></td>
-                      <td>Gobierno Autónomo Municipal de Betanzos</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Documento:</b></td>
-                      <td>{{ poa.titulo }} {{ poa.numero }}</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Descripción:</b></td>
-                      <td>{{ poa.detalle }}</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Código de verificación interno:</b></td>
-                      <td>{{ poa._id }}</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Fecha de publicación:</b></td>
-                      <td>{{ poa.createdAt | date:'short' }}</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Fecha de Aprobación:</b></td>
-                      <td>{{ poa.fecha | date: "shortDate":"UTC"  }}</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Responsable de publicación:</b></td>
-                      <td>{{ poa.usuario.username }} {{ poa.usuario.surnames }}</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Cargo del responsable:</b></td>
-                      <td>{{ poa.usuario.post }}</td>
-                    </tr>
-                    <tr>
-                      <td class="text-end"><b>Enlace:</b></td>
-                      <td><a *ngIf="poa.uri" href="{{ URL+'/'+poa.uri }}">{{ URL+'/'+poa.uri }}</a></td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div
+                *ngIf="
+                  form['descripcion'].errors &&
+                  form['descripcion'].errors['minlength']
+                "
+              >
+                El descripcion no puede tener menos de 3 caracteres.
               </div>
             </div>
           </div>
-          <span class="fecha">
-            Fecha de Impresión: {{ date | date:'short'  }}
-          </span>  
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-          <button type="button" (click)="generatePDF()" class="btn btn-primary">Imprimir</button>
-        </div>
+
+
+          <div class="mb-2">
+            <label for="archivo" class="form-label">Archivo</label>
+            <input
+              class="form-control"
+              id="archivo"
+              type="file"
+              name="archivo"
+              id="archivo"
+              accept="archivo/*"
+              formControlName="archivo"
+              (change)="onChange($event)"
+            />
+            <div
+              class="form-text"
+              *ngIf="form['archivo'].touched && form['archivo'].invalid"
+            >
+              <div
+                *ngIf="
+                  form['archivo'].errors &&
+                  form['archivo'].errors['required']
+                "
+              >
+                * archivo es Requerido.
+              </div>
+            </div>
+            <div class="progress mt-1" *ngIf="progress > 0">
+              <div
+                class="progress-bar bg-danger"
+                role="progressbar"
+                [style.width]="progress + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{ progress + "%" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="addForm.invalid"
+            >
+              Añadir
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>

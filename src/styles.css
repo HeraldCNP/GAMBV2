@@ -101,3 +101,7 @@ input.ng-valid.ng-touched {
 .w100{
   width: 100px;
 }
+
+.pointer{
+  cursor: pointer;
+}

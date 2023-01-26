@@ -68,10 +68,40 @@ export class GacetaService {
     })
   }
 
+  addFile(id:string, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadpoa/${id}`;
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
+  getPoa(id: any): Observable<any> {
+    let dir = `${this.URL}/poa/${id}`;
+    return this.http.get<any>(dir)
+  }
+
+
+  editarPoa(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/uploadpoa/${id}`;
+    return this.http.post<any>(dir, fd)
+  }
+
+  deletePoa(id: any): Observable<any> {
+    let dir = `${this.URL}/poa/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
+
   changeEstadoPoa(id: any, fd: FormData): Observable<any> {
     let dir = `${this.URL}/uploadpoa/${id}`;
     console.log(dir)
     return this.http.post<any>(dir, fd)
+  }
+
+
+  deleteDocumentoPoa(id: any): Observable<any> {
+    let dir = `${this.URL}/archivoPoa/${id}`;
+    return this.http.delete<any>(dir, id)
   }
   /*End Servicios para POA*/
 
@@ -90,8 +120,6 @@ export class GacetaService {
     })
   }
 
-  deletePoa(id: any): Observable<any> {
-    let dir = `${this.URL}/poa/${id}`;
-    return this.http.delete<any>(dir, id)
-  }
+
+
 }
