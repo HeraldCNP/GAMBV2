@@ -23,10 +23,6 @@ export class ProveedorIndexComponent implements OnInit {
   cargando: boolean = true;
   idProveedor: any;
 
-  // editarFinan: any = new FormGroup({
-  //   monto: new FormControl('', Validators.required),
-  // })
-
   constructor(private almacenService: AlmacenService, private fb: FormBuilder) {
     this.proveedorForm = this.fb.group({
       compania: [''],
