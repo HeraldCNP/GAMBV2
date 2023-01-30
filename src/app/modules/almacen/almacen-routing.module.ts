@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActividadIndexComponent } from './pages/actividades/actividad-index/actividad-index.component';
+import { ArticuloCreateComponent } from './pages/articulos/articulo-create/articulo-create.component';
 import { ArticuloIndexComponent } from './pages/articulos/articulo-index/articulo-index.component';
 import { CategoriaIndexComponent } from './pages/categorias/categoria-index/categoria-index.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -20,7 +21,7 @@ const routes: Routes = [
       { path: 'actividad/index', component: ActividadIndexComponent },
       { path: 'proveedor/index', component: ProveedorIndexComponent },
       { path: 'articulo/index', component: ArticuloIndexComponent },
-      // { path: 'gaceta/create', component: GacetaCreateComponent },
+      { path: 'articulo/create', component: ArticuloCreateComponent },
       // { path: 'gaceta/update/:id', component: GacetaUpdateComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },

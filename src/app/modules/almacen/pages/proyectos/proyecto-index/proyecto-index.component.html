@@ -11,24 +11,14 @@
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
                   Nuevo Proyecto
                 </button>
               </div>
             </div>
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Buscar proyecto"
-              (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')"
-              #txtTermino
-            />
+            <input class="form-control" type="search" placeholder="Buscar proyecto" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino />
           </div>
         </div>
       </div>
@@ -62,30 +52,19 @@
                   <td>{{ proyecto.denominacion }}</td>
                   <td>
                     <i class="fas fa-edit ml-3 icono"></i>
-                    <i
-                      class="fas fa-trash-alt ml-3 icono"
-                      (click)="borrarProyecto(proyecto._id)"
-                    ></i>
+                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarProyecto(proyecto._id)"></i>
                   </td>
                 </tr>
               </tbody>
             </table>
             <div class="text-center" *ngIf="txtTermino.value.length === 0">
-              <button
-                (click)="cambiarPagina(-1)"
-                *ngIf="page > 1"
-                class="btn btn-info text-sm"
-              >
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
               &nbsp;
               {{ page }} de {{ totalPages }}
               &nbsp;
-              <button
-                (click)="cambiarPagina(1)"
-                *ngIf="page < totalPages"
-                class="btn btn-info text-sm"
-              >
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
                 Siguiente <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -97,46 +76,23 @@
 </div>
 
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">
           Registrar proyecto
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form
-          (ngSubmit)="crearProyecto(proyectoForm.value)"
-          [formGroup]="proyectoForm"
-        >
+        <form (ngSubmit)="crearProyecto(proyectoForm.value)" [formGroup]="proyectoForm">
           <div class="mb-1">
             <label for="entidad" class="form-label col-auto">Programa *</label>
             <!-- Para Mandar id // optionValueField="_id" -->
-            <ngx-select
-              [allowClear]="true"
-              [items]="programas"
-              optionTextField="codigo"
-              optionValueField="_id"
-              placeholder="Seleccione un Programa"
-              formControlName="id_programa"
-              (select)="doSelect($event)"
-
-            >
+            <ngx-select [allowClear]="true" [items]="programas" optionTextField="codigo" optionValueField="_id"
+              placeholder="Seleccione un Programa" formControlName="id_programa" (select)="doSelect($event)">
               <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                 <span [innerHtml]="text"></span>
                 &nbsp;({{option.data.denominacion}})
@@ -146,36 +102,18 @@
           </div>
           <div class="mb-1">
             <label for="codigo" class="form-label col-md-auto">Codigo *</label>
-            <input
-              class="form-control"
-              type="number"
-              formControlName="codigo"
-            />
+            <input class="form-control" type="number" formControlName="codigo" />
           </div>
           <div class="mb-1">
-            <label for="denominacion" class="form-label col-md-auto"
-              >Denominacion *</label
-            >
-            <input
-              class="form-control"
-              type="text"
-              formControlName="denominacion"
-            />
+            <label for="denominacion" class="form-label col-md-auto">Denominacion *</label>
+            <input class="form-control" type="text" formControlName="denominacion" />
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Cerrar
             </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-            >
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
               Registrar
             </button>
           </div>

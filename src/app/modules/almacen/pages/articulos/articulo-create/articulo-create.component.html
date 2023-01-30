@@ -1,0 +1,215 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Crear Nuevo Articulo</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+
+                <form (ngSubmit)="crearArticulo(articuloForm.value)" [formGroup]="articuloForm">
+                  <div class="mb-1">
+                    <label for="idPartida" class="form-label col-auto">Partida de Gasto *</label>
+                    <!-- Para Mandar id // optionValueField="_id" -->
+                    <ngx-select [allowClear]="true" [items]="partidas" optionTextField="codigo" optionValueField="_id"
+                      placeholder="Seleccione una Partida de Gasto" formControlName="idPartida" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.denominacion}})
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form['idPartida'].touched && form['idPartida'].invalid">
+                      <div *ngIf="
+                          form['idPartida'].errors &&
+                          form['idPartida'].errors['required']
+                        ">
+                        * La partida de gasto es Requerida.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="codigo" class="form-label col-md-auto">Código *</label>
+                    <input id="codigo" class="form-control" type="text" formControlName="codigo" />
+                    <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
+                      <div *ngIf="
+                          form['codigo'].errors &&
+                          form['codigo'].errors['required']
+                        ">
+                        * El código es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['codigo'].errors &&
+                          form['codigo'].errors['minlength']
+                        ">
+                        * El código no puede tener menos de 2 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="nombre" class="form-label col-md-auto">Nombre y Caracteristicas *</label>
+                    <input id="nombre" class="form-control" type="text" formControlName="nombre" />
+                    <div class="form-text" *ngIf="form['nombre'].touched && form['nombre'].invalid">
+                      <div *ngIf="
+                          form['nombre'].errors &&
+                          form['nombre'].errors['required']
+                        ">
+                        * El nombre es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['nombre'].errors &&
+                          form['nombre'].errors['minlength']
+                        ">
+                        * El nombre no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1 d-flex">
+                    <div class="flex-grow-1 flex-fill">
+                      <label for="unidadDeMedida" class="form-label col-auto">Unidad de Medida *</label>
+                      <!-- Para Mandar id // optionValueField="_id" -->
+                      <ngx-select [allowClear]="true" [items]="medidas" optionTextField="codigo"
+                        optionValueField="simbolo" placeholder="Seleccione una Unidad de Medida"
+                        formControlName="unidadDeMedida" >
+                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                          <span [innerHtml]="text"></span>
+                          &nbsp;({{option.data.unidadMedida}})
+                        </ng-template>
+                      </ngx-select>
+                      <div class="form-text" *ngIf="form['unidadDeMedida'].touched && form['unidadDeMedida'].invalid">
+                        <div *ngIf="
+                            form['unidadDeMedida'].errors &&
+                            form['unidadDeMedida'].errors['required']
+                          ">
+                          * La unidad de medida es Requerida.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="align-self-end ml-2">
+                      <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#medida">+</button>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="cantidad" class="form-label col-md-auto">Cantidad *</label>
+                    <input id="cantidad" class="form-control" type="number" formControlName="cantidad" />
+                    <div class="form-text" *ngIf="form['cantidad'].touched && form['cantidad'].invalid">
+                      <div *ngIf="
+                          form['cantidad'].errors &&
+                          form['cantidad'].errors['required']
+                        ">
+                        * La cantidad es Requerida.
+                      </div>
+                      <div *ngIf="
+                          form['cantidad'].errors &&
+                          form['cantidad'].errors['minlength']
+                        ">
+                        * La cantidad no puede tener menos de 1 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="ubicacion" class="form-label col-md-auto">Ubicacion </label>
+                    <input id="ubicacion" class="form-control" type="text" formControlName="ubicacion" />
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary mx-3"  (click)="cancel()">
+                      Cerrar
+                    </button>
+                    <button type="submit" class="btn btn-primary"
+                      [disabled]="articuloForm.invalid">
+                      Registrar
+                    </button>
+                  </div>
+                  {{ articuloForm.value | json }}
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="medida" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="medidaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="medidaLabel">
+          Registrar Nueva Medida
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="crearMedida(medidaForm.value)" [formGroup]="medidaForm">
+
+          <div class="mb-1">
+            <label for="unidadMedida" class="form-label col-md-auto">Unidad de Medida *</label>
+            <input id="unidadMedida" class="form-control" type="text" formControlName="unidadMedida" />
+            <div class="form-text" *ngIf="form2['unidadMedida'].touched && form2['unidadMedida'].invalid">
+              <div *ngIf="
+                  form2['unidadMedida'].errors &&
+                  form2['unidadMedida'].errors['required']
+                ">
+                * La unidad de medida es Requerida.
+              </div>
+              <div *ngIf="
+                  form2['unidadMedida'].errors &&
+                  form2['unidadMedida'].errors['minlength']
+                ">
+                * La unidad de medida no puede tener menos de 4 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="simbolo" class="form-label col-md-auto">Simbolo *</label>
+            <input id="simbolo" class="form-control" type="text" formControlName="simbolo" />
+            <div class="form-text" *ngIf="form2['simbolo'].touched && form2['simbolo'].invalid">
+              <div *ngIf="
+                  form2['simbolo'].errors &&
+                  form2['simbolo'].errors['required']
+                ">
+                * El simbolo es Requerida.
+              </div>
+              <div *ngIf="
+                  form2['simbolo'].errors &&
+                  form2['simbolo'].errors['minlength']
+                ">
+                * El simbolo no puede tener menos de 4 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="medidaForm.invalid">
+              Registrar
+            </button>
+          </div>
+          {{ medidaForm.value | json }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->

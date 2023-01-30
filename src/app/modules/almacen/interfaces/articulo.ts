@@ -5,7 +5,8 @@ export interface Articulo {
   cantidad: number;
   ubicacion: string;
   estado: boolean;
-  idCategoria?: string;
+  _id?: string;
+  idPartida?: string;
   idUsuario?: string;
 }
 

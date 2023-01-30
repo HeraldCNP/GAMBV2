@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Articulo } from '../interfaces/articulo';
 
 @Injectable({
   providedIn: 'root',
@@ -157,4 +158,52 @@ export class AlmacenService {
 
 
   /* End Proveedores */
+
+  /* Articulos */
+  getAllArticulos(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/articulos?limit=${limit}&skip=${skip}`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  getAllPartidas(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/partidasAlm?codgt=3&codlt=4`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  getAllMedidas(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/medidas`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  createMedida(form: any): Observable<any> {
+    let dir = `${this.URL}/medida`;
+    return this.http.post<any>(dir, form);
+  }
+
+  createArticulo(form: any): Observable<any> {
+    let dir = `${this.URL}/articulo`;
+    return this.http.post<any>(dir, form);
+  }
+
+  deleteArticulo(id: any) {
+    let dir = `${this.URL}/articulo/${id}`;
+    return this.http.delete<any>(dir, id);
+  }
+
+  searchArticulo(termino: any): Observable<any[]> {
+    let dir = `${this.URL}/searchArticulo/${termino}`;
+    // console.log(dir);
+    return this.http.get<any[]>(dir);
+    // .pipe(
+    //   map((resp:any) => resp.serverResponse)
+    // );
+  }
+
+
+
+  /*End Articulos */
+
 }
