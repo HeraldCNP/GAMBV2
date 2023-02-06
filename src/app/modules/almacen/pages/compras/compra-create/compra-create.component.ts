@@ -17,8 +17,8 @@ export class CompraCreateComponent implements OnInit {
   article: any;
   listadeArticulos: any = [];
   compraForm:any;
-  // fechaHoy = new Date().toLocaleDateString();
-  fechaHoy:string = "01/02/2023";
+  fechaHoy = new Date().toISOString();
+  // fechaHoy:string = "2023/02/02";
 
   catProgras:any;
   proveedores:any;
@@ -28,9 +28,9 @@ export class CompraCreateComponent implements OnInit {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
-    console.log(this.fechaHoy)
+    // console.log(this.fechaHoy.substr(0, 10))
     this.compraForm = this.fb.group({
-      fecha: [this.fechaHoy, [Validators.required]],
+      fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       categoriaProgra: ['', [Validators.required]],
       idProveedor: ['', [Validators.required]],
       concepto: ['', [Validators.required, Validators.min(3)]],
@@ -148,7 +148,7 @@ export class CompraCreateComponent implements OnInit {
       (err) => console.log('HTTP Error', err),
       () => {
 
-        this.router.navigate(['almacen/articulo/index']);
+        this.router.navigate(['almacen/compra/index']);
 
       }
     );
