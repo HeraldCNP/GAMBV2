@@ -62,6 +62,12 @@ export class HomeService {
     return this.http.get<any[]>(dir)
   }
 
+  getAllRendiciones():Observable<any[]>{
+    let dir = `${this.URL}/rendiciones?estado=true`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
 
 }
 

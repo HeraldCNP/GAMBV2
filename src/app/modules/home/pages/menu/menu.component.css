@@ -11,3 +11,32 @@
     background-color: #004e1a!important;
 }
 
+.navbar-nav .nav-link{
+  color: #fff;
+}
+.dropend .dropdown-toggle{
+  color: black;
+  margin-left: 1em;
+}
+.dropdown-item:hover{
+  background-color: #004e1a;
+  color: #fff;
+}
+.dropdown .dropdown-menu{
+  display: none;
+}
+.dropdown:hover > .dropdown-menu, .dropend:hover > .dropdown-menu{
+  display: block;
+  margin-top: .125em;
+  margin-left: .125em;
+}
+@media screen and (min-width:769px) {
+  .dropend:hover > .dropdown-menu{
+    position: absolute;
+    top: 0;
+    left: 100%;
+  }
+  .dropend .dropdown-toggle{
+    margin-left: .5em;
+  }
+}

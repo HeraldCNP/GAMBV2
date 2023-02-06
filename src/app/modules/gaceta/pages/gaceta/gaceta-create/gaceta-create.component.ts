@@ -16,7 +16,7 @@ export class GacetaCreateComponent implements OnInit {
   user: any;
   data: any;
   gacetaForm: any;
-  
+
   files: any;
   progress: number = 0;
 
@@ -102,7 +102,7 @@ export class GacetaCreateComponent implements OnInit {
       },
       () => {
         this.progress = 0;
-        this.router.navigate(['blog/gaceta/index']),
+        this.router.navigate(['docAdmin/gaceta/index']),
           this.alertOk('success', 'Exito', 'Documento Creado Correctamente', '2000')
       }
     )
@@ -120,7 +120,7 @@ export class GacetaCreateComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['gaceta/gaceta/index'])
+    this.router.navigate(['docAdmin/gaceta/index'])
   }
 
 }

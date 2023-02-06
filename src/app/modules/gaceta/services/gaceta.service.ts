@@ -105,6 +105,40 @@ export class GacetaService {
   }
   /*End Servicios para POA*/
 
+  /*Servicios para Rendicion de Cuentas*/
+  getAllRendiciones(): Observable<any[]> {
+    let dir = `${this.URL}/rendiciones`;
+    console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  registerRendiciones(fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadrendicion`;
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
+  changeEstadoRendicion(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadrendicion/${id}`;
+    console.log(dir)
+    return this.http.post<any>(dir, fd)
+  }
+
+  editarRendicion(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/uploadrendicion/${id}`;
+    return this.http.post<any>(dir, fd)
+  }
+
+  deleteRendicion(id: any): Observable<any> {
+    let dir = `${this.URL}/rendicion/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
+
+
+  /*End Servicios para Rendicion de Cuentas*/
+
   /*Servicios para PTDI*/
   getAllPtdis(): Observable<any[]> {
     let dir = `${this.URL}/ptdis`;
@@ -119,6 +153,7 @@ export class GacetaService {
       observe: 'events',
     })
   }
+
 
 
 

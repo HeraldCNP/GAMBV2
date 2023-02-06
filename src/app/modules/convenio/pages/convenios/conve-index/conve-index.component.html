@@ -65,7 +65,7 @@
                   <i (click)="addFile(convenio._id)" class="fas fa-folder-plus ml-3 icono"></i>
                   <i (click)="addTransfe(convenio._id)" class="fas fa-hand-holding-usd ml-3 icono"></i> -->
                 </td>
-                <td > 
+                <td >
                   <i *ngIf="convenio.firma">{{ convenio.firma | date:'shortDate': 'UTC' }} </i>
                   <i *ngIf="!convenio.firma">Sin firma</i>
                 </td>
@@ -100,7 +100,7 @@
                 <td >
                   <span *ngIf="convenio.estado == 'VIGENTE'">{{ calcDias(convenio.fechafin)  }} </span>
                 </td>
-                
+
               </tr>
             </tbody>
           </table>
@@ -136,7 +136,7 @@
                           <p><b>VIGENCIA:</b> {{ convenio.plazo }} días  <b>VENCIMIENTO:</b> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }} - {{ i }} </p>
                       </div>
                   </div>
-              </div>             
+              </div>
           </div>
       </div>
   </div>

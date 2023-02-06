@@ -4,7 +4,7 @@
         <div class="col-md-12">
           <div class="card shadow p-3 mb-5 bg-body rounded">
             <div class="card-header">
-              <h3 class="card-title">Lista de Documentos - Gaceta Oficial</h3>
+              <h3 class="card-title">Lista de Documentos - Gaceta Municipal</h3>
               <div class="card-tools">
                 <span class="mr-3">
                   <button (click)="addGaceta()" class="btn btn-primary">Agregar Documento</button>
@@ -19,7 +19,7 @@
                     </div> -->
               </div>
             </div>
-  
+
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
               <table  class="table table-hover ">
@@ -42,7 +42,7 @@
                         <span *ngIf="gaceta.estado == '1'">
                           <input class="form-check-input pointer" (change)="changeStatus(gaceta._id, !gaceta.estado)"
                             type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Vigente
-  
+
                         </span>
                         <span *ngIf="gaceta.estado == '0'">
                           <input class="form-check-input pointer" (change)="changeStatus(gaceta._id, !gaceta.estado)"
@@ -78,10 +78,10 @@
       </div>
     </div>
   </div>
-  
-  
-  
-  
+
+
+
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -146,7 +146,7 @@
           </div>
           <span class="fecha">
             Fecha de Impresión: {{ date | date:'short'  }}
-          </span>  
+          </span>
         </div>
         <div class="modal-footer d-flex justify-content-center">
           <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->

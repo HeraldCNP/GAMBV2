@@ -33,6 +33,7 @@ import { PeiComponent } from './pages/gestion/pei/pei.component';
 import { PtdiComponent } from './pages/gestion/ptdi/ptdi.component';
 import { ConvenioComponent } from './pages/gestion/convenio/convenio.component';
 import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.component';
+import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
 
 
 
@@ -66,7 +67,8 @@ import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.compo
     PeiComponent,
     PtdiComponent,
     ConvenioComponent,
-    ReglamentoComponent
+    ReglamentoComponent,
+    RendicionComponent
   ],
   imports: [
     CommonModule,

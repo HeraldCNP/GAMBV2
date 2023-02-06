@@ -18,6 +18,7 @@ import { PoaUpdateComponent } from './pages/poa/poa-update/poa-update.component'
 import { PtdiCreateComponent } from './pages/ptdi/ptdi-create/ptdi-create.component';
 import { PtdiIndexComponent } from './pages/ptdi/ptdi-index/ptdi-index.component';
 import { PtdiUpdateComponent } from './pages/ptdi/ptdi-update/ptdi-update.component';
+import { RendicionIndexComponent } from './pages/rendicion/rendicion-index/rendicion-index.component';
 
 
 
@@ -36,7 +37,8 @@ import { PtdiUpdateComponent } from './pages/ptdi/ptdi-update/ptdi-update.compon
     PoaUpdateComponent,
     PtdiCreateComponent,
     PtdiIndexComponent,
-    PtdiUpdateComponent
+    PtdiUpdateComponent,
+    RendicionIndexComponent
   ],
   imports: [
     CommonModule,

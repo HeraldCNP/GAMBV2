@@ -46,7 +46,7 @@ export class GacetaCreateComponent implements OnInit {
          "name": "Decreto Edil"
       }
    ]
-} 
+}
 
   constructor(
     private api: BlogService,
@@ -119,5 +119,5 @@ export class GacetaCreateComponent implements OnInit {
     this.router.navigate(['blog/gaceta/index'])
   }
 
-  
+
 }

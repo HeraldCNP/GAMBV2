@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RendicionComponent } from '../home/pages/itemTransparencia/rendicion/rendicion.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GacetaCreateComponent } from './pages/gaceta/gaceta-create/gaceta-create.component';
 import { GacetaIndexComponent } from './pages/gaceta/gaceta-index/gaceta-index.component';
@@ -10,6 +11,7 @@ import { PoaUpdateComponent } from './pages/poa/poa-update/poa-update.component'
 import { PtdiCreateComponent } from './pages/ptdi/ptdi-create/ptdi-create.component';
 import { PtdiIndexComponent } from './pages/ptdi/ptdi-index/ptdi-index.component';
 import { PtdiUpdateComponent } from './pages/ptdi/ptdi-update/ptdi-update.component';
+import { RendicionIndexComponent } from './pages/rendicion/rendicion-index/rendicion-index.component';
 
 const routes: Routes = [
   {
@@ -28,10 +30,15 @@ const routes: Routes = [
       { path: 'ptdi/create', component: PtdiCreateComponent },
       { path: 'ptdi/update/:id', component: PtdiUpdateComponent },
 
+      { path: 'cuentas/index', component: RendicionIndexComponent},
+      // { path: 'ptdi/create', component: PtdiCreateComponent },
+      // { path: 'ptdi/update/:id', component: PtdiUpdateComponent },
+
       { path: '**', redirectTo: 'dashboard' },
     ]
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

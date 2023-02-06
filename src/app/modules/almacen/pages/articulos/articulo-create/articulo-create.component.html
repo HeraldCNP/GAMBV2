@@ -17,7 +17,8 @@
                     <label for="idPartida" class="form-label col-auto">Partida de Gasto *</label>
                     <!-- Para Mandar id // optionValueField="_id" -->
                     <ngx-select [allowClear]="true" [items]="partidas" optionTextField="codigo" optionValueField="_id"
-                      placeholder="Seleccione una Partida de Gasto" formControlName="idPartida" (select)="doSelect($event)">
+                      placeholder="Seleccione una Partida de Gasto" formControlName="idPartida"
+                      (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;({{option.data.denominacion}})
@@ -77,7 +78,7 @@
                       <!-- Para Mandar id // optionValueField="_id" -->
                       <ngx-select [allowClear]="true" [items]="medidas" optionTextField="codigo"
                         optionValueField="simbolo" placeholder="Seleccione una Unidad de Medida"
-                        formControlName="unidadDeMedida" >
+                        formControlName="unidadDeMedida">
                         <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                           <span [innerHtml]="text"></span>
                           &nbsp;({{option.data.unidadMedida}})
@@ -93,7 +94,8 @@
                       </div>
                     </div>
                     <div class="align-self-end ml-2">
-                      <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#medida">+</button>
+                      <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#medida">+</button>
                     </div>
                   </div>
 
@@ -122,11 +124,10 @@
                   </div>
 
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary mx-3"  (click)="cancel()">
+                    <button type="button" class="btn btn-secondary mx-3" (click)="cancel()">
                       Cerrar
                     </button>
-                    <button type="submit" class="btn btn-primary"
-                      [disabled]="articuloForm.invalid">
+                    <button type="submit" class="btn btn-primary" [disabled]="articuloForm.invalid">
                       Registrar
                     </button>
                   </div>

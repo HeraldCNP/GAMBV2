@@ -100,7 +100,7 @@ export class GacetaUpdateComponent implements OnInit {
       fd.append('numero', this.editarForm.value.numero);
       fd.append('fecha', this.editarForm.value.fecha);
       fd.append('usuario', this.idUser);
-      
+
     } else {
       fd.append('archivo', this.editarForm.value.archivo);
       fd.append('titulo', this.editarForm.value.titulo);
@@ -121,7 +121,7 @@ export class GacetaUpdateComponent implements OnInit {
       },
       () => {
         this.progress = 0;
-        this.router.navigate(['gaceta/gaceta/index']),
+        this.router.navigate(['docAdmin/gaceta/index']),
           this.alertOk('success', 'Exito', 'Documento Editado Correctamente', '2000')
       }
     )
@@ -137,7 +137,7 @@ export class GacetaUpdateComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['gaceta/gaceta/index'])
+    this.router.navigate(['docAdmin/gaceta/index'])
   }
 
 

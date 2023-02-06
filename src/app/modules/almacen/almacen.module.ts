@@ -15,6 +15,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { ProveedorIndexComponent } from './pages/proveedores/proveedor-index/proveedor-index.component';
 import { ArticuloIndexComponent } from './pages/articulos/articulo-index/articulo-index.component';
 import { ArticuloCreateComponent } from './pages/articulos/articulo-create/articulo-create.component';
+import { CompraCreateComponent } from './pages/compras/compra-create/compra-create.component';
+import { CompraIndexComponent } from './pages/compras/compra-index/compra-index.component';
 
 
 
@@ -32,6 +34,8 @@ import { ArticuloCreateComponent } from './pages/articulos/articulo-create/artic
     ProveedorIndexComponent,
     ArticuloIndexComponent,
     ArticuloCreateComponent,
+    CompraCreateComponent,
+    CompraIndexComponent,
   ],
   imports: [
     CommonModule,

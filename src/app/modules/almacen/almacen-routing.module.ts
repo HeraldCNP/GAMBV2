@@ -4,6 +4,8 @@ import { ActividadIndexComponent } from './pages/actividades/actividad-index/act
 import { ArticuloCreateComponent } from './pages/articulos/articulo-create/articulo-create.component';
 import { ArticuloIndexComponent } from './pages/articulos/articulo-index/articulo-index.component';
 import { CategoriaIndexComponent } from './pages/categorias/categoria-index/categoria-index.component';
+import { CompraCreateComponent } from './pages/compras/compra-create/compra-create.component';
+import { CompraIndexComponent } from './pages/compras/compra-index/compra-index.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProgramaIndexComponent } from './pages/programas/programa-index/programa-index.component';
 import { ProveedorIndexComponent } from './pages/proveedores/proveedor-index/proveedor-index.component';
@@ -22,6 +24,8 @@ const routes: Routes = [
       { path: 'proveedor/index', component: ProveedorIndexComponent },
       { path: 'articulo/index', component: ArticuloIndexComponent },
       { path: 'articulo/create', component: ArticuloCreateComponent },
+      { path: 'compra/index', component: CompraIndexComponent },
+      { path: 'compra/create', component: CompraCreateComponent },
       // { path: 'gaceta/update/:id', component: GacetaUpdateComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },

@@ -1,12 +1,40 @@
-.active{
-    font-weight: bold;
-    /* text-decoration: underline; */
+.active {
+  font-weight: bold;
+  font-size: 1.1rem;
+  /* text-decoration: underline solid #FFD743; */
+  /* background-color: #FFD743; */
+
 }
 
-.fondo{
-    background-color: rgb(1, 116, 57)!important;
+.fondo {
+  background-color: rgb(1, 116, 57) !important;
 }
 
-.fas{
-    cursor: pointer !important;
+.fas {
+  cursor: pointer !important;
 }
+
+ul li a {
+  position: relative;
+  color: white;
+  margin: 0px 15px;
+}
+
+ul li a:after {
+  position: absolute;
+  bottom: 7px;
+  left: 0px;
+  width: 100%;
+  height: 4px;
+  background-color: #FFD743;
+  content: "";
+  opacity: 0;
+  transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+  transform: translateY(20px);
+}
+
+ul li a:hover:after {
+  opacity: 1;
+  transform: translateY(15px)
+}
+

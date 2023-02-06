@@ -26,7 +26,7 @@ export class PoaCreateComponent implements OnInit {
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
     this.poaForm = new FormGroup({
-      gestion: new FormControl('', [
+      gestion: new FormControl(2023, [
         Validators.required,
         Validators.minLength(4),
       ]),

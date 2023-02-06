@@ -1,63 +1,72 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { GacetaService } from '../../../services/gaceta.service';
 
 @Component({
-  selector: 'app-poa-index',
-  templateUrl: './poa-index.component.html',
-  styleUrls: ['./poa-index.component.css'],
+  selector: 'app-rendicion-index',
+  templateUrl: './rendicion-index.component.html',
+  styleUrls: ['./rendicion-index.component.css']
 })
-export class PoaIndexComponent implements OnInit {
-  poas: any = [];
-  poa: any;
+export class RendicionIndexComponent implements OnInit {
+  rendiciones: any = [];
+  rendicion: any;
+  idRendicion: any;
   date = new Date();
   URL = environment.api;
   status: any;
   showModal: boolean = false;
   addForm: any;
-  files: any;
+  editForm: any;
+  files: any = [];
   progress: number = 0;
   poaId: any;
-  constructor(private router: Router, private api: GacetaService) {
+  constructor(private router: Router, private api: GacetaService, private fb: FormBuilder) {
     this.addForm = new FormGroup({
+      gestion: new FormControl(2023, Validators.required),
       descripcion: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
       ]),
       archivo: new FormControl('', Validators.required),
     });
-  }
 
-  ngOnInit(): void {
-    this.getPoas();
-  }
-
-  getPoas() {
-    this.api.getAllPoas().subscribe((res) => {
-      this.poas = res;
-      console.log(this.poas);
+    this.editForm = this.fb.group({
+      gestion: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
+      archivo: [''],
     });
   }
 
-  addPoa() {
-    this.router.navigate(['docAdmin/poa/create']);
+  ngOnInit(): void {
+    this.getRendiciones();
   }
+
+  getRendiciones() {
+    this.api.getAllRendiciones().subscribe((res) => {
+      this.rendiciones = res;
+      console.log(this.rendiciones);
+    });
+  }
+
+  // addPoa() {
+  //   this.router.navigate(['docAdmin/poa/create']);
+  // }
 
   changeStatus(id: any, estado: any) {
     let fd = new FormData();
     fd.append('estado', estado);
     console.log(estado);
-    this.api.changeEstadoPoa(id, fd).subscribe(
+    this.api.changeEstadoRendicion(id, fd).subscribe(
       (res) => {
         console.log(res);
       },
       (err) => console.log('HTTP Error', err),
       () => {
-        this.getPoas();
+        this.getRendiciones();
       }
     );
   }
@@ -67,8 +76,8 @@ export class PoaIndexComponent implements OnInit {
   getPoa(id: any) {
     this.api.getGaceta(id).subscribe(
       (res) => {
-        this.poa = res.serverResponse;
-        console.log(this.poa);
+        this.rendicion = res.serverResponse;
+        console.log(this.rendicion);
       },
       (err) => console.log('HTTP Error', err),
       () => {
@@ -77,11 +86,11 @@ export class PoaIndexComponent implements OnInit {
     );
   }
 
-  updatePoa(id: string) {
+  updateCuenta(id: string) {
     this.router.navigate(['docAdmin/poa/update', id]);
   }
 
-  deletePoa(id: string) {
+  deleteRendicion(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: '¡No podrás revertir esto!',
@@ -94,10 +103,10 @@ export class PoaIndexComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('¡Eliminado!', 'El Documento ha sido eliminado.', 'success');
-        this.api.deletePoa(id).subscribe(
+        this.api.deleteRendicion(id).subscribe(
           (res) => console.log(res),
           (err) => console.log('HTTP Error', err),
-          () => this.getPoas()
+          () => this.getRendiciones()
         );
       }
     });
@@ -117,9 +126,10 @@ export class PoaIndexComponent implements OnInit {
 
   addArchivo(form: FormData) {
     let fd = new FormData();
+    fd.append('gestion', this.addForm.value.gestion);
     fd.append('descripcion', this.addForm.value.descripcion);
     fd.append('file', this.files[0]);
-    this.api.addFile(this.poaId, fd).subscribe(
+    this.api.registerRendiciones(fd).subscribe(
       (event) => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round((100 * event.loaded) / event.total);
@@ -131,7 +141,7 @@ export class PoaIndexComponent implements OnInit {
       },
       () => {
         this.progress = 0;
-        this.getPoas();
+        this.getRendiciones();
         this.resetForm();
         this.alertOk(
           'success',
@@ -154,6 +164,52 @@ export class PoaIndexComponent implements OnInit {
       text,
       timer,
     });
+  }
+
+  cargarDataEdit(rendicion: any) {
+    // console.log("Rendi Edit", rendicion)
+    this.editForm.setValue({
+      gestion: rendicion.gestion,
+      descripcion: rendicion.descripcion,
+      archivo: null
+    });
+    this.idRendicion = rendicion._id;
+  }
+
+  editRendicion() {
+    let fd = new FormData();
+
+    if (this.files[0]) {
+      fd.append('gestion', this.editForm.value.gestion);
+      fd.append('descripcion', this.editForm.value.descripcion);
+      fd.append('archivo', this.files[0]);
+    } else {
+      fd.append('gestion', this.editForm.value.gestion);
+      fd.append('descripcion', this.editForm.value.descripcion);
+    }
+
+    // let fd = new FormData();
+
+    console.log(this.idRendicion)
+
+    this.api.editarRendicion(fd, this.idRendicion).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.editForm.reset();
+        this.alertOk(
+          'success',
+          'Exito',
+          'Documento editado Correctamente',
+          '2000'
+        );
+        this.getRendiciones();
+      }
+    );
   }
 
 }

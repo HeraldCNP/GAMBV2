@@ -39,24 +39,12 @@
                   <td>
                     <div class="form-check form-switch">
                       <span *ngIf="poa.estado == '1'">
-                        <input
-                          class="form-check-input pointer"
-                          (change)="changeStatus(poa._id, !poa.estado)"
-                          type="checkbox"
-                          [checked]="true"
-                          role="switch"
-                          id="{{ 'toogle' + i }}"
-                        />Publicado
+                        <input class="form-check-input pointer" (change)="changeStatus(poa._id, !poa.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Publicado
                       </span>
                       <span *ngIf="poa.estado == '0'">
-                        <input
-                          class="form-check-input pointer"
-                          (change)="changeStatus(poa._id, !poa.estado)"
-                          type="checkbox"
-                          [checked]="false"
-                          role="switch"
-                          id="{{ 'toogle' + i }}"
-                        />No Publicado
+                        <input class="form-check-input pointer" (change)="changeStatus(poa._id, !poa.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />No Publicado
                       </span>
                     </div>
                   </td>
@@ -65,28 +53,16 @@
                   <!-- <td><a href="{{ URL+'/'+poa.uri }}" target="_blank">Descargar</a></td> -->
                   <td class="text-center">
                     <i *ngFor="let file of poa.archivo">
-                      {{ file.descripcion }}
-                      <a  href="{{ URL + '/' + file.uri }}" target="_blank"
-                        ><i class="fas fa-file-download "></i
-                      ></a>
+
+                      <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.descripcion }}</a>
                       <br />
                     </i>
                   </td>
                   <td>
-                    <i
-                      class="fas fa-plus ml-3 icono"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalAddFile"
-                      (click)="getId(poa._id)"
-                    ></i>
-                    <i
-                      (click)="updatePoa(poa._id)"
-                      class="fas fa-edit ml-3 icono"
-                    ></i>
-                    <i
-                      (click)="deletePoa(poa._id)"
-                      class="fas fa-trash-alt ml-3 icono"
-                    ></i>
+                    <i class="fas fa-plus ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalAddFile"
+                      (click)="getId(poa._id)"></i>
+                    <i (click)="updatePoa(poa._id)" class="fas fa-edit ml-3 icono"></i>
+                    <i (click)="deletePoa(poa._id)" class="fas fa-trash-alt ml-3 icono"></i>
                   </td>
                 </tr>
               </tbody>
@@ -101,57 +77,32 @@
 </div>
 
 <!-- Modal Edit -->
-<div
-  class="modal fade"
-  id="modalAddFile"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="modalAddFileLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="modalAddFile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalAddFileLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalAddFileLabel">
           Añadir Documento
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form (ngSubmit)="addArchivo(addForm.value)" [formGroup]="addForm">
           <div class="mb-1">
             <label for="descripcion" class="form-label">Descripción *</label>
-            <input
-              type="text"
-              class="form-control"
-              id="descripcion"
-              formControlName="descripcion"
-              required
-            />
-            <div
-              class="form-text"
-              *ngIf="form['descripcion'].touched && form['descripcion'].invalid"
-            >
-              <div
-                *ngIf="
+            <input type="text" class="form-control" id="descripcion" formControlName="descripcion" required />
+            <div class="form-text" *ngIf="form['descripcion'].touched && form['descripcion'].invalid">
+              <div *ngIf="
                   form['descripcion'].errors &&
                   form['descripcion'].errors['required']
-                "
-              >
+                ">
                 * La descripcion es Requerida.
               </div>
-              <div
-                *ngIf="
+              <div *ngIf="
                   form['descripcion'].errors &&
                   form['descripcion'].errors['minlength']
-                "
-              >
+                ">
                 El descripcion no puede tener menos de 3 caracteres.
               </div>
             </div>
@@ -160,57 +111,29 @@
 
           <div class="mb-2">
             <label for="archivo" class="form-label">Archivo</label>
-            <input
-              class="form-control"
-              id="archivo"
-              type="file"
-              name="archivo"
-              id="archivo"
-              accept="archivo/*"
-              formControlName="archivo"
-              (change)="onChange($event)"
-            />
-            <div
-              class="form-text"
-              *ngIf="form['archivo'].touched && form['archivo'].invalid"
-            >
-              <div
-                *ngIf="
+            <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+              formControlName="archivo" (change)="onChange($event)" />
+            <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
+              <div *ngIf="
                   form['archivo'].errors &&
                   form['archivo'].errors['required']
-                "
-              >
+                ">
                 * archivo es Requerido.
               </div>
             </div>
             <div class="progress mt-1" *ngIf="progress > 0">
-              <div
-                class="progress-bar bg-danger"
-                role="progressbar"
-                [style.width]="progress + '%'"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
+              <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'" aria-valuemin="0"
+                aria-valuemax="100">
                 {{ progress + "%" }}
               </div>
             </div>
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              (click)="resetForm()"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cancelar
             </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-              [disabled]="addForm.invalid"
-            >
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="addForm.invalid">
               Añadir
             </button>
           </div>

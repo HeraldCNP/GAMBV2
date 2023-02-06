@@ -15,11 +15,12 @@ import { DefensoriaComponent } from './pages/defensoria/defensoria.component';
 import { SlimComponent } from './pages/slim/slim.component';
 import { GacetaComponent } from './pages/gaceta/gaceta.component';
 import { PoaComponent } from './pages/gestion/poa/poa.component';
+import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
 
 
 const routes: Routes = [
   {
-    path: '', 
+    path: '',
     component: IndexComponent,
     children:[
       // {path: '', component: IndexComponent},
@@ -36,6 +37,8 @@ const routes: Routes = [
       {path: 'slim', component: SlimComponent},
       {path: 'gaceta', component: GacetaComponent},
       {path: 'gestion/poa', component: PoaComponent},
+
+      {path: 'transparencia/rendicion-de-cuentas', component: RendicionComponent},
 
     ]
   }
