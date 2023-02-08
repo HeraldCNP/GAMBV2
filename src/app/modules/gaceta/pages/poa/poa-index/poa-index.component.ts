@@ -17,19 +17,12 @@ export class PoaIndexComponent implements OnInit {
   date = new Date();
   URL = environment.api;
   status: any;
-  showModal: boolean = false;
-  addForm: any;
-  files: any;
-  progress: number = 0;
-  poaId: any;
+  showModal: boolean = true;
+
+
+
   constructor(private router: Router, private api: GacetaService) {
-    this.addForm = new FormGroup({
-      descripcion: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      archivo: new FormControl('', Validators.required),
-    });
+
   }
 
   ngOnInit(): void {
@@ -103,57 +96,15 @@ export class PoaIndexComponent implements OnInit {
     });
   }
 
-  get form() {
-    return this.addForm.controls;
-  }
-
-  onChange($event: any) {
-    this.files = $event.target.files;
-  }
 
   getId(id: string) {
     this.poaId = id;
   }
 
-  addArchivo(form: FormData) {
-    let fd = new FormData();
-    fd.append('descripcion', this.addForm.value.descripcion);
-    fd.append('file', this.files[0]);
-    this.api.addFile(this.poaId, fd).subscribe(
-      (event) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round((100 * event.loaded) / event.total);
-        }
-      },
-      (err) => {
-        console.log('HTTP Error', err);
-        this.progress = 0;
-      },
-      () => {
-        this.progress = 0;
-        this.getPoas();
-        this.resetForm();
-        this.alertOk(
-          'success',
-          'Exito',
-          'Documento Creado Correctamente',
-          '2000'
-        );
-      }
-    );
-  }
+  
 
-  resetForm() {
-    this.addForm.reset();
-  }
 
-  alertOk(icon: any, title: any, text: any, timer: any) {
-    Swal.fire({
-      icon,
-      title,
-      text,
-      timer,
-    });
-  }
+
+
 
 }
