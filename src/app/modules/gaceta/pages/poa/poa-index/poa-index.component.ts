@@ -97,11 +97,11 @@ export class PoaIndexComponent implements OnInit {
   }
 
 
-  getId(id: string) {
-    this.poaId = id;
+  addFilePoa(id:string){
+    this.router.navigate(['docAdmin/poa/add', id]);
   }
 
-  
+
 
 
 

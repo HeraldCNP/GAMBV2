@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GacetaService } from '../../../services/gaceta.service';
 import { HttpEventType } from '@angular/common/http';
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ export class PoaAddComponent implements OnInit {
   files: any;
   progress: number = 0;
   poaId: any;
-  constructor(private router: Router, private api: GacetaService) {
+  constructor(private router: Router, private api: GacetaService, private activeRouter: ActivatedRoute) {
     this.addForm = new FormGroup({
       descripcion: new FormControl('', [
         Validators.required,
@@ -26,6 +26,8 @@ export class PoaAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.poaId = this.activeRouter.snapshot.paramMap.get('id');
+    console.log(this.poaId)
   }
 
   addArchivo(form: FormData) {
@@ -37,7 +39,6 @@ export class PoaAddComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round((100 * event.loaded) / event.total);
         }
-
       },
       (err) => {
         console.log('HTTP Error', err);
@@ -57,7 +58,7 @@ export class PoaAddComponent implements OnInit {
   }
 
 
-  
+
   get form() {
     return this.addForm.controls;
   }
@@ -73,5 +74,9 @@ export class PoaAddComponent implements OnInit {
       text,
       timer,
     });
+  }
+
+  cancel() {
+    this.router.navigate(['docAdmin/poa/index']);
   }
 }
