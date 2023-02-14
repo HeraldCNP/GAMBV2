@@ -23,6 +23,12 @@ export class ComprasService {
     return this.http.get<any>(dir);
   }
 
+  getAllFuncionarios(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/users`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
   getAllIngresos(limit?: number, skip?: number): Observable<any[]> {
     let dir = `${this.URL}/ingresos?limit=${limit}&skip=${skip}`;
     console.log(dir);
@@ -65,6 +71,12 @@ export class ComprasService {
   deleteIngreso(id: any) {
     let dir = `${this.URL}/proveedor/${id}`;
     return this.http.delete<any>(dir, id);
+  }
+
+
+  getIngreso(id: any): Observable<any> {
+    let dir = `${this.URL}/ingreso/${id}`;
+    return this.http.get<any>(dir)
   }
 
 }

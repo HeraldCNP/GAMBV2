@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ComprasService } from '../../../services/compras.service';
 
@@ -23,6 +26,11 @@ export class CompraIndexComponent implements OnInit {
   editForm: any;
   cargando: boolean = true;
   idProveedor: any;
+  URL = environment.api;
+  ingreso: any;
+  date = new Date();
+  separados:any;
+  categories:any;
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
@@ -102,11 +110,129 @@ export class CompraIndexComponent implements OnInit {
     });
   }
 
-  addIngreso(){
+  addIngreso() {
     this.router.navigate(['almacen/compra/create']);
   }
 
 
+  generatePDF() {
+    // let pdf = new jsPDF( 'p', 'mm', [215, 280]);
+
+    // pdf.html(this.el.nativeElement,{
+    //   callback:(pdf) => {
+    //     pdf.save("output.pdf")
+    //   }
+    // })
+    const DATA: any = document.getElementById('content');
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const options = {
+      background: 'white',
+      scale: 2,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const img = canvas.toDataURL('image/PNG');
+
+        // Add image Canvas to PDF
+        const bufferX = 3;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(img);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          img,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+
+          undefined,
+          'FAST'
+        );
+
+        return doc;
+      })
+      .then((docResult) => {
+        docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+        //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
+      });
+  }
+
+  generatePDFS() {
+    // let pdf = new jsPDF( 'p', 'mm', [215, 280]);
+
+    // pdf.html(this.el.nativeElement,{
+    //   callback:(pdf) => {
+    //     pdf.save("output.pdf")
+    //   }
+    // })
+    const DATA: any = document.getElementById('content');
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const options = {
+      background: 'white',
+      scale: 2,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/PNG');
+        // Add image Canvas to PDF
+        var imgWidth = 210;
+        var pageHeight = 295;
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+
+        var doc = new jsPDF('p', 'mm');
+        var position = 0;
+
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          doc.addPage();
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+        doc.save('file.pdf');
+        return doc;
+      })
+      .then((docResult) => {
+        docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+        //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
+      });
+  }
+
+  separar() {
+    const itemsByCategory = this.ingreso.articulos.reduce((accumulator:any, current:any) => {
+      if (!accumulator[current]) {
+        accumulator[current.catProgra] = [];
+      }
+      accumulator[current.catProgra].push(current);
+      return accumulator;
+    }, {});
+    this.separados = itemsByCategory;
+    this.categories = Object.keys(itemsByCategory);
+    console.log("CategoriasSeparadas", this.categories)
+  }
+
+  getIngreso(id: string) {
+    this.comprasService.getIngreso(id)
+      .subscribe(
+        res => {
+          this.ingreso = res;
+          console.log(this.ingreso)
+        },
+        err => console.log('HTTP Error', err),
+        () => {
+          this.separar();
+        }
+      );
+  }
+
+  calculateTotalCost() {
+    return this.ingreso.articulos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidad), 0);
+  }
 
 
 }

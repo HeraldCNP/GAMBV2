@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class HomeService {
   private readonly URL = environment.api;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   getAllSliders():Observable<any[]>{
     let dir = `${this.URL}/slaider`;
@@ -68,7 +69,24 @@ export class HomeService {
     return this.http.get<any[]>(dir)
   }
 
+  /* Contador */
+  getCounterValue():Observable<number> {
+    return this.http.get<number>('/api/counter');
+    // return 2;
+  }
 
+  incrementCounterValue() {
+    this.getCounterValue().subscribe(value => {
+      const newValue = value + 1;
+      // this.http.put('/api/counter', { value: newValue }).subscribe(() => {
+      //   this.cookieService.set('visits', newValue.toString());
+      // });
+      return newValue;
+    });
+
+  }
+
+  /* End Contador */
 }
 
 

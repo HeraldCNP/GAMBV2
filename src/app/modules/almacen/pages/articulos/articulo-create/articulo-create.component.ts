@@ -57,8 +57,8 @@ export class ArticuloCreateComponent implements OnInit {
   cargarPartidas() {
     this.cargando = true;
     this.almacenService.getAllPartidas().subscribe((data: any) => {
-      this.partidas = data.serverResponse;
-      console.log("Partidas", data)
+      this.partidas = data[0].partidas;
+      console.log("Partidas", data[0].partidas)
     });
   }
 
@@ -77,6 +77,7 @@ export class ArticuloCreateComponent implements OnInit {
       (res) => {
         console.log(res);
       },
+
       (err) => console.log('HTTP Error', err),
       () => {
         this.articuloForm.reset();

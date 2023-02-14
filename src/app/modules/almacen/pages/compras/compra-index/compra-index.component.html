@@ -38,7 +38,8 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Categoria Programatica</th>
+                  <th>N° de Compra</th>
+                  <th>Funcionario</th>
                   <th>Concepto</th>
                   <th>Fecha</th>
                   <th>Proveedor</th>
@@ -47,9 +48,10 @@
               </thead>
               <tbody class="table-group-divider">
                 <tr *ngFor="let ingreso of ingresos.serverResponse; let i = index">
-                  <td>{{ ingreso.categoriaProgra }}</td>
+                  <td>{{ ingreso.numero }}</td>
+                  <td>{{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }}</td>
                   <td>{{ ingreso.concepto }}</td>
-                  <td>{{ ingreso.fecha }}</td>
+                  <td>{{ ingreso.fecha | date:'longDate' }}</td>
                   <td>{{ ingreso.idProveedor.compania }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
@@ -65,7 +67,14 @@
                   </td> -->
                   <td>
                     <!-- <i class="fas fa-edit ml-3 icono"></i> -->
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarIngreso(ingreso._id)"></i>
+                    <div>
+                      <!-- Button trigger modal -->
+                      <button type="button" (click)="getIngreso(ingreso._id)" class="btn btn-primary btn-sm"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Imprimir
+                      </button>
+                      <i class="fas fa-trash-alt ml-3 icono" (click)="borrarIngreso(ingreso._id)"></i>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -87,3 +96,102 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body" id="content" #content>
+        <div *ngIf="ingreso" class="card fondito1">
+          <div class="row">
+            <div class="col-md-2">
+              <img src="/assets/img/logo2.png" alt="" width="60px">
+            </div>
+            <div class="col-md-10 text-center">
+              <h3>Documento de Ingreso a Almacén N° {{ ingreso.numero }}</h3>
+              <p>Correspondiente al {{ ingreso.fecha | date:'longDate' }}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-2 text-bold">
+              Entidad: <br>
+              Proveedor: <br>
+              Concepto: <br>
+              Solicitado por:
+            </div>
+            <div class="col-md-10">
+              1508 - Gobierno Autonómo Municipal de Betanzos <br>
+              {{ ingreso.idProveedor.compania }} <b> Razon Social: </b>{{ ingreso.idProveedor.razon_social }} <b> Nit:
+              </b> {{ ingreso.idProveedor.nit }} <br>
+              {{ ingreso.concepto }} <br>
+              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> Cargo: </b>{{ ingreso.idPersona.post
+              }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-striped table-hover" border="2">
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Cat. Prog.</th>
+                    <th>Partida de gasto</th>
+                    <th>Factura</th>
+                    <th>Articulo</th>
+                    <th>Cantidad</th>
+                    <th>Unidad de Medida</th>
+                    <th>P/U</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td *ngFor="let category of categories">
+                      <tr *ngFor="let item of separados[category]; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.catProgra }}</td>
+                        <td>{{ item.partidaGasto }}</td>
+                        <td>{{ item.factura }}</td>
+                        <td>{{ item.articulo }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>{{ item.unidadMedida }}</td>
+                        <td>{{ item.precio }}</td>
+                        <td>{{ item.cantidad * item.precio }}</td>
+                      </tr>
+                  </td>
+                  <!-- <tr *ngFor="let articulo of separados; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ articulo.catProgra }}</td>
+                    <td>{{ articulo.partidaGasto }}</td>
+                    <td>{{ articulo.factura }}</td>
+                    <td>{{ articulo.articulo }}</td>
+                    <td>{{ articulo.cantidad }}</td>
+                    <td>{{ articulo.unidadMedida }}</td>
+                    <td>{{ articulo.precio }}</td>
+                    <td>{{ articulo.cantidad * articulo.precio }}</td>
+                  </tr> -->
+
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="6" class="text-end fs-5"> <b>TOTAL BOLIVIANOS: </b></td>
+                    <td class="fs-5"><b>{{ calculateTotalCost() }}</b></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+        <span class="fecha">
+          Fecha de Impresión: {{ date | date:'short' }}
+        </span>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->

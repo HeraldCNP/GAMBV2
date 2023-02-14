@@ -1,4 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HomeService } from '../../../services/home.service';
 
 @Component({
   selector: 'app-pei',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PeiComponent implements OnInit {
 
-  constructor() { }
+  peis: any = [];
+  peisTemp: any = [];
+  URL = environment.api;
+  constructor(
+    private api: HomeService,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
   }
 
+  goBack(){
+    this.location.back();
+  }
 }

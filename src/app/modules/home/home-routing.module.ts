@@ -16,6 +16,8 @@ import { SlimComponent } from './pages/slim/slim.component';
 import { GacetaComponent } from './pages/gaceta/gaceta.component';
 import { PoaComponent } from './pages/gestion/poa/poa.component';
 import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
+import { PtdiComponent } from './pages/gestion/ptdi/ptdi.component';
+import { PeiComponent } from './pages/gestion/pei/pei.component';
 
 
 const routes: Routes = [
@@ -37,6 +39,8 @@ const routes: Routes = [
       {path: 'slim', component: SlimComponent},
       {path: 'gaceta', component: GacetaComponent},
       {path: 'gestion/poa', component: PoaComponent},
+      {path: 'gestion/ptdi', component: PtdiComponent},
+      {path: 'gestion/pei', component: PeiComponent},
 
       {path: 'transparencia/rendicion-de-cuentas', component: RendicionComponent},
 

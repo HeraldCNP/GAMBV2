@@ -167,7 +167,7 @@ export class AlmacenService {
   }
 
   getAllPartidas(limit?: number, skip?: number): Observable<any[]> {
-    let dir = `${this.URL}/partidasAlm?codgt=3&codlt=4`;
+    let dir = `${this.URL}/almPartidas`;
     console.log(dir);
     return this.http.get<any>(dir);
   }

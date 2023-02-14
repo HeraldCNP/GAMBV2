@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ComprasService } from '../../../services/compras.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class CompraCreateComponent implements OnInit {
 
   catProgras:any;
   proveedores:any;
+  funcionarios:any;
   cargando: boolean = true;
 
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router) {
@@ -33,6 +35,7 @@ export class CompraCreateComponent implements OnInit {
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       categoriaProgra: ['', [Validators.required]],
       idProveedor: ['', [Validators.required]],
+      idPersona: ['', [Validators.required]],
       concepto: ['', [Validators.required, Validators.min(3)]],
       numeroFactura: [''],
       articulos: ['', [Validators.required]],
@@ -46,6 +49,7 @@ export class CompraCreateComponent implements OnInit {
   ngOnInit(): void {
     this.cargarCatProgras();
     this.cargarProveedores();
+    this.cargarFuncionarios();
   }
 
   cargarCatProgras() {
@@ -64,14 +68,25 @@ export class CompraCreateComponent implements OnInit {
     });
   }
 
+  cargarFuncionarios() {
+    this.cargando = true;
+    this.comprasService.getAllFuncionarios().subscribe((data: any) => {
+      this.funcionarios = data.serverResponse;
+      console.log("Funcionarios", data)
+    });
+  }
+
   addArticulo(article: any) {
     console.log('articleAdd', article)
     this.listadeArticulos.push({
       id: article._id,
       codigo: article.codigo,
-      articulo: article.nombre,
+      catProgra: this.compraForm.value.categoriaProgra,
       partidaGasto: article.idPartida.codigo,
+      factura: this.compraForm.value.numeroFactura,
+      articulo: article.nombre,
       cantidad: 0,
+      unidadMedida: article.unidadDeMedida,
       precio: 0
     });
   }
@@ -149,9 +164,23 @@ export class CompraCreateComponent implements OnInit {
       () => {
 
         this.router.navigate(['almacen/compra/index']);
-
+        this.alertOk(
+          'success',
+          'Exito',
+          'Ingreso Creado Correctamente',
+          '2000'
+        );
       }
     );
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer,
+    });
   }
 
 

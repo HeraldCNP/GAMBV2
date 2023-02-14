@@ -34,6 +34,7 @@ import { PtdiComponent } from './pages/gestion/ptdi/ptdi.component';
 import { ConvenioComponent } from './pages/gestion/convenio/convenio.component';
 import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.component';
 import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
+import { CounterComponent } from './pages/index/counter/counter.component';
 
 
 
@@ -68,7 +69,8 @@ import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicio
     PtdiComponent,
     ConvenioComponent,
     ReglamentoComponent,
-    RendicionComponent
+    RendicionComponent,
+    CounterComponent
   ],
   imports: [
     CommonModule,

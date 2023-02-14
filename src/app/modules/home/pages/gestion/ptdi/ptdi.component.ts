@@ -1,4 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HomeService } from '../../../services/home.service';
 
 @Component({
   selector: 'app-ptdi',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ptdi.component.css']
 })
 export class PtdiComponent implements OnInit {
-
-  constructor() { }
+  ptdis: any = [];
+  ptdisTemp: any = [];
+  URL = environment.api;
+  constructor(
+    private api: HomeService,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

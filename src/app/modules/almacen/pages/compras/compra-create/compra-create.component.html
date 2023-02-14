@@ -20,31 +20,12 @@
                         es Requerido.</div>
                     </div>
                   </div>
-                  <div class="mb-1">
-                    <label for="categoriaProgra" class="form-label col-auto">Categoría Programatica *</label>
-                    <!-- Para Mandar id // optionValueField="_id" -->
-                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo" optionValueField="cat_programatica"
-                      placeholder="Seleccione una Categoría Programatica" formControlName="categoriaProgra"
-                      (select)="doSelect($event)">
-                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                        <span [innerHtml]="text"></span>
-                        &nbsp;({{option.data.proyect_acti}})
-                      </ng-template>
-                    </ngx-select>
-                    <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
-                      <div *ngIf="
-                          form['categoriaProgra'].errors &&
-                          form['categoriaProgra'].errors['required']
-                        ">
-                        * La categoria programatica es Requerida.
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="mb-1">
                     <label for="idProveedor" class="form-label col-auto">Proveedor *</label>
                     <!-- Para Mandar id // optionValueField="_id" -->
-                    <ngx-select [allowClear]="true" [items]="proveedores" optionTextField="representante" optionValueField="_id"
-                      placeholder="Seleccione un Proveedor" formControlName="idProveedor"
+                    <ngx-select [allowClear]="true" [items]="proveedores" optionTextField="representante"
+                      optionValueField="_id" placeholder="Seleccione un Proveedor" formControlName="idProveedor"
                       (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
@@ -60,6 +41,28 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="mb-1">
+                    <label for="idPersona" class="form-label col-auto">Funcionario *</label>
+                    <!-- Para Mandar id // optionValueField="_id" -->
+                    <ngx-select [allowClear]="true" [items]="funcionarios" optionTextField="username"
+                      optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
+                      (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{option.data.surnames}}
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
+                      <div *ngIf="
+                          form['idPersona'].errors &&
+                          form['idPersona'].errors['required']
+                        ">
+                        * El proveedor es Requerido.
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="mb-1">
                     <label for="concepto" class="form-label col-md-auto">Concepto *</label>
                     <input id="concepto" class="form-control" type="text" formControlName="concepto" />
@@ -75,6 +78,27 @@
                           form['concepto'].errors['minlength']
                         ">
                         * El concepto no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="mb-1">
+                    <label for="categoriaProgra" class="form-label col-auto">Categoría Programatica *</label>
+                    <!-- Para Mandar id // optionValueField="_id" -->
+                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
+                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
+                      formControlName="categoriaProgra" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.proyect_acti}})
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
+                      <div *ngIf="
+                          form['categoriaProgra'].errors &&
+                          form['categoriaProgra'].errors['required']
+                        ">
+                        * La categoria programatica es Requerida.
                       </div>
                     </div>
                   </div>
@@ -96,6 +120,7 @@
                       </div>
                     </div>
                   </div>
+
                 </form>
                 {{ compraForm.value | json }}
               </div>
@@ -137,12 +162,14 @@
                         <tr>
                           <th>#</th>
                           <th>Código</th>
-                          <th>Articulo</th>
+                          <th>Cat. Prog.</th>
                           <th>Partida de gasto</th>
+                          <th>Factura</th>
+                          <th>Articulo</th>
                           <th>Cantidad</th>
-                          <th>Precio</th>
-                          <th>SubTotal</th>
-                          <th></th>
+                          <th>Unidad de Medida</th>
+                          <th>P/U</th>
+                          <th>Total</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -153,15 +180,24 @@
                           <td [attr.row]="i" [attr.field]="'codigo'">
                             {{item.codigo}}
                           </td>
-                          <td [attr.row]="i" [attr.field]="'articulo'">
-                            {{item.articulo}}
+                          <td [attr.row]="i" [attr.field]="'catProg'">
+                            {{item.catProgra}}
                           </td>
                           <td field="partidaGasto">
                             {{item.partidaGasto}}
                           </td>
+                          <td field="factura">
+                            {{item.factura}}
+                          </td>
+                          <td [attr.row]="i" [attr.field]="'articulo'">
+                            {{item.articulo}}
+                          </td>
                           <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'cantidad')"
                             [attr.row]="i" [attr.field]="'cantidad'">
                             {{item.cantidad}}
+                          </td>
+                          <td field="unidadDeMedida">
+                            {{item.unidadMedida}}
                           </td>
                           <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'precio')"
                             [attr.row]="i" [attr.field]="'precio'">
@@ -176,7 +212,7 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                          <td colspan="6" class="text-end fs-5"> <b>TOTAL BOLIVIANOS: </b></td>
+                          <td colspan="9" class="text-end fs-5"> <b>TOTAL GENERAL: </b></td>
                           <td class="fs-5"><b>{{ calculateTotalCost() }}</b></td>
                         </tr>
                       </tfoot>
@@ -190,7 +226,8 @@
                       <button type="button" class="btn btn-secondary mx-3" (click)="cancel()">
                         Cerrar
                       </button>
-                      <button (click)="registrarCompra(compraForm.value)" class="btn btn-primary" [disabled]="compraForm.invalid">
+                      <button (click)="registrarCompra(compraForm.value)" class="btn btn-primary"
+                        [disabled]="compraForm.invalid">
                         Registrar
                       </button>
                     </div>
