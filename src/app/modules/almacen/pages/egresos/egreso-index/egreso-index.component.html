@@ -7,16 +7,16 @@
             <div class="row my-2">
               <div class="col-md-8">
                 <h3 class="card-title">
-                  Total de Ingresos ({{ totalIngresos }})
+                  Total de Salidas ({{ totalEgresos }})
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-sm" (click)="addIngreso()">
-                  Nuevo Ingreso
+                <button type="button" class="btn btn-primary btn-sm" (click)="addSalida()">
+                  Nueva Salida
                 </button>
               </div>
             </div>
-            <input class="form-control" type="search" placeholder="Buscar ingreso" (keyup)="buscar(txtTermino.value)"
+            <input class="form-control" type="search" placeholder="Buscar egreso" (keyup)="buscar(txtTermino.value)"
               (blur)="buscar('')" #txtTermino />
           </div>
         </div>
@@ -38,7 +38,7 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Ingreso N°</th>
+                  <th>Egreso N°</th>
                   <th>Funcionario</th>
                   <th>Concepto</th>
                   <th>Fecha</th>
@@ -47,20 +47,20 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let ingreso of ingresos.serverResponse; let i = index">
-                  <td>{{ ingreso.numero }}</td>
-                  <td>{{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }}</td>
-                  <td>{{ ingreso.concepto }}</td>
-                  <td>{{ ingreso.fecha | date:'longDate' }}</td>
-                  <td>{{ ingreso.idProveedor.compania }}</td>
+                <tr *ngFor="let egreso of egresos.serverResponse; let i = index">
+                  <td>{{ egreso.numero }}</td>
+                  <td>{{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }}</td>
+                  <td>{{ egreso.concepto }}</td>
+                  <td>{{ egreso.fecha | date:'longDate' }}</td>
+                  <td>{{ egreso.idProveedor.compania }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
-                      <span *ngIf="ingreso.estado == '1'">
-                        <input class="form-check-input pointer" (change)="changeStatus(ingreso._id, !ingreso.estado)"
+                      <span *ngIf="egreso.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(egreso._id, !egreso.estado)"
                           type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Activo
                       </span>
-                      <span *ngIf="ingreso.estado == '0'">
-                        <input class="form-check-input pointer" (change)="changeStatus(ingreso._id, !ingreso.estado)"
+                      <span *ngIf="egreso.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(egreso._id, !egreso.estado)"
                           type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Inactivo
                       </span>
                     </div>
@@ -69,14 +69,11 @@
                     <!-- <i class="fas fa-edit ml-3 icono"></i> -->
                     <div>
                       <!-- Button trigger modal -->
-                      <button type="button" (click)="getIngreso(ingreso._id)" class=""
+                      <button type="button" (click)="getEgreso(egreso._id)" class="btn btn-primary btn-sm"
                         data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fas fa-print"></i>
+                        Imprimir
                       </button>
-                      <i class="fas fa-trash-alt ml-2 icono" (click)="borrarIngreso(ingreso._id)"></i>
-                      <ng-container *ngIf="ingreso.estado == 'REGISTRADO'">
-                        <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i>
-                      </ng-container>
+                      <i class="fas fa-trash-alt ml-3 icono" (click)="borrarEgreso(egreso._id)"></i>
                     </div>
                   </td>
                 </tr>
@@ -107,14 +104,14 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-body" id="content" #content>
-        <div *ngIf="ingreso" class="card fondito1">
+        <div *ngIf="egreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
               <img src="/assets/img/logo2.png" alt="" width="60px">
             </div>
             <div class="col-md-10 text-center">
-              <h3>Documento de Ingreso a Almacén N° {{ ingreso.numero }}</h3>
-              <p>Correspondiente al {{ ingreso.fecha | date:'longDate' }}</p>
+              <h3>Documento de salida a Almacén N° {{ egreso.numero }}</h3>
+              <p>Correspondiente al {{ egreso.fecha | date:'longDate' }}</p>
             </div>
           </div>
           <hr>
@@ -127,10 +124,10 @@
             </div>
             <div class="col-md-10">
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
-              {{ ingreso.idProveedor.compania }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Razon Social: </b>{{ ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Nit:
-              </b> {{ ingreso.idProveedor.nit }} <br>
-              {{ ingreso.concepto }} <br>
-              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Cargo: </b>{{ ingreso.idPersona.post
+              {{ egreso.idProveedor.compania }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Razon Social: </b>{{ egreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Nit:
+              </b> {{ egreso.idProveedor.nit }} <br>
+              {{ egreso.concepto }} <br>
+              {{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Cargo: </b>{{ egreso.idPersona.post
               }}
             </div>
           </div>
@@ -168,20 +165,6 @@
                       <td> {{ categoryTotalPrices[category] }}</td>
                     </tr>
                   </ng-container>
-
-
-
-                  <!-- <tr *ngFor="let articulo of separados; let i = index">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ articulo.catProgra }}</td>
-                    <td>{{ articulo.partidaGasto }}</td>
-                    <td>{{ articulo.factura }}</td>
-                    <td>{{ articulo.articulo }}</td>
-                    <td>{{ articulo.cantidad }}</td>
-                    <td>{{ articulo.unidadMedida }}</td>
-                    <td>{{ articulo.precio }}</td>
-                    <td>{{ articulo.cantidad * articulo.precio }}</td>
-                  </tr> -->
 
                 </tbody>
                 <tfoot>

@@ -69,7 +69,7 @@ export class ComprasService {
   }
 
   deleteIngreso(id: any) {
-    let dir = `${this.URL}/proveedor/${id}`;
+    let dir = `${this.URL}/ingreso/${id}`;
     return this.http.delete<any>(dir, id);
   }
 
@@ -77,6 +77,11 @@ export class ComprasService {
   getIngreso(id: any): Observable<any> {
     let dir = `${this.URL}/ingreso/${id}`;
     return this.http.get<any>(dir)
+  }
+
+  createEgreso(id:any){
+    let dir = `${this.URL}/egresoya/${id}`;
+    return this.http.get(dir)
   }
 
 }

@@ -4,50 +4,34 @@
       <div class="col-md-8">
         <div class="card shadow p-3 mb-5 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Nuevo Ingreso a Almacén</h3>
+            <h3 class="card-title">Nueva salida de Almacén</h3>
           </div>
 
           <!-- /.card-header -->
           <div class="card-body table-responsive">
             <div class="row">
               <div class="col-md">
-                <form [formGroup]="compraForm">
+                <form [formGroup]="salidaForm">
                   <div class="mb-1">
-                    <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
-                    <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
-                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
-                        es Requerido.</div>
-                    </div>
-                  </div>
-
-                  <div class="mb-1 d-flex">
-                    <div class="flex-grow-1 flex-fill">
-                      <label for="idProveedor" class="form-label col-auto">Proveedor *</label>
-                      <!-- Para Mandar id // optionValueField="_id" -->
-                      <ngx-select [allowClear]="true" [items]="proveedores" optionTextField="representante"
-                        optionValueField="_id" placeholder="Seleccione un Proveedor" formControlName="idProveedor"
-                        (select)="doSelect($event)">
-                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                          <span [innerHtml]="text"></span>
-                          &nbsp;({{option.data.compania}})
-                        </ng-template>
-                      </ngx-select>
-                      <div class="form-text" *ngIf="form['idProveedor'].touched && form['idProveedor'].invalid">
-                        <div *ngIf="
-                          form['idProveedor'].errors &&
-                          form['idProveedor'].errors['required']
+                    <label for="categoriaProgra" class="form-label col-auto">Categoría Programatica *</label>
+                    <!-- Para Mandar id // optionValueField="_id" -->
+                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
+                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
+                      formControlName="categoriaProgra" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.proyect_acti}})
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
+                      <div *ngIf="
+                          form['categoriaProgra'].errors &&
+                          form['categoriaProgra'].errors['required']
                         ">
-                          * El proveedor es Requerido.
-                        </div>
+                        * La categoria programatica es Requerida.
                       </div>
                     </div>
-                    <div class="align-self-end ml-2">
-                      <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
-                        data-bs-target="#proveedor"><i class="fas fa-plus"></i></button>
-                    </div>
                   </div>
-
 
                   <div class="mb-1">
                     <label for="idPersona" class="form-label col-auto">Funcionario *</label>
@@ -71,65 +55,15 @@
                   </div>
 
                   <div class="mb-1">
-                    <label for="concepto" class="form-label col-md-auto">Concepto *</label>
-                    <input id="concepto" class="form-control" type="text" formControlName="concepto" />
-                    <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
-                      <div *ngIf="
-                          form['concepto'].errors &&
-                          form['concepto'].errors['required']
-                        ">
-                        * El concepto es Requerido.
-                      </div>
-                      <div *ngIf="
-                          form['concepto'].errors &&
-                          form['concepto'].errors['minlength']
-                        ">
-                        * El concepto no puede tener menos de 3 caracteres.
-                      </div>
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                    <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
+                        es Requerido.</div>
                     </div>
                   </div>
-                  <hr>
-                  <div class="mb-1">
-                    <label for="categoriaProgra" class="form-label col-auto">Categoría Programatica *</label>
-                    <!-- Para Mandar id // optionValueField="_id" -->
-                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
-                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
-                      formControlName="categoriaProgra" (select)="doSelect($event)">
-                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                        <span [innerHtml]="text"></span>
-                        &nbsp;({{option.data.proyect_acti}})
-                      </ng-template>
-                    </ngx-select>
-                    <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
-                      <div *ngIf="
-                          form['categoriaProgra'].errors &&
-                          form['categoriaProgra'].errors['required']
-                        ">
-                        * La categoria programatica es Requerida.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label for="numeroFactura" class="form-label col-md-auto">Numero de Factura *</label>
-                    <input id="numeroFactura" class="form-control" type="text" formControlName="numeroFactura" />
-                    <div class="form-text" *ngIf="form['numeroFactura'].touched && form['numeroFactura'].invalid">
-                      <div *ngIf="
-                          form['numeroFactura'].errors &&
-                          form['numeroFactura'].errors['required']
-                        ">
-                        * El numero de factura es Requerido.
-                      </div>
-                      <div *ngIf="
-                          form['numeroFactura'].errors &&
-                          form['numeroFactura'].errors['minlength']
-                        ">
-                        * El numero de factura no puede tener menos de 7 caracteres.
-                      </div>
-                    </div>
-                  </div>
-
                 </form>
-                {{ compraForm.value | json }}
+                {{ salidaForm.value | json }}
               </div>
             </div>
           </div>
@@ -171,7 +105,6 @@
                           <th>Código</th>
                           <th>Cat. Prog.</th>
                           <th>Partida de gasto</th>
-                          <th>Factura</th>
                           <th>Articulo</th>
                           <th>Cantidad</th>
                           <th>Unidad de Medida</th>
@@ -193,9 +126,6 @@
                           <td field="partidaGasto">
                             {{item.partidaGasto}}
                           </td>
-                          <td field="factura">
-                            {{item.factura}}
-                          </td>
                           <td [attr.row]="i" [attr.field]="'articulo'">
                             {{item.articulo}}
                           </td>
@@ -204,6 +134,7 @@
                             {{item.cantidad}}
                           </td>
                           <td field="unidadDeMedida">
+
                             {{item.unidadMedida}}
                           </td>
                           <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'precio')"
@@ -233,8 +164,8 @@
                       <button type="button" class="btn btn-secondary mx-3" (click)="cancel()">
                         Cerrar
                       </button>
-                      <button (click)="registrarCompra(compraForm.value)" class="btn btn-primary"
-                        [disabled]="compraForm.invalid">
+                      <button (click)="registrarSalida(salidaForm.value)" class="btn btn-primary"
+                        [disabled]="salidaForm.invalid">
                         Registrar
                       </button>
                     </div>
@@ -254,7 +185,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="proveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- <div class="modal fade" id="proveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="proveedorLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -314,5 +245,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- End Modal -->

@@ -31,6 +31,7 @@ export class CompraIndexComponent implements OnInit {
   date = new Date();
   separados:any;
   categories:any;
+  categoryTotalPrices:any = 0;
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
@@ -204,17 +205,32 @@ export class CompraIndexComponent implements OnInit {
   }
 
   separar() {
-    const itemsByCategory = this.ingreso.articulos.reduce((accumulator:any, current:any) => {
-      if (!accumulator[current]) {
+    const itemsByCategory = this.ingreso.productos.reduce((accumulator:any, current:any) => {
+      if (!accumulator[current.catProgra]) {
         accumulator[current.catProgra] = [];
       }
       accumulator[current.catProgra].push(current);
+      // console.log("solo", current);
       return accumulator;
     }, {});
     this.separados = itemsByCategory;
     this.categories = Object.keys(itemsByCategory);
-    console.log("CategoriasSeparadas", this.categories)
+
+    this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
+      const items = itemsByCategory[category];
+      const total = items.reduce((accumulator:any, item:any) => accumulator + (item.precio * item.cantidad), 0);
+      accumulator[category] = total;
+      return accumulator;
+    }, {});
+    console.log("sumas", this.categoryTotalPrices)
+    // console.log("CategoriasSeparadas", this.categories)
+    // console.log("CategoriasSeparadas", this.separados)
   }
+
+  calculateTotalCostByCategory() {
+    return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidad), 0);
+  }
+
 
   getIngreso(id: string) {
     this.comprasService.getIngreso(id)
@@ -231,8 +247,32 @@ export class CompraIndexComponent implements OnInit {
   }
 
   calculateTotalCost() {
-    return this.ingreso.articulos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidad), 0);
+    return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidad), 0);
   }
+
+  registrarEgreso(id: string) {
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Registrado!', 'El Egreso ha sido registrado.', 'success');
+        this.comprasService.createEgreso(id).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.router.navigate(['almacen/egreso/index'])
+        );
+      }
+    });
+  }
+
+
 
 
 }

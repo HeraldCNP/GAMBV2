@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AlmacenService } from '../../../services/almacen.service';
 import { ComprasService } from '../../../services/compras.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class CompraCreateComponent implements OnInit {
   article: any;
   listadeArticulos: any = [];
   compraForm:any;
+  proveedorForm:any;
   fechaHoy = new Date().toISOString();
   // fechaHoy:string = "2023/02/02";
 
@@ -26,7 +28,7 @@ export class CompraCreateComponent implements OnInit {
   funcionarios:any;
   cargando: boolean = true;
 
-  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router) {
+  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
@@ -40,6 +42,17 @@ export class CompraCreateComponent implements OnInit {
       numeroFactura: [''],
       articulos: ['', [Validators.required]],
       idUsuario: [this.idUser],
+    });
+
+    this.proveedorForm = this.fb.group({
+      compania: [''],
+      representante: ['', [Validators.required]],
+      razon_social: ['', [Validators.required]],
+      nit: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      direccion: [''],
+      ciudad: [''],
+      usuario: [''],
     });
   }
 
@@ -79,7 +92,7 @@ export class CompraCreateComponent implements OnInit {
   addArticulo(article: any) {
     console.log('articleAdd', article)
     this.listadeArticulos.push({
-      id: article._id,
+      idArticulo: article._id,
       codigo: article.codigo,
       catProgra: this.compraForm.value.categoriaProgra,
       partidaGasto: article.idPartida.codigo,
@@ -185,6 +198,29 @@ export class CompraCreateComponent implements OnInit {
 
 
 
+  crearProveedor(form: any) {
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    this.almacenService.createProveedor(form).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+        this.proveedorForm.reset();
+        this.alertOk(
+          'success',
+          'Exito',
+          'Proveedor creado Correctamente',
+          '2000'
+        );
+        this.cargarProveedores();
+      }
+    );
+  }
+
+  resetForm() {
+    this.proveedorForm.reset();
+  }
 
 
 

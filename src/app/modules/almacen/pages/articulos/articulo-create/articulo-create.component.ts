@@ -37,8 +37,8 @@ export class ArticuloCreateComponent implements OnInit {
       codigo: ['', [Validators.required, Validators.min(2)]],
       nombre: ['', [Validators.required , Validators.min(3)]],
       unidadDeMedida: ['', [Validators.required]],
-      cantidad: ['', [Validators.required, Validators.min(1)]],
-      ubicacion: [''],
+      // cantidad: ['', [Validators.required, Validators.min(1)]],
+      // ubicacion: [''],
       idPartida: ['', [Validators.required]],
       idUsuario: [this.idUser],
     });

@@ -17,6 +17,8 @@ import { ArticuloIndexComponent } from './pages/articulos/articulo-index/articul
 import { ArticuloCreateComponent } from './pages/articulos/articulo-create/articulo-create.component';
 import { CompraCreateComponent } from './pages/compras/compra-create/compra-create.component';
 import { CompraIndexComponent } from './pages/compras/compra-index/compra-index.component';
+import { EgresoIndexComponent } from './pages/egresos/egreso-index/egreso-index.component';
+import { EgresoCreateComponent } from './pages/egresos/egreso-create/egreso-create.component';
 
 
 
@@ -36,6 +38,8 @@ import { CompraIndexComponent } from './pages/compras/compra-index/compra-index.
     ArticuloCreateComponent,
     CompraCreateComponent,
     CompraIndexComponent,
+    EgresoIndexComponent,
+    EgresoCreateComponent,
   ],
   imports: [
     CommonModule,

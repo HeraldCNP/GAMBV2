@@ -11,24 +11,14 @@
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
                   Nuevo proveedor
                 </button>
               </div>
             </div>
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Buscar proveedor"
-              (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')"
-              #txtTermino
-            />
+            <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino />
           </div>
         </div>
       </div>
@@ -72,46 +62,33 @@
                   <td>
                     <div class="form-check form-switch">
                       <span *ngIf="proveedor.estado == '1'">
-                        <input class="form-check-input pointer" (change)="changeStatus(proveedor._id, !proveedor.estado)"
-                          type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Activo
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(proveedor._id, !proveedor.estado)" type="checkbox" [checked]="true"
+                          role="switch" id="{{'toogle'+i}}">Activo
                       </span>
                       <span *ngIf="proveedor.estado == '0'">
-                        <input class="form-check-input pointer" (change)="changeStatus(proveedor._id, !proveedor.estado)"
-                          type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Inactivo
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(proveedor._id, !proveedor.estado)" type="checkbox" [checked]="false"
+                          role="switch" id="{{'toogle'+i}}">Inactivo
                       </span>
                     </div>
                   </td>
                   <td>
-                    <i
-                      class="fas fa-edit ml-3 icono"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(proveedor)"
-                    ></i>
-                    <i
-                      class="fas fa-trash-alt ml-3 icono"
-                      (click)="borrarProveedor(proveedor._id)"
-                    ></i>
+                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(proveedor)"></i>
+                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarProveedor(proveedor._id)"></i>
                   </td>
                 </tr>
               </tbody>
             </table>
             <div class="text-center" *ngIf="txtTermino.value.length === 0">
-              <button
-                (click)="cambiarPagina(-1)"
-                *ngIf="page > 1"
-                class="btn btn-info text-sm"
-              >
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
               &nbsp;
               {{ page }} de {{ totalPages }}
               &nbsp;
-              <button
-                (click)="cambiarPagina(1)"
-                *ngIf="page < totalPages"
-                class="btn btn-info text-sm"
-              >
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
                 Siguiente <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -123,128 +100,58 @@
 </div>
 
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">
           Registrar Proveedor
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form
-          (ngSubmit)="crearProveedor(proveedorForm.value)"
-          [formGroup]="proveedorForm"
-        >
+        <form (ngSubmit)="crearProveedor(proveedorForm.value)" [formGroup]="proveedorForm">
           <div class="mb-1">
-            <label for="representante" class="form-label col-md-auto"
-              >Representante *</label
-            >
-            <input
-              id="representante"
-              class="form-control"
-              type="text"
-              formControlName="representante"
-            />
+            <label for="representante" class="form-label col-md-auto">Representante *</label>
+            <input id="representante" class="form-control" type="text" formControlName="representante" />
           </div>
 
           <div class="mb-1">
-            <label for="compania" class="form-label col-md-auto"
-              >Compañia</label
-            >
-            <input
-              id="compania"
-              class="form-control"
-              type="text"
-              formControlName="compania"
-            />
+            <label for="compania" class="form-label col-md-auto">Compañia</label>
+            <input id="compania" class="form-control" type="text" formControlName="compania" />
           </div>
 
           <div class="mb-1">
-            <label for="razon_social" class="form-label col-md-auto"
-              >Razon Social *</label
-            >
-            <input
-              id="razon_social"
-              class="form-control"
-              type="text"
-              formControlName="razon_social"
-            />
+            <label for="razon_social" class="form-label col-md-auto">Razon Social *</label>
+            <input id="razon_social" class="form-control" type="text" formControlName="razon_social" />
           </div>
 
           <div class="mb-1">
             <label for="nit" class="form-label col-md-auto">Nit *</label>
-            <input
-              id="nit"
-              class="form-control"
-              type="number"
-              formControlName="nit"
-            />
+            <input id="nit" class="form-control" type="number" formControlName="nit" />
           </div>
 
           <div class="mb-1">
-            <label for="telefono" class="form-label col-md-auto"
-              >Telefono *</label
-            >
-            <input
-              id="telefono"
-              class="form-control"
-              type="number"
-              formControlName="telefono"
-            />
+            <label for="telefono" class="form-label col-md-auto">Telefono *</label>
+            <input id="telefono" class="form-control" type="number" formControlName="telefono" />
           </div>
 
           <div class="mb-1">
-            <label for="direccion" class="form-label col-md-auto"
-              >Direccion</label
-            >
-            <input
-              id="direccion"
-              class="form-control"
-              type="text"
-              formControlName="direccion"
-            />
+            <label for="direccion" class="form-label col-md-auto">Direccion</label>
+            <input id="direccion" class="form-control" type="text" formControlName="direccion" />
           </div>
 
           <div class="mb-1">
             <label for="ciudad" class="form-label col-md-auto">Ciudad</label>
-            <input
-              id="ciudad"
-              class="form-control"
-              type="text"
-              formControlName="ciudad"
-            />
+            <input id="ciudad" class="form-control" type="text" formControlName="ciudad" />
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              (click)="resetForm()"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cerrar
             </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-              [disabled]="proveedorForm.invalid"
-            >
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="proveedorForm.invalid">
               Registrar
             </button>
           </div>
@@ -257,112 +164,57 @@
 <!-- End Modal -->
 
 <!-- Modal Edit -->
-<div
-  class="modal fade"
-  id="modalEdit"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="modalEditLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalEditLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalEditLabel">Editar Proveedor</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form (ngSubmit)="editProveedor(editForm.value)" [formGroup]="editForm">
 
           <div class="mb-1">
             <label for="representante" class="form-label">Representante:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="representante"
-              formControlName="representante"
-            />
+            <input type="text" class="form-control" id="representante" formControlName="representante" />
           </div>
 
           <div class="mb-1">
             <label for="compania" class="form-label">Compañia:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="compania"
-              formControlName="compania"
-            />
+            <input type="text" class="form-control" id="compania" formControlName="compania" />
           </div>
 
           <div class="mb-1">
             <label for="razon_social" class="form-label">Razon Social:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="razon_social"
-              formControlName="razon_social"
-            />
+            <input type="text" class="form-control" id="razon_social" formControlName="razon_social" />
           </div>
 
           <div class="mb-1">
             <label for="nit" class="form-label">Nit:</label>
-            <input
-              type="number"
-              class="form-control"
-              id="nit"
-              formControlName="nit"
-            />
+            <input type="number" class="form-control" id="nit" formControlName="nit" />
           </div>
 
           <div class="mb-1">
             <label for="telefono" class="form-label">Telefono:</label>
-            <input
-              type="number"
-              class="form-control"
-              id="telefono"
-              formControlName="telefono"
-            />
+            <input type="number" class="form-control" id="telefono" formControlName="telefono" />
           </div>
 
           <div class="mb-1">
             <label for="direccion" class="form-label">Dirección:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="direccion"
-              formControlName="direccion"
-            />
+            <input type="text" class="form-control" id="direccion" formControlName="direccion" />
           </div>
 
           <div class="mb-1">
             <label for="ciudad" class="form-label">Ciudad:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="ciudad"
-              formControlName="ciudad"
-            />
+            <input type="text" class="form-control" id="ciudad" formControlName="ciudad" />
           </div>
 
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Cancelar
             </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-            >
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
               Editar
             </button>
           </div>
