@@ -6,6 +6,7 @@ import { ArticuloIndexComponent } from './pages/articulos/articulo-index/articul
 import { CategoriaIndexComponent } from './pages/categorias/categoria-index/categoria-index.component';
 import { CompraCreateComponent } from './pages/compras/compra-create/compra-create.component';
 import { CompraIndexComponent } from './pages/compras/compra-index/compra-index.component';
+import { CompraUpdateComponent } from './pages/compras/compra-update/compra-update.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EgresoCreateComponent } from './pages/egresos/egreso-create/egreso-create.component';
 import { EgresoIndexComponent } from './pages/egresos/egreso-index/egreso-index.component';
@@ -28,9 +29,9 @@ const routes: Routes = [
       { path: 'articulo/create', component: ArticuloCreateComponent },
       { path: 'compra/index', component: CompraIndexComponent },
       { path: 'compra/create', component: CompraCreateComponent },
+      { path: 'compra/update/:id', component: CompraUpdateComponent },
       { path: 'egreso/index', component: EgresoIndexComponent },
       { path: 'egreso/create', component: EgresoCreateComponent },
-      // { path: 'gaceta/update/:id', component: GacetaUpdateComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },
       // { path: 'poa/create', component: PoaCreateComponent },

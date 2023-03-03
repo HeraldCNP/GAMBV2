@@ -98,7 +98,7 @@ export class CompraCreateComponent implements OnInit {
       partidaGasto: article.idPartida.codigo,
       factura: this.compraForm.value.numeroFactura,
       articulo: article.nombre,
-      cantidad: 0,
+      cantidadCompra: 0,
       unidadMedida: article.unidadDeMedida,
       precio: 0
     });
@@ -162,7 +162,7 @@ export class CompraCreateComponent implements OnInit {
   }
 
   calculateTotalCost() {
-    return this.listadeArticulos.reduce((acc:any, item:any) => acc + (item.precio * item.cantidad), 0);
+    return this.listadeArticulos.reduce((acc:any, item:any) => acc + (item.precio * item.cantidadCompra), 0);
   }
 
 

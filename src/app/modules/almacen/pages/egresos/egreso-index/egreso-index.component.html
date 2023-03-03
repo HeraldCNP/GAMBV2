@@ -38,21 +38,19 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Egreso N°</th>
+                  <th>Salida N°</th>
                   <th>Funcionario</th>
                   <th>Concepto</th>
                   <th>Fecha</th>
-                  <th>Proveedor</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr *ngFor="let egreso of egresos.serverResponse; let i = index">
-                  <td>{{ egreso.numero }}</td>
+                  <td>{{ egreso.numeroSalida }}</td>
                   <td>{{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }}</td>
                   <td>{{ egreso.concepto }}</td>
                   <td>{{ egreso.fecha | date:'longDate' }}</td>
-                  <td>{{ egreso.idProveedor.compania }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="egreso.estado == '1'">
@@ -69,11 +67,11 @@
                     <!-- <i class="fas fa-edit ml-3 icono"></i> -->
                     <div>
                       <!-- Button trigger modal -->
-                      <button type="button" (click)="getEgreso(egreso._id)" class="btn btn-primary btn-sm"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Imprimir
-                      </button>
-                      <i class="fas fa-trash-alt ml-3 icono" (click)="borrarEgreso(egreso._id)"></i>
+                      <button type="button" (click)="getEgreso(egreso._id)" class=""
+                      data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <i class="fas fa-print"></i>
+                    </button>
+                      <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarEgreso(egreso._id)"></i> -->
                     </div>
                   </td>
                 </tr>
@@ -107,25 +105,22 @@
         <div *ngIf="egreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
-              <img src="/assets/img/logo2.png" alt="" width="60px">
+              <img src="/assets/img/logoGamb.png" alt="" width="150px">
             </div>
             <div class="col-md-10 text-center">
-              <h3>Documento de salida a Almacén N° {{ egreso.numero }}</h3>
-              <p>Correspondiente al {{ egreso.fecha | date:'longDate' }}</p>
+              <h3>Documento de Salida de Almacén N° {{ egreso.numeroSalida }}</h3>
+              <p>Correspondiente al {{ egreso.fecha | date:'longDate': 'UTC' }}</p>
             </div>
           </div>
           <hr>
           <div class="row">
-            <div class="col-md-2 text-bold">
+            <div class="col-md-2 text-bold pl-3">
               Entidad: <br>
-              Proveedor: <br>
               Concepto: <br>
               Solicitado por:
             </div>
             <div class="col-md-10">
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
-              {{ egreso.idProveedor.compania }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Razon Social: </b>{{ egreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Nit:
-              </b> {{ egreso.idProveedor.nit }} <br>
               {{ egreso.concepto }} <br>
               {{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Cargo: </b>{{ egreso.idPersona.post
               }}
@@ -133,13 +128,12 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover" border="2">
+              <table class="table table-hover">
                 <thead>
                   <tr>
                     <th>Código</th>
                     <th>Cat. Prog.</th>
                     <th>Partida de gasto</th>
-                    <th>Factura</th>
                     <th>Articulo</th>
                     <th>Cantidad</th>
                     <th>Unidad de Medida</th>
@@ -152,32 +146,37 @@
                     <tr *ngFor="let item of separados[category]; let i = index">
                       <td>{{ i + 1 }}</td>
                       <td>{{ item.catProgra }}</td>
-                      <td>{{ item.partidaGasto }}</td>
-                      <td>{{ item.factura }}</td>
-                      <td>{{ item.articulo }}</td>
-                      <td>{{ item.cantidad }}</td>
-                      <td>{{ item.unidadMedida }}</td>
-                      <td>{{ item.precio }}</td>
-                      <td>{{ item.cantidad * item.precio }}</td>
+                      <td>{{ item.idCompra.idArticulo.idPartida.codigo }}</td>
+                      <td>{{ item.idCompra.idArticulo.nombre }}</td>
+                      <td>{{ item.cantidadSalida }}</td>
+                      <td>{{ item.idCompra.idArticulo.unidadDeMedida }}</td>
+                      <td>{{ item.idCompra.precio | currency: 'USD': 'Bs'  }}</td>
+                      <td>{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': 'Bs'  }}</td>
                     </tr>
                     <tr>
-                      <td colspan="8" class="text-end"> <b>Sub Total: </b></td>
-                      <td> {{ categoryTotalPrices[category] }}</td>
+                      <td colspan="7" class="text-end"> <b>Sub Total: </b></td>
+                      <td> {{ categoryTotalPrices[category] | currency: 'USD': 'Bs'  }}</td>
                     </tr>
                   </ng-container>
 
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="8" class="text-end fs-5"> <b>TOTAL BOLIVIANOS: </b></td>
-                    <td class="fs-5"><b>{{ calculateTotalCost() }}</b></td>
+                    <td colspan="7" class="text-end fs-5"> <b>TOTAL BOLIVIANOS: </b></td>
+                    <td class="fs-5"><b>{{ calculateTotalCost() | currency: 'USD': 'Bs'  }}</b></td>
                   </tr>
                 </tfoot>
               </table>
             </div>
           </div>
         </div>
-        <span class="fecha">
+        <div>
+          <div class="row mt-5">
+            <div class="col-md-6 text-center">Encargado Almacenes</div>
+            <div class="col-md-6 text-center">Recibí Conforme</div>
+          </div>
+        </div>
+        <span class="fecha" style="font-size: 0.7rem;">
           Fecha de Impresión: {{ date | date:'short' }}
         </span>
       </div>

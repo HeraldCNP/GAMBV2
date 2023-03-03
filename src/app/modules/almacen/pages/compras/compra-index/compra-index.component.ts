@@ -218,7 +218,7 @@ export class CompraIndexComponent implements OnInit {
 
     this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
       const items = itemsByCategory[category];
-      const total = items.reduce((accumulator:any, item:any) => accumulator + (item.precio * item.cantidad), 0);
+      const total = items.reduce((accumulator:any, item:any) => accumulator + (item.precio * item.cantidadCompra), 0);
       accumulator[category] = total;
       return accumulator;
     }, {});
@@ -228,7 +228,7 @@ export class CompraIndexComponent implements OnInit {
   }
 
   calculateTotalCostByCategory() {
-    return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidad), 0);
+    return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
   }
 
 
@@ -247,7 +247,7 @@ export class CompraIndexComponent implements OnInit {
   }
 
   calculateTotalCost() {
-    return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidad), 0);
+    return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
   }
 
   registrarEgreso(id: string) {
@@ -272,6 +272,10 @@ export class CompraIndexComponent implements OnInit {
     });
   }
 
+
+  editarEntrada(id:string){
+    this.router.navigate(['almacen/compra/update', id]);
+  }
 
 
 

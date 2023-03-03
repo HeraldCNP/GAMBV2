@@ -7,12 +7,12 @@
             <div class="row my-2">
               <div class="col-md-8">
                 <h3 class="card-title">
-                  Total de Ingresos ({{ totalIngresos }})
+                  Total de Entradas ({{ totalIngresos }})
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
                 <button type="button" class="btn btn-primary btn-sm" (click)="addIngreso()">
-                  Nuevo Ingreso
+                  Nueva Entrada
                 </button>
               </div>
             </div>
@@ -38,7 +38,7 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Ingreso N°</th>
+                  <th>Entrada N°</th>
                   <th>Funcionario</th>
                   <th>Concepto</th>
                   <th>Fecha</th>
@@ -48,10 +48,10 @@
               </thead>
               <tbody class="table-group-divider">
                 <tr *ngFor="let ingreso of ingresos.serverResponse; let i = index">
-                  <td>{{ ingreso.numero }}</td>
+                  <td>{{ ingreso.numeroEntrada }}</td>
                   <td>{{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }}</td>
                   <td>{{ ingreso.concepto }}</td>
-                  <td>{{ ingreso.fecha | date:'longDate' }}</td>
+                  <td>{{ ingreso.fecha | date:'longDate': 'UTC'}}</td>
                   <td>{{ ingreso.idProveedor.compania }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
@@ -73,7 +73,8 @@
                         data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="fas fa-print"></i>
                       </button>
-                      <i class="fas fa-trash-alt ml-2 icono" (click)="borrarIngreso(ingreso._id)"></i>
+                      <!-- <i class="fas fa-trash-alt ml-2 icono" (click)="borrarIngreso(ingreso._id)"></i> -->
+                      <i class="fas fa-edit ml-2 icono" (click)="editarEntrada(ingreso._id)"></i>
                       <ng-container *ngIf="ingreso.estado == 'REGISTRADO'">
                         <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i>
                       </ng-container>
@@ -110,16 +111,19 @@
         <div *ngIf="ingreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
-              <img src="/assets/img/logo2.png" alt="" width="60px">
+              <img src="/assets/img/logoGamb.png" alt="" width="150px">
             </div>
-            <div class="col-md-10 text-center">
-              <h3>Documento de Ingreso a Almacén N° {{ ingreso.numero }}</h3>
-              <p>Correspondiente al {{ ingreso.fecha | date:'longDate' }}</p>
+            <div class="col-md-8 text-center">
+              <h3>Documento de Entrada a Almacén </h3>
+              <p>Correspondiente al {{ ingreso.fecha | date:'longDate': 'UTC' }}</p>
+            </div>
+            <div class="col-md-2 text-end pl-4">
+              <h2>N° {{ ingreso.numeroEntrada }}</h2>
             </div>
           </div>
           <hr>
           <div class="row">
-            <div class="col-md-2 text-bold">
+            <div class="col-md-2 text-bold pl-3">
               Entidad: <br>
               Proveedor: <br>
               Concepto: <br>
@@ -136,10 +140,10 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover" border="2">
+              <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>Código</th>
+                    <th>N°</th>
                     <th>Cat. Prog.</th>
                     <th>Partida de gasto</th>
                     <th>Factura</th>
@@ -152,20 +156,20 @@
                 </thead>
                 <tbody>
                   <ng-container *ngFor="let category of categories">
-                    <tr *ngFor="let item of separados[category]; let i = index">
+                    <tr style="height: 25px;" *ngFor="let item of separados[category]; let i = index">
                       <td>{{ i + 1 }}</td>
                       <td>{{ item.catProgra }}</td>
-                      <td>{{ item.partidaGasto }}</td>
+                      <td>{{ item.idArticulo.idPartida.codigo }}</td>
                       <td>{{ item.factura }}</td>
-                      <td>{{ item.articulo }}</td>
-                      <td>{{ item.cantidad }}</td>
-                      <td>{{ item.unidadMedida }}</td>
-                      <td>{{ item.precio }}</td>
-                      <td>{{ item.cantidad * item.precio }}</td>
+                      <td>{{ item.idArticulo.nombre }}</td>
+                      <td>{{ item.cantidadCompra }}</td>
+                      <td>{{ item.idArticulo.unidadDeMedida }}</td>
+                      <td>{{ item.precio | currency: 'USD': 'Bs' }}</td>
+                      <td>{{ item.cantidadCompra * item.precio | currency: 'USD': 'Bs' }}</td>
                     </tr>
                     <tr>
                       <td colspan="8" class="text-end"> <b>Sub Total: </b></td>
-                      <td> {{ categoryTotalPrices[category] }}</td>
+                      <td> {{ categoryTotalPrices[category] | currency: 'USD': 'Bs' }}</td>
                     </tr>
                   </ng-container>
 
@@ -187,14 +191,20 @@
                 <tfoot>
                   <tr>
                     <td colspan="8" class="text-end fs-5"> <b>TOTAL BOLIVIANOS: </b></td>
-                    <td class="fs-5"><b>{{ calculateTotalCost() }}</b></td>
+                    <td class="fs-5"><b>{{ calculateTotalCost() | currency: 'USD': 'Bs' }}</b></td>
                   </tr>
                 </tfoot>
               </table>
             </div>
           </div>
         </div>
-        <span class="fecha">
+        <div>
+          <div class="row mt-5">
+            <div class="col-md-6 text-center">Recibí Conforme</div>
+            <div class="col-md-6 text-center">Entregué Conforme</div>
+          </div>
+        </div>
+        <span class="fecha" style="font-size: 0.7rem;">
           Fecha de Impresión: {{ date | date:'short' }}
         </span>
       </div>

@@ -14,15 +14,19 @@ export class EgresoCreateComponent implements OnInit {
   idUser: any;
   user: any;
   data: any;
-  salidaForm:any;
+  salidaForm: any;
+  demoForm: any;
   fechaHoy = new Date().toISOString();
-  catProgras:any;
-  funcionarios:any;
+  catProgras: any;
+  funcionarios: any;
   cargando: boolean = true;
   articulos: any;
   articulosTemp: any;
   article: any;
+  articles: any;
+  compras: any;
   listadeArticulos: any = [];
+  compraSingle:any;
 
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private egresosService: EgresosService) {
     this.user = localStorage.getItem('user');
@@ -30,21 +34,32 @@ export class EgresoCreateComponent implements OnInit {
     this.idUser = this.data.id;
     this.salidaForm = this.fb.group({
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
-      categoriaProgra: ['', [Validators.required]],
+      // categoriaProgra: ['', [Validators.required]],
+      concepto: ['', [Validators.required]],
       idPersona: ['', [Validators.required]],
       articulos: ['', [Validators.required]],
       idUsuario: [this.idUser],
     });
+
+    this.demoForm = this.fb.group({
+      article: ['', [Validators.required]],
+      entrada: ['', [Validators.required]],
+      cantidadSalida: ['', [Validators.required]],
+    });
   }
 
   ngOnInit(): void {
-    this.cargarCatProgras();
+    this.cargarArticulos();
     this.cargarFuncionarios();
   }
 
 
   get form() {
     return this.salidaForm.controls;
+  }
+
+  get form2() {
+    return this.demoForm.controls;
   }
 
   cargarFuncionarios() {
@@ -63,8 +78,27 @@ export class EgresoCreateComponent implements OnInit {
     });
   }
 
-  doSelect = (value: any) => {
-    console.log('SingleDemoComponent.doSelect', value);
+  cargarArticulos() {
+    this.cargando = true;
+    this.egresosService.getAllArticulos().subscribe((data: any) => {
+      this.articles = data.serverResponse;
+      console.log("All Articulos", this.articles)
+    });
+  }
+
+  doSelect = (id: any) => {
+    console.log('SingleDemoComponent.doSelect', id);
+    this.egresosService.getCompraOfArticulo(id).subscribe((data: any) => {
+      if(data.serverResponse.length > 0){
+        this.compras = data.serverResponse;
+        console.log("Compras que esta un articulo", this.compras)
+      }
+    });
+  }
+
+  doSelect2 = (id: any) => {
+    this.compraSingle = this.compras.find((objeto:any)=> objeto._id === id);
+    console.log('compraSingle', this.compraSingle);
   }
 
   buscar(termino: string) {
@@ -85,6 +119,34 @@ export class EgresoCreateComponent implements OnInit {
 
   }
 
+  calcularStock(){
+    if(this.demoForm.value.cantidadSalida > this.compraSingle.stockCompra){
+      Swal.fire('La Cantidad de salida es mayor al stock')
+      this.demoForm.value.cantidadSalida = 0;
+    }
+
+  }
+
+  addSalida(compra: any) {
+    console.log('compra', compra)
+    this.listadeArticulos.push({
+      idCompra: compra._id,
+      codigo: compra.idArticulo.codigo,
+      catProgra: compra.catProgra,
+      partidaGasto: compra.idArticulo.idPartida.codigo,
+      articulo: compra.idArticulo.nombre,
+      cantidadSalida: this.demoForm.value.cantidadSalida,
+      unidadMedida: compra.idArticulo.unidadDeMedida,
+      precio: compra.precio
+    });
+
+    this.salidaForm.patchValue({
+      articulos: this.listadeArticulos
+    })
+
+    this.demoForm.reset();
+  }
+
   addArticulo(article: any) {
     console.log('articleAdd', article)
     this.listadeArticulos.push({
@@ -99,11 +161,11 @@ export class EgresoCreateComponent implements OnInit {
     });
   }
 
-  borrar(event:any){
+  borrar(event: any) {
     event.target.innerText = '';
   }
 
-  cambio(event:any, i:number, field:string){
+  cambio(event: any, i: number, field: string) {
 
     // console.log("valor", event.target.innerText)
     // console.log("indice", i)
@@ -118,7 +180,7 @@ export class EgresoCreateComponent implements OnInit {
 
   }
 
-  removeArticulo(index: number){
+  removeArticulo(index: number) {
     console.log('articleIndex', index)
     // if(index == 0){
     //   this.listadeArticulos.splice(0, 1);
@@ -127,7 +189,7 @@ export class EgresoCreateComponent implements OnInit {
   }
 
   calculateTotalCost() {
-    return this.listadeArticulos.reduce((acc:any, item:any) => acc + (item.precio * item.cantidad), 0);
+    return this.listadeArticulos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadSalida), 0);
   }
 
   cancel() {
@@ -147,6 +209,7 @@ export class EgresoCreateComponent implements OnInit {
         this.alertOk(
           'success',
           'Exito',
+
           'Salida Creada Correctamente',
           '2000'
         );
@@ -162,6 +225,8 @@ export class EgresoCreateComponent implements OnInit {
       timer,
     });
   }
+
+
 
 
 }

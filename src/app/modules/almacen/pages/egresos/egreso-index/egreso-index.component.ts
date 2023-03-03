@@ -115,7 +115,7 @@ export class EgresoIndexComponent implements OnInit {
   }
 
   separar() {
-    const itemsByCategory = this.egreso.articulos.reduce((accumulator:any, current:any) => {
+    const itemsByCategory = this.egreso.productos.reduce((accumulator:any, current:any) => {
       if (!accumulator[current.catProgra]) {
         accumulator[current.catProgra] = [];
       }
@@ -128,7 +128,7 @@ export class EgresoIndexComponent implements OnInit {
 
     this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
       const items = itemsByCategory[category];
-      const total = items.reduce((accumulator:any, item:any) => accumulator + (item.precio * item.cantidad), 0);
+      const total = items.reduce((accumulator:any, item:any) => accumulator + (item.idCompra.precio * item.cantidadSalida), 0);
       accumulator[category] = total;
       return accumulator;
     }, {});
@@ -138,7 +138,7 @@ export class EgresoIndexComponent implements OnInit {
   }
 
   calculateTotalCost() {
-    return this.egreso.articulos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidad), 0);
+    return this.egreso.productos.reduce((acc: any, item: any) => acc + (item.idCompra.precio * item.cantidadSalida), 0);
   }
 
   generatePDFS() {

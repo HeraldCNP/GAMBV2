@@ -2,7 +2,7 @@
   <div class="m-3">
     <div class="row justify-content-md-center">
       <div class="col-md-8">
-        <div class="card shadow p-3 mb-5 bg-body rounded">
+        <div class="card shadow p-3 mb-4 bg-body rounded">
           <div class="card-header">
             <h3 class="card-title">Nuevo Ingreso a Almacén</h3>
           </div>
@@ -129,7 +129,7 @@
                   </div>
 
                 </form>
-                {{ compraForm.value | json }}
+                <!-- {{ compraForm.value | json }} -->
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@
             <div class="row">
               <div class="col-md">
                 <div class="panel panel-default">
-                  <input class="form-control" list="articulos" type="search" placeholder="Buscar Articulo"
+                  <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar Articulo"
                     (keyup)="buscar(txtTermino.value)" (blur)="txtTermino.value = ''" #txtTermino />
 
                   <datalist id="articulos" *ngIf="articulos">
@@ -161,7 +161,7 @@
                       value="{{articulo.nombre}}">
                   </datalist>
 
-                  <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button>
+                  <!-- <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
 
                   <div class="panel-body">
                     <table class="table">
@@ -199,9 +199,9 @@
                           <td [attr.row]="i" [attr.field]="'articulo'">
                             {{item.articulo}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'cantidad')"
-                            [attr.row]="i" [attr.field]="'cantidad'">
-                            {{item.cantidad}}
+                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'cantidadCompra')"
+                            [attr.row]="i" [attr.field]="'cantidadCompra'">
+                            {{item.cantidadCompra}}
                           </td>
                           <td field="unidadDeMedida">
                             {{item.unidadMedida}}
@@ -210,7 +210,7 @@
                             [attr.row]="i" [attr.field]="'precio'">
                             {{item.precio}}
                           </td>
-                          <td>{{item.cantidad * item.precio}}</td>
+                          <td>{{item.cantidadCompra * item.precio}}</td>
                           <td>
                             <span><i class="fas fa-trash pointer" (click)="removeArticulo(i)"></i></span>
                           </td>
@@ -226,7 +226,6 @@
                     </table>
                     <div class="btn-group">
                       {{ listadeArticulos | json }}
-
                     </div>
                     <br>
                     <div class="text-center">

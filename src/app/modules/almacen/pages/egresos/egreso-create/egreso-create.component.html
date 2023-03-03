@@ -12,26 +12,6 @@
             <div class="row">
               <div class="col-md">
                 <form [formGroup]="salidaForm">
-                  <div class="mb-1">
-                    <label for="categoriaProgra" class="form-label col-auto">Categoría Programatica *</label>
-                    <!-- Para Mandar id // optionValueField="_id" -->
-                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
-                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
-                      formControlName="categoriaProgra" (select)="doSelect($event)">
-                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                        <span [innerHtml]="text"></span>
-                        &nbsp;({{option.data.proyect_acti}})
-                      </ng-template>
-                    </ngx-select>
-                    <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
-                      <div *ngIf="
-                          form['categoriaProgra'].errors &&
-                          form['categoriaProgra'].errors['required']
-                        ">
-                        * La categoria programatica es Requerida.
-                      </div>
-                    </div>
-                  </div>
 
                   <div class="mb-1">
                     <label for="idPersona" class="form-label col-auto">Funcionario *</label>
@@ -54,6 +34,7 @@
                     </div>
                   </div>
 
+
                   <div class="mb-1">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input type="date" class="form-control" id="fecha" formControlName="fecha">
@@ -62,8 +43,88 @@
                         es Requerido.</div>
                     </div>
                   </div>
+
+
+                  <div class="mb-1">
+                    <label for="concepto" class="form-label col-md-auto">Concepto *</label>
+                    <input id="concepto" class="form-control" type="text" formControlName="concepto" />
+                    <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
+                      <div *ngIf="
+                          form['concepto'].errors &&
+                          form['concepto'].errors['required']
+                        ">
+                        * El concepto es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['concepto'].errors &&
+                          form['concepto'].errors['minlength']
+                        ">
+                        * El concepto no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
                 </form>
+
+                <form [formGroup]="demoForm">
+                  <div class="mb-1">
+                    <label for="article" class="form-label col-auto">Articulo *</label>
+                    <ngx-select [allowClear]="true" [items]="articles" optionTextField="codigo" optionValueField="_id"
+                      placeholder="Seleccione un Articulo" formControlName="article" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.nombre}})
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form2['article'].touched && form2['article'].invalid">
+                      <div *ngIf="
+                          form2['article'].errors &&
+                          form2['article'].errors['required']
+                        ">
+                        * El articulo es Requerido.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1" *ngIf="compras">
+                    <label for="entrada" class="form-label col-auto">Cantidad Disponible</label>
+                    <ngx-select [allowClear]="true" [items]="compras" optionTextField="stockCompra" optionValueField="_id"
+                      placeholder="Seleccione un Articulo" formControlName="entrada" (select)="doSelect2($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;(Entrada # {{option.data.idEntrada.numeroEntrada}})
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form2['entrada'].touched && form2['entrada'].invalid">
+                      <div *ngIf="
+                          form2['entrada'].errors &&
+                          form2['entrada'].errors['required']
+                        ">
+                        * Escoja una cantidad.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="cantidadSalida" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" id="cantidadSalida" formControlName="cantidadSalida" (keyup)="calcularStock()">
+                    <div class="form-text" *ngIf="form2['cantidadSalida'].touched && form2['cantidadSalida'].invalid">
+                      <div *ngIf="form2['cantidadSalida'].errors && form2['cantidadSalida'].errors['required']">*
+                        Cantidad
+                        es Requerida.</div>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="text-center">
+                  <button (click)="addSalida(compraSingle)" class="btn btn-primary"
+                    [disabled]="demoForm.invalid">
+                    Agregar
+                  </button>
+                </div>
+
                 {{ salidaForm.value | json }}
+                <br>
+                {{ demoForm.value | json }}
               </div>
             </div>
           </div>
@@ -87,7 +148,7 @@
             <div class="row">
               <div class="col-md">
                 <div class="panel panel-default">
-                  <input class="form-control" list="articulos" type="search" placeholder="Buscar Articulo"
+                  <!-- <input class="form-control" list="articulos" type="search" placeholder="Buscar Articulo"
                     (keyup)="buscar(txtTermino.value)" (blur)="txtTermino.value = ''" #txtTermino />
 
                   <datalist id="articulos" *ngIf="articulos">
@@ -95,7 +156,7 @@
                       value="{{articulo.nombre}}">
                   </datalist>
 
-                  <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button>
+                  <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
 
                   <div class="panel-body">
                     <table class="table">
@@ -129,19 +190,25 @@
                           <td [attr.row]="i" [attr.field]="'articulo'">
                             {{item.articulo}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'cantidad')"
+                          <!-- <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'cantidad')"
                             [attr.row]="i" [attr.field]="'cantidad'">
                             {{item.cantidad}}
+                          </td> -->
+                          <td field="cantidadSalida">
+                            {{item.cantidadSalida}}
                           </td>
                           <td field="unidadDeMedida">
 
                             {{item.unidadMedida}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'precio')"
-                            [attr.row]="i" [attr.field]="'precio'">
+                          <td field="precio">
                             {{item.precio}}
                           </td>
-                          <td>{{item.cantidad * item.precio}}</td>
+                          <!-- <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'precio')"
+                            [attr.row]="i" [attr.field]="'precio'">
+                            {{item.precio}}
+                          </td> -->
+                          <td>{{item.cantidadSalida * item.precio}}</td>
                           <td>
                             <span><i class="fas fa-trash pointer" (click)="removeArticulo(i)"></i></span>
                           </td>

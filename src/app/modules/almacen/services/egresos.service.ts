@@ -40,4 +40,14 @@ export class EgresosService {
     return this.http.post(dir, form)
   }
 
+  getAllArticulos(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/articulos`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  getCompraOfArticulo(id:string){
+    let dir = `${this.URL}/searchCompra/${id}`;
+    return this.http.get<any>(dir);
+  }
 }
