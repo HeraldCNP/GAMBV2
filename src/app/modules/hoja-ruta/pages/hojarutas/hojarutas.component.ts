@@ -27,7 +27,9 @@ export class HojarutasComponent implements OnInit {
   dategt:any = this.year;
   datelt:any=this.dategt+1;
   referencia: string = "";
+
   public search: string = "";
+  public search2: string = "";
   limit: number = 10;
   skip: number = 1;
   page: number = 1;
@@ -58,37 +60,17 @@ export class HojarutasComponent implements OnInit {
       tipodoc: [''],
       contacto: [''],
     });
-   }
+  }
 
   ngOnInit(): void {
-    this.search=" "
+
     this.user = localStorage.getItem("user");
     this.data = JSON.parse(this.user);
-    this.getHojaRutas();
-    this.getHojaRuta();
-    this.comunicacionesService.termino.subscribe(
-      termino => {
-        this.search = termino;
-        console.log(this.search)
-        this.api.buscarHoja(this.search).subscribe(
-          data => {
-            if(data.serverResponse){
-              this.router.navigate(['ruta/hojaRutas']);
-              this.hojaRutas = data.serverResponse;
-              // console.log("result", this.hojaRutas)
-              this.totalPages=1;
-            }else{
-              this.hojaRutas = [];
-            }
-          },
-          error => {
-            console.log(error);
-            this.hojaRutas = [];
-          }
-        )
-      }
 
-    );
+    this.getHojaRutas();
+    // this.getHojaRuta();
+
+
   }
 
   registerHojas() {
@@ -138,21 +120,38 @@ export class HojarutasComponent implements OnInit {
         this.search=" ";
       }
     )
+    this.comunicacionesService.termino.subscribe(
+      termino => {
+        this.search2 = termino;
+        console.log(this.search2)
+        this.api.buscarHoja(this.search2).subscribe(
+          data => {
+            if(data.serverResponse){
+              this.hojaRutas = data.serverResponse;
+
+              // console.log("result", this.hojaRutas)
+              this.totalPages=1;
+            }else{
+              this.hojaRutas = [];
+            }
+
+          },
+          error => {
+            console.log(error);
+            this.hojaRutas = [];
+          }
+        )
+      }
+    );
+
   }
 
   getHojaRuta(){
-    /*this.api.buscarHoja(this.search).subscribe(
-      data => {
-        this.hojaRutas = data.serverResponse;
-        this.search = '';
-        this.totalPages=1;
-      }
-    )*/
 
     this.aRouter.params.subscribe (params => {
       var search = params['search'];
       this.search = search;
-      console.log(search)
+      // console.log(search)
       if(search != undefined){
         this.api.buscarHoja(this.search).subscribe(
           data => {
