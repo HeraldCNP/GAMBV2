@@ -37,13 +37,14 @@
         routerLink="/private"></i>
     </div>
 
-    <form #searchForm="ngForm" (ngSubmit)="goSearch()" class="d-flex">
+    <form #searchForm="ngForm" (ngSubmit)="enviar()" class="d-flex">
       <input name="search" [(ngModel)]="searchString" class="form-control p-0" type="search" placeholder=" Buscar"
         aria-label="Search" autocomplete="off" />
       <button class="btn btn-outline-info fa mr-1" type="submit" value="Buscar">
-        <i class="fas fa-search" style="color: rgb(238, 128, 94) !important"></i>
+        <i class="fas fa-search" style="color: rgb(255, 255, 255) !important"></i>
       </button>
     </form>
+
 
     <!-- Messages Dropdown Menu -->
     <li class="nav-item dropdown">

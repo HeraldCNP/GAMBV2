@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { ComunicacionesService } from '../../services/comunicaciones.service';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +16,10 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private cookieService: CookieService,
-    private router: Router
-    
-    ) { 
-   
+    private router: Router,
+    private comunicacionesService: ComunicacionesService
+    ) {
+
   }
 
   ngOnInit(): void {
@@ -34,8 +35,12 @@ export class HeaderComponent implements OnInit {
     this.cookieService.delete('token');
     this.router.navigate(['/'])
   }
-  
+
   goSearch(){
     this.router.navigate(['/ruta/hojaRutas', this.searchString]);
+  }
+
+  enviar(){
+    this.comunicacionesService.termino.emit(this.searchString);
   }
 }

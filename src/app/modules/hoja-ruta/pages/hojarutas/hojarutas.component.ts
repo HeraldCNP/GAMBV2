@@ -6,6 +6,7 @@ import { Hojaruta } from '../../models/hojaruta';
 import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ComunicacionesService } from '../../services/comunicaciones.service';
 @Component({
   selector: 'app-hojarutas',
   templateUrl: './hojarutas.component.html',
@@ -18,7 +19,7 @@ export class HojarutasComponent implements OnInit {
   hojaRuta: any = [];
   seguim: any = [];
   today = new Date();
-  /*variables de consulta*/   
+  /*variables de consulta*/
   nuit: string = "";
   origen: any = "";
   year:any=this.today.getFullYear()
@@ -32,12 +33,12 @@ export class HojarutasComponent implements OnInit {
   page: number = 1;
   totalPages = 0;
   /*end variables de consulta*/
-  /*variables de estados*/   
+  /*variables de estados*/
   estadoRecibido: string = "RECIBIDO";
 
-  /*end variables de estados*/   
-  /*variables de registro*/ 
-  hojaForm: FormGroup;  
+  /*end variables de estados*/
+  /*variables de registro*/
+  hojaForm: FormGroup;
   titulo = 'GENERAR HOJA DE RUTA';
   cant: number = 0;
   totalh: string = '';
@@ -48,7 +49,8 @@ export class HojarutasComponent implements OnInit {
   constructor(private api: RutaService,
     private router: Router,
     private fb: FormBuilder,
-    private aRouter: ActivatedRoute) {
+    private aRouter: ActivatedRoute,
+    private comunicacionesService: ComunicacionesService) {
     this.hojaForm = this.fb.group({
       origen: ['', Validators.required],
       referencia: ['', Validators.required],
@@ -61,9 +63,32 @@ export class HojarutasComponent implements OnInit {
   ngOnInit(): void {
     this.search=" "
     this.user = localStorage.getItem("user");
-    this.data = JSON.parse(this.user)
-    this.getHojaRutas()
-    this.getHojaRuta()
+    this.data = JSON.parse(this.user);
+    this.getHojaRutas();
+    this.getHojaRuta();
+    this.comunicacionesService.termino.subscribe(
+      termino => {
+        this.search = termino;
+        console.log(this.search)
+        this.api.buscarHoja(this.search).subscribe(
+          data => {
+            if(data.serverResponse){
+              this.router.navigate(['ruta/hojaRutas']);
+              this.hojaRutas = data.serverResponse;
+              // console.log("result", this.hojaRutas)
+              this.totalPages=1;
+            }else{
+              this.hojaRutas = [];
+            }
+          },
+          error => {
+            console.log(error);
+            this.hojaRutas = [];
+          }
+        )
+      }
+
+    );
   }
 
   registerHojas() {
@@ -91,12 +116,12 @@ export class HojarutasComponent implements OnInit {
       }
     );
   }
-  
+
   getHojaRutas() {
     this.campo=parseInt(this.campo)
     if(this.campo==this.year-1){
       this.dategt=this.campo;
-      this.datelt=this.campo+1; 
+      this.datelt=this.campo+1;
     }else if(this.campo==this.year){
       this.dategt=this.campo;
       this.datelt=this.campo+1;
@@ -145,7 +170,7 @@ export class HojarutasComponent implements OnInit {
             search=" ";
           }
         )
-      }  
+      }
     });
   }
 
@@ -253,7 +278,7 @@ export class HojarutasComponent implements OnInit {
     }, error => {
       console.log(error);
     })
-    
+
   }
   eliminarHoja(id: any) {
     //Alerta
@@ -282,7 +307,7 @@ export class HojarutasComponent implements OnInit {
           'success'
         );
        // this.router.navigate(['/ruta/office/index']);
-       
+
       }
     });
   }
