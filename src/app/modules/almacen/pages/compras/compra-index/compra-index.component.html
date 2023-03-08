@@ -114,14 +114,14 @@
               <img src="/assets/img/logoGamb.png" alt="" width="150px">
             </div>
             <div class="col-md-8 text-center">
-              <h3>DOCUMENTO DE ENTRADA A ALMACÉN </h3>
-              <p>Expresado en Bolivianos</p>
+              <h3 class="off-m">DOCUMENTO DE ENTRADA A ALMACÉN </h3>
+              <p class="off-m">Expresado en Bolivianos</p>
             </div>
             <div class="col-md-2 text-end pr-4">
               <h5>Registro N° {{ ingreso.numeroEntrada }}</h5>
             </div>
           </div>
-          <hr>
+          <hr class="off-hr">
           <div class="row">
             <div class="col-md-2 text-bold pl-3">
               Fecha de Registro: <br>
@@ -145,33 +145,33 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>N°</th>
-                    <th>Cat. Prog.</th>
-                    <th>Partida de gasto</th>
-                    <th>Factura</th>
-                    <th>Artículo</th>
-                    <th>Cantidad</th>
-                    <th>Unidad de Medida</th>
-                    <th>P/U</th>
-                    <th>Total</th>
+                    <th class="off-p">N°</th>
+                    <th class="off-p">Cat. Prog.</th>
+                    <th class="off-p">Partida de gasto</th>
+                    <th class="off-p">Factura</th>
+                    <th class="off-p">Artículo</th>
+                    <th class="off-p">Cantidad</th>
+                    <th class="off-p">Unidad de Medida</th>
+                    <th class="off-p">P/U</th>
+                    <th class="off-p">Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   <ng-container *ngFor="let category of categories">
-                    <tr style="height: 25px;" *ngFor="let item of separados[category]; let i = index">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ item.catProgra }}</td>
-                      <td>{{ item.idArticulo.idPartida.codigo }}</td>
-                      <td>{{ item.factura }}</td>
-                      <td>{{ item.idArticulo.nombre }}</td>
-                      <td>{{ item.cantidadCompra }}</td>
-                      <td>{{ item.idArticulo.unidadDeMedida }}</td>
-                      <td>{{ item.precio | currency: 'USD': '' }}</td>
-                      <td>{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
+                    <tr *ngFor="let item of separados[category]; let i = index">
+                      <td class="off-p">{{ i + 1 }}</td>
+                      <td class="off-p">{{ item.catProgra }}</td>
+                      <td class="off-p">{{ item.idArticulo.idPartida.codigo }}</td>
+                      <td class="off-p">{{ item.factura }}</td>
+                      <td class="off-p">{{ item.idArticulo.nombre }}</td>
+                      <td class="off-p">{{ item.cantidadCompra }}</td>
+                      <td class="off-p">{{ item.idArticulo.unidadDeMedida }}</td>
+                      <td class="off-p">{{ item.precio | currency: 'USD': '' }}</td>
+                      <td class="off-p">{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
                     </tr>
                     <tr>
-                      <td colspan="8" class="text-end"> <b>Sub Total: </b></td>
-                      <td> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
+                      <td colspan="8" class="text-end off-p"> <b>Sub Total: </b></td>
+                      <td class="off-p pl-1"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>
 
@@ -192,8 +192,8 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="8" class="text-end fs-5"> <b>SUMA TOTAL: </b></td>
-                    <td class="fs-5"><b>{{ calculateTotalCost() | currency: 'USD': '' }}</b></td>
+                    <td colspan="8" class="text-end off-p fs-5"> <b>SUMA TOTAL: </b></td>
+                    <td class="fs-5 off-p"><b>{{ calculateTotalCost() | currency: 'USD': '' }}</b></td>
                   </tr>
                 </tfoot>
               </table>

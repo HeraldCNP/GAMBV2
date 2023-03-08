@@ -95,8 +95,6 @@
   </div>
 </div>
 
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
@@ -107,12 +105,15 @@
             <div class="col-md-2">
               <img src="/assets/img/logoGamb.png" alt="" width="150px">
             </div>
-            <div class="col-md-10 text-center">
-              <h3>Documento de Salida de Almacén N° {{ egreso.numeroSalida }}</h3>
-              <p>Correspondiente al {{ egreso.fecha | date:'longDate': 'UTC' }}</p>
+            <div class="col-md-8 text-center">
+              <h3 class="off-m">DOCUMENTO DE SALIDA DE ALMACÉN </h3>
+              <p class="off-m">Expresado en Bolivianos</p>
+            </div>
+            <div class="col-md-2 text-end pr-4">
+              <h5>Registro N° {{ egreso.numeroSalida }}</h5>
             </div>
           </div>
-          <hr>
+          <hr class="off-hr">
           <div class="row">
             <div class="col-md-2 text-bold pl-3">
               Entidad: <br>
@@ -131,39 +132,39 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>Código</th>
-                    <th>Cat. Prog.</th>
-                    <th>Partida de gasto</th>
-                    <th>Articulo</th>
-                    <th>Cantidad</th>
-                    <th>Unidad de Medida</th>
-                    <th>P/U</th>
-                    <th>Total</th>
+                    <th class="off-p">Código</th>
+                    <th class="off-p">Cat. Prog.</th>
+                    <th class="off-p">Partida de gasto</th>
+                    <th class="off-p">Articulo</th>
+                    <th class="off-p">Cantidad</th>
+                    <th class="off-p">Unidad de Medida</th>
+                    <th class="off-p">P/U</th>
+                    <th class="off-p">Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   <ng-container *ngFor="let category of categories">
                     <tr *ngFor="let item of separados[category]; let i = index">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ item.catProgra }}</td>
-                      <td>{{ item.idCompra.idArticulo.idPartida.codigo }}</td>
-                      <td>{{ item.idCompra.idArticulo.nombre }}</td>
-                      <td>{{ item.cantidadSalida }}</td>
-                      <td>{{ item.idCompra.idArticulo.unidadDeMedida }}</td>
-                      <td>{{ item.idCompra.precio | currency: 'USD': 'Bs'  }}</td>
-                      <td>{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': 'Bs'  }}</td>
+                      <td class="off-p">{{ i + 1 }}</td>
+                      <td class="off-p">{{ item.catProgra }}</td>
+                      <td class="off-p">{{ item.idCompra.idArticulo.idPartida.codigo }}</td>
+                      <td class="off-p">{{ item.idCompra.idArticulo.nombre }}</td>
+                      <td class="off-p">{{ item.cantidadSalida }}</td>
+                      <td class="off-p">{{ item.idCompra.idArticulo.unidadDeMedida }}</td>
+                      <td class="off-p">{{ item.idCompra.precio | currency: 'USD': ''  }}</td>
+                      <td class="off-p">{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': ''  }}</td>
                     </tr>
                     <tr>
-                      <td colspan="7" class="text-end"> <b>Sub Total: </b></td>
-                      <td> {{ categoryTotalPrices[category] | currency: 'USD': 'Bs'  }}</td>
+                      <td colspan="7" class="text-end off-p"> <b>Sub Total: </b></td>
+                      <td class="off-p pl-1"> {{ categoryTotalPrices[category] | currency: 'USD': ''  }}</td>
                     </tr>
                   </ng-container>
 
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="7" class="text-end fs-5"> <b>TOTAL BOLIVIANOS: </b></td>
-                    <td class="fs-5"><b>{{ calculateTotalCost() | currency: 'USD': 'Bs'  }}</b></td>
+                    <td colspan="7" class="text-end fs-5 off-p"> <b>SUMA TOTAL: </b></td>
+                    <td class="fs-5 off-p pl-1"><b>{{ calculateTotalCost() | currency: 'USD': ''  }}</b></td>
                   </tr>
                 </tfoot>
               </table>
