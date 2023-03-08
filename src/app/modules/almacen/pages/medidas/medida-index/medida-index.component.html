@@ -1,0 +1,267 @@
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-8">
+                <h3 class="card-title">
+                  Total de Medidas ({{ totalMedidas }})
+                </h3>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <!-- (click)="addArticulo()" -->
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#medida">
+                  Nueva Medida
+                </button>
+              </div>
+            </div>
+            <input class="form-control" type="search" placeholder="Buscar Medida" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Simbolo</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let medida of medidas.serverResponse; let i = index">
+                  <td>{{ medida.unidadMedida }}</td>
+                  <td>{{ medida.simbolo }}</td>
+                  <td>
+                    <!-- <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(medida)"></i> -->
+                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarMedida(medida._id)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center" *ngIf="txtTermino.value.length === 0">
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="medida" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="medidaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="medidaLabel">
+          Registrar Nueva Medida
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="crearMedida(medidaForm.value)" [formGroup]="medidaForm">
+
+          <div class="mb-1">
+            <label for="unidadMedida" class="form-label col-md-auto">Unidad de Medida *</label>
+            <input id="unidadMedida" class="form-control" type="text" formControlName="unidadMedida" />
+            <div class="form-text" *ngIf="form2['unidadMedida'].touched && form2['unidadMedida'].invalid">
+              <div *ngIf="
+                  form2['unidadMedida'].errors &&
+                  form2['unidadMedida'].errors['required']
+                ">
+                * La unidad de medida es Requerida.
+              </div>
+              <div *ngIf="
+                  form2['unidadMedida'].errors &&
+                  form2['unidadMedida'].errors['minlength']
+                ">
+                * La unidad de medida no puede tener menos de 4 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="simbolo" class="form-label col-md-auto">Simbolo *</label>
+            <input id="simbolo" class="form-control" type="text" formControlName="simbolo" />
+            <div class="form-text" *ngIf="form2['simbolo'].touched && form2['simbolo'].invalid">
+              <div *ngIf="
+                  form2['simbolo'].errors &&
+                  form2['simbolo'].errors['required']
+                ">
+                * El simbolo es Requerida.
+              </div>
+              <div *ngIf="
+                  form2['simbolo'].errors &&
+                  form2['simbolo'].errors['minlength']
+                ">
+                * El simbolo no puede tener menos de 4 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="medidaForm.invalid">
+              Registrar
+            </button>
+          </div>
+          {{ medidaForm.value | json }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+
+
+
+
+
+
+
+<!-- Modal edit -->
+
+<!-- <div
+  class="modal fade"
+  id="modalEdit"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalEditLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Proveedor</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editProveedor(editForm.value)" [formGroup]="editForm">
+
+          <div class="mb-1">
+            <label for="codigo" class="form-label">codigo:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="codigo"
+              formControlName="codigo"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="nombre" class="form-label">Compañia:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              formControlName="nombre"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="unidadDeMedida" class="form-label">Razon Social:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="unidadDeMedida"
+              formControlName="unidadDeMedida"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="cantidad" class="form-label">cantidad:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="cantidad"
+              formControlName="cantidad"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="ubicacion" class="form-label">ubicacion:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="ubicacion"
+              formControlName="ubicacion"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="direccion"
+              formControlName="direccion"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="ciudad" class="form-label">Ciudad:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ciudad"
+              formControlName="ciudad"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->

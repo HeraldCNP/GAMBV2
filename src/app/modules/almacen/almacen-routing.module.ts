@@ -10,6 +10,7 @@ import { CompraUpdateComponent } from './pages/compras/compra-update/compra-upda
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { EgresoCreateComponent } from './pages/egresos/egreso-create/egreso-create.component';
 import { EgresoIndexComponent } from './pages/egresos/egreso-index/egreso-index.component';
+import { MedidaIndexComponent } from './pages/medidas/medida-index/medida-index.component';
 import { ProgramaIndexComponent } from './pages/programas/programa-index/programa-index.component';
 import { ProveedorIndexComponent } from './pages/proveedores/proveedor-index/proveedor-index.component';
 import { ProyectoIndexComponent } from './pages/proyectos/proyecto-index/proyecto-index.component';
@@ -32,6 +33,9 @@ const routes: Routes = [
       { path: 'compra/update/:id', component: CompraUpdateComponent },
       { path: 'egreso/index', component: EgresoIndexComponent },
       { path: 'egreso/create', component: EgresoCreateComponent },
+      { path: 'medida/index', component: MedidaIndexComponent },
+      // { path: 'compra/create', component: CompraCreateComponent },
+      // { path: 'compra/update/:id', component: CompraUpdateComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },
       // { path: 'poa/create', component: PoaCreateComponent },

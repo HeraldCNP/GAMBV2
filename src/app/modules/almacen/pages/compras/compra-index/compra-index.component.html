@@ -39,9 +39,9 @@
               <thead>
                 <tr>
                   <th>Entrada N°</th>
-                  <th>Funcionario</th>
-                  <th>Concepto</th>
-                  <th>Fecha</th>
+                  <th>Funcionario Solicitante</th>
+                  <th>Glosa</th>
+                  <th>Fecha de Registro</th>
                   <th>Proveedor</th>
                   <th>Acciones</th>
                 </tr>
@@ -114,22 +114,24 @@
               <img src="/assets/img/logoGamb.png" alt="" width="150px">
             </div>
             <div class="col-md-8 text-center">
-              <h3>Documento de Entrada a Almacén </h3>
-              <p>Correspondiente al {{ ingreso.fecha | date:'longDate': 'UTC' }}</p>
+              <h3>DOCUMENTO DE ENTRADA A ALMACÉN </h3>
+              <p>Expresado en Bolivianos</p>
             </div>
-            <div class="col-md-2 text-end pl-4">
-              <h2>N° {{ ingreso.numeroEntrada }}</h2>
+            <div class="col-md-2 text-end pr-4">
+              <h5>Registro N° {{ ingreso.numeroEntrada }}</h5>
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="col-md-2 text-bold pl-3">
+              Fecha de Registro: <br>
               Entidad: <br>
               Proveedor: <br>
-              Concepto: <br>
+              Glosa: <br>
               Solicitado por:
             </div>
             <div class="col-md-10">
+              {{ ingreso.fecha | date:'longDate': 'UTC' }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               {{ ingreso.idProveedor.compania }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Razon Social: </b>{{ ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Nit:
               </b> {{ ingreso.idProveedor.nit }} <br>
@@ -147,7 +149,7 @@
                     <th>Cat. Prog.</th>
                     <th>Partida de gasto</th>
                     <th>Factura</th>
-                    <th>Articulo</th>
+                    <th>Artículo</th>
                     <th>Cantidad</th>
                     <th>Unidad de Medida</th>
                     <th>P/U</th>
@@ -164,12 +166,12 @@
                       <td>{{ item.idArticulo.nombre }}</td>
                       <td>{{ item.cantidadCompra }}</td>
                       <td>{{ item.idArticulo.unidadDeMedida }}</td>
-                      <td>{{ item.precio | currency: 'USD': 'Bs' }}</td>
-                      <td>{{ item.cantidadCompra * item.precio | currency: 'USD': 'Bs' }}</td>
+                      <td>{{ item.precio | currency: 'USD': '' }}</td>
+                      <td>{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
                     </tr>
                     <tr>
                       <td colspan="8" class="text-end"> <b>Sub Total: </b></td>
-                      <td> {{ categoryTotalPrices[category] | currency: 'USD': 'Bs' }}</td>
+                      <td> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>
 
@@ -190,8 +192,8 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="8" class="text-end fs-5"> <b>TOTAL BOLIVIANOS: </b></td>
-                    <td class="fs-5"><b>{{ calculateTotalCost() | currency: 'USD': 'Bs' }}</b></td>
+                    <td colspan="8" class="text-end fs-5"> <b>SUMA TOTAL: </b></td>
+                    <td class="fs-5"><b>{{ calculateTotalCost() | currency: 'USD': '' }}</b></td>
                   </tr>
                 </tfoot>
               </table>

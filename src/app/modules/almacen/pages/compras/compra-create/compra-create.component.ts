@@ -35,9 +35,11 @@ export class CompraCreateComponent implements OnInit {
     // console.log(this.fechaHoy.substr(0, 10))
     this.compraForm = this.fb.group({
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
+      fechaContrato: ['', [Validators.required]],
       categoriaProgra: ['', [Validators.required]],
       idProveedor: ['', [Validators.required]],
       idPersona: ['', [Validators.required]],
+      plazo: ['', [Validators.required]],
       concepto: ['', [Validators.required, Validators.min(3)]],
       numeroFactura: [''],
       articulos: ['', [Validators.required]],

@@ -14,7 +14,7 @@
                 <form [formGroup]="salidaForm">
 
                   <div class="mb-1">
-                    <label for="idPersona" class="form-label col-auto">Funcionario *</label>
+                    <label for="idPersona" class="form-label col-auto">Funcionario Solicitante *</label>
                     <!-- Para Mandar id // optionValueField="_id" -->
                     <ngx-select [allowClear]="true" [items]="funcionarios" optionTextField="username"
                       optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
@@ -36,7 +36,7 @@
 
 
                   <div class="mb-1">
-                    <label for="fecha" class="form-label">Fecha</label>
+                    <label for="fecha" class="form-label">Fecha de Registro</label>
                     <input type="date" class="form-control" id="fecha" formControlName="fecha">
                     <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
                       <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
@@ -46,7 +46,7 @@
 
 
                   <div class="mb-1">
-                    <label for="concepto" class="form-label col-md-auto">Concepto *</label>
+                    <label for="concepto" class="form-label col-md-auto">Glosa *</label>
                     <input id="concepto" class="form-control" type="text" formControlName="concepto" />
                     <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
                       <div *ngIf="
@@ -67,9 +67,9 @@
 
                 <form [formGroup]="demoForm">
                   <div class="mb-1">
-                    <label for="article" class="form-label col-auto">Articulo *</label>
+                    <label for="article" class="form-label col-auto">Artículo *</label>
                     <ngx-select [allowClear]="true" [items]="articles" optionTextField="codigo" optionValueField="_id"
-                      placeholder="Seleccione un Articulo" formControlName="article" (select)="doSelect($event)">
+                      placeholder="Seleccione un Artículo" formControlName="article" (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;({{option.data.nombre}})
@@ -88,7 +88,7 @@
                   <div class="mb-1" *ngIf="compras">
                     <label for="entrada" class="form-label col-auto">Cantidad Disponible</label>
                     <ngx-select [allowClear]="true" [items]="compras" optionTextField="stockCompra" optionValueField="_id"
-                      placeholder="Seleccione un Articulo" formControlName="entrada" (select)="doSelect2($event)">
+                      placeholder="Seleccione un Artículo" formControlName="entrada" (select)="doSelect2($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;(Entrada # {{option.data.idEntrada.numeroEntrada}})
@@ -166,7 +166,7 @@
                           <th>Código</th>
                           <th>Cat. Prog.</th>
                           <th>Partida de gasto</th>
-                          <th>Articulo</th>
+                          <th>Artículo</th>
                           <th>Cantidad</th>
                           <th>Unidad de Medida</th>
                           <th>P/U</th>

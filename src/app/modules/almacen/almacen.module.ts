@@ -20,6 +20,8 @@ import { CompraIndexComponent } from './pages/compras/compra-index/compra-index.
 import { EgresoIndexComponent } from './pages/egresos/egreso-index/egreso-index.component';
 import { EgresoCreateComponent } from './pages/egresos/egreso-create/egreso-create.component';
 import { CompraUpdateComponent } from './pages/compras/compra-update/compra-update.component';
+import { MedidaIndexComponent } from './pages/medidas/medida-index/medida-index.component';
+import { MedidaEditComponent } from './pages/medidas/medida-edit/medida-edit.component';
 
 
 
@@ -42,6 +44,8 @@ import { CompraUpdateComponent } from './pages/compras/compra-update/compra-upda
     EgresoIndexComponent,
     EgresoCreateComponent,
     CompraUpdateComponent,
+    MedidaIndexComponent,
+    MedidaEditComponent,
   ],
   imports: [
     CommonModule,

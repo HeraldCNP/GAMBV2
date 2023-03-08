@@ -35,9 +35,6 @@ export class ArticuloIndexComponent implements OnInit {
       codigo: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       unidadDeMedida: ['', [Validators.required]],
-      cantidad: ['', [Validators.required]],
-      ubicacion: ['', [Validators.required]],
-      estado: [''],
       idPartida: ['', [Validators.required]],
     });
   }
@@ -68,15 +65,19 @@ export class ArticuloIndexComponent implements OnInit {
       });
   }
 
-
+  get form() {
+    return this.editForm.controls;
+  }
 
   cargarPartidas() {
     this.cargando = true;
     this.almacenService.getAllPartidas().subscribe((data: any) => {
-      this.partidas = data.serverResponse;
+      this.partidas = data[0].partidas;
       console.log("Partidas", data)
     });
   }
+
+
 
   cargarMedidas() {
     this.cargando = true;
@@ -113,15 +114,14 @@ export class ArticuloIndexComponent implements OnInit {
     );
   }
 
-  cargarDataEdit(articulo: Articulo) {
-    // console.log("idProve", articulo.representante)
+  cargarDataEdit(articulo: any) {
+    // console.log("Articulo", articulo.idPartida )
+
     this.editForm.setValue({
       codigo: articulo.codigo,
       nombre: articulo.nombre,
       unidadDeMedida: articulo.unidadDeMedida,
-      cantidad: articulo.cantidad,
-      ubicacion: articulo.ubicacion,
-      estado: articulo.estado,
+      idPartida: articulo.idPartida._id,
     });
     this.idArticulo = articulo._id;
   }
@@ -186,6 +186,35 @@ export class ArticuloIndexComponent implements OnInit {
     });
   }
 
+  editArticulo(form: any) {
+    this.almacenService.editArticulo(form, this.idArticulo).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.editForm.reset();
+        this.alertOk(
+          'success',
+          'Exito',
+          'Articulo editado Correctamente',
+          '2000'
+        );
+        this.cargarArticulos();
+      }
+    );
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer,
+    });
+  }
 
 
 }

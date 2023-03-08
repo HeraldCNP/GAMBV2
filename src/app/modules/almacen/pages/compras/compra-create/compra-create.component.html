@@ -13,7 +13,35 @@
               <div class="col-md">
                 <form [formGroup]="compraForm">
                   <div class="mb-1">
-                    <label for="fecha" class="form-label">Fecha</label>
+                    <label for="fechaContrato" class="form-label">Fecha de Contrato/Orden de Compra</label>
+                    <input type="date" class="form-control" id="fechaContrato" formControlName="fechaContrato">
+                    <div class="form-text" *ngIf="form['fechaContrato'].touched && form['fechaContrato'].invalid">
+                      <div *ngIf="form['fechaContrato'].errors && form['fechaContrato'].errors['required']">* Fecha de Contrato
+                        es Requerido.</div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="plazo" class="form-label col-md-auto">Plazo *</label>
+                    <input id="plazo" class="form-control" type="number" formControlName="plazo" />
+                    <div class="form-text" *ngIf="form['plazo'].touched && form['plazo'].invalid">
+                      <div *ngIf="
+                          form['plazo'].errors &&
+                          form['plazo'].errors['required']
+                        ">
+                        * El plazo es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['plazo'].errors &&
+                          form['plazo'].errors['minlength']
+                        ">
+                        * El plazo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="fecha" class="form-label">Fecha de Registro</label>
                     <input type="date" class="form-control" id="fecha" formControlName="fecha">
                     <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
                       <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
@@ -50,7 +78,7 @@
 
 
                   <div class="mb-1">
-                    <label for="idPersona" class="form-label col-auto">Funcionario *</label>
+                    <label for="idPersona" class="form-label col-auto">Funcionario Solicitante *</label>
                     <!-- Para Mandar id // optionValueField="_id" -->
                     <ngx-select [allowClear]="true" [items]="funcionarios" optionTextField="username"
                       optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
@@ -71,7 +99,7 @@
                   </div>
 
                   <div class="mb-1">
-                    <label for="concepto" class="form-label col-md-auto">Concepto *</label>
+                    <label for="concepto" class="form-label col-md-auto">Glosa *</label>
                     <input id="concepto" class="form-control" type="text" formControlName="concepto" />
                     <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
                       <div *ngIf="
@@ -153,7 +181,7 @@
             <div class="row">
               <div class="col-md">
                 <div class="panel panel-default">
-                  <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar Articulo"
+                  <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar Artículo"
                     (keyup)="buscar(txtTermino.value)" (blur)="txtTermino.value = ''" #txtTermino />
 
                   <datalist id="articulos" *ngIf="articulos">
@@ -172,7 +200,7 @@
                           <th>Cat. Prog.</th>
                           <th>Partida de gasto</th>
                           <th>Factura</th>
-                          <th>Articulo</th>
+                          <th>Artículo</th>
                           <th>Cantidad</th>
                           <th>Unidad de Medida</th>
                           <th>P/U</th>

@@ -9,7 +9,7 @@ import { Articulo } from '../interfaces/articulo';
 })
 export class AlmacenService {
   private readonly URL = environment.api;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /*Servicios para Categorias*/
   getAllCategorias(limit?: number, skip?: number): Observable<any[]> {
@@ -137,7 +137,7 @@ export class AlmacenService {
   }
 
 
-  editProveedor(form:any, id:any):Observable<any>{
+  editProveedor(form: any, id: any): Observable<any> {
     let dir = `${this.URL}/proveedor/${id}`;
     return this.http.put<any>(dir, form)
   }
@@ -172,11 +172,7 @@ export class AlmacenService {
     return this.http.get<any>(dir);
   }
 
-  getAllMedidas(limit?: number, skip?: number): Observable<any[]> {
-    let dir = `${this.URL}/medidas`;
-    console.log(dir);
-    return this.http.get<any>(dir);
-  }
+
 
   createMedida(form: any): Observable<any> {
     let dir = `${this.URL}/medida`;
@@ -202,8 +198,37 @@ export class AlmacenService {
     // );
   }
 
-
+  editArticulo(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/articulo/${id}`;
+    return this.http.put<any>(dir, form)
+  }
 
   /*End Articulos */
+  /*Medidas */
+  getAllMedidas(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/medidas?limit=${limit}&skip=${skip}`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+  deleteMedida(id: any) {
+    let dir = `${this.URL}/medida/${id}`;
+    return this.http.delete<any>(dir, id);
+  }
+
+  searchMedida(termino: any): Observable<any[]> {
+    let dir = `${this.URL}/searchMedida/${termino}`;
+    // console.log(dir);
+    return this.http.get<any[]>(dir);
+    // .pipe(
+    //   map((resp:any) => resp.serverResponse)
+    // );
+  }
+
+
+
+  /*End Medidas */
+
+
+
 
 }

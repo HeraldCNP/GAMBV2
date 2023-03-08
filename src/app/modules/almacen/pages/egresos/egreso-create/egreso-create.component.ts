@@ -121,7 +121,7 @@ export class EgresoCreateComponent implements OnInit {
 
   calcularStock(){
     if(this.demoForm.value.cantidadSalida > this.compraSingle.stockCompra){
-      Swal.fire('La Cantidad de salida es mayor al stock')
+      Swal.fire('Saldo insuficiente')
       this.demoForm.value.cantidadSalida = 0;
     }
 
