@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <div class="card shadow p-3 mb-4 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Nuevo Ingreso a Almacén</h3>
+            <h3 class="card-title">Nueva Entrada a Almacén</h3>
           </div>
 
           <!-- /.card-header -->
@@ -58,7 +58,7 @@
                         (select)="doSelect($event)">
                         <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                           <span [innerHtml]="text"></span>
-                          &nbsp;({{option.data.compania}})
+                          &nbsp;({{option.data.razon_social}})
                         </ng-template>
                       </ngx-select>
                       <div class="form-text" *ngIf="form['idProveedor'].touched && form['idProveedor'].invalid">

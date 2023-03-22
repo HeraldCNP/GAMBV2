@@ -52,7 +52,7 @@
                   <td>{{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }}</td>
                   <td>{{ ingreso.concepto }}</td>
                   <td>{{ ingreso.fecha | date:'longDate': 'UTC'}}</td>
-                  <td>{{ ingreso.idProveedor.compania }}</td>
+                  <td>{{ ingreso.idProveedor.razon_social }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="ingreso.estado == '1'">
@@ -107,7 +107,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-body" id="content" #content>
+      <div class="modal-body mt-3" id="content" #content>
         <div *ngIf="ingreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
@@ -124,29 +124,29 @@
           <hr class="off-hr">
           <div class="row">
             <div class="col-md-2 text-bold pl-3">
-              Fecha de Registro: <br>
-              Entidad: <br>
-              Proveedor: <br>
-              Glosa: <br>
-              Solicitado por:
+              FECHA DE REGISTRO: <br>
+              ENTIDAD: <br>
+              PROVEEDOR: <br>
+              GLOSA: <br>
+              SOLICITADO POR:
             </div>
             <div class="col-md-10">
               {{ ingreso.fecha | date:'longDate': 'UTC' }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
-              {{ ingreso.idProveedor.compania }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Razon Social: </b>{{ ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Nit:
+              {{ ingreso.idProveedor.compania }} <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b>{{ ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; NIT:
               </b> {{ ingreso.idProveedor.nit }} <br>
               {{ ingreso.concepto }} <br>
-              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; Cargo: </b>{{ ingreso.idPersona.post
+              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO: </b>{{ ingreso.idPersona.post
               }}
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover">
+              <table class="table table-hover table-bordered text-center border-dark table-sm">
                 <thead>
                   <tr>
                     <th class="off-p">N°</th>
-                    <th class="off-p">Cat. Prog.</th>
+                    <th class="off-p">Cat. Progra.</th>
                     <th class="off-p">Partida de gasto</th>
                     <th class="off-p">Factura</th>
                     <th class="off-p">Artículo</th>
@@ -161,17 +161,17 @@
                     <tr *ngFor="let item of separados[category]; let i = index">
                       <td class="off-p">{{ i + 1 }}</td>
                       <td class="off-p">{{ item.catProgra }}</td>
-                      <td class="off-p">{{ item.idArticulo.idPartida.codigo }}</td>
+                      <td class="off-p" style="font-size: 0.9rem;">{{ item.idArticulo.idPartida.codigo }} - {{ item.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p">{{ item.factura }}</td>
                       <td class="off-p">{{ item.idArticulo.nombre }}</td>
                       <td class="off-p">{{ item.cantidadCompra }}</td>
                       <td class="off-p">{{ item.idArticulo.unidadDeMedida }}</td>
                       <td class="off-p">{{ item.precio | currency: 'USD': '' }}</td>
-                      <td class="off-p">{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
+                      <td class="off-p pr-2 text-end">{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
                     </tr>
                     <tr>
                       <td colspan="8" class="text-end off-p"> <b>Sub Total: </b></td>
-                      <td class="off-p pl-1"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
+                      <td class="off-p pr-2 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>
 
@@ -193,7 +193,7 @@
                 <tfoot>
                   <tr>
                     <td colspan="8" class="text-end off-p fs-5"> <b>SUMA TOTAL: </b></td>
-                    <td class="fs-5 off-p"><b>{{ calculateTotalCost() | currency: 'USD': '' }}</b></td>
+                    <td class="fs-5 off-p pr-2 text-end"><b>{{ calculateTotalCost() | currency: 'USD': '' }}</b></td>
                   </tr>
                 </tfoot>
               </table>

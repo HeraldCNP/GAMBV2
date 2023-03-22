@@ -39,7 +39,6 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Compañia</th>
                   <th>Representante</th>
                   <th>Razon Social</th>
                   <th>Nit</th>
@@ -52,7 +51,6 @@
               </thead>
               <tbody class="table-group-divider">
                 <tr *ngFor="let proveedor of proveedores.serverResponse; let i = index">
-                  <td>{{ proveedor.compania }}</td>
                   <td>{{ proveedor.representante }}</td>
                   <td>{{ proveedor.razon_social }}</td>
                   <td>{{ proveedor.nit }}</td>
@@ -118,11 +116,6 @@
           </div>
 
           <div class="mb-1">
-            <label for="compania" class="form-label col-md-auto">Compañia</label>
-            <input id="compania" class="form-control" type="text" formControlName="compania" />
-          </div>
-
-          <div class="mb-1">
             <label for="razon_social" class="form-label col-md-auto">Razon Social *</label>
             <input id="razon_social" class="form-control" type="text" formControlName="razon_social" />
           </div>
@@ -178,11 +171,6 @@
           <div class="mb-1">
             <label for="representante" class="form-label">Representante:</label>
             <input type="text" class="form-control" id="representante" formControlName="representante" />
-          </div>
-
-          <div class="mb-1">
-            <label for="compania" class="form-label">Compañia:</label>
-            <input type="text" class="form-control" id="compania" formControlName="compania" />
           </div>
 
           <div class="mb-1">

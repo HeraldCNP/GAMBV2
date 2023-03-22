@@ -184,7 +184,7 @@ export class CompraIndexComponent implements OnInit {
         var heightLeft = imgHeight;
 
         var doc = new jsPDF('p', 'mm');
-        var position = 0;
+        var position = 5;
 
         doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;

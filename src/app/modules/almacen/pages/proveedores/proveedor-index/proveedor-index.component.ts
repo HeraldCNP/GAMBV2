@@ -25,7 +25,6 @@ export class ProveedorIndexComponent implements OnInit {
 
   constructor(private almacenService: AlmacenService, private fb: FormBuilder) {
     this.proveedorForm = this.fb.group({
-      compania: [''],
       representante: ['', [Validators.required]],
       razon_social: ['', [Validators.required]],
       nit: ['', [Validators.required]],
@@ -36,7 +35,6 @@ export class ProveedorIndexComponent implements OnInit {
     });
 
     this.editForm = this.fb.group({
-      compania: [''],
       representante: ['', [Validators.required]],
       razon_social: ['', [Validators.required]],
       nit: ['', [Validators.required]],
@@ -90,7 +88,6 @@ export class ProveedorIndexComponent implements OnInit {
     // console.log("idProve", proveedor.representante)
     this.editForm.setValue({
       representante: proveedor.representante,
-      compania: proveedor.compania,
       razon_social: proveedor.razon_social,
       nit: proveedor.nit,
       telefono: proveedor.telefono,
