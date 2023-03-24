@@ -14,6 +14,7 @@ import { MedidaIndexComponent } from './pages/medidas/medida-index/medida-index.
 import { ProgramaIndexComponent } from './pages/programas/programa-index/programa-index.component';
 import { ProveedorIndexComponent } from './pages/proveedores/proveedor-index/proveedor-index.component';
 import { ProyectoIndexComponent } from './pages/proyectos/proyecto-index/proyecto-index.component';
+import { VehiculoIndexComponent } from './pages/vehiculos/vehiculo-index/vehiculo-index.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'egreso/index', component: EgresoIndexComponent },
       { path: 'egreso/create', component: EgresoCreateComponent },
       { path: 'medida/index', component: MedidaIndexComponent },
+      { path: 'vehiculo/index', component: VehiculoIndexComponent },
       // { path: 'compra/create', component: CompraCreateComponent },
       // { path: 'compra/update/:id', component: CompraUpdateComponent },
 

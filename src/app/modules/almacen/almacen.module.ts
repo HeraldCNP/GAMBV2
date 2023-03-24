@@ -22,6 +22,7 @@ import { EgresoCreateComponent } from './pages/egresos/egreso-create/egreso-crea
 import { CompraUpdateComponent } from './pages/compras/compra-update/compra-update.component';
 import { MedidaIndexComponent } from './pages/medidas/medida-index/medida-index.component';
 import { MedidaEditComponent } from './pages/medidas/medida-edit/medida-edit.component';
+import { VehiculoIndexComponent } from './pages/vehiculos/vehiculo-index/vehiculo-index.component';
 
 
 
@@ -46,6 +47,7 @@ import { MedidaEditComponent } from './pages/medidas/medida-edit/medida-edit.com
     CompraUpdateComponent,
     MedidaIndexComponent,
     MedidaEditComponent,
+    VehiculoIndexComponent,
   ],
   imports: [
     CommonModule,

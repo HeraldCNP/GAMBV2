@@ -228,7 +228,13 @@ export class AlmacenService {
 
   /*End Medidas */
 
+  /*Vehiculos */
 
+  getAllVehiculos(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/vehiculos?limit=${limit}&skip=${skip}`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
 
 
 }

@@ -132,7 +132,7 @@ export class OfficeIndexComponent implements OnInit {
     this.campo=parseInt(this.campo)
     if(this.campo==this.year-1){
       this.dategt=this.campo;
-      this.datelt=this.campo+1; 
+      this.datelt=this.campo+1;
     }else if(this.campo==this.year){
       this.dategt=this.campo;
       this.datelt=this.campo+1;
@@ -163,7 +163,7 @@ export class OfficeIndexComponent implements OnInit {
     this.campo=parseInt(this.campo)
     if(this.campo==this.year-1){
       this.dategt=this.campo;
-      this.datelt=this.campo+1; 
+      this.datelt=this.campo+1;
     }else if(this.campo==this.year){
       this.dategt=this.campo;
       this.datelt=this.campo+1;
@@ -227,7 +227,7 @@ export class OfficeIndexComponent implements OnInit {
     this.campo=parseInt(this.campo)
     if(this.campo==this.year-1){
       this.dategt=this.campo;
-      this.datelt=this.campo+1; 
+      this.datelt=this.campo+1;
     }else if(this.campo==this.year){
       this.dategt=this.campo;
       this.datelt=this.campo+1;
@@ -394,7 +394,7 @@ export class OfficeIndexComponent implements OnInit {
         this.api.getSegui(id).subscribe((data)=>{
           if(data.estado=="FILE OFICINA"){
             data.archivofi.forEach((element:any) => {
-              this.api.eliminarArc(element).subscribe((data)=>{
+              this.api.eliminarArc(element._id).subscribe((data)=>{
               })
             });
           }
