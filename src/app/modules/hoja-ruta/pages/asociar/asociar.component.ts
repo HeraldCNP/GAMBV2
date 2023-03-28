@@ -37,16 +37,16 @@ export class AsociarComponent implements OnInit {
     private api: RutaService,
     private fb: FormBuilder,
     private router: Router,
-    private aRouter: ActivatedRoute) { 
-      this.hojaForm = this.fb.group({
-        nuit: ['', Validators.required]
-      })
-      this.nuit = this.aRouter.snapshot.paramMap.get('nuit');
-      this.asociarProcesada = false;
-      this.loading = false;
-      this.mostrarError = false;
-      this.textError = '';
-    }
+    private aRouter: ActivatedRoute) {
+    this.hojaForm = this.fb.group({
+      nuit: ['', Validators.required]
+    })
+    this.nuit = this.aRouter.snapshot.paramMap.get('nuit');
+    this.asociarProcesada = false;
+    this.loading = false;
+    this.mostrarError = false;
+    this.textError = '';
+  }
 
   ngOnInit(): void {
     this.user = localStorage.getItem('user');
@@ -106,7 +106,7 @@ export class AsociarComponent implements OnInit {
           return;
         }
         this.error('el documento debe estar en su oficina con estado recibido');
-                return;
+        return;
       })
     } else {
       this.error('hubo un error');
@@ -122,9 +122,10 @@ export class AsociarComponent implements OnInit {
       this.mostrarError = false;
     }, 4000);
   }
+
   cambiarestado(id: any) {
     const SEGUI: Segui = {
-      estado: this.estadoaso +" "+ this.nuit,
+      estado: this.estadoaso + " " + this.nuit,
     }
     console.log(id)
     this.api.getSegui(id).subscribe(data => {
@@ -132,7 +133,7 @@ export class AsociarComponent implements OnInit {
       this.ids = this.seguiss._id;
       if (this.seguiss.estado === "RECIBIDO") {
         this.api.EditarSeguis(this.ids, SEGUI).subscribe(data => {
-        //  this.router.navigate(['/correspondencia']);
+          //  this.router.navigate(['/correspondencia']);
 
         }, error => {
           console.log(error);
@@ -142,22 +143,23 @@ export class AsociarComponent implements OnInit {
       console.log(error);
     })
   }
+
   cambiaraso(id: any) {
     const SEGUI: Segui = {
       asociado: this.asociado,
-      fecharespuesta:this.today
+      fecharespuesta: this.today
     }
-    this.api.EditarSeguiaso(id,SEGUI).subscribe(data=>{
+    this.api.EditarSeguiaso(id, SEGUI).subscribe(data => {
       console.log("se modifico a true")
     }, error => {
       console.log(error);
     })
   }
-  cambiarasos(id:any){
+  cambiarasos(id: any) {
     const SEGUI: Segui = {
       asociado: this.asociado
     }
-    this.api.EditarSeguiaso(id,SEGUI).subscribe(data=>{
+    this.api.EditarSeguiaso(id, SEGUI).subscribe(data => {
       console.log("se modifico a true tambien")
     }, error => {
       console.log(error);
