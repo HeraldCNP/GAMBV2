@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -22,20 +22,29 @@ export class CompraIndexComponent implements OnInit {
   limit: number = 10;
   totalPages: any;
   showModal: boolean = true;
-  proveedorForm: any;
+  salidaForm: any;
   editForm: any;
   cargando: boolean = true;
   idProveedor: any;
   URL = environment.api;
   ingreso: any;
+  x: any;
   date = new Date();
   separados:any;
   categories:any;
+  funcionarios:any;
   categoryTotalPrices:any = 0;
-  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router) { }
+  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router) {
+    this.salidaForm = this.fb.group({
+      glosaSalida: ['', [Validators.required]],
+      entregado: [''],
+      idPersona: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.cargarIngresos();
+    this.cargarFuncionarios();
   }
 
   cargarIngresos() {
@@ -50,6 +59,14 @@ export class CompraIndexComponent implements OnInit {
         console.log(data);
         this.cargando = false;
       });
+  }
+
+  cargarFuncionarios() {
+    this.cargando = true;
+    this.comprasService.getAllFuncionarios().subscribe((data: any) => {
+      this.funcionarios = data.serverResponse;
+      console.log("Funcionarios", data)
+    });
   }
 
   buscar(termino: string) {
@@ -195,11 +212,18 @@ export class CompraIndexComponent implements OnInit {
           doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-        doc.save('file.pdf');
+        // doc.save('file.pdf');
+        // doc.save('dataurlnewwindow');
         return doc;
       })
-      .then((docResult) => {
-        docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+      .then((doc) => {
+        doc.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+        // var string = doc.output('datauristring');
+        // var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+        // this.x = window.open();
+        // this.x.document.open();
+        // this.x.document.write(embed);
+        // this.x.document.close();
         //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
       });
   }
@@ -250,7 +274,7 @@ export class CompraIndexComponent implements OnInit {
     return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
   }
 
-  registrarEgreso(id: string) {
+  registrarEgreso(form: any, id:string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: '¡No podrás revertir esto!',
@@ -263,7 +287,7 @@ export class CompraIndexComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('¡Registrado!', 'El Egreso ha sido registrado.', 'success');
-        this.comprasService.createEgreso(id).subscribe(
+        this.comprasService.createSalida(form, id).subscribe(
           (res) => console.log(res),
           (err) => console.log('HTTP Error', err),
           () => this.router.navigate(['almacen/egreso/index'])
@@ -275,6 +299,30 @@ export class CompraIndexComponent implements OnInit {
 
   editarEntrada(id:string){
     this.router.navigate(['almacen/compra/update', id]);
+  }
+
+  getEntrada(id: string){
+    this.comprasService.getIngreso(id)
+      .subscribe(
+        res => {
+          this.ingreso = res;
+          console.log(this.ingreso)
+        },
+        err => console.log('HTTP Error', err),
+        () => {
+          this.salidaForm.patchValue({
+            glosaSalida: this.ingreso.concepto,
+          })
+        }
+      );
+  }
+
+  get form() {
+    return this.salidaForm.controls;
+  }
+
+  doSelect = (value: any) => {
+    console.log('SingleDemoComponent.doSelect', value);
   }
 
 

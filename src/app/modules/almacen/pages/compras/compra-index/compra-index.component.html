@@ -69,14 +69,18 @@
                     <!-- <i class="fas fa-edit ml-3 icono"></i> -->
                     <div>
                       <!-- Button trigger modal -->
-                      <button type="button" (click)="getIngreso(ingreso._id)" class=""
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <button type="button" (click)="getIngreso(ingreso._id)" class="" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
                         <i class="fas fa-print"></i>
                       </button>
                       <!-- <i class="fas fa-trash-alt ml-2 icono" (click)="borrarIngreso(ingreso._id)"></i> -->
                       <i class="fas fa-edit ml-2 icono" (click)="editarEntrada(ingreso._id)"></i>
                       <ng-container *ngIf="ingreso.estado == 'REGISTRADO'">
-                        <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i>
+                        <!-- <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i> -->
+                        <button type="button" (click)="getEntrada(ingreso._id)" class="" data-bs-toggle="modal"
+                          data-bs-target="#salidaModal">
+                          <i class="fas fa-sign-out-alt"></i>
+                        </button>
                       </ng-container>
                     </div>
                   </td>
@@ -111,7 +115,7 @@
         <div *ngIf="ingreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
-              <img src="/assets/img/logoGamb.png" alt="" width="150px">
+              <img src="/assets/img/logoGamb.png" alt="" width="175px">
             </div>
             <div class="col-md-8 text-center">
               <h3 class="off-m">DOCUMENTO DE ENTRADA A ALMACÉN </h3>
@@ -130,13 +134,15 @@
               GLOSA: <br>
               SOLICITADO POR:
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 mb-2">
               {{ ingreso.fecha | date:'longDate': 'UTC' }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
-              {{ ingreso.idProveedor.representante }} <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b>{{ ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; NIT:
+              {{ ingreso.idProveedor.representante }} <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b>{{
+              ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; NIT:
               </b> {{ ingreso.idProveedor.nit }} <br>
               {{ ingreso.concepto }} <br>
-              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO: </b>{{ ingreso.idPersona.post
+              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
+              </b>{{ ingreso.idPersona.post
               }}
             </div>
           </div>
@@ -161,7 +167,8 @@
                     <tr *ngFor="let item of separados[category]; let i = index">
                       <td class="off-p">{{ i + 1 }}</td>
                       <td class="off-p">{{ item.catProgra }}</td>
-                      <td class="off-p" style="font-size: 0.9rem;">{{ item.idArticulo.idPartida.codigo }} - {{ item.idArticulo.idPartida.denominacion }}</td>
+                      <td class="off-p" style="font-size: 0.9rem;">{{ item.idArticulo.idPartida.codigo }} - {{
+                        item.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p">{{ item.factura }}</td>
                       <td class="off-p">{{ item.idArticulo.nombre }}</td>
                       <td class="off-p">{{ item.cantidadCompra }}</td>
@@ -212,6 +219,78 @@
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- salidaModal -->
+<div class="modal fade" id="salidaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body mt-3" id="content" #content>
+        <form [formGroup]="salidaForm">
+          <div class="input-group mb-1">
+
+            <span class="input-group-text" id="idPersona"><b>Funcionario Solicitante *</b></span>
+
+            <ngx-select style="min-width: 400px;" [allowClear]="true" [items]="funcionarios" optionTextField="username"
+              optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
+              (select)="doSelect($event)">
+              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                <span [innerHtml]="text"></span>
+                &nbsp;{{option.data.surnames}}
+              </ng-template>
+            </ngx-select>
+            <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
+              <div *ngIf="
+                  form['idPersona'].errors &&
+                  form['idPersona'].errors['required']
+                ">
+                * El proveedor es Requerido.
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-1">
+            <span class="input-group-text" id="entregado"><b>Entregado A:</b></span>
+            <input id="entregado" class="form-control" type="text" formControlName="entregado" />
+            <div class="form-text" *ngIf="form['entregado'].touched && form['entregado'].invalid">
+              <div *ngIf="form['entregado'].errors && form['entregado'].errors['required']">
+                * El entregado es Requerido.
+              </div>
+              <div *ngIf="form['entregado'].errors && form['entregado'].errors['minlength']">
+                * El plazo no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text"><b>Glosa *</b></span>
+            <textarea id="glosaSalida" class="form-control" type="text" formControlName="glosaSalida"></textarea>
+            <div class="form-text" *ngIf="form['glosaSalida'].touched && form['glosaSalida'].invalid">
+              <div *ngIf="
+                  form['glosaSalida'].errors &&
+                  form['glosaSalida'].errors['required']
+                ">
+                * la Glosa es Requerida.
+              </div>
+              <div *ngIf="
+                  form['glosaSalida'].errors &&
+                  form['glosaSalida'].errors['minlength']
+                ">
+                * la Glosa no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <!-- <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button> -->
+
+        <button (click)="registrarEgreso(salidaForm.value, ingreso._id)" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="salidaForm.invalid">
+          Registrar
+        </button>
+
+        <!-- {{ salidaForm.value | json }} -->
       </div>
     </div>
   </div>

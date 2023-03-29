@@ -90,4 +90,14 @@ export class ComprasService {
     return this.http.get(dir)
   }
 
+  // createSalida(form: any): Observable<any> {
+  //   let dir = `${this.URL}/egresoya`;
+  //   return this.http.post<any>(dir, form);
+  // }
+
+  createSalida(form:any, id:any):Observable<any>{
+    let dir = `${this.URL}/egresoya/${id}`;
+    return this.http.put<any>(dir, form)
+  }
+
 }

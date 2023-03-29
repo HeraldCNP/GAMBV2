@@ -12,3 +12,7 @@
 .mt-10{
   margin-top: 150px;
 }
+
+.table-bordered th, .table-bordered td{
+  border: 1px solid #000;
+}

@@ -39,8 +39,8 @@
               <thead>
                 <tr>
                   <th>Salida N°</th>
-                  <th>Funcionario</th>
-                  <th>Concepto</th>
+                  <th>Entregado A</th>
+                  <th>Glosa</th>
                   <th>Fecha</th>
                   <th>Acciones</th>
                 </tr>
@@ -48,8 +48,17 @@
               <tbody class="table-group-divider">
                 <tr *ngFor="let egreso of egresos.serverResponse; let i = index">
                   <td>{{ egreso.numeroSalida }}</td>
-                  <td>{{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }}</td>
-                  <td>{{ egreso.concepto }}</td>
+                  <td>
+                    <ng-container *ngIf="egreso.entregado">
+                      {{ egreso.entregado }}
+                    </ng-container>
+                    <ng-container *ngIf="!egreso.entregado">
+                      {{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
+                      </b>{{ egreso.idPersona.post
+                      }}
+                    </ng-container>
+                  </td>
+                  <td>{{ egreso.glosaSalida }}</td>
                   <td>{{ egreso.fecha | date:'longDate' }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
@@ -67,10 +76,10 @@
                     <!-- <i class="fas fa-edit ml-3 icono"></i> -->
                     <div>
                       <!-- Button trigger modal -->
-                      <button type="button" (click)="getEgreso(egreso._id)" class=""
-                      data-bs-toggle="modal" data-bs-target="#exampleModal">
-                      <i class="fas fa-print"></i>
-                    </button>
+                      <button type="button" (click)="getEgreso(egreso._id)" class="" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        <i class="fas fa-print"></i>
+                      </button>
                       <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarEgreso(egreso._id)"></i> -->
                     </div>
                   </td>
@@ -103,7 +112,7 @@
         <div *ngIf="egreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
-              <img src="/assets/img/logoGamb.png" alt="" width="150px">
+              <img src="/assets/img/logoGamb.png" alt="" width="175px">
             </div>
             <div class="col-md-8 text-center">
               <h3 class="off-m">DOCUMENTO DE SALIDA DE ALMACÉN </h3>
@@ -114,25 +123,31 @@
             </div>
           </div>
           <hr class="off-hr">
-          <div class="row">
+          <div class="row mb-2">
             <div class="col-md-2 text-bold pl-3">
               ENTIDAD: <br>
               GLOSA <br>
-              SOLICITADO POR:
+              ENTREGADO A:
             </div>
             <div class="col-md-10">
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
-              {{ egreso.concepto }} <br>
-              {{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO: </b>{{ egreso.idPersona.post
-              }}
+              {{ egreso.glosaSalida }} <br>
+              <ng-container *ngIf="egreso.entregado">
+                {{ egreso.entregado }}
+              </ng-container>
+              <ng-container *ngIf="!egreso.entregado">
+                {{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
+                </b>{{ egreso.idPersona.post
+                }}
+              </ng-container>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover">
+              <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
-                    <th class="off-p">Código</th>
+                    <th class="off-p">N°</th>
                     <th class="off-p">Cat. Prog.</th>
                     <th class="off-p">Partida de gasto</th>
                     <th class="off-p">Articulo</th>
@@ -147,24 +162,25 @@
                     <tr *ngFor="let item of separados[category]; let i = index">
                       <td class="off-p">{{ i + 1 }}</td>
                       <td class="off-p">{{ item.catProgra }}</td>
-                      <td class="off-p">{{ item.idCompra.idArticulo.idPartida.codigo }}</td>
+                      <td class="off-p" style="font-size: 0.9rem;">{{ item.idCompra.idArticulo.idPartida.codigo }} - {{
+                        item.idCompra.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p">{{ item.idCompra.idArticulo.nombre }}</td>
                       <td class="off-p">{{ item.cantidadSalida }}</td>
                       <td class="off-p">{{ item.idCompra.idArticulo.unidadDeMedida }}</td>
-                      <td class="off-p">{{ item.idCompra.precio | currency: 'USD': ''  }}</td>
-                      <td class="off-p">{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': ''  }}</td>
+                      <td class="off-p text-end">{{ item.idCompra.precio | currency: 'USD': '' }}</td>
+                      <td class="off-p text-end">{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': '' }}</td>
                     </tr>
                     <tr>
-                      <td colspan="7" class="text-end off-p"> <b>Sub Total: </b></td>
-                      <td class="off-p pl-1"> {{ categoryTotalPrices[category] | currency: 'USD': ''  }}</td>
+                      <td colspan="7" class="off-p text-end"> <b>Sub Total: </b></td>
+                      <td class="off-p pl-1 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>
 
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="7" class="text-end fs-5 off-p"> <b>SUMA TOTAL: </b></td>
-                    <td class="fs-5 off-p pl-1"><b>{{ calculateTotalCost() | currency: 'USD': ''  }}</b></td>
+                    <td colspan="7" class="fs-5 off-p text-end"> <b>SUMA TOTAL: </b></td>
+                    <td class="fs-5 off-p pl-1 text-end"><b>{{ calculateTotalCost() | currency: 'USD': '' }}</b></td>
                   </tr>
                 </tfoot>
               </table>
@@ -172,7 +188,7 @@
           </div>
         </div>
         <div>
-          <div class="row mt-5">
+          <div class="row mt-10">
             <div class="col-md-6 text-center">Encargado Almacenes</div>
             <div class="col-md-6 text-center">Recibí Conforme</div>
           </div>

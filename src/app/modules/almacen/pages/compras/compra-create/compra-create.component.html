@@ -18,8 +18,7 @@
                     <input type="date" class="form-control" id="fechaContrato" formControlName="fechaContrato">
                     <div class="form-text" *ngIf="form['fechaContrato'].touched && form['fechaContrato'].invalid">
                       <div *ngIf="form['fechaContrato'].errors && form['fechaContrato'].errors['required']">* Fecha de
-                        Contrato
-                        es Requerido.</div>
+                        Contrato es Requerido.</div>
                     </div>
                   </div>
 
@@ -136,8 +135,9 @@
                     <div class="input-group mb-1">
                       <span class="input-group-text" id="plazo"><b>Vehículo *</b></span>
                       <!-- Para Mandar id // optionValueField="_id" -->
-                      <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="vehiculos" optionTextField="placa" optionValueField="_id"
-                        placeholder="Seleccione un Vehículo" formControlName="vehiculo" (select)="doSelect($event)">
+                      <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="vehiculos"
+                        optionTextField="placa" optionValueField="_id" placeholder="Seleccione un Vehículo"
+                        formControlName="vehiculo" (select)="doSelect($event)">
                         <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                           <span [innerHtml]="text"></span>
                           &nbsp;({{option.data.tipo}})
@@ -174,9 +174,10 @@
 
                   <div class="input-group mb-1">
                     <span class="input-group-text" id="plazo"><b>Categoría Programatica *</b></span>
-                    <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="catProgras" optionTextField="codigo"
-                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
-                      formControlName="categoriaProgra" (select)="doSelect($event)">
+                    <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="catProgras"
+                      optionTextField="codigo" optionValueField="cat_programatica"
+                      placeholder="Seleccione una Categoría Programatica" formControlName="categoriaProgra"
+                      (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;({{option.data.proyect_acti}})
@@ -238,7 +239,7 @@
               <div class="col-md">
                 <div class="panel panel-default">
                   <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar Artículo"
-                    (keyup)="buscar(txtTermino.value)" (blur)="txtTermino.value = ''" #txtTermino />
+                    (keyup.enter)="buscar(txtTermino.value)" (blur)="txtTermino.value = ''" #txtTermino />
 
                   <datalist id="articulos" *ngIf="articulos">
                     <option style="color:blue" *ngFor="let articulo of articulos.serverResponse"

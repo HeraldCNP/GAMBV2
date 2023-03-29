@@ -176,7 +176,7 @@ export class EgresoIndexComponent implements OnInit {
           doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-        doc.save('file.pdf');
+        // doc.save('file.pdf');
         return doc;
       })
       .then((docResult) => {
