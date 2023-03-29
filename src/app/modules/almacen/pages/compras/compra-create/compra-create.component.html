@@ -12,36 +12,33 @@
             <div class="row">
               <div class="col-md">
                 <form [formGroup]="compraForm">
-                  <div class="mb-1">
-                    <label for="fechaContrato" class="form-label">Fecha de Contrato/Orden de Compra</label>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="fechaContrato"><b> Fecha de Contrato/Orden de Compra</b></span>
                     <input type="date" class="form-control" id="fechaContrato" formControlName="fechaContrato">
                     <div class="form-text" *ngIf="form['fechaContrato'].touched && form['fechaContrato'].invalid">
-                      <div *ngIf="form['fechaContrato'].errors && form['fechaContrato'].errors['required']">* Fecha de Contrato
+                      <div *ngIf="form['fechaContrato'].errors && form['fechaContrato'].errors['required']">* Fecha de
+                        Contrato
                         es Requerido.</div>
                     </div>
                   </div>
 
-                  <div class="mb-1">
-                    <label for="plazo" class="form-label col-md-auto">Plazo *</label>
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Plazo</b></span>
                     <input id="plazo" class="form-control" type="number" formControlName="plazo" />
                     <div class="form-text" *ngIf="form['plazo'].touched && form['plazo'].invalid">
-                      <div *ngIf="
-                          form['plazo'].errors &&
-                          form['plazo'].errors['required']
-                        ">
+                      <div *ngIf="form['plazo'].errors && form['plazo'].errors['required']">
                         * El plazo es Requerido.
                       </div>
-                      <div *ngIf="
-                          form['plazo'].errors &&
-                          form['plazo'].errors['minlength']
-                        ">
+                      <div *ngIf="form['plazo'].errors && form['plazo'].errors['minlength']">
                         * El plazo no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>
 
-                  <div class="mb-1">
-                    <label for="fecha" class="form-label">Fecha de Registro</label>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Fecha de Registro *</b></span>
                     <input type="date" class="form-control" id="fecha" formControlName="fecha">
                     <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
                       <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
@@ -49,25 +46,22 @@
                     </div>
                   </div>
 
-                  <div class="mb-1 d-flex">
-                    <div class="flex-grow-1 flex-fill">
-                      <label for="idProveedor" class="form-label col-auto">Proveedor *</label>
-                      <!-- Para Mandar id // optionValueField="_id" -->
-                      <ngx-select [allowClear]="true" [items]="proveedores" optionTextField="representante"
-                        optionValueField="_id" placeholder="Seleccione un Proveedor" formControlName="idProveedor"
-                        (select)="doSelect($event)">
-                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                          <span [innerHtml]="text"></span>
-                          &nbsp;({{option.data.razon_social}})
-                        </ng-template>
-                      </ngx-select>
-                      <div class="form-text" *ngIf="form['idProveedor'].touched && form['idProveedor'].invalid">
-                        <div *ngIf="
-                          form['idProveedor'].errors &&
-                          form['idProveedor'].errors['required']
-                        ">
-                          * El proveedor es Requerido.
-                        </div>
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Proveedor *</b></span>
+                    <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="proveedores"
+                      optionTextField="representante" optionValueField="_id" placeholder="Seleccione un Proveedor"
+                      formControlName="idProveedor" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.razon_social}})
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form['idProveedor'].touched && form['idProveedor'].invalid">
+                      <div *ngIf="
+                      form['idProveedor'].errors &&
+                      form['idProveedor'].errors['required']
+                    ">
+                        * El proveedor es Requerido.
                       </div>
                     </div>
                     <div class="align-self-end ml-2">
@@ -76,13 +70,13 @@
                     </div>
                   </div>
 
+                  <div class="input-group mb-1">
 
-                  <div class="mb-1">
-                    <label for="idPersona" class="form-label col-auto">Funcionario Solicitante *</label>
-                    <!-- Para Mandar id // optionValueField="_id" -->
-                    <ngx-select [allowClear]="true" [items]="funcionarios" optionTextField="username"
-                      optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
-                      (select)="doSelect($event)">
+                    <span class="input-group-text" id="plazo"><b>Funcionario Solicitante *</b></span>
+
+                    <ngx-select style="min-width: 400px;" [allowClear]="true" [items]="funcionarios"
+                      optionTextField="username" optionValueField="_id" placeholder="Seleccione un Funcionario"
+                      formControlName="idPersona" (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;{{option.data.surnames}}
@@ -98,47 +92,108 @@
                     </div>
                   </div>
 
-                  <div class="mb-1">
-                    <label for="concepto" class="form-label col-md-auto">Glosa *</label>
-                    <input id="concepto" class="form-control" type="text" formControlName="concepto" />
+                  <div class="input-group">
+                    <span class="input-group-text"><b>Glosa *</b></span>
+                    <textarea id="concepto" class="form-control" type="text" formControlName="concepto"></textarea>
                     <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
                       <div *ngIf="
                           form['concepto'].errors &&
                           form['concepto'].errors['required']
                         ">
-                        * El concepto es Requerido.
+                        * la Glosa es Requerida.
                       </div>
                       <div *ngIf="
                           form['concepto'].errors &&
                           form['concepto'].errors['minlength']
                         ">
-                        * El concepto no puede tener menos de 3 caracteres.
+                        * la Glosa no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>
+
+
+
                   <hr>
                   <div class="mb-1">
-                    <label for="categoriaProgra" class="form-label col-auto">Categoría Programatica *</label>
-                    <!-- Para Mandar id // optionValueField="_id" -->
-                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
+                    <label for="checkGasolina" class="form-label col-auto">Compra de Lubricante</label>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="checkGasolina" id="checkGasolina" value="si"
+                        (change)="changeGasolina($event)">
+                      <label class="form-check-label" for="checkGasolina">SI</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="checkGasolina" id="checkGasolina" value="no"
+                        (change)="changeGasolina2($event)">
+                      <label class="form-check-label" for="checkGasolina">NO</label>
+                    </div>
+                  </div>
+
+                  <div class="mb-1" *ngIf="gaso">
+
+
+                    <div class="input-group mb-1">
+                      <span class="input-group-text" id="plazo"><b>Vehículo *</b></span>
+                      <!-- Para Mandar id // optionValueField="_id" -->
+                      <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="vehiculos" optionTextField="placa" optionValueField="_id"
+                        placeholder="Seleccione un Vehículo" formControlName="vehiculo" (select)="doSelect($event)">
+                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                          <span [innerHtml]="text"></span>
+                          &nbsp;({{option.data.tipo}})
+                        </ng-template>
+                      </ngx-select>
+                      <div class="form-text" *ngIf="form['vehiculo'].touched && form['vehiculo'].invalid">
+                        <div *ngIf="form['vehiculo'].errors && form['vehiculo'].errors['required']">
+                          * La categoria programatica es Requerida.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group mb-1">
+                      <span class="input-group-text" id="plazo"><b>Motivo</b></span>
+                      <input id="motivo" class="form-control" type="text" formControlName="motivo" />
+                      <div class="form-text" *ngIf="form['motivo'].touched && form['motivo'].invalid">
+                        <div *ngIf="
+                            form['motivo'].errors &&
+                            form['motivo'].errors['required']
+                          ">
+                          * la Glosa es Requerida.
+                        </div>
+                        <div *ngIf="
+                            form['motivo'].errors &&
+                            form['motivo'].errors['minlength']
+                          ">
+                          * la Glosa no puede tener menos de 3 caracteres.
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Categoría Programatica *</b></span>
+                    <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="catProgras" optionTextField="codigo"
                       optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
                       formControlName="categoriaProgra" (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;({{option.data.proyect_acti}})
                       </ng-template>
-                    </ngx-select>
-                    <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
-                      <div *ngIf="
-                          form['categoriaProgra'].errors &&
-                          form['categoriaProgra'].errors['required']
-                        ">
-                        * La categoria programatica es Requerida.
+                      <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
+                        <div *ngIf="
+                            form['categoriaProgra'].errors &&
+                            form['categoriaProgra'].errors['required']
+                          ">
+                          * La categoria programatica es Requerida.
+                        </div>
                       </div>
-                    </div>
+                    </ngx-select>
                   </div>
-                  <div class="mb-1">
-                    <label for="numeroFactura" class="form-label col-md-auto">Numero de Factura *</label>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Numero de Factura *</b></span>
                     <input id="numeroFactura" class="form-control" type="text" formControlName="numeroFactura" />
                     <div class="form-text" *ngIf="form['numeroFactura'].touched && form['numeroFactura'].invalid">
                       <div *ngIf="
@@ -155,6 +210,7 @@
                       </div>
                     </div>
                   </div>
+
 
                 </form>
                 <!-- {{ compraForm.value | json }} -->
@@ -227,8 +283,8 @@
                           <td [attr.row]="i" [attr.field]="'articulo'">
                             {{item.articulo}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'cantidadCompra')"
-                            [attr.row]="i" [attr.field]="'cantidadCompra'">
+                          <td contenteditable="true" (click)="borrar($event)"
+                            (blur)="cambio($event, i, 'cantidadCompra')" [attr.row]="i" [attr.field]="'cantidadCompra'">
                             {{item.cantidadCompra}}
                           </td>
                           <td field="unidadDeMedida">

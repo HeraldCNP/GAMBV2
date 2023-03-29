@@ -142,7 +142,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover table-bordered text-center border-dark table-sm">
+              <table class="table table-hover table-bordered border-dark table-sm">
                 <thead>
                   <tr>
                     <th class="off-p">N°</th>
@@ -166,7 +166,7 @@
                       <td class="off-p">{{ item.idArticulo.nombre }}</td>
                       <td class="off-p">{{ item.cantidadCompra }}</td>
                       <td class="off-p">{{ item.idArticulo.unidadDeMedida }}</td>
-                      <td class="off-p">{{ item.precio | currency: 'USD': '' }}</td>
+                      <td class="off-p text-end">{{ item.precio | currency: 'USD': '' }}</td>
                       <td class="off-p pr-2 text-end">{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
                     </tr>
                     <tr>
@@ -201,7 +201,7 @@
           </div>
         </div>
         <div>
-          <div class="row mt-5">
+          <div class="row mt-10">
             <div class="col-md-6 text-center">Recibí Conforme</div>
             <div class="col-md-6 text-center">Entregué Conforme</div>
           </div>

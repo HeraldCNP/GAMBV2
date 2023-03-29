@@ -26,7 +26,9 @@ export class CompraCreateComponent implements OnInit {
   catProgras:any;
   proveedores:any;
   funcionarios:any;
+  vehiculos:any;
   cargando: boolean = true;
+  gaso: boolean = false;
 
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
     this.user = localStorage.getItem('user');
@@ -35,14 +37,16 @@ export class CompraCreateComponent implements OnInit {
     // console.log(this.fechaHoy.substr(0, 10))
     this.compraForm = this.fb.group({
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
-      fechaContrato: ['', [Validators.required]],
+      fechaContrato: [''],
       categoriaProgra: ['', [Validators.required]],
       idProveedor: ['', [Validators.required]],
       idPersona: ['', [Validators.required]],
-      plazo: ['', [Validators.required]],
+      plazo: [''],
       concepto: ['', [Validators.required, Validators.min(3)]],
       numeroFactura: [''],
       articulos: ['', [Validators.required]],
+      vehiculo: [''],
+      motivo: [''],
       idUsuario: [this.idUser],
     });
 
@@ -65,6 +69,7 @@ export class CompraCreateComponent implements OnInit {
     this.cargarCatProgras();
     this.cargarProveedores();
     this.cargarFuncionarios();
+    this.cargarVehiculos();
   }
 
   cargarCatProgras() {
@@ -88,6 +93,14 @@ export class CompraCreateComponent implements OnInit {
     this.comprasService.getAllFuncionarios().subscribe((data: any) => {
       this.funcionarios = data.serverResponse;
       console.log("Funcionarios", data)
+    });
+  }
+
+  cargarVehiculos() {
+    this.cargando = true;
+    this.comprasService.getAllVehiculos().subscribe((data: any) => {
+      this.vehiculos = data.serverResponse;
+      console.log("vehiculos", data)
     });
   }
 
@@ -224,6 +237,15 @@ export class CompraCreateComponent implements OnInit {
     this.proveedorForm.reset();
   }
 
+  changeGasolina(value: any){
+    this.gaso = value.isTrusted;
+    console.log('gASOLINAS', value.isTrusted);
+  }
+
+  changeGasolina2(value: any){
+    this.gaso = false;
+    console.log('gASOLINAS', value);
+  }
 
 
 
