@@ -149,11 +149,11 @@
             <div class="flex-grow-1 flex-fill">
               <label for="unidadDeMedida" class="form-label col-auto">Unidad de Medida *</label>
               <!-- Para Mandar id // optionValueField="_id" -->
-              <ngx-select [allowClear]="true" [items]="medidas" optionTextField="codigo" optionValueField="simbolo"
+              <ngx-select [allowClear]="true" [items]="medidas" optionTextField="unidadMedida" optionValueField="unidadMedida"
                 placeholder="Seleccione una Unidad de Medida" formControlName="unidadDeMedida">
                 <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                   <span [innerHtml]="text"></span>
-                  &nbsp;({{option.data.unidadMedida}})
+                  &nbsp;({{option.data.simbolo}})
                 </ng-template>
               </ngx-select>
               <div class="form-text" *ngIf="form['unidadDeMedida'].touched && form['unidadDeMedida'].invalid">

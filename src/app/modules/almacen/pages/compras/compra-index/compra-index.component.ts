@@ -38,6 +38,7 @@ export class CompraIndexComponent implements OnInit {
     this.salidaForm = this.fb.group({
       glosaSalida: ['', [Validators.required]],
       entregado: [''],
+      cargo: [''],
       idPersona: [''],
     });
   }

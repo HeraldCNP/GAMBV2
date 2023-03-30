@@ -111,7 +111,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-body mt-3" id="content" #content>
+      <div class="modal-body mt-5" id="content" #content>
         <div *ngIf="ingreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
@@ -127,30 +127,31 @@
           </div>
           <hr class="off-hr">
           <div class="row">
-            <div class="col-md-2 text-bold pl-3">
+            <div class="col-md-3 text-bold pl-3">
               FECHA DE REGISTRO: <br>
               ENTIDAD: <br>
+              UNIDAD SOLICITANTE:<br>
               PROVEEDOR: <br>
-              GLOSA: <br>
-              SOLICITADO POR:
+              GLOSA:
             </div>
-            <div class="col-md-10 mb-2">
+            <div class="col-md-9 mb-3">
               {{ ingreso.fecha | date:'longDate': 'UTC' }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
+              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
+              </b>{{ ingreso.idPersona.post
+              }} <br>
               {{ ingreso.idProveedor.representante }} <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b>{{
               ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; NIT:
               </b> {{ ingreso.idProveedor.nit }} <br>
-              {{ ingreso.concepto }} <br>
-              {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
-              </b>{{ ingreso.idPersona.post
-              }}
+              {{ ingreso.concepto }}
+
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
               <table class="table table-hover table-bordered border-dark table-sm">
                 <thead>
-                  <tr>
+                  <tr class="text-center backColor">
                     <th class="off-p">N°</th>
                     <th class="off-p">Cat. Progra.</th>
                     <th class="off-p">Partida de gasto</th>
@@ -169,9 +170,9 @@
                       <td class="off-p">{{ item.catProgra }}</td>
                       <td class="off-p" style="font-size: 0.9rem;">{{ item.idArticulo.idPartida.codigo }} - {{
                         item.idArticulo.idPartida.denominacion }}</td>
-                      <td class="off-p">{{ item.factura }}</td>
+                      <td class="off-p text-center">{{ item.factura }}</td>
                       <td class="off-p">{{ item.idArticulo.nombre }}</td>
-                      <td class="off-p">{{ item.cantidadCompra }}</td>
+                      <td class="off-p text-center">{{ item.cantidadCompra }}</td>
                       <td class="off-p">{{ item.idArticulo.unidadDeMedida }}</td>
                       <td class="off-p text-end">{{ item.precio | currency: 'USD': '' }}</td>
                       <td class="off-p pr-2 text-end">{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
@@ -254,14 +255,16 @@
           <div class="input-group mb-1">
             <span class="input-group-text" id="entregado"><b>Entregado A:</b></span>
             <input id="entregado" class="form-control" type="text" formControlName="entregado" />
-            <div class="form-text" *ngIf="form['entregado'].touched && form['entregado'].invalid">
+            <span class="input-group-text" id="cargo"><b>Cargo:</b></span>
+            <input id="cargo" class="form-control" type="text" formControlName="cargo" />
+            <!-- <div class="form-text" *ngIf="form['entregado'].touched && form['entregado'].invalid">
               <div *ngIf="form['entregado'].errors && form['entregado'].errors['required']">
                 * El entregado es Requerido.
               </div>
               <div *ngIf="form['entregado'].errors && form['entregado'].errors['minlength']">
                 * El plazo no puede tener menos de 3 caracteres.
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="input-group">
             <span class="input-group-text"><b>Glosa *</b></span>
@@ -286,11 +289,12 @@
       <div class="modal-footer d-flex justify-content-center">
         <!-- <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button> -->
 
-        <button (click)="registrarEgreso(salidaForm.value, ingreso._id)" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="salidaForm.invalid">
+        <button (click)="registrarEgreso(salidaForm.value, ingreso._id)" data-bs-dismiss="modal" class="btn btn-primary"
+          [disabled]="salidaForm.invalid">
           Registrar
         </button>
 
-        <!-- {{ salidaForm.value | json }} -->
+        {{ salidaForm.value | json }}
       </div>
     </div>
   </div>

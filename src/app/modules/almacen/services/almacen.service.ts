@@ -172,8 +172,6 @@ export class AlmacenService {
     return this.http.get<any>(dir);
   }
 
-
-
   createMedida(form: any): Observable<any> {
     let dir = `${this.URL}/medida`;
     return this.http.post<any>(dir, form);
@@ -203,6 +201,8 @@ export class AlmacenService {
     return this.http.put<any>(dir, form)
   }
 
+
+
   /*End Articulos */
   /*Medidas */
   getAllMedidas(limit?: number, skip?: number): Observable<any[]> {
@@ -224,8 +224,6 @@ export class AlmacenService {
     // );
   }
 
-
-
   /*End Medidas */
 
   /*Vehiculos */
@@ -235,6 +233,9 @@ export class AlmacenService {
     console.log(dir);
     return this.http.get<any>(dir);
   }
+
+  /*Vehiculos END*/
+
 
 
 }

@@ -1,5 +1,5 @@
 .off-p{
-  padding: 0rem
+  padding: 0.2rem
 }
 
 .off-m{
@@ -16,3 +16,8 @@
 .table-bordered th, .table-bordered td{
   border: 1px solid #000;
 }
+
+.backColor{
+  background-color: springgreen;
+}
+

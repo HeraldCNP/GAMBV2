@@ -142,5 +142,20 @@ export class ArticuloCreateComponent implements OnInit {
     this.medidaForm.reset();
   }
 
+  buscarCode() {
+
+    this.almacenService.searchArticulo(this.articuloForm.value.codigo).subscribe((resp:any) => {
+      // console.log('Resp:', resp.serverResponse);
+      if(resp.serverResponse.length > 0){
+        this.alertOk(
+          'error',
+          'Error',
+          'El codigo ya existe',
+          '2000'
+        );
+        this.articuloForm.value.codigo = 'a'
+      }
+    });
+  }
 
 }
