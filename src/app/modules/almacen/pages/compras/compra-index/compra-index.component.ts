@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ComprasService } from '../../../services/compras.service';
+import { AlmacenService } from '../../../services/almacen.service';
 
 @Component({
   selector: 'app-compra-index',
@@ -34,7 +35,8 @@ export class CompraIndexComponent implements OnInit {
   categories:any;
   funcionarios:any;
   categoryTotalPrices:any = 0;
-  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router) {
+  nameCat: any = [];
+  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
     this.salidaForm = this.fb.group({
       glosaSalida: ['', [Validators.required]],
       entregado: [''],
@@ -244,6 +246,13 @@ export class CompraIndexComponent implements OnInit {
     this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
       const items = itemsByCategory[category];
       const total = items.reduce((accumulator:any, item:any) => accumulator + (item.precio * item.cantidadCompra), 0);
+      this.almacenService.searchSegCategoria(category)
+      .subscribe(
+        res => {
+          this.nameCat[category] = res.serverResponse[0].proyect_acti
+          // console.log(this.nameCat)
+        }
+      );
       accumulator[category] = total;
       return accumulator;
     }, {});
@@ -251,6 +260,10 @@ export class CompraIndexComponent implements OnInit {
     // console.log("CategoriasSeparadas", this.categories)
     // console.log("CategoriasSeparadas", this.separados)
   }
+
+
+
+
 
   calculateTotalCostByCategory() {
     return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
@@ -262,7 +275,6 @@ export class CompraIndexComponent implements OnInit {
       .subscribe(
         res => {
           this.ingreso = res;
-          console.log(this.ingreso)
         },
         err => console.log('HTTP Error', err),
         () => {

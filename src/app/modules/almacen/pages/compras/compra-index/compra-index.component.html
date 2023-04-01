@@ -178,7 +178,8 @@
                       <td class="off-p pr-2 text-end">{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
                     </tr>
                     <tr>
-                      <td colspan="8" class="text-end off-p"> <b>Sub Total: </b></td>
+                      <td class="off-p" colspan="5">{{ nameCat[category] }}</td>
+                      <td class="off-p" colspan="3" class="text-end off-p"> <b>Sub Total: </b></td>
                       <td class="off-p pr-2 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>

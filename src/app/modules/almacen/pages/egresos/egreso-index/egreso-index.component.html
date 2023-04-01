@@ -172,8 +172,9 @@
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="7" class="off-p text-end"> <b>Sub Total: </b></td>
-                      <td class="off-p pl-1 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
+                      <td class="off-p" colspan="5">{{ nameCat[category] }}</td>
+                      <td class="off-p" colspan="3" class="text-end off-p"> <b>Sub Total: </b></td>
+                      <td class="off-p pr-2 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>
 

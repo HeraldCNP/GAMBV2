@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { EgresosService } from '../../../services/egresos.service';
+import { AlmacenService } from '../../../services/almacen.service';
 
 @Component({
   selector: 'app-egreso-index',
@@ -31,7 +32,8 @@ export class EgresoIndexComponent implements OnInit {
   separados: any;
   categories: any;
   categoryTotalPrices: any = 0;
-  constructor(private egresosService: EgresosService, private fb: FormBuilder, private router: Router) { }
+  nameCat: any = [];
+  constructor(private egresosService: EgresosService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) { }
 
   ngOnInit(): void {
     this.cargarEgresos()
@@ -129,6 +131,13 @@ export class EgresoIndexComponent implements OnInit {
     this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
       const items = itemsByCategory[category];
       const total = items.reduce((accumulator:any, item:any) => accumulator + (item.idCompra.precio * item.cantidadSalida), 0);
+      this.almacenService.searchSegCategoria(category)
+      .subscribe(
+        res => {
+          this.nameCat[category] = res.serverResponse[0].proyect_acti
+          // console.log(this.nameCat)
+        }
+      );
       accumulator[category] = total;
       return accumulator;
     }, {});
