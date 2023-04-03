@@ -14,6 +14,9 @@ import { AlmacenService } from '../../../services/almacen.service';
   styleUrls: ['./egreso-index.component.css']
 })
 export class EgresoIndexComponent implements OnInit {
+  idUser: any;
+  user: any;
+  data: any;
   totalEgresos: any = 0;
   egresos: any = [];
   programas: any = [];
@@ -33,7 +36,11 @@ export class EgresoIndexComponent implements OnInit {
   categories: any;
   categoryTotalPrices: any = 0;
   nameCat: any = [];
-  constructor(private egresosService: EgresosService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) { }
+  constructor(private egresosService: EgresosService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
+    this.user = localStorage.getItem('user');
+    this.data = JSON.parse(this.user);
+    this.idUser = this.data.id;
+   }
 
   ngOnInit(): void {
     this.cargarEgresos()

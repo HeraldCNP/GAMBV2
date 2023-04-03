@@ -106,7 +106,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-body mt-5" id="content" #content>
+      <div class="modal-body mt-7 pt-5" id="content" #content>
         <div *ngIf="egreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
@@ -123,11 +123,13 @@
           <hr class="off-hr">
           <div class="row mb-3">
             <div class="col-md-2 text-bold pl-3">
+              FECHA DE REGISTRO: <br>
               ENTIDAD: <br>
               ENTREGADO A: <br>
               GLOSA:
             </div>
             <div class="col-md-10">
+              {{ egreso.fecha | date:'longDate': 'UTC' }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               <ng-container *ngIf="egreso.entregado">
                 {{ egreso.entregado }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:</b> {{ egreso.cargo }}
@@ -165,14 +167,14 @@
                       <td class="off-p" style="font-size: 0.9rem;">{{ item.idCompra.idArticulo.idPartida.codigo }} - {{
                         item.idCompra.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p">{{ item.idCompra.idArticulo.nombre }}</td>
-                      <td class="off-p">{{ item.cantidadSalida }}</td>
-                      <td class="off-p">{{ item.idCompra.idArticulo.unidadDeMedida }}</td>
+                      <td class="off-p text-center">{{ item.cantidadSalida }}</td>
+                      <td class="off-p" >{{ item.idCompra.idArticulo.unidadDeMedida | titlecase }}</td>
                       <td class="off-p text-end">{{ item.idCompra.precio | currency: 'USD': '' }}</td>
                       <td class="off-p text-end">{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': '' }}
                       </td>
                     </tr>
                     <tr>
-                      <td class="off-p" colspan="4">{{ nameCat[category] }}</td>
+                      <td class="off-p" colspan="4"> {{ nameCat[category] }}</td>
                       <td class="off-p" colspan="3" class="text-end off-p"> <b>Sub Total: </b></td>
                       <td class="off-p pr-2 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
@@ -191,13 +193,19 @@
         </div>
         <div>
           <div class="row mt-10">
-            <div class="col-md-6 text-center">Encargado Almacenes</div>
-            <div class="col-md-6 text-center">Recibí Conforme</div>
+            <div class="col-md-4 text-center">AUTORIZADO POR:</div>
+            <div class="col-md-4 text-center">ENTREGADO POR:</div>
+            <div class="col-md-4 text-center">RECIBIDO POR:</div>
           </div>
         </div>
-        <span class="fecha" style="font-size: 0.7rem;">
-          Fecha de Impresión: {{ date | date:'short' }}
-        </span>
+        <div class="d-flex justify-content-between mt-3">
+          <span class="fecha" style="font-size: 0.7rem;">
+            Fecha de Impresión: {{ date | date:'short' }}
+          </span>
+          <span class="fecha" style="font-size: 0.7rem;">
+            Ususario: {{ data.username }} {{ data.surnames }}
+          </span>
+        </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button>

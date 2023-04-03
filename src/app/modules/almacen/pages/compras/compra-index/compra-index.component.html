@@ -173,7 +173,7 @@
                       <td class="off-p text-center">{{ item.factura }}</td>
                       <td class="off-p">{{ item.idArticulo.nombre }}</td>
                       <td class="off-p text-center">{{ item.cantidadCompra }}</td>
-                      <td class="off-p">{{ item.idArticulo.unidadDeMedida }}</td>
+                      <td class="off-p">{{ item.idArticulo.unidadDeMedida | titlecase }}</td>
                       <td class="off-p text-end">{{ item.precio | currency: 'USD': '' }}</td>
                       <td class="off-p pr-2 text-end">{{ item.cantidadCompra * item.precio | currency: 'USD': '' }}</td>
                     </tr>
@@ -211,13 +211,17 @@
         </div>
         <div>
           <div class="row mt-10">
-            <div class="col-md-6 text-center">RESPONSABLE DE ALMACEN</div>
-            <div class="col-md-6 text-center">SECRETARIA MUNICIPAL ADMINISTRATIVA Y FINANCIERA</div>
+            <div class="text-center">RECIBIDO POR:</div>
           </div>
         </div>
-        <span class="fecha" style="font-size: 0.7rem;">
-          Fecha de Impresión: {{ date | date:'short' }}
-        </span>
+        <div class="d-flex justify-content-between mt-3">
+          <span class="fecha" style="font-size: 0.7rem;">
+            Fecha de Impresión: {{ date | date:'short' }}
+          </span>
+          <span class="fecha" style="font-size: 0.7rem;">
+            Ususario: {{ data.username }} {{ data.surnames }}
+          </span>
+        </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button>

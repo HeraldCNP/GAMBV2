@@ -14,6 +14,9 @@ import { AlmacenService } from '../../../services/almacen.service';
   styleUrls: ['./compra-index.component.css']
 })
 export class CompraIndexComponent implements OnInit {
+  idUser: any;
+  user: any;
+  data: any;
   totalIngresos: any = 0;
   ingresos: any = [];
   programas: any = [];
@@ -37,6 +40,9 @@ export class CompraIndexComponent implements OnInit {
   categoryTotalPrices:any = 0;
   nameCat: any = [];
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
+    this.user = localStorage.getItem('user');
+    this.data = JSON.parse(this.user);
+    this.idUser = this.data.id;
     this.salidaForm = this.fb.group({
       glosaSalida: ['', [Validators.required]],
       entregado: [''],
