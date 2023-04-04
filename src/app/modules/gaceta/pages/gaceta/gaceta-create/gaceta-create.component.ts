@@ -45,6 +45,9 @@ export class GacetaCreateComponent implements OnInit {
       },
       {
         "name": "Decreto Edil"
+      },
+      {
+        "name": "Resolución Administrativa"
       }
     ]
   }
