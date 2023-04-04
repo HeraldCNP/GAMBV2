@@ -111,35 +111,34 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-body mt-5" id="content" #content>
+      <div class="modal-body pt-5 mt-5" id="content" #content>
         <div *ngIf="ingreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
               <img src="/assets/img/logoGamb.png" alt="" width="175px">
             </div>
             <div class="col-md-8 text-center">
-              <h3 class="off-m">DOCUMENTO DE ENTRADA A ALMACÉN </h3>
+              <h3 class="off-m">DOCUMENTO DE INGRESO A ALMACÉN </h3>
               <p class="off-m">Expresado en Bolivianos</p>
             </div>
             <div class="col-md-2 text-end pr-4">
-              <h5>Registro N° {{ ingreso.numeroEntrada }}</h5>
+
             </div>
           </div>
           <hr class="off-hr">
           <div class="row">
             <div class="col-md-3 text-bold pl-3">
-              FECHA DE REGISTRO: <br>
+              FECHA DE REGISTRO:  <br>
               ENTIDAD: <br>
               UNIDAD SOLICITANTE:<br>
               PROVEEDOR: <br>
               GLOSA:
             </div>
             <div class="col-md-9 mb-3">
-              {{ ingreso.fecha | date:'longDate': 'UTC' }} <br>
+              {{ ingreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ ingreso.numeroEntrada }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
-              </b>{{ ingreso.idPersona.post
-              }} <br>
+              </b> <span style="font-size: 0.9rem;">{{ ingreso.idPersona.post }}</span> <br>
               {{ ingreso.idProveedor.representante }} <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b>{{
               ingreso.idProveedor.razon_social }} <b> &nbsp;&nbsp;&nbsp;&nbsp; NIT:
               </b> {{ ingreso.idProveedor.nit }} <br>
@@ -149,7 +148,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover table-bordered border-dark table-sm">
+              <table class="table table-hover table-bordered border-dark table-sm mb-0">
                 <thead>
                   <tr class="text-center backColor">
                     <th class="off-p">N°</th>
@@ -206,22 +205,24 @@
                   </tr>
                 </tfoot>
               </table>
+              <div class="d-flex justify-content-between m-0">
+                <span class="fecha" style="font-size: 0.7rem;">
+                  Fecha de Impresión: {{ date | date:'short' }}
+                </span>
+                <span class="fecha" style="font-size: 0.7rem;">
+                  Usuario: {{ data.username }} {{ data.surnames }}
+                </span>
+              </div>
             </div>
+
           </div>
         </div>
         <div>
           <div class="row mt-10">
-            <div class="text-center">RECIBIDO POR:</div>
+            <div class="text-center">REGISTRADO POR:</div>
           </div>
         </div>
-        <div class="d-flex justify-content-between mt-3">
-          <span class="fecha" style="font-size: 0.7rem;">
-            Fecha de Impresión: {{ date | date:'short' }}
-          </span>
-          <span class="fecha" style="font-size: 0.7rem;">
-            Ususario: {{ data.username }} {{ data.surnames }}
-          </span>
-        </div>
+
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button>
@@ -299,7 +300,7 @@
           Registrar
         </button>
 
-        {{ salidaForm.value | json }}
+        <!-- {{ salidaForm.value | json }} -->
       </div>
     </div>
   </div>

@@ -140,6 +140,7 @@ export class ProveedorIndexComponent implements OnInit {
     this.almacenService.searchProveedor(termino).subscribe((resp) => {
       console.log('Resp:', resp);
       this.proveedores = resp;
+      this.proveedoresTemp = resp;
     });
   }
 

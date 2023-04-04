@@ -86,6 +86,7 @@ export class CompraIndexComponent implements OnInit {
     this.comprasService.searchIngreso(termino).subscribe((resp) => {
       console.log('Resp:', resp);
       this.ingresos = resp;
+      this.ingresosTemp = resp;
     });
   }
 

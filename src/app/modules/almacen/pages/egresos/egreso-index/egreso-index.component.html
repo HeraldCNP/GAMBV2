@@ -106,7 +106,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      <div class="modal-body mt-7 pt-5" id="content" #content>
+      <div class="modal-body pt-5 mt-5" id="content" #content>
         <div *ngIf="egreso" class="card fondito1">
           <div class="row">
             <div class="col-md-2">
@@ -117,7 +117,7 @@
               <p class="off-m">Expresado en Bolivianos</p>
             </div>
             <div class="col-md-2 text-end pr-4">
-              <h5>Registro N° {{ egreso.numeroSalida }}</h5>
+
             </div>
           </div>
           <hr class="off-hr">
@@ -129,7 +129,7 @@
               GLOSA:
             </div>
             <div class="col-md-10">
-              {{ egreso.fecha | date:'longDate': 'UTC' }} <br>
+              {{ egreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ egreso.numeroSalida }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               <ng-container *ngIf="egreso.entregado">
                 {{ egreso.entregado }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:</b> {{ egreso.cargo }}
@@ -146,7 +146,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover table-bordered">
+              <table class="table table-hover table-bordered mb-0">
                 <thead>
                   <tr class="text-center backColor">
                     <th class="off-p">N°</th>
@@ -188,6 +188,14 @@
                   </tr>
                 </tfoot>
               </table>
+              <div class="d-flex justify-content-between">
+                <span class="fecha" style="font-size: 0.7rem;">
+                  Fecha de Impresión: {{ date | date:'short' }}
+                </span>
+                <span class="fecha" style="font-size: 0.7rem;">
+                  Usuario: {{ data.username }} {{ data.surnames }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -197,14 +205,6 @@
             <div class="col-md-4 text-center">ENTREGADO POR:</div>
             <div class="col-md-4 text-center">RECIBIDO POR:</div>
           </div>
-        </div>
-        <div class="d-flex justify-content-between mt-3">
-          <span class="fecha" style="font-size: 0.7rem;">
-            Fecha de Impresión: {{ date | date:'short' }}
-          </span>
-          <span class="fecha" style="font-size: 0.7rem;">
-            Ususario: {{ data.username }} {{ data.surnames }}
-          </span>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">

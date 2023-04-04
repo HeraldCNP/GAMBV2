@@ -72,6 +72,7 @@ export class EgresoIndexComponent implements OnInit {
     this.egresosService.searchEgreso(termino).subscribe((resp) => {
       console.log('Resp:', resp);
       this.egresos = resp;
+      this.egresosTemp = resp;
     });
   }
 
@@ -181,7 +182,7 @@ export class EgresoIndexComponent implements OnInit {
         var heightLeft = imgHeight;
 
         var doc = new jsPDF('p', 'mm');
-        var position = 0;
+        var position = 5;
 
         doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
@@ -189,7 +190,7 @@ export class EgresoIndexComponent implements OnInit {
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          doc.addImage(imgData, 'PNG', 0, 10, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
         // doc.save('file.pdf');

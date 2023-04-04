@@ -65,6 +65,31 @@ export class ArticuloIndexComponent implements OnInit {
       });
   }
 
+  buscar(termino: string) {
+    if (termino.length === 0) {
+      this.articulos = this.articulosTemp;
+      return;
+    }
+    // this.almacenService.searchArticulo(termino).subscribe((resp) => {
+    //   console.log('Resp:', resp);
+    //   this.articulos = resp;
+    // });
+
+    this.almacenService.searchArticulo(termino).subscribe(
+      (res) => {
+        console.log(res);
+        this.articulos = res;
+        this.articulosTemp = res;
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+
+      }
+    );
+
+
+  }
+
   get form() {
     return this.editForm.controls;
   }
@@ -127,16 +152,7 @@ export class ArticuloIndexComponent implements OnInit {
   }
 
 
-  buscar(termino: string) {
-    if (termino.length === 0) {
-      this.articulos = this.articulosTemp;
-      return;
-    }
-    this.almacenService.searchArticulo(termino).subscribe((resp) => {
-      // console.log('Resp:', resp);
-      this.articulos = resp;
-    });
-  }
+
 
   changeStatus(id: any, estado: any) {
     let fd = new FormData();
