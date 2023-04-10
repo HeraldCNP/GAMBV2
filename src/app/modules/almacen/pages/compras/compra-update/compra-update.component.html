@@ -1,0 +1,395 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8">
+        <div class="card shadow p-3 mb-4 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Editar Entrada</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+                <form [formGroup]="editForm">
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="fechaContrato"><b> Fecha de Contrato/Orden de Compra</b></span>
+                    <input type="date" class="form-control" id="fechaContrato" formControlName="fechaContrato">
+                    <div class="form-text" *ngIf="form['fechaContrato'].touched && form['fechaContrato'].invalid">
+                      <div *ngIf="form['fechaContrato'].errors && form['fechaContrato'].errors['required']">* Fecha de
+                        Contrato es Requerido.</div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Plazo</b></span>
+                    <input id="plazo" class="form-control" type="number" formControlName="plazo" />
+                    <div class="form-text" *ngIf="form['plazo'].touched && form['plazo'].invalid">
+                      <div *ngIf="form['plazo'].errors && form['plazo'].errors['required']">
+                        * El plazo es Requerido.
+                      </div>
+                      <div *ngIf="form['plazo'].errors && form['plazo'].errors['minlength']">
+                        * El plazo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Fecha de Registro *</b></span>
+                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                    <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
+                        es Requerido.</div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Proveedor *</b></span>
+                    <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="proveedores"
+                      optionTextField="representante" optionValueField="_id" placeholder="Seleccione un Proveedor"
+                      formControlName="idProveedor" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.razon_social}})
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form['idProveedor'].touched && form['idProveedor'].invalid">
+                      <div *ngIf="
+                      form['idProveedor'].errors &&
+                      form['idProveedor'].errors['required']
+                    ">
+                        * El proveedor es Requerido.
+                      </div>
+                    </div>
+                    <div class="align-self-end ml-2">
+                      <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
+                        data-bs-target="#proveedor"><i class="fas fa-plus"></i></button>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+
+                    <span class="input-group-text" id="plazo"><b>Funcionario Solicitante *</b></span>
+
+                    <ngx-select style="min-width: 400px;" [allowClear]="true" [items]="funcionarios"
+                      optionTextField="username" optionValueField="_id" placeholder="Seleccione un Funcionario"
+                      formControlName="idPersona" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{option.data.surnames}}
+                      </ng-template>
+                    </ngx-select>
+                    <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
+                      <div *ngIf="
+                          form['idPersona'].errors &&
+                          form['idPersona'].errors['required']
+                        ">
+                        * El proveedor es Requerido.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-text"><b>Glosa *</b></span>
+                    <textarea id="concepto" class="form-control" type="text" formControlName="concepto"></textarea>
+                    <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
+                      <div *ngIf="
+                          form['concepto'].errors &&
+                          form['concepto'].errors['required']
+                        ">
+                        * la Glosa es Requerida.
+                      </div>
+                      <div *ngIf="
+                          form['concepto'].errors &&
+                          form['concepto'].errors['minlength']
+                        ">
+                        * la Glosa no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <hr>
+                  <!-- <div class="mb-1">
+                    <label for="checkGasolina" class="form-label col-auto">Compra de Lubricante</label>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="checkGasolina" id="checkGasolina" value="si"
+                        (change)="changeGasolina($event)">
+                      <label class="form-check-label" for="checkGasolina">SI</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="checkGasolina" id="checkGasolina" value="no"
+                        (change)="changeGasolina2($event)">
+                      <label class="form-check-label" for="checkGasolina">NO</label>
+                    </div>
+                  </div> -->
+
+                  <div class="mb-1" *ngIf="gaso">
+
+
+                    <div class="input-group mb-1">
+                      <span class="input-group-text" id="plazo"><b>Vehículo *</b></span>
+                      <!-- Para Mandar id // optionValueField="_id" -->
+                      <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="vehiculos"
+                        optionTextField="placa" optionValueField="_id" placeholder="Seleccione un Vehículo"
+                        formControlName="vehiculo" (select)="doSelect($event)">
+                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                          <span [innerHtml]="text"></span>
+                          &nbsp;({{option.data.tipo}})
+                        </ng-template>
+                      </ngx-select>
+                      <div class="form-text" *ngIf="form['vehiculo'].touched && form['vehiculo'].invalid">
+                        <div *ngIf="form['vehiculo'].errors && form['vehiculo'].errors['required']">
+                          * La categoria programatica es Requerida.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-group mb-1">
+                      <span class="input-group-text" id="plazo"><b>Motivo</b></span>
+                      <input id="motivo" class="form-control" type="text" formControlName="motivo" />
+                      <div class="form-text" *ngIf="form['motivo'].touched && form['motivo'].invalid">
+                        <div *ngIf="
+                            form['motivo'].errors &&
+                            form['motivo'].errors['required']
+                          ">
+                          * la Glosa es Requerida.
+                        </div>
+                        <div *ngIf="
+                            form['motivo'].errors &&
+                            form['motivo'].errors['minlength']
+                          ">
+                          * la Glosa no puede tener menos de 3 caracteres.
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Categoría Programatica *</b></span>
+                    <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="catProgras"
+                      optionTextField="codigo" optionValueField="cat_programatica"
+                      placeholder="Seleccione una Categoría Programatica" formControlName="categoriaProgra"
+                      (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.proyect_acti}})
+                      </ng-template>
+                      <div class="form-text" *ngIf="form['categoriaProgra'].touched && form['categoriaProgra'].invalid">
+                        <div *ngIf="
+                            form['categoriaProgra'].errors &&
+                            form['categoriaProgra'].errors['required']
+                          ">
+                          * La categoria programatica es Requerida.
+                        </div>
+                      </div>
+                    </ngx-select>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"><b>Numero de Factura *</b></span>
+                    <input id="numeroFactura" class="form-control" type="text" formControlName="numeroFactura" />
+                    <div class="form-text" *ngIf="form['numeroFactura'].touched && form['numeroFactura'].invalid">
+                      <div *ngIf="
+                          form['numeroFactura'].errors &&
+                          form['numeroFactura'].errors['required']
+                        ">
+                        * El numero de factura es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['numeroFactura'].errors &&
+                          form['numeroFactura'].errors['minlength']
+                        ">
+                        * El numero de factura no puede tener menos de 7 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                </form>
+                {{ editForm.value | json }}
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="">
+    <div class="row justify-content-md-center">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+                <div class="panel panel-default">
+
+
+                  <!-- <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
+
+                  <div class="panel-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Código</th>
+                          <th>Cat. Prog.</th>
+                          <th>Partida de gasto</th>
+                          <th>Factura</th>
+                          <th>Artículo</th>
+                          <th>Cantidad</th>
+                          <th>Unidad de Medida</th>
+                          <th>P/U</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of listadeArticulos; index as i">
+                          <td style="cursor: not-allowed;">
+                            {{i + 1}}
+                          </td>
+                          <td [attr.row]="i" [attr.field]="'codigo'">
+                            {{item.codigo}}
+                          </td>
+                          <td [attr.row]="i" [attr.field]="'catProg'">
+                            {{item.catProgra}}
+                          </td>
+                          <td field="partidaGasto">
+                            {{item.partidaGasto}}
+                          </td>
+                          <td field="factura">
+                            {{item.factura}}
+                          </td>
+                          <td [attr.row]="i" [attr.field]="'articulo'">
+                            {{item.articulo}}
+                          </td>
+                          <td contenteditable="true" (click)="borrar($event)"
+                            (blur)="cambio($event, i, 'cantidadCompra')" [attr.row]="i" [attr.field]="'cantidadCompra'">
+                            {{item.cantidadCompra}}
+                          </td>
+                          <td field="unidadDeMedida">
+                            {{item.unidadMedida}}
+                          </td>
+                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'precio')"
+                            [attr.row]="i" [attr.field]="'precio'">
+                            {{item.precio}}
+                          </td>
+                          <td>{{item.cantidadCompra * item.precio}}</td>
+                          <td>
+                            <span><i class="fas fa-trash pointer" (click)="removeArticulo(i)"></i></span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="9" class="text-end fs-5"> <b>TOTAL GENERAL: </b></td>
+                          <td class="fs-5"><b>{{ calculateTotalCost() }}</b></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <div class="btn-group">
+                      {{ listadeArticulos | json }}
+                    </div>
+                    <br>
+                    <div class="text-center">
+                      <button type="button" class="btn btn-secondary mx-3" (click)="cancel()">
+                        Cerrar
+                      </button>
+                      <button (click)="editarCompra(editForm.value)" class="btn btn-primary"
+                        [disabled]="editForm.invalid">
+                        Registrar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="proveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="proveedorLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="proveedorLabel">
+          Registrar Proveedor
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="crearProveedor(proveedorForm.value)" [formGroup]="proveedorForm">
+          <div class="mb-1">
+            <label for="representante" class="form-label col-md-auto">Representante *</label>
+            <input id="representante" class="form-control" type="text" formControlName="representante" />
+          </div>
+
+          <div class="mb-1">
+            <label for="compania" class="form-label col-md-auto">Compañia</label>
+            <input id="compania" class="form-control" type="text" formControlName="compania" />
+          </div>
+
+          <div class="mb-1">
+            <label for="razon_social" class="form-label col-md-auto">Razon Social *</label>
+            <input id="razon_social" class="form-control" type="text" formControlName="razon_social" />
+          </div>
+
+          <div class="mb-1">
+            <label for="nit" class="form-label col-md-auto">Nit *</label>
+            <input id="nit" class="form-control" type="number" formControlName="nit" />
+          </div>
+
+          <div class="mb-1">
+            <label for="telefono" class="form-label col-md-auto">Telefono *</label>
+            <input id="telefono" class="form-control" type="number" formControlName="telefono" />
+          </div>
+
+          <div class="mb-1">
+            <label for="direccion" class="form-label col-md-auto">Dirección</label>
+            <input id="direccion" class="form-control" type="text" formControlName="direccion" />
+          </div>
+
+          <div class="mb-1">
+            <label for="ciudad" class="form-label col-md-auto">Ciudad</label>
+            <input id="ciudad" class="form-control" type="text" formControlName="ciudad" />
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="proveedorForm.invalid">
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- End Modal -->
