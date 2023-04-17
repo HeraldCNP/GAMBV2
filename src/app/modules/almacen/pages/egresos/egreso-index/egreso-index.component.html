@@ -129,7 +129,7 @@
               GLOSA:
             </div>
             <div class="col-md-10">
-              {{ egreso.idIngreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ egreso.numeroSalida }} <br>
+              {{ egreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ egreso.numeroSalida }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               <ng-container *ngIf="egreso.entregado">
                 {{ egreso.entregado }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:</b> {{ egreso.cargo }}
