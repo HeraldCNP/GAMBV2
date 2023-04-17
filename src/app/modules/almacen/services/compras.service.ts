@@ -100,4 +100,10 @@ export class ComprasService {
     return this.http.put<any>(dir, form)
   }
 
+  getSingleCompra(id:any):Observable<any>{
+    let dir = `${this.URL}/ingreso/${id}`;
+    return this.http.get<any>(dir)
+  }
+
+
 }

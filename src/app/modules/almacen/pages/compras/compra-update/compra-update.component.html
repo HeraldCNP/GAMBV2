@@ -278,14 +278,14 @@
                           <td [attr.row]="i" [attr.field]="'articulo'">
                             {{item.articulo}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)"
+                          <td contenteditable="true"
                             (blur)="cambio($event, i, 'cantidadCompra')" [attr.row]="i" [attr.field]="'cantidadCompra'">
                             {{item.cantidadCompra}}
                           </td>
                           <td field="unidadDeMedida">
                             {{item.unidadMedida}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'precio')"
+                          <td contenteditable="true" (blur)="cambio($event, i, 'precio')"
                             [attr.row]="i" [attr.field]="'precio'">
                             {{item.precio}}
                           </td>
@@ -311,7 +311,7 @@
                       <button type="button" class="btn btn-secondary mx-3" (click)="cancel()">
                         Cerrar
                       </button>
-                      <button (click)="editarCompra(editForm.value)" class="btn btn-primary"
+                      <button (click)="editarCompra()" class="btn btn-primary"
                         [disabled]="editForm.invalid">
                         Registrar
                       </button>

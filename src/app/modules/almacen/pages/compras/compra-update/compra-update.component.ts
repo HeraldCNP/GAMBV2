@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ComprasService } from '../../../services/compras.service';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlmacenService } from '../../../services/almacen.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-compra-update',
@@ -15,42 +16,115 @@ export class CompraUpdateComponent implements OnInit {
   data: any;
   articulos: any;
   articulosTemp: any;
-  article: any;
+  compraId: any;
   listadeArticulos: any = [];
-  editForm:any;
-  proveedorForm:any;
+  proveedorForm: any;
   fechaHoy = new Date().toISOString();
   // fechaHoy:string = "2023/02/02";
 
-  catProgras:any;
-  proveedores:any;
-  funcionarios:any;
-  vehiculos:any;
+  catProgras: any;
+  proveedores: any;
+  funcionarios: any;
+  vehiculos: any;
   cargando: boolean = true;
   gaso: boolean = false;
+  dataCompra: any;
 
-  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
+  editForm = this.fb.group({
+    fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
+    fechaContrato: [''],
+    categoriaProgra: [''],
+    idProveedor: ['', [Validators.required]],
+    idPersona: ['', [Validators.required]],
+    plazo: [''],
+    concepto: ['', [Validators.required, Validators.min(3)]],
+    numeroFactura: [''],
+    articulos: [''],
+    vehiculo: [''],
+    motivo: [''],
+    idUsuario: [''],
+  });
+
+  constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService, private activeRouter: ActivatedRoute) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
+    this.compraId = this.activeRouter.snapshot.paramMap.get('id');
+    this.cargarProveedores();
+    this.cargarFuncionarios();
+    this.cargarCatProgras();
 
-    this.editForm = this.fb.group({
-      fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
-      fechaContrato: [''],
-      categoriaProgra: ['', [Validators.required]],
-      idProveedor: ['', [Validators.required]],
-      idPersona: ['', [Validators.required]],
-      plazo: [''],
-      concepto: ['', [Validators.required, Validators.min(3)]],
-      numeroFactura: [''],
-      articulos: ['', [Validators.required]],
-      vehiculo: [''],
-      motivo: [''],
-      idUsuario: [this.idUser],
-    });
+    this.comprasService.getSingleCompra(this.compraId).subscribe(data => {
+      this.dataCompra = data;
+      // console.log(data);
+      // console.log(this.dataCompra);
+      // this.listadeArticulos = this.dataCompra.productos;
+
+      console.log(this.dataCompra.productos.length)
+
+
+
+      this.editForm.setValue({
+        fecha: this.dataCompra.fecha.substr(0, 10),
+        fechaContrato: this.dataCompra.fechaContrato.substr(0, 10),
+        idProveedor: this.dataCompra.idProveedor._id,
+        idPersona: this.dataCompra.idPersona._id,
+        plazo: this.dataCompra.plazo,
+        concepto: this.dataCompra.concepto,
+        articulos: null,
+        idUsuario: null,
+        categoriaProgra: null,
+        numeroFactura: null,
+        vehiculo: null,
+        motivo: null
+      });
+
+      this.dataCompra.productos.forEach((product: any) => {
+        // console.log("recorriendo", product)
+        let productTemp = {
+          'idArticulo': product._id,
+          'codigo': product.idArticulo.codigo,
+          'catProgra': product.catProgra,
+          'partidaGasto': 11,
+          'factura': product.factura,
+          'articulo': product.idArticulo.nombre,
+          'cantidadCompra': product.cantidadCompra,
+          'unidadMedida': product.idArticulo.unidadDeMedida,
+          'precio': product.precio
+        };
+        // console.log("recorriendo2", productTemp)
+        this.listadeArticulos.push(productTemp);
+      });
+    })
   }
 
   ngOnInit(): void {
+  }
+
+  cargarProveedores() {
+    this.cargando = true;
+    this.almacenService
+      .getAllProveedores()
+      .subscribe((data: any) => {
+        this.proveedores = data.serverResponse;
+        console.log('Proveedores', data);
+      });
+  }
+
+  cargarFuncionarios() {
+    this.cargando = true;
+    this.comprasService.getAllFuncionarios().subscribe((data: any) => {
+      this.funcionarios = data.serverResponse;
+      console.log("Funcionarios", data)
+    });
+  }
+
+  cargarCatProgras() {
+    this.cargando = true;
+    this.comprasService.getAllCatProgras().subscribe((data: any) => {
+      this.catProgras = data.serverResponse;
+      console.log("Cat Progras", data)
+    });
   }
 
   get form() {
@@ -61,11 +135,11 @@ export class CompraUpdateComponent implements OnInit {
     console.log('SingleDemoComponent.doSelect', value);
   }
 
-  borrar(event:any){
+  borrar(event: any) {
     event.target.innerText = '';
   }
 
-  cambio(event:any, i:number, field:string){
+  cambio(event: any, i: number, field: string) {
 
     // console.log("valor", event.target.innerText)
     // console.log("indice", i)
@@ -73,14 +147,13 @@ export class CompraUpdateComponent implements OnInit {
 
 
     this.listadeArticulos[i][field] = event.target.innerText;
-
     this.editForm.patchValue({
       articulos: this.listadeArticulos
     })
 
   }
 
-  removeArticulo(index: number){
+  removeArticulo(index: number) {
     console.log('articleIndex', index)
     // if(index == 0){
     //   this.listadeArticulos.splice(0, 1);
@@ -89,14 +162,35 @@ export class CompraUpdateComponent implements OnInit {
   }
 
   calculateTotalCost() {
-    return this.listadeArticulos.reduce((acc:any, item:any) => acc + (item.precio * item.cantidadCompra), 0);
+    return this.listadeArticulos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
   }
 
   cancel() {
     this.router.navigate(['almacen/articulo/index']);
   }
 
-  editarCompra(form: any){
+  editarCompra() {
+    this.editForm.patchValue({
+      articulos: this.listadeArticulos
+    })
 
+    this.comprasService.editIngreso(this.editForm.value, this.compraId).subscribe(
+      res => console.log(res),
+      err => console.log('HTTP Error', err),
+      () => {
+        this.router.navigate(['almacen/compra/index']),
+          this.alertOk('success', 'Exito', 'Ingreso Editado Correctamente', '2000')
+      }
+    );
+
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer
+    })
   }
 }

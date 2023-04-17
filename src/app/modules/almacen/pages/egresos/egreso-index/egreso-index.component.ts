@@ -190,8 +190,9 @@ export class EgresoIndexComponent implements OnInit {
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, 10, imgWidth, imgHeight);
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
+          doc.save('file.pdf');
         }
         // doc.save('file.pdf');
         return doc;

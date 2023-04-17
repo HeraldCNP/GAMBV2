@@ -54,7 +54,7 @@ export class PostUpdateComponent implements OnInit {
     this.data = JSON.parse(this.user)
     this.idUser = this.data.id;
     this.getCategories(),
-      this.postId = this.activeRouter.snapshot.paramMap.get('id');
+    this.postId = this.activeRouter.snapshot.paramMap.get('id');
     this.api.getSinglePost(this.postId).subscribe(data => {
       this.datosPost = data.serverResponse;
       // console.log(data);
