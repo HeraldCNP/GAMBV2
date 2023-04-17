@@ -214,7 +214,7 @@
 
 
                 </form>
-                {{ compraForm.value | json }}
+                <!-- {{ compraForm.value | json }} -->
               </div>
             </div>
           </div>
@@ -284,14 +284,14 @@
                           <td [attr.row]="i" [attr.field]="'articulo'">
                             {{item.articulo}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)"
+                          <td contenteditable="true"
                             (blur)="cambio($event, i, 'cantidadCompra')" [attr.row]="i" [attr.field]="'cantidadCompra'">
                             {{item.cantidadCompra}}
                           </td>
                           <td field="unidadDeMedida">
                             {{item.unidadMedida}}
                           </td>
-                          <td contenteditable="true" (click)="borrar($event)" (blur)="cambio($event, i, 'precio')"
+                          <td contenteditable="true"  (blur)="cambio($event, i, 'precio')"
                             [attr.row]="i" [attr.field]="'precio'">
                             {{item.precio}}
                           </td>
@@ -310,7 +310,7 @@
                       </tfoot>
                     </table>
                     <div class="btn-group">
-                      {{ listadeArticulos | json }}
+                      <!-- {{ listadeArticulos | json }} -->
                     </div>
                     <br>
                     <div class="text-center">

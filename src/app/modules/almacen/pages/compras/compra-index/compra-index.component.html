@@ -134,7 +134,7 @@
               PROVEEDOR: <br>
               GLOSA:
             </div>
-            <div class="col-md-9 mb-3">
+            <div class="col-md-9 mb-1">
               {{ ingreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ ingreso.numeroEntrada }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
@@ -148,16 +148,16 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover table-bordered border-dark table-sm mb-0">
+              <table class="table table-hover table-bordered mb-0">
                 <thead>
                   <tr class="text-center backColor">
                     <th class="off-p">N°</th>
-                    <th class="off-p">Cat. Progra.</th>
+                    <th class="off-p" style="width:180px">Cat. Progra.</th>
                     <th class="off-p">Partida de gasto</th>
                     <th class="off-p">Factura</th>
                     <th class="off-p">Artículo</th>
                     <th class="off-p">Cantidad</th>
-                    <th class="off-p">Unidad de Medida</th>
+                    <th class="off-p" style="width:90px">Unidad de Medida</th>
                     <th class="off-p">P/U</th>
                     <th class="off-p">Total</th>
                   </tr>
@@ -166,7 +166,7 @@
                   <ng-container *ngFor="let category of categories">
                     <tr *ngFor="let item of separados[category]; let i = index">
                       <td class="off-p">{{ i + 1 }}</td>
-                      <td class="off-p">{{ item.catProgra }}</td>
+                      <td class="off-p" style="font-size: 0.9rem;">{{ item.catProgra }}</td>
                       <td class="off-p" style="font-size: 0.9rem;">{{ item.idArticulo.idPartida.codigo }} - {{
                         item.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p text-center">{{ item.factura }}</td>

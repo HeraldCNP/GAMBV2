@@ -168,16 +168,7 @@ export class CompraIndexComponent implements OnInit {
         const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
         doc.addImage(
-          img,
-          'PNG',
-          bufferX,
-          bufferY,
-          pdfWidth,
-          pdfHeight,
-
-          undefined,
-          'FAST'
-        );
+          img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
 
         return doc;
       })
@@ -211,18 +202,28 @@ export class CompraIndexComponent implements OnInit {
         var heightLeft = imgHeight;
 
         var doc = new jsPDF('p', 'mm');
-        var position = 5;
+        var position = 0;
 
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        // const bufferX = 3;
+        // const bufferY = 15;
+        // const imgProps = (doc as any).getImageProperties(imgData);
+        // const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        // const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        // doc.addImage(imgData, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+
+        doc.addImage(imgData, 'PNG', 1, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
-          position = heightLeft - imgHeight;
+          position = (heightLeft - imgHeight);
+          console.log("position", imgHeight)
           doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          doc.addImage(imgData, 'PNG', 1, position, imgWidth, imgHeight);
+          // doc.addImage(imgData, 'PNG', 1, position, imgWidth, 410);
           heightLeft -= pageHeight;
+          doc.save('file.pdf');
         }
-        // doc.save('file.pdf');
+
         // doc.save('dataurlnewwindow');
         return doc;
       })
