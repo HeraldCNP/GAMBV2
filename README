@@ -1,0 +1,48 @@
+server {
+    listen 80;
+
+    server_name gambetanzos.gob.bo wwww.gambetanzos.gob.bo;
+
+    location / {
+        proxy_pass http://gam-betanzos.s3-website.us-east-2.amazonaws.com/private;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgade;
+    }
+}
+
+cd /etc/nginx/sites-available/
+
+ln -s /etc/nginx/sites-available/web /etc/nginx/sites-enabled/web 
+
+server {
+    listen 81;
+    listen [::]:81;
+
+    serve_name gambetanzos.gob.bo www.gambetanzos.gob.bo;
+
+    root /home/ubuntu/blog/index.html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+server {
+    listen 80;
+    server_name gambetanzos.gob.bo www.gambetanzos.gob.bo;;
+ 
+    root /home/ubuntu/blog/index.html;
+    index index.html;
+ 
+    location / {
+       try_files $uri $uri/ /index.html;
+    }
+ }
+
+ nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (13: Permission denied)
+2023/04/16 21:39:30 [warn] 40729#40729: the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:1
+2023/04/16 21:39:30 [emerg] 40729#40729: unexpected ";" in /etc/nginx/sites-enabled/web:4
+nginx: configuration file /etc/nginx/nginx.conf test failed
