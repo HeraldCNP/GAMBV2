@@ -13,10 +13,9 @@
               <div class="col-md">
                 <form [formGroup]="salidaForm">
 
-                  <div class="mb-1">
-                    <label for="idPersona" class="form-label col-auto">Funcionario Solicitante *</label>
-                    <!-- Para Mandar id // optionValueField="_id" -->
-                    <ngx-select [allowClear]="true" [items]="funcionarios" optionTextField="username"
+                  <div class="input-group mb-1">
+                    <span class="input-group-text mb-1" id="idPersona"><b>Funcionario Solicitante *</b></span>
+                    <ngx-select style="min-width: 400px;" [allowClear]="true" [items]="funcionarios" optionTextField="username"
                       optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
                       (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
@@ -24,42 +23,46 @@
                         &nbsp;{{option.data.surnames}}
                       </ng-template>
                     </ngx-select>
-                    <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
-                      <div *ngIf="
-                          form['idPersona'].errors &&
-                          form['idPersona'].errors['required']
-                        ">
-                        * El proveedor es Requerido.
-                      </div>
-                    </div>
                   </div>
 
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="entregado"><b>Entregado A:</b></span>
+                    <input id="entregado" class="form-control" type="text" formControlName="entregado" />
+                    <span class="input-group-text" id="cargo"><b>Cargo:</b></span>
+                    <input id="cargo" class="form-control" type="text" formControlName="cargo" />
+                    <!-- <div class="form-text" *ngIf="form['entregado'].touched && form['entregado'].invalid">
+                      <div *ngIf="form['entregado'].errors && form['entregado'].errors['required']">
+                        * El entregado es Requerido.
+                      </div>
+                      <div *ngIf="form['entregado'].errors && form['entregado'].errors['minlength']">
+                        * El plazo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div> -->
+                  </div>
 
-                  <div class="mb-1">
-                    <label for="fecha" class="form-label">Fecha de Registro</label>
+                  <div class="input-group mb-1">
+                    <span class="input-group-text"><b>Fecha de Salida</b></span>
                     <input type="date" class="form-control" id="fecha" formControlName="fecha">
                     <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
                       <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
                         es Requerido.</div>
                     </div>
                   </div>
-
-
-                  <div class="mb-1">
-                    <label for="concepto" class="form-label col-md-auto">Glosa *</label>
-                    <input id="concepto" class="form-control" type="text" formControlName="concepto" />
+                  <div class="input-group">
+                    <span class="input-group-text"><b>Glosa *</b></span>
+                    <textarea id="concepto" class="form-control" type="text" formControlName="concepto"></textarea>
                     <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
                       <div *ngIf="
                           form['concepto'].errors &&
                           form['concepto'].errors['required']
                         ">
-                        * El concepto es Requerido.
+                        * la Glosa es Requerida.
                       </div>
                       <div *ngIf="
                           form['concepto'].errors &&
                           form['concepto'].errors['minlength']
                         ">
-                        * El concepto no puede tener menos de 3 caracteres.
+                        * la Glosa no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>

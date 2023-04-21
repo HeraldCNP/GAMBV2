@@ -56,7 +56,7 @@ export class CompraUpdateComponent implements OnInit {
 
     this.comprasService.getSingleCompra(this.compraId).subscribe(data => {
       this.dataCompra = data;
-      // console.log(data);
+      console.log(data);
       // console.log(this.dataCompra);
       // this.listadeArticulos = this.dataCompra.productos;
 
@@ -80,17 +80,18 @@ export class CompraUpdateComponent implements OnInit {
       });
 
       this.dataCompra.productos.forEach((product: any) => {
-        // console.log("recorriendo", product)
+        console.log("recorriendo", product)
         let productTemp = {
-          'idArticulo': product._id,
+          'idArticulo': product.idArticulo._id,
           'codigo': product.idArticulo.codigo,
           'catProgra': product.catProgra,
-          'partidaGasto': 11,
+          'partidaGasto': product.idArticulo.idPartida.codigo,
           'factura': product.factura,
           'articulo': product.idArticulo.nombre,
           'cantidadCompra': product.cantidadCompra,
           'unidadMedida': product.idArticulo.unidadDeMedida,
-          'precio': product.precio
+          'precio': product.precio,
+          'idCompra': product._id
         };
         // console.log("recorriendo2", productTemp)
         this.listadeArticulos.push(productTemp);
@@ -107,7 +108,7 @@ export class CompraUpdateComponent implements OnInit {
       .getAllProveedores()
       .subscribe((data: any) => {
         this.proveedores = data.serverResponse;
-        console.log('Proveedores', data);
+        // console.log('Proveedores', data);
       });
   }
 
@@ -115,7 +116,7 @@ export class CompraUpdateComponent implements OnInit {
     this.cargando = true;
     this.comprasService.getAllFuncionarios().subscribe((data: any) => {
       this.funcionarios = data.serverResponse;
-      console.log("Funcionarios", data)
+      // console.log("Funcionarios", data)
     });
   }
 
@@ -123,7 +124,7 @@ export class CompraUpdateComponent implements OnInit {
     this.cargando = true;
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
       this.catProgras = data.serverResponse;
-      console.log("Cat Progras", data)
+      // console.log("Cat Progras", data)
     });
   }
 

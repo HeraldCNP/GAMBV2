@@ -128,14 +128,15 @@
           <hr class="off-hr">
           <div class="row">
             <div class="col-md-3 text-bold pl-3">
-              FECHA DE REGISTRO:  <br>
+              FECHA DE REGISTRO: <br>
               ENTIDAD: <br>
               UNIDAD SOLICITANTE:<br>
               PROVEEDOR: <br>
               GLOSA:
             </div>
             <div class="col-md-9 mb-1">
-              {{ ingreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ ingreso.numeroEntrada }} <br>
+              {{ ingreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro
+                N°:</b> {{ ingreso.numeroEntrada }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
               </b> <span style="font-size: 0.9rem;">{{ ingreso.idPersona.post }}</span> <br>
@@ -239,7 +240,7 @@
         <form [formGroup]="salidaForm">
           <div class="input-group mb-1">
 
-            <span class="input-group-text" id="idPersona"><b>Funcionario Solicitante *</b></span>
+            <span class="input-group-text mb-1" id="idPersona"><b>Funcionario Solicitante *</b></span>
 
             <ngx-select style="min-width: 400px;" [allowClear]="true" [items]="funcionarios" optionTextField="username"
               optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
@@ -249,13 +250,22 @@
                 &nbsp;{{option.data.surnames}}
               </ng-template>
             </ngx-select>
-            <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
-              <div *ngIf="
-                  form['idPersona'].errors &&
-                  form['idPersona'].errors['required']
-                ">
-                * El proveedor es Requerido.
-              </div>
+
+          </div>
+          <div class="input-group mb-1">
+            <span class="input-group-text"><b>Fecha de Salida</b></span>
+            <input type="date" class="form-control" id="fechaSalida" formControlName="fechaSalida">
+            <div class="form-text" *ngIf="form['fechaSalida'].touched && form['fechaSalida'].invalid">
+              <div *ngIf="form['fechaSalida'].errors && form['fechaSalida'].errors['required']">* fecha
+                es Requerido.</div>
+            </div>
+          </div>
+          <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
+            <div *ngIf="
+                form['idPersona'].errors &&
+                form['idPersona'].errors['required']
+              ">
+              * El proveedor es Requerido.
             </div>
           </div>
           <div class="input-group mb-1">

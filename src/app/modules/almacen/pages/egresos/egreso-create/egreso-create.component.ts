@@ -35,6 +35,8 @@ export class EgresoCreateComponent implements OnInit {
     this.salidaForm = this.fb.group({
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       // categoriaProgra: ['', [Validators.required]],
+      entregado: [''],
+      cargo: [''],
       concepto: ['', [Validators.required]],
       idPersona: ['', [Validators.required]],
       articulos: ['', [Validators.required]],

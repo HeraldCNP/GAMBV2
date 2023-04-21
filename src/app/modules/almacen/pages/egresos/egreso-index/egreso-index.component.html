@@ -57,7 +57,7 @@
                     </ng-container>
                   </td>
                   <td>{{ egreso.glosaSalida }}</td>
-                  <td>{{ egreso.fecha | date:'longDate' }}</td>
+                  <td>{{ egreso.idIngreso.fecha | date:'longDate': 'UTC' }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="egreso.estado == '1'">

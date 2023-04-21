@@ -47,6 +47,7 @@ export class CompraIndexComponent implements OnInit {
       glosaSalida: ['', [Validators.required]],
       entregado: [''],
       cargo: [''],
+      fechaSalida: [''],
       idPersona: [''],
     });
   }

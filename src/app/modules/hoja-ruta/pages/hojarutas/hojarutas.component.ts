@@ -118,6 +118,7 @@ export class HojarutasComponent implements OnInit {
         this.hojaRutas = data.serverResponse;
         this.totalPages = data.totalpage;
         this.search=" ";
+        console.log(this.hojaRutas)
       }
     )
     this.comunicacionesService.termino.subscribe(
