@@ -77,14 +77,14 @@ export class HojarutasComponent implements OnInit {
     let finyear=this.year.toString().slice(-2)
     console.log(finyear)
     this.cant = this.cant + 1;
-    this.totalh = this.cant +"-" +finyear;
+    //this.totalh = this.cant +"-" +finyear;
     const HOJA: Hojaruta = {
       origen: this.hojaForm.get('origen')?.value,
       tipodoc: this.hojaForm.get('tipodoc')?.value,
       contacto: this.hojaForm.get('contacto')?.value,
       referencia: this.hojaForm.get('referencia')?.value,
       fechadocumento: this.hojaForm.get('fechadocumento')?.value,
-      nuit: this.totalh,
+      //nuit: this.totalh,
     };
     this.api.register(HOJA).subscribe(
       (data) => {
@@ -114,7 +114,7 @@ export class HojarutasComponent implements OnInit {
     console.log(this.campo)
     this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(
       data => {
-        this.cant=data.totalDocs
+        this.cant=data.nuitok
         this.hojaRutas = data.serverResponse;
         this.totalPages = data.totalpage;
         this.search=" ";

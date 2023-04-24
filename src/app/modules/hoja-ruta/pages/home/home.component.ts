@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
   getHojas() {
     this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(data => {
       this.hojaRutas = data.serverResponse;
-      this.totalDocs=data.totalDocs;
+      this.totalDocs=data.nuitok;
       this.cantre = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'REGISTRADO').length;
       this.canten = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'ENVIADO').length;
       this.cantrec = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'RECIBIDO').length;
