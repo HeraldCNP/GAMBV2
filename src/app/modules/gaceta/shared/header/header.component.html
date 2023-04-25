@@ -14,13 +14,19 @@
       *ngIf="(data && data.post === 'DIRECCIÓN DE PLANIFICACIÓN' || data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
       <a routerLink="/docAdmin/poa/index" [routerLinkActive]="['active']" class="nav-link">POA</a>
     </li>
+
     <li class="nav-item d-none d-sm-inline-block"
-    *ngIf="(data && data.post === 'DIRECCIÓN DE PLANIFICACIÓN' || data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
-    <a routerLink="/docAdmin/cuentas/index" [routerLinkActive]="['active']" class="nav-link">RENDICION DE CUENTAS</a>
-  </li>
-    <!-- <li class="nav-item d-none d-sm-inline-block" *ngIf="(data && data.post === 'DIRECCIÓN DE PLANIFICACIÓN' || data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
-          <a routerLink="/docAdmin/ptdi/index" [routerLinkActive]="['active']" class="nav-link">PTDI</a>
-        </li> -->
+      *ngIf="(data && data.post === 'DIRECCIÓN DE PLANIFICACIÓN' || data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+      <a routerLink="/docAdmin/ptdi/index" [routerLinkActive]="['active']" class="nav-link">PTDI</a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block"
+      *ngIf="(data && data.post === 'DIRECCIÓN DE PLANIFICACIÓN' || data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+      <a routerLink="/docAdmin/pei/index" [routerLinkActive]="['active']" class="nav-link">PEI</a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block"
+      *ngIf="(data && data.post === 'DIRECCIÓN DE PLANIFICACIÓN' || data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+      <a routerLink="/docAdmin/cuentas/index" [routerLinkActive]="['active']" class="nav-link">RENDICION DE CUENTAS</a>
+    </li>
   </ul>
 
   <!-- Right navbar links -->

@@ -68,7 +68,7 @@ export class GacetaService {
     })
   }
 
-  addFile(id:string, fd: FormData): Observable<any> {
+  addFile(id: string, fd: FormData): Observable<any> {
     let dir = `${this.URL}/uploadpoa/${id}`;
     return this.http.post<any>(dir, fd, {
       reportProgress: true,
@@ -154,7 +154,52 @@ export class GacetaService {
     })
   }
 
+  changeEstadoPtdi(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadptdi/${id}`;
+    console.log(dir)
+    return this.http.post<any>(dir, fd)
+  }
 
+  editarPtdi(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/uploadptdi/${id}`;
+    return this.http.post<any>(dir, fd)
+  }
 
+  deletePtdi(id: any): Observable<any> {
+    let dir = `${this.URL}/ptdi/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
+  /*End Servicios para PTDI*/
 
+  /*Servicios para PEI*/
+
+  getAllPeis(): Observable<any[]> {
+    let dir = `${this.URL}/peis`;
+    console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  registerPei(fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadPei`;
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
+  changeEstadoPei(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadPei/${id}`;
+    console.log(dir)
+    return this.http.post<any>(dir, fd)
+  }
+
+  editarPei(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/uploadPei/${id}`;
+    return this.http.post<any>(dir, fd)
+  }
+
+  deletePei(id: any): Observable<any> {
+    let dir = `${this.URL}/pei/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
 }

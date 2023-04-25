@@ -69,6 +69,20 @@ export class HomeService {
     return this.http.get<any[]>(dir)
   }
 
+  getAllPtdis():Observable<any[]>{
+    let dir = `${this.URL}/ptdis?estado=true`;
+    console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  getAllPeis():Observable<any[]>{
+    let dir = `${this.URL}/peis?estado=true`;
+    console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+
+
   /* Contador */
   getCounterValue():Observable<number> {
     return this.http.get<number>('/api/counter');

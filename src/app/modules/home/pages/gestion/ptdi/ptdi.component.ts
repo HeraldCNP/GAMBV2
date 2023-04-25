@@ -18,10 +18,20 @@ export class PtdiComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getPtdis();
   }
 
   goBack(){
     this.location.back();
+  }
+
+  getPtdis(){
+    this.api.getAllPtdis().subscribe
+    (res => {
+      this.ptdis = res;
+      this.ptdisTemp = res;
+      console.log(this.ptdis)
+    });
   }
 
 }

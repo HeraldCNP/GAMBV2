@@ -32,10 +32,7 @@ export class GacetaCreateComponent implements OnInit {
   titulos = {
     "list": [
       {
-        "name": "Ley Autónoma Municipal"
-      },
-      {
-        "name": "Resolución Municipal"
+        "name": "Ley Municipal"
       },
       {
         "name": "Ordenanza Municipal"
@@ -45,6 +42,9 @@ export class GacetaCreateComponent implements OnInit {
       },
       {
         "name": "Decreto Edil"
+      },
+      {
+        "name": "Resolución Municipal"
       },
       {
         "name": "Resolución Administrativa"

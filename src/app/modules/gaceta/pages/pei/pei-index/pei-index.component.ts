@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import Swal from 'sweetalert2';
 import { GacetaService } from '../../../services/gaceta.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
-  selector: 'app-ptdi-index',
-  templateUrl: './ptdi-index.component.html',
-  styleUrls: ['./ptdi-index.component.css']
+  selector: 'app-pei-index',
+  templateUrl: './pei-index.component.html',
+  styleUrls: ['./pei-index.component.css']
 })
-export class PtdiIndexComponent implements OnInit {
+export class PeiIndexComponent implements OnInit {
 
-  ptdis: any = [];
-  ptdi: any;
-  idPtdi: any;
+  peis: any = [];
+  pei: any;
+  idPei: any;
   date = new Date();
   URL = environment.api;
   status: any;
@@ -24,11 +24,10 @@ export class PtdiIndexComponent implements OnInit {
   editForm: any;
   files: any = [];
   progress: number = 0;
-  ptdiId: any;
+  peiId: any;
 
-  constructor(
-    private router: Router, private api: GacetaService, private fb: FormBuilder
-  ) {
+
+  constructor(private router: Router, private api: GacetaService, private fb: FormBuilder) {
     this.addForm = new FormGroup({
       gestion: new FormControl('', Validators.required),
       descripcion: new FormControl('', [
@@ -46,46 +45,39 @@ export class PtdiIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPtdis()
+    this.getPeis()
   }
 
-  getPtdis() {
-    this.api.getAllPtdis().subscribe
+  getPeis() {
+    this.api.getAllPeis().subscribe
       (res => {
-        this.ptdis = res;
-        console.log(this.ptdis)
+        this.peis = res;
+        console.log(this.peis)
       });
   }
-
 
   changeStatus(id: any, estado: any) {
     let fd = new FormData();
     fd.append('estado', estado);
     console.log(estado)
-    this.api.changeEstadoPtdi(id, fd)
+    this.api.changeEstadoPei(id, fd)
       .subscribe(
         res => {
           console.log(res)
         },
         err => console.log('HTTP Error', err),
         () => {
-          this.getPtdis();
+          this.getPeis();
         }
       );
   }
 
-
-
-  generatePDF() {
-
-  }
-
-  getPtdi(id: any) {
+  getPei(id: any) {
     this.api.getGaceta(id)
       .subscribe(
         res => {
-          this.ptdi = res.serverResponse;
-          console.log(this.ptdi)
+          this.pei = res.serverResponse;
+          console.log(this.pei)
         },
         err => console.log('HTTP Error', err),
         () => {
@@ -94,11 +86,7 @@ export class PtdiIndexComponent implements OnInit {
       );
   }
 
-  updatePtdi(id: string) {
-    this.router.navigate(['docAdmin/ptdi/update', id])
-  }
-
-  deletePtdi(id: string) {
+  deletePei(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: "¡No podrás revertir esto!",
@@ -115,10 +103,10 @@ export class PtdiIndexComponent implements OnInit {
           'El Documento ha sido eliminado.',
           'success'
         )
-        this.api.deletePtdi(id).subscribe(
+        this.api.deletePei(id).subscribe(
           res => console.log(res),
           err => console.log('HTTP Error', err),
-          () => this.getPtdis()
+          () => this.getPeis()
         );
       }
     })
@@ -133,7 +121,7 @@ export class PtdiIndexComponent implements OnInit {
   }
 
   getId(id: string) {
-    this.ptdiId = id;
+    this.peiId = id;
   }
 
   addArchivo(form: FormData) {
@@ -141,7 +129,7 @@ export class PtdiIndexComponent implements OnInit {
     fd.append('gestion', this.addForm.value.gestion);
     fd.append('descripcion', this.addForm.value.descripcion);
     fd.append('file', this.files[0]);
-    this.api.registerPtdi(fd).subscribe(
+    this.api.registerPei(fd).subscribe(
       (event) => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round((100 * event.loaded) / event.total);
@@ -153,7 +141,7 @@ export class PtdiIndexComponent implements OnInit {
       },
       () => {
         this.progress = 0;
-        this.getPtdis();
+        this.getPeis();
         this.resetForm();
         this.alertOk(
           'success',
@@ -178,17 +166,17 @@ export class PtdiIndexComponent implements OnInit {
     });
   }
 
-  cargarDataEdit(ptdi: any) {
-    // console.log("Rendi Edit", ptdi)
+  cargarDataEdit(pei: any) {
+    // console.log("Rendi Edit", pei)
     this.editForm.setValue({
-      gestion: ptdi.gestion,
-      descripcion: ptdi.descripcion,
+      gestion: pei.gestion,
+      descripcion: pei.descripcion,
       archivo: null
     });
-    this.idPtdi = ptdi._id;
+    this.idPei = pei._id;
   }
 
-  editPtdi() {
+  editPei() {
     let fd = new FormData();
 
     if (this.files[0]) {
@@ -202,9 +190,9 @@ export class PtdiIndexComponent implements OnInit {
 
     // let fd = new FormData();
 
-    console.log(this.idPtdi)
+    console.log(this.idPei)
 
-    this.api.editarPtdi(fd, this.idPtdi).subscribe(
+    this.api.editarPei(fd, this.idPei).subscribe(
       (res) => {
         console.log(res);
       },
@@ -219,9 +207,11 @@ export class PtdiIndexComponent implements OnInit {
           'Documento editado Correctamente',
           '2000'
         );
-        this.getPtdis();
+        this.getPeis();
       }
     );
   }
+
+
 
 }

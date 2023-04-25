@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="page-banner-menu">
-          <h2 class="page-banner-title">Plan Operativo Anual</h2>
+          <h2 class="page-banner-title">Plan Estratégico Institucional</h2>
           <ul>
             <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
-            <li [routerLinkActive]="'active'">Plan Operativo Anual</li>
+            <li [routerLinkActive]="'active'">Plan Estratégico Institucional</li>
           </ul>
         </div>
       </div>
@@ -21,8 +21,8 @@
       <div class="col-md-12">
         <div class="card my-3 p-3 rounded">
           <div class="card-header rounded">
-            <div class="title my-1 text-center">Plan Operativo Anual (PI)</div>
-            <p>En esta sección usted podrá encontrar el Plan Operativo Anual</p>
+            <div class="title my-1 text-center">Plan Estratégico Institucional (PEI)</div>
+            <p>En esta sección usted podrá encontrar el Plan Estratégico Institucional</p>
           </div>
 
           <div class="card-body">
@@ -59,13 +59,9 @@
                     </div >
                     <div class="m-3">
                       <ul class="text-end">
-                        <li *ngFor="let file of pei.archivo">
-                          <i *ngIf="file.descripcion != 'portada'">
-
-                            <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.descripcion }}</a>
+                            <!-- <a href="{{ URL + '/' + ptdi.uri }}" target="_blank">{{ ptdi.descripcion }}</a> -->
+                            <a class="btn btn-primary btn-sm" href="{{ URL+'/'+pei.uri }}" target="_blank">Descargar</a>
                             <br />
-                          </i>
-                        </li>
                       </ul>
                     </div>
                   </div>

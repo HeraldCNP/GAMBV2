@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card shadow p-3 mb-5 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Documentos PTDI</h3>
+            <h3 class="card-title">Documentos PEI</h3>
             <div class="card-tools">
               <span class="mr-3">
                 <button data-bs-toggle="modal" data-bs-target="#modalAddFile" class="btn btn-primary">
@@ -35,37 +35,37 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let ptdi of ptdis.serverResponse; let i = index">
+                <tr *ngFor="let pei of peis.serverResponse; let i = index">
                   <td>
                     <div class="form-check form-switch">
-                      <span *ngIf="ptdi.estado == '1'">
-                        <input class="form-check-input pointer" (change)="changeStatus(ptdi._id, !ptdi.estado)"
+                      <span *ngIf="pei.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(pei._id, !pei.estado)"
                           type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Publicado
                       </span>
-                      <span *ngIf="ptdi.estado == '0'">
-                        <input class="form-check-input pointer" (change)="changeStatus(ptdi._id, !ptdi.estado)"
+                      <span *ngIf="pei.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(pei._id, !pei.estado)"
                           type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />No Publicado
                       </span>
                     </div>
                   </td>
-                  <td>{{ ptdi.gestion }}</td>
-                  <td>{{ ptdi.descripcion }}</td>
-                  <!-- <td><a href="{{ URL+'/'+ptdi.uri }}" target="_blank">Descargar</a></td> -->
+                  <td>{{ pei.gestion }}</td>
+                  <td>{{ pei.descripcion }}</td>
+                  <!-- <td><a href="{{ URL+'/'+pei.uri }}" target="_blank">Descargar</a></td> -->
                   <td class="">
-                    <!-- <i *ngFor="let file of ptdi.archivo">
+                    <!-- <i *ngFor="let file of pei.archivo">
                       {{ file.descripcion }}
                       <a href="{{ URL + '/' + file.uri }}" target="_blank"><i class="fas fa-file-download "></i></a>
                       <br />
                     </i> -->
 
-                    <a href="{{ URL + '/' + ptdi.uri }}" target="_blank">{{ ptdi.archivo }}</a>
+                    <a href="{{ URL + '/' + pei.uri }}" target="_blank">{{ pei.archivo }}</a>
                   </td>
                   <td>
                     <!-- <i class="fas fa-plus ml-3 icono" data-bs-to ggle="modal" data-bs-target="#modalAddFile"
-                      (click)="getId(ptdi._id)"></i> -->
+                      (click)="getId(pei._id)"></i> -->
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(ptdi)"></i>
-                    <i (click)="deletePtdi(ptdi._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                      (click)="cargarDataEdit(pei)"></i>
+                    <i (click)="deletePei(pei._id)" class="fas fa-trash-alt ml-3 icono"></i>
                   </td>
                 </tr>
               </tbody>
@@ -176,7 +176,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="editPtdi()" [formGroup]="editForm">
+        <form (ngSubmit)="editPei()" [formGroup]="editForm">
           <div class="mb-1">
             <label for="gestion" class="form-label">Gestión *</label>
             <input type="text" class="form-control" id="gestion" formControlName="gestion" required />

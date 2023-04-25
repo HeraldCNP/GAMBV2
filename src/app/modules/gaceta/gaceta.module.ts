@@ -20,6 +20,8 @@ import { PtdiIndexComponent } from './pages/ptdi/ptdi-index/ptdi-index.component
 import { PtdiUpdateComponent } from './pages/ptdi/ptdi-update/ptdi-update.component';
 import { RendicionIndexComponent } from './pages/rendicion/rendicion-index/rendicion-index.component';
 import { PoaAddComponent } from './pages/poa/poa-add/poa-add.component';
+import { PeiIndexComponent } from './pages/pei/pei-index/pei-index.component';
+
 
 
 
@@ -40,7 +42,8 @@ import { PoaAddComponent } from './pages/poa/poa-add/poa-add.component';
     PtdiIndexComponent,
     PtdiUpdateComponent,
     RendicionIndexComponent,
-    PoaAddComponent
+    PoaAddComponent,
+    PeiIndexComponent,
   ],
   imports: [
     CommonModule,

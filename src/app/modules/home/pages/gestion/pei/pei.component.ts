@@ -19,9 +19,19 @@ export class PeiComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getPeis();
   }
 
   goBack(){
     this.location.back();
+  }
+
+  getPeis(){
+    this.api.getAllPeis().subscribe
+    (res => {
+      this.peis = res;
+      this.peisTemp = res;
+      console.log(this.peis)
+    });
   }
 }
