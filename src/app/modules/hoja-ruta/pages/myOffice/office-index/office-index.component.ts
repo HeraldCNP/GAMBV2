@@ -495,10 +495,15 @@ export class OfficeIndexComponent implements OnInit {
     this.api.getSegui(id).subscribe(
       (data) => {
         this.seguireply = data;
-        this.nuitreply = this.seguireply.nuit;
-        this.api.buscarnuit(this.nuitreply).subscribe(
-          (data) => {
-            this.nuitre = data;
+        this.nuitreply = this.seguireply.idhj;
+        console.log("data",data)
+        /* this.api.obtenerHoja(this.nuitreply).subscribe((data:any)=>{
+          console.log("hoja ruta",data)
+        }) */
+        this.api.obtenerHoja(this.nuitreply).subscribe(
+          (data:any) => {
+            this.nuitre = data.serverResponse.seguimiento;
+            console.log("verdaddero",this.nuitre)
             if (this.nuitre.length > 1) {
               for (let i = 0; i < this.nuitre.length; i++) {
                 if (i === this.nuitre.length - 2) {
