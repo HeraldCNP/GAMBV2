@@ -14,6 +14,8 @@ import { PtdiIndexComponent } from './pages/ptdi/ptdi-index/ptdi-index.component
 import { PtdiUpdateComponent } from './pages/ptdi/ptdi-update/ptdi-update.component';
 import { RendicionIndexComponent } from './pages/rendicion/rendicion-index/rendicion-index.component';
 import { PeiIndexComponent } from './pages/pei/pei-index/pei-index.component';
+import { ReglamentoIndexComponent } from './pages/reglamento/reglamento-index/reglamento-index.component';
+import { AuditoriaIndexComponent } from './pages/auditoria/auditoria-index/auditoria-index.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,10 @@ const routes: Routes = [
       { path: 'cuentas/index', component: RendicionIndexComponent},
 
       { path: 'pei/index', component: PeiIndexComponent},
+
+      { path: 'reglamento/index', component: ReglamentoIndexComponent},
+
+      { path: 'auditoria/index', component: AuditoriaIndexComponent},
       // { path: 'ptdi/create', component: PtdiCreateComponent },
       // { path: 'ptdi/update/:id', component: PtdiUpdateComponent },
 

@@ -18,6 +18,8 @@ import { PoaComponent } from './pages/gestion/poa/poa.component';
 import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
 import { PtdiComponent } from './pages/gestion/ptdi/ptdi.component';
 import { PeiComponent } from './pages/gestion/pei/pei.component';
+import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.component';
+import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditoria.component';
 
 
 const routes: Routes = [
@@ -41,8 +43,10 @@ const routes: Routes = [
       {path: 'gestion/poa', component: PoaComponent},
       {path: 'gestion/ptdi', component: PtdiComponent},
       {path: 'gestion/pei', component: PeiComponent},
+      {path: 'gestion/reglamento', component: ReglamentoComponent},
 
       {path: 'transparencia/rendicion-de-cuentas', component: RendicionComponent},
+      {path: 'transparencia/auditoria', component: AuditoriaComponent},
 
     ]
   }

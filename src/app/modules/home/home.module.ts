@@ -35,6 +35,7 @@ import { ConvenioComponent } from './pages/gestion/convenio/convenio.component';
 import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.component';
 import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
 import { CounterComponent } from './pages/index/counter/counter.component';
+import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditoria.component';
 
 
 
@@ -70,7 +71,8 @@ import { CounterComponent } from './pages/index/counter/counter.component';
     ConvenioComponent,
     ReglamentoComponent,
     RendicionComponent,
-    CounterComponent
+    CounterComponent,
+    AuditoriaComponent
   ],
   imports: [
     CommonModule,

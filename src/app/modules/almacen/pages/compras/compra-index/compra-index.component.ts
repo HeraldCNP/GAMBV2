@@ -212,15 +212,15 @@ export class CompraIndexComponent implements OnInit {
         // const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
         // doc.addImage(imgData, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
 
-        doc.addImage(imgData, 'PNG', 1, position, imgWidth, imgHeight);
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
           position = (heightLeft - imgHeight);
           console.log("position", imgHeight)
           doc.addPage();
-          doc.addImage(imgData, 'PNG', 1, position, imgWidth, imgHeight);
-          // doc.addImage(imgData, 'PNG', 1, position, imgWidth, 410);
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          // doc.addImage(imgData, 'PNG', 0, position, imgWidth, 410);
           heightLeft -= pageHeight;
           doc.save('file.pdf');
         }

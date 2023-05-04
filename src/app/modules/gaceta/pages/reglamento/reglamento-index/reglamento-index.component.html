@@ -1,0 +1,255 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Documentos Reglamentos y Manuales</h3>
+            <div class="card-tools">
+              <span class="mr-3">
+                <button data-bs-toggle="modal" data-bs-target="#modalAddFile" class="btn btn-primary">
+                  Agregar Documento
+                </button>
+              </span>
+              <!-- <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div> -->
+            </div>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Estado</th>
+                  <th>Público</th>
+                  <th>Título</th>
+                  <th>Fecha de Aprobación</th>
+                  <th>Documento</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let reglamento of reglamentos.serverResponse; let i = index">
+                  <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="reglamento.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(reglamento._id, !reglamento.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Publicado
+                      </span>
+                      <span *ngIf="reglamento.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(reglamento._id, !reglamento.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />No Publicado
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="reglamento.publico == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus2(reglamento._id, !reglamento.publico)"
+                          type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Público
+                      </span>
+                      <span *ngIf="reglamento.publico == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus2(reglamento._id, !reglamento.publico)"
+                          type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />Interno
+                      </span>
+                    </div>
+                  </td>
+                  <td>{{ reglamento.titulo }}</td>
+                  <td>{{ reglamento.fecha | date:'longDate': 'UTC' }}</td>
+                  <!-- <td><a href="{{ URL+'/'+reglamento.uri }}" target="_blank">Descargar</a></td> -->
+                  <td class="">
+                    <!-- <i *ngFor="let file of reglamento.archivo">
+                      {{ file.descripcion }}
+                      <a href="{{ URL + '/' + file.uri }}" target="_blank"><i class="fas fa-file-download "></i></a>
+                      <br />
+                    </i> -->
+
+                    <a href="{{ URL + '/' + reglamento.uri }}" target="_blank">{{ reglamento.archivo }}</a>
+                  </td>
+                  <td>
+                    <!-- <i class="fas fa-plus ml-3 icono" data-bs-to ggle="modal" data-bs-target="#modalAddFile"
+                      (click)="getId(reglamento._id)"></i> -->
+                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(reglamento)"></i>
+                    <i (click)="deleteReglamento(reglamento._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create -->
+<div class="modal fade" id="modalAddFile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalAddFileLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalAddFileLabel">
+          Añadir Documento
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addArchivo(addForm.value)" [formGroup]="addForm">
+          <div class="mb-1">
+            <label for="titulo" class="form-label">Título *</label>
+            <input type="text" class="form-control" id="titulo" formControlName="titulo" required />
+            <div class="form-text" *ngIf="form['titulo'].touched && form['titulo'].invalid">
+              <div *ngIf="
+                  form['titulo'].errors &&
+                  form['titulo'].errors['required']
+                ">
+                * El título es Requerido.
+              </div>
+              <div *ngIf="
+                  form['titulo'].errors &&
+                  form['titulo'].errors['minlength']
+                ">
+                * El título no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="fecha" class="form-label">Fecha de Aprobación *</label>
+            <input type="date" class="form-control" id="fecha" formControlName="fecha" required>
+            <div class="form-text " *ngIf="form['fecha'].touched && form['fecha'].invalid">
+              <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">*
+                El fecha es requerido.</div>
+              <div *ngIf="form['fecha'].errors && form['fecha'].errors['minlength']">
+                El detalle no puede tener menos de 3 caracteres.</div>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label for="archivo" class="form-label">Archivo</label>
+            <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+              formControlName="archivo" (change)="onChange($event)" />
+            <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
+              <div *ngIf="
+                  form['archivo'].errors &&
+                  form['archivo'].errors['required']
+                ">
+                * archivo es Requerido.
+              </div>
+            </div>
+            <div class="progress mt-1" *ngIf="progress > 0">
+              <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'" aria-valuemin="0"
+                aria-valuemax="100">
+                {{ progress + "%" }}
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="addForm.invalid">
+              Añadir
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalEditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">
+          Editar Documento
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editReglamento()" [formGroup]="editForm">
+          <div class="mb-1">
+            <label for="titulo" class="form-label">Título *</label>
+            <input type="text" class="form-control" id="titulo" formControlName="titulo" required />
+            <div class="form-text" *ngIf="form['titulo'].touched && form['titulo'].invalid">
+              <div *ngIf="
+                  form['titulo'].errors &&
+                  form['titulo'].errors['required']
+                ">
+                * La titulo es Requerida.
+              </div>
+              <div *ngIf="
+                  form['titulo'].errors &&
+                  form['titulo'].errors['minlength']
+                ">
+                El titulo no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="fecha" class="form-label">Fecha de Aprobación</label>
+            <input type="date" class="form-control" id="fecha" formControlName="fecha" required />
+            <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+              <div *ngIf="
+                  form['fecha'].errors &&
+                  form['fecha'].errors['required']
+                ">
+                * La fecha es Requerida.
+              </div>
+              <div *ngIf="
+                  form['fecha'].errors &&
+                  form['fecha'].errors['minlength']
+                ">
+                El fecha no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+
+          <div class="mb-2">
+            <label for="archivo" class="form-label">Archivo</label>
+            <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+              formControlName="archivo" (change)="onChange($event)" />
+            <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
+              <div *ngIf="
+                  form['archivo'].errors &&
+                  form['archivo'].errors['required']
+                ">
+                * archivo es Requerido.
+              </div>
+            </div>
+            <div class="progress mt-1" *ngIf="progress > 0">
+              <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'" aria-valuemin="0"
+                aria-valuemax="100">
+                {{ progress + "%" }}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="editForm.invalid">
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

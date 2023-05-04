@@ -182,7 +182,7 @@ export class EgresoIndexComponent implements OnInit {
         var heightLeft = imgHeight;
 
         var doc = new jsPDF('p', 'mm');
-        var position = 5;
+        var position = 0;
 
         doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
@@ -198,6 +198,7 @@ export class EgresoIndexComponent implements OnInit {
         return doc;
       })
       .then((docResult) => {
+        // docResult.save('file.pdf');
         docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
         //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
       });

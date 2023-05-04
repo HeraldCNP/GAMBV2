@@ -69,6 +69,12 @@ export class HomeService {
     return this.http.get<any[]>(dir)
   }
 
+  getAllAuditorias():Observable<any[]>{
+    let dir = `${this.URL}/auditorias?estado=true`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
   getAllPtdis():Observable<any[]>{
     let dir = `${this.URL}/ptdis?estado=true`;
     console.log(dir)
@@ -81,6 +87,18 @@ export class HomeService {
     return this.http.get<any[]>(dir)
   }
 
+
+  getAllReglamentos():Observable<any[]>{
+    let dir = `${this.URL}/reglamentos?estado=true`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  searchReglamento(termino:any):Observable<any[]>{
+    let dir = `${this.URL}/searchReglamento/${termino}`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
 
 
   /* Contador */

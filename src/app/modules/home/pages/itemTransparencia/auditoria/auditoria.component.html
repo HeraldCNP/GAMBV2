@@ -1,0 +1,79 @@
+<div class="page-banner-area photo-4 mb-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-banner-menu">
+          <h2 class="page-banner-title">Auditoria</h2>
+          <ul>
+            <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
+            <li [routerLinkActive]="'active'">Auditoria</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="blog-area margin-bottom-80">
+  <div class="container">
+    <i class="fas fa-arrow-left atras" (click)="goBack()"> Atras</i>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card my-3 p-3 rounded">
+          <div class="card-header rounded">
+            <div class="title my-1 text-center">Auditoria</div>
+            <p>En esta sección usted podrá encontrar la Auditoria de los distintos años</p>
+          </div>
+
+          <div class="card-body">
+            <!-- <div class="card">
+                            <div class="row m-3">
+                                <div class="col-md-8">
+                                    <input type="search" placeholder="Buscar Documento" class="form-control" #termino (keyup)="buscar(termino.value)">
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" #selectTermino (change)="filtrar(selectTermino.value)">
+                                        <option value="" selected>Seleccionar Tipo de Documento</option>
+                                        <option value="Ley">Ley</option>
+                                        <option value="Resolución Municipal">Resolución Municipal</option>
+                                        <option value="Ordenanza Municipal">Ordenanza Municipal</option>
+                                        <option value="Decreto Municipal">Decreto Municipal</option>
+                                        <option value="Decreto Edil">Decreto Edil</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> -->
+            <div class="row text-center">
+              <div class="col-md-6 offset-md-3">
+                <div class="card shadow my-3" *ngFor="let group of auditoriasGroups | keyvalue">
+                  <div class="card-header" >
+                    Gestión {{ group.key }}
+                  </div>
+                  <div class="">
+                    <div class="m-2">
+                      <div class="text-center">
+                        <!-- <li *ngFor="let file of poa.archivo">
+                          <i *ngIf="file.descripcion != 'portada'">
+
+                            <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.descripcion }}</a>
+                            <br />
+                          </i>
+                        </li> -->
+                        <div *ngFor="let document of group.value">
+                          <div class="d-flex justify-content-between">
+                            <b>{{ document.tipo }} </b>
+                            <a href="{{ URL + '/' + document.uri }}" target="_blank">{{ document.resumen }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

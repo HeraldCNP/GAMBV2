@@ -202,4 +202,74 @@ export class GacetaService {
     let dir = `${this.URL}/pei/${id}`;
     return this.http.delete<any>(dir, id)
   }
+
+  /*END Servicios para PEI*/
+
+  /*Servicios para Reglamentos*/
+
+  getAllReglamentos(): Observable<any[]> {
+    let dir = `${this.URL}/reglamentos`;
+    console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  registerReglamento(fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadReglamento`;
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
+  changeEstadoReglamento(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadReglamento/${id}`;
+    console.log(dir)
+    return this.http.post<any>(dir, fd)
+  }
+
+  editarReglamento(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/uploadReglamento/${id}`;
+    return this.http.post<any>(dir, fd)
+  }
+
+  deleteReglamento(id: any): Observable<any> {
+    let dir = `${this.URL}/reglamento/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
+
+  /*END Servicios para Reglamentos*/
+
+  /*Servicios para Auditoria*/
+
+  getAllAuditorias(): Observable<any[]> {
+    let dir = `${this.URL}/auditorias`;
+    console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  registerAuditoria(fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadAuditoria`;
+    return this.http.post<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
+  changeEstadoAuditoria(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/uploadAuditoria/${id}`;
+    console.log(dir)
+    return this.http.post<any>(dir, fd)
+  }
+
+  editarAuditoria(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/uploadAuditoria/${id}`;
+    return this.http.post<any>(dir, fd)
+  }
+
+  deleteAuditoria(id: any): Observable<any> {
+    let dir = `${this.URL}/auditoria/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
+
+  /*END Servicios para Auditoria*/
 }
