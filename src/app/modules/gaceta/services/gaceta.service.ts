@@ -50,6 +50,20 @@ export class GacetaService {
     return this.http.delete<any>(dir, id)
   }
 
+
+  searchGaceta(termino:any):Observable<any[]>{
+    let dir = `${this.URL}/searchgaceta/${termino}`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+  getGacetas(titulo:any):Observable<any[]>{
+    let dir = `${this.URL}/gacetas?titulo=${titulo}&estado=true`;
+    // console.log(dir)
+    return this.http.get<any[]>(dir)
+  }
+
+
   /*End Servicios para Gaceta*/
 
   /*Servicios para POA*/

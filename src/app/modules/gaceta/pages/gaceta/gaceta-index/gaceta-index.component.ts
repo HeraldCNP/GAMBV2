@@ -24,6 +24,7 @@ export class GacetaIndexComponent implements OnInit {
   }
   date = new Date();
   gacetas: any = [];
+  gacetasTemp: any = [];
   gaceta: any;
   ngOnInit(): void {
     this.getGacetas();
@@ -151,6 +152,28 @@ export class GacetaIndexComponent implements OnInit {
         );
       }
     })
+  }
+
+  buscar(termino:string){
+    if(termino.length === 0){
+      return this.gacetas = this.gacetasTemp;
+    }
+    this.api.searchGaceta(termino).subscribe
+    (res => {
+      this.gacetas = res;
+      // console.log(this.gacetas)
+    });
+  }
+
+  filtrar(titulo:string){
+    if(titulo.length === 0){
+      return this.gacetas = this.gacetasTemp;
+    }
+    this.api.getGacetas(titulo).subscribe
+    (res => {
+      this.gacetas = res;
+      // console.log(this.gacetas)
+    });
   }
 
 }

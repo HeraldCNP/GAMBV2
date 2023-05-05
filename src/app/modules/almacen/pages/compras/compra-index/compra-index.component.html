@@ -271,8 +271,11 @@
           <div class="input-group mb-1">
             <span class="input-group-text" id="entregado"><b>Entregado A:</b></span>
             <input id="entregado" class="form-control" type="text" formControlName="entregado" />
-            <span class="input-group-text" id="cargo"><b>Cargo:</b></span>
-            <input id="cargo" class="form-control" type="text" formControlName="cargo" />
+            <ng-container *ngIf="salidaForm.value.entregado">
+              <span class="input-group-text" id="cargo"><b>Cargo:</b></span>
+              <input id="cargo" class="form-control" type="text" formControlName="cargo"  [required]="salidaForm.value.entregado" />
+            </ng-container>
+
             <!-- <div class="form-text" *ngIf="form['entregado'].touched && form['entregado'].invalid">
               <div *ngIf="form['entregado'].errors && form['entregado'].errors['required']">
                 * El entregado es Requerido.
