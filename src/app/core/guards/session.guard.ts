@@ -9,10 +9,10 @@ import { CookieService } from 'ngx-cookie-service';
 export class SessionGuard implements CanActivate {
 
   constructor(
-    
-      private cookie: CookieService,
-      private router: Router
-    ){
+
+    private cookie: CookieService,
+    private router: Router
+  ) {
 
   }
 
@@ -21,11 +21,11 @@ export class SessionGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.checkCookieSession();
   }
-  
+
   checkCookieSession(): boolean {
     try {
-      const token:boolean = this.cookie.check('token')
-      if(!token){
+      const token: boolean = this.cookie.check('token')
+      if (!token) {
         this.router.navigate(['/', 'login'])
       }
       return token

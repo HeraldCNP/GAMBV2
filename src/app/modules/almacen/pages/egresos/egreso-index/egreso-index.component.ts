@@ -194,7 +194,7 @@ export class EgresoIndexComponent implements OnInit {
           heightLeft -= pageHeight;
           doc.save('file.pdf');
         }
-        // doc.save('file.pdf');
+        doc.save('file.pdf');
         return doc;
       })
       .then((docResult) => {

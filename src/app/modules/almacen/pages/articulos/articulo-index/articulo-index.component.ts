@@ -232,5 +232,21 @@ export class ArticuloIndexComponent implements OnInit {
     });
   }
 
+  buscarCode() {
+
+    this.almacenService.searchArticulo(this.editForm.value.codigo).subscribe((resp:any) => {
+      // console.log('Resp:', resp.serverResponse);
+      if(resp.serverResponse.length > 0){
+        this.alertOk(
+          'error',
+          'Error',
+          'El codigo ya existe',
+          '2000'
+        );
+        this.editForm.value.codigo = 'a'
+      }
+    });
+  }
+
 
 }
