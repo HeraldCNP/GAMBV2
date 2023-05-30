@@ -23,6 +23,10 @@ export class CompraCreateComponent implements OnInit {
   fechaHoy = new Date().toISOString();
   // fechaHoy:string = "2023/02/02";
 
+  skip: number = 1;
+  page: number = 1;
+  limit: number = 10;
+
   catProgras:any;
   proveedores:any;
   funcionarios:any;
@@ -119,14 +123,33 @@ export class CompraCreateComponent implements OnInit {
     });
   }
 
-  buscar(termino: string) {
-    if (termino.length === 0) {
+  // buscar(termino: string) {
+  //   if (termino.length === 0) {
+  //     this.articulos = this.articulosTemp;
+  //     return;
+  //   }
+  //   this.comprasService.searchArticulo(termino).subscribe((resp) => {
+  //     console.log('Resp:', resp);
+  //     this.articulos = resp;
+  //     if (this.articulos.serverResponse.length == 1) {
+
+  //       this.article = this.articulos.serverResponse[0];
+
+  //       this.addArticulo(this.article)
+  //     }
+  //   });
+
+  // }
+
+    buscar(nombre: string) {
+    if (nombre.length === 0) {
       this.articulos = this.articulosTemp;
       return;
     }
-    this.comprasService.searchArticulo(termino).subscribe((resp) => {
+    this.almacenService.getAllArticulos(this.limit, this.skip, nombre).subscribe((resp) => {
       console.log('Resp:', resp);
       this.articulos = resp;
+      this.articulosTemp = resp;
       if (this.articulos.serverResponse.length == 1) {
 
         this.article = this.articulos.serverResponse[0];
@@ -136,6 +159,7 @@ export class CompraCreateComponent implements OnInit {
     });
 
   }
+
 
   removeArticulo(index: number){
     console.log('articleIndex', index)

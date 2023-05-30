@@ -58,6 +58,11 @@ const routes: Routes = [
     canActivate: [SessionGuard]
   },
   {
+    path: 'archivos',
+    loadChildren: () => import('./modules/archivos/archivos.module').then(m => m.ArchivosModule),
+    canActivate: [SessionGuard]
+  },
+  {
     path: '**',
     redirectTo:''
   }

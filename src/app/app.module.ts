@@ -10,11 +10,12 @@ import { LoginComponent } from './login/login.component';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+
 registerLocaleData(localeEs, 'es');
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

@@ -169,8 +169,14 @@ export class AlmacenService {
   /* End Proveedores */
 
   /* Articulos */
-  getAllArticulos(limit?: number, skip?: number): Observable<any[]> {
-    let dir = `${this.URL}/articulos?limit=${limit}&skip=${skip}`;
+  // getAllArticulos(limit?: number, skip?: number): Observable<any[]> {
+  //   let dir = `${this.URL}/articulos?limit=${limit}&skip=${skip}`;
+  //   console.log(dir);
+  //   return this.http.get<any>(dir);
+  // }
+
+  getAllArticulos(limit?: number, skip?: number, nombre?: string): Observable<any[]> {
+    let dir = `${this.URL}/articulos?limit=${limit}&skip=${skip}&nombre=${nombre}`;
     console.log(dir);
     return this.http.get<any>(dir);
   }

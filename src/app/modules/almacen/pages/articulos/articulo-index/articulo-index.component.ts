@@ -27,6 +27,7 @@ export class ArticuloIndexComponent implements OnInit {
   editForm: any;
   cargando: boolean = true;
   idArticulo: any;
+  nombre: string = '';
 
   constructor(private almacenService: AlmacenService, private fb: FormBuilder, private router: Router) {
 
@@ -54,7 +55,7 @@ export class ArticuloIndexComponent implements OnInit {
   cargarArticulos() {
     this.cargando = true;
     this.almacenService
-      .getAllArticulos(this.limit, this.skip)
+      .getAllArticulos(this.limit, this.skip, this.nombre)
       .subscribe((data: any) => {
         this.totalArticulos = data.totalDocs;
         this.articulos = data;

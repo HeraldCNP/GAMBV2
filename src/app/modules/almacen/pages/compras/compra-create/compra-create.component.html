@@ -239,7 +239,7 @@
               <div class="col-md">
                 <div class="panel panel-default">
                   <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar Artículo"
-                    (keyup.enter)="buscar(txtTermino.value)" (blur)="txtTermino.value = ''" #txtTermino />
+                    (keyup.enter)="buscar(txtNombre.value)" (blur)="txtNombre.value = ''" #txtNombre />
 
                   <datalist id="articulos" *ngIf="articulos">
                     <option style="color:blue" *ngFor="let articulo of articulos.serverResponse"
