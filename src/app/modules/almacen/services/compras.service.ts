@@ -54,18 +54,10 @@ export class ComprasService {
 
   searchArticulo(termino: any): Observable<any[]> {
 
-    if (termino.includes('%')) {
-      var dir = `${this.URL}/searchArticulo/${termino}`;
-      console.log('La cadena contiene el signo "%".');
 
-    } else {
-      const encoded = encodeURIComponent(termino);
-      var dir = `${this.URL}/searchArticulo/${encoded}`;
-      console.log('La cadena no contiene el signo "%".');
-    }
-
-
-    // console.log(encoded);
+    const encoded = encodeURIComponent(termino);
+    var dir = `${this.URL}/searchArticulo/${encoded}`;
+    console.log(encoded);
     return this.http.get<any[]>(dir);
     // .pipe(
     //   map((resp:any) => resp.serverResponse)

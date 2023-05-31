@@ -144,9 +144,9 @@ export class ArticuloCreateComponent implements OnInit {
 
   buscarCode() {
 
-    this.almacenService.searchArticulo(this.articuloForm.value.codigo).subscribe((resp:any) => {
-      // console.log('Resp:', resp.serverResponse);
-      if(resp.serverResponse.length > 0){
+    this.almacenService.searchArticulo2(this.articuloForm.value.codigo).subscribe((resp:any) => {
+      console.log('Resp:', resp);
+      if(resp != null){
         this.alertOk(
           'error',
           'Error',

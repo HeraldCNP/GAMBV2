@@ -211,6 +211,15 @@ export class AlmacenService {
     // );
   }
 
+  searchArticulo2(codigo: any): Observable<any[]> {
+    let dir = `${this.URL}/articuloCod/${codigo}`;
+    // console.log(dir);
+    return this.http.get<any[]>(dir);
+    // .pipe(
+    //   map((resp:any) => resp.serverResponse)
+    // );
+  }
+
   editArticulo(form: any, id: any): Observable<any> {
     let dir = `${this.URL}/articulo/${id}`;
     return this.http.put<any>(dir, form)
