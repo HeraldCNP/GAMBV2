@@ -55,7 +55,7 @@ export class ArticuloIndexComponent implements OnInit {
   cargarArticulos() {
     this.cargando = true;
     this.almacenService
-      .getAllArticulos(this.limit, this.skip, this.nombre)
+      .getAllArticulos(this.limit, this.skip)
       .subscribe((data: any) => {
         this.totalArticulos = data.totalDocs;
         this.articulos = data;

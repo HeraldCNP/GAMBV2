@@ -225,7 +225,7 @@ export class CompraIndexComponent implements OnInit {
           doc.save('file.pdf');
         }
 
-        // doc.save('dataurlnewwindow');
+        doc.save('dataurlnewwindow');
         return doc;
       })
       .then((doc) => {

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ComprasService {
   private readonly URL = environment.api;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
   getAllCatProgras(limit?: number, skip?: number): Observable<any[]> {
@@ -53,10 +53,19 @@ export class ComprasService {
   }
 
   searchArticulo(termino: any): Observable<any[]> {
-    const encoded = encodeURIComponent(termino);
-    let dir = `${this.URL}/searchArticulo/${encoded}`;
-    // let dir = `${this.URL}/searchArticulo/${termino}`;
-    console.log(encoded);
+
+    if (termino.includes('%')) {
+      var dir = `${this.URL}/searchArticulo/${termino}`;
+      console.log('La cadena contiene el signo "%".');
+
+    } else {
+      const encoded = encodeURIComponent(termino);
+      var dir = `${this.URL}/searchArticulo/${encoded}`;
+      console.log('La cadena no contiene el signo "%".');
+    }
+
+
+    // console.log(encoded);
     return this.http.get<any[]>(dir);
     // .pipe(
     //   map((resp:any) => resp.serverResponse)
@@ -71,7 +80,7 @@ export class ComprasService {
   }
 
 
-  editIngreso(form:any, id:any):Observable<any>{
+  editIngreso(form: any, id: any): Observable<any> {
     let dir = `${this.URL}/ingreso/${id}`;
     return this.http.put<any>(dir, form)
   }
@@ -87,7 +96,7 @@ export class ComprasService {
     return this.http.get<any>(dir)
   }
 
-  createEgreso(id:any){
+  createEgreso(id: any) {
     let dir = `${this.URL}/egresoya/${id}`;
     return this.http.get(dir)
   }
@@ -97,12 +106,12 @@ export class ComprasService {
   //   return this.http.post<any>(dir, form);
   // }
 
-  createSalida(form:any, id:any):Observable<any>{
+  createSalida(form: any, id: any): Observable<any> {
     let dir = `${this.URL}/egresoya/${id}`;
     return this.http.put<any>(dir, form)
   }
 
-  getSingleCompra(id:any):Observable<any>{
+  getSingleCompra(id: any): Observable<any> {
     let dir = `${this.URL}/ingreso/${id}`;
     return this.http.get<any>(dir)
   }

@@ -18,8 +18,8 @@ export class CompraCreateComponent implements OnInit {
   articulosTemp: any;
   article: any;
   listadeArticulos: any = [];
-  compraForm:any;
-  proveedorForm:any;
+  compraForm: any;
+  proveedorForm: any;
   fechaHoy = new Date().toISOString();
   // fechaHoy:string = "2023/02/02";
 
@@ -27,10 +27,10 @@ export class CompraCreateComponent implements OnInit {
   page: number = 1;
   limit: number = 10;
 
-  catProgras:any;
-  proveedores:any;
-  funcionarios:any;
-  vehiculos:any;
+  catProgras: any;
+  proveedores: any;
+  funcionarios: any;
+  vehiculos: any;
   cargando: boolean = true;
   gaso: boolean = false;
 
@@ -123,33 +123,21 @@ export class CompraCreateComponent implements OnInit {
     });
   }
 
-  // buscar(termino: string) {
-  //   if (termino.length === 0) {
-  //     this.articulos = this.articulosTemp;
-  //     return;
-  //   }
-  //   this.comprasService.searchArticulo(termino).subscribe((resp) => {
-  //     console.log('Resp:', resp);
-  //     this.articulos = resp;
-  //     if (this.articulos.serverResponse.length == 1) {
-
-  //       this.article = this.articulos.serverResponse[0];
-
-  //       this.addArticulo(this.article)
-  //     }
-  //   });
-
-  // }
-
-    buscar(nombre: string) {
-    if (nombre.length === 0) {
+  buscar(termino: string) {
+    if (termino.length === 0) {
       this.articulos = this.articulosTemp;
       return;
     }
-    this.almacenService.getAllArticulos(this.limit, this.skip, nombre).subscribe((resp) => {
+
+    // if (termino.includes('%')) {
+    //   console.log('La cadena contiene el signo "%".');
+    // } else {
+    //   console.log('La cadena no contiene el signo "%".');
+    // }
+
+    this.comprasService.searchArticulo(termino).subscribe((resp) => {
       console.log('Resp:', resp);
       this.articulos = resp;
-      this.articulosTemp = resp;
       if (this.articulos.serverResponse.length == 1) {
 
         this.article = this.articulos.serverResponse[0];
@@ -160,8 +148,26 @@ export class CompraCreateComponent implements OnInit {
 
   }
 
+  // buscar(nombre: string) {
+  //   if (nombre.length === 0) {
+  //     this.articulos = this.articulosTemp;
+  //     return;
+  //   }
+  //   this.almacenService.getAllArticulos(this.limit, this.skip).subscribe((resp) => {
+  //     console.log('Resp:', resp);
+  //     this.articulos = resp;
+  //     this.articulosTemp = resp;
+  //     if (this.articulos.serverResponse.length == 1) {
 
-  removeArticulo(index: number){
+  //       this.article = this.articulos.serverResponse[0];
+
+  //       this.addArticulo(this.article)
+  //     }
+  //   });
+  // }
+
+
+  removeArticulo(index: number) {
     console.log('articleIndex', index)
     // if(index == 0){
     //   this.listadeArticulos.splice(0, 1);
@@ -173,7 +179,7 @@ export class CompraCreateComponent implements OnInit {
     console.log('SingleDemoComponent.doSelect', value);
   }
 
-  cambio(event:any, i:number, field:string){
+  cambio(event: any, i: number, field: string) {
 
     // console.log("valor", event.target.innerText)
     // console.log("indice", i)
@@ -188,7 +194,7 @@ export class CompraCreateComponent implements OnInit {
 
   }
 
-  borrar(event:any){
+  borrar(event: any) {
     event.target.innerText = '';
   }
 
@@ -201,7 +207,7 @@ export class CompraCreateComponent implements OnInit {
   }
 
   calculateTotalCost() {
-    return this.listadeArticulos.reduce((acc:any, item:any) => acc + (item.precio * item.cantidadCompra), 0);
+    return this.listadeArticulos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
   }
 
 
@@ -261,12 +267,12 @@ export class CompraCreateComponent implements OnInit {
     this.proveedorForm.reset();
   }
 
-  changeGasolina(value: any){
+  changeGasolina(value: any) {
     this.gaso = value.isTrusted;
     console.log('gASOLINAS', value.isTrusted);
   }
 
-  changeGasolina2(value: any){
+  changeGasolina2(value: any) {
     this.gaso = false;
     console.log('gASOLINAS', value);
   }
