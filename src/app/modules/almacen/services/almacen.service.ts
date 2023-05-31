@@ -203,7 +203,7 @@ export class AlmacenService {
   }
 
   searchArticulo(termino: any): Observable<any[]> {
-    let dir = `${this.URL}/searchArticulo/${termino}`;
+    let dir = `${this.URL}/searchArticulos/${termino}`;
     // console.log(dir);
     return this.http.get<any[]>(dir);
     // .pipe(

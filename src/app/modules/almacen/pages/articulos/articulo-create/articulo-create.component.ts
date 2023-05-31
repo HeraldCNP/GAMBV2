@@ -145,7 +145,7 @@ export class ArticuloCreateComponent implements OnInit {
   buscarCode() {
 
     this.almacenService.searchArticulo2(this.articuloForm.value.codigo).subscribe((resp:any) => {
-      console.log('Resp:', resp);
+      // console.log('Resp:', resp);
       if(resp != null){
         this.alertOk(
           'error',
@@ -153,7 +153,7 @@ export class ArticuloCreateComponent implements OnInit {
           'El codigo ya existe',
           '2000'
         );
-        this.articuloForm.value.codigo = 'a'
+        console.log(this.articuloForm.value.codigo);
       }
     });
   }
