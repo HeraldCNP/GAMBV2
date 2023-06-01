@@ -15,6 +15,7 @@ export class CompraUpdateComponent implements OnInit {
   user: any;
   data: any;
   articulos: any;
+  article: any;
   articulosTemp: any;
   compraId: any;
   listadeArticulos: any = [];
@@ -194,4 +195,45 @@ export class CompraUpdateComponent implements OnInit {
       timer
     })
   }
+
+  buscar(termino: string) {
+    if (termino.length === 0) {
+      this.articulos = this.articulosTemp;
+      return;
+    }
+
+    // if (termino.includes('%')) {
+    //   console.log('La cadena contiene el signo "%".');
+    // } else {
+    //   console.log('La cadena no contiene el signo "%".');
+    // }
+
+    this.comprasService.searchArticulo(termino).subscribe((resp) => {
+      console.log('Resp:', resp);
+      this.articulos = resp;
+      if (this.articulos.serverResponse.length == 1) {
+
+        this.article = this.articulos.serverResponse[0];
+
+        this.addArticulo(this.article)
+      }
+    });
+
+  }
+
+  addArticulo(article: any) {
+    console.log('articleAdd', article)
+    this.listadeArticulos.push({
+      idArticulo: article._id,
+      codigo: article.codigo,
+      catProgra: this.editForm.value.categoriaProgra,
+      partidaGasto: article.idPartida.codigo,
+      factura: this.editForm.value.numeroFactura,
+      articulo: article.nombre,
+      cantidadCompra: 0,
+      unidadMedida: article.unidadDeMedida,
+      precio: 0
+    });
+  }
+
 }

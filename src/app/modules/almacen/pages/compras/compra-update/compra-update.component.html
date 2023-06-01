@@ -214,7 +214,7 @@
 
 
                 </form>
-                <!-- {{ editForm.value | json }} -->
+                {{ editForm.value | json }}
               </div>
             </div>
           </div>
@@ -238,7 +238,13 @@
             <div class="row">
               <div class="col-md">
                 <div class="panel panel-default">
+                  <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar Artículo"
+                    (keyup.enter)="buscar(txtNombre.value)" (blur)="txtNombre.value = ''" #txtNombre />
 
+                  <datalist id="articulos" *ngIf="articulos">
+                    <option style="color:blue" *ngFor="let articulo of articulos.serverResponse"
+                      value="{{articulo.nombre}}">
+                  </datalist>
 
                   <!-- <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
 
@@ -291,7 +297,7 @@
                           </td>
                           <td>{{item.cantidadCompra * item.precio}}</td>
                           <td>
-                            <!-- <span><i class="fas fa-trash pointer" (click)="removeArticulo(i)"></i></span> -->
+                            <span><i class="fas fa-trash pointer" (click)="removeArticulo(i)"></i></span>
                           </td>
                         </tr>
 
@@ -304,7 +310,7 @@
                       </tfoot>
                     </table>
                     <div class="btn-group">
-                      <!-- {{ listadeArticulos | json }} -->
+                      {{ listadeArticulos | json }}
                     </div>
                     <br>
                     <div class="text-center">
