@@ -11,41 +11,210 @@
           <div class="card-body table-responsive">
             <div class="row">
               <div class="col-md">
-                <form [formGroup]="compraForm">
+                <form [formGroup]="carpetaForm">
+
+
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text" id="fechaContrato"><b> Fecha de Contrato/Orden de Compra</b></span>
-                    <input type="date" class="form-control" id="fechaContrato" formControlName="fechaContrato">
-                    <div class="form-text" *ngIf="form['fechaContrato'].touched && form['fechaContrato'].invalid">
-                      <div *ngIf="form['fechaContrato'].errors && form['fechaContrato'].errors['required']">* Fecha de
+                    <span class="input-group-text izq" id="gestion"><b> Gestion</b></span>
+                    <select id="gestion" formControlName="gestion" class="form-select" required>
+                      <option value="2023" [defaultSelected]="true">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                      <option value="2019">2019</option>
+                    </select>
+                    <div class="form-text" *ngIf="form['gestion'].touched && form['gestion'].invalid">
+                      <div *ngIf="form['gestion'].errors && form['gestion'].errors['required']">* Fecha de
                         Contrato es Requerido.</div>
                     </div>
                   </div>
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text" id="plazo"><b>Plazo</b></span>
-                    <input id="plazo" class="form-control" type="number" formControlName="plazo" />
-                    <div class="form-text" *ngIf="form['plazo'].touched && form['plazo'].invalid">
-                      <div *ngIf="form['plazo'].errors && form['plazo'].errors['required']">
-                        * El plazo es Requerido.
+                    <span class="input-group-text izq"><b>Objeto *</b></span>
+                    <textarea id="objeto" class="form-control" type="text" formControlName="objeto"></textarea>
+                    <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
+                      <div *ngIf="
+                          form['objeto'].errors &&
+                          form['objeto'].errors['required']
+                        ">
+                        * la Glosa es Requerida.
                       </div>
-                      <div *ngIf="form['plazo'].errors && form['plazo'].errors['minlength']">
-                        * El plazo no puede tener menos de 3 caracteres.
+                      <div *ngIf="
+                          form['objeto'].errors &&
+                          form['objeto'].errors['minlength']
+                        ">
+                        * la Glosa no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="tomo"><b>Tomo *</b></span>
+                    <input id="tomo" class="form-control" type="text" formControlName="tomo" />
+                    <div class="form-text" *ngIf="form['tomo'].touched && form['tomo'].invalid">
+                      <div *ngIf="
+                          form['tomo'].errors &&
+                          form['tomo'].errors['required']
+                        ">
+                        * El Tomo es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['tomo'].errors &&
+                          form['tomo'].errors['minlength']
+                        ">
+                        * El Tomo no puede tener menos de 7 caracteres.
                       </div>
                     </div>
                   </div>
 
 
                   <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="numero"><b>Numero</b></span>
+                    <input id="numero" class="form-control" type="number" formControlName="numero" />
+                    <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
+                      <div *ngIf="form['numero'].errors && form['numero'].errors['required']">
+                        * El numero es Requerido.
+                      </div>
+                      <div *ngIf="form['numero'].errors && form['numero'].errors['minlength']">
+                        * El numero no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="lugar"><b>Lugar *</b></span>
+                    <input id="lugar" class="form-control" type="text" formControlName="lugar" />
+                    <div class="form-text" *ngIf="form['lugar'].touched && form['lugar'].invalid">
+                      <div *ngIf="
+                          form['lugar'].errors &&
+                          form['lugar'].errors['required']
+                        ">
+                        * El lugar es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['lugar'].errors &&
+                          form['lugar'].errors['minlength']
+                        ">
+                        * El Tomo no puede tener menos de 7 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="ubicacion"><b>Ubicacion *</b></span>
+                    <input id="ubicacion" class="form-control" type="text" formControlName="ubicacion" />
+                    <div class="form-text" *ngIf="form['ubicacion'].touched && form['ubicacion'].invalid">
+                      <div *ngIf="
+                          form['ubicacion'].errors &&
+                          form['ubicacion'].errors['required']
+                        ">
+                        * El ubicacion es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['ubicacion'].errors &&
+                          form['ubicacion'].errors['minlength']
+                        ">
+                        * El Tomo no puede tener menos de 7 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="area"><b> Area</b></span>
+                    <select id="area" formControlName="area" class="form-select" (change)="actualizarSegundoSelect()" required>
+                      <option value="" [defaultSelected]="true">Elija una opción</option>
+                      <option *ngFor="let area of areas.list" value="{{ area.slug }}" >{{ area.name }}</option>
+                    </select>
+                    <div class="form-text" *ngIf="form['area'].touched && form['area'].invalid">
+                      <div *ngIf="form['area'].errors && form['area'].errors['required']">* Fecha de
+                        Contrato es Requerido.</div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1" *ngIf="carpetaForm.value.area">
+                    <span class="input-group-text izq" id="tipo"><b> Tipo</b></span>
+                    <select id="tipo" formControlName="tipo" class="form-select" required>
+                      <option value="" [defaultSelected]="true">Elija una opción</option>
+                      <option *ngFor="let tipo of tipos" value="{{ tipo }}">{{ tipo }}</option>
+                    </select>
+                    <div class="form-text" *ngIf="form['tipo'].touched && form['tipo'].invalid">
+                      <div *ngIf="form['tipo'].errors && form['tipo'].errors['required']">* Fecha de
+                        Contrato es Requerido.</div>
+                    </div>
+                  </div>
+
+                                    <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="ubicacion"><b>Ubicacion *</b></span>
+                    <input id="ubicacion" class="form-control" type="text" formControlName="ubicacion" />
+                    <div class="form-text" *ngIf="form['ubicacion'].touched && form['ubicacion'].invalid">
+                      <div *ngIf="
+                          form['ubicacion'].errors &&
+                          form['ubicacion'].errors['required']
+                        ">
+                        * El ubicacion es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['ubicacion'].errors &&
+                          form['ubicacion'].errors['minlength']
+                        ">
+                        * El Tomo no puede tener menos de 7 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="archivo"><b>Archivo *</b></span>
+                    <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+                      formControlName="archivo" (change)="onChange($event)" />
+                    <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
+                      <div *ngIf="
+                          form['archivo'].errors &&
+                          form['archivo'].errors['required']
+                        ">
+                        * El archivo es Requerido.
+                      </div>
+                    </div>
+                    <div class="progress mt-1" *ngIf="progress > 0">
+                      <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'"
+                        aria-valuemin="0" aria-valuemax="100">
+                        {{ progress + "%" }}
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq"><b>Observaciones </b></span>
+                    <textarea id="observaciones" class="form-control" type="text" formControlName="observaciones"></textarea>
+                    <div class="form-text" *ngIf="form['observaciones'].touched && form['observaciones'].invalid">
+                      <div *ngIf="
+                          form['observaciones'].errors &&
+                          form['observaciones'].errors['required']
+                        ">
+                        * la Glosa es Requerida.
+                      </div>
+                      <div *ngIf="
+                          form['observaciones'].errors &&
+                          form['observaciones'].errors['minlength']
+                        ">
+                        * la observaciones no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text" id="plazo"><b>Fecha de Registro *</b></span>
                     <input type="date" class="form-control" id="fecha" formControlName="fecha">
                     <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
                       <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* fecha
                         es Requerido.</div>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <div class="input-group mb-1">
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text" id="plazo"><b>Proveedor *</b></span>
                     <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="proveedores"
                       optionTextField="representante" optionValueField="_id" placeholder="Seleccione un Proveedor"
@@ -67,9 +236,9 @@
                       <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
                         data-bs-target="#proveedor"><i class="fas fa-plus"></i></button>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <div class="input-group mb-1">
+                  <!-- <div class="input-group mb-1">
 
                     <span class="input-group-text" id="plazo"><b>Funcionario Solicitante *</b></span>
 
@@ -89,49 +258,29 @@
                         * El proveedor es Requerido.
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <div class="input-group">
-                    <span class="input-group-text"><b>Glosa *</b></span>
-                    <textarea id="concepto" class="form-control" type="text" formControlName="concepto"></textarea>
-                    <div class="form-text" *ngIf="form['concepto'].touched && form['concepto'].invalid">
-                      <div *ngIf="
-                          form['concepto'].errors &&
-                          form['concepto'].errors['required']
-                        ">
-                        * la Glosa es Requerida.
-                      </div>
-                      <div *ngIf="
-                          form['concepto'].errors &&
-                          form['concepto'].errors['minlength']
-                        ">
-                        * la Glosa no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div>
 
 
 
                   <hr>
-                  <div class="mb-1">
-                    <label for="checkGasolina" class="form-label col-auto">Tipo</label>
+                  <!-- <div class="mb-1">
+                    <label for="checkGasolina" class="form-label col-auto">Compra de Lubricante</label>
 
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="checkGasolina" id="checkGasolina" value="si"
                         (change)="changeGasolina($event)">
-                      <label class="form-check-label" for="checkGasolina">Inicial</label>
+                      <label class="form-check-label" for="checkGasolina">SI</label>
                     </div>
 
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="checkGasolina" id="checkGasolina" value="no"
-                        (change)="changeGasolina2($event)" checked>
-                      <label class="form-check-label" for="checkGasolina">Regular</label>
+                        (change)="changeGasolina2($event)">
+                      <label class="form-check-label" for="checkGasolina">NO</label>
                     </div>
-                  </div>
+                  </div> -->
 
                   <!-- <div class="mb-1" *ngIf="gaso">
-
-
                     <div class="input-group mb-1">
                       <span class="input-group-text" id="plazo"><b>Vehículo *</b></span>
                       <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="vehiculos"
@@ -171,7 +320,7 @@
 
                   </div> -->
 
-                  <div class="input-group mb-1">
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text" id="plazo"><b>Categoría Programatica *</b></span>
                     <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="catProgras"
                       optionTextField="codigo" optionValueField="cat_programatica"
@@ -190,9 +339,9 @@
                         </div>
                       </div>
                     </ngx-select>
-                  </div>
+                  </div> -->
 
-                  <div class="input-group mb-1">
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text" id="plazo"><b>Numero de Factura *</b></span>
                     <input id="numeroFactura" class="form-control" type="text" formControlName="numeroFactura" />
                     <div class="form-text" *ngIf="form['numeroFactura'].touched && form['numeroFactura'].invalid">
@@ -209,11 +358,11 @@
                         * El numero de factura no puede tener menos de 7 caracteres.
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
 
                 </form>
-                {{ compraForm.value | json }}
+                <!-- {{ carpetaForm.value | json }} -->
               </div>
             </div>
           </div>
@@ -227,117 +376,10 @@
 
 
 
-<div class="container">
-  <div class="">
-    <div class="row justify-content-md-center">
-      <div class="col-md-12">
-        <div class="card shadow p-3 mb-5 bg-body rounded">
-          <!-- /.card-header -->
-          <div class="card-body table-responsive">
-            <div class="row">
-              <div class="col-md">
-                <div class="panel panel-default">
-                  <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar Artículo"
-                    (keyup.enter)="buscar(txtNombre.value)" (blur)="txtNombre.value = ''" #txtNombre />
-
-                  <datalist id="articulos" *ngIf="articulos">
-                    <option style="color:blue" *ngFor="let articulo of articulos.serverResponse"
-                      value="{{articulo.nombre}}">
-                  </datalist>
-
-                  <!-- <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
-
-                  <div class="panel-body">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Código</th>
-                          <th>Cat. Prog.</th>
-                          <th>Partida de gasto</th>
-                          <th>Factura</th>
-                          <th>Artículo</th>
-                          <th>Cantidad</th>
-                          <th>Unidad de Medida</th>
-                          <th>P/U</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let item of listadeArticulos; index as i">
-                          <td style="cursor: not-allowed;">
-                            {{i + 1}}
-                          </td>
-                          <td [attr.row]="i" [attr.field]="'codigo'">
-                            {{item.codigo}}
-                          </td>
-                          <td [attr.row]="i" [attr.field]="'catProg'">
-                            {{item.catProgra}}
-                          </td>
-                          <td field="partidaGasto">
-                            {{item.partidaGasto}}
-                          </td>
-                          <td field="factura">
-                            {{item.factura}}
-                          </td>
-                          <td [attr.row]="i" [attr.field]="'articulo'">
-                            {{item.articulo}}
-                          </td>
-                          <td contenteditable="true"
-                            (blur)="cambio($event, i, 'cantidadCompra')" [attr.row]="i" [attr.field]="'cantidadCompra'">
-                            {{item.cantidadCompra}}
-                          </td>
-                          <td field="unidadDeMedida">
-                            {{item.unidadMedida}}
-                          </td>
-                          <td contenteditable="true"  (blur)="cambio($event, i, 'precio')"
-                            [attr.row]="i" [attr.field]="'precio'">
-                            {{item.precio}}
-                          </td>
-                          <td>{{item.cantidadCompra * item.precio}}</td>
-                          <td>
-                            <span><i class="fas fa-trash pointer" (click)="removeArticulo(i)"></i></span>
-                          </td>
-                        </tr>
-
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <td colspan="9" class="text-end fs-5"> <b>TOTAL GENERAL: </b></td>
-                          <td class="fs-5"><b>{{ calculateTotalCost() }}</b></td>
-                        </tr>
-                      </tfoot>
-                    </table>
-                    <div class="btn-group">
-                      <!-- {{ listadeArticulos | json }} -->
-                    </div>
-                    <br>
-                    <div class="text-center">
-                      <button type="button" class="btn btn-secondary mx-3" (click)="cancel()">
-                        Cerrar
-                      </button>
-                      <button (click)="registrarCompra(compraForm.value)" class="btn btn-primary"
-                        [disabled]="compraForm.invalid">
-                        Registrar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="proveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- <div class="modal fade" id="proveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="proveedorLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -392,10 +434,10 @@
               Registrar
             </button>
           </div>
-          <!-- {{ proveedorForm.value | json }} -->
+          {{ proveedorForm.value | json }}
         </form>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- End Modal -->

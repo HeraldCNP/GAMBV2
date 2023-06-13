@@ -20,6 +20,8 @@ import { PendientesComponent } from './pages/pendientes/pendientes.component';
 import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-ofi.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { Report1OrderPipe } from './pages/report1-order.pipe';
+import { ReportComponent } from './pages/report/report.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 
 @NgModule({
@@ -38,14 +40,16 @@ import { Report1OrderPipe } from './pages/report1-order.pipe';
     PendientesComponent,
     SendArchivoOfiComponent,
     ReportesComponent,
-    Report1OrderPipe
+    Report1OrderPipe,
+    ReportComponent
   ],
   imports: [
     CommonModule,
     HojaRutaRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MomentModule
+    MomentModule,
+    NgxSelectModule,
   ]
 })
 export class HojaRutaModule { }

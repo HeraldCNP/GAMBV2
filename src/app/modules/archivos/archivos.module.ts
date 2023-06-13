@@ -6,6 +6,11 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { ContaIndexComponent } from './pages/contabilidad/conta-index/conta-index.component';
+import { CarpetaIndexComponent } from './pages/carpetas/carpeta-index/carpeta-index.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarpetaCreateComponent } from './pages/carpetas/carpeta-create/carpeta-create.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 
 @NgModule({
@@ -13,11 +18,17 @@ import { FooterComponent } from './shared/footer/footer.component';
     DashboardComponent,
     SidebarComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ContaIndexComponent,
+    CarpetaIndexComponent,
+    CarpetaCreateComponent
   ],
   imports: [
     CommonModule,
-    ArchivosRoutingModule
+    ArchivosRoutingModule,
+    ReactiveFormsModule,
+    NgxSelectModule,
+    FormsModule
   ]
 })
 export class ArchivosModule { }

@@ -1,0 +1,180 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
+        <h2 class="text-center">Reportes</h2>
+        <div class="card-header d-flex flex-row justify-content-between">
+          <form [formGroup]="reportForm">
+            <div class="row g-3 align-items-center">
+              <div class="col-auto">
+                <div class="input-group mb-1">
+                  <span class="input-group-text" id="plazo"><b>Funcionario</b></span>
+                  <ngx-select [allowClear]="true" [items]="users" optionTextField="username" optionValueField="post"
+                    placeholder="Seleccione un Funcionario" formControlName="funcionario" >
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                      &nbsp;{{option.data.surnames}}
+                    </ng-template>
+                  </ngx-select>
+
+                  <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
+                    <div *ngIf="
+                        form['funcionario'].errors &&
+                        form['funcionario'].errors['required']
+                      ">
+                      * Debe seleccionar un funcionario.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="input-group mb-1 mx-2">
+                  <span class="input-group-text izq" id="estado"><b> Estado</b></span>
+                  <select id="estado" formControlName="estado" class="form-select" required>
+                    <option value="" [defaultSelected]="true">Elija una opción</option>
+                    <option value="DERIVADO">DERIVADO</option>
+                    <option value="RECIBIDO">RECIBIDO</option>
+                    <option value="MALETIN">MALETIN</option>
+                    <option value="FILE OFICINA">FILE OFICINA</option>
+                    <option value="ENVIADO">SIN RECEPCIONAR</option>
+                  </select>
+                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
+                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha de
+                      Contrato es Requerido.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="input-group mb-1 mx-2">
+                  <span class="input-group-text izq" id="estado"><b>Del</b></span>
+                  <input class="form-control" type="date" formControlName="del">
+                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
+                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha de
+                      Contrato es Requerido.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="input-group mb-1 mx-2">
+                  <span class="input-group-text izq" id="estado"><b>Al</b></span>
+                  <input class="form-control" type="date" formControlName="al">
+                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
+                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha de
+                      Contrato es Requerido.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button (click)="obtenerHojasRutas(reportForm)" class="btn btn-primary" [disabled]="reportForm.invalid">
+              Buscar
+            </button>
+            <!-- <div class="input-group mb-1">
+              <span class="input-group-text izq" id="funcionario"><b> Funcionario</b></span>
+              <select id="funcionario" formControlName="funcionario" class="form-select" required>
+                <option value="" [defaultSelected]="true">Elija una opción</option>
+                <option *ngFor="let user of users" value="{{ user.post }}">{{ user.username }} {{ user.surnames }}
+                </option>
+
+              </select>
+              <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
+                <div *ngIf="form['funcionario'].errors && form['funcionario'].errors['required']">* Debe seleccionar un
+                  funcionario.</div>
+              </div>
+            </div> -->
+
+
+
+          </form>
+        </div>
+        {{ reportForm.value | json }}
+        <div class="card-body">
+          <div class="">
+            <table class="table table-striped table-responsive">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Número</th>
+                  <th>Derivado por</th>
+                  <th>Origen</th>
+                  <th>Referencia</th>
+                  <th>Instrucción</th>
+                  <th>Fecha Derivado</th>
+                  <th>Fecha Recepción</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let seguimiento of seguimientos; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    {{ seguimiento.nuit }}
+                    <i>{{ seguimiento.copia }}</i>
+                  </td>
+                  <td>{{ seguimiento.nombre }}</td>
+                  <td>{{ seguimiento.origenhr }}</td>
+                  <td>{{ seguimiento.referencia }}</td>
+                  <td>{{ seguimiento.detalles }}</td>
+                  <td>
+                    {{
+                    seguimiento.fechaderivado
+                    | amLocal
+                    | amDateFormat : "DD-MM-YY HH:mm"
+                    }}
+                  </td>
+                  <td>
+                    <i [ngClass]="
+                        seguimiento.fecharecepcion === 'SIN RESEPCIONAR'
+                          ? 'badge badge-danger'
+                          : ''
+                      ">
+                      <span *ngIf="seguimiento.fecharecepcion === 'SIN RESEPCIONAR'">
+                        Recibir
+                      </span>
+                      <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
+                        {{
+                        seguimiento.fecharecepcion
+                        | amLocal
+                        | amDateFormat : "DD-MM-YY HH:mm"
+                        }}
+                      </i>
+                      <!--
+                      <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
+                        {{
+                          seguimiento.fecharecepcion | amLocale: "es" | amTimeAgo
+                        }}
+                      </i>
+                      -->
+                    </i>
+                  </td>
+                  <td [ngSwitch]="seguimiento.estado">
+                    <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
+                      seguimiento.estado
+                      }}</span>
+                    <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguimiento.estado }}
+                    </span>
+                    <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{
+                      seguimiento.estado
+                      }}</span>
+                    <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}
+                    </span>
+                    <span *ngIf="
+                        seguimiento.estado != 'DERIVADO' &&
+                        seguimiento.estado != 'MALETIN' &&
+                        seguimiento.estado != 'RECIBIDO' &&
+                        seguimiento.estado != 'ENVIADO'
+                      " class="bg badge text-dark">{{ seguimiento.estado }}</span>
+                  </td>
+
+                  <td>
+                    <!--<i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>-->
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

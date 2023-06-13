@@ -33,6 +33,7 @@ export class CompraCreateComponent implements OnInit {
   vehiculos: any;
   cargando: boolean = true;
   gaso: boolean = false;
+  tipo:string = "regular";
 
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
     this.user = localStorage.getItem('user');
@@ -51,6 +52,7 @@ export class CompraCreateComponent implements OnInit {
       articulos: ['', [Validators.required]],
       vehiculo: [''],
       motivo: [''],
+      tipo: ['REGULAR', [Validators.required]],
       idUsuario: [this.idUser],
     });
 
@@ -269,12 +271,14 @@ export class CompraCreateComponent implements OnInit {
 
   changeGasolina(value: any) {
     this.gaso = value.isTrusted;
-    console.log('gASOLINAS', value.isTrusted);
+    this.compraForm.value.tipo = "INICIAL";
+    // console.log('tipo', this.tipo);
   }
 
   changeGasolina2(value: any) {
     this.gaso = false;
-    console.log('gASOLINAS', value);
+    this.compraForm.value.tipo = "REGULAR";
+    // console.log('tipo', this.tipo);
   }
 
 

@@ -72,8 +72,8 @@ export class SendArchivoOfiComponent implements OnInit {
           }else{
             console.log("no es")
           }
-          
-          
+
+
         },(error) => {
           console.log(error);
         })
@@ -93,7 +93,7 @@ export class SendArchivoOfiComponent implements OnInit {
         (error) => {
           console.log(error);
         }
-      );   
+      );
   }
   getSegui() {
     if (this.idSegui !== null) {
