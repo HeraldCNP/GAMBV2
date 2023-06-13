@@ -24,7 +24,7 @@
       <a routerLink="/ruta/hojaRutas" [routerLinkActive]="['active']" class="nav-link">Asociar</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block"
-      *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.roles === 'SECRETARIA'">
+      *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA'">
       <a routerLink="/ruta/reportes" [routerLinkActive]="['active']" class="nav-link">Reportes </a>
     </li>
 
