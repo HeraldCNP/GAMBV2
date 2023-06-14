@@ -383,6 +383,7 @@ export class HojarutasComponent implements OnInit {
         docResult.save(`${new Date().toISOString()}_GAMB_HojaDeRuta.pdf`);
       });
   }
+
   ImprimirHRPDF() {
     const DATA: any = document.getElementById('htmlData1');
     const doc = new jsPDF('p', 'pt', 'letter');
@@ -393,6 +394,44 @@ export class HojarutasComponent implements OnInit {
     html2canvas(DATA, options)
       .then((canvas) => {
         const imgp:any = canvas.toDataURL('image/PNG');
+
+        // Add image Canvas to PDFx
+        const bufferX = 3;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(imgp);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(
+          imgp,
+          'PNG',
+          bufferX,
+          bufferY,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          'FAST'
+        );
+        return doc;
+      })
+      .then((docResult) => {
+        docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+        //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
+      });
+  }
+
+
+  ImprimirHR() {
+    const DATA: any = document.getElementById('htmlData1');
+    const doc = new jsPDF('p', 'pt', 'letter');
+    const options = {
+      background: 'white',
+      scale: 3,
+    };
+    html2canvas(DATA, options)
+      .then((canvas) => {
+        const imgp:any = canvas.toDataURL('image/PNG');
+
+
 
         // Add image Canvas to PDFx
         const bufferX = 3;

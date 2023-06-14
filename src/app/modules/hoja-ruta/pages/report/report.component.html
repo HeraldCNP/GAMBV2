@@ -20,6 +20,7 @@
                   <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
                     <div *ngIf="
                         form['funcionario'].errors &&
+
                         form['funcionario'].errors['required']
                       ">
                       * Debe seleccionar un funcionario.
@@ -28,8 +29,8 @@
                 </div>
               </div>
               <div class="col-auto">
-                <div class="input-group mb-1 mx-2">
-                  <span class="input-group-text izq" id="estado"><b> Estado</b></span>
+                <div class="input-group mb-1">
+                  <span class="input-group-text" id="estado"><b> Estado</b></span>
                   <select id="estado" formControlName="estado" class="form-select" required>
                     <option value="" [defaultSelected]="true">Elija una opción</option>
                     <option value="DERIVADO">DERIVADO</option>
@@ -39,8 +40,7 @@
                     <option value="ENVIADO">SIN RECEPCIONAR</option>
                   </select>
                   <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha de
-                      Contrato es Requerido.</div>
+                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Estado es Requerido.</div>
                   </div>
                 </div>
               </div>
@@ -49,8 +49,7 @@
                   <span class="input-group-text izq" id="estado"><b>Del</b></span>
                   <input class="form-control" type="date" formControlName="del">
                   <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha de
-                      Contrato es Requerido.</div>
+                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha Inicial</div>
                   </div>
                 </div>
               </div>
@@ -59,8 +58,7 @@
                   <span class="input-group-text izq" id="estado"><b>Al</b></span>
                   <input class="form-control" type="date" formControlName="al">
                   <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha de
-                      Contrato es Requerido.</div>
+                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha Final</div>
                   </div>
                 </div>
               </div>

@@ -20,8 +20,8 @@ export class ReportComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private reportService:ReportService,) {
     this.reportForm = this.fb.group({
-      funcionario: ['', [Validators.required]],
-      estado: [' '],
+      funcionario: ['', Validators.required],
+      estado: [''],
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
     });
