@@ -9,9 +9,9 @@ import { ContaService } from '../../../services/conta.service';
   styleUrls: ['./conta-index.component.css']
 })
 export class ContaIndexComponent implements OnInit {
-  totalCarpetas: any = 0;
-  carpetas: any = [];
-  carpetasTemp: any = [];
+  totalCarpetasConta: any = 0;
+  carpetasConta: any = [];
+  carpetasContaTemp: any = [];
   skip: number = 1;
   page: number = 1;
   limit: number = 10;
@@ -54,19 +54,19 @@ export class ContaIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargarCarpetas();
+    this.getCarpetasConta();
   }
 
 
-  cargarCarpetas() {
+  getCarpetasConta() {
     this.cargando = true;
-    this.contaService.getAllCarpetas(this.limit, this.skip, this.area)
+    this.contaService.getAllConta(this.limit, this.skip, this.area)
       .subscribe((data: any) => {
-        this.totalCarpetas = data.totalDocs;
-        this.carpetas = data;
-        this.carpetasTemp = data;
+        this.totalCarpetasConta = data.totalDocs;
+        this.carpetasConta = data.serverResponse;
+        this.carpetasContaTemp = data;
         this.totalPages = data.totalpage;
-        console.log(data);
+        console.log(this.carpetasConta);
         this.cargando = false;
       });
   }
@@ -143,7 +143,7 @@ export class ContaIndexComponent implements OnInit {
 
   buscar(termino: string) {
     if (termino.length === 0) {
-      this.carpetas = this.carpetasTemp;
+      this.carpetasConta = this.carpetasContaTemp;
       return;
     }
     // this.almacenService.searchProveedor(termino).subscribe((resp) => {
@@ -162,7 +162,7 @@ export class ContaIndexComponent implements OnInit {
       this.skip -= valor;
       this.page -= valor;
     }
-    this.cargarCarpetas();
+    // this.cargarCarpetas();
   }
 
   borrarCarpeta(id: string) {
@@ -196,5 +196,8 @@ export class ContaIndexComponent implements OnInit {
     });
   }
 
+  addDocumento(carpeta:any){
+
+  }
 
 }

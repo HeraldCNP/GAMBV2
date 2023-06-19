@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ContaService } from '../../../services/conta.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { CarpetaService } from '../../../services/carpeta.service';
 
 @Component({
   selector: 'app-carpeta-index',
@@ -21,8 +21,8 @@ export class CarpetaIndexComponent implements OnInit {
   editForm: any;
   cargando: boolean = true;
   idCarpeta: any;
-  area: string = '';
-  constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) {
+
+  constructor(private fb: FormBuilder, private carpetaService: CarpetaService, private router: Router) {
     this.carpetaForm = this.fb.group({
       gestion: ['', [Validators.required]],
       objeto: ['', [Validators.required]],
@@ -58,7 +58,7 @@ export class CarpetaIndexComponent implements OnInit {
 
   cargarCarpetas() {
     this.cargando = true;
-    this.contaService.getAllCarpetas(this.limit, this.skip, this.area)
+    this.carpetaService.getAllCarpetas(this.limit, this.skip)
       .subscribe((data: any) => {
         this.totalCarpetas = data.totalDocs;
         this.carpetas = data;
@@ -196,5 +196,9 @@ export class CarpetaIndexComponent implements OnInit {
       text,
       timer,
     });
+  }
+
+  addDocumento(carpeta: any){
+    this.router.navigate(['archivos/carpetas/index']);
   }
 }

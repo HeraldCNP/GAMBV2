@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ContaService } from '../../../services/conta.service';
+import { HttpEventType } from '@angular/common/http';
+import { CarpetaService } from '../../../services/carpeta.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carpeta-create',
@@ -8,6 +11,9 @@ import { ContaService } from '../../../services/conta.service';
   styleUrls: ['./carpeta-create.component.css']
 })
 export class CarpetaCreateComponent implements OnInit {
+  idUser: any;
+  user: any;
+  data: any;
   carpetaForm: any;
   files: any;
   progress: number = 0;
@@ -36,28 +42,28 @@ export class CarpetaCreateComponent implements OnInit {
 
   tipos: string[] = [];
 
-  constructor(private fb: FormBuilder, private contaService: ContaService) {
+  constructor(private fb: FormBuilder, private carpetaService: CarpetaService, private router: Router) {
 
     this.carpetaForm = this.fb.group({
-      gestion: ['', [Validators.required]],
+      gestion: ['2023', [Validators.required]],
       objeto: ['', [Validators.required]],
       tomo: ['', [Validators.required]],
       numero: ['', [Validators.required]],
       lugar: [''],
       ubicacion: [''],
-      area: [''],
-      tipo: [''],
+      area: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
       archivo: [''],
-      observaciones: [''],
-      usuario: [''],
+      observaciones: ['']
     });
 
 
   }
 
   ngOnInit(): void {
-    console.log(this.tipos);
-    console.log(this.areas);
+    this.user = localStorage.getItem('user');
+    this.data = JSON.parse(this.user);
+    this.idUser = this.data.id;
 
   }
 
@@ -68,7 +74,6 @@ export class CarpetaCreateComponent implements OnInit {
   onChange($event: any) {
     this.files = $event.target.files;
   }
-
 
   actualizarSegundoSelect() {
     console.log("cambio");
@@ -91,6 +96,92 @@ export class CarpetaCreateComponent implements OnInit {
         this.tipos = [];
         break;
     }
+  }
+
+  crearArchivo() {
+    let fd = new FormData();
+
+    if (!this.carpetaForm.value.archivo) {
+      // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
+
+
+      fd.append('gestion', this.carpetaForm.value.gestion);
+      fd.append('objeto', this.carpetaForm.value.objeto);
+      fd.append('tomo', this.carpetaForm.value.tomo);
+      fd.append('numero', this.carpetaForm.value.numero);
+      fd.append('lugar', this.carpetaForm.value.lugar);
+      fd.append('ubicacion', this.carpetaForm.value.ubicacion);
+      fd.append('area', this.carpetaForm.value.area);
+      fd.append('tipo', this.carpetaForm.value.tipo);
+      fd.append('observaciones', this.carpetaForm.value.observaciones);
+      fd.append('usuario', this.idUser);
+
+      this.carpetaService.registerCarpeta(fd).subscribe(
+        (err) => {
+          console.log('HTTP Error', err);
+          this.progress = 0;
+        },
+        () => {
+          this.progress = 0;
+          this.router.navigate(['archivos/carpetas/index']);
+          this.alertOk(
+            'success',
+            'Exito',
+            'Documento Creado Correctamente',
+            '2000'
+          );
+        }
+      );
+    } else {
+      // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
+
+      fd.append('gestion', this.carpetaForm.value.gestion);
+      fd.append('objeto', this.carpetaForm.value.objeto);
+      fd.append('tomo', this.carpetaForm.value.tomo);
+      fd.append('numero', this.carpetaForm.value.numero);
+      fd.append('lugar', this.carpetaForm.value.lugar);
+      fd.append('ubicacion', this.carpetaForm.value.ubicacion);
+      fd.append('area', this.carpetaForm.value.area);
+      fd.append('tipo', this.carpetaForm.value.tipo);
+      fd.append('observaciones', this.carpetaForm.value.observaciones);
+      fd.append('usuario', this.idUser);
+      fd.append('file', this.files[0]);
+
+      this.carpetaService.registerCarpeta(fd).subscribe(
+        (event) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round((100 * event.loaded) / event.total);
+          }
+        },
+        (err) => {
+          console.log('HTTP Error', err);
+          this.progress = 0;
+        },
+        () => {
+          this.progress = 0;
+          this.router.navigate(['archivos/carpetas/index']);
+          this.alertOk(
+            'success',
+            'Exito',
+            'Documento Creado Correctamente',
+            '2000'
+          );
+        }
+      );
+    }
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer,
+    });
+  }
+
+  cancel() {
+    this.router.navigate(['archivos/carpetas/index']);
   }
 
 

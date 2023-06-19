@@ -7,14 +7,13 @@
             <div class="row my-2">
               <div class="col-md-8">
                 <h3 class="card-title">
-                  Total de Carpetas ({{ totalCarpetas }})
+                  Total de Carpetas ({{ totalCarpetasConta }})
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop">
+                <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addCarpeta()">
                   Nueva Carpeta
-                </button>
+                </button> -->
               </div>
             </div>
             <!-- <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
@@ -41,9 +40,10 @@
                 <tr>
                   <th>Gestión</th>
                   <th>Objeto</th>
+                  <th>Area</th>
+                  <th>Tipo</th>
                   <th>Tomo</th>
                   <th>N°</th>
-                  <th>Tipo</th>
                   <th>Lugar</th>
                   <th>Ubicacion</th>
                   <th>Archivo</th>
@@ -52,14 +52,14 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let carpeta of carpetas.serverResponse; let i = index">
+                <tr *ngFor="let carpeta of carpetasConta; let i = index">
                   <td>{{ carpeta.gestion }}</td>
                   <td>{{ carpeta.objeto }}</td>
                   <td>{{ carpeta.tomo }}</td>
                   <td>{{ carpeta.numero }}</td>
-                  <td>{{ carpeta.lugar }}</td>
-                  <td>{{ carpeta.area }}</td>
                   <td>{{ carpeta.tipo }}</td>
+                  <td>{{ carpeta.area }}</td>
+                  <td>{{ carpeta.lugar }}</td>
                   <td>{{ carpeta.archivo }}</td>
                   <td>{{ carpeta.observaciones }}</td>
                   <!-- <td>
@@ -77,6 +77,8 @@
                     </div>
                   </td> -->
                   <td>
+                    <i class="fas fa-plus ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="addDocumento(carpeta._id)"></i>
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(carpeta)"></i>
                     <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i>
@@ -115,7 +117,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="crearProveedor(proveedorForm.value)" [formGroup]="proveedorForm">
+        <form (ngSubmit)="crearProveedor(carpetaForm.value)" [formGroup]="carpetaForm">
           <div class="mb-1">
             <label for="representante" class="form-label col-md-auto">Representante *</label>
             <input id="representante" class="form-control" type="text" formControlName="representante" />
@@ -150,16 +152,17 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cerrar
             </button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="proveedorForm.invalid">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="carpetaForm.invalid">
               Registrar
             </button>
           </div>
-          {{ proveedorForm.value | json }}
+          {{ carpetaForm.value | json }}
         </form>
       </div>
     </div>
   </div>
 </div> -->
+
 <!-- End Modal -->
 
 <!-- Modal Edit -->

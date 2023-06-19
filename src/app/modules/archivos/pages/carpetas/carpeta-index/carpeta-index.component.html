@@ -40,9 +40,10 @@
                 <tr>
                   <th>Gestión</th>
                   <th>Objeto</th>
+                  <th>Area</th>
+                  <th>Tipo</th>
                   <th>Tomo</th>
                   <th>N°</th>
-                  <th>Tipo</th>
                   <th>Lugar</th>
                   <th>Ubicacion</th>
                   <th>Archivo</th>
@@ -56,9 +57,9 @@
                   <td>{{ carpeta.objeto }}</td>
                   <td>{{ carpeta.tomo }}</td>
                   <td>{{ carpeta.numero }}</td>
-                  <td>{{ carpeta.lugar }}</td>
-                  <td>{{ carpeta.area }}</td>
                   <td>{{ carpeta.tipo }}</td>
+                  <td>{{ carpeta.area }}</td>
+                  <td>{{ carpeta.lugar }}</td>
                   <td>{{ carpeta.archivo }}</td>
                   <td>{{ carpeta.observaciones }}</td>
                   <!-- <td>
@@ -76,6 +77,8 @@
                     </div>
                   </td> -->
                   <td>
+                    <i class="fas fa-plus ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="addDocumento(carpeta._id)"></i>
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(carpeta)"></i>
                     <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i>
