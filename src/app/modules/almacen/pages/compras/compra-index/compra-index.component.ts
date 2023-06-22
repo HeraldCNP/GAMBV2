@@ -129,7 +129,7 @@ export class CompraIndexComponent implements OnInit {
       confirmButtonText: '¡Sí, bórralo!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Proyecto ha sido eliminado.', 'success');
+        Swal.fire('¡Eliminado!', 'El Ingreso ha sido eliminado.', 'success');
         this.comprasService.deleteIngreso(id).subscribe(
           (res) => console.log(res),
           (err) => console.log('HTTP Error', err),

@@ -73,15 +73,15 @@
                         data-bs-target="#exampleModal">
                         <i class="fas fa-print"></i>
                       </button>
-                      <!-- <i class="fas fa-trash-alt ml-2 icono" (click)="borrarIngreso(ingreso._id)"></i> -->
                       <i class="fas fa-edit ml-2 icono" (click)="editarEntrada(ingreso._id)"></i>
                       <ng-container *ngIf="ingreso.estado == 'REGISTRADO'">
                         <!-- <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i> -->
                         <button type="button" (click)="getEntrada(ingreso._id)" class="" data-bs-toggle="modal"
-                          data-bs-target="#salidaModal">
-                          <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                      </ng-container>
+                        data-bs-target="#salidaModal">
+                        <i class="fas fa-sign-out-alt"></i>
+                      </button>
+                    </ng-container>
+                    <i *ngIf="(data && data.roles === 'SUPER_ADMIN')" class="fas fa-trash-alt ml-2 icono" (click)="borrarIngreso(ingreso._id)"></i>
                     </div>
                   </td>
                 </tr>

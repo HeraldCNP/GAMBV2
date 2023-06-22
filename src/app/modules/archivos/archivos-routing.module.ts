@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ContaIndexComponent } from './pages/contabilidad/conta-index/conta-index.component';
 import { CarpetaIndexComponent } from './pages/carpetas/carpeta-index/carpeta-index.component';
 import { CarpetaCreateComponent } from './pages/carpetas/carpeta-create/carpeta-create.component';
+import { ContaIndexComponent } from './pages/conta/conta-index/conta-index.component';
+import { DocIndexComponent } from './pages/conta/doc-index/doc-index.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: 'carpetas/index', component: CarpetaIndexComponent },
       { path: 'carpetas/create', component: CarpetaCreateComponent },
       { path: 'conta/index', component: ContaIndexComponent },
+      { path: 'conta/docs/index', component: DocIndexComponent },
       // { path: 'compra/update/:id', component: CompraUpdateComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },

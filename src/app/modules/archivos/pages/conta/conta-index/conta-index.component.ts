@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { ContaService } from '../../../services/conta.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-conta-index',
@@ -10,32 +11,30 @@ import { ContaService } from '../../../services/conta.service';
 })
 export class ContaIndexComponent implements OnInit {
   totalCarpetasConta: any = 0;
-  carpetasConta: any = [];
-  carpetasContaTemp: any = [];
+  carpetas: any = [];
+  carpetasTemp: any = [];
   skip: number = 1;
   page: number = 1;
   limit: number = 10;
   totalPages: any;
-  carpetaForm: any;
+  contaForm: any;
   editForm: any;
   cargando: boolean = true;
   idCarpeta: any;
-  area: string = 'contabilidad';
+  idCarpetaConta: any;
+  area:string = 'contabilidad';
+  carpeta:any;
 
-  constructor(private fb: FormBuilder, private contaService: ContaService) {
-
-    this.carpetaForm = this.fb.group({
-      gestion: ['', [Validators.required]],
-      objeto: ['', [Validators.required]],
-      tomo: ['', [Validators.required]],
+  constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) {
+    this.contaForm = this.fb.group({
       numero: ['', [Validators.required]],
-      lugar: [''],
-      ubicacion: [''],
-      area: [''],
-      tipo: [''],
-      archivo: [''],
-      observaciones: [''],
-      usuario: [''],
+      detalle: ['', [Validators.required]],
+      beneficiario: ['', [Validators.required]],
+      fecha: ['', [Validators.required]],
+      monto: ['', [Validators.required]],
+      fojas: ['', [Validators.required]],
+      observacion: ['', [Validators.required]],
+      idCarpeta: [''],
     });
 
     this.editForm = this.fb.group({
@@ -53,45 +52,28 @@ export class ContaIndexComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.getCarpetasConta();
+ ngOnInit(): void {
+    this.cargarCarpetasConta()
   }
 
-
-  getCarpetasConta() {
+  cargarCarpetasConta() {
     this.cargando = true;
     this.contaService.getAllConta(this.limit, this.skip, this.area)
       .subscribe((data: any) => {
-        this.totalCarpetasConta = data.totalDocs;
-        this.carpetasConta = data.serverResponse;
-        this.carpetasContaTemp = data;
+        this.totalCarpetasConta = data.serverResponse.length;
+        this.carpetas = data;
+        this.carpetasTemp = data;
         this.totalPages = data.totalpage;
-        console.log(this.carpetasConta);
+        console.log(data);
         this.cargando = false;
       });
   }
 
-  public doSelect = (value: any) => {
-    console.log('SingleDemoComponent.doSelect', value);
-  };
-
-  crearProveedor(form: any) {
-    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
-    // this.almacenService.createProveedor(form).subscribe(
-    //   (res) => {
-    //     console.log(res);
-    //   },
-    //   (err) => console.log('HTTP Error', err),
-    //   () => {
-    //     this.proveedorForm.reset();
-    //     this.cargarProveedores();
-    //   }
-    // );
+  get form() {
+    return this.contaForm.controls;
   }
 
-  resetForm() {
-    this.carpetaForm.reset();
-  }
+
 
   cargarDataEdit(proveedor: any) {
     // console.log("idProve", proveedor.representante)
@@ -106,44 +88,9 @@ export class ContaIndexComponent implements OnInit {
     this.idCarpeta = proveedor._id;
   }
 
-  editProveedor(form: any) {
-    // this.almacenService.editProveedor(form, this.idProveedor).subscribe(
-    //   (res) => {
-    //     console.log(res);
-    //   },
-    //   (err) => {
-    //     console.log('HTTP Error', err);
-    //   },
-    //   () => {
-    //     this.editForm.reset();
-    //     this.alertOk(
-    //       'success',
-    //       'Exito',
-    //       'Proveedor editado Correctamente',
-    //       '2000'
-    //     );
-    //     this.cargarProveedores();
-    //   }
-    // );
-  }
-
-  changeStatus(id: any, estado: any) {
-    let fd = new FormData();
-    fd.append('estado', estado);
-    // this.almacenService.editProveedor(fd, id).subscribe(
-    //   (res) => {
-    //     console.log(res);
-    //   },
-    //   (err) => console.log('HTTP Error', err),
-    //   () => {
-    //     this.cargarProveedores();
-    //   }
-    // );
-  }
-
   buscar(termino: string) {
     if (termino.length === 0) {
-      this.carpetasConta = this.carpetasContaTemp;
+      this.carpetas = this.carpetasTemp;
       return;
     }
     // this.almacenService.searchProveedor(termino).subscribe((resp) => {
@@ -162,7 +109,7 @@ export class ContaIndexComponent implements OnInit {
       this.skip -= valor;
       this.page -= valor;
     }
-    // this.cargarCarpetas();
+    this.cargarCarpetasConta();
   }
 
   borrarCarpeta(id: string) {
@@ -187,6 +134,26 @@ export class ContaIndexComponent implements OnInit {
     });
   }
 
+  crearConta(form: any) {
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    this.contaService.createConta(form, this.idCarpetaConta).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+        this.contaForm.reset();
+        this.alertOk(
+          'success',
+          'Exito',
+          'Documento Registrado Correctamente',
+          '2000'
+        );
+        this.cargarCarpetasConta();
+      }
+    );
+  }
+
   alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({
       icon,
@@ -196,8 +163,35 @@ export class ContaIndexComponent implements OnInit {
     });
   }
 
-  addDocumento(carpeta:any){
+  resetForm() {
+    this.contaForm.reset();
+  }
 
+  addCarpetaId(carpeta:any){
+    this.contaForm.setValue({
+      numero: '',
+      detalle: '',
+      beneficiario: '',
+      fecha: '',
+      monto: '',
+      fojas: '',
+      observacion: '',
+      idCarpeta: carpeta._id,
+    });
+    this.idCarpetaConta = carpeta._id;
+  }
+
+  verDocumentos(carpeta:any){
+    this.contaService.getSingleCarpeta(carpeta._id).subscribe(
+      (res) => {
+        this.carpeta = res.serverResponse;
+        console.log(this.carpeta);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+
+      }
+    );
   }
 
 }

@@ -89,14 +89,14 @@
 
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="numero"><b>Numero *</b></span>
-                    <input id="numero" class="form-control" type="number" formControlName="numero" />
-                    <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
-                      <div *ngIf="form['numero'].errors && form['numero'].errors['required']">
-                        * El numero es Requerido.
+                    <span class="input-group-text izq" id="observacion"><b>observacion *</b></span>
+                    <input id="observacion" class="form-control" type="number" formControlName="observacion" />
+                    <div class="form-text" *ngIf="form['observacion'].touched && form['observacion'].invalid">
+                      <div *ngIf="form['observacion'].errors && form['observacion'].errors['required']">
+                        * El observacion es Requerido.
                       </div>
-                      <div *ngIf="form['numero'].errors && form['numero'].errors['minlength']">
-                        * El numero no puede tener menos de 3 caracteres.
+                      <div *ngIf="form['observacion'].errors && form['observacion'].errors['minlength']">
+                        * El observacion no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>

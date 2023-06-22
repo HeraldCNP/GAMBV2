@@ -10,6 +10,8 @@ import { CarpetaIndexComponent } from './pages/carpetas/carpeta-index/carpeta-in
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarpetaCreateComponent } from './pages/carpetas/carpeta-create/carpeta-create.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { ContaIndexComponent } from './pages/conta/conta-index/conta-index.component';
+import { DocIndexComponent } from './pages/conta/doc-index/doc-index.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { NgxSelectModule } from 'ngx-select-ex';
     HeaderComponent,
     FooterComponent,
     CarpetaIndexComponent,
-    CarpetaCreateComponent
+    CarpetaCreateComponent,
+    ContaIndexComponent,
+    DocIndexComponent
   ],
   imports: [
     CommonModule,

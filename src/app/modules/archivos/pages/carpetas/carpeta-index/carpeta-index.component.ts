@@ -198,7 +198,5 @@ export class CarpetaIndexComponent implements OnInit {
     });
   }
 
-  addDocumento(carpeta: any){
-    this.router.navigate(['archivos/carpetas/index']);
-  }
+
 }

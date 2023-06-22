@@ -7,7 +7,7 @@
             <div class="row my-2">
               <div class="col-md-8">
                 <h3 class="card-title">
-                  Total de Carpetas ({{ totalCarpetasConta }})
+                  Total de Carpetas de Contabilidad ({{ totalCarpetasConta }})
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
@@ -52,13 +52,13 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let carpeta of carpetasConta; let i = index">
+                <tr *ngFor="let carpeta of carpetas.serverResponse; let i = index">
                   <td>{{ carpeta.gestion }}</td>
                   <td>{{ carpeta.objeto }}</td>
+                  <td>{{ carpeta.area }}</td>
+                  <td>{{ carpeta.tipo }}</td>
                   <td>{{ carpeta.tomo }}</td>
                   <td>{{ carpeta.numero }}</td>
-                  <td>{{ carpeta.tipo }}</td>
-                  <td>{{ carpeta.area }}</td>
                   <td>{{ carpeta.lugar }}</td>
                   <td>{{ carpeta.archivo }}</td>
                   <td>{{ carpeta.observaciones }}</td>
@@ -77,8 +77,6 @@
                     </div>
                   </td> -->
                   <td>
-                    <i class="fas fa-plus ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="addDocumento(carpeta._id)"></i>
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(carpeta)"></i>
                     <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i>
@@ -87,7 +85,7 @@
               </tbody>
             </table>
             <!-- *ngIf="txtTermino.value.length === 0" -->
-            <div class="text-center" >
+            <div class="text-center">
               <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
@@ -117,46 +115,152 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="crearProveedor(carpetaForm.value)" [formGroup]="carpetaForm">
-          <div class="mb-1">
-            <label for="representante" class="form-label col-md-auto">Representante *</label>
-            <input id="representante" class="form-control" type="text" formControlName="representante" />
+        <form (ngSubmit)="crearConta(contaForm.value)" [formGroup]="contaForm">
+
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="numero"><b>Numero *</b></span>
+            <input id="numero" class="form-control" type="text" formControlName="numero" />
+            <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
+              <div *ngIf="
+                  form['numero'].errors &&
+                  form['numero'].errors['required']
+                ">
+                * El numero es Requerido.
+              </div>
+              <div *ngIf="
+                  form['numero'].errors &&
+                  form['numero'].errors['minlength']
+                ">
+                * El numero no puede tener menos de 3 caracteres.
+              </div>
+            </div>
           </div>
 
-          <div class="mb-1">
-            <label for="razon_social" class="form-label col-md-auto">Razon Social *</label>
-            <input id="razon_social" class="form-control" type="text" formControlName="razon_social" />
+          <div class="input-group mb-1">
+            <span class="input-group-text izq"><b>Detalle *</b></span>
+            <textarea id="detalle" class="form-control" type="text" formControlName="detalle"></textarea>
+            <div class="form-text" *ngIf="form['detalle'].touched && form['detalle'].invalid">
+              <div *ngIf="
+                  form['detalle'].errors &&
+                  form['detalle'].errors['required']
+                ">
+                * El detalle es Requerido.
+              </div>
+              <div *ngIf="
+                  form['detalle'].errors &&
+                  form['detalle'].errors['minlength']
+                ">
+                * El detalle no puede tener menos de 3 caracteres.
+              </div>
+            </div>
           </div>
 
-          <div class="mb-1">
-            <label for="nit" class="form-label col-md-auto">Nit *</label>
-            <input id="nit" class="form-control" type="number" formControlName="nit" />
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="beneficiario"><b>beneficiario *</b></span>
+            <input id="beneficiario" class="form-control" type="text" formControlName="beneficiario" />
+            <div class="form-text" *ngIf="form['beneficiario'].touched && form['beneficiario'].invalid">
+              <div *ngIf="
+                  form['beneficiario'].errors &&
+                  form['beneficiario'].errors['required']
+                ">
+                * El beneficiario es Requerido.
+              </div>
+              <div *ngIf="
+                  form['beneficiario'].errors &&
+                  form['beneficiario'].errors['minlength']
+                ">
+                * El beneficiario no puede tener menos de 3 caracteres.
+              </div>
+            </div>
           </div>
 
-          <div class="mb-1">
-            <label for="telefono" class="form-label col-md-auto">Telefono *</label>
-            <input id="telefono" class="form-control" type="number" formControlName="telefono" />
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="fecha"><b>fecha *</b></span>
+            <input id="fecha" class="form-control" type="date" formControlName="fecha" />
+            <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+              <div *ngIf="
+                  form['fecha'].errors &&
+                  form['fecha'].errors['required']
+                ">
+                * El fecha es Requerido.
+              </div>
+              <div *ngIf="
+                  form['fecha'].errors &&
+                  form['fecha'].errors['minlength']
+                ">
+                * El fecha no puede tener menos de 3 caracteres.
+              </div>
+            </div>
           </div>
 
-          <div class="mb-1">
-            <label for="direccion" class="form-label col-md-auto">Direccion</label>
-            <input id="direccion" class="form-control" type="text" formControlName="direccion" />
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="monto"><b>monto *</b></span>
+            <input id="monto" class="form-control" type="number" formControlName="monto" />
+            <div class="form-text" *ngIf="form['monto'].touched && form['monto'].invalid">
+              <div *ngIf="
+                  form['monto'].errors &&
+                  form['monto'].errors['required']
+                ">
+                * El monto es Requerido.
+              </div>
+              <div *ngIf="
+                  form['monto'].errors &&
+                  form['monto'].errors['minlength']
+                ">
+                * El monto no puede tener menos de 3 caracteres.
+              </div>
+            </div>
           </div>
 
-          <div class="mb-1">
-            <label for="ciudad" class="form-label col-md-auto">Ciudad</label>
-            <input id="ciudad" class="form-control" type="text" formControlName="ciudad" />
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="fojas"><b>Fojas *</b></span>
+            <input id="fojas" class="form-control" type="number" formControlName="fojas" />
+            <div class="form-text" *ngIf="form['fojas'].touched && form['fojas'].invalid">
+              <div *ngIf="
+                  form['fojas'].errors &&
+                  form['fojas'].errors['required']
+                ">
+                * El fojas es Requerido.
+              </div>
+              <div *ngIf="
+                  form['fojas'].errors &&
+                  form['fojas'].errors['minlength']
+                ">
+                * El fojas no puede tener menos de 3 caracteres.
+              </div>
+            </div>
           </div>
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq"><b>Observacion *</b></span>
+            <textarea id="observacion" class="form-control" type="text" formControlName="observacion"></textarea>
+            <div class="form-text" *ngIf="form['observacion'].touched && form['observacion'].invalid">
+              <div *ngIf="
+                  form['observacion'].errors &&
+                  form['observacion'].errors['required']
+                ">
+                * El observacion es Requerido.
+              </div>
+              <div *ngIf="
+                  form['observacion'].errors &&
+                  form['observacion'].errors['minlength']
+                ">
+                * El observacion no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cerrar
             </button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="carpetaForm.invalid">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="contaForm.invalid">
               Registrar
             </button>
           </div>
-          {{ carpetaForm.value | json }}
+          {{ contaForm.value | json }}
         </form>
       </div>
     </div>

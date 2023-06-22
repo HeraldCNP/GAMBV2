@@ -18,4 +18,16 @@ export class ContaService {
       console.log(dir);
       return this.http.get<any>(dir);
     }
+
+
+    createConta(form: any, id: any): Observable<any> {
+      let dir = `${this.URL}/addArea/${id}`;
+      return this.http.put<any>(dir, form)
+    }
+
+    getSingleCarpeta(id: any): Observable<any> {
+      let dir = `${this.URL}/carpeta/${id}`;
+      return this.http.get<any>(dir);
+    }
+
 }
