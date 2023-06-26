@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class DocIndexComponent implements OnInit {
   totalCarpetasConta: any = 0;
-  carpetas: any = [];
-  carpetasTemp: any = [];
+  archivos: any = [];
+  archivosTemp: any = [];
   skip: number = 1;
   page: number = 1;
   limit: number = 10;
@@ -23,20 +23,21 @@ export class DocIndexComponent implements OnInit {
   idCarpeta: any;
   idCarpetaConta: any;
   area:string = 'contabilidad';
+  tipo:string = '';
 
   constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) { }
 
   ngOnInit(): void {
-    this.cargarDocumentos()
+    this.cargarArchivos()
   }
 
-  cargarDocumentos() {
+  cargarArchivos() {
     this.cargando = true;
-    this.contaService.getAllConta(this.limit, this.skip, this.area)
+    this.contaService.getAllArchivos(this.limit, this.skip, this.area)
       .subscribe((data: any) => {
         this.totalCarpetasConta = data.serverResponse.length;
-        this.carpetas = data;
-        this.carpetasTemp = data;
+        this.archivos = data;
+        this.archivosTemp = data;
         this.totalPages = data.totalpage;
         console.log(data);
         this.cargando = false;
@@ -56,7 +57,7 @@ export class DocIndexComponent implements OnInit {
     this.idCarpeta = proveedor._id;
   }
 
-  borrarCarpeta(id: string) {
+  borrarArchivo(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: '¡No podrás revertir esto!',
@@ -81,14 +82,14 @@ export class DocIndexComponent implements OnInit {
 
   buscar(termino: string) {
     if (termino.length === 0) {
-      this.carpetas = this.carpetasTemp;
+      this.archivos = this.archivosTemp;
       return;
     }
-    // this.almacenService.searchProveedor(termino).subscribe((resp) => {
-    //   console.log('Resp:', resp);
-    //   this.proveedores = resp;
-    //   this.proveedoresTemp = resp;
-    // });
+    this.contaService.searchArchivo(termino).subscribe((resp) => {
+      console.log('Resp:', resp);
+      this.archivos = resp;
+      this.archivosTemp = resp;
+    });
   }
 
   cambiarPagina(valor: number) {
@@ -100,7 +101,9 @@ export class DocIndexComponent implements OnInit {
       this.skip -= valor;
       this.page -= valor;
     }
-    this.cargarDocumentos();
+    this.cargarArchivos();
   }
+
+
 
 }

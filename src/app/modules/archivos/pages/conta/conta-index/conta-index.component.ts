@@ -24,16 +24,18 @@ export class ContaIndexComponent implements OnInit {
   idCarpetaConta: any;
   area:string = 'contabilidad';
   carpeta:any;
+  tipos:string = '';
+  tipo:string = 'Preventivos';
 
   constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) {
     this.contaForm = this.fb.group({
-      numero: ['', [Validators.required]],
+      numero: [''],
       detalle: ['', [Validators.required]],
-      beneficiario: ['', [Validators.required]],
-      fecha: ['', [Validators.required]],
-      monto: ['', [Validators.required]],
+      beneficiario: [''],
+      fecha: [''],
+      monto: [''],
       fojas: ['', [Validators.required]],
-      observacion: ['', [Validators.required]],
+      observacion: [''],
       idCarpeta: [''],
     });
 
@@ -58,7 +60,7 @@ export class ContaIndexComponent implements OnInit {
 
   cargarCarpetasConta() {
     this.cargando = true;
-    this.contaService.getAllConta(this.limit, this.skip, this.area)
+    this.contaService.getAllConta(this.limit, this.skip, this.area, this.tipo)
       .subscribe((data: any) => {
         this.totalCarpetasConta = data.serverResponse.length;
         this.carpetas = data;
@@ -168,6 +170,8 @@ export class ContaIndexComponent implements OnInit {
   }
 
   addCarpetaId(carpeta:any){
+    console.log(carpeta);
+    this.tipos = carpeta.tipo;
     this.contaForm.setValue({
       numero: '',
       detalle: '',
@@ -192,6 +196,12 @@ export class ContaIndexComponent implements OnInit {
 
       }
     );
+  }
+
+  changeStatus(status: any) {
+    this.tipo = status;
+    this.cargarCarpetasConta();
+    this.skip = 1;
   }
 
 }

@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <div class="card shadow p-3 mb-4 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Nueva Entrada a Almacén</h3>
+            <h3 class="card-title">Nueva Carpeta</h3>
           </div>
 
           <!-- /.card-header -->
@@ -20,6 +20,15 @@
                       <option value="2021">2021</option>
                       <option value="2020">2020</option>
                       <option value="2019">2019</option>
+                      <option value="2018">2018</option>
+                      <option value="2017">2017</option>
+                      <option value="2016">2016</option>
+                      <option value="2015">2015</option>
+                      <option value="2014">2014</option>
+                      <option value="2013">2013</option>
+                      <option value="2012">2012</option>
+                      <option value="2011">2011</option>
+                      <option value="2010">2010</option>
                     </select>
                     <div class="form-text" *ngIf="form['gestion'].touched && form['gestion'].invalid">
                       <div *ngIf="form['gestion'].errors && form['gestion'].errors['required']">*
@@ -89,14 +98,14 @@
 
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="observacion"><b>observacion *</b></span>
-                    <input id="observacion" class="form-control" type="number" formControlName="observacion" />
-                    <div class="form-text" *ngIf="form['observacion'].touched && form['observacion'].invalid">
-                      <div *ngIf="form['observacion'].errors && form['observacion'].errors['required']">
-                        * El observacion es Requerido.
+                    <span class="input-group-text izq" id="numero"><b>Número *</b></span>
+                    <input id="numero" class="form-control" type="number" formControlName="numero" />
+                    <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
+                      <div *ngIf="form['numero'].errors && form['numero'].errors['required']">
+                        * El numero es Requerido.
                       </div>
-                      <div *ngIf="form['observacion'].errors && form['observacion'].errors['minlength']">
-                        * El observacion no puede tener menos de 3 caracteres.
+                      <div *ngIf="form['numero'].errors && form['numero'].errors['minlength']">
+                        * El numero no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>
