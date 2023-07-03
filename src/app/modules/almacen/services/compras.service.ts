@@ -25,13 +25,13 @@ export class ComprasService {
 
   getAllFuncionarios(limit?: number, skip?: number): Observable<any[]> {
     let dir = `${this.URL}/users`;
-    console.log(dir);
+    // console.log(dir);
     return this.http.get<any>(dir);
   }
 
   getAllIngresos(limit?: number, skip?: number): Observable<any[]> {
     let dir = `${this.URL}/ingresos?limit=${limit}&skip=${skip}`;
-    console.log(dir);
+    // console.log(dir);
     return this.http.get<any>(dir);
   }
 

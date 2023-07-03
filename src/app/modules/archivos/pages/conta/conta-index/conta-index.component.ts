@@ -26,6 +26,7 @@ export class ContaIndexComponent implements OnInit {
   carpeta:any;
   tipos:string = '';
   tipo:string = 'Preventivos';
+  estadoFinan: any ;
 
   constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) {
     this.contaForm = this.fb.group({
@@ -38,6 +39,11 @@ export class ContaIndexComponent implements OnInit {
       observacion: [''],
       idCarpeta: [''],
     });
+
+    this.estadoFinan = this.fb.group({
+
+    })
+
 
     this.editForm = this.fb.group({
       gestion: ['', [Validators.required]],
