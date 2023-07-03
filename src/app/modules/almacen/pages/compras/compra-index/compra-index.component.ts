@@ -34,10 +34,10 @@ export class CompraIndexComponent implements OnInit {
   ingreso: any;
   x: any;
   date = new Date();
-  separados:any;
-  categories:any;
-  funcionarios:any;
-  categoryTotalPrices:any = 0;
+  separados: any;
+  categories: any;
+  funcionarios: any;
+  categoryTotalPrices: any = 0;
   nameCat: any = [];
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
     this.user = localStorage.getItem('user');
@@ -66,7 +66,7 @@ export class CompraIndexComponent implements OnInit {
         this.ingresos = data;
         this.ingresosTemp = data;
         this.totalPages = data.totalpage;
-        console.log(data);
+        // console.log(data);
         this.cargando = false;
       });
   }
@@ -75,7 +75,7 @@ export class CompraIndexComponent implements OnInit {
     this.cargando = true;
     this.comprasService.getAllFuncionarios().subscribe((data: any) => {
       this.funcionarios = data.serverResponse;
-      console.log("Funcionarios", data)
+      // console.log("Funcionarios", data)
     });
   }
 
@@ -241,7 +241,11 @@ export class CompraIndexComponent implements OnInit {
   }
 
   separar() {
-    const itemsByCategory = this.ingreso.productos.reduce((accumulator:any, current:any) => {
+    // console.log("tratando de ordenar",this.ingreso.productos);
+
+
+
+    const itemsByCategory = this.ingreso.productos.reduce((accumulator: any, current: any) => {
       if (!accumulator[current.catProgra]) {
         accumulator[current.catProgra] = [];
       }
@@ -252,20 +256,34 @@ export class CompraIndexComponent implements OnInit {
     this.separados = itemsByCategory;
     this.categories = Object.keys(itemsByCategory);
 
-    this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
+    this.categories.forEach((element: any) => {
+      // console.log(this.separados[element]);
+
+      this.separados[element].sort((a:any, b:any) => {
+        const codigoA = a.idArticulo.idPartida.codigo;
+        const codigoB = b.idArticulo.idPartida.codigo;
+        return codigoA.localeCompare(codigoB);
+      });
+
+      // console.log("ordenados", this.separados[element]);
+    });
+
+
+
+    this.categoryTotalPrices = this.categories.reduce((accumulator: any, category: any) => {
       const items = itemsByCategory[category];
-      const total = items.reduce((accumulator:any, item:any) => accumulator + (item.precio * item.cantidadCompra), 0);
+      const total = items.reduce((accumulator: any, item: any) => accumulator + (item.precio * item.cantidadCompra), 0);
       this.almacenService.searchSegCategoria(category)
-      .subscribe(
-        res => {
-          this.nameCat[category] = res.serverResponse[0].proyect_acti
-          // console.log(this.nameCat)
-        }
-      );
+        .subscribe(
+          res => {
+            this.nameCat[category] = res.serverResponse[0].proyect_acti
+            // console.log(this.nameCat)
+          }
+        );
       accumulator[category] = total;
       return accumulator;
     }, {});
-    console.log("sumas", this.categoryTotalPrices)
+    // console.log("sumas", this.categoryTotalPrices)
     // console.log("CategoriasSeparadas", this.categories)
     // console.log("CategoriasSeparadas", this.separados)
   }
@@ -284,6 +302,8 @@ export class CompraIndexComponent implements OnInit {
       .subscribe(
         res => {
           this.ingreso = res;
+          // console.log(this.ingreso);
+
         },
         err => console.log('HTTP Error', err),
         () => {
@@ -296,7 +316,7 @@ export class CompraIndexComponent implements OnInit {
     return this.ingreso.productos.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
   }
 
-  registrarEgreso(form: any, id:string) {
+  registrarEgreso(form: any, id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: '¡No podrás revertir esto!',
@@ -319,11 +339,11 @@ export class CompraIndexComponent implements OnInit {
   }
 
 
-  editarEntrada(id:string){
+  editarEntrada(id: string) {
     this.router.navigate(['almacen/compra/update', id]);
   }
 
-  getEntrada(id: string){
+  getEntrada(id: string) {
     this.comprasService.getIngreso(id)
       .subscribe(
         res => {

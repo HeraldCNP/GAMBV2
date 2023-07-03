@@ -93,7 +93,7 @@ export class EgresoIndexComponent implements OnInit {
       .subscribe(
         res => {
           this.egreso = res;
-          console.log(this.egreso)
+          // console.log(this.egreso)
         },
         err => console.log('HTTP Error', err),
         () => {
@@ -136,6 +136,18 @@ export class EgresoIndexComponent implements OnInit {
     this.separados = itemsByCategory;
     this.categories = Object.keys(itemsByCategory);
 
+    this.categories.forEach((element: any) => {
+      // console.log(this.separados[element]);
+
+      this.separados[element].sort((a:any, b:any) => {
+        const codigoA = a.idCompra.idArticulo.idPartida.codigo;
+        const codigoB = b.idCompra.idArticulo.idPartida.codigo;
+        return codigoA.localeCompare(codigoB);
+      });
+
+      // console.log("ordenados", this.separados[element]);
+    });
+
     this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
       const items = itemsByCategory[category];
       const total = items.reduce((accumulator:any, item:any) => accumulator + (item.idCompra.precio * item.cantidadSalida), 0);
@@ -149,7 +161,7 @@ export class EgresoIndexComponent implements OnInit {
       accumulator[category] = total;
       return accumulator;
     }, {});
-    console.log("sumas", this.categoryTotalPrices)
+    // console.log("sumas", this.categoryTotalPrices)
     // console.log("CategoriasSeparadas", this.categories)
     // console.log("CategoriasSeparadas", this.separados)
   }

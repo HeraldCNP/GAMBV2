@@ -46,13 +46,13 @@ export class CarpetaCreateComponent implements OnInit {
 
     this.carpetaForm = this.fb.group({
       gestion: ['2023', [Validators.required]],
+      area: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
       objeto: ['', [Validators.required]],
       tomo: ['', [Validators.required]],
       numero: ['', [Validators.required]],
       lugar: [''],
       ubicacion: [''],
-      area: ['', [Validators.required]],
-      tipo: ['', [Validators.required]],
       archivo: [''],
       observaciones: ['']
     });
@@ -83,7 +83,7 @@ export class CarpetaCreateComponent implements OnInit {
         this.tipos = ['Opción A', 'Opción B', 'Opción C'];
         break;
       case 'contabilidad':
-        this.tipos = ['Opción X', 'Opción Y', 'Opción Z'];
+        this.tipos = ['Preventivos', 'Devengados', 'Estados Financieros', 'Ingresos', 'Otros'];
         break;
       case 'recaudaciones':
         this.tipos = ['Opción 1', 'Opción 2', 'Opción 3'];

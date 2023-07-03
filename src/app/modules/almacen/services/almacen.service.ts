@@ -34,7 +34,7 @@ export class AlmacenService {
 
   searchSegCategoria(termino: any): Observable<any> {
     let dir = `${this.URL}/searchSegPoa/${termino}`;
-    console.log(dir);
+    // console.log(dir);
     return this.http.get<any[]>(dir);
     // .pipe(
     //   map((resp:any) => resp.serverResponse)
