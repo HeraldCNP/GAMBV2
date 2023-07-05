@@ -13,7 +13,7 @@
               <div class="col-md">
                 <form (ngSubmit)="crearArchivo()" [formGroup]="carpetaForm">
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="gestion"><b> Gestion *</b></span>
+                    <span class="input-group-text izq" id="gestion"><b> Gestión *</b></span>
                     <select id="gestion" formControlName="gestion" class="form-select" required>
                       <option value="2023" [defaultSelected]="true">2023</option>
                       <option value="2022">2022</option>
@@ -37,7 +37,7 @@
                   </div>
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="area"><b> Area *</b></span>
+                    <span class="input-group-text izq" id="area"><b> Área *</b></span>
                     <select id="area" formControlName="area" class="form-select" (change)="actualizarSegundoSelect()" required>
                       <option value="" [defaultSelected]="true">Elija una opción</option>
                       <option *ngFor="let area of areas.list" value="{{ area.slug }}" >{{ area.name }}</option>
@@ -58,7 +58,65 @@
                     </div>
                   </div>
 
+
                   <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="numCarpeta"><b>Número de Carpeta *</b></span>
+                    <input id="numCarpeta" class="form-control" type="number" formControlName="numCarpeta" />
+                    <div class="form-text" *ngIf="form['numCarpeta'].touched && form['numCarpeta'].invalid">
+                      <div *ngIf="
+                          form['numCarpeta'].errors &&
+                          form['numCarpeta'].errors['required']
+                        ">
+                        * El Numero de carpeta es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['numCarpeta'].errors &&
+                          form['numCarpeta'].errors['minlength']
+                        ">
+                        * El Numero de carpeta no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="nameCarpeta"><b>Nombre de la Carpeta *</b></span>
+                    <input id="nameCarpeta" class="form-control" type="text" formControlName="nameCarpeta" />
+                    <div class="form-text" *ngIf="form['nameCarpeta'].touched && form['nameCarpeta'].invalid">
+                      <div *ngIf="
+                          form['nameCarpeta'].errors &&
+                          form['nameCarpeta'].errors['required']
+                        ">
+                        * El Numero de carpeta es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['nameCarpeta'].errors &&
+                          form['nameCarpeta'].errors['minlength']
+                        ">
+                        * El Numero de carpeta no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="lugar"><b>Lugar de Archivo *</b></span>
+                    <input id="lugar" class="form-control" type="text" formControlName="lugar" />
+                    <div class="form-text" *ngIf="form['lugar'].touched && form['lugar'].invalid">
+                      <div *ngIf="
+                          form['lugar'].errors &&
+                          form['lugar'].errors['required']
+                        ">
+                        * El Numero de carpeta es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['lugar'].errors &&
+                          form['lugar'].errors['minlength']
+                        ">
+                        * El Numero de carpeta no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text izq"><b>Objeto *</b></span>
                     <textarea id="objeto" class="form-control" type="text" formControlName="objeto"></textarea>
                     <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
@@ -75,81 +133,42 @@
                         * El objeto no puede tener menos de 3 caracteres.
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="tomo"><b>Tomo *</b></span>
-                    <input id="tomo" class="form-control" type="text" formControlName="tomo" />
-                    <div class="form-text" *ngIf="form['tomo'].touched && form['tomo'].invalid">
-                      <div *ngIf="
-                          form['tomo'].errors &&
-                          form['tomo'].errors['required']
-                        ">
-                        * El Tomo es Requerido.
-                      </div>
-                      <div *ngIf="
-                          form['tomo'].errors &&
-                          form['tomo'].errors['minlength']
-                        ">
-                        * El Tomo no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div>
+
 
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="numero"><b>Número *</b></span>
-                    <input id="numero" class="form-control" type="number" formControlName="numero" />
-                    <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
-                      <div *ngIf="form['numero'].errors && form['numero'].errors['required']">
-                        * El numero es Requerido.
+                    <span class="input-group-text izq" id="estante"><b>N° de Estante *</b></span>
+                    <input id="estante" class="form-control" type="number" formControlName="estante" />
+                    <div class="form-text" *ngIf="form['estante'].touched && form['estante'].invalid">
+                      <div *ngIf="form['estante'].errors && form['estante'].errors['required']">
+                        * El estante es Requerido.
                       </div>
-                      <div *ngIf="form['numero'].errors && form['numero'].errors['minlength']">
-                        * El numero no puede tener menos de 3 caracteres.
+                      <div *ngIf="form['estante'].errors && form['estante'].errors['minlength']">
+                        * El estante no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="lugar"><b>Lugar </b></span>
-                    <input id="lugar" class="form-control" type="text" formControlName="lugar" />
-                    <div class="form-text" *ngIf="form['lugar'].touched && form['lugar'].invalid">
-                      <div *ngIf="
-                          form['lugar'].errors &&
-                          form['lugar'].errors['required']
-                        ">
-                        * El lugar es Requerido.
+                    <span class="input-group-text izq" id="fila"><b>N° de Fila *</b></span>
+                    <input id="fila" class="form-control" type="number" formControlName="fila" />
+                    <div class="form-text" *ngIf="form['fila'].touched && form['fila'].invalid">
+                      <div *ngIf="form['fila'].errors && form['fila'].errors['required']">
+                        * El fila es Requerido.
                       </div>
-                      <div *ngIf="
-                          form['lugar'].errors &&
-                          form['lugar'].errors['minlength']
-                        ">
-                        * El Tomo no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="ubicacion"><b>Ubicacion </b></span>
-                    <input id="ubicacion" class="form-control" type="text" formControlName="ubicacion" />
-                    <div class="form-text" *ngIf="form['ubicacion'].touched && form['ubicacion'].invalid">
-                      <div *ngIf="
-                          form['ubicacion'].errors &&
-                          form['ubicacion'].errors['required']
-                        ">
-                        * El ubicacion es Requerido.
-                      </div>
-                      <div *ngIf="
-                          form['ubicacion'].errors &&
-                          form['ubicacion'].errors['minlength']
-                        ">
-                        * El Tomo no puede tener menos de 7 caracteres.
+                      <div *ngIf="form['fila'].errors && form['fila'].errors['minlength']">
+                        * El estante no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>
 
 
-                  <div class="input-group mb-1">
+
+
+
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text izq" id="archivo"><b>Archivo </b></span>
                     <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
                       formControlName="archivo" (change)="onChange($event)" />
@@ -167,11 +186,11 @@
                         {{ progress + "%" }}
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
 
 
-                  <div class="input-group mb-1">
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text izq"><b>Observaciones </b></span>
                     <textarea id="observaciones" class="form-control" type="text"
                       formControlName="observaciones"></textarea>
@@ -189,7 +208,7 @@
                         * la observaciones no puede tener menos de 3 caracteres.
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="mt-3 d-flex justify-content-around">
                     <button (click)="cancel()" type="reset" class="btn btn-danger">

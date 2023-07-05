@@ -48,13 +48,11 @@ export class CarpetaCreateComponent implements OnInit {
       gestion: ['2023', [Validators.required]],
       area: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      objeto: ['', [Validators.required]],
-      tomo: ['', [Validators.required]],
-      numero: ['', [Validators.required]],
+      numCarpeta: ['', [Validators.required]],
+      nameCarpeta: ['', [Validators.required]],
       lugar: [''],
-      ubicacion: [''],
-      archivo: [''],
-      observaciones: ['']
+      estante: ['', [Validators.required]],
+      fila: [''],
     });
 
 

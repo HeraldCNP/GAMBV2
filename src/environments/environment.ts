@@ -4,8 +4,8 @@
 
 export const environment = {
   production: true,
-  api: "http://159.223.119.115:8000/api"
-  // api: "http://192.168.1.108:8000/api"
+  // api: "http://159.223.119.115:8000/api"
+  api: "http://192.168.1.108:8000/api"
 };
 
 /*
@@ -16,3 +16,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+
