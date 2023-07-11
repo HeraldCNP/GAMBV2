@@ -14,6 +14,7 @@ import autoTable from 'jspdf-autotable'
 export class ReportComponent implements OnInit {
   reportForm: any;
   users: any;
+  user: any;
   destino: string = '';
   estado: string = '';
   del: string = '';
@@ -70,12 +71,28 @@ export class ReportComponent implements OnInit {
         console.log(this.seguimientos);
       });
   }
+
   imprimir() {
     const doc = new jsPDF({orientation:"landscape", format:'letter'});
-    
-    autoTable(doc, { html: '#table', theme:'grid'})
+
+    autoTable(doc,
+       { html: '#table',
+        theme:'grid',
+        styles: { fontSize: 7,  halign: 'center' },
+        showHead: 'firstPage',
+        showFoot: 'lastPage',
+        margin: 8,
+
+      })
     //doc.autoTable({ html: 'htmlData'});
     doc.output('dataurlnewwindow', { filename: 'comprobante.pdf'});
   }
-  
+
+  public doSelect = (value: any) => {
+    console.log('SingleDemoComponent.doSelect', value);
+
+    this.user = this.users.find((item: { post: string; }) => item.post === value);
+    console.log(this.user)
+  };
+
 }
