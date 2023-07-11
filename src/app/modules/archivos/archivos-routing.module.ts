@@ -5,17 +5,26 @@ import { CarpetaIndexComponent } from './pages/carpetas/carpeta-index/carpeta-in
 import { CarpetaCreateComponent } from './pages/carpetas/carpeta-create/carpeta-create.component';
 import { ContaIndexComponent } from './pages/conta/conta-index/conta-index.component';
 import { DocIndexComponent } from './pages/conta/doc-index/doc-index.component';
+import { PrevenCreateComponent } from './pages/conta/docs/preven/preven-create/preven-create.component';
+import { DevenCreateComponent } from './pages/conta/docs/deven/deven-create/deven-create.component';
+import { PrevenListComponent } from './pages/conta/docs/preven/preven-list/preven-list.component';
+import { AreaIndexComponent } from './pages/areas/area-index/area-index.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     children: [
+      { path: 'areas/index', component: AreaIndexComponent },
+
       { path: 'carpetas/index', component: CarpetaIndexComponent },
       { path: 'carpetas/create', component: CarpetaCreateComponent },
+
       { path: 'conta/index', component: ContaIndexComponent },
       { path: 'conta/docs/index', component: DocIndexComponent },
-      // { path: 'compra/update/:id', component: CompraUpdateComponent },
+      { path: 'conta/docs/preven/:id', component: PrevenCreateComponent },
+      { path: 'conta/docs/preven/list/:id', component: PrevenListComponent },
+      { path: 'conta/docs/deven/:id', component: DevenCreateComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },
       // { path: 'poa/create', component: PoaCreateComponent },

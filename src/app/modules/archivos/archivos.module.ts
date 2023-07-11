@@ -12,6 +12,10 @@ import { CarpetaCreateComponent } from './pages/carpetas/carpeta-create/carpeta-
 import { NgxSelectModule } from 'ngx-select-ex';
 import { ContaIndexComponent } from './pages/conta/conta-index/conta-index.component';
 import { DocIndexComponent } from './pages/conta/doc-index/doc-index.component';
+import { PrevenCreateComponent } from './pages/conta/docs/preven/preven-create/preven-create.component';
+import { DevenCreateComponent } from './pages/conta/docs/deven/deven-create/deven-create.component';
+import { PrevenListComponent } from './pages/conta/docs/preven/preven-list/preven-list.component';
+import { AreaIndexComponent } from './pages/areas/area-index/area-index.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { DocIndexComponent } from './pages/conta/doc-index/doc-index.component';
     CarpetaIndexComponent,
     CarpetaCreateComponent,
     ContaIndexComponent,
-    DocIndexComponent
+    DocIndexComponent,
+    PrevenCreateComponent,
+    DevenCreateComponent,
+    PrevenListComponent,
+    AreaIndexComponent
   ],
   imports: [
     CommonModule,

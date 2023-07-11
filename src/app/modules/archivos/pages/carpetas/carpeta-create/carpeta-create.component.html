@@ -11,7 +11,7 @@
           <div class="card-body table-responsive">
             <div class="row">
               <div class="col-md">
-                <form (ngSubmit)="crearArchivo()" [formGroup]="carpetaForm">
+                <form (ngSubmit)="crearCarpeta(carpetaForm.value)" [formGroup]="carpetaForm">
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="gestion"><b> Gestión *</b></span>
                     <select id="gestion" formControlName="gestion" class="form-select" required>
@@ -116,28 +116,6 @@
                     </div>
                   </div>
 
-                  <!-- <div class="input-group mb-1">
-                    <span class="input-group-text izq"><b>Objeto *</b></span>
-                    <textarea id="objeto" class="form-control" type="text" formControlName="objeto"></textarea>
-                    <div class="form-text" *ngIf="form['objeto'].touched && form['objeto'].invalid">
-                      <div *ngIf="
-                          form['objeto'].errors &&
-                          form['objeto'].errors['required']
-                        ">
-                        * El objeto es Requerido.
-                      </div>
-                      <div *ngIf="
-                          form['objeto'].errors &&
-                          form['objeto'].errors['minlength']
-                        ">
-                        * El objeto no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div> -->
-
-
-
-
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="estante"><b>N° de Estante *</b></span>
                     <input id="estante" class="form-control" type="number" formControlName="estante" />
@@ -168,25 +146,7 @@
 
 
 
-                  <!-- <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="archivo"><b>Archivo </b></span>
-                    <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
-                      formControlName="archivo" (change)="onChange($event)" />
-                    <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
-                      <div *ngIf="
-                          form['archivo'].errors &&
-                          form['archivo'].errors['required']
-                        ">
-                        * El archivo es Requerido.
-                      </div>
-                    </div>
-                    <div class="progress mt-1" *ngIf="progress > 0">
-                      <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'"
-                        aria-valuemin="0" aria-valuemax="100">
-                        {{ progress + "%" }}
-                      </div>
-                    </div>
-                  </div> -->
+
 
 
 

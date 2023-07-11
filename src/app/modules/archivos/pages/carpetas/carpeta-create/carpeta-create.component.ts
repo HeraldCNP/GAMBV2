@@ -96,78 +96,30 @@ export class CarpetaCreateComponent implements OnInit {
     }
   }
 
-  crearArchivo() {
-    let fd = new FormData();
+  crearCarpeta(form: any) {
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    this.carpetaService.registrarCarpeta(form).subscribe(
+      (res) => {
+        console.log(res);
+      },
 
-    if (!this.carpetaForm.value.archivo) {
-      // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
-
-
-      fd.append('gestion', this.carpetaForm.value.gestion);
-      fd.append('objeto', this.carpetaForm.value.objeto);
-      fd.append('tomo', this.carpetaForm.value.tomo);
-      fd.append('numero', this.carpetaForm.value.numero);
-      fd.append('lugar', this.carpetaForm.value.lugar);
-      fd.append('ubicacion', this.carpetaForm.value.ubicacion);
-      fd.append('area', this.carpetaForm.value.area);
-      fd.append('tipo', this.carpetaForm.value.tipo);
-      fd.append('observaciones', this.carpetaForm.value.observaciones);
-      fd.append('usuario', this.idUser);
-
-      this.carpetaService.registerCarpeta(fd).subscribe(
-        (err) => {
-          console.log('HTTP Error', err);
-          this.progress = 0;
-        },
-        () => {
-          this.progress = 0;
-          this.router.navigate(['archivos/carpetas/index']);
-          this.alertOk(
-            'success',
-            'Exito',
-            'Documento Creado Correctamente',
-            '2000'
-          );
-        }
-      );
-    } else {
-      // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
-
-      fd.append('gestion', this.carpetaForm.value.gestion);
-      fd.append('objeto', this.carpetaForm.value.objeto);
-      fd.append('tomo', this.carpetaForm.value.tomo);
-      fd.append('numero', this.carpetaForm.value.numero);
-      fd.append('lugar', this.carpetaForm.value.lugar);
-      fd.append('ubicacion', this.carpetaForm.value.ubicacion);
-      fd.append('area', this.carpetaForm.value.area);
-      fd.append('tipo', this.carpetaForm.value.tipo);
-      fd.append('observaciones', this.carpetaForm.value.observaciones);
-      fd.append('usuario', this.idUser);
-      fd.append('file', this.files[0]);
-
-      this.carpetaService.registerCarpeta(fd).subscribe(
-        (event) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progress = Math.round((100 * event.loaded) / event.total);
-          }
-        },
-        (err) => {
-          console.log('HTTP Error', err);
-          this.progress = 0;
-        },
-        () => {
-          this.progress = 0;
-          this.router.navigate(['archivos/carpetas/index']);
-          this.alertOk(
-            'success',
-            'Exito',
-            'Documento Creado Correctamente',
-            '2000'
-          );
-        }
-      );
-    }
+      (err) => console.log('HTTP Error', err),
+      () => {
+        this.carpetaForm.reset();
+        this.router.navigate(['archivos/carpetas/index']);
+        this.alertOk(
+          'success',
+          'Exito',
+          'Carpeta Creada Correctamente',
+          '2000'
+        );
+      }
+    );
   }
+
+
+
+
 
   alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({

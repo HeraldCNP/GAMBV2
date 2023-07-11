@@ -25,6 +25,15 @@ export class ContaService {
     return this.http.put<any>(dir, form)
   }
 
+  registerPreven(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/addAreaArch/${id}`;
+    // console.log(dir);
+    return this.http.put<any>(dir, fd, {
+      reportProgress: true,
+      observe: 'events',
+    })
+  }
+
   getSingleCarpeta(id: any): Observable<any> {
     let dir = `${this.URL}/carpeta/${id}`;
     return this.http.get<any>(dir);
