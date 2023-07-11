@@ -18,13 +18,16 @@ export class CarpetaService {
     return this.http.get<any>(dir);
   }
 
-  registerCarpeta(fd: FormData): Observable<any> {
-    let dir = `${this.URL}/uploadCarpeta`;
-    return this.http.post<any>(dir, fd, {
-      reportProgress: true,
-      observe: 'events',
-    })
+  getSingleCarpeta(){
+
   }
+
+  registrarCarpeta(form: any): Observable<any> {
+    let dir = `${this.URL}/carpeta`;
+    return this.http.post<any>(dir, form);
+  }
+
+
 
   createProveedor(form: any): Observable<any> {
     let dir = `${this.URL}/proveedor`;

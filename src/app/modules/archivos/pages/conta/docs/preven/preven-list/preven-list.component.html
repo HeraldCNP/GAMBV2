@@ -7,12 +7,12 @@
             <div class="row my-2">
               <div class="col-md-4">
                 <h3 class="card-title">
-                  Total de Carpetas de Contabilidad ({{ totalCarpetasConta }})
+                  Total Preventivos ({{ totalPreventivos }})
                 </h3>
 
               </div>
               <div class="col-md-8 d-flex justify-content-end">
-                <div class="card-tools">
+                <!-- <div class="card-tools">
 
                   <button (click)="changeStatus('Preventivos')" type="button"
                     [ngClass]="tipo == 'Preventivos' ? 'activate' : ''"
@@ -20,7 +20,7 @@
                     Preventivos
                   </button>
                   <button (click)="changeStatus('Devengados')" type="button"
-                    [ngClass]="tipo == 'Devengados' ? 'activate' : ''"
+                    [ngClass]="tipo == 'Devengados' ? 'acti vate' : ''"
                     class="btn btn-info btn-sm position-relative mr-4">
                     Devengados
                   </button>
@@ -37,7 +37,7 @@
                     class="btn btn-info btn-sm position-relative mr-4">
                     Todos
                   </button>
-                </div>
+                </div> -->
 
               </div>
             </div>
@@ -64,27 +64,29 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Número de Carpeta</th>
-                  <th>Gestión</th>
-                  <th>Area</th>
-                  <th>Tipo</th>
-                  <th>Nombre de la Carpeta</th>
-                  <th>Lugar de Archivo</th>
-                  <th>N° de estante</th>
-                  <th>N° de fila</th>
+                  <th>Número de Preventivo</th>
+                  <th>Fecha de Preventivo</th>
+                  <th>Glosa</th>
+                  <th>Beneficiario</th>
+                  <th>CI / NIT</th>
+                  <th>Monto Total Autorizado</th>
+                  <th>Fojas Adjunto al Preventivo</th>
+                  <th>Archivo</th>
+                  <th>Observaciones</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let carpeta of carpetas.serverResponse; let i = index">
-                  <td>{{ carpeta.numCarpeta }}</td>
-                  <td>{{ carpeta.gestion }}</td>
-                  <td>{{ carpeta.area }}</td>
-                  <td>{{ carpeta.tipo }}</td>
-                  <td>{{ carpeta.nameCarpeta }}</td>
-                  <td>{{ carpeta.lugar }}</td>
-                  <td>{{ carpeta.estante }}</td>
-                  <td>{{ carpeta.fila }}</td>
+                <tr *ngFor="let preventivo of preventivos.areaContabilidad; let i = index">
+                  <td>{{ preventivo.numero }}</td>
+                  <td>{{ preventivo.fecha | date:'longDate': 'UTC' }}</td>
+                  <td>{{ preventivo.glosa }}</td>
+                  <td>{{ preventivo.beneficiario }}</td>
+                  <td>{{ preventivo.ci }}</td>
+                  <td>{{ preventivo.monto | currency: 'USD': '' }}</td>
+                  <td>{{ preventivo.fojas }}</td>
+                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+preventivo.uri }}" target="_blank">Descargar</a></td>
+                  <td>{{ preventivo.observacion }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="carpeta.estado == '1'">
@@ -100,11 +102,11 @@
                     </div>
                   </td> -->
                   <td>
-                    <i class="fas fa-eye ml-3 icono" (click)="verArchivos(carpeta)"></i>
-                    <i class="fas fa-plus ml-3 icono" (click)="addCarpetaId(carpeta)"></i>
-                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(carpeta)"></i>
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i>
+                    <!-- <i class="fas fa-eye ml-3 icono" (click)="verArchivos(carpeta)"></i> -->
+                    <!-- <i class="fas fa-plus ml-3 icono" (click)="addCarpetaId(carpeta)"></i> -->
+                    <!-- <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(carpeta)"></i> -->
+                    <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i> -->
                   </td>
                 </tr>
               </tbody>
@@ -295,144 +297,45 @@
 <!-- End Modal -->
 
 <!-- Modal Edit -->
-<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="modalEditLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalEditLabel">Editar</h1>
+        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Proveedor</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" *ngIf="carpeta">
-        <form (ngSubmit)="editCarpeta()" [formGroup]="editForm">
-          <div class="input-group mb-1">
-            <span class="input-group-text izq" id="gestion"><b> Gestión *</b></span>
-            <select id="gestion" formControlName="gestion" class="form-select" required>
-              <option value="2023" [defaultSelected]="true">2023</option>
-              <option value="2022">2022</option>
-              <option value="2021">2021</option>
-              <option value="2020">2020</option>
-              <option value="2019">2019</option>
-              <option value="2018">2018</option>
-              <option value="2017">2017</option>
-              <option value="2016">2016</option>
-              <option value="2015">2015</option>
-              <option value="2014">2014</option>
-              <option value="2013">2013</option>
-              <option value="2012">2012</option>
-              <option value="2011">2011</option>
-              <option value="2010">2010</option>
-            </select>
-            <div class="form-text" *ngIf="form2['gestion'].touched && form2['gestion'].invalid">
-              <div *ngIf="form2['gestion'].errors && form2['gestion'].errors['required']">*
-                Gestion es Requerido.</div>
-            </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editProveedor(editForm.value)" [formGroup]="editForm">
+
+          <div class="mb-1">
+            <label for="representante" class="form-label">Representante:</label>
+            <input type="text" class="form-control" id="representante" formControlName="representante" />
           </div>
 
-          <div class="input-group mb-1">
-            <span class="input-group-text izq" id="area"><b> Área *</b></span>
-            <select id="area" formControlName="area" class="form-select" required>
-              <option value="" [defaultSelected]="true">Elija una opción</option>
-              <option *ngFor="let area of areas.list" value="{{ area.slug }}">{{ area.name }}</option>
-            </select>
-            <div class="form-text" *ngIf="form2['area'].touched && form2['area'].invalid">
-              <div *ngIf="form2['area'].errors && form2['area'].errors['required']">* Area es Requerida.</div>
-            </div>
+          <div class="mb-1">
+            <label for="razon_social" class="form-label">Razon Social:</label>
+            <input type="text" class="form-control" id="razon_social" formControlName="razon_social" />
           </div>
 
-          <div class="input-group mb-1" *ngIf="editForm.value.area">
-            <span class="input-group-text izq" id="tipo"><b> Tipo *</b></span>
-            <select id="tipo" formControlName="tipo" class="form-select" required>
-              <option value="" [defaultSelected]="true">Elija una opción</option>
-              <option *ngFor="let tipo of tipos" value="{{ tipo }}">{{ tipo }}</option>
-            </select>
-            <div class="form-text" *ngIf="form2['tipo'].touched && form2['tipo'].invalid">
-              <div *ngIf="form2['tipo'].errors && form2['tipo'].errors['required']">* Tipo es Requerido.</div>
-            </div>
+          <div class="mb-1">
+            <label for="nit" class="form-label">Nit:</label>
+            <input type="number" class="form-control" id="nit" formControlName="nit" />
           </div>
 
-
-          <div class="input-group mb-1">
-            <span class="input-group-text izq" id="numCarpeta"><b>Número de Carpeta *</b></span>
-            <input id="numCarpeta" class="form-control" type="number" formControlName="numCarpeta" />
-            <div class="form-text" *ngIf="form2['numCarpeta'].touched && form2['numCarpeta'].invalid">
-              <div *ngIf="
-                  form2['numCarpeta'].errors &&
-                  form2['numCarpeta'].errors['required']
-                ">
-                * El Numero de carpeta es Requerido.
-              </div>
-              <div *ngIf="
-                  form2['numCarpeta'].errors &&
-                  form2['numCarpeta'].errors['minlength']
-                ">
-                * El Numero de carpeta no puede tener menos de 3 caracteres.
-              </div>
-            </div>
+          <div class="mb-1">
+            <label for="telefono" class="form-label">Telefono:</label>
+            <input type="number" class="form-control" id="telefono" formControlName="telefono" />
           </div>
 
-          <div class="input-group mb-1">
-            <span class="input-group-text izq" id="nameCarpeta"><b>Nombre de la Carpeta *</b></span>
-            <input id="nameCarpeta" class="form-control" type="text" formControlName="nameCarpeta" />
-            <div class="form-text" *ngIf="form2['nameCarpeta'].touched && form2['nameCarpeta'].invalid">
-              <div *ngIf="
-                  form2['nameCarpeta'].errors &&
-                  form2['nameCarpeta'].errors['required']
-                ">
-                * El Numero de carpeta es Requerido.
-              </div>
-              <div *ngIf="
-                  form2['nameCarpeta'].errors &&
-                  form2['nameCarpeta'].errors['minlength']
-                ">
-                * El Numero de carpeta no puede tener menos de 3 caracteres.
-              </div>
-            </div>
+          <div class="mb-1">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" class="form-control" id="direccion" formControlName="direccion" />
           </div>
 
-          <div class="input-group mb-1">
-            <span class="input-group-text izq" id="lugar"><b>Lugar de Archivo *</b></span>
-            <input id="lugar" class="form-control" type="text" formControlName="lugar" />
-            <div class="form-text" *ngIf="form2['lugar'].touched && form2['lugar'].invalid">
-              <div *ngIf="
-                  form2['lugar'].errors &&
-                  form2['lugar'].errors['required']
-                ">
-                * El Numero de carpeta es Requerido.
-              </div>
-              <div *ngIf="
-                  form2['lugar'].errors &&
-                  form2['lugar'].errors['minlength']
-                ">
-                * El Numero de carpeta no puede tener menos de 3 caracteres.
-              </div>
-            </div>
-          </div>
-
-          <div class="input-group mb-1">
-            <span class="input-group-text izq" id="estante"><b>N° de Estante *</b></span>
-            <input id="estante" class="form-control" type="number" formControlName="estante" />
-            <div class="form-text" *ngIf="form2['estante'].touched && form2['estante'].invalid">
-              <div *ngIf="form2['estante'].errors && form2['estante'].errors['required']">
-                * El estante es Requerido.
-              </div>
-              <div *ngIf="form2['estante'].errors && form2['estante'].errors['minlength']">
-                * El estante no puede tener menos de 3 caracteres.
-              </div>
-            </div>
-          </div>
-
-          <div class="input-group mb-1">
-            <span class="input-group-text izq" id="fila"><b>N° de Fila *</b></span>
-            <input id="fila" class="form-control" type="number" formControlName="fila" />
-            <div class="form-text" *ngIf="form2['fila'].touched && form2['fila'].invalid">
-              <div *ngIf="form2['fila'].errors && form2['fila'].errors['required']">
-                * El fila es Requerido.
-              </div>
-              <div *ngIf="form2['fila'].errors && form2['fila'].errors['minlength']">
-                * El estante no puede tener menos de 3 caracteres.
-              </div>
-            </div>
+          <div class="mb-1">
+            <label for="ciudad" class="form-label">Ciudad:</label>
+            <input type="text" class="form-control" id="ciudad" formControlName="ciudad" />
           </div>
 
           <div class="modal-footer">
@@ -447,7 +350,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- End Modal Edit -->
 
 <!-- Modal List Doc -->
@@ -488,7 +391,6 @@
                       <td>{{ carpeta.fojas }}</td>
                       <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+carpeta.uri }}" target="_blank">Descargar</a></td>
                       <td>{{ carpeta.observacion }}</td>
-
                     </tr>
                   </tbody>
                 </table>

@@ -7,17 +7,18 @@
             <div class="row my-2">
               <div class="col-md-8">
                 <h3 class="card-title">
-                  Total de Carpetas ({{ totalCarpetas }})
+                  Total de Areas ({{ totalAreas }})
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-sm" (click)="addCarpeta()">
-                  Nueva Carpeta
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+                  Nueva Area
                 </button>
               </div>
             </div>
-            <!-- <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino /> -->
+            <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino />
           </div>
         </div>
       </div>
@@ -38,51 +39,36 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Número de Carpeta</th>
-                  <th>Gestión</th>
                   <th>Area</th>
-                  <th>Tipo</th>
-                  <th>Nombre de la Carpeta</th>
-                  <th>Lugar de Archivo</th>
-                  <th>N° de estante</th>
-                  <th>N° de fila</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let carpeta of carpetas.serverResponse; let i = index">
-                  <td>{{ carpeta.numCarpeta }}</td>
-                  <td>{{ carpeta.gestion }}</td>
-                  <td>{{ carpeta.area }}</td>
-                  <td>{{ carpeta.tipo }}</td>
-                  <td>{{ carpeta.nameCarpeta }}</td>
-                  <td>{{ carpeta.lugar }}</td>
-                  <td>{{ carpeta.estante }}</td>
-                  <td>{{ carpeta.fila }}</td>
-                  <!-- <td>
+                <tr *ngFor="let area of areas.serverResponse; let i = index">
+                  <td>{{ area.ciudad }}</td>
+                  <td>
                     <div class="form-check form-switch">
-                      <span *ngIf="carpeta.estado == '1'">
+                      <span *ngIf="area.estado == '1'">
                         <input class="form-check-input pointer"
-                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="true"
+                          (change)="changeStatus(area._id, !area.estado)" type="checkbox" [checked]="true"
                           role="switch" id="{{'toogle'+i}}">Activo
                       </span>
-                      <span *ngIf="carpeta.estado == '0'">
+                      <span *ngIf="area.estado == '0'">
                         <input class="form-check-input pointer"
-                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="false"
+                          (change)="changeStatus(area._id, !area.estado)" type="checkbox" [checked]="false"
                           role="switch" id="{{'toogle'+i}}">Inactivo
                       </span>
                     </div>
-                  </td> -->
+                  </td>
                   <td>
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(carpeta)"></i>
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i>
+                      (click)="cargarDataEdit(area)"></i>
+                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarArea(area._id)"></i>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <!-- *ngIf="txtTermino.value.length === 0" -->
-            <div class="text-center" >
+            <div class="text-center" *ngIf="txtTermino.value.length === 0">
               <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
@@ -112,7 +98,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="crearProveedor(carpetaForm.value)" [formGroup]="carpetaForm">
+        <form (ngSubmit)="crearProveedor(proveedorForm.value)" [formGroup]="proveedorForm">
           <div class="mb-1">
             <label for="representante" class="form-label col-md-auto">Representante *</label>
             <input id="representante" class="form-control" type="text" formControlName="representante" />
@@ -147,17 +133,16 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cerrar
             </button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="carpetaForm.invalid">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="proveedorForm.invalid">
               Registrar
             </button>
           </div>
-          {{ carpetaForm.value | json }}
+          {{ proveedorForm.value | json }}
         </form>
       </div>
     </div>
   </div>
 </div> -->
-
 <!-- End Modal -->
 
 <!-- Modal Edit -->
