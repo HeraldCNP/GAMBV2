@@ -94,7 +94,7 @@
 
               <thead>
                 <tr><th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} </th></tr>
-                <tr><th class="subtitle" colspan="8">DESDE {{ fechaIni | date:'longDate': 'UTC' }} HASTA {{ fechaHoy | date:'longDate': 'UTC' }}</th></tr>
+                <tr><th class="subtitle" colspan="8">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy | date:'longDate': 'UTC' }}</th></tr>
                 <tr *ngIf="user" ><th class="subtitle" colspan="8"> FUNCIONARIO: {{ this.user.username }} {{ this.user.surnames }} - {{  this.destino  }}</th></tr>
                 <tr class="head">
                   <th>N°</th>
