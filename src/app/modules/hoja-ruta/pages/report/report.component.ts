@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReportService } from '../../services/report.service';
-import {jsPDF} from 'jspdf';
+import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable'
 
 
@@ -23,7 +23,14 @@ export class ReportComponent implements OnInit {
   fechaHoy = new Date().toISOString();
   fechaIni = new Date('01/01/2023').toISOString();
 
+  idUser: any;
+  usuario: any;
+  data: any;
+
   constructor(private fb: FormBuilder, private reportService: ReportService) {
+    this.usuario = localStorage.getItem('user');
+    this.data = JSON.parse(this.usuario);
+    this.idUser = this.data.id;
     this.reportForm = this.fb.group({
       funcionario: ['', Validators.required],
       estado: [''],
@@ -73,19 +80,21 @@ export class ReportComponent implements OnInit {
   }
 
   imprimir() {
-    const doc = new jsPDF({orientation:"landscape", format:'letter'});
+    const doc = new jsPDF({ orientation: "landscape", format: 'letter' });
 
     autoTable(doc,
-       { html: '#table',
-        theme:'grid',
-        styles: { fontSize: 7,  halign: 'center' },
+      {
+        html: '#table',
+        useCss: true,
+        theme: 'grid',
+        styles: { fontSize: 5, halign: 'center' },
         showHead: 'firstPage',
         showFoot: 'lastPage',
         margin: 8,
-
       })
+
     //doc.autoTable({ html: 'htmlData'});
-    doc.output('dataurlnewwindow', { filename: 'comprobante.pdf'});
+    doc.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
   }
 
   public doSelect = (value: any) => {
