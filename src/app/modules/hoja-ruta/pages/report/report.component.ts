@@ -56,6 +56,8 @@ export class ReportComponent implements OnInit {
     this.estado = form.value.estado;
     this.del = form.value.del;
     this.al = form.value.al;
+    this.fechaHoy = this.al,
+    this.fechaIni = this.del
     this.getSeguimientos();
   }
 
