@@ -53,11 +53,17 @@ export class ComprasService {
   }
 
   searchArticulo(termino: any): Observable<any[]> {
-
-
     const encoded = encodeURIComponent(termino);
     var dir = `${this.URL}/searchArticulo/${encoded}`;
     console.log(encoded);
+    return this.http.get<any[]>(dir);
+    // .pipe(
+    //   map((resp:any) => resp.serverResponse)
+    // );
+  }
+
+  getArticulo(termino: any): Observable<any[]> {
+    var dir = `${this.URL}/articuloNombre/?nombre=${termino}`;
     return this.http.get<any[]>(dir);
     // .pipe(
     //   map((resp:any) => resp.serverResponse)

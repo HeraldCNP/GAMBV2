@@ -131,23 +131,30 @@ export class CompraCreateComponent implements OnInit {
       return;
     }
 
-    // if (termino.includes('%')) {
-    //   console.log('La cadena contiene el signo "%".');
-    // } else {
-    //   console.log('La cadena no contiene el signo "%".');
-    // }
+    if (termino.includes('%')) {
+      console.log('La cadena contiene el signo "%".');
+      this.comprasService.getArticulo(termino).subscribe((resp) => {
+        console.log('Resp:', resp);
+        this.articulos = resp;
+        if (this.articulos.serverResponse.length == 1) {
 
-    this.comprasService.searchArticulo(termino).subscribe((resp) => {
-      console.log('Resp:', resp);
-      this.articulos = resp;
-      if (this.articulos.serverResponse.length == 1) {
+          this.article = this.articulos.serverResponse[0];
 
-        this.article = this.articulos.serverResponse[0];
+          this.addArticulo(this.article)
+        }
+      });
+    } else {
+      this.comprasService.searchArticulo(termino).subscribe((resp) => {
+        console.log('Resp:', resp);
+        this.articulos = resp;
+        if (this.articulos.serverResponse.length == 1) {
 
-        this.addArticulo(this.article)
-      }
-    });
+          this.article = this.articulos.serverResponse[0];
 
+          this.addArticulo(this.article)
+        }
+      });
+    }
   }
 
   // buscar(nombre: string) {

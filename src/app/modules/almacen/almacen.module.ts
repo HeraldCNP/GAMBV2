@@ -23,6 +23,8 @@ import { CompraUpdateComponent } from './pages/compras/compra-update/compra-upda
 import { MedidaIndexComponent } from './pages/medidas/medida-index/medida-index.component';
 import { MedidaEditComponent } from './pages/medidas/medida-edit/medida-edit.component';
 import { VehiculoIndexComponent } from './pages/vehiculos/vehiculo-index/vehiculo-index.component';
+import { ReportIndexComponent } from './pages/report/report-index/report-index.component';
+import { ReportIngresoComponent } from './pages/report/report-ingreso/report-ingreso.component';
 
 
 
@@ -48,6 +50,8 @@ import { VehiculoIndexComponent } from './pages/vehiculos/vehiculo-index/vehicul
     MedidaIndexComponent,
     MedidaEditComponent,
     VehiculoIndexComponent,
+    ReportIndexComponent,
+    ReportIngresoComponent,
   ],
   imports: [
     CommonModule,

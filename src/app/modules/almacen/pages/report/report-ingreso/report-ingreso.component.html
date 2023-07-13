@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-8">
+                <h3 class="card-title">
+                  Total de Entradas ({{ totalCompras }})
+                </h3>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addIngreso()">
+                  Nueva Entrada
+                </button> -->
+              </div>
+            </div>
+            <!-- <input class="form-control" type="search" placeholder="Buscar ingreso" (keyup)="buscar(txtTermino.value)" (blur)="buscar('')" #txtTermino /> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Articulo</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th>N° Ingreso</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let compra of compras.serverResponse; let i = index">
+                  <td>{{ i+1 }}</td>
+                  <td>{{ compra.idArticulo.nombre }}</td>
+                  <td>{{ compra.cantidadCompra }}</td>
+                  <td>{{ compra.precio }}</td>
+                  <td>{{ compra.idEntrada.numeroEntrada }}</td>
+                  <!-- <td>{{ compra.cantidadCompra * compra.precio }}</td> -->
+                  <!-- <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="ingreso.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(ingreso._id, !ingreso.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Activo
+                      </span>
+                      <span *ngIf="ingreso.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(ingreso._id, !ingreso.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Inactivo
+                      </span>
+                    </div>
+                  </td> -->
+                  <td>
+                    <!-- <i class="fas fa-edit ml-3 icono"></i> -->
+                    <div>
+                      <!-- Button trigger modal -->
+                      <!-- <button type="button" (click)="getIngreso(ingreso._id)" class="" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        <i class="fas fa-print"></i>
+                      </button> -->
+                      <!-- <i class="fas fa-edit ml-2 icono" (click)="editarEntrada(ingreso._id)"></i> -->
+                      <!-- <ng-container *ngIf="ingreso.estado == 'REGISTRADO'">
+                        <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i>
+                        <button type="button" (click)="getEntrada(ingreso._id)" class="" data-bs-toggle="modal"
+                          data-bs-target="#salidaModal">
+                          <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                      </ng-container> -->
+                      <!-- <i *ngIf="(data && data.roles === 'SUPER_ADMIN')" class="fas fa-trash-alt ml-2 icono"
+                        (click)="borrarIngreso(ingreso._id)"></i> -->
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="8" class="text-end off-p fs-5"> <b>SUMA TOTAL: </b></td>
+                  <td class="fs-5 off-p pr-2 text-end"><b>{{ calculateTotalCost() | currency: 'USD': '' }}</b></td>
+                </tr>
+              </tfoot>
+            </table>
+            <!-- <div class="text-center" *ngIf="txtTermino.value.length === 0">
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
