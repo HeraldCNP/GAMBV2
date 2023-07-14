@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlmacenService } from 'src/app/modules/almacen/services/almacen.service';
 import Swal from 'sweetalert2';
+import { AreaService } from '../../../services/area.service';
 
 @Component({
   selector: 'app-area-index',
@@ -18,33 +19,42 @@ export class AreaIndexComponent implements OnInit {
   limit: number = 10;
   totalPages: any;
   areaForm: any;
+  tipoForm: any;
   editForm: any;
+  tipoDelForm: any;
   cargando: boolean = true;
   idArea: any;
+  area: any;
+  area2: any;
 
-  constructor(private fb: FormBuilder, private almacenService: AlmacenService) {
+  constructor(private fb: FormBuilder, private areaService: AreaService) {
     this.areaForm = this.fb.group({
-      representante: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
       usuario: [''],
     });
 
     this.editForm = this.fb.group({
-      representante: ['', [Validators.required]],
-      razon_social: ['', [Validators.required]],
-      nit: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      direccion: [''],
-      ciudad: [''],
+      nombre: ['', [Validators.required]],
+    });
+
+    this.tipoForm = this.fb.group({
+      tipos: ['', [Validators.required]],
+      usuario: [''],
+    });
+
+    this.tipoDelForm = this.fb.group({
+      tipos: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
+    this.cargarAreas()
   }
 
-  cargarProveedores() {
+  cargarAreas() {
     this.cargando = true;
-    this.almacenService
-      .getAllProveedores(this.limit, this.skip)
+    this.areaService
+      .getAllAreas(this.limit, this.skip)
       .subscribe((data: any) => {
         this.totalAreas = data.totalDocs;
         this.areas = data;
@@ -55,20 +65,26 @@ export class AreaIndexComponent implements OnInit {
       });
   }
 
+  cargarArea(area: any) {
+    this.area = area.tipos;
+    console.log(this.area);
+    this.area2 = area;
+  }
+
   public doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
   };
 
-  crearProveedor(form: any) {
+  crearArea(form: any) {
     // console.log(this.finanForm.value.monto.replace(/\./g, ''));
-    this.almacenService.createProveedor(form).subscribe(
+    this.areaService.createArea(form).subscribe(
       (res) => {
         console.log(res);
       },
       (err) => console.log('HTTP Error', err),
       () => {
         this.areaForm.reset();
-        this.cargarProveedores();
+        this.cargarAreas();
       }
     );
   }
@@ -77,21 +93,38 @@ export class AreaIndexComponent implements OnInit {
     this.areaForm.reset();
   }
 
-  cargarDataEdit(proveedor: any) {
+  cargarDataEdit(area: any) {
     // console.log("idProve", proveedor.representante)
     this.editForm.setValue({
-      representante: proveedor.representante,
-      razon_social: proveedor.razon_social,
-      nit: proveedor.nit,
-      telefono: proveedor.telefono,
-      direccion: proveedor.direccion,
-      ciudad: proveedor.ciudad,
+      nombre: area.nombre,
     });
-    this.idArea = proveedor._id;
+    this.idArea = area._id;
   }
 
-  editProveedor(form: any) {
-    this.almacenService.editProveedor(form, this.idArea).subscribe(
+  cargarDataTipo(area: any) {
+    // console.log("idProve", proveedor.representante)
+    // this.tipoForm.setValue({
+    //   tipo: area.tipo,
+    // });
+    this.idArea = area._id;
+  }
+
+  crearTipo(form: any) {
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    this.areaService.createTipo(form, this.idArea).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+        this.tipoForm.reset();
+        this.cargarAreas();
+      }
+    );
+  }
+
+  editArea(form: any) {
+    this.areaService.editArea(form, this.idArea).subscribe(
       (res) => {
         console.log(res);
       },
@@ -106,7 +139,7 @@ export class AreaIndexComponent implements OnInit {
           'Proveedor editado Correctamente',
           '2000'
         );
-        this.cargarProveedores();
+        this.cargarAreas();
       }
     );
   }
@@ -114,13 +147,13 @@ export class AreaIndexComponent implements OnInit {
   changeStatus(id: any, estado: any) {
     let fd = new FormData();
     fd.append('estado', estado);
-    this.almacenService.editProveedor(fd, id).subscribe(
+    this.areaService.editArea(fd, id).subscribe(
       (res) => {
         console.log(res);
       },
       (err) => console.log('HTTP Error', err),
       () => {
-        this.cargarProveedores();
+        this.cargarAreas();
       }
     );
   }
@@ -130,7 +163,7 @@ export class AreaIndexComponent implements OnInit {
       this.areas = this.areasTemp;
       return;
     }
-    this.almacenService.searchProveedor(termino).subscribe((resp) => {
+    this.areaService.searchProveedor(termino).subscribe((resp) => {
       console.log('Resp:', resp);
       this.areas = resp;
       this.areasTemp = resp;
@@ -146,7 +179,7 @@ export class AreaIndexComponent implements OnInit {
       this.skip -= valor;
       this.page -= valor;
     }
-    this.cargarProveedores();
+    this.cargarAreas();
   }
 
   borrarArea(id: string) {
@@ -161,11 +194,36 @@ export class AreaIndexComponent implements OnInit {
       confirmButtonText: '¡Sí, bórralo!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Proyecto ha sido eliminado.', 'success');
-        this.almacenService.deleteProveedor(id).subscribe(
+        Swal.fire('¡Eliminado!', 'El Area ha sido eliminado.', 'success');
+        this.areaService.deleteArea(id).subscribe(
           (res) => console.log(res),
           (err) => console.log('HTTP Error', err),
-          () => this.cargarProveedores()
+          () => this.cargarAreas()
+        );
+      }
+    });
+  }
+
+  borrarTipo(tipo: string) {
+
+    let tipos = {tipos:tipo}
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, bórralo!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Eliminado!', 'El Tipo ha sido eliminado.', 'success');
+        this.areaService.deleteTipo(tipos, this.area2._id).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.cargarAreas()
         );
       }
     });
