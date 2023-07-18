@@ -19,8 +19,12 @@ export class RutaService {
     console.log(dir)
     return this.http.get<any>(dir)
   }
-  getTotalSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
+/*   getTotalSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}`;
+    return this.http.get<any>(dir)
+  } */
+  getTotalSeguimientos(destino?:string, dategt?:any,datelt?:any): Observable<any> {
+    let dir = `${this.URL}/seguiTotales?destino=${destino}&dategt=${dategt}&datelt=${datelt}`;
     return this.http.get<any>(dir)
   }
   getPendientes(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
@@ -88,7 +92,11 @@ export class RutaService {
   buscarHoja(search: string): Observable<any> {
     return this.http.get(this.URL + '/hojasearch/' + search);
   }
-
+  getTotalHojaRuta(dategt?:any,datelt?:any): Observable<any> {
+    let dir = `${this.URL}/totales?dategt=${dategt}&datelt=${datelt}`;
+    console.log(dir)
+    return this.http.get<any>(dir)
+  }
 
   obtenerOrg(params: string): Observable<any> {
     return this.http.get(this.URL + '/org/' + params).pipe( map( data => {

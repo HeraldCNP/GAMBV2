@@ -90,10 +90,11 @@ export class OfficeIndexComponent implements OnInit {
   getpendientes() {
     let estado3 = 'ENVIADO';
     this.api.getPendientes(this.destino, estado3,this.dategt, this.datelt,).subscribe((data) => {
-      this.totales1 = data.serverResponse;
+      this.totales = data.serverResponse;
+      console.log(data);
       if (data.totalDocs > 0) {
         for (let i = 0; i < data.totalDocs; i++) {
-          this.ale = this.totales1[i];
+          this.ale = this.totales[i];
           if (this.hoy.diff(this.ale.fechaderivado, 'hours') > 12) {
             this.alerta = true;
           }
@@ -235,12 +236,15 @@ export class OfficeIndexComponent implements OnInit {
       this.dategt=this.campo;
       this.datelt=this.year+1;
     }
-    this.api.getTotalSeguimientos(this.destino, this.estado2, this.dategt, this.datelt, ).subscribe(
+    this.api.getTotalSeguimientos(this.destino, this.dategt, this.datelt, ).subscribe(
       (data) => {
-        // this.loading = false;
-        this.totales = data.serverResponse;
-        this.total = this.totales.length;
-        this.totalRecibidos = this.totales.filter(
+        this.total = data.total;
+        this.totalRecibidos=data.recibido;
+        this.totalDerivados = data.derivado;
+        this.totalEnviados =data.enviado;
+        this.totalMaletin= data.maletin;
+        this.totalOfi = data.fileOficina
+                /* this.totalRecibidos = this.totales.filter(
           (list: { estado: string }) => list.estado === 'RECIBIDO'
         ).length;
         this.totalDerivados = this.totales.filter(
@@ -252,12 +256,9 @@ export class OfficeIndexComponent implements OnInit {
         this.totalMaletin = this.totales.filter(
           (list: { estado: string }) => list.estado === 'MALETIN'
         ).length;
-        this.totalArchivado = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'ARCHIVADO'
-        ).length;
         this.totalOfi = this.totales.filter(
           (list: { estado: string }) => list.estado === 'FILE OFICINA'
-        ).length;
+        ).length; */
       },
       (error) => {
         console.log(error);

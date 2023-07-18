@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   totalEnviados: number = 0;
   totalMaletin: number = 0;
   totalArchivado: number = 0;
+  totalOfi: number = 0;
   totalDocs: number = 0;
   canten:number = 0;
   cantre:number = 0;
@@ -52,26 +53,16 @@ export class HomeComponent implements OnInit {
     let RegExp = /[^()]*/g;
     this.destino1 = this.data.post;
     this.destino = RegExp.exec(this.destino1);
-    this.api.getTotalSeguimientos(this.destino, this.estado, this.dategt, this.datelt).subscribe(
+    this.api.getTotalSeguimientos(this.destino, this.dategt, this.datelt).subscribe(
       (data) => {
         // this.loading = false;
-        this.totales = data.serverResponse;
-        this.total = this.totales.length;
-        this.totalRecibidos = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'RECIBIDO'
-        ).length;
-        this.totalDerivados = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'DERIVADO'
-        ).length;
-        this.totalEnviados = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'ENVIADO'
-        ).length;
-        this.totalMaletin = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'MALETIN'
-        ).length;
-        this.totalArchivado = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'ARCHIVADO'
-        ).length;
+        this.total = data.total;
+        this.totalRecibidos=data.recibido;
+        this.totalDerivados = data.derivado;
+        this.totalEnviados =data.enviado;
+        this.totalMaletin= data.maletin;
+        this.totalOfi = data.fileOficina;
+       
       },
       (error) => {
         console.log(error);
@@ -80,12 +71,15 @@ export class HomeComponent implements OnInit {
   }
 
   getHojas() {
-    this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(data => {
-      this.hojaRutas = data.serverResponse;
-      this.totalDocs=data.nuitok;
-      this.cantre = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'REGISTRADO').length;
+    this.api.getTotalHojaRuta(this.dategt, this.datelt).subscribe(data => {
+     // this.hojaRutas = data.serverResponse;      
+      this.totalDocs=data.total;
+      this.cantre=data.registrado;
+      this.canten = data.enviado;
+      this.cantrec = data.recibido
+      /* this.cantre = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'REGISTRADO').length;
       this.canten = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'ENVIADO').length;
-      this.cantrec = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'RECIBIDO').length;
+      this.cantrec = this.hojaRutas.filter((list: { estado: string; }) => list.estado === 'RECIBIDO').length; */
     }, error => {
       console.log(error);
     })
