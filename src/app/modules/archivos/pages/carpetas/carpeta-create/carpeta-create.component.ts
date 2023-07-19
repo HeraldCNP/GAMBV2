@@ -4,6 +4,7 @@ import { HttpEventType } from '@angular/common/http';
 import { CarpetaService } from '../../../services/carpeta.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AreaService } from '../../../services/area.service';
 
 @Component({
   selector: 'app-carpeta-create',
@@ -18,31 +19,32 @@ export class CarpetaCreateComponent implements OnInit {
   files: any;
   progress: number = 0;
   area: boolean = true;
+  areas: any;
 
-  areas = {
-    "list": [
-      {
-        "name": "Administración",
-        "slug": "administracion"
-      },
-      {
-        "name": "Contabilidad",
-        "slug": "contabilidad"
-      },
-      {
-        "name": "Recaudaciones",
-        "slug": "recaudaciones"
-      },
-      {
-        "name": "Legal",
-        "slug": "legal"
-      }
-    ]
-  }
+  // areas = {
+  //   "list": [
+  //     {
+  //       "name": "Administración",
+  //       "slug": "administracion"
+  //     },
+  //     {
+  //       "name": "Contabilidad",
+  //       "slug": "contabilidad"
+  //     },
+  //     {
+  //       "name": "Recaudaciones",
+  //       "slug": "recaudaciones"
+  //     },
+  //     {
+  //       "name": "Legal",
+  //       "slug": "legal"
+  //     }
+  //   ]
+  // }
 
   tipos: string[] = [];
 
-  constructor(private fb: FormBuilder, private carpetaService: CarpetaService, private router: Router) {
+  constructor(private fb: FormBuilder, private carpetaService: CarpetaService, private router: Router, private areaService: AreaService) {
 
     this.carpetaForm = this.fb.group({
       gestion: ['2023', [Validators.required]],
@@ -54,15 +56,21 @@ export class CarpetaCreateComponent implements OnInit {
       estante: ['', [Validators.required]],
       fila: [''],
     });
-
-
   }
 
   ngOnInit(): void {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
+    this.cargarAreas()
+  }
 
+  cargarAreas() {
+    this.areaService.getAllAreas()
+      .subscribe((data: any) => {
+        this.areas = data.serverResponse;
+        console.log(this.areas);
+      });
   }
 
   get form() {
@@ -105,8 +113,28 @@ export class CarpetaCreateComponent implements OnInit {
 
       (err) => console.log('HTTP Error', err),
       () => {
+
+        switch (this.carpetaForm.value.area) {
+          case 'administracion':
+            this.tipos = ['Opción A', 'Opción B', 'Opción C'];
+            break;
+          case 'Contabilidad':
+            this.router.navigate(['archivos/conta/index']);
+            break;
+          case 'recaudaciones':
+            this.tipos = ['Opción 1', 'Opción 2', 'Opción 3'];
+            break;
+          case 'legal':
+            this.tipos = ['Opción 4', 'Opción 5', 'Opción 6'];
+
+            break;
+          default:
+            this.router.navigate(['archivos/carpetas/index']);
+            break;
+        }
+
         this.carpetaForm.reset();
-        this.router.navigate(['archivos/carpetas/index']);
+
         this.alertOk(
           'success',
           'Exito',
@@ -117,9 +145,15 @@ export class CarpetaCreateComponent implements OnInit {
     );
   }
 
+  public doSelect = (value: any) => {
+    // console.log('SingleDemoComponent.doSelect', value);
+    let search = this.areas.find((x: { nombre: any; }) => x.nombre == value);
+    this.tipos = search.tipos;
+    console.log(this.tipos);
 
-
-
+    // this.user = this.users.find((item: { post: string; }) => item.post === value);
+    // console.log(this.user)
+  };
 
   alertOk(icon: any, title: any, text: any, timer: any) {
     Swal.fire({
@@ -133,7 +167,5 @@ export class CarpetaCreateComponent implements OnInit {
   cancel() {
     this.router.navigate(['archivos/carpetas/index']);
   }
-
-
 
 }

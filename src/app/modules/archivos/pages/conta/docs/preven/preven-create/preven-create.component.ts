@@ -79,12 +79,13 @@ export class PrevenCreateComponent implements OnInit {
       fd.append('usuario', this.idUser);
 
       this.contaService.registerPreven(fd, this.carpetaId).subscribe(
+        (res) => {
+          console.log(res);
+        },
         (err) => {
           console.log('HTTP Error', err);
-          this.progress = 0;
         },
         () => {
-          this.progress = 0;
           this.router.navigate(['archivos/conta/index']);
           this.alertOk(
             'success',

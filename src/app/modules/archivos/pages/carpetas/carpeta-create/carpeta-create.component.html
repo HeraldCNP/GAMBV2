@@ -36,7 +36,7 @@
                     </div>
                   </div>
 
-                  <div class="input-group mb-1">
+                  <!-- <div class="input-group mb-1">
                     <span class="input-group-text izq" id="area"><b> Área *</b></span>
                     <select id="area" formControlName="area" class="form-select" (change)="actualizarSegundoSelect()" required>
                       <option value="" [defaultSelected]="true">Elija una opción</option>
@@ -44,6 +44,27 @@
                     </select>
                     <div class="form-text" *ngIf="form['area'].touched && form['area'].invalid">
                       <div *ngIf="form['area'].errors && form['area'].errors['required']">* Area es Requerida.</div>
+                    </div>
+                  </div> -->
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Area</b></span>
+                    <ngx-select class="sel" [allowClear]="true" [items]="areas" optionTextField="nombre" optionValueField="nombre"
+                      placeholder="Seleccione un area" formControlName="area" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{option.data.surnames}}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div class="form-text" *ngIf="form['area'].touched && form['area'].invalid">
+                      <div *ngIf="
+                          form['area'].errors &&
+
+                          form['area'].errors['required']
+                        ">
+                        * Debe seleccionar un area.
+                      </div>
                     </div>
                   </div>
 

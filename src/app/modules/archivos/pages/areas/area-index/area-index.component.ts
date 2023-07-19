@@ -136,7 +136,7 @@ export class AreaIndexComponent implements OnInit {
         this.alertOk(
           'success',
           'Exito',
-          'Proveedor editado Correctamente',
+          'Area editada Correctamente',
           '2000'
         );
         this.cargarAreas();

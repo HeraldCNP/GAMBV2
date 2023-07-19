@@ -38,7 +38,8 @@ import { AreaIndexComponent } from './pages/areas/area-index/area-index.componen
     ArchivosRoutingModule,
     ReactiveFormsModule,
     NgxSelectModule,
-    FormsModule
+    FormsModule,
+    NgxSelectModule,
   ]
 })
 export class ArchivosModule { }
