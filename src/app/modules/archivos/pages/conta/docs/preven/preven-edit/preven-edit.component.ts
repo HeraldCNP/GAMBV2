@@ -85,7 +85,7 @@ export class PrevenEditComponent implements OnInit {
 
       console.log(this.editForm.value.numero);
 
-      fd.append('numero', this.editForm.value.numero);
+      // fd.append('numero', this.editForm.value.numero);
       // fd.append('fecha', this.editForm.value.fecha);
       // fd.append('glosa', this.editForm.value.glosa);
       // fd.append('beneficiario', this.editForm.value.beneficiario);
