@@ -78,9 +78,9 @@ export class OfficeIndexComponent implements OnInit {
     let RegExp = /[^()]*/g;
     this.destino1 = this.data.post;
     this.destino = RegExp.exec(this.destino1);
-    this.obtenertotal();
     this.getSeguimientos();
     this.getpendientes();
+    this.obtenertotal();
   }
   onclick(id:any){
     this.onclick
@@ -290,9 +290,11 @@ export class OfficeIndexComponent implements OnInit {
               this.api.EditarSeguis(ids, SEGUI).subscribe(
                 (data) => {
                   this.estado = '';
-                  this.getSeguimientos();
                   this.obtenertotal();
+                  this.getpendientes()
+                  this.getSeguimientos();
                   this.router.navigate(['/ruta/office/index']);
+                  
                 },
                 (error) => {
                   console.log(error);

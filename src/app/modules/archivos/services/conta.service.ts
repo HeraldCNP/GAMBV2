@@ -8,14 +8,14 @@ import { environment } from 'src/environments/environment';
 })
 export class ContaService {
   private readonly URL = environment.api;
-  private readonly URL2 = environment.apiLocal;
+ // private readonly URL2 = environment.apiLocal;
 
   constructor(private http: HttpClient) {
   }
 
   /* Carpetas */
   getAllConta(limit?: number, skip?: number, area?: string, tipo?: string): Observable<any[]> {
-    let dir = `${this.URL2}/carpetas?limit=${limit}&skip=${skip}&area=${area}&tipo=${tipo}`;
+    let dir = `${this.URL}/carpetas?limit=${limit}&skip=${skip}&area=${area}&tipo=${tipo}`;
     console.log(dir);
     return this.http.get<any>(dir);
   }
@@ -27,7 +27,7 @@ export class ContaService {
   }
 
   registerPreven(fd: FormData, id: string): Observable<any> {
-    let dir = `${this.URL2}/addAreaArch/${id}`;
+    let dir = `${this.URL}/addAreaArch/${id}`;
     // console.log(dir);
     return this.http.put<any>(dir, fd, {
       reportProgress: true,
