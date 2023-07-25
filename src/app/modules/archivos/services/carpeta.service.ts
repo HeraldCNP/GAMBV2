@@ -35,8 +35,8 @@ export class CarpetaService {
   }
 
 
-  editProveedor(form: any, id: any): Observable<any> {
-    let dir = `${this.URL}/proveedor/${id}`;
+  editCarpeta(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/carpeta/${id}`;
     return this.http.put<any>(dir, form)
   }
 
@@ -49,8 +49,8 @@ export class CarpetaService {
     // );
   }
 
-  deleteProveedor(id: any) {
-    let dir = `${this.URL}/proveedor/${id}`;
+  deleteCarpeta(id: any) {
+    let dir = `${this.URL}/carpeta/${id}`;
     return this.http.delete<any>(dir, id);
   }
 }

@@ -304,11 +304,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="carpeta">
-        <form (ngSubmit)="editCarpeta()" [formGroup]="editForm">
+        <form (ngSubmit)="editCarpeta(editForm.value)" [formGroup]="editForm">
           <div class="input-group mb-1">
             <span class="input-group-text izq" id="gestion"><b> Gestión *</b></span>
             <select id="gestion" formControlName="gestion" class="form-select" required>
-              <option value="2023" [defaultSelected]="true">2023</option>
+              <option value="2023">2023</option>
               <option value="2022">2022</option>
               <option value="2021">2021</option>
               <option value="2020">2020</option>
@@ -330,17 +330,27 @@
           </div>
 
           <div class="input-group mb-1">
-            <span class="input-group-text izq" id="area"><b> Área *</b></span>
-            <select id="area" formControlName="area" class="form-select" required>
-              <option value="" [defaultSelected]="true">Elija una opción</option>
-              <option *ngFor="let area of areas.list" value="{{ area.slug }}">{{ area.name }}</option>
-            </select>
+            <span class="input-group-text izq" id="area"><b>Area</b></span>
+            <ngx-select class="sel" [allowClear]="true" [items]="areas" optionTextField="nombre"
+              optionValueField="nombre" placeholder="Seleccione un area" formControlName="area">
+              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                <span [innerHtml]="text"></span>
+                &nbsp;{{option.data.surnames}}
+              </ng-template>
+            </ngx-select>
+
             <div class="form-text" *ngIf="form2['area'].touched && form2['area'].invalid">
-              <div *ngIf="form2['area'].errors && form2['area'].errors['required']">* Area es Requerida.</div>
+              <div *ngIf="
+                  form2['area'].errors &&
+
+                  form2['area'].errors['required']
+                ">
+                * Debe seleccionar un area.
+              </div>
             </div>
           </div>
 
-          <div class="input-group mb-1" *ngIf="editForm.value.area">
+          <div class="input-group mb-1">
             <span class="input-group-text izq" id="tipo"><b> Tipo *</b></span>
             <select id="tipo" formControlName="tipo" class="form-select" required>
               <option value="" [defaultSelected]="true">Elija una opción</option>
@@ -350,7 +360,6 @@
               <div *ngIf="form2['tipo'].errors && form2['tipo'].errors['required']">* Tipo es Requerido.</div>
             </div>
           </div>
-
 
           <div class="input-group mb-1">
             <span class="input-group-text izq" id="numCarpeta"><b>Número de Carpeta *</b></span>
@@ -444,6 +453,8 @@
             </button>
           </div>
         </form>
+
+        {{ editForm.value | json }}
       </div>
     </div>
   </div>

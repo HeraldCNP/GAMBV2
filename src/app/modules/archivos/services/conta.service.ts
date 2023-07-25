@@ -8,7 +8,10 @@ import { environment } from 'src/environments/environment';
 })
 export class ContaService {
   private readonly URL = environment.api;
+<<<<<<< HEAD
  // private readonly URL2 = environment.apiLocal;
+=======
+>>>>>>> 023f0753854316aaa63feace7713bedbe9d74ffe
 
   constructor(private http: HttpClient) {
   }
@@ -55,5 +58,10 @@ export class ContaService {
     // .pipe(
     //   map((resp:any) => resp.serverResponse)
     // );
+  }
+
+  getSingleArchivo(id: any): Observable<any> {
+    let dir = `${this.URL}/contabilidad/${id}`;
+    return this.http.get<any>(dir)
   }
 }

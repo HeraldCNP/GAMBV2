@@ -16,6 +16,8 @@ import { PrevenCreateComponent } from './pages/conta/docs/preven/preven-create/p
 import { DevenCreateComponent } from './pages/conta/docs/deven/deven-create/deven-create.component';
 import { PrevenListComponent } from './pages/conta/docs/preven/preven-list/preven-list.component';
 import { AreaIndexComponent } from './pages/areas/area-index/area-index.component';
+import { DocEditComponent } from './pages/conta/doc-edit/doc-edit.component';
+import { PrevenEditComponent } from './pages/conta/docs/preven/preven-edit/preven-edit.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { AreaIndexComponent } from './pages/areas/area-index/area-index.componen
     PrevenCreateComponent,
     DevenCreateComponent,
     PrevenListComponent,
-    AreaIndexComponent
+    AreaIndexComponent,
+    DocEditComponent,
+    PrevenEditComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +43,6 @@ import { AreaIndexComponent } from './pages/areas/area-index/area-index.componen
     ReactiveFormsModule,
     NgxSelectModule,
     FormsModule,
-    NgxSelectModule,
   ]
 })
 export class ArchivosModule { }

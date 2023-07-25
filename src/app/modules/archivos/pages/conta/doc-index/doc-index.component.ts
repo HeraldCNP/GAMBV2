@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ContaService } from '../../../services/conta.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-doc-index',
@@ -24,6 +25,7 @@ export class DocIndexComponent implements OnInit {
   idCarpetaConta: any;
   area:string = 'contabilidad';
   tipo:string = '';
+  URL = environment.api;
 
   constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) { }
 
