@@ -38,13 +38,15 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Numero</th>
-                  <th>Detalle</th>
+                  <th>Numero de Preventivo</th>
+                  <th>Fecha de Preventivo</th>
+                  <th>Glosa</th>
                   <th>Beneficiario</th>
-                  <th>Fecha</th>
-                  <th>Monto</th>
+                  <th>CI/NIT</th>
+                  <th>Monto Total Autorizado</th>
                   <th>Fojas</th>
-                  <th>Obervaciones</th>
+                  <th>Archivo</th>
+                  <th>Observaciones</th>
                   <th>Carpeta</th>
                   <th>Acciones</th>
                 </tr>
@@ -52,11 +54,13 @@
               <tbody class="table-group-divider">
                 <tr *ngFor="let archivo of archivos.serverResponse; let i = index">
                   <td>{{ archivo.numero }}</td>
-                  <td>{{ archivo.detalle }}</td>
+                  <td>{{ archivo.fecha | date:'longDate': 'UTC' }}</td>
+                  <td>{{ archivo.glosa }}</td>
                   <td>{{ archivo.beneficiario }}</td>
-                  <td>{{ archivo.fecha }}</td>
+                  <td>{{ archivo.ci }}</td>
                   <td>{{ archivo.monto }}</td>
                   <td>{{ archivo.fojas }}</td>
+                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+archivo.uri }}" target="_blank">Descargar</a></td>
                   <td>{{ archivo.observacion }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
@@ -96,13 +100,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                       </div>
                       <div class="offcanvas-body  text-center">
+                        <b>Número de Carpeta:</b> {{ archivo.idCarpeta.numCarpeta }} <br>
+                        <b>Gestión:</b> {{ archivo.idCarpeta.gestion }} <br>
                         <b>Area:</b> {{ archivo.idCarpeta.area }} <br>
-                        <b>Carpeta:</b> {{ archivo.idCarpeta.tipo }} <br>
-                        <b>Tomo:</b> {{ archivo.idCarpeta.tomo }} <br>
-                        <b>Objeto:</b> {{ archivo.idCarpeta.objeto }} <br>
-                        <b>Gestion:</b> {{ archivo.idCarpeta.gestion }} <br>
-                        <b>Lugar:</b> {{ archivo.idCarpeta.lugar }} <br>
-                        <b>Ubicacion:</b> {{ archivo.idCarpeta.ubicacion }} <br>
+                        <b>Tipo:</b> {{ archivo.idCarpeta.tipo }} <br>
+                        <b>Nombre de la Carpeta:</b> {{ archivo.idCarpeta.nameCarpeta }} <br>
+                        <b>Lugar de Archivo:</b> {{ archivo.idCarpeta.lugar }} <br>
+                        <b>N° de Estante:</b> {{ archivo.idCarpeta.estante }} <br>
+                        <b>N° de Fila:</b> {{ archivo.idCarpeta.fila }} <br>
                       </div>
                     </div>
                   </td>

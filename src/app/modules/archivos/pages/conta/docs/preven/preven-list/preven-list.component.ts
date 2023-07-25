@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContaService } from 'src/app/modules/archivos/services/conta.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -22,13 +22,13 @@ export class PrevenListComponent implements OnInit {
   carpetaId?:any;
 
   URL = environment.api;
-  constructor(private contaService: ContaService, private activeRouter: ActivatedRoute) { }
+  constructor(private contaService: ContaService, private activeRouter: ActivatedRoute, private router: Router) { }
 
 
 
   ngOnInit(): void {
     this.carpetaId = this.activeRouter.snapshot.paramMap.get('id');
-    console.log(this.carpetaId);
+    // console.log(this.carpetaId);
 
     this.cargarPreventivos();
   }
@@ -59,6 +59,10 @@ export class PrevenListComponent implements OnInit {
     //   });
   }
 
+  editarPreventivo(preventivo:any){
+    console.log(preventivo);
+    this.router.navigate(['archivos/conta/docs/preven/edit', preventivo._id])
+  }
 
   buscar(termino: string) {
     if (termino.length === 0) {

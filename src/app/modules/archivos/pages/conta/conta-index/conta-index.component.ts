@@ -4,6 +4,8 @@ import { ContaService } from '../../../services/conta.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { AreaService } from '../../../services/area.service';
+import { CarpetaService } from '../../../services/carpeta.service';
 
 @Component({
   selector: 'app-conta-index',
@@ -29,8 +31,9 @@ export class ContaIndexComponent implements OnInit {
   tipo: string = 'Preventivos';
   estadoFinan: any;
   URL = environment.api;
+  areas: any;
 
-  constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) {
+  constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router, private areaService: AreaService, private carpetaService: CarpetaService) {
     this.contaForm = this.fb.group({
       numero: [''],
       detalle: ['', [Validators.required]],
@@ -48,7 +51,7 @@ export class ContaIndexComponent implements OnInit {
 
 
     this.editForm = this.fb.group({
-      gestion: ['2023', [Validators.required]],
+      gestion: ['', [Validators.required]],
       area: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       numCarpeta: ['', [Validators.required]],
@@ -60,7 +63,8 @@ export class ContaIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargarCarpetasConta()
+    this.cargarCarpetasConta();
+    this.cargarAreas()
   }
 
   cargarCarpetasConta() {
@@ -86,26 +90,7 @@ export class ContaIndexComponent implements OnInit {
     return this.editForm.controls;
   }
 
-  areas = {
-    "list": [
-      {
-        "name": "Administración",
-        "slug": "administracion"
-      },
-      {
-        "name": "Contabilidad",
-        "slug": "contabilidad"
-      },
-      {
-        "name": "Recaudaciones",
-        "slug": "recaudaciones"
-      },
-      {
-        "name": "Legal",
-        "slug": "legal"
-      }
-    ]
-  }
+
 
   actualizarSegundoSelect() {
     console.log("cambio");
@@ -130,22 +115,32 @@ export class ContaIndexComponent implements OnInit {
     }
   }
 
+
   cargarDataEdit(carpeta:any) {
     this.carpeta = carpeta;
-    console.log(carpeta.area);
-
+    let search = this.areas.find((x: { nombre: any; }) => x.nombre == carpeta.area);
+    this.tipos = search.tipos;
     this.editForm.setValue({
-      gestion: [carpeta.gestion, [Validators.required]],
-      area: [carpeta.area, [Validators.required]],
-      tipo: [carpeta.tipo, [Validators.required]],
-      numCarpeta: [carpeta.numCarpeta, [Validators.required]],
-      nameCarpeta: [carpeta.nameCarpeta, [Validators.required]],
-      lugar: [carpeta.lugar],
-      estante: [carpeta.estante, [Validators.required]],
-      fila: [carpeta.fila],
+      gestion: carpeta.gestion,
+      area: carpeta.area,
+      tipo: carpeta.tipo,
+      numCarpeta: carpeta.numCarpeta,
+      nameCarpeta: carpeta.nameCarpeta,
+      lugar: carpeta.lugar,
+      estante: carpeta.estante,
+      fila: carpeta.fila,
     });
     this.idCarpeta = carpeta._id;
   }
+
+  // gestion: ['', [Validators.required]],
+  // area: ['', [Validators.required]],
+  // tipo: ['', [Validators.required]],
+  // numCarpeta: ['', [Validators.required]],
+  // nameCarpeta: ['', [Validators.required]],
+  // lugar: [''],
+  // estante: ['', [Validators.required]],
+  // fila: [''],
 
   buscar(termino: string) {
     if (termino.length === 0) {
@@ -174,7 +169,7 @@ export class ContaIndexComponent implements OnInit {
   borrarCarpeta(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
-      text: '¡No podrás revertir esto!',
+      text: '¡No podrás revertir esto! Se eliminaran todos los archivos registrados dentro de esta carpeta',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -183,18 +178,35 @@ export class ContaIndexComponent implements OnInit {
       confirmButtonText: '¡Sí, bórralo!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Proyecto ha sido eliminado.', 'success');
-        // this.almacenService.deleteProveedor(id).subscribe(
-        //   (res) => console.log(res),
-        //   (err) => console.log('HTTP Error', err),
-        //   () => this.cargarProveedores()
-        // );
+        Swal.fire('¡Eliminado!', 'La Carpeta ha sido eliminada.', 'success');
+        this.carpetaService.deleteCarpeta(id).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.cargarCarpetasConta()
+        );
       }
     });
   }
 
-  editCarpeta(){
-
+  editCarpeta(form: any){
+    this.carpetaService.editCarpeta(form, this.idCarpeta).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.editForm.reset();
+        this.alertOk(
+          'success',
+          'Exito',
+          'Articulo editado Correctamente',
+          '2000'
+        );
+        this.cargarCarpetasConta();
+      }
+    );
   }
 
   crearConta(form: any) {
@@ -299,5 +311,26 @@ export class ContaIndexComponent implements OnInit {
     this.cargarCarpetasConta();
     this.skip = 1;
   }
+
+
+  public doSelect = (value: any) => {
+    // console.log('SingleDemoComponent.doSelect', value);
+    let search = this.areas.find((x: { nombre: any; }) => x.nombre == value);
+    this.tipos = search.tipos;
+    console.log(this.tipos);
+
+    // this.user = this.users.find((item: { post: string; }) => item.post === value);
+    // console.log(this.user)
+  };
+
+
+  cargarAreas() {
+    this.areaService.getAllAreas()
+      .subscribe((data: any) => {
+        this.areas = data.serverResponse;
+        // console.log(this.areas);
+      });
+  }
+
 
 }

@@ -1,0 +1,29 @@
+.boton1 {
+  background-color: rgba(0, 0, 0, .1);
+  color: rgba(255, 255, 255, .8);
+  padding: 6px 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+}
+
+.boton1:hover {
+  background-color: rgb(108, 134, 248);
+}
+
+.boton2 {
+  background-color: rgba(0, 0, 0, .1);
+  color: rgba(255, 255, 255, .8);
+  padding: 6px 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+}
+
+.boton2:hover {
+  background-color: rgb(108, 134, 248);
+}
+
+.tira{
+  background-color: rgba(0, 0, 0, .1);
+}

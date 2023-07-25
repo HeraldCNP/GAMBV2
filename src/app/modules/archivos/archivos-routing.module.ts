@@ -9,6 +9,7 @@ import { PrevenCreateComponent } from './pages/conta/docs/preven/preven-create/p
 import { DevenCreateComponent } from './pages/conta/docs/deven/deven-create/deven-create.component';
 import { PrevenListComponent } from './pages/conta/docs/preven/preven-list/preven-list.component';
 import { AreaIndexComponent } from './pages/areas/area-index/area-index.component';
+import { PrevenEditComponent } from './pages/conta/docs/preven/preven-edit/preven-edit.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,8 @@ const routes: Routes = [
       { path: 'conta/docs/index', component: DocIndexComponent },
       { path: 'conta/docs/preven/:id', component: PrevenCreateComponent },
       { path: 'conta/docs/preven/list/:id', component: PrevenListComponent },
+      { path: 'conta/docs/preven/edit/:id', component: PrevenEditComponent },
+
       { path: 'conta/docs/deven/:id', component: DevenCreateComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },
