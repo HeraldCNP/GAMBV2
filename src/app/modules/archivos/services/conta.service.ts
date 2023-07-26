@@ -59,4 +59,11 @@ export class ContaService {
     let dir = `${this.URL}/contabilidad/${id}`;
     return this.http.get<any>(dir)
   }
+
+
+  editArchivo(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/contabilidad/${id}`;
+    return this.http.put<any>(dir, form)
+  }
+
 }

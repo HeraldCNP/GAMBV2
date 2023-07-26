@@ -12,15 +12,16 @@ import Swal from 'sweetalert2';
   styleUrls: ['./preven-edit.component.css']
 })
 export class PrevenEditComponent implements OnInit {
-  archivoId:any;
+  archivoId: any;
   idUser: any;
   user: any;
   data: any;
-  dataArchivo:any;
+  dataArchivo: any;
   files: any;
   progress: number = 0;
 
-  editForm = this.fb.group({
+
+  editForm: any = this.fb.group({
     numero: ['', [Validators.required]],
     fecha: ['', [Validators.required]],
     glosa: ['', [Validators.required]],
@@ -78,6 +79,7 @@ export class PrevenEditComponent implements OnInit {
     this.files = $event.target.files;
   }
 
+
   editArchivo() {
     let fd = new FormData();
 
@@ -85,69 +87,69 @@ export class PrevenEditComponent implements OnInit {
 
       console.log(this.editForm.value.numero);
 
-      // fd.append('numero', this.editForm.value.numero);
-      // fd.append('fecha', this.editForm.value.fecha);
-      // fd.append('glosa', this.editForm.value.glosa);
-      // fd.append('beneficiario', this.editForm.value.beneficiario);
-      // fd.append('ci', this.editForm.value.ci);
-      // fd.append('monto', this.editForm.value.monto);
-      // fd.append('fojas', this.editForm.value.fojas);
-      // fd.append('observacion', this.editForm.value.observacion);
+      fd.append('numero', this.editForm.value.numero);
+      fd.append('fecha', this.editForm.value.fecha);
+      fd.append('glosa', this.editForm.value.glosa);
+      fd.append('beneficiario', this.editForm.value.beneficiario);
+      fd.append('ci', this.editForm.value.ci);
+      fd.append('monto', this.editForm.value.monto);
+      fd.append('fojas', this.editForm.value.fojas);
+      fd.append('observacion', this.editForm.value.observacion);
       fd.append('usuario', this.idUser);
 
-      // this.contaService.registerPreven(fd, this.archivoId).subscribe(
-      //   (res) => {
-      //     console.log(res);
-      //   },
-      //   (err) => {
-      //     console.log('HTTP Error', err);
-      //   },
-      //   () => {
-      //     this.router.navigate(['archivos/conta/index']);
-      //     this.alertOk(
-      //       'success',
-      //       'Exito',
-      //       'Documento Creado Correctamente',
-      //       '2000'
-      //     );
-      //   }
-      // );
+      this.contaService.editArchivo(fd, this.archivoId).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log('HTTP Error', err);
+        },
+        () => {
+          this.router.navigate(['archivos/conta/index']);
+          this.alertOk(
+            'success',
+            'Exito',
+            'Archivo Editado Correctamente',
+            '2000'
+          );
+        }
+      );
     } else {
       // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
 
 
-      // fd.append('numero', this.editForm.value.numero);
-      // fd.append('fecha', this.editForm.value.fecha);
-      // fd.append('glosa', this.editForm.value.glosa);
-      // fd.append('beneficiario', this.editForm.value.beneficiario);
-      // fd.append('ci', this.editForm.value.ci);
-      // fd.append('monto', this.editForm.value.monto);
-      // fd.append('fojas', this.editForm.value.fojas);
-      // fd.append('observacion', this.editForm.value.observacion);
-      // fd.append('usuario', this.idUser);
-      // fd.append('file', this.files[0]);
+      fd.append('numero', this.editForm.value.numero);
+      fd.append('fecha', this.editForm.value.fecha);
+      fd.append('glosa', this.editForm.value.glosa);
+      fd.append('beneficiario', this.editForm.value.beneficiario);
+      fd.append('ci', this.editForm.value.ci);
+      fd.append('monto', this.editForm.value.monto);
+      fd.append('fojas', this.editForm.value.fojas);
+      fd.append('observacion', this.editForm.value.observacion);
+      fd.append('usuario', this.idUser);
+      fd.append('file', this.files[0]);
 
-      // this.contaService.registerPreven(fd, this.archivoId).subscribe(
-      //   (event) => {
-      //     if (event.type === HttpEventType.UploadProgress) {
-      //       this.progress = Math.round((100 * event.loaded) / event.total);
-      //     }
-      //   },
-      //   (err) => {
-      //     console.log('HTTP Error', err);
-      //     this.progress = 0;
-      //   },
-      //   () => {
-      //     this.progress = 0;
-      //     this.router.navigate(['archivos/conta/index']);
-      //     this.alertOk(
-      //       'success',
-      //       'Exito',
-      //       'Documento Creado Correctamente',
-      //       '2000'
-      //     );
-      //   }
-      // );
+      this.contaService.editArchivo(fd, this.archivoId).subscribe(
+        (event) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round((100 * event.loaded) / event.total);
+          }
+        },
+        (err) => {
+          console.log('HTTP Error', err);
+          this.progress = 0;
+        },
+        () => {
+          this.progress = 0;
+          this.router.navigate(['archivos/conta/index']);
+          this.alertOk(
+            'success',
+            'Exito',
+            'Archivo Editado Correctamente',
+            '2000'
+          );
+        }
+      );
     }
   }
 
