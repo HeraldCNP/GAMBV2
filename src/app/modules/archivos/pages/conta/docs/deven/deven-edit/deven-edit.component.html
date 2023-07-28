@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <div class="card shadow p-3 mb-4 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Editar Preventivo</h3>
+            <h3 class="card-title">Editar Devengado</h3>
           </div>
 
           <!-- /.card-header -->
@@ -14,7 +14,7 @@
                 <form (ngSubmit)="editArchivo()" [formGroup]="editForm">
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="numero"><b>Numero de Preventivo *</b></span>
+                    <span class="input-group-text izq" id="numero"><b>Numero de Devengado *</b></span>
                     <input id="numero" class="form-control" type="text" formControlName="numero" />
                     <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
                       <div *ngIf="
@@ -33,7 +33,7 @@
                   </div>
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="fecha"><b>Fecha de Preventivo *</b></span>
+                    <span class="input-group-text izq" id="fecha"><b>Fecha de Devengado *</b></span>
                     <input id="fecha" class="form-control" type="date" formControlName="fecha" />
                     <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
                       <div *ngIf="
@@ -128,7 +128,7 @@
                   </div>
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="fojas"><b>Fojas *</b></span>
+                    <span class="input-group-text izq" id="fojas"><b>Fojas Adjunto al Devengado *</b></span>
                     <input id="fojas" class="form-control" type="number" formControlName="fojas" />
                     <div class="form-text" *ngIf="form['fojas'].touched && form['fojas'].invalid">
                       <div *ngIf="

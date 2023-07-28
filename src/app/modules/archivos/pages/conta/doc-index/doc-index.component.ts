@@ -106,6 +106,9 @@ export class DocIndexComponent implements OnInit {
     this.cargarArchivos();
   }
 
-
+  editarPreventivo(preventivo:any){
+    console.log(preventivo);
+    this.router.navigate(['archivos/conta/docs/preven/edit', preventivo._id])
+  }
 
 }

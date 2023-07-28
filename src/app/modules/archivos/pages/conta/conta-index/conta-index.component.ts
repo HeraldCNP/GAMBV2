@@ -276,18 +276,18 @@ export class ContaIndexComponent implements OnInit {
     }
   }
 
-  verDocumentos(carpeta: any) {
-    this.contaService.getSingleCarpeta(carpeta._id).subscribe(
-      (res) => {
-        this.carpeta = res.serverResponse;
-        // console.log(this.carpeta);
-      },
-      (err) => console.log('HTTP Error', err),
-      () => {
+  // verDocumentos(carpeta: any) {
+  //   this.contaService.getSingleCarpeta(carpeta._id).subscribe(
+  //     (res) => {
+  //       this.carpeta = res.serverResponse;
+  //       // console.log(this.carpeta);
+  //     },
+  //     (err) => console.log('HTTP Error', err),
+  //     () => {
 
-      }
-    );
-  }
+  //     }
+  //   );
+  // }
 
   verArchivos(carpeta: any) {
     switch (carpeta.tipo) {
@@ -298,7 +298,7 @@ export class ContaIndexComponent implements OnInit {
 
       case 'Devengados':
         console.log(carpeta);
-        this.router.navigate(['archivos/conta/docs/deven', carpeta._id])
+        this.router.navigate(['archivos/conta/docs/deven/list', carpeta._id])
         break;
 
       default:

@@ -18,6 +18,8 @@ import { PrevenListComponent } from './pages/conta/docs/preven/preven-list/preve
 import { AreaIndexComponent } from './pages/areas/area-index/area-index.component';
 import { DocEditComponent } from './pages/conta/doc-edit/doc-edit.component';
 import { PrevenEditComponent } from './pages/conta/docs/preven/preven-edit/preven-edit.component';
+import { DevenListComponent } from './pages/conta/docs/deven/deven-list/deven-list.component';
+import { DevenEditComponent } from './pages/conta/docs/deven/deven-edit/deven-edit.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { PrevenEditComponent } from './pages/conta/docs/preven/preven-edit/preve
     PrevenListComponent,
     AreaIndexComponent,
     DocEditComponent,
-    PrevenEditComponent
+    PrevenEditComponent,
+    DevenListComponent,
+    DevenEditComponent
   ],
   imports: [
     CommonModule,

@@ -5,19 +5,44 @@
         <div class="card p-3 bg-body rounded">
           <div class="card-body">
             <div class="row my-2">
-              <div class="col-md-8">
+              <div class="col-md-4">
                 <h3 class="card-title">
-                  Total de Archivos de Contabilidad ({{ totalCarpetasConta }})
+                  Total Devengados ({{ totalDevengados }})
                 </h3>
+
               </div>
-              <div class="col-md d-flex justify-content-end">
-                <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addCarpeta()">
-                  Nueva Carpeta
-                </button> -->
+              <div class="col-md-8 d-flex justify-content-end">
+                <!-- <div class="card-tools">
+
+                  <button (click)="changeStatus('Preventivos')" type="button"
+                    [ngClass]="tipo == 'Preventivos' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Preventivos
+                  </button>
+                  <button (click)="changeStatus('Devengados')" type="button"
+                    [ngClass]="tipo == 'Devengados' ? 'acti vate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Devengados
+                  </button>
+                  <button (click)="changeStatus('Estados Financieros')" type="button"
+                    [ngClass]="tipo == 'Estados Financieros' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Estados Financieros
+                  </button>
+                  <button (click)="changeStatus('Ingresos')" [ngClass]="tipo == 'Ingresos' ? 'activate' : ''"
+                    type="button" class="btn btn-info btn-sm position-relative mr-4">
+                    Ingresos
+                  </button>
+                  <button (click)="changeStatus('')" type="button" [ngClass]="tipo == '' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Todos
+                  </button>
+                </div> -->
+
               </div>
             </div>
-            <input class="form-control" type="search" placeholder="Buscar Archivo" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino />
+            <!-- <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino /> -->
           </div>
         </div>
       </div>
@@ -35,86 +60,52 @@
       <div class="col-md-12">
         <div class="card shadow">
           <div class="card-body">
+
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Numero de Preventivo</th>
-                  <th>Fecha de Preventivo</th>
+                  <th>Número de Devengado</th>
+                  <th>Fecha de Devengado</th>
                   <th>Glosa</th>
                   <th>Beneficiario</th>
-                  <th>CI/NIT</th>
+                  <th>CI / NIT</th>
                   <th>Monto Total Autorizado</th>
-                  <th>Fojas</th>
+                  <th>Fojas Adjunto al Devengado</th>
                   <th>Archivo</th>
                   <th>Observaciones</th>
-                  <th>Carpeta</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let archivo of archivos.serverResponse; let i = index">
-                  <td>{{ archivo.numero }}</td>
-                  <td>{{ archivo.fecha | date:'longDate': 'UTC' }}</td>
-                  <td>{{ archivo.glosa }}</td>
-                  <td>{{ archivo.beneficiario }}</td>
-                  <td>{{ archivo.ci }}</td>
-                  <td>{{ archivo.monto }}</td>
-                  <td>{{ archivo.fojas }}</td>
-                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+archivo.uri }}" target="_blank">Descargar</a></td>
-                  <td>{{ archivo.observacion }}</td>
+                <tr *ngFor="let devengado of devengados.areaContabilidad; let i = index">
+                  <td>{{ devengado.numero }}</td>
+                  <td>{{ devengado.fecha | date:'longDate': 'UTC' }}</td>
+                  <td>{{ devengado.glosa }}</td>
+                  <td>{{ devengado.beneficiario }}</td>
+                  <td>{{ devengado.ci }}</td>
+                  <td>{{ devengado.monto | currency: 'USD': '' }}</td>
+                  <td>{{ devengado.fojas }}</td>
+                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+devengado.uri }}" target="_blank">Descargar</a></td>
+                  <td>{{ devengado.observacion }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
-                      <span *ngIf="archivo.estado == '1'">
+                      <span *ngIf="carpeta.estado == '1'">
                         <input class="form-check-input pointer"
-                          (change)="changeStatus(archivo._id, !archivo.estado)" type="checkbox" [checked]="true"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="true"
                           role="switch" id="{{'toogle'+i}}">Activo
                       </span>
-                      <span *ngIf="archivo.estado == '0'">
+                      <span *ngIf="carpeta.estado == '0'">
                         <input class="form-check-input pointer"
-                          (change)="changeStatus(archivo._id, !archivo.estado)" type="checkbox" [checked]="false"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="false"
                           role="switch" id="{{'toogle'+i}}">Inactivo
                       </span>
                     </div>
                   </td> -->
-                  <td class="text-center">
-                    <!-- <div class="accordion" id="accordionExample">
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
-                          </button>
-                        </h2>
-                        <div id="{{'collapse'+i}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                          <div class="accordion-body">
-                            <strong>Carpeta:</strong> {{ archivo.idCarpeta.tipo }}
-                            <strong>Tomo:</strong> {{ archivo.idCarpeta.tomo }} <br>
-                            <strong>Objeto:</strong> {{ archivo.idCarpeta.objeto }} <br>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-                    <button class="btn-info btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Ver </button>
-
-                    <div class="offcanvas offcanvas-bottom " tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
-                      <div class="offcanvas-header">
-                        <h5 class="offcanvas-title text-center" id="offcanvasBottomLabel"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                      </div>
-                      <div class="offcanvas-body  text-center">
-                        <b>Número de Carpeta:</b> {{ archivo.idCarpeta.numCarpeta }} <br>
-                        <b>Gestión:</b> {{ archivo.idCarpeta.gestion }} <br>
-                        <b>Area:</b> {{ archivo.idCarpeta.area }} <br>
-                        <b>Tipo:</b> {{ archivo.idCarpeta.tipo }} <br>
-                        <b>Nombre de la Carpeta:</b> {{ archivo.idCarpeta.nameCarpeta }} <br>
-                        <b>Lugar de Archivo:</b> {{ archivo.idCarpeta.lugar }} <br>
-                        <b>N° de Estante:</b> {{ archivo.idCarpeta.estante }} <br>
-                        <b>N° de Fila:</b> {{ archivo.idCarpeta.fila }} <br>
-                      </div>
-                    </div>
-                  </td>
                   <td>
-                    <!-- <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(archivo)"></i> -->
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarArchivo(archivo._id)"></i>
+                    <!-- <i class="fas fa-eye ml-3 icono" (click)="verArchivos(carpeta)"></i> -->
+                    <!-- <i class="fas fa-plus ml-3 icono" (click)="addCarpetaId(carpeta)"></i> -->
+                    <i class="fas fa-edit ml-3 icono" (click)="editarDevengado(devengado)"></i>
+                    <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i> -->
                   </td>
                 </tr>
               </tbody>
@@ -145,7 +136,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">
-          Registrar Proveedor
+          Registrar Archivo {{ tipos }}
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -191,7 +182,7 @@
             </div>
           </div>
 
-          <div class="input-group mb-1">
+          <div class="input-group mb-1" *ngIf="tipos != 'Ingresos'">
             <span class="input-group-text izq" id="beneficiario"><b>beneficiario *</b></span>
             <input id="beneficiario" class="form-control" type="text" formControlName="beneficiario" />
             <div class="form-text" *ngIf="form['beneficiario'].touched && form['beneficiario'].invalid">
@@ -359,3 +350,58 @@
     </div>
   </div>
 </div> -->
+<!-- End Modal Edit -->
+
+<!-- Modal List Doc -->
+<!-- <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row animated fadeIn fast" *ngIf="carpeta">
+          <div class="col-md-12">
+            <div class="card shadow">
+              <div class="card-header text-center"> <h2> {{ carpeta.tipo }}</h2> </div>
+              <div class="card-body">
+                <table class="table table-hover mb-2">
+                  <thead>
+                    <tr>
+                      <th>Número de Preventivo</th>
+                      <th>Fecha de Preventivo</th>
+                      <th>Glosa</th>
+                      <th>Beneficiario</th>
+                      <th>CI / NIT</th>
+                      <th>Monto Total Autorizado</th>
+                      <th>Fojas Adjunto al Preventivo</th>
+                      <th>Archivo</th>
+                      <th>Observacion</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <tr *ngFor="let carpeta of carpeta.areaContabilidad; let i = index">
+                      <td>{{ carpeta.numero }}</td>
+                      <td>{{ carpeta.fecha }}</td>
+                      <td>{{ carpeta.glosa }}</td>
+                      <td>{{ carpeta.beneficiario }}</td>
+                      <td>{{ carpeta.ci }}</td>
+                      <td>{{ carpeta.monto }}</td>
+                      <td>{{ carpeta.fojas }}</td>
+                      <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+carpeta.uri }}" target="_blank">Descargar</a></td>
+                      <td>{{ carpeta.observacion }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- End Modal List Doc -->
