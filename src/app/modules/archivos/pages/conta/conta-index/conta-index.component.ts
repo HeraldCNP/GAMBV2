@@ -28,7 +28,8 @@ export class ContaIndexComponent implements OnInit {
   area: string = 'contabilidad';
   carpeta: any;
   tipos: string[] = [];
-  tipo: string = 'Preventivos';
+  tipo: string = 'Gastos';
+  subTipo: string = '';
   estadoFinan: any;
   URL = environment.api;
   areas: any;
@@ -69,7 +70,7 @@ export class ContaIndexComponent implements OnInit {
 
   cargarCarpetasConta() {
     this.cargando = true;
-    this.contaService.getAllConta(this.limit, this.skip, this.area, this.tipo)
+    this.contaService.getAllConta(this.limit, this.skip, this.area, this.tipo, this.subTipo)
       .subscribe((data: any) => {
         this.totalCarpetasConta = data.serverResponse.length;
         this.carpetas = data;
@@ -261,9 +262,14 @@ export class ContaIndexComponent implements OnInit {
 
   addCarpetaId(carpeta: any) {
     switch (carpeta.tipo) {
-      case 'Preventivos':
+      case 'Gastos':
+        if(carpeta.subTipo == 'cip'){
+          this.router.navigate(['archivos/conta/docs/preven', carpeta._id])
+        }else{
+          this.router.navigate(['archivos/conta/docs/deven', carpeta._id])
+        }
         console.log(carpeta);
-        this.router.navigate(['archivos/conta/docs/preven', carpeta._id])
+
         break;
 
       case 'Devengados':
@@ -291,7 +297,7 @@ export class ContaIndexComponent implements OnInit {
 
   verArchivos(carpeta: any) {
     switch (carpeta.tipo) {
-      case 'Preventivos':
+      case 'Gastos':
         // console.log(carpeta);
         this.router.navigate(['archivos/conta/docs/preven/list', carpeta._id])
         break;
@@ -306,8 +312,11 @@ export class ContaIndexComponent implements OnInit {
     }
   }
 
-  changeStatus(status: any) {
+  changeStatus(status: any, subTipo:string) {
+    console.log(status);
+
     this.tipo = status;
+    this.subTipo = subTipo;
     this.cargarCarpetasConta();
     this.skip = 1;
   }

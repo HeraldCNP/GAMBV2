@@ -80,6 +80,20 @@
                   </div>
 
 
+                  <div class="input-group mb-1" *ngIf="(carpetaForm.value.tipo && carpetaForm.value.tipo === 'Recursos' || carpetaForm.value.tipo === 'Gastos')">
+                    <span class="input-group-text izq" id="subTipo"><b> Subtipo *</b></span>
+                    <select id="subTipo" formControlName="subTipo" class="form-select" required>
+                      <option value="" [defaultSelected]="true">Elija una opción</option>
+                      <!-- <option *ngFor="let subTipo of subTipos" value="{{ subTipo }}">{{ subTipo }}</option> -->
+                      <option value="cip">Con Imputacion</option>
+                      <option value="sip">Sin Imputacion</option>
+                    </select>
+                    <div class="form-text" *ngIf="form['subTipo'].touched && form['subTipo'].invalid">
+                      <div *ngIf="form['subTipo'].errors && form['subTipo'].errors['required']">* subTipo es Requerido.</div>
+                    </div>
+                  </div>
+
+
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="numCarpeta"><b>Número de Carpeta *</b></span>
                     <input id="numCarpeta" class="form-control" type="number" formControlName="numCarpeta" />

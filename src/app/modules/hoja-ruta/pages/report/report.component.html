@@ -93,9 +93,10 @@
             <table class="table table-striped table-responsive" id="table">
 
               <thead>
-                <tr><th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} </th></tr>
-                <tr><th class="subtitle" colspan="8">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy | date:'longDate': 'UTC' }}</th></tr>
-                <tr *ngIf="user" ><th class="subtitle" colspan="8"> FUNCIONARIO: {{ this.user.username }} {{ this.user.surnames }} - {{  this.destino  }}</th></tr>
+                <tr>
+                  <th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} <br> <i class="subtitle">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy | date:'longDate': 'UTC' }}</i> <br> <i class="subtitle">FUNCIONARIO: {{ this.user.username }} {{ this.user.surnames }} - {{  this.destino  }}</i> </th>
+
+                </tr>
                 <tr class="head">
                   <th>N°</th>
                   <th>Número</th>
@@ -177,7 +178,7 @@
                 </tr>
               </tbody>
               <tfoot>
-                <tr><td colspan="6">SISTEMA CONTROL Y SEGUIMIENDO DE HOJA DE RUTA - GAM BETANZOS</td> <td colspan="2" class="usuario">Usuario: {{ data.username }} {{ data.surnames }}</td></tr>
+                <tr class="usuario"><td colspan="6">SISTEMA CONTROL Y SEGUIMIENDO DE HOJA DE RUTA - GAM BETANZOS</td> <td colspan="2" >Usuario: {{ data.username }} {{ data.surnames }}</td></tr>
               </tfoot>
             </table>
           </div>

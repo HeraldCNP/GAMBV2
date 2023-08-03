@@ -13,27 +13,31 @@
               </div>
               <div class="col-md-8 d-flex justify-content-end">
                 <div class="card-tools">
+                  <div class="btn-group mx-3" role="group" aria-label="Basic mixed styles example">
+                    <button (click)="changeStatus('Gastos', 'cip')" type="button"
+                      [ngClass]="tipo == 'Gastos' ? 'activate' : ''" class="btn btn-danger btn-sm">CIP</button>
+                    <button (click)="changeStatus('Gastos', '')" type="button"
+                      [ngClass]="tipo == 'Gastos' ? 'activate' : ''" class="btn btn-info btn-sm">GASTOS</button>
+                    <button type="button" (click)="changeStatus('Gastos', 'sip')"
+                    [ngClass]="tipo == 'Gastos' ? 'activate' : ''" class="btn btn-success btn-sm">SIP</button>
+                  </div>
 
-                  <button (click)="changeStatus('Preventivos')" type="button"
-                    [ngClass]="tipo == 'Preventivos' ? 'activate' : ''"
-                    class="btn btn-info btn-sm position-relative mr-4">
-                    Preventivos
-                  </button>
-                  <button (click)="changeStatus('Devengados')" type="button"
-                    [ngClass]="tipo == 'Devengados' ? 'activate' : ''"
-                    class="btn btn-info btn-sm position-relative mr-4">
-                    Devengados
-                  </button>
-                  <button (click)="changeStatus('Estados Financieros')" type="button"
+                  <div class="btn-group mx-3" role="group" aria-label="Basic mixed styles example">
+                    <button (click)="changeStatus('Recursos', 'cip')" type="button"
+                      [ngClass]="tipo == 'Recursos' ? 'activate' : ''" class="btn btn-danger btn-sm">CIP</button>
+                    <button (click)="changeStatus('Recursos', '')" type="button"
+                      [ngClass]="tipo == 'Recursos' ? 'activate' : ''" class="btn btn-info btn-sm">RECURSOS</button>
+                    <button type="button" (click)="changeStatus('Recursos', 'sip')"
+                    [ngClass]="tipo == 'Recursos' ? 'activate' : ''" class="btn btn-success btn-sm">SIP</button>
+                  </div>
+
+
+                  <button (click)="changeStatus('Estados Financieros', '')" type="button"
                     [ngClass]="tipo == 'Estados Financieros' ? 'activate' : ''"
-                    class="btn btn-info btn-sm position-relative mr-4">
+                    class="btn btn-info btn-sm position-relative mr-3">
                     Estados Financieros
                   </button>
-                  <button (click)="changeStatus('Ingresos')" [ngClass]="tipo == 'Ingresos' ? 'activate' : ''"
-                    type="button" class="btn btn-info btn-sm position-relative mr-4">
-                    Ingresos
-                  </button>
-                  <button (click)="changeStatus('')" type="button" [ngClass]="tipo == '' ? 'activate' : ''"
+                  <button (click)="changeStatus('', '')" type="button" [ngClass]="tipo == '' ? 'activate' : ''"
                     class="btn btn-info btn-sm position-relative mr-4">
                     Todos
                   </button>
@@ -66,7 +70,6 @@
                 <tr>
                   <th>Número de Carpeta</th>
                   <th>Gestión</th>
-                  <th>Area</th>
                   <th>Tipo</th>
                   <th>Nombre de la Carpeta</th>
                   <th>Lugar de Archivo</th>
@@ -79,8 +82,7 @@
                 <tr *ngFor="let carpeta of carpetas.serverResponse; let i = index">
                   <td>{{ carpeta.numCarpeta }}</td>
                   <td>{{ carpeta.gestion }}</td>
-                  <td>{{ carpeta.area }}</td>
-                  <td>{{ carpeta.tipo }}</td>
+                  <td>{{ carpeta.tipo }} - {{carpeta.subTipo}}</td>
                   <td>{{ carpeta.nameCarpeta }}</td>
                   <td>{{ carpeta.lugar }}</td>
                   <td>{{ carpeta.estante }}</td>

@@ -149,7 +149,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover table-bordered mb-0">
+              <table class="table table-hover table-bordered mb-0" id="table">
                 <thead>
                   <tr class="text-center backColor">
                     <th class="off-p">N°</th>
@@ -167,8 +167,8 @@
                   <ng-container *ngFor="let category of categories">
                     <tr *ngFor="let item of separados[category]; let i = index">
                       <td class="off-p">{{ i + 1 }}</td>
-                      <td class="off-p" style="font-size: 0.9rem;">{{ item.catProgra }}</td>
-                      <td class="off-p" style="font-size: 0.9rem;">{{ item.idArticulo.idPartida.codigo }} - {{
+                      <td class="off-p" style="font-size: 0.7rem; padding: 0rem 0.11rem 0rem;">{{ item.catProgra }}</td>
+                      <td class="off-p" style="font-size: 0.7rem;">{{ item.idArticulo.idPartida.codigo }} - {{
                         item.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p text-center">{{ item.factura }}</td>
                       <td class="off-p">{{ item.idArticulo.nombre }}</td>
@@ -179,7 +179,7 @@
                     </tr>
                     <tr>
                       <td class="off-p" colspan="5">{{ nameCat[category] }}</td>
-                      <td class="off-p" colspan="3" class="text-end off-p"> <b>Sub Total: </b></td>
+                      <td class="off-p" colspan="3" class="text-end off-p"> <b style="font-weight: bold;">Sub Total: </b></td>
                       <td class="off-p pr-2 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>
@@ -232,6 +232,8 @@
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button>
+
+        <button type="button" (click)="imp()" class="btn btn-primary">Imprimir2</button>
       </div>
     </div>
   </div>

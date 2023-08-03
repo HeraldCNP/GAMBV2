@@ -12,8 +12,8 @@ export class ContaService {
   }
 
   /* Carpetas */
-  getAllConta(limit?: number, skip?: number, area?: string, tipo?: string): Observable<any[]> {
-    let dir = `${this.URL}/carpetas?limit=${limit}&skip=${skip}&area=${area}&tipo=${tipo}`;
+  getAllConta(limit?: number, skip?: number, area?: string, tipo?: string, subTipo?: string): Observable<any[]> {
+    let dir = `${this.URL}/carpetas?limit=${limit}&skip=${skip}&area=${area}&tipo=${tipo}&subTipo=${subTipo}`;
     console.log(dir);
     return this.http.get<any>(dir);
   }

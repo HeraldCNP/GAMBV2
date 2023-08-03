@@ -86,6 +86,7 @@ export class ReportComponent implements OnInit {
 
     autoTable(doc,
       {
+
         html: '#table',
         useCss: true,
         theme: 'grid',

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ComprasService } from '../../../services/compras.service';
 import { AlmacenService } from '../../../services/almacen.service';
+import autoTable from 'jspdf-autotable'
 
 @Component({
   selector: 'app-compra-index',
@@ -367,6 +368,24 @@ export class CompraIndexComponent implements OnInit {
     console.log('SingleDemoComponent.doSelect', value);
   }
 
+
+  imp(){
+    const doc = new jsPDF({ orientation: "portrait", format: 'letter' });
+
+    autoTable(doc,
+      {
+        html: '#table',
+        useCss: true,
+        theme: 'grid',
+        styles: { fontSize: 5, halign: 'center' },
+        showHead: 'firstPage',
+        showFoot: 'lastPage',
+        margin: 8,
+      })
+
+    //doc.autoTable({ html: 'htmlData'});
+    doc.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
+  }
 
 
 }

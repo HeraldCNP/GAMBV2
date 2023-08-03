@@ -50,6 +50,7 @@ export class CarpetaCreateComponent implements OnInit {
       gestion: ['2023', [Validators.required]],
       area: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
+      subTipo: [''],
       numCarpeta: ['', [Validators.required]],
       nameCarpeta: ['', [Validators.required]],
       lugar: [''],
@@ -106,6 +107,9 @@ export class CarpetaCreateComponent implements OnInit {
 
   crearCarpeta(form: any) {
     // console.log(this.finanForm.value.monto.replace(/\./g, ''));
+
+    console.log(form);
+
     this.carpetaService.registrarCarpeta(form).subscribe(
       (res) => {
         console.log(res);
