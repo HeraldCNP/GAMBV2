@@ -1,0 +1,174 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8">
+        <div class="card shadow p-3 mb-4 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Nuevo Recurso SIP</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+                <form (ngSubmit)="crearDeven()" [formGroup]="sipForm">
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="numero"><b>Numero Recurso SIP *</b></span>
+                    <input id="numero" class="form-control" type="text" formControlName="numero" />
+                    <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
+                      <div *ngIf="
+                          form['numero'].errors &&
+                          form['numero'].errors['required']
+                        ">
+                        * El numero es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['numero'].errors &&
+                          form['numero'].errors['minlength']
+                        ">
+                        * El numero no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="fecha"><b>Fecha de Recurso SIP *</b></span>
+                    <input id="fecha" class="form-control" type="date" formControlName="fecha" />
+                    <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                      <div *ngIf="
+                          form['fecha'].errors &&
+                          form['fecha'].errors['required']
+                        ">
+                        * El fecha es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['fecha'].errors &&
+                          form['fecha'].errors['minlength']
+                        ">
+                        * El fecha no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq"><b>Glosa *</b></span>
+                    <textarea id="glosa" class="form-control" type="text" formControlName="glosa"></textarea>
+                    <div class="form-text" *ngIf="form['glosa'].touched && form['glosa'].invalid">
+                      <div *ngIf="
+                          form['glosa'].errors &&
+                          form['glosa'].errors['required']
+                        ">
+                        * El glosa es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['glosa'].errors &&
+                          form['glosa'].errors['minlength']
+                        ">
+                        * El glosa no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="monto"><b>Monto *</b></span>
+                    <input id="monto" class="form-control" type="number" formControlName="monto" />
+                    <div class="form-text" *ngIf="form['monto'].touched && form['monto'].invalid">
+                      <div *ngIf="
+                          form['monto'].errors &&
+                          form['monto'].errors['required']
+                        ">
+                        * El monto es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['monto'].errors &&
+                          form['monto'].errors['minlength']
+                        ">
+                        * El monto no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="fojas"><b>Fojas *</b></span>
+                    <input id="fojas" class="form-control" type="number" formControlName="fojas" />
+                    <div class="form-text" *ngIf="form['fojas'].touched && form['fojas'].invalid">
+                      <div *ngIf="
+                          form['fojas'].errors &&
+                          form['fojas'].errors['required']
+                        ">
+                        * El fojas es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['fojas'].errors &&
+                          form['fojas'].errors['minlength']
+                        ">
+                        * El fojas no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="archivo"><b>Archivo </b></span>
+                    <input class="form-control ml-1" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+                      formControlName="archivo" (change)="onChange($event)" />
+                    <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
+                      <div *ngIf="
+                          form['archivo'].errors &&
+                          form['archivo'].errors['required']
+                        ">
+                        * El archivo es Requerido.
+                      </div>
+                    </div>
+                    <div class="progress mt-1" *ngIf="progress > 0">
+                      <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'"
+                        aria-valuemin="0" aria-valuemax="100">
+                        {{ progress + "%" }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq"><b>Observacion *</b></span>
+                    <textarea id="observacion" class="form-control ml-1" type="text"
+                      formControlName="observacion"></textarea>
+                    <div class="form-text" *ngIf="form['observacion'].touched && form['observacion'].invalid">
+                      <div *ngIf="
+                          form['observacion'].errors &&
+                          form['observacion'].errors['required']
+                        ">
+                        * El observacion es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['observacion'].errors &&
+                          form['observacion'].errors['minlength']
+                        ">
+                        * El observacion no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button (click)="cancel()" type="reset" class="btn btn-danger">
+                      Cancelar
+                    </button>
+                    <button [disabled]="sipForm.invalid" type="submit" class="btn btn-primary">
+                      Registrar
+                    </button>
+                  </div>
+                  {{ sipForm.value | json }}
+                </form>
+                <!-- {{ carpetaForm.value | json }} -->
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>

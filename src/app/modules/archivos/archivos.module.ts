@@ -20,6 +20,14 @@ import { DocEditComponent } from './pages/conta/doc-edit/doc-edit.component';
 import { PrevenEditComponent } from './pages/conta/docs/preven/preven-edit/preven-edit.component';
 import { DevenListComponent } from './pages/conta/docs/deven/deven-list/deven-list.component';
 import { DevenEditComponent } from './pages/conta/docs/deven/deven-edit/deven-edit.component';
+import { FinanListComponent } from './pages/conta/docs/finan/finan-list/finan-list.component';
+import { FinanCreateComponent } from './pages/conta/docs/finan/finan-create/finan-create.component';
+import { RecursoDevenCreateComponent } from './pages/conta/docs/recursos/cip/recurso-deven-create/recurso-deven-create.component';
+import { RecursoDevenListComponent } from './pages/conta/docs/recursos/cip/recurso-deven-list/recurso-deven-list.component';
+import { RecursoDevenEditComponent } from './pages/conta/docs/recursos/cip/recurso-deven-edit/recurso-deven-edit.component';
+import { SipCreateComponent } from './pages/conta/docs/recursos/sip/sip-create/sip-create.component';
+import { SipListComponent } from './pages/conta/docs/recursos/sip/sip-list/sip-list.component';
+import { SipEditComponent } from './pages/conta/docs/recursos/sip/sip-edit/sip-edit.component';
 
 
 @NgModule({
@@ -39,7 +47,15 @@ import { DevenEditComponent } from './pages/conta/docs/deven/deven-edit/deven-ed
     DocEditComponent,
     PrevenEditComponent,
     DevenListComponent,
-    DevenEditComponent
+    DevenEditComponent,
+    FinanListComponent,
+    FinanCreateComponent,
+    RecursoDevenCreateComponent,
+    RecursoDevenListComponent,
+    RecursoDevenEditComponent,
+    SipCreateComponent,
+    SipListComponent,
+    SipEditComponent
   ],
   imports: [
     CommonModule,

@@ -8,19 +8,22 @@ import { environment } from 'src/environments/environment';
 })
 export class ReportService {
   private readonly URL = environment.api;
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-   /*Servicios para Users*/
+  /*Servicios para Users*/
 
-   getAllUsers():Observable<any>{
+  getAllUsers(): Observable<any> {
     let dir = `${this.URL}/users`;
     return this.http.get<any>(dir)
-    .pipe( map( data => {
-      return data.serverResponse
-    } ) )
+      .pipe(map(data => {
+        // console.log(data.serverResponse);
+        return data.serverResponse
+      }))
+
+
   }
 
-  addUser(form:any):Observable<any>{
+  addUser(form: any): Observable<any> {
     let dir = `${this.URL}/users`;
     return this.http.post<any>(dir, form)
     // .pipe( map( data => {
@@ -28,14 +31,14 @@ export class ReportService {
     // } ) )
   }
 
-  getSingleUser(id:any):Observable<any>{
+  getSingleUser(id: any): Observable<any> {
     let dir = `${this.URL}/user/${id}`;
     console.log(dir)
     return this.http.get<any>(dir);
   }
 
 
-  getAllSeguimientos(destino?:string, estado?:string, del?:any, al?:any): Observable<any> {
+  getAllSeguimientos(destino?: string, estado?: string, del?: any, al?: any): Observable<any> {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${del}&datelt${al}`;
     console.log(dir)
     return this.http.get<any>(dir)

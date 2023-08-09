@@ -1,0 +1,405 @@
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast"> 
+      
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-4">
+                <h3 class="card-title">
+                  Total Recursos SIP ({{ totalDevengados }})
+                </h3>
+
+              </div>
+              <div class="col-md-8 d-flex justify-content-end">
+                <!-- <div class="card-tools">
+
+                  <button (click)="changeStatus('Preventivos')" type="button"
+                    [ngClass]="tipo == 'Preventivos' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Preventivos
+                  </button>
+                  <button (click)="changeStatus('Devengados')" type="button"
+                    [ngClass]="tipo == 'Devengados' ? 'acti vate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Devengados
+                  </button>
+                  <button (click)="changeStatus('Estados Financieros')" type="button"
+                    [ngClass]="tipo == 'Estados Financieros' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Estados Financieros
+                  </button>
+                  <button (click)="changeStatus('Ingresos')" [ngClass]="tipo == 'Ingresos' ? 'activate' : ''"
+                    type="button" class="btn btn-info btn-sm position-relative mr-4">
+                    Ingresos
+                  </button>
+                  <button (click)="changeStatus('')" type="button" [ngClass]="tipo == '' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Todos
+                  </button>
+                </div> -->
+
+              </div>
+            </div>
+            <!-- <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino /> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Número de Recurso SIP</th>
+                  <th>Fecha de Recurso SIP</th>
+                  <th>Glosa</th>
+                  <th>Monto</th>
+                  <th>Fojas Adjunto al Devengado</th>
+                  <th>Archivo</th>
+                  <th>Observaciones</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let devengado of devengados.areaContabilidad; let i = index">
+                  <td>{{ devengado.numero }}</td>
+                  <td>{{ devengado.fecha | date:'longDate': 'UTC' }}</td>
+                  <td>{{ devengado.glosa }}</td>
+                  <td>{{ devengado.monto | currency: 'USD': '' }}</td>
+                  <td>{{ devengado.fojas }}</td>
+                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+devengado.uri }}" target="_blank">Descargar</a></td>
+                  <td>{{ devengado.observacion }}</td>
+                  <!-- <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="carpeta.estado == '1'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="true"
+                          role="switch" id="{{'toogle'+i}}">Activo
+                      </span>
+                      <span *ngIf="carpeta.estado == '0'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="false"
+                          role="switch" id="{{'toogle'+i}}">Inactivo
+                      </span>
+                    </div>
+                  </td> -->
+                  <td>
+                    <!-- <i class="fas fa-eye ml-3 icono" (click)="verArchivos(carpeta)"></i> -->
+                    <!-- <i class="fas fa-plus ml-3 icono" (click)="addCarpetaId(carpeta)"></i> -->
+                    <i class="fas fa-edit ml-3 icono" (click)="editarDevengado(devengado)"></i>
+                    <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- *ngIf="txtTermino.value.length === 0" -->
+            <div class="text-center">
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Registrar Archivo {{ tipos }}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="crearConta(contaForm.value)" [formGroup]="contaForm">
+
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="numero"><b>Numero *</b></span>
+            <input id="numero" class="form-control" type="text" formControlName="numero" />
+            <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
+              <div *ngIf="
+                  form['numero'].errors &&
+                  form['numero'].errors['required']
+                ">
+                * El numero es Requerido.
+              </div>
+              <div *ngIf="
+                  form['numero'].errors &&
+                  form['numero'].errors['minlength']
+                ">
+                * El numero no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq"><b>Detalle *</b></span>
+            <textarea id="detalle" class="form-control" type="text" formControlName="detalle"></textarea>
+            <div class="form-text" *ngIf="form['detalle'].touched && form['detalle'].invalid">
+              <div *ngIf="
+                  form['detalle'].errors &&
+                  form['detalle'].errors['required']
+                ">
+                * El detalle es Requerido.
+              </div>
+              <div *ngIf="
+                  form['detalle'].errors &&
+                  form['detalle'].errors['minlength']
+                ">
+                * El detalle no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-1" *ngIf="tipos != 'Ingresos'">
+            <span class="input-group-text izq" id="beneficiario"><b>beneficiario *</b></span>
+            <input id="beneficiario" class="form-control" type="text" formControlName="beneficiario" />
+            <div class="form-text" *ngIf="form['beneficiario'].touched && form['beneficiario'].invalid">
+              <div *ngIf="
+                  form['beneficiario'].errors &&
+                  form['beneficiario'].errors['required']
+                ">
+                * El beneficiario es Requerido.
+              </div>
+              <div *ngIf="
+                  form['beneficiario'].errors &&
+                  form['beneficiario'].errors['minlength']
+                ">
+                * El beneficiario no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="fecha"><b>fecha *</b></span>
+            <input id="fecha" class="form-control" type="date" formControlName="fecha" />
+            <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+              <div *ngIf="
+                  form['fecha'].errors &&
+                  form['fecha'].errors['required']
+                ">
+                * El fecha es Requerido.
+              </div>
+              <div *ngIf="
+                  form['fecha'].errors &&
+                  form['fecha'].errors['minlength']
+                ">
+                * El fecha no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="monto"><b>monto *</b></span>
+            <input id="monto" class="form-control" type="number" formControlName="monto" />
+            <div class="form-text" *ngIf="form['monto'].touched && form['monto'].invalid">
+              <div *ngIf="
+                  form['monto'].errors &&
+                  form['monto'].errors['required']
+                ">
+                * El monto es Requerido.
+              </div>
+              <div *ngIf="
+                  form['monto'].errors &&
+                  form['monto'].errors['minlength']
+                ">
+                * El monto no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq" id="fojas"><b>Fojas *</b></span>
+            <input id="fojas" class="form-control" type="number" formControlName="fojas" />
+            <div class="form-text" *ngIf="form['fojas'].touched && form['fojas'].invalid">
+              <div *ngIf="
+                  form['fojas'].errors &&
+                  form['fojas'].errors['required']
+                ">
+                * El fojas es Requerido.
+              </div>
+              <div *ngIf="
+                  form['fojas'].errors &&
+                  form['fojas'].errors['minlength']
+                ">
+                * El fojas no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-1">
+            <span class="input-group-text izq"><b>Observacion *</b></span>
+            <textarea id="observacion" class="form-control" type="text" formControlName="observacion"></textarea>
+            <div class="form-text" *ngIf="form['observacion'].touched && form['observacion'].invalid">
+              <div *ngIf="
+                  form['observacion'].errors &&
+                  form['observacion'].errors['required']
+                ">
+                * El observacion es Requerido.
+              </div>
+              <div *ngIf="
+                  form['observacion'].errors &&
+                  form['observacion'].errors['minlength']
+                ">
+                * El observacion no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="contaForm.invalid">
+              Registrar
+            </button>
+          </div>
+          {{ contaForm.value | json }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- End Modal -->
+
+<!-- Modal Edit -->
+<!-- <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalEditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Proveedor</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editProveedor(editForm.value)" [formGroup]="editForm">
+
+          <div class="mb-1">
+            <label for="representante" class="form-label">Representante:</label>
+            <input type="text" class="form-control" id="representante" formControlName="representante" />
+          </div>
+
+          <div class="mb-1">
+            <label for="razon_social" class="form-label">Razon Social:</label>
+            <input type="text" class="form-control" id="razon_social" formControlName="razon_social" />
+          </div>
+
+          <div class="mb-1">
+            <label for="nit" class="form-label">Nit:</label>
+            <input type="number" class="form-control" id="nit" formControlName="nit" />
+          </div>
+
+          <div class="mb-1">
+            <label for="telefono" class="form-label">Telefono:</label>
+            <input type="number" class="form-control" id="telefono" formControlName="telefono" />
+          </div>
+
+          <div class="mb-1">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" class="form-control" id="direccion" formControlName="direccion" />
+          </div>
+
+          <div class="mb-1">
+            <label for="ciudad" class="form-label">Ciudad:</label>
+            <input type="text" class="form-control" id="ciudad" formControlName="ciudad" />
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- End Modal Edit -->
+
+<!-- Modal List Doc -->
+<!-- <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row animated fadeIn fast" *ngIf="carpeta">
+          <div class="col-md-12">
+            <div class="card shadow">
+              <div class="card-header text-center"> <h2> {{ carpeta.tipo }}</h2> </div>
+              <div class="card-body">
+                <table class="table table-hover mb-2">
+                  <thead>
+                    <tr>
+                      <th>Número de Preventivo</th>
+                      <th>Fecha de Preventivo</th>
+                      <th>Glosa</th>
+                      <th>Beneficiario</th>
+                      <th>CI / NIT</th>
+                      <th>Monto Total Autorizado</th>
+                      <th>Fojas Adjunto al Preventivo</th>
+                      <th>Archivo</th>
+                      <th>Observacion</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <tr *ngFor="let carpeta of carpeta.areaContabilidad; let i = index">
+                      <td>{{ carpeta.numero }}</td>
+                      <td>{{ carpeta.fecha }}</td>
+                      <td>{{ carpeta.glosa }}</td>
+                      <td>{{ carpeta.beneficiario }}</td>
+                      <td>{{ carpeta.ci }}</td>
+                      <td>{{ carpeta.monto }}</td>
+                      <td>{{ carpeta.fojas }}</td>
+                      <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+carpeta.uri }}" target="_blank">Descargar</a></td>
+                      <td>{{ carpeta.observacion }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- End Modal List Doc -->
+

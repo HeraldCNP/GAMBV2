@@ -117,7 +117,7 @@ export class ContaIndexComponent implements OnInit {
   }
 
 
-  cargarDataEdit(carpeta:any) {
+  cargarDataEdit(carpeta: any) {
     this.carpeta = carpeta;
     let search = this.areas.find((x: { nombre: any; }) => x.nombre == carpeta.area);
     this.tipos = search.tipos;
@@ -189,7 +189,7 @@ export class ContaIndexComponent implements OnInit {
     });
   }
 
-  editCarpeta(form: any){
+  editCarpeta(form: any) {
     this.carpetaService.editCarpeta(form, this.idCarpeta).subscribe(
       (res) => {
         console.log(res);
@@ -263,19 +263,29 @@ export class ContaIndexComponent implements OnInit {
   addCarpetaId(carpeta: any) {
     switch (carpeta.tipo) {
       case 'Gastos':
-        if(carpeta.subTipo == 'cip'){
+        if (carpeta.subTipo == 'cip') {
           this.router.navigate(['archivos/conta/docs/preven', carpeta._id])
-        }else{
+        } else {
           this.router.navigate(['archivos/conta/docs/deven', carpeta._id])
         }
         console.log(carpeta);
 
         break;
 
-      case 'Devengados':
+      case 'Recursos':
         console.log(carpeta);
-        this.router.navigate(['archivos/conta/docs/deven', carpeta._id])
+        if (carpeta.subTipo == 'cip') {
+          this.router.navigate(['archivos/conta/docs/recursos/deven', carpeta._id])
+        } else {
+          this.router.navigate(['archivos/conta/docs/recursos/sip', carpeta._id])
+        }
+
         break;
+
+        case 'Estados Financieros':
+          console.log(carpeta);
+          this.router.navigate(['archivos/conta/docs/finan', carpeta._id])
+          break;
 
       default:
         break;
@@ -299,12 +309,26 @@ export class ContaIndexComponent implements OnInit {
     switch (carpeta.tipo) {
       case 'Gastos':
         // console.log(carpeta);
-        this.router.navigate(['archivos/conta/docs/preven/list', carpeta._id])
+
+        if (carpeta.subTipo == 'cip') {
+          this.router.navigate(['archivos/conta/docs/preven/list', carpeta._id])
+        } else {
+          this.router.navigate(['archivos/conta/docs/deven/list', carpeta._id])
+        }
         break;
 
-      case 'Devengados':
+      case 'Recursos':
         console.log(carpeta);
-        this.router.navigate(['archivos/conta/docs/deven/list', carpeta._id])
+        if(carpeta.subTipo == 'cip'){
+          this.router.navigate(['archivos/conta/docs/recursos/deven/list', carpeta._id])
+        }else{
+          this.router.navigate(['archivos/conta/docs/recursos/sip/list', carpeta._id])
+        }
+        break;
+
+      case 'Estados Financieros':
+        console.log(carpeta);
+        this.router.navigate(['archivos/conta/docs/finan/list', carpeta._id])
         break;
 
       default:
@@ -312,7 +336,7 @@ export class ContaIndexComponent implements OnInit {
     }
   }
 
-  changeStatus(status: any, subTipo:string) {
+  changeStatus(status: any, subTipo: string) {
     console.log(status);
 
     this.tipo = status;
