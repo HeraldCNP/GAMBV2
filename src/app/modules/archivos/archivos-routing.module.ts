@@ -20,6 +20,7 @@ import { RecursoDevenEditComponent } from './pages/conta/docs/recursos/cip/recur
 import { SipCreateComponent } from './pages/conta/docs/recursos/sip/sip-create/sip-create.component';
 import { SipListComponent } from './pages/conta/docs/recursos/sip/sip-list/sip-list.component';
 import { SipEditComponent } from './pages/conta/docs/recursos/sip/sip-edit/sip-edit.component';
+import { FinanEditComponent } from './pages/conta/docs/finan/finan-edit/finan-edit.component';
 
 const routes: Routes = [
   {
@@ -46,13 +47,13 @@ const routes: Routes = [
       { path: 'conta/docs/recursos/deven/list/:id', component: RecursoDevenListComponent },
       { path: 'conta/docs/recursos/deven/edit/:id', component: RecursoDevenEditComponent },
 
-      { path: 'conta/docs/recursos/sip/:id', component: SipCreateComponent },
+      { path: 'conta/docs/recursos/sip/:id', component:  SipCreateComponent },
       { path: 'conta/docs/recursos/sip/list/:id', component: SipListComponent },
       { path: 'conta/docs/recursos/sip/edit/:id', component: SipEditComponent },
 
       { path: 'conta/docs/finan/:id', component: FinanCreateComponent },
       { path: 'conta/docs/finan/list/:id', component: FinanListComponent },
-      { path: 'conta/docs/deven/edit/:id', component: DevenEditComponent },
+      { path: 'conta/docs/finan/edit/:id', component: FinanEditComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },
       // { path: 'poa/create', component: PoaCreateComponent },

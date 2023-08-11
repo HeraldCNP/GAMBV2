@@ -28,6 +28,7 @@ import { RecursoDevenEditComponent } from './pages/conta/docs/recursos/cip/recur
 import { SipCreateComponent } from './pages/conta/docs/recursos/sip/sip-create/sip-create.component';
 import { SipListComponent } from './pages/conta/docs/recursos/sip/sip-list/sip-list.component';
 import { SipEditComponent } from './pages/conta/docs/recursos/sip/sip-edit/sip-edit.component';
+import { FinanEditComponent } from './pages/conta/docs/finan/finan-edit/finan-edit.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { SipEditComponent } from './pages/conta/docs/recursos/sip/sip-edit/sip-e
     RecursoDevenEditComponent,
     SipCreateComponent,
     SipListComponent,
-    SipEditComponent
+    SipEditComponent,
+    FinanEditComponent
   ],
   imports: [
     CommonModule,

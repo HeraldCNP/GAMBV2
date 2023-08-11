@@ -67,8 +67,6 @@
                   <th>Número de Devengado</th>
                   <th>Fecha de Devengado</th>
                   <th>Glosa</th>
-                  <th>Beneficiario</th>
-                  <th>CI / NIT</th>
                   <th>Monto Total Autorizado</th>
                   <th>Fojas Adjunto al Devengado</th>
                   <th>Archivo</th>
@@ -81,8 +79,6 @@
                   <td>{{ devengado.numero }}</td>
                   <td>{{ devengado.fecha | date:'longDate': 'UTC' }}</td>
                   <td>{{ devengado.glosa }}</td>
-                  <td>{{ devengado.beneficiario }}</td>
-                  <td>{{ devengado.ci }}</td>
                   <td>{{ devengado.monto | currency: 'USD': '' }}</td>
                   <td>{{ devengado.fojas }}</td>
                   <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+devengado.uri }}" target="_blank">Descargar</a></td>

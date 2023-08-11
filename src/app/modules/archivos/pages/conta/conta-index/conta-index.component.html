@@ -102,11 +102,12 @@
                     </div>
                   </td> -->
                   <td>
-                    <i class="fas fa-eye ml-3 icono" (click)="verArchivos(carpeta)"></i>
-                    <i class="fas fa-plus ml-3 icono" (click)="addCarpetaId(carpeta)"></i>
-                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                    <i class="fas fa-eye ml-2 icono" (click)="verArchivos(carpeta)"></i>
+                    <i class="fas fa-plus ml-2 icono" (click)="addCarpetaId(carpeta)"></i>
+                    <i class="fas fa-edit ml-2 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(carpeta)"></i>
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i>
+                    <i class="fas fa-trash-alt ml-2 icono" (click)="borrarCarpeta(carpeta._id)"></i>
+                    <i class="fas fa-dolly ml-2 icono " data-bs-toggle="modal" data-bs-target="#listModal" (click)="cargarArchi(carpeta._id)"></i>
                   </td>
                 </tr>
               </tbody>
@@ -464,48 +465,54 @@
 <!-- End Modal Edit -->
 
 <!-- Modal List Doc -->
-<!-- <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
+<div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
-    <div class="modal-content">
+    <div class="modal-content ">
       <div class="modal-header">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row animated fadeIn fast" *ngIf="carpeta">
+        <div class="row animated fadeIn fast" >
           <div class="col-md-12">
             <div class="card shadow">
-              <div class="card-header text-center"> <h2> {{ carpeta.tipo }}</h2> </div>
+              <div class="card-header text-center"> <h2> </h2> </div>
               <div class="card-body">
-                <table class="table table-hover mb-2">
-                  <thead>
-                    <tr>
-                      <th>Número de Preventivo</th>
-                      <th>Fecha de Preventivo</th>
-                      <th>Glosa</th>
-                      <th>Beneficiario</th>
-                      <th>CI / NIT</th>
-                      <th>Monto Total Autorizado</th>
-                      <th>Fojas Adjunto al Preventivo</th>
-                      <th>Archivo</th>
-                      <th>Observacion</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-group-divider">
-                    <tr *ngFor="let carpeta of carpeta.areaContabilidad; let i = index">
-                      <td>{{ carpeta.numero }}</td>
-                      <td>{{ carpeta.fecha }}</td>
-                      <td>{{ carpeta.glosa }}</td>
-                      <td>{{ carpeta.beneficiario }}</td>
-                      <td>{{ carpeta.ci }}</td>
-                      <td>{{ carpeta.monto }}</td>
-                      <td>{{ carpeta.fojas }}</td>
-                      <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+carpeta.uri }}" target="_blank">Descargar</a></td>
-                      <td>{{ carpeta.observacion }}</td>
 
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                <form (ngSubmit)="cambiarCarpeta(archiForm.value)" [formGroup]="archiForm">
+
+
+                  <div class="input-group mb-1" *ngIf="archivosSin">
+                    <span class="input-group-text" id="plazo"><b>Archivo *</b></span>
+                    <ngx-select style="min-width: 950px;" [allowClear]="true" [items]="archivosSin"
+                      optionTextField="numero" optionValueField="_id"
+                      placeholder="Seleccione un Archivo" formControlName="archivo"
+                      >
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.glosa}})
+                      </ng-template>
+                      <div class="form-text" *ngIf="form3['archivo'].touched && form3['archivo'].invalid">
+                        <div *ngIf="
+                            form['archivo'].errors &&
+                            form['archivo'].errors['required']
+                          ">
+                          * La categoria programatica es Requerida.
+                        </div>
+                      </div>
+                    </ngx-select>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+                      Cerrar
+                    </button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="archiForm.invalid">
+                      Registrar
+                    </button>
+                  </div>
+                  {{ archiForm.value | json }}
+                </form>
+                </div>
             </div>
           </div>
         </div>
@@ -515,5 +522,5 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <!-- End Modal List Doc -->

@@ -56,10 +56,7 @@ export class FinanCreateComponent implements OnInit {
       // observacion: [''],
       // idCarpeta: [''],
 
-      fd.append('numero', this.finanForm.value.numero);
-      fd.append('fecha', this.finanForm.value.fecha);
-      fd.append('glosa', this.finanForm.value.glosa);
-      fd.append('monto', this.finanForm.value.monto);
+
       fd.append('fojas', this.finanForm.value.fojas);
       fd.append('observacion', this.finanForm.value.observacion);
       fd.append('usuario', this.idUser);
@@ -85,10 +82,6 @@ export class FinanCreateComponent implements OnInit {
       // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
 
 
-      fd.append('numero', this.finanForm.value.numero);
-      fd.append('fecha', this.finanForm.value.fecha);
-      fd.append('glosa', this.finanForm.value.glosa);
-      fd.append('monto', this.finanForm.value.monto);
       fd.append('fojas', this.finanForm.value.fojas);
       fd.append('observacion', this.finanForm.value.observacion);
       fd.append('usuario', this.idUser);

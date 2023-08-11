@@ -22,8 +22,10 @@ export class ContaIndexComponent implements OnInit {
   totalPages: any;
   contaForm: any;
   editForm: any;
+  archiForm: any;
   cargando: boolean = true;
   idCarpeta: any;
+  idCarpeta2: any;
   idCarpetaConta: any;
   area: string = 'contabilidad';
   carpeta: any;
@@ -33,6 +35,7 @@ export class ContaIndexComponent implements OnInit {
   estadoFinan: any;
   URL = environment.api;
   areas: any;
+  archivosSin: any;
 
   constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router, private areaService: AreaService, private carpetaService: CarpetaService) {
     this.contaForm = this.fb.group({
@@ -46,8 +49,8 @@ export class ContaIndexComponent implements OnInit {
       idCarpeta: [''],
     });
 
-    this.estadoFinan = this.fb.group({
-
+    this.archiForm = this.fb.group({
+      archivo: ['', [Validators.required]],
     })
 
 
@@ -72,7 +75,7 @@ export class ContaIndexComponent implements OnInit {
     this.cargando = true;
     this.contaService.getAllConta(this.limit, this.skip, this.area, this.tipo, this.subTipo)
       .subscribe((data: any) => {
-        this.totalCarpetasConta = data.serverResponse.length;
+        this.totalCarpetasConta = data.totalDocs;
         this.carpetas = data;
         this.carpetasTemp = data;
         this.totalPages = data.totalpage;
@@ -89,6 +92,10 @@ export class ContaIndexComponent implements OnInit {
 
   get form2() {
     return this.editForm.controls;
+  }
+
+  get form3() {
+    return this.archiForm.controls;
   }
 
 
@@ -243,23 +250,6 @@ export class ContaIndexComponent implements OnInit {
     this.contaForm.reset();
   }
 
-  // addCarpetaId(carpeta:any){
-  //   console.log(carpeta);
-  //   this.tipos = carpeta.tipo;
-  //   this.contaForm.setValue({
-  //     numero: '',
-  //     detalle: '',
-  //     beneficiario: '',
-  //     fecha: '',
-  //     monto: '',
-  //     fojas: '',
-  //     observacion: '',
-  //     idCarpeta: carpeta._id,
-  //   });
-  //   this.idCarpetaConta = carpeta._id;
-  // }
-
-
   addCarpetaId(carpeta: any) {
     switch (carpeta.tipo) {
       case 'Gastos':
@@ -282,10 +272,10 @@ export class ContaIndexComponent implements OnInit {
 
         break;
 
-        case 'Estados Financieros':
-          console.log(carpeta);
-          this.router.navigate(['archivos/conta/docs/finan', carpeta._id])
-          break;
+      case 'Estados Financieros':
+        console.log(carpeta);
+        this.router.navigate(['archivos/conta/docs/finan', carpeta._id])
+        break;
 
       default:
         break;
@@ -319,9 +309,9 @@ export class ContaIndexComponent implements OnInit {
 
       case 'Recursos':
         console.log(carpeta);
-        if(carpeta.subTipo == 'cip'){
+        if (carpeta.subTipo == 'cip') {
           this.router.navigate(['archivos/conta/docs/recursos/deven/list', carpeta._id])
-        }else{
+        } else {
           this.router.navigate(['archivos/conta/docs/recursos/sip/list', carpeta._id])
         }
         break;
@@ -365,5 +355,42 @@ export class ContaIndexComponent implements OnInit {
       });
   }
 
+
+
+  cargarArchivosSin() {
+    this.contaService.getAllArchivosSin()
+      .subscribe((data: any) => {
+        this.archivosSin = data;
+        console.log(this.archivosSin);
+      });
+  }
+
+  cargarArchi(id: string) {
+    this.cargarArchivosSin();
+    this.idCarpeta2 = id;
+  }
+
+
+  cambiarCarpeta(form: any) {
+    Swal.fire({
+      title: 'Deseas Mover este archivo?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, Mover!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Eliminado!', 'El Archivo se movió con exito.', 'success');
+        this.contaService.addArchivo(form, this.idCarpeta2).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.cargarCarpetasConta()
+        );
+      }
+    });
+  }
 
 }

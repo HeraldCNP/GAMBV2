@@ -1,1 +1,121 @@
-<p>finan-list works!</p>
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-4">
+                <h3 class="card-title">
+                  Total Recursos SIP ({{ totalPages }})
+                </h3>
+
+              </div>
+              <div class="col-md-8 d-flex justify-content-end">
+                <!-- <div class="card-tools">
+
+                  <button (click)="changeStatus('Preventivos')" type="button"
+                    [ngClass]="tipo == 'Preventivos' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Preventivos
+                  </button>
+                  <button (click)="changeStatus('Devengados')" type="button"
+                    [ngClass]="tipo == 'Devengados' ? 'acti vate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Devengados
+                  </button>
+                  <button (click)="changeStatus('Estados Financieros')" type="button"
+                    [ngClass]="tipo == 'Estados Financieros' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Estados Financieros
+                  </button>
+                  <button (click)="changeStatus('Ingresos')" [ngClass]="tipo == 'Ingresos' ? 'activate' : ''"
+                    type="button" class="btn btn-info btn-sm position-relative mr-4">
+                    Ingresos
+                  </button>
+                  <button (click)="changeStatus('')" type="button" [ngClass]="tipo == '' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-4">
+                    Todos
+                  </button>
+                </div> -->
+
+              </div>
+            </div>
+            <!-- <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino /> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Fojas</th>
+                  <th>Archivo</th>
+                  <th>Observaciones</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let finan of finans.areaContabilidad; let i = index">
+                  <td>{{ finan.fojas }}</td>
+                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+finan.uri }}" target="_blank">Descargar</a></td>
+                  <td>{{ finan.observacion }}</td>
+                  <!-- <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="carpeta.estado == '1'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="true"
+                          role="switch" id="{{'toogle'+i}}">Activo
+                      </span>
+                      <span *ngIf="carpeta.estado == '0'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="false"
+                          role="switch" id="{{'toogle'+i}}">Inactivo
+                      </span>
+                    </div>
+                  </td> -->
+                  <td>
+                    <!-- <i class="fas fa-eye ml-3 icono" (click)="verArchivos(carpeta)"></i> -->
+                    <!-- <i class="fas fa-plus ml-3 icono" (click)="addCarpetaId(carpeta)"></i> -->
+                    <i class="fas fa-edit ml-3 icono" (click)="editarDevengado(finan)"></i>
+                    <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCarpeta(carpeta._id)"></i> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- *ngIf="txtTermino.value.length === 0" -->
+            <div class="text-center">
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

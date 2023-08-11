@@ -59,7 +59,7 @@ export class RecursoDevenListComponent implements OnInit {
 
   editarDevengado(devengado:any){
     console.log(devengado);
-    this.router.navigate(['archivos/conta/docs/deven/edit', devengado._id])
+    this.router.navigate(['archivos/conta/docs/recursos/deven/edit', devengado._id])
   }
 
   buscar(termino: string) {

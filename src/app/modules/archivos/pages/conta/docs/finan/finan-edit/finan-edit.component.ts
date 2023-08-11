@@ -6,11 +6,11 @@ import { ContaService } from 'src/app/modules/archivos/services/conta.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-recurso-deven-edit',
-  templateUrl: './recurso-deven-edit.component.html',
-  styleUrls: ['./recurso-deven-edit.component.css']
+  selector: 'app-finan-edit',
+  templateUrl: './finan-edit.component.html',
+  styleUrls: ['./finan-edit.component.css']
 })
-export class RecursoDevenEditComponent implements OnInit {
+export class FinanEditComponent implements OnInit {
   archivoId: any;
   idUser: any;
   user: any;
@@ -21,10 +21,6 @@ export class RecursoDevenEditComponent implements OnInit {
 
 
   editForm: any = this.fb.group({
-    numero: ['', [Validators.required]],
-    fecha: ['', [Validators.required]],
-    glosa: ['', [Validators.required]],
-    monto: ['', [Validators.required]],
     fojas: ['', [Validators.required]],
     archivo: [''],
     observacion: ['']
@@ -47,10 +43,6 @@ export class RecursoDevenEditComponent implements OnInit {
       // console.log(this.dataArchivo.productos.length)
 
       this.editForm.setValue({
-        numero: this.dataArchivo.numero,
-        fecha: this.dataArchivo.fecha.substr(0, 10),
-        glosa: this.dataArchivo.glosa,
-        monto: this.dataArchivo.monto,
         fojas: this.dataArchivo.fojas,
         archivo: '',
         observacion: this.dataArchivo.observacion,
@@ -82,10 +74,6 @@ export class RecursoDevenEditComponent implements OnInit {
 
       console.log(this.editForm.value.numero);
 
-      fd.append('numero', this.editForm.value.numero);
-      fd.append('fecha', this.editForm.value.fecha);
-      fd.append('glosa', this.editForm.value.glosa);
-      fd.append('monto', this.editForm.value.monto);
       fd.append('fojas', this.editForm.value.fojas);
       fd.append('observacion', this.editForm.value.observacion);
       fd.append('usuario', this.idUser);
@@ -110,11 +98,6 @@ export class RecursoDevenEditComponent implements OnInit {
     } else {
       // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
 
-
-      fd.append('numero', this.editForm.value.numero);
-      fd.append('fecha', this.editForm.value.fecha);
-      fd.append('glosa', this.editForm.value.glosa);
-      fd.append('monto', this.editForm.value.monto);
       fd.append('fojas', this.editForm.value.fojas);
       fd.append('observacion', this.editForm.value.observacion);
       fd.append('usuario', this.idUser);

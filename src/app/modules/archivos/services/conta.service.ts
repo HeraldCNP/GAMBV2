@@ -66,4 +66,22 @@ export class ContaService {
     return this.http.put<any>(dir, form)
   }
 
+  moverArchivo(fd: any, id: string): Observable<any> {
+    let dir = `${this.URL}/removeArchivo/${id}`;
+    // console.log(dir);
+    return this.http.put<any>(dir, fd)
+  }
+
+  addArchivo(fd: any, id: string): Observable<any> {
+    let dir = `${this.URL}/addArchivo/${id}`;
+    // console.log(dir);
+    return this.http.put<any>(dir, fd)
+  }
+
+  getAllArchivosSin(): Observable<any[]> {
+    let dir = `${this.URL}/getArchivosSin`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
 }
