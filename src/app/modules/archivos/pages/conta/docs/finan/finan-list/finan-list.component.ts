@@ -18,8 +18,8 @@ export class FinanListComponent implements OnInit {
   limit: number = 10;
   totalPages: any;
   cargando: boolean = true;
-  carpeta:any;
-  carpetaId?:any;
+  carpeta: any;
+  carpetaId?: any;
 
   URL = environment.api;
 
@@ -58,7 +58,7 @@ export class FinanListComponent implements OnInit {
     //   });
   }
 
-  editarDevengado(finan:any){
+  editarDevengado(finan: any) {
     console.log(finan);
     this.router.navigate(['archivos/conta/docs/finan/edit', finan._id])
   }
@@ -107,5 +107,31 @@ export class FinanListComponent implements OnInit {
         // );
       }
     });
+  }
+
+  moverCarpeta(archivoId: string) {
+    console.log("carpeta", this.carpetaId);
+    console.log("archivo", archivoId);
+    let idAr = { idArchivo: archivoId }
+    Swal.fire({
+      title: 'Deseas Mover este archivo?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, Mover!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Hecho!', 'El Archivo se movió con exito.', 'success');
+        this.contaService.moverArchivo(idAr, this.carpetaId).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.cargarDevengados()
+        );
+      }
+    });
+
   }
 }

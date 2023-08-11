@@ -125,7 +125,7 @@ export class PrevenListComponent implements OnInit {
       confirmButtonText: '¡Sí, Mover!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Archivo se movió con exito.', 'success');
+        Swal.fire('¡Hecho!', 'El Archivo se movió con exito.', 'success');
         this.contaService.moverArchivo(idAr, this.carpetaId).subscribe(
           (res) => console.log(res),
           (err) => console.log('HTTP Error', err),

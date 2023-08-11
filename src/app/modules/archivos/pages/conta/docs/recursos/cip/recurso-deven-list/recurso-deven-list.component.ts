@@ -107,4 +107,31 @@ export class RecursoDevenListComponent implements OnInit {
       }
     });
   }
+
+  moverCarpeta(archivoId:string){
+    console.log("carpeta", this.carpetaId);
+    console.log("archivo", archivoId);
+    let idAr = {idArchivo:archivoId}
+    Swal.fire({
+      title: 'Deseas Mover este archivo?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, Mover!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Hecho!', 'El Archivo se movió con exito.', 'success');
+        this.contaService.moverArchivo(idAr, this.carpetaId).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.cargarDevengados()
+        );
+      }
+    });
+
+  }
+
 }
