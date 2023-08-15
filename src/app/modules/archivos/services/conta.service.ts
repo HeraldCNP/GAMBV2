@@ -84,4 +84,9 @@ export class ContaService {
     return this.http.get<any>(dir);
   }
 
+  deleteArchivo(id: any) {
+    let dir = `${this.URL}/contabilidad/${id}`;
+    return this.http.delete<any>(dir, id);
+  }
+
 }

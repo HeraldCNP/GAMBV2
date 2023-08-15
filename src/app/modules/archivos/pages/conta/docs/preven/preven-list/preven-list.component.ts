@@ -88,7 +88,7 @@ export class PrevenListComponent implements OnInit {
     this.cargarPreventivos();
   }
 
-  borrarCarpeta(id: string) {
+  borrarArchivo(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: '¡No podrás revertir esto!',
@@ -100,12 +100,12 @@ export class PrevenListComponent implements OnInit {
       confirmButtonText: '¡Sí, bórralo!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Proyecto ha sido eliminado.', 'success');
-        // this.almacenService.deleteProveedor(id).subscribe(
-        //   (res) => console.log(res),
-        //   (err) => console.log('HTTP Error', err),
-        //   () => this.cargarProveedores()
-        // );
+        Swal.fire('¡Eliminado!', 'El Archivo ha sido eliminado.', 'success');
+        this.contaService.deleteArchivo(id).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.cargarPreventivos()
+        );
       }
     });
   }
