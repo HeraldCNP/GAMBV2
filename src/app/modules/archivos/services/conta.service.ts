@@ -89,4 +89,10 @@ export class ContaService {
     return this.http.delete<any>(dir, id);
   }
 
+  buscarArchivos(area?: string, tipo?: string, subTipo?: string, gestion?: number, glosa?: string, beneficiario?: string, numero?: string, ci?: string): Observable<any[]> {
+    let dir = `${this.URL}/searchContaAll?area=${area}&tipo=${tipo}&subTipo=${subTipo}&gestion=${gestion}&glosa=${glosa}&beneficiario=${beneficiario}&numero=${numero}&ci=${ci}`;
+    // console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
 }

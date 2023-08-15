@@ -69,11 +69,13 @@
                 </div>
               </div>
             </div>
-            <button (click)="obtenerHojasRutas(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+            <button (click)="obtenerHojasRutas(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
               Buscar
             </button>
 
-              <button (click)="imprimir()" class="btn btn-primary" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button>
+            <button (click)="imprimir()" class="btn btn-primary"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button>
 
             <!-- <div class="input-group mb-1">
               <span class="input-group-text izq" id="funcionario"><b> Funcionario</b></span>
@@ -95,12 +97,15 @@
         </div>
         <!-- {{ reportForm.value | json }} -->
         <div class="card-body">
-          <div >
+          <div>
             <table class="table table-striped table-responsive" id="table">
 
               <thead>
                 <tr *ngIf="user">
-                  <th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} <br> <i class="subtitle">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy | date:'longDate': 'UTC' }}</i> <br> <i class="subtitle">FUNCIONARIO: {{ this.user.username }} {{ this.user.surnames }} - {{  this.destino  }}</i> </th>
+                  <th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} <br> <i
+                      class="subtitle">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy |
+                      date:'longDate': 'UTC' }}</i> <br> <i class="subtitle">FUNCIONARIO: {{ this.user.username }} {{
+                      this.user.surnames }} - {{ this.destino }}</i> </th>
 
                 </tr>
                 <tr class="head">
@@ -184,7 +189,10 @@
                 </tr>
               </tbody>
               <tfoot>
-                <tr class="usuario"><td colspan="6">SISTEMA CONTROL Y SEGUIMIENDO DE HOJA DE RUTA - GAM BETANZOS</td> <td colspan="2" >Usuario: {{ data.username }} {{ data.surnames }}</td></tr>
+                <tr class="usuario">
+                  <td colspan="6">SISTEMA CONTROL Y SEGUIMIENDO DE HOJA DE RUTA - GAM BETANZOS</td>
+                  <td colspan="2">Usuario: {{ data.username }} {{ data.surnames }}</td>
+                </tr>
               </tfoot>
             </table>
           </div>

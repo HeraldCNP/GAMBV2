@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContaService } from 'src/app/modules/archivos/services/conta.service';
 import { environment } from 'src/environments/environment';
@@ -20,9 +21,20 @@ export class PrevenListComponent implements OnInit {
   cargando: boolean = true;
   carpeta:any;
   carpetaId?:any;
+  buscarForm: any;
 
   URL = environment.api;
-  constructor(private contaService: ContaService, private activeRouter: ActivatedRoute, private router: Router) { }
+  constructor(private contaService: ContaService, private activeRouter: ActivatedRoute, private router: Router, private fb: FormBuilder) {
+
+    this.buscarForm = this.fb.group({
+      gestion: [2023],
+      numero: [''],
+      glosa: [''],
+      beneficiario: [''],
+      ci: ['']
+    });
+
+  }
 
 
 
@@ -33,13 +45,43 @@ export class PrevenListComponent implements OnInit {
     this.cargarPreventivos();
   }
 
+  get form() {
+    return this.buscarForm.controls;
+  }
+
+  obtener(form:any){
+
+    let area:string = 'Contabilidad';
+    let tipo:string = 'Gastos';
+    let subTipo:string = 'cip';
+    let gestion:number = form.value.gestion;
+    let glosa:string = form.value.glosa;
+    let beneficiario:string = form.value.beneficiario;
+    let numero:string = form.value.numero;
+    let ci:string = form.value.ci;
+
+    this.contaService.buscarArchivos(area, tipo, subTipo, gestion, glosa, beneficiario, numero, ci).subscribe(
+      (res:any) => {
+        // console.log(res);
+
+        this.preventivos = res.serverResponse;
+        this.totalPreventivos = res.total;
+        this.cargando = false;
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+
+      }
+    );
+  }
 
   cargarPreventivos() {
     this.cargando = true;
     this.contaService.getSingleCarpeta(this.carpetaId).subscribe(
       (res) => {
-        this.preventivos = res.serverResponse;
-        console.log(this.preventivos);
+        console.log(res);
+        this.preventivos = res.serverResponse.areaContabilidad;
+        this.totalPreventivos = res.serverResponse.areaContabilidad.length;
         this.cargando = false;
       },
       (err) => console.log('HTTP Error', err),
