@@ -94,7 +94,7 @@
                       placeholder="Seleccione un Artículo" formControlName="entrada" (select)="doSelect2($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
-                        &nbsp;(Entrada # {{option.data.idEntrada.numeroEntrada}})
+                        &nbsp;(Entrada # {{option.data.idEntrada.numeroEntrada}}) - ({{option.data.catProgra}})
                       </ng-template>
                     </ngx-select>
                     <div class="form-text" *ngIf="form2['entrada'].touched && form2['entrada'].invalid">
