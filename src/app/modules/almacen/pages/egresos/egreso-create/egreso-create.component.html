@@ -17,7 +17,7 @@
                     <span class="input-group-text mb-1" id="idPersona"><b>Funcionario Solicitante *</b></span>
                     <ngx-select style="min-width: 400px;" [allowClear]="true" [items]="funcionarios" optionTextField="username"
                       optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
-                      (select)="doSelect($event)">
+                      (select)="escogido($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;{{option.data.surnames}}
@@ -25,7 +25,7 @@
                     </ngx-select>
                   </div>
 
-                  <div class="input-group mb-1">
+                  <div class="input-group mb-1" *ngIf="!existe">
                     <span class="input-group-text" id="entregado"><b>Entregado A:</b></span>
                     <input id="entregado" class="form-control" type="text" formControlName="entregado" />
                     <span class="input-group-text" id="cargo"><b>Cargo:</b></span>

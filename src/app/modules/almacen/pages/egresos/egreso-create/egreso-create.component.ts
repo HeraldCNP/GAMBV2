@@ -26,7 +26,8 @@ export class EgresoCreateComponent implements OnInit {
   articles: any;
   compras: any;
   listadeArticulos: any = [];
-  compraSingle:any;
+  compraSingle: any;
+  existe:boolean = false;
 
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private egresosService: EgresosService) {
     this.user = localStorage.getItem('user');
@@ -68,7 +69,7 @@ export class EgresoCreateComponent implements OnInit {
     this.cargando = true;
     this.comprasService.getAllFuncionarios().subscribe((data: any) => {
       this.funcionarios = data.serverResponse;
-      console.log("Funcionarios", data)
+      // console.log("Funcionarios", data)
     });
   }
 
@@ -84,14 +85,14 @@ export class EgresoCreateComponent implements OnInit {
     this.cargando = true;
     this.egresosService.getAllArticulos().subscribe((data: any) => {
       this.articles = data.serverResponse;
-      console.log("All Articulos", this.articles)
+      // console.log("All Articulos", this.articles)
     });
   }
 
   doSelect = (id: any) => {
     console.log('SingleDemoComponent.doSelect', id);
     this.egresosService.getCompraOfArticulo(id).subscribe((data: any) => {
-      if(data.serverResponse.length > 0){
+      if (data.serverResponse.length > 0) {
         this.compras = data.serverResponse;
         console.log("Compras que esta un articulo", this.compras)
       }
@@ -99,9 +100,14 @@ export class EgresoCreateComponent implements OnInit {
   }
 
   doSelect2 = (id: any) => {
-    this.compraSingle = this.compras.find((objeto:any)=> objeto._id === id);
+    this.compraSingle = this.compras.find((objeto: any) => objeto._id === id);
     console.log('compraSingle', this.compraSingle);
   }
+
+  escogido = (id: any) => {
+    id ? this.existe = true : this.existe = false;
+  }
+
 
   buscar(termino: string) {
     if (termino.length === 0) {
@@ -121,8 +127,8 @@ export class EgresoCreateComponent implements OnInit {
 
   }
 
-  calcularStock(){
-    if(this.demoForm.value.cantidadSalida > this.compraSingle.stockCompra){
+  calcularStock() {
+    if (this.demoForm.value.cantidadSalida > this.compraSingle.stockCompra) {
       Swal.fire('Saldo insuficiente')
       this.demoForm.value.cantidadSalida = 0;
     }
