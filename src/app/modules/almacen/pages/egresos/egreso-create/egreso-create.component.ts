@@ -28,6 +28,7 @@ export class EgresoCreateComponent implements OnInit {
   listadeArticulos: any = [];
   compraSingle: any;
   existe:boolean = false;
+  noHayStock:boolean = false;
 
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private egresosService: EgresosService) {
     this.user = localStorage.getItem('user');
@@ -91,11 +92,22 @@ export class EgresoCreateComponent implements OnInit {
 
   doSelect = (id: any) => {
     console.log('SingleDemoComponent.doSelect', id);
+    this.demoForm.entrada = '';
     this.egresosService.getCompraOfArticulo(id).subscribe((data: any) => {
-      if (data.serverResponse.length > 0) {
+
         this.compras = data.serverResponse;
         console.log("Compras que esta un articulo", this.compras)
-      }
+        if(this.compras.length == 0){
+          console.log('no hay stock');
+          this.noHayStock = true;
+        }else{
+          this.noHayStock = false;
+        }
+
+      // if (data.serverResponse.length > 0) {
+      //   this.compras = data.serverResponse;
+      //   console.log("Compras que esta un articulo", this.compras)
+      // }
     });
   }
 

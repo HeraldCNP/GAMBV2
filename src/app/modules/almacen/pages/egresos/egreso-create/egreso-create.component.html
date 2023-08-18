@@ -88,7 +88,9 @@
                     </div>
                   </div>
 
-                  <div class="mb-1" *ngIf="compras">
+                  <h3 *ngIf="noHayStock">No hay Stock de este articulo</h3>
+
+                  <div class="mb-1" *ngIf="!noHayStock">
                     <label for="entrada" class="form-label col-auto">Cantidad Disponible</label>
                     <ngx-select [allowClear]="true" [items]="compras" optionTextField="stockCompra" optionValueField="_id"
                       placeholder="Seleccione un Artículo" formControlName="entrada" (select)="doSelect2($event)">
@@ -107,7 +109,7 @@
                     </div>
                   </div>
 
-                  <div class="mb-1">
+                  <div class="mb-1" *ngIf="!noHayStock">
                     <label for="cantidadSalida" class="form-label">Cantidad</label>
                     <input type="number" class="form-control" id="cantidadSalida" formControlName="cantidadSalida" (keyup)="calcularStock()">
                     <div class="form-text" *ngIf="form2['cantidadSalida'].touched && form2['cantidadSalida'].invalid">

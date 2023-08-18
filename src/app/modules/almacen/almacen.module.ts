@@ -25,6 +25,7 @@ import { MedidaEditComponent } from './pages/medidas/medida-edit/medida-edit.com
 import { VehiculoIndexComponent } from './pages/vehiculos/vehiculo-index/vehiculo-index.component';
 import { ReportIndexComponent } from './pages/report/report-index/report-index.component';
 import { ReportIngresoComponent } from './pages/report/report-ingreso/report-ingreso.component';
+import { ReportEntradasComponent } from './pages/report/report-entradas/report-entradas.component';
 
 
 
@@ -52,6 +53,7 @@ import { ReportIngresoComponent } from './pages/report/report-ingreso/report-ing
     VehiculoIndexComponent,
     ReportIndexComponent,
     ReportIngresoComponent,
+    ReportEntradasComponent,
   ],
   imports: [
     CommonModule,
