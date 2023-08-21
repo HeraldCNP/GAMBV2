@@ -16,10 +16,17 @@ export class ReportAlmService {
     return this.http.get<any>(dir);
   }
 
-  getAllEntradas(catProgra?: string, estado?: string, del?: any, al?: any): Observable<any> {
-    let dir = `${this.URL}/searchCompraAll?catProgra=${catProgra}`;
+  getAllEntradas(catProgra?: string, codigo?: string, del?: any, al?: any): Observable<any> {
+    let dir = `${this.URL}/searchCompraAll?catProgra=${catProgra}&codigo=${codigo}`;
     console.log(dir)
     return this.http.get<any>(dir)
+  }
+
+
+  getAllArticles(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/articulos?limit=${limit}&skip=${skip}`;
+    console.log(dir);
+    return this.http.get<any>(dir);
   }
 
 }

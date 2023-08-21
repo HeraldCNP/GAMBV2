@@ -22,9 +22,11 @@ export class ReportEntradasComponent implements OnInit {
 
   cargando: boolean = true;
   catProgras:any;
+  articles:any;
   nameCat:any;
 
   catProgra: string = '';
+  codigo: string = '';
   estado: string = '';
   del: string = '';
   al: string = '';
@@ -74,8 +76,8 @@ export class ReportEntradasComponent implements OnInit {
     this.idUser = this.data.id;
 
     this.reportForm = this.fb.group({
-      catProgra: ['', Validators.required],
-      estado: [''],
+      catProgra: [''],
+      codigo: [''],
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
     });
@@ -87,6 +89,7 @@ export class ReportEntradasComponent implements OnInit {
     //   this.users = data;
     // });
     this.cargarCatProgras();
+    this.cargarArticles();
   }
 
   cargarCatProgras() {
@@ -94,6 +97,15 @@ export class ReportEntradasComponent implements OnInit {
     this.reportAlm.getAllCatProgras().subscribe((data: any) => {
       this.catProgras = data.serverResponse;
       console.log("Cat Progras", this.catProgras)
+    });
+  }
+
+
+  cargarArticles() {
+    this.cargando = true;
+    this.reportAlm.getAllArticles().subscribe((data: any) => {
+      this.articles = data.serverResponse;
+      console.log("articles", this.articles);
     });
   }
 
@@ -109,12 +121,13 @@ export class ReportEntradasComponent implements OnInit {
 
   obtenerEntradas(form:any){
     this.catProgra = form.value.catProgra;
+    this.codigo = form.value.codigo;
     this.cargarEntradas();
   }
 
   cargarEntradas(){
     this.reportAlm
-    .getAllEntradas(this.catProgra, this.estado, this.del, this.al)
+    .getAllEntradas(this.catProgra, this.codigo, this.del, this.al)
     .subscribe((data) => {
       this.entradas = data.serverResponse;
       console.log(this.entradas);

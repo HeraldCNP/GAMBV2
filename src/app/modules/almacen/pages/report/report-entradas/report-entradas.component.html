@@ -10,10 +10,9 @@
                 <div class="input-group mb-1">
                   <span class="input-group-text" id="catProgra"><b>Cat. Programatica *</b></span>
 
-                  <ngx-select [allowClear]="true" [items]="catProgras"
-                    optionTextField="codigo" optionValueField="cat_programatica"
-                    placeholder="Seleccione una Categoría Programatica" formControlName="catProgra"
-                    (select)="doSelect($event)">
+                  <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
+                    optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
+                    formControlName="catProgra" (select)="doSelect($event)">
                     <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                       <span [innerHtml]="text"></span>
                     </ng-template>
@@ -28,40 +27,47 @@
                   </ngx-select>
                 </div>
 
-                <span *ngIf="nameCat" style="font-size: 0.7rem;">{{  nameCat.proyect_acti }}</span>
+                <!-- <span *ngIf="nameCat" style="font-size: 0.7rem;">{{ nameCat.proyect_acti }}</span> -->
 
               </div>
+
               <div class="col-auto">
                 <div class="input-group mb-1">
-                  <span class="input-group-text" id="estado"><b> Estado</b></span>
-                  <select id="estado" formControlName="estado" class="form-select" required>
-                    <option value="" [defaultSelected]="true">Elija una opción</option>
-                    <option value="DERIVADO">DERIVADO</option>
-                    <option value="RECIBIDO">RECIBIDO</option>
-                    <option value="MALETIN">MALETIN</option>
-                    <option value="FILE OFICINA">FILE OFICINA</option>
-                    <option value="ENVIADO">SIN RECEPCIONAR</option>
-                  </select>
-                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Estado es Requerido.</div>
-                  </div>
+                  <span class="input-group-text" id="codigo"><b>Artículos *</b></span>
+                  <ngx-select [allowClear]="true" [items]="articles" optionTextField="nombre"
+                    optionValueField="codigo" placeholder="Seleccione un Articulo"
+                    formControlName="codigo" (select)="doSelect($event)">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                    </ng-template>
+                    <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
+                      <div *ngIf="
+                          form['codigo'].errors &&
+                          form['codigo'].errors['required']
+                        ">
+                        * La categoria programatica es Requerida.
+                      </div>
+                    </div>
+                  </ngx-select>
                 </div>
               </div>
+
               <div class="col-auto">
                 <div class="input-group mb-1 mx-2">
-                  <span class="input-group-text izq" id="estado"><b>Del</b></span>
+                  <span class="input-group-text izq" id="del"><b>Del</b></span>
                   <input class="form-control" type="date" formControlName="del">
-                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha Inicial</div>
+                  <div class="form-text" *ngIf="form['del'].touched && form['del'].invalid">
+                    <div *ngIf="form['del'].errors && form['del'].errors['required']">* Fecha Inicial</div>
                   </div>
                 </div>
               </div>
+
               <div class="col-auto">
                 <div class="input-group mb-1 mx-2">
                   <span class="input-group-text izq" id="estado"><b>Al</b></span>
                   <input class="form-control" type="date" formControlName="al">
-                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha Final</div>
+                  <div class="form-text" *ngIf="form['al'].touched && form['al'].invalid">
+                    <div *ngIf="form['al'].errors && form['al'].errors['required']">* Fecha Final</div>
                   </div>
                 </div>
               </div>
@@ -108,45 +114,47 @@
                 <tr class="head">
                   <th>N°</th>
                   <th>Número</th>
-                  <th>Derivado por</th>
-                  <th>Origen</th>
-                  <th>Referencia</th>
-                  <th>Instrucción</th>
-                  <th>Fecha Derivado</th>
-                  <th>Fecha Recepción</th>
+                  <th>Concepto</th>
+                  <th>Fecha</th>
+                  <th>Proveedor</th>
+                  <th>Cantidad</th>
+                  <th>Stock</th>
+                  <th>total</th>
                   <th>Estado</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let seguimiento of entradas; let i = index">
+                <tr *ngFor="let entrada of entradas; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>
-                    {{ seguimiento.nuit }}
-                    <i>{{ seguimiento.copia }}</i>
+                    {{ entrada.idEntrada.numeroEntrada }}
                   </td>
-                  <td>{{ seguimiento.nombre }}</td>
-                  <td>{{ seguimiento.origenhr }}</td>
-                  <td>{{ seguimiento.referencia }}</td>
-                  <td>{{ seguimiento.detalles }}</td>
+                  <td>{{ entrada.idEntrada.concepto }}</td>
+                  <td>{{ entrada.idEntrada.fecha | date:'longDate': 'UTC' }}</td>
+                  <td>{{ entrada.idEntrada.idProveedor.razon_social }}</td>
+                  <td>{{ entrada.cantidadCompra }}</td>
+                  <td>{{ entrada.stockCompra }}</td>
+                  <td>{{ entrada.idArticulo.cantidad }} - {{ entrada.idArticulo.nombre }}</td>
+                  <td>{{ entrada.estadoCompra }}</td>
 
 
-                  <td [ngSwitch]="seguimiento.estado">
+                  <td [ngSwitch]="entrada.estado">
                     <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
-                      seguimiento.estado
+                      entrada.estado
                       }}</span>
-                    <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguimiento.estado }}
+                    <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ entrada.estado }}
                     </span>
                     <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{
-                      seguimiento.estado
+                      entrada.estado
                       }}</span>
-                    <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}
+                    <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ entrada.estado }}
                     </span>
                     <span *ngIf="
-                        seguimiento.estado != 'DERIVADO' &&
-                        seguimiento.estado != 'MALETIN' &&
-                        seguimiento.estado != 'RECIBIDO' &&
-                        seguimiento.estado != 'ENVIADO'
-                      " class="bg badge text-dark">{{ seguimiento.estado }}</span>
+                        entrada.estado != 'DERIVADO' &&
+                        entrada.estado != 'MALETIN' &&
+                        entrada.estado != 'RECIBIDO' &&
+                        entrada.estado != 'ENVIADO'
+                      " class="bg badge text-dark">{{ entrada.estado }}</span>
                   </td>
 
                   <td>
