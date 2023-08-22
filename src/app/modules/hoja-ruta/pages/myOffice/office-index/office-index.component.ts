@@ -266,9 +266,13 @@ export class OfficeIndexComponent implements OnInit {
     );
   }
 
+
+
+
   cambiarEstado(id: any) {
+    let hoy:any = new Date();
     const SEGUI: Segui = {
-      fecharecepcion: this.today,
+      fecharecepcion: hoy,
       estado: this.status,
       recibidox: this.data.username + ' ' + this.data.surnames,
     };
