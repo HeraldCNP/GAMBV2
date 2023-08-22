@@ -176,6 +176,8 @@
     </div>
   </div>
 </div>
+
+
 <!--MODAL SEGUIMIENTO-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
@@ -218,12 +220,12 @@
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
                     <span>Fecha de recepcion: </span>{{
-                    hojaRuta.fecharesepcion | date : "shortDate" : "UTC-4"
+                    hojaRuta.fecharesepcion | date : "shortDate" : "UTC"
                     }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Hora: </span>{{
-                    hojaRuta.fecharesepcion | date : "mediumTime" : "UTC-4"
+                    hojaRuta.fecharesepcion | date : "mediumTime" : "UTC"
                     }}
                   </p>
                   <p class="card-text fw-normal">
@@ -281,28 +283,17 @@
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
-                            {{
-                            seguiss.fechaderivado
-                            | amLocale : "es"
-                            | amTimeAgo
-                            }} </span><br />
+                            <!-- {{ seguiss.fechaderivado | date: "shortDate":"UTC" }} -->
+                            {{ seguiss.fechaderivado | amLocale : "es" | amTimeAgo }}
+                          </span><br />
                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
-                            {{
-                            seguiss.fechaderivado
-                            | amLocal
-                            | amDateFormat : "DD-MM-YY HH:mm"
-                            }}
+                            {{ seguiss.fechaderivado | date: "short":"UTC" }} *
+                            {{ seguiss.fechaderivado | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                           </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <span *ngIf="seguiss.fecharespuesta != null">{{
-                            seguiss.fecharespuesta
-                            | amDifference
-                            : seguiss.fechaderivado
-                            : "seconds"
-                            : true
-                            | amDuration : "seconds"
-                            }}</span>
+                          <span *ngIf="seguiss.fecharespuesta != null">{{ seguiss.fecharespuesta | amDifference :
+                            seguiss.fechaderivado : "seconds" : true | amDuration : "seconds"}}</span>
                           <span *ngIf="
                               seguiss.fecharespuesta == null &&
                               seguiss.estado === 'DERIVADO'
@@ -336,26 +327,14 @@
                                 ? 'badge badge-danger'
                                 : ''
                             ">
-                            <span *ngIf="
-                                seguiss.fecharecepcion === 'SIN RESEPCIONAR'
-                              ">
+                            <span *ngIf="seguiss.fecharecepcion === 'SIN RESEPCIONAR' ">
                               {{ seguiss.fecharecepcion }}</span>
-                            <span *ngIf="
-                                seguiss.fecharecepcion != 'SIN RESEPCIONAR'
-                              ">
-                              {{
-                              seguiss.fecharecepcion
-                              | amLocale : "es"
-                              | amTimeAgo
-                              }} </span><br />
-                            <span *ngIf="
-                                seguiss.fecharecepcion != 'SIN RESEPCIONAR'
-                              ">
-                              {{
-                              seguiss.fecharecepcion
-                              | amLocal
-                              | amDateFormat : "DD-MM-YY HH:mm"
-                              }}
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR' ">
+                              {{ seguiss.fecharecepcion | amLocale : "es" | amTimeAgo }}
+                            </span><br />
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR' ">
+                              {{ seguiss.fecharecepcion | date: "short":"UTC" }} *
+                              {{ seguiss.fecharecepcion | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                             </span>
                           </i>
                         </td>

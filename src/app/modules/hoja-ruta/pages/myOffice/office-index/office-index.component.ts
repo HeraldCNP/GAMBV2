@@ -75,9 +75,9 @@ export class OfficeIndexComponent implements OnInit {
   ngOnInit(): void {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
-    let RegExp = /[^()]*/g;
-    this.destino1 = this.data.post;
-    this.destino = RegExp.exec(this.destino1);
+    // let RegExp = /[^()]*/g;
+    this.destino = this.data.post;
+    // this.destino = RegExp.exec(this.destino1);
     this.getSeguimientos();
     this.getpendientes();
     this.obtenertotal();
@@ -294,7 +294,7 @@ export class OfficeIndexComponent implements OnInit {
                   this.getpendientes()
                   this.getSeguimientos();
                   this.router.navigate(['/ruta/office/index']);
-                  
+
                 },
                 (error) => {
                   console.log(error);

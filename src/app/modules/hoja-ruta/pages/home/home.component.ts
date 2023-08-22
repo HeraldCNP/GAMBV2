@@ -50,9 +50,9 @@ export class HomeComponent implements OnInit {
   }
   obtenertotal() {
     // this.loading = true;
-    let RegExp = /[^()]*/g;
-    this.destino1 = this.data.post;
-    this.destino = RegExp.exec(this.destino1);
+    // let RegExp = /[^()]*/g;
+    this.destino = this.data.post;
+    // this.destino = RegExp.exec(this.destino1);
     this.api.getTotalSeguimientos(this.destino, this.dategt, this.datelt).subscribe(
       (data) => {
         // this.loading = false;
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
         this.totalEnviados =data.enviado;
         this.totalMaletin= data.maletin;
         this.totalOfi = data.fileOficina;
-       
+
       },
       (error) => {
         console.log(error);
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
 
   getHojas() {
     this.api.getTotalHojaRuta(this.dategt, this.datelt).subscribe(data => {
-     // this.hojaRutas = data.serverResponse;      
+     // this.hojaRutas = data.serverResponse;
       this.totalDocs=data.total;
       this.cantre=data.registrado;
       this.canten = data.enviado;

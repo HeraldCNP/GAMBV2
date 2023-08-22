@@ -232,6 +232,7 @@ export class HojarutasComponent implements OnInit {
       console.log(error);
     })
   }
+
   listAso(id: any) {
     this.api.obtenerHoja(id).subscribe(
       (data) => {
@@ -264,6 +265,7 @@ export class HojarutasComponent implements OnInit {
       }
     );
   }
+
   seguimi(idh: any){
     //this.loading = true;
     this.idhr=idh
@@ -272,6 +274,8 @@ export class HojarutasComponent implements OnInit {
       this.hojaRuta = data.serverResponse;
       this.api.buscarnuit(this.hojaRuta.nuit).subscribe(data => {
         this.seguim = data;
+        console.log(this.seguim);
+
       }, error => {
         console.log(error);
       })
@@ -280,6 +284,7 @@ export class HojarutasComponent implements OnInit {
     })
 
   }
+
   eliminarHoja(id: any) {
     //Alerta
     Swal.fire({
