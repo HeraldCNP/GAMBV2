@@ -87,7 +87,7 @@ export class GacetaIndexComponent implements OnInit {
         const img = canvas.toDataURL('image/PNG');
 
         // Add image Canvas to PDF
-        const bufferX = 3;
+        const bufferX = 20;
         const bufferY = 15;
         const imgProps = (doc as any).getImageProperties(img);
         const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;

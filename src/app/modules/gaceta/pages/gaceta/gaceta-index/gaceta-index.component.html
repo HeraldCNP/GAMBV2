@@ -98,65 +98,65 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body" id="content" #content>
-        <div class="card fondito1">
+        <div class="card">
           <div class="row">
             <div class="col-md text-center">
               <img src="/assets/img/logo2.png" alt="" width="80px">
               <h2>CONFIRMACIÓN DE PUBLICACIÓN</h2>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12"><br>
+          <div class="row textito">
+            <div class="col-md-12 ml-3"><br>
               <span class="text-center mb-3">El Gobierno Autónomo Municipal de Betanzos confirma el registro y
                 publicación de la siguiente norma:</span> <br><br>
               <table *ngIf="gaceta">
                 <tbody>
                   <tr>
                     <td class="text-end" width="250px"><b>Código de Entidad:</b></td>
-                    <td>1508</td>
+                    <td class="ml-3">1508</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Descripción de la Entidad:</b></td>
-                    <td>Gobierno Autónomo Municipal de Betanzos</td>
+                    <td class="ml-3">Gobierno Autónomo Municipal de Betanzos</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Documento:</b></td>
-                    <td>{{ gaceta.titulo }} {{ gaceta.numero }}</td>
+                    <td class="ml-3">{{ gaceta.titulo }} {{ gaceta.numero }}</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Descripción:</b></td>
-                    <td>{{ gaceta.detalle }}</td>
+                    <td class="ml-3">{{ gaceta.detalle }}</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Código de verificación interno:</b></td>
-                    <td>{{ gaceta._id }}</td>
+                    <td class="ml-3">{{ gaceta._id }}</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Fecha de publicación:</b></td>
-                    <td>{{ gaceta.createdAt | date:'short' }}</td>
+                    <td class="ml-3">{{ gaceta.createdAt | date:'short' }}</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Fecha de Aprobación:</b></td>
-                    <td>{{ gaceta.fecha | date: "shortDate":"UTC" }}</td>
+                    <td class="ml-3">{{ gaceta.fecha | date: "shortDate":"UTC" }}</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Responsable de publicación:</b></td>
-                    <td>{{ gaceta.usuario.username }} {{ gaceta.usuario.surnames }}</td>
+                    <td class="ml-3">{{ gaceta.usuario.username }} {{ gaceta.usuario.surnames }}</td>
                   </tr>
                   <tr>
-                    <td class="text-end"><b>Cargo del responsable:</b></td>
-                    <td>{{ gaceta.usuario.post }}</td>
+                    <td class="text-end"><b>Cargo del Responsable:</b></td>
+                    <td class="ml-3">{{ gaceta.usuario.post }}</td>
                   </tr>
                   <tr>
                     <td class="text-end"><b>Enlace:</b></td>
-                    <td><a *ngIf="gaceta.uri" href="{{ URL+'/'+gaceta.uri }}">{{ URL+'/'+gaceta.uri }}</a></td>
+                    <td class="ml-3"><a *ngIf="gaceta.uri" href="{{ URL+'/'+gaceta.uri }}">{{ URL+'/'+gaceta.uri }}</a></td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <span class="fecha">
+        <span class="fecha textito">
           Fecha de Impresión: {{ date | date:'short' }}
         </span>
       </div>
