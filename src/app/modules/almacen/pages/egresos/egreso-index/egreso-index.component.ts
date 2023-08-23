@@ -188,15 +188,15 @@ export class EgresoIndexComponent implements OnInit {
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/PNG');
         // Add image Canvas to PDF
-        var imgWidth = 210;
-        var pageHeight = 295;
+        var imgWidth = 208;
+        var pageHeight = 279;
         var imgHeight = canvas.height * imgWidth / canvas.width;
         var heightLeft = imgHeight;
 
         var doc = new jsPDF('p', 'mm');
         var position = 0;
 
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        doc.addImage(imgData, 'PNG', 3, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {

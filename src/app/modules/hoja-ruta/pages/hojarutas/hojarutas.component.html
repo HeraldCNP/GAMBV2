@@ -287,7 +287,7 @@
                             {{ seguiss.fechaderivado | amLocale : "es" | amTimeAgo }}
                           </span><br />
                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
-                            {{ seguiss.fechaderivado | date: "short":"UTC" }} *
+                            <!-- {{ seguiss.fechaderivado | date: "short":"UTC" }} * -->
                             {{ seguiss.fechaderivado | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                           </span>
                         </td>
@@ -333,7 +333,7 @@
                               {{ seguiss.fecharecepcion | amLocale : "es" | amTimeAgo }}
                             </span><br />
                             <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR' ">
-                              {{ seguiss.fecharecepcion | date: "short":"UTC" }} *
+                              <!-- {{ seguiss.fecharecepcion | date: "short":"UTC" }} * -->
                               {{ seguiss.fecharecepcion | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                             </span>
                           </i>

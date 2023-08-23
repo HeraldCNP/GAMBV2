@@ -126,7 +126,6 @@
               FECHA DE REGISTRO: <br>
               ENTIDAD: <br>
               ENTREGADO A: <br>
-              GLOSA:
             </div>
             <div class="col-md-10">
               {{ egreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ egreso.numeroSalida }} <br>
@@ -140,7 +139,6 @@
                 </b>{{ egreso.idPersona.post
                 }}
               </ng-container> <br>
-              {{ egreso.glosaSalida }}
 
             </div>
           </div>
@@ -163,8 +161,8 @@
                   <ng-container *ngFor="let category of categories">
                     <tr *ngFor="let item of separados[category]; let i = index">
                       <td class="off-p">{{ i + 1 }}</td>
-                      <td class="off-p" style="font-size: 0.9rem;">{{ item.catProgra }}</td>
-                      <td class="off-p" style="font-size: 0.9rem;">{{ item.idCompra.idArticulo.idPartida.codigo }} - {{
+                      <td class="off-p" style="font-size: 0.7rem; padding: 0rem 0.11rem 0rem;">{{ item.catProgra }}</td>
+                      <td class="off-p" style="font-size: 0.7rem;">{{ item.idCompra.idArticulo.idPartida.codigo }} - {{
                         item.idCompra.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p">{{ item.idCompra.idArticulo.nombre }}</td>
                       <td class="off-p text-center">{{ item.cantidadSalida }}</td>
@@ -188,6 +186,7 @@
                   </tr>
                 </tfoot>
               </table>
+              <div class="my-2"><b>GLOSA:</b> {{ egreso.glosaSalida }}</div>
               <div class="d-flex justify-content-between">
                 <span class="fecha" style="font-size: 0.7rem;">
                   Fecha de Impresión: {{ date | date:'short' }}

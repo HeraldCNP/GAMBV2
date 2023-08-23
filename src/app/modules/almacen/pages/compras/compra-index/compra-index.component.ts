@@ -198,10 +198,12 @@ export class CompraIndexComponent implements OnInit {
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/PNG');
         // Add image Canvas to PDF
-        var imgWidth = 210;
-        var pageHeight = 295;
+        var imgWidth = 208;
+        var pageHeight = 279;
         var imgHeight = canvas.height * imgWidth / canvas.width;
         var heightLeft = imgHeight;
+
+        //imgHeight = 299
 
         var doc = new jsPDF('p', 'mm');
         var position = 0;
@@ -213,14 +215,15 @@ export class CompraIndexComponent implements OnInit {
         // const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
         // doc.addImage(imgData, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
 
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        doc.addImage(imgData, 'PNG', 3, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-
+        console.log("canvas.height", canvas.height)
+        console.log("canvas.width", canvas.width)
         while (heightLeft >= 0) {
           position = (heightLeft - imgHeight);
-          console.log("position", imgHeight)
+          console.log("position", position)
           doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          doc.addImage(imgData, 'PNG', 3, position, imgWidth, imgHeight);
           // doc.addImage(imgData, 'PNG', 0, position, imgWidth, 410);
           heightLeft -= pageHeight;
           doc.save('file.pdf');
