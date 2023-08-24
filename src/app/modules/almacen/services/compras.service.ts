@@ -29,8 +29,8 @@ export class ComprasService {
     return this.http.get<any>(dir);
   }
 
-  getAllIngresos(limit?: number, skip?: number): Observable<any[]> {
-    let dir = `${this.URL}/ingresos?limit=${limit}&skip=${skip}`;
+  getAllIngresos(limit?: number, skip?: number, idProve?: string, concepto?:string, numeroEntrada?:any, del?:any, al?:any): Observable<any[]> {
+    let dir = `${this.URL}/ingresos?limit=${limit}&skip=${skip}&idProve=${idProve}&concepto=${concepto}&numeroEntrada=${numeroEntrada}&del=${del}&al=${al}`;
     // console.log(dir);
     return this.http.get<any>(dir);
   }

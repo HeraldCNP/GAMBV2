@@ -16,8 +16,122 @@
                 </button>
               </div>
             </div>
-            <input class="form-control" type="search" placeholder="Buscar ingreso" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino />
+            <div>
+              <form [formGroup]="reportForm">
+                <div class="row g-3 align-items-center">
+                  <div class="col-auto">
+                    <div class="input-group input-group-sm mb-1">
+                      <span class="input-group-text" id="idProve"><b>Proveedores *</b></span>
+
+                      <ngx-select [allowClear]="true" [items]="proveedores" optionTextField="razon_social"
+                        optionValueField="_id" placeholder="Seleccione un Proveedor"
+                        formControlName="idProve" (select)="doSelect($event)">
+                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                          <span [innerHtml]="text"></span>
+                        </ng-template>
+                        <div class="form-text" *ngIf="form2['idProve'].touched && form2['idProve'].invalid">
+                          <div *ngIf="
+                              form2['idProve'].errors &&
+                              form2['idProve'].errors['required']
+                            ">
+                            * La categoria programatica es Requerida.
+                          </div>
+                        </div>
+                      </ngx-select>
+                    </div>
+
+                    <!-- <span *ngIf="nameCat" style="font-size: 0.7rem;">{{ nameCat.proyect_acti }}</span> -->
+
+                  </div>
+
+                  <!-- <div class="col-auto">
+                    <div class="input-group mb-1">
+                      <span class="input-group-text" id="codigo"><b>Artículos *</b></span>
+                      <ngx-select [allowClear]="true" [items]="articles" optionTextField="nombre"
+                        optionValueField="codigo" placeholder="Seleccione un Articulo"
+                        formControlName="codigo" (select)="doSelect($event)">
+                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                          <span [innerHtml]="text"></span>
+                        </ng-template>
+                        <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
+                          <div *ngIf="
+                              form['codigo'].errors &&
+                              form['codigo'].errors['required']
+                            ">
+                            * La categoria programatica es Requerida.
+                          </div>
+                        </div>
+                      </ngx-select>
+                    </div>
+                  </div> -->
+
+                  <div class="col-auto">
+                    <div class="input-group input-group-sm mb-1 mx-2">
+                      <span class="input-group-text izq" id="concepto"><b>Glosa</b></span>
+                      <input class="form-control" type="text" formControlName="concepto">
+                      <div class="form-text" *ngIf="form2['concepto'].touched && form2['concepto'].invalid">
+                        <div *ngIf="form2['concepto'].errors && form2['concepto'].errors['required']">* Fecha Inicial</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="input-group input-group-sm mb-1 mx-2">
+                      <span class="input-group-text izq" id="numeroEntrada"><b>Número</b></span>
+                      <input style="width: 50px;" class="form-control" type="number" formControlName="numeroEntrada">
+                      <div class="form-text" *ngIf="form2['numeroEntrada'].touched && form2['numeroEntrada'].invalid">
+                        <div *ngIf="form2['numeroEntrada'].errors && form2['numeroEntrada'].errors['required']">* Fecha Inicial</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="input-group input-group-sm mb-1 mx-2">
+                      <span class="input-group-text izq" id="del"><b>Del</b></span>
+                      <input style="width: 100px;" class="form-control" type="date" formControlName="del">
+                      <div class="form-text" *ngIf="form2['del'].touched && form2['del'].invalid">
+                        <div *ngIf="form2['del'].errors && form2['del'].errors['required']">* Fecha Inicial</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="input-group input-group-sm mb-1 mx-2">
+                      <span class="input-group-text izq" id="estado"><b>Al</b></span>
+                      <input style="width: 100px;" class="form-control" type="date" formControlName="al">
+                      <div class="form-text" *ngIf="form2['al'].touched && form2['al'].invalid">
+                        <div *ngIf="form2['al'].errors && form2['al'].errors['required']">* Fecha Final</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button (click)="obtenerEntradas(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid"
+                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+                  Buscar
+                </button>
+
+                <!-- <button (click)="imprimir()" class="btn btn-primary"
+                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button> -->
+
+                <!-- <div class="input-group mb-1">
+                  <span class="input-group-text izq" id="funcionario"><b> Funcionario</b></span>
+                  <select id="funcionario" formControlName="funcionario" class="form-select" required>
+                    <option value="" [defaultSelected]="true">Elija una opción</option>
+                    <option *ngFor="let user of users" value="{{ user.post }}">{{ user.username }} {{ user.surnames }}
+                    </option>
+
+                  </select>
+                  <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
+                    <div *ngIf="form['funcionario'].errors && form['funcionario'].errors['required']">* Debe seleccionar un
+                      funcionario.</div>
+                  </div>
+                </div> -->
+
+
+
+              </form>
+              <!-- {{ reportForm.value | json }} -->
+            </div>
           </div>
         </div>
       </div>
@@ -87,7 +201,8 @@
                 </tr>
               </tbody>
             </table>
-            <div class="text-center" *ngIf="txtTermino.value.length === 0">
+            <!-- *ngIf="txtTermino.value.length === 0" -->
+            <div class="text-center" >
               <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
@@ -121,8 +236,8 @@
               <h3 class="off-m">DOCUMENTO DE INGRESO A ALMACÉN </h3>
               <p class="off-m">Expresado en Bolivianos</p>
             </div>
-            <div class="col-md-2 text-end pr-4">
-
+            <div class="col-md-2">
+              <img src="/assets/img/sisal.png" alt="" width="163px">
             </div>
           </div>
           <hr class="off-hr">
@@ -205,7 +320,7 @@
                   </tr>
                 </tfoot>
               </table>
-              <div class="lh-sm my-2"><b>GLOSA:</b> {{ ingreso.concepto }}</div>
+              <div class="lh-sm my-2 justify"><b>GLOSA:</b> {{ ingreso.concepto }}</div>
               <div class="d-flex justify-content-between m-0">
                 <span class="fecha" style="font-size: 0.7rem;">
                   Fecha de Impresión: {{ date | date:'short' }}

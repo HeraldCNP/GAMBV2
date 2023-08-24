@@ -40,6 +40,18 @@ export class CompraIndexComponent implements OnInit {
   funcionarios: any;
   categoryTotalPrices: any = 0;
   nameCat: any = [];
+
+  reportForm:any;
+  proveedores:any;
+  idProve: string = '';
+  concepto: string = '';
+  numeroEntrada?: null;
+  del: string = new Date('01/01/2023').toISOString();
+  al: string = new Date().toISOString();
+
+  fechaIni = new Date('01/01/2023').toISOString();
+  fechaHoy = new Date().toISOString();
+
   constructor(private comprasService: ComprasService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
@@ -51,23 +63,32 @@ export class CompraIndexComponent implements OnInit {
       fechaSalida: [''],
       idPersona: [''],
     });
+
+    this.reportForm = this.fb.group({
+      idProve: [''],
+      concepto: [''],
+      numeroEntrada: [null],
+      del: [this.fechaIni.substr(0, 10)],
+      al: [this.fechaHoy.substr(0, 10)],
+    });
   }
 
   ngOnInit(): void {
     this.cargarIngresos();
     this.cargarFuncionarios();
+    this.cargarProveedores();
   }
 
   cargarIngresos() {
     this.cargando = true;
     this.comprasService
-      .getAllIngresos(this.limit, this.skip)
+      .getAllIngresos(this.limit, this.skip, this.idProve, this.concepto, this.numeroEntrada, this.del, this.al)
       .subscribe((data: any) => {
         this.totalIngresos = data.totalDocs;
         this.ingresos = data;
         this.ingresosTemp = data;
         this.totalPages = data.totalpage;
-        // console.log(data);
+        console.log(data);
         this.cargando = false;
       });
   }
@@ -80,17 +101,37 @@ export class CompraIndexComponent implements OnInit {
     });
   }
 
-  buscar(termino: string) {
-    if (termino.length === 0) {
-      this.ingresos = this.ingresosTemp;
-      return;
-    }
-    this.comprasService.searchIngreso(termino).subscribe((resp) => {
-      console.log('Resp:', resp);
-      this.ingresos = resp;
-      this.ingresosTemp = resp;
+  cargarProveedores() {
+    this.cargando = true;
+    this.comprasService.getAllProveedores().subscribe((data: any) => {
+      this.proveedores = data.serverResponse;
+      console.log("proveedores", this.proveedores)
     });
   }
+
+
+  obtenerEntradas(form:any){
+    this.idProve = form.value.idProve;
+    this.concepto = form.value.concepto;
+    this.numeroEntrada = form.value.numeroEntrada;
+    this.del = form.value.del;
+    this.al = form.value.al;
+    this.skip = 0;
+    this.limit = 0;
+    this.cargarIngresos();
+  }
+
+  // buscar(termino: string) {
+  //   if (termino.length === 0) {
+  //     this.ingresos = this.ingresosTemp;
+  //     return;
+  //   }
+  //   this.comprasService.searchIngreso(termino).subscribe((resp) => {
+  //     console.log('Resp:', resp);
+  //     this.ingresos = resp;
+  //     this.ingresosTemp = resp;
+  //   });
+  // }
 
   cambiarPagina(valor: number) {
     this.skip += valor;
@@ -365,6 +406,10 @@ export class CompraIndexComponent implements OnInit {
 
   get form() {
     return this.salidaForm.controls;
+  }
+
+  get form2() {
+    return this.reportForm.controls;
   }
 
   doSelect = (value: any) => {
