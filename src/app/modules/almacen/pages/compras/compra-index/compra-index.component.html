@@ -24,8 +24,8 @@
                       <span class="input-group-text" id="idProve"><b>Proveedores *</b></span>
 
                       <ngx-select [allowClear]="true" [items]="proveedores" optionTextField="razon_social"
-                        optionValueField="_id" placeholder="Seleccione un Proveedor"
-                        formControlName="idProve" (select)="doSelect($event)">
+                        optionValueField="_id" placeholder="Seleccione un Proveedor" formControlName="idProve"
+                        (select)="doSelect($event)">
                         <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                           <span [innerHtml]="text"></span>
                         </ng-template>
@@ -70,7 +70,8 @@
                       <span class="input-group-text izq" id="concepto"><b>Glosa</b></span>
                       <input class="form-control" type="text" formControlName="concepto">
                       <div class="form-text" *ngIf="form2['concepto'].touched && form2['concepto'].invalid">
-                        <div *ngIf="form2['concepto'].errors && form2['concepto'].errors['required']">* Fecha Inicial</div>
+                        <div *ngIf="form2['concepto'].errors && form2['concepto'].errors['required']">* Fecha Inicial
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -80,7 +81,8 @@
                       <span class="input-group-text izq" id="numeroEntrada"><b>Número</b></span>
                       <input style="width: 50px;" class="form-control" type="number" formControlName="numeroEntrada">
                       <div class="form-text" *ngIf="form2['numeroEntrada'].touched && form2['numeroEntrada'].invalid">
-                        <div *ngIf="form2['numeroEntrada'].errors && form2['numeroEntrada'].errors['required']">* Fecha Inicial</div>
+                        <div *ngIf="form2['numeroEntrada'].errors && form2['numeroEntrada'].errors['required']">* Fecha
+                          Inicial</div>
                       </div>
                     </div>
                   </div>
@@ -105,10 +107,14 @@
                     </div>
                   </div>
                 </div>
-                <button (click)="obtenerEntradas(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid"
-                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
-                  Buscar
-                </button>
+                <hr>
+                <div class="text-center">
+                  <button (click)="obtenerEntradas(reportForm)" class="btn btn-primary mr-3"
+                    [disabled]="reportForm.invalid" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+                    Buscar
+                  </button>
+                </div>
+
 
                 <!-- <button (click)="imprimir()" class="btn btn-primary"
                   style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button> -->
@@ -136,6 +142,7 @@
         </div>
       </div>
     </div>
+
     <div class="row animated fadeIn fast" *ngIf="cargando">
       <div class="col-md-12">
         <div class="alert alert-info text-center">
@@ -145,6 +152,7 @@
         </div>
       </div>
     </div>
+
     <div class="row animated fadeIn fast" *ngIf="!cargando">
       <div class="col-md-12">
         <div class="card shadow">
@@ -191,18 +199,19 @@
                       <ng-container *ngIf="ingreso.estado == 'REGISTRADO'">
                         <!-- <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i> -->
                         <button type="button" (click)="getEntrada(ingreso._id)" class="" data-bs-toggle="modal"
-                        data-bs-target="#salidaModal">
-                        <i class="fas fa-sign-out-alt"></i>
-                      </button>
-                    </ng-container>
-                    <i *ngIf="(data && data.roles === 'SUPER_ADMIN')" class="fas fa-trash-alt ml-2 icono" (click)="borrarIngreso(ingreso._id)"></i>
+                          data-bs-target="#salidaModal">
+                          <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                      </ng-container>
+                      <i *ngIf="(data && data.roles === 'SUPER_ADMIN')" class="fas fa-trash-alt ml-2 icono"
+                        (click)="borrarIngreso(ingreso._id)"></i>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
             <!-- *ngIf="txtTermino.value.length === 0" -->
-            <div class="text-center" >
+            <div class="text-center">
               <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
@@ -293,7 +302,8 @@
                     </tr>
                     <tr>
                       <td class="off-p" colspan="5">{{ nameCat[category] }}</td>
-                      <td class="off-p" colspan="3" class="text-end off-p"> <b style="font-weight: bold;">Sub Total: </b></td>
+                      <td class="off-p" colspan="3" class="text-end off-p"> <b style="font-weight: bold;">Sub Total:
+                        </b></td>
                       <td class="off-p pr-2 text-end"> {{ categoryTotalPrices[category] | currency: 'USD': '' }}</td>
                     </tr>
                   </ng-container>
@@ -394,7 +404,8 @@
             <input id="entregado" class="form-control" type="text" formControlName="entregado" />
             <ng-container *ngIf="salidaForm.value.entregado">
               <span class="input-group-text" id="cargo"><b>Cargo:</b></span>
-              <input id="cargo" class="form-control" type="text" formControlName="cargo"  [required]="salidaForm.value.entregado" />
+              <input id="cargo" class="form-control" type="text" formControlName="cargo"
+                [required]="salidaForm.value.entregado" />
             </ng-container>
 
             <!-- <div class="form-text" *ngIf="form['entregado'].touched && form['entregado'].invalid">
