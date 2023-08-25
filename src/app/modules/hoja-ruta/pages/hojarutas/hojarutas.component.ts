@@ -48,6 +48,8 @@ export class HojarutasComponent implements OnInit {
   idhr:string=""
   aso: any = [];
   lisaso: string = ' ';
+  cargando: boolean = true;
+
   constructor(private api: RutaService,
     private router: Router,
     private fb: FormBuilder,
@@ -100,6 +102,7 @@ export class HojarutasComponent implements OnInit {
   }
 
   getHojaRutas() {
+    this.cargando = true;
     this.campo=parseInt(this.campo)
     if(this.campo==this.year-1){
       this.dategt=this.campo;
@@ -119,10 +122,14 @@ export class HojarutasComponent implements OnInit {
         this.totalPages = data.totalpage;
         this.search=" ";
         console.log(this.hojaRutas)
+        this.cargando = false;
       }
     )
+
     this.comunicacionesService.termino.subscribe(
+
       termino => {
+        this.cargando = true;
         this.search2 = termino;
         console.log(this.search2)
         this.api.buscarHoja(this.search2).subscribe(
@@ -132,6 +139,7 @@ export class HojarutasComponent implements OnInit {
 
               // console.log("result", this.hojaRutas)
               this.totalPages=1;
+              this.cargando = false;
             }else{
               this.hojaRutas = [];
             }

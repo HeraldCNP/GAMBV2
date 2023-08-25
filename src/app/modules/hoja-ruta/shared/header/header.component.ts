@@ -41,7 +41,16 @@ export class HeaderComponent implements OnInit {
   }
 
   enviar(){
-    this.router.navigate(['ruta/hojaRutas']);
+
     this.comunicacionesService.termino.emit(this.searchString);
+  }
+
+
+  focusInput(){
+    this.router.navigate(['ruta/hojaRutas']);
+  }
+
+  deleteText(){
+    this.searchString = '';
   }
 }
