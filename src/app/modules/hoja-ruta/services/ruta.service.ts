@@ -68,7 +68,7 @@ export class RutaService {
   EditarSegui(id: string, segui:Segui): Observable<any> {
     return this.http.put(this.URL + '/segui/' + id, segui);
   }
-  
+
   EditarSeguis(id: string, segui:Segui): Observable<any> {
     return this.http.put(this.URL + '/seguis/' + id, segui);
   }
@@ -78,7 +78,7 @@ export class RutaService {
   EditarHoja(id: string, hoja:Hojaruta): Observable<any> {
     return this.http.put(this.URL + '/hoja/' + id, hoja);
   }
-  
+
   buscarnuit(nuit: string): Observable<any> {
     return this.http.get(this.URL + '/seguias/' + nuit);
   }
@@ -92,6 +92,7 @@ export class RutaService {
   buscarHoja(search: string): Observable<any> {
     return this.http.get(this.URL + '/hojasearch/' + search);
   }
+
   getTotalHojaRuta(dategt?:any,datelt?:any): Observable<any> {
     let dir = `${this.URL}/totales?dategt=${dategt}&datelt=${datelt}`;
     console.log(dir)

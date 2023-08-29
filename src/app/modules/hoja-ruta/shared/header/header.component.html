@@ -41,13 +41,29 @@
         routerLink="/private"></i>
     </div>
 
-    <form #searchForm="ngForm" (ngSubmit)="enviar()" class="d-flex">
-      <input name="search" [(ngModel)]="searchString" (focus)="focusInput()" (blur)="deleteText()" class="form-control p-0" type="search" placeholder=" Buscar"
+    <!-- <form [formGroup]="searchForm" (ngSubmit)="enviar()" class="d-flex">
+      <input name="search" formControlName="search" (focus)="focusInput()" class="form-control p-0" type="search" placeholder=" Buscar"
         aria-label="Search" autocomplete="off" />
+
       <button class="btn btn-outline-info fa mr-1" type="submit" value="Buscar">
         <i class="fas fa-search" style="color: rgb(255, 255, 255) !important"></i>
       </button>
+    </form> -->
+
+    <form [formGroup]="searchForm" class="d-flex">
+      <input name="search" formControlName="search" (focus)="focusInput()" class="form-control p-0" type="search"
+        placeholder=" Buscar" aria-label="Search" autocomplete="off" />
+      <button (click)="buscar(searchForm.value)" class="btn btn-outline-info fa mr-1" type="submit" value="Buscar">
+        <i class="fas fa-search" style="color: rgb(255, 255, 255) !important"></i>
+      </button>
     </form>
+    <!-- {{ searchForm.value | json }} -->
+
+
+
+
+    <!-- <input class="form-control mb-4" list="articulos" type="search" placeholder="Buscar"
+      (keyup.enter)="buscar(txtNombre.value)" (blur)="txtNombre.value = ''" #txtNombre /> -->
 
 
     <!-- Messages Dropdown Menu -->

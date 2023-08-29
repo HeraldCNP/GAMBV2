@@ -127,7 +127,6 @@ export class HojarutasComponent implements OnInit {
     )
 
     this.comunicacionesService.termino.subscribe(
-
       termino => {
         this.cargando = true;
         this.search2 = termino;
@@ -136,7 +135,6 @@ export class HojarutasComponent implements OnInit {
           data => {
             if(data.serverResponse){
               this.hojaRutas = data.serverResponse;
-
               // console.log("result", this.hojaRutas)
               this.totalPages=1;
               this.cargando = false;
