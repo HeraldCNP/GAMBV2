@@ -7,7 +7,7 @@
           <form [formGroup]="reportForm">
             <div class="row g-3 align-items-center">
               <div class="col-auto">
-                <div class="input-group mb-1">
+                <div class="input-group input-group-sm  mb-1">
                   <span class="input-group-text" id="catProgra"><b>Cat. Programatica *</b></span>
 
                   <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
@@ -32,7 +32,7 @@
               </div>
 
               <div class="col-auto">
-                <div class="input-group mb-1">
+                <div class="input-group input-group-sm mb-1">
                   <span class="input-group-text" id="codigo"><b>Artículos *</b></span>
                   <ngx-select [allowClear]="true" [items]="articles" optionTextField="nombre"
                     optionValueField="codigo" placeholder="Seleccione un Articulo"
@@ -53,7 +53,7 @@
               </div>
 
               <div class="col-auto">
-                <div class="input-group mb-1 mx-2">
+                <div class="input-group input-group-sm mb-1 mx-2">
                   <span class="input-group-text izq" id="del"><b>Del</b></span>
                   <input class="form-control" type="date" formControlName="del">
                   <div class="form-text" *ngIf="form['del'].touched && form['del'].invalid">
@@ -63,7 +63,7 @@
               </div>
 
               <div class="col-auto">
-                <div class="input-group mb-1 mx-2">
+                <div class="input-group input-group-sm mb-1 mx-2">
                   <span class="input-group-text izq" id="estado"><b>Al</b></span>
                   <input class="form-control" type="date" formControlName="al">
                   <div class="form-text" *ngIf="form['al'].touched && form['al'].invalid">

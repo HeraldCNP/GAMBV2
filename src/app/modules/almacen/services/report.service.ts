@@ -17,6 +17,9 @@ export class ReportService {
     // console.log(dir);
     return this.http.get<any>(dir);
   }
+
+
+
 }
 
 

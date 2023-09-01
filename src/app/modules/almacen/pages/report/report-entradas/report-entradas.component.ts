@@ -33,43 +33,6 @@ export class ReportEntradasComponent implements OnInit {
   destino: string = '';
 
 
-//   if (params.catProgra != null) {
-//     var catProgra = new RegExp(params.catProgra, "i");
-//     filter1["catProgra"] = catProgra;
-//   }
-//   if (params.estadoCompra != null) {
-//     var estadoCompra = new RegExp(params.estadoCompra, "i");
-//     filter1["estadoCompra"] = estadoCompra;
-//   }
-//   if (params.cantidadCompra != null) {
-//     var cantidadCompra = new RegExp(params.cantidadCompra, "i");
-//     filter1["cantidadCompra"] = cantidadCompra;
-//   }
-//   if (params.stockCompra != null) {
-//     var stockCompra = new RegExp(params.stockCompra, "i");
-//     filter1["stockCompra"] = stockCompra;
-//   }
-//   if (params.codigo != null) {
-//     var codigo = new RegExp(params.codigo, "i");
-//     filter2["codigo"] = codigo;
-//   }
-//   if (params.nombre != null) {
-//     var nombre = new RegExp(params.nombre, "i");
-//     filter2["nombre"] = nombre;
-//   }
-//   if (params.unidadDeMedida != null) {
-//     var unidadDeMedida = new RegExp(params.unidadDeMedida, "i");
-//     filter2["unidadDeMedida"] = unidadDeMedida;
-//   }
-//   if (params.cantidad != null) {
-//     var cantidad = new RegExp(params.cantidad, "i");
-//     filter2["cantidad"] = cantidad;
-//   }
-//   if (params.estado != null) {
-//     var expresion = new RegExp(params.estado);
-//     filter2["estado"] = expresion;
-//     }
-
   constructor(private fb: FormBuilder, private reportAlm: ReportAlmService) {
     this.usuario = localStorage.getItem('user');
     this.data = JSON.parse(this.usuario);
@@ -96,7 +59,7 @@ export class ReportEntradasComponent implements OnInit {
     this.cargando = true;
     this.reportAlm.getAllCatProgras().subscribe((data: any) => {
       this.catProgras = data.serverResponse;
-      console.log("Cat Progras", this.catProgras)
+      // console.log("Cat Progras", this.catProgras)
     });
   }
 
@@ -105,7 +68,7 @@ export class ReportEntradasComponent implements OnInit {
     this.cargando = true;
     this.reportAlm.getAllArticles().subscribe((data: any) => {
       this.articles = data.serverResponse;
-      console.log("articles", this.articles);
+      // console.log("articles", this.articles);
     });
   }
 

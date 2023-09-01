@@ -1,0 +1,169 @@
+<div class="m-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card shadow p-3 mb-3 bg-body rounded">
+        <h3 class="text-center p-0">Reporte de Articulos</h3>
+        <div class="card-header d-flex flex-row justify-content-between">
+          <form [formGroup]="reportForm">
+            <div class="row g-3 align-items-center">
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1">
+                  <span class="input-group-text" id="idPartida"><b>Partida</b></span>
+
+                  <ngx-select [allowClear]="true" [items]="partidas" optionTextField="denominacion"
+                    optionValueField="_id" placeholder="Seleccione una Partida de Gasto" formControlName="idPartida"
+                    (select)="doSelect($event)">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                    </ng-template>
+                    <div class="form-text" *ngIf="form['idPartida'].touched && form['idPartida'].invalid">
+                      <div *ngIf="
+                          form['idPartida'].errors &&
+                          form['idPartida'].errors['required']
+                        ">
+                        * La categoria programatica es Requerida.
+                      </div>
+                    </div>
+                  </ngx-select>
+                </div>
+                <span *ngIf="codPartida" style="font-size: 0.8rem;">{{ codPartida.codigo }}</span>
+
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1">
+                  <span class="input-group-text" id="unidadDeMedida"><b>Unidad de Medida</b></span>
+                  <ngx-select [allowClear]="true" [items]="medidas" optionTextField="unidadMedida"
+                    optionValueField="unidadMedida" placeholder="Seleccione una Unidad de Medida"
+                    formControlName="unidadDeMedida">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                    </ng-template>
+                    <div class="form-text" *ngIf="form['unidadDeMedida'].touched && form['unidadDeMedida'].invalid">
+                      <div *ngIf="
+                          form['unidadDeMedida'].errors &&
+                          form['unidadDeMedida'].errors['required']
+                        ">
+                        * La categoria programatica es Requerida.
+                      </div>
+                    </div>
+                  </ngx-select>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1 mx-2">
+                  <span class="input-group-text izq" id="codigo"><b>Codigo</b></span>
+                  <input style="width: 60px;" class="form-control" type="text" formControlName="codigo">
+                  <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
+                    <div *ngIf="form['codigo'].errors && form['codigo'].errors['required']">* Codigo</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1 mx-2">
+                  <span class="input-group-text izq" id="nombre"><b>Nombre</b></span>
+                  <input style="width: 150px;" class="form-control" type="text" formControlName="nombre">
+                  <div class="form-text" *ngIf="form['nombre'].touched && form['nombre'].invalid">
+                    <div *ngIf="form['nombre'].errors && form['nombre'].errors['required']">* nombre</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1 mx-2">
+                  <span class="input-group-text izq" id="cantidad"><b>Cantidad</b></span>
+                  <input style="width: 60px;" class="form-control" type="text" formControlName="cantidad">
+                  <div class="form-text" *ngIf="form['cantidad'].touched && form['cantidad'].invalid">
+                    <div *ngIf="form['cantidad'].errors && form['cantidad'].errors['required']">* cantidad</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1 mx-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" formControlName="stock">
+                    <label class="form-check-label" for="inlineRadio1">Con Stock</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1" formControlName="stock">
+                    <label class="form-check-label" for="inlineRadio2">Sin Stock</label>
+                  </div>
+                </div>
+              </div>
+              {{ reportForm.value | json }}
+
+            </div>
+            <button (click)="obtenerArticulos(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+              Generar
+            </button>
+
+            <button (click)="imprimir()" class="btn btn-primary"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button>
+
+            <!-- <div class="input-group mb-1">
+              <span class="input-group-text izq" id="funcionario"><b> Funcionario</b></span>
+              <select id="funcionario" formControlName="funcionario" class="form-select" required>
+                <option value="" [defaultSelected]="true">Elija una opción</option>
+                <option *ngFor="let user of users" value="{{ user.post }}">{{ user.username }} {{ user.surnames }}
+                </option>
+
+              </select>
+              <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
+                <div *ngIf="form['funcionario'].errors && form['funcionario'].errors['required']">* Debe seleccionar un
+                  funcionario.</div>
+              </div>
+            </div> -->
+
+
+
+          </form>
+        </div>
+        <!-- {{ reportForm.value | json }} -->
+        <div class="card-body">
+          <div>
+            <table class="table table-striped table-responsive" id="table">
+
+              <thead>
+                <tr *ngIf="user">
+
+
+                </tr>
+                <tr class="head">
+                  <th>N°</th>
+                  <th>Codigo</th>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Unidad de Medida</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let articulo of articulos; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    {{ articulo.codigo }}
+                  </td>
+                  <td>{{ articulo.nombre }}</td>
+                  <td>{{ articulo.cantidad }}</td>
+                  <td>{{ articulo.unidadDeMedida }}</td>
+
+
+
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="usuario">
+                  <td colspan="6">SISTEMA DE  ALMACENES - GAM BETANZOS</td>
+                  <td colspan="2">Usuario: {{ data.username }} {{ data.surnames }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

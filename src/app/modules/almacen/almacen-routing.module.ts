@@ -18,6 +18,7 @@ import { VehiculoIndexComponent } from './pages/vehiculos/vehiculo-index/vehicul
 import { ReportIndexComponent } from './pages/report/report-index/report-index.component';
 import { ReportIngresoComponent } from './pages/report/report-ingreso/report-ingreso.component';
 import { ReportEntradasComponent } from './pages/report/report-entradas/report-entradas.component';
+import { ReportArticulosComponent } from './pages/report/report-articulos/report-articulos.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'reporte/index', component: ReportIndexComponent },
       { path: 'reporte/ingresos', component:  ReportIngresoComponent},
       { path: 'reporte/entradas', component:  ReportEntradasComponent},
+      { path: 'reporte/articulos', component:  ReportArticulosComponent},
       // { path: 'compra/create', component: CompraCreateComponent },
       // { path: 'compra/update/:id', component: CompraUpdateComponent },
 
