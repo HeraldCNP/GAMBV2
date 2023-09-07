@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Articulo } from '../interfaces/articulo';
+import { catProgra } from '../interfaces/catProgra.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -260,6 +261,32 @@ export class AlmacenService {
 
   /*Vehiculos END*/
 
+  /*catProgras */
+  getAllCatProgras(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/segPoas`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
 
+
+  getAllFuncionarios(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/users`;
+    // console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  getAllAreas(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/org`;
+    // console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  createCatProgra(form: catProgra): Observable<any> {
+    let dir = `${this.URL}/segPoa`;
+    return this.http.post<any>(dir, form);
+  }
+
+  /*END catProgras */
 
 }
+

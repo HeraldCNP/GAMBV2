@@ -7,13 +7,13 @@
             <div class="row my-2">
               <div class="col-md-8">
                 <h3 class="card-title">
-                  Total de Proveedores ({{ totalProveedores }})
+                  Total de Categorías Programáticas ({{ totalCatProgras }})
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
-                  Nuevo proveedor
+                  Nueva Categoria Programatica
                 </button>
               </div>
             </div>
@@ -39,42 +39,48 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr>
-                  <th>Representante</th>
-                  <th>Razon Social</th>
-                  <th>Nit</th>
-                  <th>Telefono</th>
-                  <th>Dirección</th>
-                  <th>Ciudad</th>
-                  <th>Estado</th>
+                  <th>Area</th>
+                  <th>Responsable</th>
+                  <th>Cat. Prog.</th>
+                  <th>Proyecto y/o Actividad</th>
+                  <th>Ppto. Vigente</th>
+                  <th>Ejecución presupuestaria</th>
+                  <th>Saldo</th>
+                  <th>Etapa</th>
+                  <th>Partida</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let proveedor of proveedores.serverResponse; let i = index">
-                  <td>{{ proveedor.representante }}</td>
-                  <td>{{ proveedor.razon_social }}</td>
-                  <td>{{ proveedor.nit }}</td>
-                  <td>{{ proveedor.telefono }}</td>
-                  <td>{{ proveedor.direccion }}</td>
-                  <td>{{ proveedor.ciudad }}</td>
-                  <td>
+                <tr *ngFor="let catProgra of catProgras; let i = index">
+                  <td>{{ catProgra.area }}</td>
+                  <td *ngIf="catProgra.responsable">{{ catProgra.responsable.username }} {{ catProgra.responsable.surnames }}</td>
+                  <td *ngIf="!catProgra.responsable"></td>
+                  <td>{{ catProgra.cat_programatica }}</td>
+                  <td>{{ catProgra.proyect_acti }}</td>
+                  <td>{{ catProgra.presupuesto_vigente }}</td>
+                  <td>{{ catProgra.ejecucion_presupuestaria }}</td>
+                  <td>{{ catProgra.saldo }}</td>
+                  <td>{{ catProgra.etapa }}</td>
+                  <td>{{ catProgra.partida }}</td>
+                  <!-- <td>
                     <div class="form-check form-switch">
-                      <span *ngIf="proveedor.estado == '1'">
+                      <span *ngIf="catProgra.estado == '1'">
                         <input class="form-check-input pointer"
-                          (change)="changeStatus(proveedor._id, !proveedor.estado)" type="checkbox" [checked]="true"
+                          (change)="changeStatus(catProgra._id, !catProgra.estado)" type="checkbox" [checked]="true"
                           role="switch" id="{{'toogle'+i}}">Activo
                       </span>
-                      <span *ngIf="proveedor.estado == '0'">
+                      <span *ngIf="catProgra.estado == '0'">
                         <input class="form-check-input pointer"
-                          (change)="changeStatus(proveedor._id, !proveedor.estado)" type="checkbox" [checked]="false"
+                          (change)="changeStatus(catProgra._id, !catProgra.estado)" type="checkbox" [checked]="false"
                           role="switch" id="{{'toogle'+i}}">Inactivo
                       </span>
                     </div>
-                  </td>
+                  </td> -->
                   <td>
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(proveedor)"></i>
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarProveedor(proveedor._id)"></i>
+                      (click)="cargarDataEdit(catProgra)"></i>
+                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarCatProgra(catProgra._id!)"></i>
                   </td>
                 </tr>
               </tbody>
@@ -104,51 +110,84 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">
-          Registrar Proveedor
+          Registrar Categoria Programatica
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="crearProveedor(proveedorForm.value)" [formGroup]="proveedorForm">
+        <form (ngSubmit)="crearCatProgra(catPrograForm.value)" [formGroup]="catPrograForm">
           <div class="mb-1">
-            <label for="representante" class="form-label col-md-auto">Representante *</label>
-            <input id="representante" class="form-control" type="text" formControlName="representante" />
+            <label for="area" class="form-label col-md-auto">Area *</label>
+            <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="areas"
+              optionTextField="nombredir" optionValueField="nombredir" placeholder="Seleccione una Area"
+              formControlName="area" (select)="doSelect($event)">
+              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                <span [innerHtml]="text"></span>
+                &nbsp;
+              </ng-template>
+            </ngx-select>
+            <div class="form-text" *ngIf="form['area'].touched && form['area'].invalid">
+              <div *ngIf="
+                      form['area'].errors &&
+                      form['area'].errors['required']
+                    ">
+                * El proveedor es Requerido.
+              </div>
+            </div>
           </div>
 
           <div class="mb-1">
-            <label for="razon_social" class="form-label col-md-auto">Razon Social *</label>
-            <input id="razon_social" class="form-control" type="text" formControlName="razon_social" />
+            <label for="responsable" class="form-label col-md-auto">Responsable *</label>
+            <ngx-select style="min-width: 450px;" [allowClear]="true" [items]="funcionarios"
+              optionTextField="username" optionValueField="_id" placeholder="Seleccione un Responsable"
+              formControlName="responsable" (select)="doSelect($event)">
+              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                <span [innerHtml]="text"></span>
+                &nbsp;{{option.data.surnames}}
+              </ng-template>
+            </ngx-select>
+            <div class="form-text" *ngIf="form['responsable'].touched && form['responsable'].invalid">
+              <div *ngIf="
+                      form['responsable'].errors &&
+                      form['responsable'].errors['required']
+                    ">
+                * El proveedor es Requerido.
+              </div>
+            </div>
           </div>
 
           <div class="mb-1">
-            <label for="nit" class="form-label col-md-auto">Nit *</label>
-            <input id="nit" class="form-control" type="number" formControlName="nit" />
+            <label for="cat_programatica" class="form-label col-md-auto">Cat. Prog. *</label>
+            <input id="cat_programatica" class="form-control" type="text" formControlName="cat_programatica" />
           </div>
 
           <div class="mb-1">
-            <label for="telefono" class="form-label col-md-auto">Telefono *</label>
-            <input id="telefono" class="form-control" type="number" formControlName="telefono" />
+            <label for="proyect_acti" class="form-label col-md-auto">Proyecto y/o Actividad *</label>
+            <input id="proyect_acti" class="form-control" type="text" formControlName="proyect_acti" />
           </div>
 
           <div class="mb-1">
-            <label for="direccion" class="form-label col-md-auto">Direccion</label>
-            <input id="direccion" class="form-control" type="text" formControlName="direccion" />
+            <label for="presupuesto_vigente" class="form-label col-md-auto">Presupuesto Vigente</label>
+            <input id="presupuesto_vigente" class="form-control" type="number" formControlName="presupuesto_vigente" />
           </div>
 
           <div class="mb-1">
-            <label for="ciudad" class="form-label col-md-auto">Ciudad</label>
-            <input id="ciudad" class="form-control" type="text" formControlName="ciudad" />
+            <label for="etapa" class="form-label col-md-auto">Etapa</label>
+            <select formControlName="etapa" class="form-select">
+              <option value="actividad">Actividad</option>
+              <option value="ejecucion">Ejecución</option>
+            </select>
           </div>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cerrar
             </button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="proveedorForm.invalid">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="catPrograForm.invalid">
               Registrar
             </button>
           </div>
-          {{ proveedorForm.value | json }}
+          {{ catPrograForm.value | json }}
         </form>
       </div>
     </div>
@@ -157,7 +196,7 @@
 <!-- End Modal -->
 
 <!-- Modal Edit -->
-<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="modalEditLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -210,4 +249,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

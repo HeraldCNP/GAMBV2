@@ -27,6 +27,7 @@ import { ReportIndexComponent } from './pages/report/report-index/report-index.c
 import { ReportIngresoComponent } from './pages/report/report-ingreso/report-ingreso.component';
 import { ReportEntradasComponent } from './pages/report/report-entradas/report-entradas.component';
 import { ReportArticulosComponent } from './pages/report/report-articulos/report-articulos.component';
+import { CatPrograIndexComponent } from './pages/catProgras/cat-progra-index/cat-progra-index.component';
 
 
 
@@ -56,6 +57,7 @@ import { ReportArticulosComponent } from './pages/report/report-articulos/report
     ReportIngresoComponent,
     ReportEntradasComponent,
     ReportArticulosComponent,
+    CatPrograIndexComponent,
   ],
   imports: [
     CommonModule,
