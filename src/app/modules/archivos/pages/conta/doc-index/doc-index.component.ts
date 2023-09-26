@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContaService } from '../../../services/conta.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -26,8 +26,22 @@ export class DocIndexComponent implements OnInit {
   area:string = 'contabilidad';
   tipo:string = '';
   URL = environment.api;
+  reportForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) { }
+  constructor(private fb: FormBuilder, private contaService: ContaService, private router: Router) {
+    this.reportForm = this.fb.group({
+      idPartida: [''],
+      unidadDeMedida: [''],
+      codigo: [''],
+      nombre: [''],
+      cantidad: [''],
+      stock:[]
+    });
+  }
+
+  get form() {
+    return this.reportForm.controls;
+  }
 
   ngOnInit(): void {
     this.cargarArchivos()

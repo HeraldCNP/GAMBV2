@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="mt-3">
     <div class="row animated fadeIn fast">
       <div class="col-md-12">
@@ -38,7 +38,8 @@
                       <option value="2010">2010</option>
                     </select>
                     <div class="form-text" *ngIf="form['gestion'].touched && form['gestion'].invalid">
-                      <div *ngIf="form['gestion'].errors && form['gestion'].errors['required']">* gestion es Requerido.</div>
+                      <div *ngIf="form['gestion'].errors && form['gestion'].errors['required']">* gestion es Requerido.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -57,7 +58,8 @@
                     <span class="input-group-text izq" id="beneficiario"><b>Beneficiario</b></span>
                     <input class="form-control" type="text" formControlName="beneficiario">
                     <div class="form-text" *ngIf="form['beneficiario'].touched && form['beneficiario'].invalid">
-                      <div *ngIf="form['beneficiario'].errors && form['beneficiario'].errors['required']">* beneficiario</div>
+                      <div *ngIf="form['beneficiario'].errors && form['beneficiario'].errors['required']">* beneficiario
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -83,9 +85,9 @@
                 </div>
               </div>
               <button (click)="obtener(buscarForm)" class="btn btn-primary mr-3" [disabled]="buscarForm.invalid"
-              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
-              Buscar
-            </button>
+                style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+                Buscar
+              </button>
             </form>
           </div>
         </div>
@@ -105,7 +107,7 @@
         <div class="card shadow">
           <div class="card-body">
 
-            <table class="table table-hover mb-2">
+            <table class="table table-hover mb-2 texto">
               <thead>
                 <tr>
                   <th>Número de Preventivo</th>
@@ -129,8 +131,8 @@
                   <td>{{ preventivo.ci }}</td>
                   <td>{{ preventivo.monto | currency: 'USD': '' }}</td>
                   <td>{{ preventivo.fojas }}</td>
-                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+preventivo.uri }}"
-                      target="_blank">Descargar</a></td>
+                  <td><a class="btn btn-danger btn-sm" href="{{ URL+'/'+preventivo.uri }}"
+                      target="_blank"><i class="fas fa-download"></i></a></td>
                   <td>{{ preventivo.observacion }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
@@ -151,7 +153,8 @@
                     <!-- <i class="fas fa-plus ml-3 icono"></i> -->
                     <i class="fas fa-edit mr-2 icono" (click)="editarPreventivo(preventivo)"></i>
                     <i class="fas fa-dolly mr-2 icono" (click)="moverCarpeta(preventivo._id)"></i>
-                    <i class="fas fa-trash  icono" (click)="borrarArchivo(preventivo._id)"></i>
+                    <i class="fas fa-trash mr-2 icono" (click)="borrarArchivo(preventivo._id)"></i>
+                    <i class="fas fa-folder-open icono ml-2" data-bs-toggle="modal" data-bs-target="#mostrarCarpeta" (click)="verCarpeta(preventivo._id)"></i>
                   </td>
                 </tr>
               </tbody>
@@ -170,6 +173,29 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal MostrarCarpeta -->
+<div class="modal fade" id="mostrarCarpeta" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mostrarCarpetaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div *ngIf="folder" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mostrarCarpetaLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item"> <b> Area: </b> {{ folder[0].idCarpeta[0].area }} - {{ folder[0].idCarpeta[0].tipo }} - {{ folder[0].idCarpeta[0].subTipo }}</li>
+          <li class="list-group-item"><b>Número de Carpeta:</b> {{ folder[0].idCarpeta[0].numCarpeta }}</li>
+          <li class="list-group-item"><b>Nombre de Carpeta:</b> {{ folder[0].idCarpeta[0].nameCarpeta }}</li>
+          <li class="list-group-item"><b>Lugar:</b> {{ folder[0].idCarpeta[0].lugar }}</li>
+          <li class="list-group-item"><b>Estante:</b> {{ folder[0].idCarpeta[0].estante }}</li>
+          <li class="list-group-item"><b>Fila:</b> {{ folder[0].idCarpeta[0].fila }}</li>
+        </ul>
+        <!-- <pre> {{ folder | json }} </pre> -->
       </div>
     </div>
   </div>

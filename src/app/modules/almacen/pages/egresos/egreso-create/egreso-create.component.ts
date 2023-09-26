@@ -40,7 +40,7 @@ export class EgresoCreateComponent implements OnInit {
       entregado: [''],
       cargo: [''],
       concepto: ['', [Validators.required]],
-      idPersona: ['', [Validators.required]],
+      idPersona: [''],
       articulos: ['', [Validators.required]],
       idUsuario: [this.idUser],
     });

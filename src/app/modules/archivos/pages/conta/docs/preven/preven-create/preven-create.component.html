@@ -13,6 +13,33 @@
               <div class="col-md">
                 <form (ngSubmit)="crearPreven()" [formGroup]="prevenForm">
 
+                  <div class="example-block">
+                    <div class="example-block__item">
+
+                    </div>
+                  </div>
+
+                  <div class="input-group input-group-sm mb-1">
+                    <span class="input-group-text" id="carpetas"><b>Carpetas</b></span>
+
+                    <ngx-select [multiple]="true" [items]="carpetas" optionTextField="nameCarpeta" optionValueField="_id"
+                      [autoClearSearch]="true" placeholder="Selecciona carpetas" formControlName="carpetas" size="small"
+                      style="width: 80%;">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;- ({{option.data.numCarpeta}})
+                      </ng-template>
+                      <div class="form-text" *ngIf="form['carpetas'].touched && form['carpetas'].invalid">
+                        <div *ngIf="
+                              form['carpetas'].errors &&
+                              form['carpetas'].errors['required']
+                            ">
+                          * La categoria programatica es Requerida.
+                        </div>
+                      </div>
+                    </ngx-select>
+                  </div>
+
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="numero"><b>Numero de Preventivo *</b></span>
                     <input id="numero" class="form-control" type="text" formControlName="numero" />
@@ -149,8 +176,8 @@
 
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="archivo"><b>Archivo </b></span>
-                    <input class="form-control ml-1" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
-                      formControlName="archivo" (change)="onChange($event)" />
+                    <input class="form-control ml-1" id="archivo" type="file" name="archivo" id="archivo"
+                      accept="archivo/*" formControlName="archivo" (change)="onChange($event)" />
                     <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
                       <div *ngIf="
                           form['archivo'].errors &&

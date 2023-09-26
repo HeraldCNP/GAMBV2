@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrevenCreateComponent } from './preven-create.component';
+import { PrevenCreateComponent } from './PrevenCreateComponent';
 
 describe('PrevenCreateComponent', () => {
   let component: PrevenCreateComponent;

@@ -17,7 +17,11 @@ export class ContaService {
     console.log(dir);
     return this.http.get<any>(dir);
   }
-
+  getAllCarpetasConta(area?: string, tipo?: string, subTipo?: string): Observable<any[]> {
+    let dir = `${this.URL}/carpetas?area=${area}&tipo=${tipo}&subTipo=${subTipo}`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
 
   createConta(form: any, id: any): Observable<any> {
     let dir = `${this.URL}/addArea/${id}`;
@@ -26,7 +30,7 @@ export class ContaService {
 
   registerPreven(fd: FormData, id: string): Observable<any> {
     let dir = `${this.URL}/addAreaArch/${id}`;
-    // console.log(dir);
+    // console.log(fd);
     return this.http.put<any>(dir, fd, {
       reportProgress: true,
       observe: 'events',

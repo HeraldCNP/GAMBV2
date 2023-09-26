@@ -22,6 +22,7 @@ export class PrevenListComponent implements OnInit {
   carpeta:any;
   carpetaId?:any;
   buscarForm: any;
+  folder:any;
 
   URL = environment.api;
   constructor(private contaService: ContaService, private activeRouter: ActivatedRoute, private router: Router, private fb: FormBuilder) {
@@ -67,6 +68,8 @@ export class PrevenListComponent implements OnInit {
         this.preventivos = res.serverResponse;
         this.totalPreventivos = res.total;
         this.cargando = false;
+        console.log(this.preventivos);
+
       },
       (err) => console.log('HTTP Error', err),
       () => {
@@ -178,5 +181,14 @@ export class PrevenListComponent implements OnInit {
 
   }
 
+
+  verCarpeta(id:any){
+
+
+    this.folder = this.preventivos.filter((element: any) => element._id == id);
+
+    console.log(this.folder[0].idCarpeta[0].area);
+
+  }
 
 }

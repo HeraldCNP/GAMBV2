@@ -5,7 +5,7 @@ import { CarpetaIndexComponent } from './pages/carpetas/carpeta-index/carpeta-in
 import { CarpetaCreateComponent } from './pages/carpetas/carpeta-create/carpeta-create.component';
 import { ContaIndexComponent } from './pages/conta/conta-index/conta-index.component';
 import { DocIndexComponent } from './pages/conta/doc-index/doc-index.component';
-import { PrevenCreateComponent } from './pages/conta/docs/preven/preven-create/preven-create.component';
+import { PrevenCreateComponent } from './pages/conta/docs/preven/preven-create/PrevenCreateComponent';
 import { DevenCreateComponent } from './pages/conta/docs/deven/deven-create/deven-create.component';
 import { PrevenListComponent } from './pages/conta/docs/preven/preven-list/preven-list.component';
 import { AreaIndexComponent } from './pages/areas/area-index/area-index.component';

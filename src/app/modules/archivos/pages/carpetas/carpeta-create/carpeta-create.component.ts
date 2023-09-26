@@ -20,7 +20,7 @@ export class CarpetaCreateComponent implements OnInit {
   progress: number = 0;
   area: boolean = true;
   areas: any;
-
+  cant: boolean = false;
   // areas = {
   //   "list": [
   //     {
@@ -56,6 +56,7 @@ export class CarpetaCreateComponent implements OnInit {
       lugar: [''],
       estante: ['', [Validators.required]],
       fila: [''],
+      cantidad: [0],
     });
   }
 
@@ -170,6 +171,10 @@ export class CarpetaCreateComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['archivos/carpetas/index']);
+  }
+
+  addCantidad(){
+    this.cant = !this.cant;
   }
 
 }

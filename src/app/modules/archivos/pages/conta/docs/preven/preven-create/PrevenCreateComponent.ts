@@ -2,8 +2,10 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { toArray } from 'rxjs';
 import { ContaService } from 'src/app/modules/archivos/services/conta.service';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-preven-create',
@@ -14,10 +16,15 @@ export class PrevenCreateComponent implements OnInit {
   idUser: any;
   user: any;
   data: any;
-  prevenForm:any;
+  prevenForm: any;
   files: any;
   progress: number = 0;
-  carpetaId?:any;
+  carpetaId?: any;
+  carpetas?: any;
+  area: any = 'contabilidad';
+  tipo: any = 'Gastos';
+  subTipo: any = 'cip';
+
 
 
 
@@ -31,7 +38,8 @@ export class PrevenCreateComponent implements OnInit {
       monto: ['', [Validators.required]],
       fojas: ['', [Validators.required]],
       archivo: [''],
-      observacion: ['']
+      observacion: [''],
+      carpetas: ['']
     });
   }
 
@@ -41,8 +49,17 @@ export class PrevenCreateComponent implements OnInit {
     this.idUser = this.data.id;
 
     this.carpetaId = this.activeRouter.snapshot.paramMap.get('id');
+
+    this.cargarCarpetasConta();
   }
 
+  cargarCarpetasConta() {
+    this.contaService.getAllCarpetasConta(this.area, this.tipo, this.subTipo)
+      .subscribe((data: any) => {
+        this.carpetas = data.serverResponse;
+        console.log(this.carpetas);
+      });
+  }
 
 
   get form() {
@@ -51,12 +68,13 @@ export class PrevenCreateComponent implements OnInit {
 
 
 
+
+
   crearPreven() {
     let fd = new FormData();
 
     if (!this.prevenForm.value.archivo) {
       // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
-
       // numero: [''],
       // fecha: [''],
       // glosa: ['', [Validators.required]],
@@ -67,7 +85,6 @@ export class PrevenCreateComponent implements OnInit {
       // archivo: [''],
       // observacion: [''],
       // idCarpeta: [''],
-
       fd.append('numero', this.prevenForm.value.numero);
       fd.append('fecha', this.prevenForm.value.fecha);
       fd.append('glosa', this.prevenForm.value.glosa);
@@ -76,7 +93,9 @@ export class PrevenCreateComponent implements OnInit {
       fd.append('monto', this.prevenForm.value.monto);
       fd.append('fojas', this.prevenForm.value.fojas);
       fd.append('observacion', this.prevenForm.value.observacion);
+      fd.append('carpetas', this.prevenForm.value.carpetas);
       fd.append('usuario', this.idUser);
+      console.log(fd.get('carpetas'));
 
       this.contaService.registerPreven(fd, this.carpetaId).subscribe(
         (res) => {
@@ -97,8 +116,6 @@ export class PrevenCreateComponent implements OnInit {
       );
     } else {
       // Creación del objeto donde incluimos todos los campos del formulario y además la imagen
-
-
       fd.append('numero', this.prevenForm.value.numero);
       fd.append('fecha', this.prevenForm.value.fecha);
       fd.append('glosa', this.prevenForm.value.glosa);
@@ -107,6 +124,7 @@ export class PrevenCreateComponent implements OnInit {
       fd.append('monto', this.prevenForm.value.monto);
       fd.append('fojas', this.prevenForm.value.fojas);
       fd.append('observacion', this.prevenForm.value.observacion);
+      fd.append('carpetas', this.prevenForm.value.carpetas);
       fd.append('usuario', this.idUser);
       fd.append('file', this.files[0]);
 
@@ -150,6 +168,8 @@ export class PrevenCreateComponent implements OnInit {
   onChange($event: any) {
     this.files = $event.target.files;
   }
+
+
 
 
 }

@@ -11,14 +11,14 @@ export class CarpetaService {
 
   constructor(private http: HttpClient) { }
 
-   /* Carpetas */
-   getAllCarpetas(limit?: number, skip?: number): Observable<any[]> {
+  /* Carpetas */
+  getAllCarpetas(limit?: number, skip?: number): Observable<any[]> {
     let dir = `${this.URL}/carpetas?limit=${limit}&skip=${skip}`;
     console.log(dir);
     return this.http.get<any>(dir);
   }
 
-  getSingleCarpeta(){
+  getSingleCarpeta() {
 
   }
 

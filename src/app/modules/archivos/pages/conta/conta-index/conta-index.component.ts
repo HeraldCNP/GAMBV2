@@ -23,6 +23,7 @@ export class ContaIndexComponent implements OnInit {
   contaForm: any;
   editForm: any;
   archiForm: any;
+  buscarForm: any;
   cargando: boolean = true;
   idCarpeta: any;
   idCarpeta2: any;
@@ -50,7 +51,7 @@ export class ContaIndexComponent implements OnInit {
     });
 
     this.archiForm = this.fb.group({
-      archivo: ['', [Validators.required]],
+      archivo: [''],
     })
 
 
@@ -63,6 +64,13 @@ export class ContaIndexComponent implements OnInit {
       lugar: [''],
       estante: ['', [Validators.required]],
       fila: [''],
+    });
+
+    this.buscarForm = this.fb.group({
+      numero: [''],
+      glosa: [''],
+      beneficiario: [''],
+      ci: ['']
     });
   }
 
@@ -98,30 +106,12 @@ export class ContaIndexComponent implements OnInit {
     return this.archiForm.controls;
   }
 
-
-
-  actualizarSegundoSelect() {
-    console.log("cambio");
-
-    switch (this.editForm.value.area) {
-      case 'administracion':
-        this.tipos = ['Opción A', 'Opción B', 'Opción C'];
-        break;
-      case 'contabilidad':
-        this.tipos = ['Preventivos', 'Devengados', 'Estados Financieros', 'Ingresos', 'Otros'];
-        break;
-      case 'recaudaciones':
-        this.tipos = ['Opción 1', 'Opción 2', 'Opción 3'];
-        break;
-      case 'legal':
-        this.tipos = ['Opción 4', 'Opción 5', 'Opción 6'];
-
-        break;
-      default:
-        this.tipos = [];
-        break;
-    }
+  get form4() {
+    return this.buscarForm.controls;
   }
+
+
+
 
 
   cargarDataEdit(carpeta: any) {
@@ -141,14 +131,6 @@ export class ContaIndexComponent implements OnInit {
     this.idCarpeta = carpeta._id;
   }
 
-  // gestion: ['', [Validators.required]],
-  // area: ['', [Validators.required]],
-  // tipo: ['', [Validators.required]],
-  // numCarpeta: ['', [Validators.required]],
-  // nameCarpeta: ['', [Validators.required]],
-  // lugar: [''],
-  // estante: ['', [Validators.required]],
-  // fila: [''],
 
   buscar(termino: string) {
     if (termino.length === 0) {
@@ -248,6 +230,7 @@ export class ContaIndexComponent implements OnInit {
 
   resetForm() {
     this.contaForm.reset();
+    this.buscarForm.reset();
   }
 
   addCarpetaId(carpeta: any) {
@@ -391,6 +374,33 @@ export class ContaIndexComponent implements OnInit {
         );
       }
     });
+  }
+
+
+  obtener(form:any){
+
+    let area:string = 'Contabilidad';
+    let tipo:string = 'Gastos';
+    let subTipo:string = 'cip';
+    let gestion:number = form.value.gestion;
+    let glosa:string = form.value.glosa;
+    let beneficiario:string = form.value.beneficiario;
+    let numero:string = form.value.numero;
+    let ci:string = form.value.ci;
+
+    this.contaService.buscarArchivos(area, tipo, subTipo, gestion, glosa, beneficiario, numero, ci).subscribe(
+      (res:any) => {
+        // console.log(res);
+
+        this.archivosSin = res.serverResponse;
+        console.log(this.archivosSin);
+
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+
+      }
+    );
   }
 
 }

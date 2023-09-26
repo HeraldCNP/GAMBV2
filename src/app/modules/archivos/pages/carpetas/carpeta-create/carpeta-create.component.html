@@ -111,7 +111,15 @@
                         * El Numero de carpeta no puede tener menos de 3 caracteres.
                       </div>
                     </div>
+                    <ng-container *ngIf="cant">
+                      <span class="input-group-text" id="cantidad"><b>Cantidad</b></span>
+                      <input id="cantidad" class="form-control" type="number" formControlName="cantidad" />
+                    </ng-container>
+                    <div class="align-self-end ml-2">
+                      <button type="button" class="btn btn-info text-white" (click)="addCantidad()"><i class="fas fa-plus"></i></button>
+                    </div>
                   </div>
+
 
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="nameCarpeta"><b>Nombre de la Carpeta *</b></span>
@@ -177,14 +185,6 @@
                     </div>
                   </div>
 
-
-
-
-
-
-
-
-
                   <!-- <div class="input-group mb-1">
                     <span class="input-group-text izq"><b>Observaciones </b></span>
                     <textarea id="observaciones" class="form-control" type="text"
@@ -225,7 +225,6 @@
     </div>
   </div>
 </div>
-
 
 
 
