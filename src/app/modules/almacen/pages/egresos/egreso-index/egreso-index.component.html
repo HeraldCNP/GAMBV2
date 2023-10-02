@@ -144,7 +144,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <table class="table table-hover table-bordered mb-0">
+              <table class="table table-hover table-bordered mb-0 border-primary">
                 <thead>
                   <tr class="text-center backColor">
                     <th class="off-p">N°</th>
@@ -207,7 +207,12 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button>
+        <!-- <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button> -->
+
+        <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
+          class="btn btn-primary">
+          Imprimir
+        </button>
       </div>
     </div>
   </div>
