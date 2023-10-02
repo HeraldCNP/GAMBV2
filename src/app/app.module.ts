@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginComponent } from './login/login.component';
+import {NgxPrintModule} from 'ngx-print';
 
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
@@ -22,7 +23,8 @@ registerLocaleData(localeEs, 'es');
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPrintModule,
   ],
   providers: [
     CookieService,
