@@ -1,127 +1,258 @@
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-dark fondo">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+    <!-- <li class="nav-item d-none d-sm-inline-block">
+      <a routerLink="/auth/unit/index" [routerLinkActive]="['active']" class="nav-link">Lista de Unidades</a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a routerLink="/blog/category/index" [routerLinkActive]="['active']" class="nav-link">Lista de Roles</a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a routerLink="/auth/users" [routerLinkActive]="['active']" class="nav-link">Lista de Usuarios</a>
+    </li> -->
+  </ul>
 
-<div class="body text-center">
-  <main class="px-3">
-
-    <h1>Bienvenido: {{ data.username }} {{ data.surnames }}</h1>
-    <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autónomo Municipal de Betanzos</p>
-    <div>
-      <a routerLink="/"><i class="fas fa-home fa-1x mr-2 mt-2 app" style="color:rgb(202, 206, 202) !important"
-          title="Inicio"> Inicio</i></a>
-    </div>
-    <div class="contenedor">
-      <div class="contenedor-cards">
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto">
 
 
-        <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_USER' || data.roles === 'SECRETARIA' || data.roles === 'SUPER_ADMIN' || data.roles === 'ADMIN' )">
-            <a routerLink="/ruta">
-              <div class="imgbox">
-                <div>
-                  <img class="img-fluid" src="assets/img/private/ruta.jpg" loading="lazy" alt="">
-                </div>
-              </div>
-              <div class="details">
-                <span class="caption">INGRESAR</span>
-              </div>
-            </a>
+    <!-- Messages Dropdown Menu -->
+    <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel d-flex">
+          <div class="image">
+            <img src="../../../../../assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            {{ data.username }} {{ data.surnames }}
           </div>
         </div>
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <div class="dropdown-divider"></div>
 
-
-        <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )">
-            <a routerLink="/blog">
-              <div class="imgbox">
-                <div>
-                  <img class="img-fluid" src="assets/img/private/noticias.jpg" loading="lazy" alt="">
-                </div>
-              </div>
-              <div class="details">
-                <span class="caption">INGRESAR</span>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN')">
-            <a routerLink="/auth">
-              <div class="imgbox">
-                <div>
-                  <img class="img-fluid" src="assets/img/private/usuarios.jpg" loading="lazy" alt="">
-                </div>
-              </div>
-              <div class="details">
-                <span class="caption">INGRESAR</span>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
-            <a routerLink="/convenio">
-              <div class="imgbox">
-                <div>
-                  <img class="img-fluid" src="assets/img/private/convenios.jpg" loading="lazy" alt="">
-                </div>
-              </div>
-              <div class="details">
-                <span class="caption">INGRESAR</span>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
-            <a routerLink="/docAdmin">
-              <div class="imgbox">
-                <div>
-                  <img class="img-fluid" src="assets/img/private/documentos.jpg" loading="lazy" alt="">
-                </div>
-              </div>
-              <div class="details">
-                <span class="caption">INGRESAR</span>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'ALMACENES' || data.post === 'ASISTENTE DE ALMACENES Y ACTIVOS FIJOS')">
-            <a routerLink="/almacen">
-              <div class="imgbox">
-                <div>
-                  <img class="img-fluid" src="assets/img/private/almacenes.jpg" loading="lazy" alt="">
-                </div>
-              </div>
-              <div class="details">
-                <span class="caption">INGRESAR</span>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="contenedor-card-item">
-          <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
-            <a routerLink="/archivos/carpetas/index">
-              <div class="imgbox">
-                <div>
-                  <img class="img-fluid" src="assets/img/private/archivos.jpg" loading="lazy" alt="">
-                </div>
-              </div>
-              <div class="details">
-                <span class="caption">INGRESAR</span>
-              </div>
-            </a>
-          </div>
-        </div>
-
+        <!-- <a (click)="cerrarSesion()" class="dropdown-item dropdown-footer pointer" role="button"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a> -->
       </div>
-    </div>
-    <div>
+    </li>
+    <!-- Notifications Dropdown Menu -->
+    <!-- <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-warning navbar-badge">15</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">15 Notifications</span>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-envelope mr-2"></i> 4 new messages
+              <span class="float-right text-muted text-sm">3 mins</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-users mr-2"></i> 8 friend requests
+              <span class="float-right text-muted text-sm">12 hours</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-file mr-2"></i> 3 new reports
+              <span class="float-right text-muted text-sm">2 days</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          </div>
+        </li> -->
+    <!-- <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fas fa-th-large"></i>
+          </a>
+        </li> -->
+  </ul>
+</nav>
+<!-- /.navbar -->
 
-    </div>
-  </main>
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4 fondo">
+  <!-- Brand Logo -->
+  <a routerLink="/" class="brand-link">
+    <img src="../../../../../assets/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light">GAM Betanzos</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li *ngFor="let item of itemsMenu" class="nav-item">
+          <a routerLink="{{ item.url }}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              {{ item.label }}
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-header">AREA 2</li>
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
+
+
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="body text-center">
+            <main class="">
+
+              <h1>Bienvenido: {{ data.username }} {{ data.surnames }}</h1>
+              <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autónomo Municipal de
+                Betanzos</p>
+              <div>
+                <a routerLink="/"><i class="fas fa-home fa-1x mr-2 mt-2 app" style="color: #000 !important"
+                    title="Inicio"> Inicio</i></a>
+              </div>
+              <div class="contenedor">
+                <div class="contenedor-cards">
+
+
+                  <div class="contenedor-card-item">
+                    <div class="card"
+                      *ngIf="(data && data.roles === 'SUPER_USER' || data.roles === 'SECRETARIA' || data.roles === 'SUPER_ADMIN' || data.roles === 'ADMIN' )">
+                      <a routerLink="/ruta">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/ruta.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="contenedor-card-item">
+                    <div class="card"
+                      *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )">
+                      <a routerLink="/blog">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/noticias.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="contenedor-card-item">
+                    <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN')">
+                      <a routerLink="/auth">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/usuarios.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="contenedor-card-item">
+                    <div class="card"
+                      *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+                      <a routerLink="/convenio">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/convenios.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="contenedor-card-item">
+                    <div class="card"
+                      *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
+                      <a routerLink="/docAdmin">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/documentos.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="contenedor-card-item">
+                    <div class="card"
+                      *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'ALMACENES' || data.post === 'ASISTENTE DE ALMACENES Y ACTIVOS FIJOS')">
+                      <a routerLink="/almacen">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/almacenes.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="contenedor-card-item">
+                    <div class="card"
+                      *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
+                      <a routerLink="/archivos/carpetas/index">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/archivos.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div>
+
+              </div>
+            </main>
+          </div>
+        </div><!-- /.col -->
+
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
 </div>

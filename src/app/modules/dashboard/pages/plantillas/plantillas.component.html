@@ -1,0 +1,28 @@
+<h1 class="text-center">Plantillas</h1>
+
+
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div *ngFor="let model of modelos; let i=index" class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-'+i"
+        aria-expanded="true" [attr.aria-controls]="'panel-'+i">
+        <span class="textHead">{{ model.tipo | uppercase }}</span>
+      </button>
+    </h2>
+    <div [id]="'panel-'+i" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <div class="row">
+          <div *ngFor="let document of model.documentos" class="col">
+            <div class="card text-center mb-3" style="width: 18rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.titulo }}</h6>
+                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }}</p>
+                <a class="btn btn-info" href="{{ URL+'/'+document.uri }}" target="_blank"> <i class="fas fa-download"></i> Descargar</a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

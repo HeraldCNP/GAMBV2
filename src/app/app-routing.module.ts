@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate: [SessionGuard]
   },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [SessionGuard]
+  },
+  {
     path: 'private',
     component: PrivateComponent,
     canActivate: [SessionGuard]
@@ -60,6 +65,11 @@ const routes: Routes = [
   {
     path: 'archivos',
     loadChildren: () => import('./modules/archivos/archivos.module').then(m => m.ArchivosModule),
+    canActivate: [SessionGuard]
+  },
+  {
+    path: 'doc',
+    loadChildren: () => import('./modules/plantilla-doc/plantilla-doc.module').then(m => m.PlantillaDocModule),
     canActivate: [SessionGuard]
   },
   {

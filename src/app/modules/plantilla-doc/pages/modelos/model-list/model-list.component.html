@@ -1,0 +1,70 @@
+<h1 class="text-center">Plantillas</h1>
+
+
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div *ngFor="let model of modelos; let i=index" class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel-'+i" aria-expanded="true" [attr.aria-controls]="'panel-'+i">
+        {{ model.tipo }}
+      </button>
+    </h2>
+    <div [id]="'panel-'+i" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <div class="row">
+          <div *ngFor="let document of model.documentos" class="col">
+            <div class="card text-center mb-3" style="width: 18rem;">
+              <div class="card-body">
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default" *ngFor="let convenio of convenios; let i=index">
+                    <div class="panel-heading" role="tab" id="{{'h'+i}}">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" [attr.href]="'#f'+i" aria-expanded="true" aria-controls="" [attr.aria-controls] = "'f'+i">
+                                En fecha: {{ convenio.firma | date:'shortDate': 'UTC' }} se realizó el convenio: {{ convenio.codigo }} - {{ convenio.nombre }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="{{'f'+i}}" class="panel-collapse collapse in" role="tabpanel" [attr.aria-labelledby]="'h'+i">
+                        <div class="panel-body">
+                            <p><b>OBJETO: </b> {{ convenio.objeto }}</p>
+                            <hr>
+                            <p> <b>PARTES SUSCRIBIENTES: </b> <span *ngFor="let entidad of convenio.entidades">{{ entidad.entidad }} - </span> </p>
+                            <hr>
+                            <p><b>VIGENCIA:</b> {{ convenio.plazo }} días  <b>VENCIMIENTO:</b> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }} - {{ i }} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> -->
+
+
+
+  <!-- <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+        Accordion Item #3
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      </div>
+    </div>
+  </div> -->
+</div>

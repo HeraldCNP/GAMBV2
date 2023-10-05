@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     ) { }
   errorStatus:boolean = false;
   errorMsj:any = "";
+  year = new Date();
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
             this.cookie.set('token', dataRes.token, 0.2, '/');
             localStorage.setItem("user", JSON.stringify( dataRes ))
             this.errorStatus = false;
-            this.router.navigate(['private'])
+            this.router.navigate(['dashboard/main'])
           }else{
             this.errorStatus = true;
             this.errorMsj = "Credenciales incorrectas!!!";

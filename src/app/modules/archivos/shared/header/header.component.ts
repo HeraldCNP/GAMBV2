@@ -9,14 +9,14 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class HeaderComponent implements OnInit {
 
-  user:any;
-  data:any;
+  user: any;
+  data: any;
 
   constructor(
     private cookieService: CookieService,
     private router: Router
 
-    ) {
+  ) {
 
   }
 
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
 
 
-  cerrarSesion(){
+  cerrarSesion() {
     localStorage.removeItem('user');
     this.cookieService.delete('token');
     this.router.navigate(['/'])

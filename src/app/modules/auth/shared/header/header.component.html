@@ -18,7 +18,12 @@
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-
+        <div>
+          <i class="fas fa-home fa-1x mr-2 mt-2" style="color:rgb(202, 206, 202) !important" title="Inicio" routerLink="/"></i>
+        </div>
+        <div>
+          <i class="fas fa-th fa-1x mr-2 mt-2" style="color:rgb(202, 206, 202) !important" title="Aplicaciones de GAMB" routerLink="/dashboard/main"></i>
+        </div>
 
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
@@ -80,7 +85,7 @@
               <!-- Message End -->
             </a>
             <div class="dropdown-divider"></div>
-            
+
             <a (click)="cerrarSesion()" class="dropdown-item dropdown-footer pointer" role="button"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
           </div>
         </li>

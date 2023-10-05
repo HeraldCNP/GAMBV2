@@ -1,7 +1,7 @@
 
 
   <div class="body text-center">
-    
+
     <main class="form-signin w-100 m-auto">
         <form (ngSubmit)="sendLogin(formLogin.value)" [formGroup]="formLogin">
             <img class="mb-4" src="../../../../../assets/img/logo2.png" alt="" width="120" height="57">
@@ -19,11 +19,11 @@
               <span>{{ errorMsj }}</span>
             </div>
             <button [disabled]="formLogin.invalid" class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+            <p class="mt-5 mb-3 text-muted">&copy; {{ year | date:'y' }}</p>
         </form>
     </main>
 
 
-    
+
   </div>
 
