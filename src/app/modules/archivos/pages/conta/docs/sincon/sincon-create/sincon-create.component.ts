@@ -32,9 +32,9 @@ export class SinconCreateComponent {
       fecha: ['', [Validators.required]],
       glosa: ['', [Validators.required]],
       beneficiario: ['', [Validators.required]],
-      ci: ['', [Validators.required]],
+      ci: [''],
       monto: ['', [Validators.required]],
-      fojas: ['', [Validators.required]],
+      fojas: [''],
       archivo: [''],
       observacion: [''],
       carpetas: ['']
