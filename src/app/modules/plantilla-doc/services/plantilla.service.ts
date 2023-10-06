@@ -23,6 +23,16 @@ export class PlantillaService {
     return this.http.post<any>(dir, form);
   }
 
+  editarModelo(fd: FormData, id: string): Observable<any> {
+    let dir = `${this.URL}/modelo/${id}`;
+    return this.http.put<any>(dir, fd)
+  }
+
+  deleteModelo(id: any): Observable<any> {
+    let dir = `${this.URL}/modelo/${id}`;
+    return this.http.delete<any>(dir, id)
+  }
+
 
   /*Servicios para Documentos*/
 
@@ -40,6 +50,8 @@ export class PlantillaService {
       observe: 'events',
     })
   }
+
+
 
   changeEstadoAuditoria(id: any, fd: FormData): Observable<any> {
     let dir = `${this.URL}/uploadDocument/${id}`;

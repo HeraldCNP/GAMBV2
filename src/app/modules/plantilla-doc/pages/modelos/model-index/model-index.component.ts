@@ -24,7 +24,7 @@ export class ModelIndexComponent implements OnInit {
 
   tipoForm: any;
   tipoDelForm: any;
-  idArea: any;
+  idModelo: any;
   area: any;
   area2: any;
 
@@ -37,7 +37,7 @@ export class ModelIndexComponent implements OnInit {
     });
 
     this.editForm = this.fb.group({
-      nombre: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
     });
 
   }
@@ -59,6 +59,13 @@ export class ModelIndexComponent implements OnInit {
       });
   }
 
+  cargarDataEdit(modelo: any) {
+    // console.log("Rendi Edit", pei)
+    this.editForm.setValue({
+      tipo: modelo.tipo,
+    });
+    this.idModelo = modelo._id;
+  }
 
   crearModelo(form: any) {
     // console.log(this.finanForm.value.monto.replace(/\./g, ''));
@@ -74,28 +81,28 @@ export class ModelIndexComponent implements OnInit {
     );
   }
 
-  editArea(form: any) {
-    // this.PlantillaService.editArea(form, this.idArea).subscribe(
-    //   (res) => {
-    //     console.log(res);
-    //   },
-    //   (err) => {
-    //     console.log('HTTP Error', err);
-    //   },
-    //   () => {
-    //     this.editForm.reset();
-    //     this.alertOk(
-    //       'success',
-    //       'Exito',
-    //       'Area editada Correctamente',
-    //       '2000'
-    //     );
-    //     this.cargarAreas();
-    //   }
-    // );
+  editModelo(form: any) {
+    this.plantillaService.editarModelo(form, this.idModelo).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.editForm.reset();
+        this.alertOk(
+          'success',
+          'Exito',
+          'Modelo Editado Correctamente',
+          '2000'
+        );
+        this.cargarModelos();
+      }
+    );
   }
 
-  borrarArea(id: string) {
+  borrarModelo(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: '¡No podrás revertir esto!',
@@ -107,12 +114,12 @@ export class ModelIndexComponent implements OnInit {
       confirmButtonText: '¡Sí, bórralo!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Area ha sido eliminado.', 'success');
-        // this.PlantillaService.deleteArea(id).subscribe(
-        //   (res) => console.log(res),
-        //   (err) => console.log('HTTP Error', err),
-        //   () => this.cargarAreas()
-        // );
+        Swal.fire('¡Eliminado!', 'El Modelo ha sido eliminado.', 'success');
+        this.plantillaService.deleteModelo(id).subscribe(
+          (res) => console.log(res),
+          (err) => console.log('HTTP Error', err),
+          () => this.cargarModelos()
+        );
       }
     });
   }

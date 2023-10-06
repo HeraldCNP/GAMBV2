@@ -47,10 +47,9 @@
                 <tr *ngFor="let modelo of modelos.serverResponse; let i = index">
                   <td>{{ modelo.tipo }}</td>
                   <td>
+                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit" (click)="cargarDataEdit(modelo)"></i>
+                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarModelo(modelo._id)"></i>
                     <!-- <i class="fas fa-list-alt ml-3 icono" data-bs-toggle="modal" data-bs-target="#verTipos" (click)="cargarArea(area)"></i>
-                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(area)"></i>
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarArea(area._id)"></i>
                     <i class="fas fa-plus ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalTipo" (click)="cargarDataTipo(area)"></i> -->
                   </td>
                 </tr>
@@ -100,7 +99,7 @@
               Registrar
             </button>
           </div>
-          {{ modeloForm.value | json }}
+          <!-- {{ modeloForm.value | json }} -->
         </form>
       </div>
     </div>
@@ -109,20 +108,20 @@
 <!-- End Modal -->
 
 <!-- Modal Edit -->
-<!-- <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="modalEditLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Area</h1>
+        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Modelo</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="editArea(editForm.value)" [formGroup]="editForm">
+        <form (ngSubmit)="editModelo(editForm.value)" [formGroup]="editForm">
 
           <div class="mb-1">
-            <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" id="nombre" formControlName="nombre" />
+            <label for="tipo" class="form-label">Tipo:</label>
+            <input type="text" class="form-control" id="tipo" formControlName="tipo" />
           </div>
 
           <div class="modal-footer">
@@ -137,7 +136,7 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- Modal Create Tipo -->
 <!-- <div class="modal fade" id="modalTipo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
