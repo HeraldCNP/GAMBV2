@@ -13,6 +13,11 @@
               </div>
               <div class="col-md-8 d-flex justify-content-end">
                 <div class="card-tools">
+                  <button (click)="changeStatus('sincon', '')" type="button"
+                    [ngClass]="tipo == 'sincon' ? 'activate' : ''"
+                    class="btn btn-info btn-sm position-relative mr-3">
+                    SINCON
+                  </button>
                   <div class="btn-group mx-3" role="group" aria-label="Basic mixed styles example">
                     <button (click)="changeStatus('Gastos', 'cip')" type="button"
                       [ngClass]="tipo == 'Gastos' ? 'activate' : ''" class="btn btn-danger btn-sm">CIP</button>

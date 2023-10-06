@@ -35,6 +35,10 @@
       *ngIf="(data && data.post === 'AUDITOR INTERNO' || data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
       <a routerLink="/docAdmin/auditoria/index" [routerLinkActive]="['active']" class="nav-link">AUDITORIA</a>
     </li>
+    <li class="nav-item d-none d-sm-inline-block"
+    *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+    <a routerLink="/doc/documentos/index" [routerLinkActive]="['active']" class="nav-link">PLANTILLAS</a>
+  </li>
   </ul>
 
   <!-- Right navbar links -->

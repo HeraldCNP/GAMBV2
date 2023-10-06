@@ -29,6 +29,9 @@ import { SipCreateComponent } from './pages/conta/docs/recursos/sip/sip-create/s
 import { SipListComponent } from './pages/conta/docs/recursos/sip/sip-list/sip-list.component';
 import { SipEditComponent } from './pages/conta/docs/recursos/sip/sip-edit/sip-edit.component';
 import { FinanEditComponent } from './pages/conta/docs/finan/finan-edit/finan-edit.component';
+import { SinconCreateComponent } from './pages/conta/docs/sincon/sincon-create/sincon-create.component';
+import { SinconEditComponent } from './pages/conta/docs/sincon/sincon-edit/sincon-edit.component';
+import { SinconListComponent } from './pages/conta/docs/sincon/sincon-list/sincon-list.component';
 
 
 @NgModule({
@@ -57,7 +60,10 @@ import { FinanEditComponent } from './pages/conta/docs/finan/finan-edit/finan-ed
     SipCreateComponent,
     SipListComponent,
     SipEditComponent,
-    FinanEditComponent
+    FinanEditComponent,
+    SinconCreateComponent,
+    SinconEditComponent,
+    SinconListComponent
   ],
   imports: [
     CommonModule,

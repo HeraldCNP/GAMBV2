@@ -260,6 +260,10 @@ export class ContaIndexComponent implements OnInit {
         this.router.navigate(['archivos/conta/docs/finan', carpeta._id])
         break;
 
+      case 'SINCON':
+        console.log(carpeta);
+        this.router.navigate(['archivos/conta/docs/sincon', carpeta._id])
+        break;
       default:
         break;
     }
@@ -302,6 +306,11 @@ export class ContaIndexComponent implements OnInit {
       case 'Estados Financieros':
         console.log(carpeta);
         this.router.navigate(['archivos/conta/docs/finan/list', carpeta._id])
+        break;
+
+      case 'SINCON':
+        console.log(carpeta);
+        this.router.navigate(['archivos/conta/docs/sincon/list', carpeta._id])
         break;
 
       default:
@@ -377,19 +386,19 @@ export class ContaIndexComponent implements OnInit {
   }
 
 
-  obtener(form:any){
+  obtener(form: any) {
 
-    let area:string = 'Contabilidad';
-    let tipo:string = 'Gastos';
-    let subTipo:string = 'cip';
-    let gestion:number = form.value.gestion;
-    let glosa:string = form.value.glosa;
-    let beneficiario:string = form.value.beneficiario;
-    let numero:string = form.value.numero;
-    let ci:string = form.value.ci;
+    let area: string = 'Contabilidad';
+    let tipo: string = 'Gastos';
+    let subTipo: string = 'cip';
+    let gestion: number = form.value.gestion;
+    let glosa: string = form.value.glosa;
+    let beneficiario: string = form.value.beneficiario;
+    let numero: string = form.value.numero;
+    let ci: string = form.value.ci;
 
     this.contaService.buscarArchivos(area, tipo, subTipo, gestion, glosa, beneficiario, numero, ci).subscribe(
-      (res:any) => {
+      (res: any) => {
         // console.log(res);
 
         this.archivosSin = res.serverResponse;

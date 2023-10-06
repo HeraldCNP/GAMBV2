@@ -21,6 +21,9 @@ import { SipCreateComponent } from './pages/conta/docs/recursos/sip/sip-create/s
 import { SipListComponent } from './pages/conta/docs/recursos/sip/sip-list/sip-list.component';
 import { SipEditComponent } from './pages/conta/docs/recursos/sip/sip-edit/sip-edit.component';
 import { FinanEditComponent } from './pages/conta/docs/finan/finan-edit/finan-edit.component';
+import { SinconCreateComponent } from './pages/conta/docs/sincon/sincon-create/sincon-create.component';
+import { SinconListComponent } from './pages/conta/docs/sincon/sincon-list/sincon-list.component';
+import { SinconEditComponent } from './pages/conta/docs/sincon/sincon-edit/sincon-edit.component';
 
 const routes: Routes = [
   {
@@ -54,6 +57,10 @@ const routes: Routes = [
       { path: 'conta/docs/finan/:id', component: FinanCreateComponent },
       { path: 'conta/docs/finan/list/:id', component: FinanListComponent },
       { path: 'conta/docs/finan/edit/:id', component: FinanEditComponent },
+
+      { path: 'conta/docs/sincon/:id', component: SinconCreateComponent },
+      { path: 'conta/docs/sincon/list/:id', component: SinconListComponent },
+      { path: 'conta/docs/sincon/edit/:id', component: SinconEditComponent },
 
       // { path: 'poa/index', component: PoaIndexComponent },
       // { path: 'poa/create', component: PoaCreateComponent },
