@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card shadow p-3 mb-5 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Documentos de </h3>
+            <!-- <h3 class="card-title">Documentos de </h3> -->
             <div class="card-tools">
               <span class="mr-3">
                 <button data-bs-toggle="modal" data-bs-target="#modalAddFile" class="btn btn-primary">
@@ -30,6 +30,7 @@
                   <th>Titulo</th>
                   <th>Fecha de Publicacion</th>
                   <th>Documento</th>
+                  <th>Modelo</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -52,6 +53,7 @@
                   <td>{{ documento.titulo }}</td>
                   <td>{{ documento.fecha | date:'longDate': 'UTC' }}</td>
                   <td><a href="{{ URL+'/'+documento.uri }}" target="_blank">Descargar</a></td>
+                  <td>{{ documento.modelo_tipo.tipo }}</td>
                   <!-- <td class="">
                     <i *ngFor="let file of documento.archivo">
                       {{ file.descripcion }}
@@ -93,14 +95,14 @@
       <div class="modal-body">
         <form (ngSubmit)="addArchivo()" [formGroup]="addForm">
           <div class="mb-1">
-            <label for="modelo_tipo" class="form-label col-auto">Tipo *</label>
+            <label for="modelo_tipo" class="form-label col-auto">Modelo *</label>
             <ngx-select [allowClear]="true" [items]="modelos.serverResponse" optionTextField="tipo"
               optionValueField="_id" placeholder="Seleccione una opción" formControlName="modelo_tipo">
             </ngx-select>
           </div>
 
           <div class="mb-1">
-            <label for="titulo" class="form-label">titulo *</label>
+            <label for="titulo" class="form-label">Titulo *</label>
             <input type="text" class="form-control" id="titulo" formControlName="titulo" required />
             <div class="form-text" *ngIf="form['titulo'].touched && form['titulo'].invalid">
               <div *ngIf="

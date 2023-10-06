@@ -97,7 +97,11 @@
             <i class="nav-icon {{item.icon}}"></i>
             <p>
               {{ item.label }}
-              <span *ngIf="last" class="right badge badge-danger">Nuevo</span>
+              <span *ngIf="last" class="right badge badge-danger">Nuevo <span class="spinner-grow spinner-grow-sm"
+                  role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </span></span>
+
             </p>
           </a>
         </li>

@@ -133,17 +133,17 @@ export class ModelIndexComponent implements OnInit {
     });
   }
 
-  buscar(termino: string) {
-    if (termino.length === 0) {
-      this.modelos = this.modelosTemp;
-      return;
-    }
-    // this.PlantillaService.searchProveedor(termino).subscribe((resp) => {
-    //   console.log('Resp:', resp);
-    //   this.areas = resp;
-    //   this.areasTemp = resp;
-    // });
-  }
+  // buscar(termino: string) {
+  //   if (termino.length === 0) {
+  //     this.modelos = this.modelosTemp;
+  //     return;
+  //   }
+  //   this.PlantillaService.searchProveedor(termino).subscribe((resp) => {
+  //     console.log('Resp:', resp);
+  //     this.areas = resp;
+  //     this.areasTemp = resp;
+  //   });
+  // }
 
   cambiarPagina(valor: number) {
     this.skip += valor;

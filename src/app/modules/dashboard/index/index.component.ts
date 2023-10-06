@@ -13,7 +13,7 @@ export class IndexComponent {
   constructor(    private cookieService: CookieService,
     private router: Router) { }
   itemsMenu = [
-    {label: 'Inicio', url: '/dashboard/main', icon: 'fas fa-home'},
+    {label: 'Aplicaciones', url: '/dashboard/main', icon: 'fas fa-laptop-code'},
     {label: 'Plantillas', url: '/dashboard/plantillas', icon: 'fas fa-file-alt'}
   ]
   ngOnInit(): void {

@@ -17,8 +17,8 @@
                 </button>
               </div>
             </div>
-            <input class="form-control" type="search" placeholder="Buscar modelo" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino />
+            <!-- <input class="form-control" type="search" placeholder="Buscar modelo" (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')" #txtTermino /> -->
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
                 </tr>
               </tbody>
             </table>
-            <div class="text-center" *ngIf="txtTermino.value.length === 0">
+            <!-- <div class="text-center" *ngIf="txtTermino.value.length === 0">
               <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
@@ -65,7 +65,7 @@
               <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
                 Siguiente <i class="fas fa-chevron-right"></i>
               </button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
       <div class="modal-body">
         <form (ngSubmit)="crearModelo(modeloForm.value)" [formGroup]="modeloForm">
           <div class="mb-1">
-            <label for="tipo" class="form-label col-md-auto">Tipo *</label>
+            <label for="tipo" class="form-label col-md-auto">Descripción *</label>
             <input id="tipo" class="form-control" type="text" formControlName="tipo" />
           </div>
 
