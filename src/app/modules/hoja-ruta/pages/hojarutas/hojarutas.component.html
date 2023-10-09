@@ -816,8 +816,14 @@
             <div class="card-body text-center">
               <span class="titulo"> {{ titulo | uppercase }} </span>
               <p class="fw-bold fa-2x">{{ cant + 1 }}</p>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+                <input (click)="isUser(false)" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-info" for="btnradio1">Interno</label>
+                <input (click)="isUser(true)" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-info" for="btnradio3">Externo</label>
+              </div>
               <form class="mt-3" [formGroup]="hojaForm" (ngSubmit)="registerHojas()">
-                <div class="mb-2">
+                <div class="mb-2" *ngIf="isUsuario">
                   <input type="text" formControlName="origen" class="form-control" placeholder="Origen" />
                   <div class="text-danger" *ngIf="
                       hojaForm.get('origen')?.hasError('required') &&
@@ -826,6 +832,28 @@
                     <span>El origen <strong>es obligatorio</strong></span>
                   </div>
                 </div>
+                <div class="input-group mb-1" *ngIf="!isUsuario">
+
+                  <span class="input-group-text" id="plazo"><b>Origen *</b></span>
+
+                  <ngx-select style="min-width: 400px;" [allowClear]="true" [items]="funcionarios"
+                    optionTextField="username" optionValueField="_id" placeholder="Seleccione un Funcionario"
+                    formControlName="origen" (select)="doSelect($event)">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                      &nbsp;{{option.data.surnames}}
+                    </ng-template>
+                  </ngx-select>
+                  <!-- <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
+                    <div *ngIf="
+                        form['idPersona'].errors &&
+                        form['idPersona'].errors['required']
+                      ">
+                      * El proveedor es Requerido.
+                    </div>
+                  </div> -->
+                </div>
+
                 <div class="mb-2">
                   <input type="text" formControlName="tipodoc" class="form-control" placeholder="Tipo del Documento" />
                   <div class="text-danger" *ngIf="
@@ -835,6 +863,9 @@
                     <span>El campo <strong>es obligatorios</strong></span>
                   </div>
                 </div>
+
+
+
                 <div class="mb-2">
                   <input type="text" formControlName="contacto" class="form-control"
                     placeholder="Numero de Telefono o Celular" />
@@ -861,6 +892,7 @@
                     <span>Fecha <strong>es obligatoria</strong></span>
                   </div>
                 </div>
+                <!-- {{ hojaForm.value | json }} -->
                 <div class="mb-2">
                   <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal"
                     (click)="getHojaRutas()">

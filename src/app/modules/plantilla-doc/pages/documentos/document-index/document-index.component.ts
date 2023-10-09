@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { PlantillaService } from '../../../services/plantilla.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpEventType } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class DocumentIndexComponent {
 
   private plantillaService = inject(PlantillaService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   constructor() {
     this.addForm = this.fb.group({
@@ -143,15 +145,17 @@ export class DocumentIndexComponent {
         this.progress = 0;
         this.getDocumentos();
         this.resetForm();
-        // this.router.navigate(['docAdmin/reglamento/index']);
+
         this.alertOk(
           'success',
           'Exito',
           'Documento Creado Correctamente',
           '2000'
         );
+
       }
     );
+    this.router.navigate(['doc/documentos/index']);
   }
 
   resetForm() {
@@ -165,6 +169,7 @@ export class DocumentIndexComponent {
       text,
       timer,
     });
+
   }
 
   cargarDataEdit(documento: any) {

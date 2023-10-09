@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ComunicacionesService } from '../../services/comunicaciones.service';
+import { ComprasService } from 'src/app/modules/almacen/services/compras.service';
 @Component({
   selector: 'app-hojarutas',
   templateUrl: './hojarutas.component.html',
@@ -49,12 +50,17 @@ export class HojarutasComponent implements OnInit {
   aso: any = [];
   lisaso: string = ' ';
   cargando: boolean = true;
+  isUsuario: boolean = false;
+  funcionarios: any;
+  funcionario:any;
+  ori:any;
 
   constructor(private api: RutaService,
     private router: Router,
     private fb: FormBuilder,
     private aRouter: ActivatedRoute,
-    private comunicacionesService: ComunicacionesService) {
+    private comunicacionesService: ComunicacionesService,
+    private comprasService: ComprasService) {
     this.hojaForm = this.fb.group({
       origen: ['', Validators.required],
       referencia: ['', Validators.required],
@@ -71,17 +77,46 @@ export class HojarutasComponent implements OnInit {
 
     this.getHojaRutas();
     // this.getHojaRuta();
-
+    this.cargarFuncionarios();
 
   }
+
+  isUser(a:boolean){
+    this.isUsuario = a;
+    console.log(this.isUsuario);
+  }
+
+  doSelect = (value: any) => {
+    const elementoEncontrado = this.funcionarios.find((user: { _id: any; }) => user._id == value);
+    this.funcionario = elementoEncontrado.username +' '+ elementoEncontrado.surnames;
+    console.log('SingleDemoComponent.doSelect', this.funcionario);
+  }
+
+  cargarFuncionarios() {
+    this.cargando = true;
+    this.comprasService.getAllFuncionarios().subscribe((data: any) => {
+      this.funcionarios = data.serverResponse;
+      console.log("Funcionarios", data)
+    });
+  }
+
+  get form() {
+    return this.hojaForm.controls;
+  }
+
 
   registerHojas() {
     let finyear=this.year.toString().slice(-2)
     console.log(finyear)
     this.cant = this.cant + 1;
     //this.totalh = this.cant +"-" +finyear;
+    if(this.funcionario){
+      this.ori = this.funcionario;
+    }else{
+      this.ori = this.hojaForm.get('origen')?.value;
+    }
     const HOJA: Hojaruta = {
-      origen: this.hojaForm.get('origen')?.value,
+      origen: this.ori,
       tipodoc: this.hojaForm.get('tipodoc')?.value,
       contacto: this.hojaForm.get('contacto')?.value,
       referencia: this.hojaForm.get('referencia')?.value,
