@@ -14,8 +14,7 @@
               <div class="col-md-8 d-flex justify-content-end">
                 <div class="card-tools">
                   <button (click)="changeStatus('sincon', '')" type="button"
-                    [ngClass]="tipo == 'sincon' ? 'activate' : ''"
-                    class="btn btn-info btn-sm position-relative mr-3">
+                    [ngClass]="tipo == 'sincon' ? 'activate' : ''" class="btn btn-info btn-sm position-relative mr-3">
                     SINCON
                   </button>
                   <div class="btn-group mx-3" role="group" aria-label="Basic mixed styles example">
@@ -50,8 +49,76 @@
 
               </div>
             </div>
-            <!-- <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino /> -->
+            <hr>
+            <form [formGroup]="buscarCarpeta">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="gestion"><b> Gestion</b></span>
+                    <select id="gestion" formControlName="gestion" class="form-select" required>
+                      <!-- <option value="null" [defaultSelected]="true">Seleccione</option> -->
+                      <option value="2023" [defaultSelected]="true">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                      <option value="2019">2019</option>
+                      <option value="2018">2018</option>
+                      <option value="2017">2017</option>
+                      <option value="2016">2016</option>
+                      <option value="2015">2015</option>
+                      <option value="2014">2014</option>
+                      <option value="2013">2013</option>
+                      <option value="2012">2012</option>
+                      <option value="2011">2011</option>
+                      <option value="2010">2010</option>
+                    </select>
+                    <div class="form-text" *ngIf="form5['gestion'].touched && form5['gestion'].invalid">
+                      <div *ngIf="form5['gestion'].errors && form5['gestion'].errors['required']">* Gestion es
+                        Requerido.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="numero"><b>Numero</b></span>
+                    <input class="form-control" type="text" formControlName="numero">
+                    <div class="form-text" *ngIf="form5['numero'].touched && form5['numero'].invalid">
+                      <div *ngIf="form5['numero'].errors && form5['numero'].errors['required']">* Numero</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="nombre"><b>Nombre</b></span>
+                    <input class="form-control" type="text" formControlName="nombre">
+                    <div class="form-text" *ngIf="form5['nombre'].touched && form5['nombre'].invalid">
+                      <div *ngIf="form5['nombre'].errors && form5['nombre'].errors['required']">* nombre
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="lugar"><b>Lugar</b></span>
+                    <input class="form-control" type="text" formControlName="lugar">
+                    <div class="form-text" *ngIf="form5['lugar'].touched && form5['lugar'].invalid">
+                      <div *ngIf="form5['lugar'].errors && form5['lugar'].errors['required']">* lugar</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button (click)="searchCarpeta(buscarCarpeta)" class="btn btn-primary mr-3"
+                    [disabled]="buscarCarpeta.invalid" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+                    Buscar
+                  </button>
+                </div>
+
+              </div>
+
+            </form>
           </div>
         </div>
       </div>

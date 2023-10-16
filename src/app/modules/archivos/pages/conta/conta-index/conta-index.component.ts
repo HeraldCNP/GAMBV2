@@ -24,6 +24,7 @@ export class ContaIndexComponent implements OnInit {
   editForm: any;
   archiForm: any;
   buscarForm: any;
+  buscarCarpeta: any;
   cargando: boolean = true;
   idCarpeta: any;
   idCarpeta2: any;
@@ -66,11 +67,19 @@ export class ContaIndexComponent implements OnInit {
       fila: [''],
     });
 
+
     this.buscarForm = this.fb.group({
       numero: [''],
       glosa: [''],
       beneficiario: [''],
       ci: ['']
+    });
+
+    this.buscarCarpeta = this.fb.group({
+      gestion: [2023],
+      numero: [''],
+      nombre: [''],
+      lugar: ['']
     });
   }
 
@@ -87,9 +96,37 @@ export class ContaIndexComponent implements OnInit {
         this.carpetas = data;
         this.carpetasTemp = data;
         this.totalPages = data.totalpage;
-        console.log(data);
+        // console.log(data);
         this.cargando = false;
       });
+  }
+
+
+
+  searchCarpeta(form:any){
+
+    let area:string = 'Contabilidad';
+    let gestion:string = form.value.gestion;
+    let numero:string = form.value.numero;
+    let nombre:string = form.value.nombre;
+    let lugar:string = form.value.lugar;
+
+    this.contaService.getAllConta2(area, gestion, numero, nombre, lugar).subscribe(
+      (res:any) => {
+        // console.log(res);
+
+        this.carpetas = res;
+        this.totalCarpetasConta = res.totalDocs;
+        this.totalPages = res.totalDocs;
+        this.cargando = false;
+        // console.log(this.carpetas);
+
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+
+      }
+    );
   }
 
 
@@ -108,6 +145,10 @@ export class ContaIndexComponent implements OnInit {
 
   get form4() {
     return this.buscarForm.controls;
+  }
+
+  get form5() {
+    return this.buscarCarpeta.controls;
   }
 
 

@@ -131,8 +131,9 @@
                   <td>{{ preventivo.ci }}</td>
                   <td>{{ preventivo.monto | currency: 'USD': '' }}</td>
                   <td>{{ preventivo.fojas }}</td>
-                  <td><a class="btn btn-danger btn-sm" href="{{ URL+'/'+preventivo.uri }}"
+                  <td *ngIf="preventivo.uri"><a class="btn btn-danger btn-sm" href="{{ URL+'/'+preventivo.uri }}"
                       target="_blank"><i class="fas fa-download"></i></a></td>
+                  <td *ngIf="!preventivo.uri"></td>
                   <td>{{ preventivo.observacion }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">

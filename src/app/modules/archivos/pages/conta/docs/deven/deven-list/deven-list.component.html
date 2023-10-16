@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="mt-3">
     <div class="row animated fadeIn fast">
       <div class="col-md-12">
@@ -41,8 +41,79 @@
 
               </div>
             </div>
-            <!-- <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino /> -->
+            <form [formGroup]="buscarForm">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="gestion"><b> Gestion</b></span>
+                    <select id="gestion" formControlName="gestion" class="form-select" required>
+                      <option value="2023" [defaultSelected]="true">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                      <option value="2019">2019</option>
+                      <option value="2018">2018</option>
+                      <option value="2017">2017</option>
+                      <option value="2016">2016</option>
+                      <option value="2015">2015</option>
+                      <option value="2014">2014</option>
+                      <option value="2013">2013</option>
+                      <option value="2012">2012</option>
+                      <option value="2011">2011</option>
+                      <option value="2010">2010</option>
+                    </select>
+                    <div class="form-text" *ngIf="form['gestion'].touched && form['gestion'].invalid">
+                      <div *ngIf="form['gestion'].errors && form['gestion'].errors['required']">* gestion es Requerido.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="numero"><b>Numero</b></span>
+                    <input class="form-control" type="text" formControlName="numero">
+                    <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
+                      <div *ngIf="form['numero'].errors && form['numero'].errors['required']">* Numero</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="beneficiario"><b>Beneficiario</b></span>
+                    <input class="form-control" type="text" formControlName="beneficiario">
+                    <div class="form-text" *ngIf="form['beneficiario'].touched && form['beneficiario'].invalid">
+                      <div *ngIf="form['beneficiario'].errors && form['beneficiario'].errors['required']">* beneficiario
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="glosa"><b>Glosa</b></span>
+                    <input class="form-control" type="text" formControlName="glosa">
+                    <div class="form-text" *ngIf="form['glosa'].touched && form['glosa'].invalid">
+                      <div *ngIf="form['glosa'].errors && form['glosa'].errors['required']">* Glosa</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="ci"><b>CI/NIT</b></span>
+                    <input class="form-control" type="text" formControlName="ci">
+                    <div class="form-text" *ngIf="form['ci'].touched && form['ci'].invalid">
+                      <div *ngIf="form['ci'].errors && form['ci'].errors['required']">* ci</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button (click)="obtener(buscarForm)" class="btn btn-primary mr-3" [disabled]="buscarForm.invalid"
+                style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+                Buscar
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -61,7 +132,7 @@
         <div class="card shadow">
           <div class="card-body">
 
-            <table class="table table-hover mb-2">
+            <table class="table table-hover mb-2 texto">
               <thead>
                 <tr>
                   <th>Número de Devengado</th>
@@ -77,7 +148,7 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let devengado of devengados.areaContabilidad; let i = index">
+                <tr *ngFor="let devengado of devengados; let i = index">
                   <td>{{ devengado.numero }}</td>
                   <td>{{ devengado.fecha | date:'longDate': 'UTC' }}</td>
                   <td>{{ devengado.glosa }}</td>
@@ -85,7 +156,9 @@
                   <td>{{ devengado.ci }}</td>
                   <td>{{ devengado.monto | currency: 'USD': '' }}</td>
                   <td>{{ devengado.fojas }}</td>
-                  <td><a class="btn btn-primary btn-sm" href="{{ URL+'/'+devengado.uri }}" target="_blank">Descargar</a></td>
+                  <td *ngIf="devengado.uri"><a class="btn btn-danger btn-sm" href="{{ URL+'/'+devengado.uri }}"
+                    target="_blank"><i class="fas fa-download"></i></a></td>
+                  <td *ngIf="!devengado.uri"></td>
                   <td>{{ devengado.observacion }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
@@ -107,6 +180,7 @@
                     <i class="fas fa-edit mr-2 icono" (click)="editarDevengado(devengado)"></i>
                     <i class="fas fa-dolly mr-2 icono" (click)="moverCarpeta(devengado._id)"></i>
                     <i class="fas fa-trash  icono" (click)="borrarArchivo(devengado._id)"></i>
+                    <i class="fas fa-folder-open icono ml-2" data-bs-toggle="modal" data-bs-target="#mostrarCarpeta" (click)="verCarpeta(devengado._id)"></i>
                   </td>
                 </tr>
               </tbody>
@@ -125,6 +199,30 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal MostrarCarpeta -->
+<div class="modal fade" id="mostrarCarpeta" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mostrarCarpetaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div *ngIf="folder" class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mostrarCarpetaLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item"> <b> Area: </b> {{ folder[0].idCarpeta[0].area }} - {{ folder[0].idCarpeta[0].tipo }} - {{ folder[0].idCarpeta[0].subTipo }}</li>
+          <li class="list-group-item"><b>Número de Carpeta:</b> {{ folder[0].idCarpeta[0].numCarpeta }}</li>
+          <li class="list-group-item"><b>Nombre de Carpeta:</b> {{ folder[0].idCarpeta[0].nameCarpeta }}</li>
+          <li class="list-group-item"><b>Lugar:</b> {{ folder[0].idCarpeta[0].lugar }}</li>
+          <li class="list-group-item"><b>Estante:</b> {{ folder[0].idCarpeta[0].estante }}</li>
+          <li class="list-group-item"><b>Fila:</b> {{ folder[0].idCarpeta[0].fila }}</li>
+        </ul>
+        <!-- <pre> {{ folder | json }} </pre> -->
       </div>
     </div>
   </div>
