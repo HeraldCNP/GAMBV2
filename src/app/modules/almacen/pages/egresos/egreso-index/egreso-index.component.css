@@ -15,9 +15,9 @@
 }
 
 .table-bordered th, .table-bordered td{
-  border: 1px solid #000;
+  border: 1px solid #03529b !important;
 }
 
 .backColor{
-  background-color: springgreen;
+  background-color: rgb(179, 231, 205) !important;
 }

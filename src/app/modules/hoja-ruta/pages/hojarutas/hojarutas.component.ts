@@ -52,7 +52,7 @@ export class HojarutasComponent implements OnInit {
   cargando: boolean = true;
   isUsuario: boolean = false;
   funcionarios: any;
-  funcionario:any;
+  funcionario:any='';
   ori:any;
 
   constructor(private api: RutaService,
@@ -110,7 +110,7 @@ export class HojarutasComponent implements OnInit {
     console.log(finyear)
     this.cant = this.cant + 1;
     //this.totalh = this.cant +"-" +finyear;
-    if(this.funcionario){
+    if(this.funcionario!=''){
       this.ori = this.funcionario;
     }else{
       this.ori = this.hojaForm.get('origen')?.value;
@@ -123,6 +123,7 @@ export class HojarutasComponent implements OnInit {
       fechadocumento: this.hojaForm.get('fechadocumento')?.value,
       //nuit: this.totalh,
     };
+    this.funcionario='';
     this.api.register(HOJA).subscribe(
       (data) => {
         //this.router.navigate(['/hoja-ruta/listhr']);
