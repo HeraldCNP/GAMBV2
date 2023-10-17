@@ -131,8 +131,9 @@
                   <td>{{ sincon.ci }}</td>
                   <td>{{ sincon.monto | currency: 'USD': '' }}</td>
                   <td>{{ sincon.fojas }}</td>
-                  <td><a class="btn btn-danger btn-sm" href="{{ URL+'/'+sincon.uri }}"
+                  <td *ngIf="sincon.uri"><a class="btn btn-danger btn-sm" href="{{ URL+'/'+sincon.uri }}"
                       target="_blank"><i class="fas fa-download"></i></a></td>
+                  <td *ngIf="!sincon.uri"></td>
                   <td>{{ sincon.observacion }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
