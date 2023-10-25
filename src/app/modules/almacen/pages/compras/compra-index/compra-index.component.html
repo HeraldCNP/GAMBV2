@@ -45,26 +45,6 @@
                     <!-- <span *ngIf="nameCat" style="font-size: 0.7rem;">{{ nameCat.proyect_acti }}</span> -->
                   </div>
 
-                  <!-- <div class="col-auto">
-                    <div class="input-group mb-1">
-                      <span class="input-group-text" id="codigo"><b>Artículos *</b></span>
-                      <ngx-select [allowClear]="true" [items]="articles" optionTextField="nombre"
-                        optionValueField="codigo" placeholder="Seleccione un Articulo"
-                        formControlName="codigo" (select)="doSelect($event)">
-                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                          <span [innerHtml]="text"></span>
-                        </ng-template>
-                        <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
-                          <div *ngIf="
-                              form['codigo'].errors &&
-                              form['codigo'].errors['required']
-                            ">
-                            * La categoria programatica es Requerida.
-                          </div>
-                        </div>
-                      </ngx-select>
-                    </div>
-                  </div> -->
 
                   <div class="col-auto">
                     <div class="input-group input-group-sm mb-1 mx-2">
@@ -141,22 +121,6 @@
                   </button>
                 </div>
 
-                <!-- <button (click)="imprimir()" class="btn btn-primary"
-                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button> -->
-
-                <!-- <div class="input-group mb-1">
-                  <span class="input-group-text izq" id="funcionario"><b> Funcionario</b></span>
-                  <select id="funcionario" formControlName="funcionario" class="form-select" required>
-                    <option value="" [defaultSelected]="true">Elija una opción</option>
-                    <option *ngFor="let user of users" value="{{ user.post }}">{{ user.username }} {{ user.surnames }}
-                    </option>
-
-                  </select>
-                  <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
-                    <div *ngIf="form['funcionario'].errors && form['funcionario'].errors['required']">* Debe seleccionar un
-                      funcionario.</div>
-                  </div>
-                </div> -->
               </form>
               <!-- {{ reportForm.value | json }} -->
             </div>
@@ -356,7 +320,7 @@
                           }}
                         </td>
                       </tr>
-  
+
                     </ng-container>
                       <tr>
                         <td colspan="8" class="text-end off-p fs-5">
@@ -379,7 +343,7 @@
                     </tr> -->
                   </tbody>
                   <tfoot>
-  
+
                   </tfoot>
                 </table>
                 <div class="lh-sm my-2 justify">

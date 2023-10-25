@@ -29,6 +29,7 @@ import { ReportIngresoComponent } from './pages/report/report-ingreso/report-ing
 import { ReportEntradasComponent } from './pages/report/report-entradas/report-entradas.component';
 import { ReportArticulosComponent } from './pages/report/report-articulos/report-articulos.component';
 import { CatPrograIndexComponent } from './pages/catProgras/cat-progra-index/cat-progra-index.component';
+import { EgresoUpdateComponent } from './pages/egresos/egreso-update/egreso-update.component';
 
 
 
@@ -59,6 +60,7 @@ import { CatPrograIndexComponent } from './pages/catProgras/cat-progra-index/cat
     ReportEntradasComponent,
     ReportArticulosComponent,
     CatPrograIndexComponent,
+    EgresoUpdateComponent,
   ],
   imports: [
     CommonModule,

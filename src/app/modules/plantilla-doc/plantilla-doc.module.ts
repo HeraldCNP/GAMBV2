@@ -11,6 +11,8 @@ import { DocumentIndexComponent } from './pages/documentos/document-index/docume
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { ModelListComponent } from './pages/modelos/model-list/model-list.component';
+import { TiposNormativaComponent } from './pages/normativas/tipos-normativa/tipos-normativa.component';
+import { DocNormativaComponent } from './pages/normativas/doc-normativa/doc-normativa.component';
 
 
 
@@ -22,7 +24,9 @@ import { ModelListComponent } from './pages/modelos/model-list/model-list.compon
     SidebarComponent,
     ModelIndexComponent,
     DocumentIndexComponent,
-    ModelListComponent
+    ModelListComponent,
+    TiposNormativaComponent,
+    DocNormativaComponent
   ],
   imports: [
     CommonModule,

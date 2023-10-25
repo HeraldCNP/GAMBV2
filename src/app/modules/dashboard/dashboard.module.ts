@@ -5,13 +5,15 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { IndexComponent } from './index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { PlantillasComponent } from './pages/plantillas/plantillas.component';
+import { NormativasComponent } from './pages/normativas/normativas.component';
 
 
 @NgModule({
   declarations: [
     IndexComponent,
     MainComponent,
-    PlantillasComponent
+    PlantillasComponent,
+    NormativasComponent
   ],
   imports: [
     CommonModule,

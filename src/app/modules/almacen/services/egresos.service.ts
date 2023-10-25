@@ -10,8 +10,14 @@ export class EgresosService {
   private readonly URL = environment.api;
   constructor(private http: HttpClient) { }
 
-  getAllEgresos(limit?: number, skip?: number): Observable<any[]> {
-    let dir = `${this.URL}/egresos?limit=${limit}&skip=${skip}`;
+  // getAllEgresos(limit?: number, skip?: number): Observable<any[]> {
+  //   let dir = `${this.URL}/egresos?limit=${limit}&skip=${skip}`;
+  //   console.log(dir);
+  //   return this.http.get<any>(dir);
+  // }
+
+  getAllEgresos(limit?: number, skip?: number, entregado?:string, cargo?:string, glosaSalida?:string, numeroSalida?:any, del?:any, al?:any): Observable<any[]> {
+    let dir = `${this.URL}/egresos?limit=${limit}&skip=${skip}&entregado=${entregado}&cargo=${cargo}&glosaSalida=${glosaSalida}&numeroSalida=${numeroSalida}&del=${del}&al=${al}`;
     console.log(dir);
     return this.http.get<any>(dir);
   }
@@ -50,4 +56,21 @@ export class EgresosService {
     let dir = `${this.URL}/searchCompra/${id}`;
     return this.http.get<any>(dir);
   }
+
+  getSingleSalida(id: any): Observable<any> {
+    let dir = `${this.URL}/egreso/${id}`;
+    return this.http.get<any>(dir)
+  }
+
+  getAllFuncionarios(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/users`;
+    // console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
+  editSalida(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/egreso/${id}`;
+    return this.http.put<any>(dir, form)
+  }
+
 }

@@ -20,6 +20,7 @@ import { ReportIngresoComponent } from './pages/report/report-ingreso/report-ing
 import { ReportEntradasComponent } from './pages/report/report-entradas/report-entradas.component';
 import { ReportArticulosComponent } from './pages/report/report-articulos/report-articulos.component';
 import { CatPrograIndexComponent } from './pages/catProgras/cat-progra-index/cat-progra-index.component';
+import { EgresoUpdateComponent } from './pages/egresos/egreso-update/egreso-update.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
       { path: 'compra/update/:id', component: CompraUpdateComponent },
       { path: 'egreso/index', component: EgresoIndexComponent },
       { path: 'egreso/create', component: EgresoCreateComponent },
+      { path: 'egreso/update/:id', component: EgresoUpdateComponent },
       { path: 'medida/index', component: MedidaIndexComponent },
       { path: 'catProgra/index', component: CatPrograIndexComponent },
 

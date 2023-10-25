@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { PlantillasComponent } from './pages/plantillas/plantillas.component';
+import { NormativasComponent } from './pages/normativas/normativas.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     children:[
       { path: 'main', component: MainComponent },
       { path: 'plantillas', component: PlantillasComponent },
+      { path: 'normativas', component: NormativasComponent },
       // { path: 'modelos/list', component: ModelListComponent },
       // { path: 'plantillas/update/:id', component: GacetaUpdateComponent },
     ]

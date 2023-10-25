@@ -16,8 +16,120 @@
                 </button>
               </div>
             </div>
-            <input class="form-control" type="search" placeholder="Buscar egreso" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino />
+            <form [formGroup]="reportForm">
+              <div class="row g-3 align-items-center">
+
+                <div class="col-auto">
+                  <div class="input-group input-group-sm mb-1 mx-2">
+                    <span class="input-group-text izq" id="nombre"><b>Nombre</b></span>
+                    <input style="width: 120px" class="form-control" type="text" formControlName="nombre" />
+                    <div class="form-text" *ngIf="
+                        form2['nombre'].touched && form2['nombre'].invalid
+                      ">
+                      <div *ngIf="
+                          form2['nombre'].errors &&
+                          form2['nombre'].errors['required']
+                        ">
+                        * Fecha Inicial
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="input-group input-group-sm mb-1 mx-2">
+                    <span class="input-group-text izq" id="cargo"><b>Cargo</b></span>
+                    <input style="width: 120px" class="form-control" type="text" formControlName="cargo" />
+                    <div class="form-text" *ngIf="
+                        form2['cargo'].touched && form2['cargo'].invalid
+                      ">
+                      <div *ngIf="
+                          form2['cargo'].errors &&
+                          form2['cargo'].errors['required']
+                        ">
+                        * Fecha Inicial
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="input-group input-group-sm mb-1 mx-2">
+                    <span class="input-group-text izq" id="glosaSalida"><b>Glosa</b></span>
+                    <input style="width: 120px" class="form-control" type="text" formControlName="glosaSalida" />
+                    <div class="form-text" *ngIf="
+                        form2['glosaSalida'].touched && form2['glosaSalida'].invalid
+                      ">
+                      <div *ngIf="
+                          form2['glosaSalida'].errors &&
+                          form2['glosaSalida'].errors['required']
+                        ">
+                        * Fecha Inicial
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="input-group input-group-sm mb-1 mx-2">
+                    <span class="input-group-text izq" id="numeroSalida"><b>Número</b></span>
+                    <input style="width: 50px" class="form-control" type="number" formControlName="numeroSalida" />
+                    <div class="form-text" *ngIf="
+                        form2['numeroSalida'].touched &&
+                        form2['numeroSalida'].invalid
+                      ">
+                      <div *ngIf="
+                          form2['numeroSalida'].errors &&
+                          form2['numeroSalida'].errors['required']
+                        ">
+                        * Fecha Inicial
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="input-group input-group-sm mb-1 mx-2">
+                    <span class="input-group-text izq" id="del"><b>Del</b></span>
+                    <input style="width: 100px" class="form-control" type="date" formControlName="del" />
+                    <div class="form-text" *ngIf="form2['del'].touched && form2['del'].invalid">
+                      <div *ngIf="
+                          form2['del'].errors &&
+                          form2['del'].errors['required']
+                        ">
+                        * Fecha Inicial
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <div class="input-group input-group-sm mb-1 mx-2">
+                    <span class="input-group-text izq" id="estado"><b>Al</b></span>
+                    <input style="width: 100px" class="form-control" type="date" formControlName="al" />
+                    <div class="form-text" *ngIf="form2['al'].touched && form2['al'].invalid">
+                      <div *ngIf="
+                          form2['al'].errors && form2['al'].errors['required']
+                        ">
+                        * Fecha Final
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="text-center">
+                <button (click)="obtenerSalidas(reportForm)" class="btn btn-info mr-3"
+                  [disabled]="reportForm.invalid" style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-font-size: 0.75rem;
+                  ">
+                  Buscar
+                </button>
+              </div>
+
+            </form>
+            <!-- {{ reportForm.value | json }} -->
           </div>
         </div>
       </div>
@@ -78,13 +190,14 @@
                         data-bs-target="#exampleModal">
                         <i class="fas fa-print"></i>
                       </button>
+                      <i class="fas fa-edit ml-2 icono" (click)="editarSalida(egreso._id)"></i>
                       <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarEgreso(egreso._id)"></i> -->
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div class="text-center" *ngIf="txtTermino.value.length === 0">
+            <div class="text-center" >
               <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
@@ -128,7 +241,8 @@
               ENTREGADO A: <br>
             </div>
             <div class="col-md-9">
-              {{ egreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro N°:</b> {{ egreso.numeroSalida }} <br>
+              {{ egreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro
+                N°:</b> {{ egreso.numeroSalida }} <br>
               1508 - Gobierno Autonómo Municipal de Betanzos <br>
               <ng-container *ngIf="egreso.entregado">
                 {{ egreso.entregado }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:</b> {{ egreso.cargo }}
@@ -166,7 +280,7 @@
                         item.idCompra.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p">{{ item.idCompra.idArticulo.nombre }}</td>
                       <td class="off-p text-center">{{ item.cantidadSalida }}</td>
-                      <td class="off-p" >{{ item.idCompra.idArticulo.unidadDeMedida | titlecase }}</td>
+                      <td class="off-p">{{ item.idCompra.idArticulo.unidadDeMedida | titlecase }}</td>
                       <td class="off-p text-end">{{ item.idCompra.precio | currency: 'USD': '' }}</td>
                       <td class="off-p text-end">{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': '' }}
                       </td>

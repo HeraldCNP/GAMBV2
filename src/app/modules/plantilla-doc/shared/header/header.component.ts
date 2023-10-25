@@ -13,12 +13,33 @@ export class HeaderComponent {
 
   menuItems = [
     {
-      label: 'Modelos',
-      url: '/doc/modelos/index'
+      label: 'Plantillas',
+      icon: 'fas fa-file',
+      docs: [
+        {
+          label: 'Modelos',
+          url: '/doc/modelos/index'
+        },
+        {
+          label: 'Documentos',
+          url: '/doc/documentos/index'
+        },
+      ]
     },
     {
-      label: 'Documentos',
-      url: '/doc/documentos/index'
+      label: 'Normativas',
+      icon: 'fas fa-file-contract',
+      docs: [
+        {
+          label: 'Tipos',
+          url: '/doc/normativas/tipos/index'
+        },
+
+        {
+          label: 'Documentos',
+          url: '/doc/normativas/doc/index'
+        },
+      ]
     },
   ];
 

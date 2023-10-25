@@ -36,20 +36,55 @@ export class EgresoIndexComponent implements OnInit {
   categories: any;
   categoryTotalPrices: any = 0;
   nameCat: any = [];
+  reportForm: any;
+
+  nombre: string = '';
+  cargo: string = '';
+  glosaSalida: string = '';
+  numeroSalida?: any;
+  del: string = new Date('01/01/2023').toISOString();
+  al: string = new Date().toISOString();
+  fechaIni = new Date('01/01/2023').toISOString();
+  fechaHoy = new Date().toISOString();
+
   constructor(private egresosService: EgresosService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
-   }
+
+    this.reportForm = this.fb.group({
+      nombre: [''],
+      cargo: [''],
+      glosaSalida: [''],
+      numeroSalida: [''],
+      del: [this.fechaIni.substr(0, 10)],
+      al: [this.fechaHoy.substr(0, 10)],
+    });
+  }
 
   ngOnInit(): void {
     this.cargarEgresos()
   }
 
+  // cargarEgresos() {
+  //   this.cargando = true;
+  //   this.egresosService
+  //     .getAllEgresos(this.limit, this.skip)
+  //     .subscribe((data: any) => {
+  //       this.totalEgresos = data.totalDocs;
+  //       this.egresos = data;
+  //       this.egresosTemp = data;
+  //       this.totalPages = data.totalpage;
+  //       console.log(data);
+  //       this.cargando = false;
+  //     });
+  // }
+
+
   cargarEgresos() {
     this.cargando = true;
     this.egresosService
-      .getAllEgresos(this.limit, this.skip)
+      .getAllEgresos(this.limit, this.skip, this.nombre, this.cargo, this.glosaSalida, this.numeroSalida, this.del, this.al)
       .subscribe((data: any) => {
         this.totalEgresos = data.totalDocs;
         this.egresos = data;
@@ -58,6 +93,22 @@ export class EgresoIndexComponent implements OnInit {
         console.log(data);
         this.cargando = false;
       });
+  }
+
+  get form2() {
+    return this.reportForm.controls;
+  }
+
+  obtenerSalidas(form:any){
+    this.nombre = form.value.nombre;
+    this.cargo = form.value.cargo;
+    this.glosaSalida = form.value.glosaSalida;
+    this.numeroSalida = form.value.numeroSalida;
+    this.del = form.value.del;
+    this.al = form.value.al;
+    this.skip = 0;
+    this.limit = 0;
+    this.cargarEgresos();
   }
 
   addSalida() {
@@ -125,7 +176,7 @@ export class EgresoIndexComponent implements OnInit {
   }
 
   separar() {
-    const itemsByCategory = this.egreso.productos.reduce((accumulator:any, current:any) => {
+    const itemsByCategory = this.egreso.productos.reduce((accumulator: any, current: any) => {
       if (!accumulator[current.catProgra]) {
         accumulator[current.catProgra] = [];
       }
@@ -139,7 +190,7 @@ export class EgresoIndexComponent implements OnInit {
     this.categories.forEach((element: any) => {
       // console.log(this.separados[element]);
 
-      this.separados[element].sort((a:any, b:any) => {
+      this.separados[element].sort((a: any, b: any) => {
         const codigoA = a.idCompra.idArticulo.idPartida.codigo;
         const codigoB = b.idCompra.idArticulo.idPartida.codigo;
         return codigoA.localeCompare(codigoB);
@@ -148,16 +199,16 @@ export class EgresoIndexComponent implements OnInit {
       // console.log("ordenados", this.separados[element]);
     });
 
-    this.categoryTotalPrices = this.categories.reduce((accumulator:any, category:any) => {
+    this.categoryTotalPrices = this.categories.reduce((accumulator: any, category: any) => {
       const items = itemsByCategory[category];
-      const total = items.reduce((accumulator:any, item:any) => accumulator + (item.idCompra.precio * item.cantidadSalida), 0);
+      const total = items.reduce((accumulator: any, item: any) => accumulator + (item.idCompra.precio * item.cantidadSalida), 0);
       this.almacenService.searchSegCategoria(category)
-      .subscribe(
-        res => {
-          this.nameCat[category] = res.serverResponse[0].proyect_acti
-          // console.log(this.nameCat)
-        }
-      );
+        .subscribe(
+          res => {
+            this.nameCat[category] = res.serverResponse[0].proyect_acti
+            // console.log(this.nameCat)
+          }
+        );
       accumulator[category] = total;
       return accumulator;
     }, {});
@@ -214,6 +265,10 @@ export class EgresoIndexComponent implements OnInit {
         docResult.output('dataurlnewwindow', { filename: 'comprobante.pdf' });
         //docResult.save(`${new Date().toISOString()}_HojaDeRuta.pdf`);
       });
+  }
+
+  editarSalida(id: string) {
+    this.router.navigate(['almacen/egreso/update', id]);
   }
 
 }

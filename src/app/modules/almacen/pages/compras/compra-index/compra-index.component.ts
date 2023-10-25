@@ -44,6 +44,7 @@ export class CompraIndexComponent implements OnInit {
   reportForm:any;
   proveedores:any;
   idProve: string = '';
+
   concepto: string = '';
   numeroEntrada?: null;
   del: string = new Date('01/01/2023').toISOString();
@@ -413,7 +414,14 @@ export class CompraIndexComponent implements OnInit {
   }
 
   doSelect = (value: any) => {
-    console.log('SingleDemoComponent.doSelect', value);
+    const elementoEncontrado = this.funcionarios.find((user: { _id: any; }) => user._id == value);
+    let funcionario = elementoEncontrado.username +' '+ elementoEncontrado.surnames;
+    let cargo = elementoEncontrado.post;
+
+    this.salidaForm.patchValue({
+      entregado: funcionario,
+      cargo: cargo
+    })
   }
 
 

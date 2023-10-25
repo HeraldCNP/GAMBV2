@@ -15,23 +15,21 @@
         <li class="nav-item d-none d-sm-inline-block">
           <a routerLink="/almacen/actividad/index" [routerLinkActive]="['active']" class="nav-link">Actividades</a>
         </li> -->
-    <li *ngFor="let item of menuItems" class="nav-item d-none d-sm-inline-block">
+    <!-- <li *ngFor="let item of menuItems" class="nav-item d-none d-sm-inline-block">
       <a routerLink="{{ item.url }}" [routerLinkActive]="['active']" class="nav-link">{{item.label}}</a>
-    </li>
+    </li> -->
 
     <!-- <li class="nav-item d-none d-sm-inline-block">
           <a routerLink="/archivos/conta/index" [routerLinkActive]="['active']" class="nav-link">Contabilidad</a>
         </li> -->
-    <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Contabilidad
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/archivos/conta/index">Carpetas</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" routerLink="/archivos/conta/docs/index">Archivos</a></li>
-          </ul>
-        </li> -->
+    <li *ngFor="let item of menuItems" class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ item.label }}
+      </a>
+      <ul class="dropdown-menu">
+        <li *ngFor="let doc of item.docs"><a class="dropdown-item" routerLink="{{ doc.url }}">{{ doc.label }}</a></li>
+      </ul>
+    </li>
     <!-- <li class="nav-item d-none d-sm-in line-block">
           <a routerLink="/almacen/medida/index" [routerLinkActive]="['active']" class="nav-link">Medidas</a>
         </li>

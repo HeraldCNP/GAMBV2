@@ -11,7 +11,7 @@ import { EgresosService } from '../../../services/egresos.service';
   styleUrls: ['./egreso-create.component.css']
 })
 export class EgresoCreateComponent implements OnInit {
-  idUser: any;
+  idUser: any = '';
   user: any;
   data: any;
   salidaForm: any;
@@ -117,6 +117,14 @@ export class EgresoCreateComponent implements OnInit {
   }
 
   escogido = (id: any) => {
+    const elementoEncontrado = this.funcionarios.find((user: { _id: any; }) => user._id == id);
+    let funcionario = elementoEncontrado.username +' '+ elementoEncontrado.surnames;
+    let cargo = elementoEncontrado.post;
+
+    this.salidaForm.patchValue({
+      entregado: funcionario,
+      cargo: cargo
+    })
     id ? this.existe = true : this.existe = false;
   }
 
