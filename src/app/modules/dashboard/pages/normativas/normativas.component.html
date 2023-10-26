@@ -1,1 +1,79 @@
-<p>normativas works!</p>
+<h1 class="text-center">Normativas</h1>
+
+
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div *ngFor="let tipo of tipos; let i=index" class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-'+i"
+        aria-expanded="true" [attr.aria-controls]="'panel-'+i">
+        <span class="textHead">{{ tipo.tipo | uppercase }}</span>
+      </button>
+    </h2>
+    <div [id]="'panel-'+i" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <div class="row">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Titulo</th>
+                <th>Fecha de Aprobación</th>
+                <th>Fecha de Finalización</th>
+                <th>Documento</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let documento of tipo.normativa; let i = index">
+
+                <td>{{ documento.titulo }}</td>
+                <td>{{ documento.fecha | date:'longDate': 'UTC' }}</td>
+                <td>{{ documento.fechaFin | date:'longDate': 'UTC' }}</td>
+                <td><a href="{{ URL+'/'+documento.uri }}" target="_blank">Descargar</a></td>
+                <td>
+                  <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
+                  <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                </td>
+                <!-- <td>
+                  <div class="form-check form-switch">
+                    <span *ngIf="documento.vigente == '1'">
+                      <input class="form-check-input pointer"
+                        (change)="changeStatus(documento._id, !documento.vigente)" type="checkbox" [checked]="true"
+                        role="switch" id="{{ 'toogle' + i }}" />Vigente
+                    </span>
+                    <span *ngIf="documento.vigente == '0'">
+                      <input class="form-check-input pointer"
+                        (change)="changeStatus(documento._id, !documento.vigente)" type="checkbox" [checked]="false"
+                        role="switch" id="{{ 'toogle' + i }}" />No Vigente
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check form-switch">
+                    <span *ngIf="documento.estado == '1'">
+                      <input class="form-check-input pointer"
+                        (change)="changeStatus(documento._id, !documento.estado)" type="checkbox" [checked]="true"
+                        role="switch" id="{{ 'toogle' + i }}" />Sí
+                    </span>
+                    <span *ngIf="documento.estado == '0'">
+                      <input class="form-check-input pointer"
+                        (change)="changeStatus(documento._id, !documento.estado)" type="checkbox" [checked]="false"
+                        role="switch" id="{{ 'toogle' + i }}" />No
+                    </span>
+                  </div>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div *ngFor="let document of tipo.normativa" class="col">
+            <div class="card text-center mb-3" style="width: 18rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.titulo }}</h6>
+                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }}</p>
+                <a class="btn btn-info" href="{{ URL+'/'+document.uri }}" target="_blank"> <i class="fas fa-download"></i> Descargar</a>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
