@@ -29,7 +29,7 @@ export class ReportEntradasComponent implements OnInit {
   nameCate: any = [];
 
   catProgra: string = '';
-  codigo: string = '';
+  idProducto: string = '';
   estadoCompra: string = '';
   estado: string = '';
   del: string = '';
@@ -49,7 +49,7 @@ export class ReportEntradasComponent implements OnInit {
 
     this.reportForm = this.fb.group({
       catProgra: [''],
-      codigo: [''],
+      idProducto: [''],
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
     });
@@ -93,14 +93,14 @@ export class ReportEntradasComponent implements OnInit {
 
   obtenerEntradas(form: any) {
     this.catProgra = form.value.catProgra;
-    this.codigo = form.value.codigo;
+    this.idProducto = form.value.idProducto;
     this.estadoCompra = 'EXISTE';
     this.cargarEntradas();
   }
 
   cargarEntradas() {
     this.reportAlm
-      .getAllEntradas(this.catProgra, this.codigo, this.estadoCompra, this.del, this.al)
+      .getAllEntradas(this.catProgra, this.idProducto, this.estadoCompra, this.del, this.al)
       .subscribe(
         res => {
           this.entradas = res.serverResponse;
@@ -115,7 +115,9 @@ export class ReportEntradasComponent implements OnInit {
 
 
 
-
+  calculateTotalCost() {
+    return this.entradas.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
+  }
 
   separar() {
     // console.log("tratando de ordenar",this.ingreso.productos);
