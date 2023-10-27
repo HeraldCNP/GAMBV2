@@ -7,20 +7,40 @@
           <form [formGroup]="reportForm">
             <div class="row g-3 align-items-center">
               <div class="col-auto">
-                <div class="input-group input-group-sm  mb-1">
-                  <span class="input-group-text" id="catProgra"><b>Cat. Programatica *</b></span>
+                <div class="input-group input-group-sm mb-1">
+                  <span class="input-group-text" id="catProgra"
+                    ><b>Cat. Programatica *</b></span
+                  >
 
-                  <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
-                    optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
-                    formControlName="catProgra" (select)="doSelect($event)">
-                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                  <ngx-select
+                    [allowClear]="true"
+                    [items]="catProgras"
+                    optionTextField="codigo"
+                    optionValueField="cat_programatica"
+                    placeholder="Seleccione una Categoría Programatica"
+                    formControlName="catProgra"
+                    (select)="doSelect($event)"
+                  >
+                    <ng-template
+                      ngx-select-option
+                      ngx-select-option-selected
+                      let-option
+                      let-text="text"
+                    >
                       <span [innerHtml]="text"></span>
                     </ng-template>
-                    <div class="form-text" *ngIf="form['catProgra'].touched && form['catProgra'].invalid">
-                      <div *ngIf="
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['catProgra'].touched && form['catProgra'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
                           form['catProgra'].errors &&
                           form['catProgra'].errors['required']
-                        ">
+                        "
+                      >
                         * La categoria programatica es Requerida.
                       </div>
                     </div>
@@ -28,23 +48,40 @@
                 </div>
 
                 <!-- <span *ngIf="nameCat" style="font-size: 0.7rem;">{{ nameCat.proyect_acti }}</span> -->
-
               </div>
 
               <div class="col-auto">
                 <div class="input-group input-group-sm mb-1">
-                  <span class="input-group-text" id="codigo"><b>Artículos *</b></span>
-                  <ngx-select [allowClear]="true" [items]="articles" optionTextField="nombre"
-                    optionValueField="codigo" placeholder="Seleccione un Articulo"
-                    formControlName="codigo" (select)="doSelect($event)">
-                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                  <span class="input-group-text" id="codigo"
+                    ><b>Artículos *</b></span
+                  >
+                  <ngx-select
+                    [allowClear]="true"
+                    [items]="articles"
+                    optionTextField="nombre"
+                    optionValueField="codigo"
+                    placeholder="Seleccione un Articulo"
+                    formControlName="codigo"
+                    (select)="doSelect($event)"
+                  >
+                    <ng-template
+                      ngx-select-option
+                      ngx-select-option-selected
+                      let-option
+                      let-text="text"
+                    >
                       <span [innerHtml]="text"></span>
                     </ng-template>
-                    <div class="form-text" *ngIf="form['codigo'].touched && form['codigo'].invalid">
-                      <div *ngIf="
+                    <div
+                      class="form-text"
+                      *ngIf="form['codigo'].touched && form['codigo'].invalid"
+                    >
+                      <div
+                        *ngIf="
                           form['codigo'].errors &&
                           form['codigo'].errors['required']
-                        ">
+                        "
+                      >
                         * La categoria programatica es Requerida.
                       </div>
                     </div>
@@ -55,26 +92,67 @@
               <div class="col-auto">
                 <div class="input-group input-group-sm mb-1 mx-2">
                   <span class="input-group-text izq" id="del"><b>Del</b></span>
-                  <input class="form-control" type="date" formControlName="del">
-                  <div class="form-text" *ngIf="form['del'].touched && form['del'].invalid">
-                    <div *ngIf="form['del'].errors && form['del'].errors['required']">* Fecha Inicial</div>
+                  <input
+                    class="form-control"
+                    type="date"
+                    formControlName="del"
+                  />
+                  <div
+                    class="form-text"
+                    *ngIf="form['del'].touched && form['del'].invalid"
+                  >
+                    <div
+                      *ngIf="
+                        form['del'].errors && form['del'].errors['required']
+                      "
+                    >
+                      * Fecha Inicial
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="col-auto">
                 <div class="input-group input-group-sm mb-1 mx-2">
-                  <span class="input-group-text izq" id="estado"><b>Al</b></span>
-                  <input class="form-control" type="date" formControlName="al">
-                  <div class="form-text" *ngIf="form['al'].touched && form['al'].invalid">
-                    <div *ngIf="form['al'].errors && form['al'].errors['required']">* Fecha Final</div>
+                  <span class="input-group-text izq" id="estado"
+                    ><b>Al</b></span
+                  >
+                  <input
+                    class="form-control"
+                    type="date"
+                    formControlName="al"
+                  />
+                  <div
+                    class="form-text"
+                    *ngIf="form['al'].touched && form['al'].invalid"
+                  >
+                    <div
+                      *ngIf="form['al'].errors && form['al'].errors['required']"
+                    >
+                      * Fecha Final
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <button (click)="obtenerEntradas(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid"
-              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+            <button
+              (click)="obtenerEntradas(reportForm)"
+              class="btn btn-primary mr-3"
+              [disabled]="reportForm.invalid"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem"
+            >
               Buscar
+            </button>
+            <button
+              type="button"
+              printTitle="."
+              [useExistingCss]="true"
+              printSectionId="content"
+              ngxPrint
+              class="btn btn-primary"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem"
+            >
+              Imprimir
             </button>
 
             <!-- <button (click)="imprimir()" class="btn btn-primary"
@@ -93,23 +171,42 @@
                   funcionario.</div>
               </div>
             </div> -->
-
-
-
           </form>
         </div>
         <!-- {{ reportForm.value | json }} -->
-        <div class="card-body">
+        <div class="container" id="content">
+          <div class="row">
+            <div class="col-md-2">
+              <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+            </div>
+            <div class="col-md-8 text-center">
+              <h3 class="off-m">RESUMEN DE EXISTENCIAS EN ALMACÉN</h3>
+              <h5 class="off-m">
+                AL {{ fechaHoy | date : "longDate" : "UTC" }}
+              </h5>
+              <p class="off-m">Expresado en Bolivianos</p>
+            </div>
+            <div class="col-md-2">
+              <img src="/assets/img/sisal.png" alt="" width="163px" />
+            </div>
+          </div>
           <div>
-            <table class="table table-striped table-responsive" id="table">
-
+            <table class="table-bordered mb-0 table-responsive" id="table">
               <thead>
                 <tr *ngIf="user">
-                  <th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} <br> <i
-                      class="subtitle">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy |
-                      date:'longDate': 'UTC' }}</i> <br> <i class="subtitle">FUNCIONARIO: {{ this.user.username }} {{
-                      this.user.surnames }} - {{ this.destino }}</i> </th>
-
+                  <th class="title" colspan="8">
+                    REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }}
+                    <br />
+                    <i class="subtitle"
+                      >Desde: {{ fechaIni | date : "longDate" : "UTC" }} Hasta:
+                      {{ fechaHoy | date : "longDate" : "UTC" }}</i
+                    >
+                    <br />
+                    <i class="subtitle"
+                      >FUNCIONARIO: {{ this.user.username }}
+                      {{ this.user.surnames }} - {{ this.destino }}</i
+                    >
+                  </th>
                 </tr>
                 <tr class="head">
                   <th>N°</th>
@@ -129,17 +226,23 @@
                   <tr *ngFor="let item of separados[category]; let i = index">
                     <td class="off-p">{{ i + 1 }}</td>
                     <td>{{ item.idEntrada.numeroEntrada }}</td>
-                    <td class="off-p" style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem">
+                    <td
+                      class="off-p"
+                      style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem"
+                    >
                       {{ item.catProgra }}
                     </td>
                     <td>{{ item.idEntrada.idProveedor.razon_social }}</td>
-                    <td>{{ item.idArticulo.cantidad | number:'1.2-2' }} - {{ item.idArticulo.nombre }}</td>
+                    <td>
+                      {{ item.idArticulo.cantidad | number : "1.2-2" }} -
+                      {{ item.idArticulo.nombre }}
+                    </td>
                     <td>{{ item.precio | currency : "USD" : "" }}</td>
-                    <td>{{ item.cantidadCompra | number:'1.2-2' }}</td>
+                    <td>{{ item.cantidadCompra | number : "1.2-2" }}</td>
                     <td class="off-p pr-2 text-end">
                       {{
                         item.cantidadCompra * item.precio
-                        | currency : "USD" : ""
+                          | currency : "USD" : ""
                       }}
                     </td>
                     <td>{{ item.stockCompra }}</td>
@@ -147,34 +250,51 @@
                     <td class="off-p">
                       {{ item.idArticulo.unidadDeMedida | titlecase }}
                     </td>
-
                   </tr>
                   <tr>
                     <td class="off-p" colspan="6">{{ nameCate[category] }}</td>
                     <td class="off-p" colspan="1" class="text-end off-p">
-                      <b style="font-weight: bold">Total: </b>{{ cantidades[category] | number:'1.2-2' }}
+                      <b style="font-weight: bold">Total: </b
+                      >{{ cantidades[category] | number : "1.2-2" }}
                     </td>
                     <td class="off-p" class="text-end off-p">
-                      <b style="font-weight: bold">Sub Total: </b>{{ categoryTotalPrices[category] | currency : "USD" : "" }}
+                      <b style="font-weight: bold">Sub Total: </b
+                      >{{
+                        categoryTotalPrices[category] | currency : "USD" : ""
+                      }}
                     </td>
                   </tr>
                 </ng-container>
               </tbody>
-              <tfoot>
+              <!-- <tfoot>
                 <tr class="usuario">
-                  <td colspan="6">SISTEMA CONTROL Y SEGUIMIENDO DE HOJA DE RUTA - GAM BETANZOS</td>
+                  <td colspan="6">SALDOS EXISTENTES - GAM BETANZOS</td>
                   <td colspan="2">Usuario: {{ data.username }} {{ data.surnames }}</td>
                 </tr>
-              </tfoot>
+              </tfoot> -->
             </table>
+            <!-- <div class="mt-4">
+              <div class="row mt-10">
+                <div class="col-md-6">
+                  <div class="text-center">
+                    MATERIALES Y SUMINISTROS <br />
+                    RECIBIDO POR
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-center">
+                    SISTEMA SISAL <br />
+                    REGISTRADO POR
+                  </div>
+                </div>
+              </div>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
 
 <!-- <table class="table table-striped table-responsive" id="table">
 
