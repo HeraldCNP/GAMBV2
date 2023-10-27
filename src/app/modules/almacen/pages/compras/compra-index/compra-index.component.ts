@@ -288,9 +288,6 @@ export class CompraIndexComponent implements OnInit {
 
   separar() {
     // console.log("tratando de ordenar",this.ingreso.productos);
-
-
-
     const itemsByCategory = this.ingreso.productos.reduce((accumulator: any, current: any) => {
       if (!accumulator[current.catProgra]) {
         accumulator[current.catProgra] = [];
@@ -313,8 +310,6 @@ export class CompraIndexComponent implements OnInit {
 
       // console.log("ordenados", this.separados[element]);
     });
-
-
 
     this.categoryTotalPrices = this.categories.reduce((accumulator: any, category: any) => {
       const items = itemsByCategory[category];

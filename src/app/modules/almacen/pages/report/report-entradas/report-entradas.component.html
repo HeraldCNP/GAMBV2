@@ -114,54 +114,51 @@
                 <tr class="head">
                   <th>N°</th>
                   <th>Número</th>
-                  <th>Concepto</th>
-                  <th>Fecha</th>
+                  <th>Cat. Prog.</th>
                   <th>Proveedor</th>
+                  <th>Total Articulos</th>
+                  <th>Precio</th>
                   <th>Cantidad</th>
-                  <th>Stock</th>
-                  <th>total</th>
-                  <th>Estado</th>
+                  <th>Total (bs)</th>
+                  <th>Saldo</th>
+                  <th>U. Medida</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let entrada of entradas; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>
-                    {{ entrada.idEntrada.numeroEntrada }}
-                  </td>
-                  <td>{{ entrada.idEntrada.concepto }}</td>
-                  <td>{{ entrada.idEntrada.fecha | date:'longDate': 'UTC' }}</td>
-                  <td>{{ entrada.idEntrada.idProveedor.razon_social }}</td>
-                  <td>{{ entrada.cantidadCompra }}</td>
-                  <td>{{ entrada.stockCompra }}</td>
-                  <td>{{ entrada.idArticulo.cantidad }} - {{ entrada.idArticulo.nombre }}</td>
-                  <td>{{ entrada.estadoCompra }}</td>
+                <ng-container *ngFor="let category of categories">
+                  <tr *ngFor="let item of separados[category]; let i = index">
+                    <td class="off-p">{{ i + 1 }}</td>
+                    <td>{{ item.idEntrada.numeroEntrada }}</td>
+                    <td class="off-p" style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem">
+                      {{ item.catProgra }}
+                    </td>
+                    <td>{{ item.idEntrada.idProveedor.razon_social }}</td>
+                    <td>{{ item.idArticulo.cantidad | number:'1.2-2' }} - {{ item.idArticulo.nombre }}</td>
+                    <td>{{ item.precio | currency : "USD" : "" }}</td>
+                    <td>{{ item.cantidadCompra | number:'1.2-2' }}</td>
+                    <td class="off-p pr-2 text-end">
+                      {{
+                        item.cantidadCompra * item.precio
+                        | currency : "USD" : ""
+                      }}
+                    </td>
+                    <td>{{ item.stockCompra }}</td>
 
+                    <td class="off-p">
+                      {{ item.idArticulo.unidadDeMedida | titlecase }}
+                    </td>
 
-                  <td [ngSwitch]="entrada.estado">
-                    <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
-                      entrada.estado
-                      }}</span>
-                    <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ entrada.estado }}
-                    </span>
-                    <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{
-                      entrada.estado
-                      }}</span>
-                    <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ entrada.estado }}
-                    </span>
-                    <span *ngIf="
-                        entrada.estado != 'DERIVADO' &&
-                        entrada.estado != 'MALETIN' &&
-                        entrada.estado != 'RECIBIDO' &&
-                        entrada.estado != 'ENVIADO'
-                      " class="bg badge text-dark">{{ entrada.estado }}</span>
-                  </td>
-
-                  <td>
-                    <!--<i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>-->
-                  </td>
-
-                </tr>
+                  </tr>
+                  <tr>
+                    <td class="off-p" colspan="6">{{ nameCate[category] }}</td>
+                    <td class="off-p" colspan="1" class="text-end off-p">
+                      <b style="font-weight: bold">Total: </b>{{ cantidades[category] | number:'1.2-2' }}
+                    </td>
+                    <td class="off-p" class="text-end off-p">
+                      <b style="font-weight: bold">Sub Total: </b>{{ categoryTotalPrices[category] | currency : "USD" : "" }}
+                    </td>
+                  </tr>
+                </ng-container>
               </tbody>
               <tfoot>
                 <tr class="usuario">
@@ -176,3 +173,76 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- <table class="table table-striped table-responsive" id="table">
+
+  <thead>
+    <tr *ngIf="user">
+      <th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} <br> <i
+          class="subtitle">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy |
+          date:'longDate': 'UTC' }}</i> <br> <i class="subtitle">FUNCIONARIO: {{ this.user.username }} {{
+          this.user.surnames }} - {{ this.destino }}</i> </th>
+
+    </tr>
+    <tr class="head">
+      <th>N°</th>
+      <th>Número</th>
+      <th>Cat. Prog.</th>
+      <th>Proveedor</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>total</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entrada of entradas; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>
+        {{ entrada.idEntrada.numeroEntrada }}
+      </td>
+      <td>{{ entrada.catProgra }}</td>
+
+      <td>{{ entrada.idEntrada.idProveedor.razon_social }}</td>
+      <td>{{ entrada.cantidadCompra }}</td>
+      <td>{{ entrada.precio }}</td>
+      <td>{{ entrada.stockCompra }}</td>
+      <td>{{ entrada.idArticulo.cantidad }} - {{ entrada.idArticulo.nombre }}</td>
+      <td>{{ entrada.estadoCompra }}</td>
+
+
+      <td [ngSwitch]="entrada.estado">
+        <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
+          entrada.estado
+          }}</span>
+        <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ entrada.estado }}
+        </span>
+        <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{
+          entrada.estado
+          }}</span>
+        <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ entrada.estado }}
+        </span>
+        <span *ngIf="
+            entrada.estado != 'DERIVADO' &&
+            entrada.estado != 'MALETIN' &&
+            entrada.estado != 'RECIBIDO' &&
+            entrada.estado != 'ENVIADO'
+          " class="bg badge text-dark">{{ entrada.estado }}</span>
+      </td>
+
+      <td>
+
+      </td>
+
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="usuario">
+      <td colspan="6">SISTEMA CONTROL Y SEGUIMIENDO DE HOJA DE RUTA - GAM BETANZOS</td>
+      <td colspan="2">Usuario: {{ data.username }} {{ data.surnames }}</td>
+    </tr>
+  </tfoot>
+</table> -->

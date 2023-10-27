@@ -45,6 +45,7 @@ const routes: Routes = [
       { path: 'catProgra/index', component: CatPrograIndexComponent },
 
       { path: 'vehiculo/index', component: VehiculoIndexComponent },
+
       { path: 'reporte/index', component: ReportIndexComponent },
       { path: 'reporte/ingresos', component:  ReportIngresoComponent},
       { path: 'reporte/entradas', component:  ReportEntradasComponent},

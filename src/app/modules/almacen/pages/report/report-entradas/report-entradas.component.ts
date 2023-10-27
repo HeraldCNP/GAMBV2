@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReportAlmService } from '../../../services/report-alm.service';
+import { AlmacenService } from '../../../services/almacen.service';
+import { clippingParents } from '@popperjs/core';
 
 @Component({
   selector: 'app-report-entradas',
@@ -21,19 +23,26 @@ export class ReportEntradasComponent implements OnInit {
   data: any;
 
   cargando: boolean = true;
-  catProgras:any;
-  articles:any;
-  nameCat:any;
+  catProgras: any;
+  articles: any;
+  nameCat: any;
+  nameCate: any = [];
 
   catProgra: string = '';
   codigo: string = '';
+  estadoCompra: string = '';
   estado: string = '';
   del: string = '';
   al: string = '';
   destino: string = '';
 
 
-  constructor(private fb: FormBuilder, private reportAlm: ReportAlmService) {
+  separados: any;
+  categories: any;
+  categoryTotalPrices: any = 0;
+  cantidades: any = [];
+
+  constructor(private fb: FormBuilder, private reportAlm: ReportAlmService, private almacenService: AlmacenService) {
     this.usuario = localStorage.getItem('user');
     this.data = JSON.parse(this.usuario);
     this.idUser = this.data.id;
@@ -82,30 +91,84 @@ export class ReportEntradasComponent implements OnInit {
     // console.log(this.nameCat)
   };
 
-  obtenerEntradas(form:any){
+  obtenerEntradas(form: any) {
     this.catProgra = form.value.catProgra;
     this.codigo = form.value.codigo;
+    this.estadoCompra = 'EXISTE';
     this.cargarEntradas();
   }
 
-  cargarEntradas(){
+  cargarEntradas() {
     this.reportAlm
-    .getAllEntradas(this.catProgra, this.codigo, this.del, this.al)
-    .subscribe((data) => {
-      this.entradas = data.serverResponse;
-      console.log(this.entradas);
-    });
+      .getAllEntradas(this.catProgra, this.codigo, this.estadoCompra, this.del, this.al)
+      .subscribe(
+        res => {
+          this.entradas = res.serverResponse;
+        },
+        err => console.log('HTTP Error', err),
+        () => {
+          this.separar();
+        }
+      );
   }
 
-  // obtenerHojasRutas(form: any) {
-  //   console.log(form.value);
-  //   this.destino = form.value.funcionario;
-  //   this.estado = form.value.estado;
-  //   this.del = form.value.del;
-  //   this.al = form.value.al;
-  //   this.fechaHoy = this.al,
-  //   this.fechaIni = this.del
-  //   this.getSeguimientos();
-  // }
+
+
+
+
+
+  separar() {
+    // console.log("tratando de ordenar",this.ingreso.productos);
+    const itemsByCategory = this.entradas.reduce((accumulator: any, current: any) => {
+      if (!accumulator[current.catProgra]) {
+        accumulator[current.catProgra] = [];
+      }
+      accumulator[current.catProgra].push(current);
+      // console.log("solo", current);
+      return accumulator;
+    }, {});
+    this.separados = itemsByCategory;
+    this.categories = Object.keys(itemsByCategory);
+
+    this.categories.forEach((element: any) => {
+      // console.log(this.separados[element]);
+
+      // this.separados[element].sort((a:any, b:any) => {
+      //   const codigoA = a.idArticulo.idPartida.codigo;
+      //   const codigoB = b.idArticulo.idPartida.codigo;
+      //   return codigoA.localeCompare(codigoB);
+      // });
+
+      // console.log("ordenados", this.separados[element]);
+    });
+    this.categoryTotalPrices = this.categories.reduce((accumulator: any, category: any) => {
+      const items = itemsByCategory[category];
+      const total = items.reduce((accumulator: any, item: any) => accumulator + (item.precio * item.cantidadCompra), 0);
+      this.cantidades[category] = items.reduce((accumulator: any, item: any) => accumulator + item.cantidadCompra, 0);
+      console.log('totalCanti', this.cantidades);
+
+      this.almacenService.searchSegCategoria(category)
+        .subscribe(
+          res => {
+            // console.log(this.nameCate[category] = res.serverResponse[0].proyect_acti);
+            this.nameCate[category] = res.serverResponse[0].proyect_acti
+            // console.log(this.nameCat)
+          },
+          err => console.log('HTTP Error', err),
+          () => {
+            // console.log(this.nameCate)
+          }
+        );
+      accumulator[category] = total;
+
+
+      // console.log(accumulator);
+
+      return accumulator;
+    }, {});
+    // console.log("sumas", this.categoryTotalPrices)
+    // console.log("CategoriasSeparadas", this.categories)
+    // console.log("CategoriasAgrupadas", this.separados)
+  }
 
 }
