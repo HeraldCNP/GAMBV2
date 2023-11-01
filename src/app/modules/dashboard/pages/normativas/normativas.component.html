@@ -2,9 +2,9 @@
 
 
 <div class="accordion" id="accordionPanelsStayOpenExample">
-  <div *ngFor="let tipo of tipos; let i=index" class="accordion-item">
+  <div *ngFor="let tipo of tipos; let i=index; let first = first" class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-'+i"
+      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-'+i"
         aria-expanded="true" [attr.aria-controls]="'panel-'+i">
         <span class="textHead">{{ tipo.tipo | uppercase }}</span>
       </button>
@@ -15,7 +15,7 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Titulo</th>
+                <th>Título</th>
                 <th>Fecha de Aprobación</th>
                 <th>Fecha de Finalización</th>
                 <th>Documento</th>
@@ -28,7 +28,7 @@
                 <td>{{ documento.titulo }}</td>
                 <td>{{ documento.fecha | date:'longDate': 'UTC' }}</td>
                 <td>{{ documento.fechaFin | date:'longDate': 'UTC' }}</td>
-                <td><a href="{{ URL+'/'+documento.uri }}" target="_blank">Descargar</a></td>
+                <td><a href="{{ URL+'/'+documento.uri }}" target="_blank">Descargar <i class="fas fa-download"></i></a></td>
                 <td>
                   <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
                   <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
