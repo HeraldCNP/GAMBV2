@@ -221,7 +221,19 @@
     <div class="modal-content">
       <div class="modal-body pt-5 mt-5" id="content" #content>
         <div *ngIf="egreso" class="card fondito1">
-          <div class="row">
+          <div class="d-flex justify-content-between ml-2 mb-0">
+            <div class="p-2 ">
+              <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+            </div>
+            <div class="text-center ml-5 mt-3 mb-0">
+              <h3 class="off-m">DOCUMENTO DE SALIDA A ALMACÉN</h3>
+              <p class="off-m">Expresado en Bolivianos</p>
+            </div>
+            <div class="p-3 ">
+              <img src="/assets/img/sisal.png" alt="" width="163px" />
+            </div>
+          </div>
+          <!-- <div class="row">
             <div class="col-md-2">
               <img src="/assets/img/logoGamb.png" alt="" width="175px">
             </div>
@@ -232,9 +244,35 @@
             <div class="col-md-2">
               <img src="/assets/img/sisal.png" alt="" width="163px">
             </div>
-          </div>
+          </div> -->
           <hr class="off-hr">
-          <div class="row mb-3">
+          <div class="d-flex justify-content-start ml-1 mb-0">
+            <div>
+              <div class="text-bold pl-1">
+                FECHA DE REGISTRO: <br>
+                ENTIDAD: <br>
+                ENTREGADO A: <br>
+              </div>
+            </div>
+            <div class="ml-3 mb-0">
+              <div class="">
+                {{ egreso.fecha | date:'longDate': 'UTC' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Registro
+                  N°:</b> {{ egreso.numeroSalida }} <br>
+                1508 - Gobierno Autonómo Municipal de Betanzos <br>
+                <ng-container *ngIf="egreso.entregado">
+                  {{ egreso.entregado }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:</b> {{ egreso.cargo }}
+
+                </ng-container>
+                <ng-container *ngIf="!egreso.entregado">
+                  {{ egreso.idPersona.username }} {{ egreso.idPersona.surnames }} <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO:
+                  </b>{{ egreso.idPersona.post
+                  }}
+                </ng-container> <br>
+
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row mb-3">
             <div class="col-md-3 text-bold pl-3">
               FECHA DE REGISTRO: <br>
               ENTIDAD: <br>
@@ -255,7 +293,7 @@
               </ng-container> <br>
 
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-md-12">
               <table class="table table-hover table-bordered mb-0 border-primary">
@@ -312,13 +350,32 @@
             </div>
           </div>
         </div>
-        <div>
+        <div class="mt-4">
+          <div class="d-flex justify-content-around ml-3 mb-0 mt-10">
+            <div class="">
+              <div class="text-center">
+                AUTORIZADO POR:
+              </div>
+            </div>
+            <div class="">
+              <div class="text-center">
+                ENTREGADO POR:
+              </div>
+            </div>
+            <div class="">
+              <div class="text-center">
+                RECIBIDO POR:
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div>
           <div class="row mt-10">
             <div class="col-md-4 text-center">AUTORIZADO POR:</div>
             <div class="col-md-4 text-center">ENTREGADO POR:</div>
             <div class="col-md-4 text-center">RECIBIDO POR:</div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <!-- <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button> -->
