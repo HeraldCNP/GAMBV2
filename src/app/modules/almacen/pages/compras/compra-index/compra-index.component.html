@@ -11,7 +11,11 @@
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-sm" (click)="addIngreso()">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  (click)="addIngreso()"
+                >
                   Nueva Entrada
                 </button>
               </div>
@@ -21,21 +25,39 @@
                 <div class="row g-3 align-items-center">
                   <div class="col-auto">
                     <div class="input-group input-group-sm mb-1">
-                      <span class="input-group-text" id="idProve"><b>Proveedores *</b></span>
+                      <span class="input-group-text" id="idProve"
+                        ><b>Proveedores *</b></span
+                      >
 
-                      <ngx-select [allowClear]="true" [items]="proveedores" optionTextField="razon_social"
-                        optionValueField="_id" placeholder="Seleccione un Proveedor" formControlName="idProve"
-                        (select)="doSelect($event)">
-                        <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <ngx-select
+                        [allowClear]="true"
+                        [items]="proveedores"
+                        optionTextField="razon_social"
+                        optionValueField="_id"
+                        placeholder="Seleccione un Proveedor"
+                        formControlName="idProve"
+                        (select)="doSelect($event)"
+                      >
+                        <ng-template
+                          ngx-select-option
+                          ngx-select-option-selected
+                          let-option
+                          let-text="text"
+                        >
                           <span [innerHtml]="text"></span>
                         </ng-template>
-                        <div class="form-text" *ngIf="
+                        <div
+                          class="form-text"
+                          *ngIf="
                             form2['idProve'].touched && form2['idProve'].invalid
-                          ">
-                          <div *ngIf="
+                          "
+                        >
+                          <div
+                            *ngIf="
                               form2['idProve'].errors &&
                               form2['idProve'].errors['required']
-                            ">
+                            "
+                          >
                             * La categoria programatica es Requerida.
                           </div>
                         </div>
@@ -45,18 +67,28 @@
                     <!-- <span *ngIf="nameCat" style="font-size: 0.7rem;">{{ nameCat.proyect_acti }}</span> -->
                   </div>
 
-
                   <div class="col-auto">
                     <div class="input-group input-group-sm mb-1 mx-2">
-                      <span class="input-group-text izq" id="concepto"><b>Glosa</b></span>
-                      <input class="form-control" type="text" formControlName="concepto" />
-                      <div class="form-text" *ngIf="
+                      <span class="input-group-text izq" id="concepto"
+                        ><b>Glosa</b></span
+                      >
+                      <input
+                        class="form-control"
+                        type="text"
+                        formControlName="concepto"
+                      />
+                      <div
+                        class="form-text"
+                        *ngIf="
                           form2['concepto'].touched && form2['concepto'].invalid
-                        ">
-                        <div *ngIf="
+                        "
+                      >
+                        <div
+                          *ngIf="
                             form2['concepto'].errors &&
                             form2['concepto'].errors['required']
-                          ">
+                          "
+                        >
                           * Fecha Inicial
                         </div>
                       </div>
@@ -65,16 +97,28 @@
 
                   <div class="col-auto">
                     <div class="input-group input-group-sm mb-1 mx-2">
-                      <span class="input-group-text izq" id="numeroEntrada"><b>Número</b></span>
-                      <input style="width: 50px" class="form-control" type="number" formControlName="numeroEntrada" />
-                      <div class="form-text" *ngIf="
+                      <span class="input-group-text izq" id="numeroEntrada"
+                        ><b>Número</b></span
+                      >
+                      <input
+                        style="width: 50px"
+                        class="form-control"
+                        type="number"
+                        formControlName="numeroEntrada"
+                      />
+                      <div
+                        class="form-text"
+                        *ngIf="
                           form2['numeroEntrada'].touched &&
                           form2['numeroEntrada'].invalid
-                        ">
-                        <div *ngIf="
+                        "
+                      >
+                        <div
+                          *ngIf="
                             form2['numeroEntrada'].errors &&
                             form2['numeroEntrada'].errors['required']
-                          ">
+                          "
+                        >
                           * Fecha Inicial
                         </div>
                       </div>
@@ -83,13 +127,25 @@
 
                   <div class="col-auto">
                     <div class="input-group input-group-sm mb-1 mx-2">
-                      <span class="input-group-text izq" id="del"><b>Del</b></span>
-                      <input style="width: 100px" class="form-control" type="date" formControlName="del" />
-                      <div class="form-text" *ngIf="form2['del'].touched && form2['del'].invalid">
-                        <div *ngIf="
+                      <span class="input-group-text izq" id="del"
+                        ><b>Del</b></span
+                      >
+                      <input
+                        style="width: 100px"
+                        class="form-control"
+                        type="date"
+                        formControlName="del"
+                      />
+                      <div
+                        class="form-text"
+                        *ngIf="form2['del'].touched && form2['del'].invalid"
+                      >
+                        <div
+                          *ngIf="
                             form2['del'].errors &&
                             form2['del'].errors['required']
-                          ">
+                          "
+                        >
                           * Fecha Inicial
                         </div>
                       </div>
@@ -98,12 +154,24 @@
 
                   <div class="col-auto">
                     <div class="input-group input-group-sm mb-1 mx-2">
-                      <span class="input-group-text izq" id="estado"><b>Al</b></span>
-                      <input style="width: 100px" class="form-control" type="date" formControlName="al" />
-                      <div class="form-text" *ngIf="form2['al'].touched && form2['al'].invalid">
-                        <div *ngIf="
+                      <span class="input-group-text izq" id="estado"
+                        ><b>Al</b></span
+                      >
+                      <input
+                        style="width: 100px"
+                        class="form-control"
+                        type="date"
+                        formControlName="al"
+                      />
+                      <div
+                        class="form-text"
+                        *ngIf="form2['al'].touched && form2['al'].invalid"
+                      >
+                        <div
+                          *ngIf="
                             form2['al'].errors && form2['al'].errors['required']
-                          ">
+                          "
+                        >
                           * Fecha Final
                         </div>
                       </div>
@@ -112,15 +180,18 @@
                 </div>
                 <hr />
                 <div class="text-center">
-                  <button (click)="obtenerEntradas(reportForm)" class="btn btn-primary mr-3"
-                    [disabled]="reportForm.invalid" style="
+                  <button
+                    (click)="obtenerEntradas(reportForm)"
+                    class="btn btn-primary mr-3"
+                    [disabled]="reportForm.invalid"
+                    style="
                       --bs-btn-padding-y: 0.25rem;
                       --bs-btn-font-size: 0.75rem;
-                    ">
+                    "
+                  >
                     Buscar
                   </button>
                 </div>
-
               </form>
               <!-- {{ reportForm.value | json }} -->
             </div>
@@ -155,7 +226,9 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let ingreso of ingresos.serverResponse; let i = index">
+                <tr
+                  *ngFor="let ingreso of ingresos.serverResponse; let i = index"
+                >
                   <td>{{ ingreso.numeroEntrada }}</td>
                   <td>
                     {{ ingreso.idPersona.username }}
@@ -180,20 +253,36 @@
                     <!-- <i class="fas fa-edit ml-3 icono"></i> -->
                     <div>
                       <!-- Button trigger modal -->
-                      <button type="button" (click)="getIngreso(ingreso._id)" class="" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
+                      <button
+                        type="button"
+                        (click)="getIngreso(ingreso._id)"
+                        class=""
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
                         <i class="fas fa-print"></i>
                       </button>
-                      <i class="fas fa-edit ml-2 icono" (click)="editarEntrada(ingreso._id)"></i>
+                      <i
+                        class="fas fa-edit ml-2 icono"
+                        (click)="editarEntrada(ingreso._id)"
+                      ></i>
                       <ng-container *ngIf="ingreso.estado == 'REGISTRADO'">
                         <!-- <i class="fas fa-sign-out-alt ml-2 icono" (click)="registrarEgreso(ingreso._id)"></i> -->
-                        <button type="button" (click)="getEntrada(ingreso._id)" class="" data-bs-toggle="modal"
-                          data-bs-target="#salidaModal">
+                        <button
+                          type="button"
+                          (click)="getEntrada(ingreso._id)"
+                          class=""
+                          data-bs-toggle="modal"
+                          data-bs-target="#salidaModal"
+                        >
                           <i class="fas fa-sign-out-alt"></i>
                         </button>
                       </ng-container>
-                      <i *ngIf="data && data.roles === 'SUPER_ADMIN'" class="fas fa-trash-alt ml-2 icono"
-                        (click)="borrarIngreso(ingreso._id)"></i>
+                      <i
+                        *ngIf="data && data.roles === 'SUPER_ADMIN'"
+                        class="fas fa-trash-alt ml-2 icono"
+                        (click)="borrarIngreso(ingreso._id)"
+                      ></i>
                     </div>
                   </td>
                 </tr>
@@ -201,13 +290,21 @@
             </table>
             <!-- *ngIf="txtTermino.value.length === 0" -->
             <div class="text-center">
-              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+              <button
+                (click)="cambiarPagina(-1)"
+                *ngIf="page > 1"
+                class="btn btn-info text-sm"
+              >
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
               &nbsp;
               {{ page }} de {{ totalPages }}
               &nbsp;
-              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+              <button
+                (click)="cambiarPagina(1)"
+                *ngIf="page < totalPages"
+                class="btn btn-info text-sm"
+              >
                 Siguiente <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -219,13 +316,31 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-body" id="content" #content>
         <div class="pt-4">
-          <div *ngIf="ingreso" class="card fondito1 ">
-            <div class="row">
+          <div *ngIf="ingreso" class="card fondito1">
+            <div class="d-flex justify-content-between ml-2 mb-0">
+              <div class="p-2 ">
+                <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+              </div>
+              <div class="text-center ml-5 mt-3 mb-0">
+                <h3 class="off-m">DOCUMENTO DE INGRESO A ALMACÉN</h3>
+                <p class="off-m">Expresado en Bolivianos</p>
+              </div>
+              <div class="p-3 ">
+                <img src="/assets/img/sisal.png" alt="" width="163px" />
+              </div>
+            </div>
+            <!-- <div class="row">
               <div class="col-md-2">
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
               </div>
@@ -236,9 +351,39 @@
               <div class="col-md-2">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
               </div>
-            </div>
+            </div> -->
             <hr class="off-hr" />
-            <div class="row">
+            <div class="d-flex justify-content-start ml-1 mb-0">
+              <div>
+                <div class=" text-bold pl-1">
+                  FECHA DE REGISTRO: <br />
+                  ENTIDAD: <br />
+                  UNIDAD SOLICITANTE:<br />
+                  PROVEEDOR: <br />
+                </div>
+              </div>
+              <div class=" ml-3 mb-0">
+                <div class=" mb-1">
+                  {{ ingreso.fecha | date : "longDate" : "UTC" }}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <b>REGISTRO N°:</b> {{ ingreso.numeroEntrada }} <br />
+                  1508 - Gobierno Autonómo Municipal de Betanzos <br />
+                  {{ ingreso.idPersona.username }}
+                  {{ ingreso.idPersona.surnames }}
+                  <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO: </b>
+                  <span style="font-size: 0.9rem">{{
+                    ingreso.idPersona.post
+                  }}</span>
+                  <br />
+                  {{ ingreso.idProveedor.representante }}
+                  <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b
+                  >{{ ingreso.idProveedor.razon_social }}
+                  <b> &nbsp;&nbsp;&nbsp;&nbsp; NIT: </b>
+                  {{ ingreso.idProveedor.nit }} <br />
+                </div>
+              </div>
+            </div>
+           <!--  <div class="row">
               <div class="col-md-3 text-bold pl-3">
                 FECHA DE REGISTRO: <br />
                 ENTIDAD: <br />
@@ -246,27 +391,31 @@
                 PROVEEDOR: <br />
               </div>
               <div class="col-md-9 mb-1">
-                {{
-                ingreso.fecha | date : "longDate" : "UTC"
-                }}
+                {{ ingreso.fecha | date : "longDate" : "UTC" }}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <b>REGISTRO N°:</b> {{ ingreso.numeroEntrada }} <br />
                 1508 - Gobierno Autonómo Municipal de Betanzos <br />
-                {{ ingreso.idPersona.username }} {{ ingreso.idPersona.surnames }}
+                {{ ingreso.idPersona.username }}
+                {{ ingreso.idPersona.surnames }}
                 <b> &nbsp;&nbsp;&nbsp;&nbsp; CARGO: </b>
                 <span style="font-size: 0.9rem">{{
                   ingreso.idPersona.post
-                  }}</span>
+                }}</span>
                 <br />
                 {{ ingreso.idProveedor.representante }}
-                <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b>{{ ingreso.idProveedor.razon_social }}
+                <b> &nbsp;&nbsp;&nbsp;&nbsp; RAZON SOCIAL: </b
+                >{{ ingreso.idProveedor.razon_social }}
                 <b> &nbsp;&nbsp;&nbsp;&nbsp; NIT: </b>
                 {{ ingreso.idProveedor.nit }} <br />
               </div>
-            </div>
+            </div> -->
             <div class="row">
               <div class="col-md-12">
-                <table class="table table-bordered  mb-0" id="table" style="border: 3px; ">
+                <table
+                  class="table table-bordered mb-0"
+                  id="table"
+                  style="border: 3px"
+                >
                   <thead class="backColor">
                     <tr class="text-center">
                       <th class="off-p">N°</th>
@@ -275,16 +424,23 @@
                       <th class="off-p">Factura</th>
                       <th class="off-p">Artículo</th>
                       <th class="off-p">Cantidad</th>
-                      <th class="off-p" style="width: 90px">Unidad de Medida</th>
+                      <th class="off-p" style="width: 90px">
+                        Unidad de Medida
+                      </th>
                       <th class="off-p">P/U</th>
                       <th class="off-p">Total</th>
                     </tr>
                   </thead>
                   <tbody>
                     <ng-container *ngFor="let category of categories">
-                      <tr *ngFor="let item of separados[category]; let i = index">
+                      <tr
+                        *ngFor="let item of separados[category]; let i = index"
+                      >
                         <td class="off-p">{{ i + 1 }}</td>
-                        <td class="off-p" style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem">
+                        <td
+                          class="off-p"
+                          style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem"
+                        >
                           {{ item.catProgra }}
                         </td>
                         <td class="off-p" style="font-size: 0.8rem">
@@ -304,30 +460,34 @@
                         </td>
                         <td class="off-p pr-2 text-end">
                           {{
-                          item.cantidadCompra * item.precio
-                          | currency : "USD" : ""
+                            item.cantidadCompra * item.precio
+                              | currency : "USD" : ""
                           }}
                         </td>
                       </tr>
                       <tr>
-                        <td class="off-p" colspan="5">{{ nameCat[category] }}</td>
+                        <td class="off-p" colspan="5">
+                          {{ nameCat[category] }}
+                        </td>
                         <td class="off-p" colspan="3" class="text-end off-p">
                           <b style="font-weight: bold">Sub Total: </b>
                         </td>
                         <td class="off-p pr-2 text-end">
                           {{
-                          categoryTotalPrices[category] | currency : "USD" : ""
+                            categoryTotalPrices[category]
+                              | currency : "USD" : ""
                           }}
                         </td>
                       </tr>
-
                     </ng-container>
                     <tr>
                       <td colspan="8" class="text-end off-p fs-5">
                         <b>SUMA TOTAL: </b>
                       </td>
                       <td class="fs-5 off-p pr-2 text-end">
-                        <b>{{ calculateTotalCost() | currency : "USD" : "" }}</b>
+                        <b>{{
+                          calculateTotalCost() | currency : "USD" : ""
+                        }}</b>
                       </td>
                     </tr>
                     <!-- <tr *ngFor="let articulo of separados; let i = index">
@@ -342,9 +502,7 @@
                       <td>{{ articulo.cantidad * articulo.precio }}</td>
                     </tr> -->
                   </tbody>
-                  <tfoot>
-
-                  </tfoot>
+                  <tfoot></tfoot>
                 </table>
                 <div class="lh-sm my-2 justify">
                   <b>GLOSA:</b> {{ ingreso.concepto }}
@@ -361,26 +519,37 @@
             </div>
           </div>
         </div>
+        
         <div class="mt-4">
-          <div class="row mt-10">
-            <div class="col-md-6">
+          <div class="d-flex justify-content-around ml-3 mb-0 mt-10">
+            <div class="">
               <div class="text-center">
                 MATERIALES Y SUMINISTROS <br />
                 RECIBIDO POR
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="">
               <div class="text-center">
                 SISTEMA SISAL <br />
                 REGISTRADO POR
               </div>
             </div>
           </div>
+          <div class="row mt-10">
+            
+            
+          </div>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
-          class="btn btn-primary">
+        <button
+          type="button"
+          printTitle="."
+          [useExistingCss]="true"
+          printSectionId="content"
+          ngxPrint
+          class="btn btn-primary"
+        >
           Imprimir
         </button>
 
@@ -391,18 +560,38 @@
 </div>
 
 <!-- salidaModal -->
-<div class="modal fade" id="salidaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="salidaModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-body mt-3" id="content" #content>
         <form [formGroup]="salidaForm">
           <div class="input-group mb-1">
-            <span class="input-group-text mb-1" id="idPersona"><b>Funcionario Solicitante *</b></span>
+            <span class="input-group-text mb-1" id="idPersona"
+              ><b>Funcionario Solicitante *</b></span
+            >
 
-            <ngx-select style="min-width: 400px" [allowClear]="true" [items]="funcionarios" optionTextField="username"
-              optionValueField="_id" placeholder="Seleccione un Funcionario" formControlName="idPersona"
-              (select)="doSelect($event)">
-              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+            <ngx-select
+              style="min-width: 400px"
+              [allowClear]="true"
+              [items]="funcionarios"
+              optionTextField="username"
+              optionValueField="_id"
+              placeholder="Seleccione un Funcionario"
+              formControlName="idPersona"
+              (select)="doSelect($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
                 <span [innerHtml]="text"></span>
                 &nbsp;{{ option.data.surnames }}
               </ng-template>
@@ -410,30 +599,57 @@
           </div>
           <div class="input-group mb-1">
             <span class="input-group-text"><b>Fecha de Salida</b></span>
-            <input type="date" class="form-control" id="fechaSalida" formControlName="fechaSalida" />
-            <div class="form-text" *ngIf="form['fechaSalida'].touched && form['fechaSalida'].invalid">
-              <div *ngIf="
+            <input
+              type="date"
+              class="form-control"
+              id="fechaSalida"
+              formControlName="fechaSalida"
+            />
+            <div
+              class="form-text"
+              *ngIf="form['fechaSalida'].touched && form['fechaSalida'].invalid"
+            >
+              <div
+                *ngIf="
                   form['fechaSalida'].errors &&
                   form['fechaSalida'].errors['required']
-                ">
+                "
+              >
                 * fecha es Requerido.
               </div>
             </div>
           </div>
-          <div class="form-text" *ngIf="form['idPersona'].touched && form['idPersona'].invalid">
-            <div *ngIf="
+          <div
+            class="form-text"
+            *ngIf="form['idPersona'].touched && form['idPersona'].invalid"
+          >
+            <div
+              *ngIf="
                 form['idPersona'].errors && form['idPersona'].errors['required']
-              ">
+              "
+            >
               * El proveedor es Requerido.
             </div>
           </div>
           <div class="input-group mb-1">
-            <span class="input-group-text" id="entregado"><b>Entregado A:</b></span>
-            <input id="entregado" class="form-control" type="text" formControlName="entregado" />
+            <span class="input-group-text" id="entregado"
+              ><b>Entregado A:</b></span
+            >
+            <input
+              id="entregado"
+              class="form-control"
+              type="text"
+              formControlName="entregado"
+            />
             <ng-container *ngIf="salidaForm.value.entregado">
               <span class="input-group-text" id="cargo"><b>Cargo:</b></span>
-              <input id="cargo" class="form-control" type="text" formControlName="cargo"
-                [required]="salidaForm.value.entregado" />
+              <input
+                id="cargo"
+                class="form-control"
+                type="text"
+                formControlName="cargo"
+                [required]="salidaForm.value.entregado"
+              />
             </ng-container>
 
             <!-- <div class="form-text" *ngIf="form['entregado'].touched && form['entregado'].invalid">
@@ -447,18 +663,30 @@
           </div>
           <div class="input-group">
             <span class="input-group-text"><b>Glosa *</b></span>
-            <textarea id="glosaSalida" class="form-control" type="text" formControlName="glosaSalida"></textarea>
-            <div class="form-text" *ngIf="form['glosaSalida'].touched && form['glosaSalida'].invalid">
-              <div *ngIf="
+            <textarea
+              id="glosaSalida"
+              class="form-control"
+              type="text"
+              formControlName="glosaSalida"
+            ></textarea>
+            <div
+              class="form-text"
+              *ngIf="form['glosaSalida'].touched && form['glosaSalida'].invalid"
+            >
+              <div
+                *ngIf="
                   form['glosaSalida'].errors &&
                   form['glosaSalida'].errors['required']
-                ">
+                "
+              >
                 * la Glosa es Requerida.
               </div>
-              <div *ngIf="
+              <div
+                *ngIf="
                   form['glosaSalida'].errors &&
                   form['glosaSalida'].errors['minlength']
-                ">
+                "
+              >
                 * la Glosa no puede tener menos de 3 caracteres.
               </div>
             </div>
@@ -468,8 +696,12 @@
       <div class="modal-footer d-flex justify-content-center">
         <!-- <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button> -->
 
-        <button (click)="registrarEgreso(salidaForm.value, ingreso._id)" data-bs-dismiss="modal" class="btn btn-primary"
-          [disabled]="salidaForm.invalid">
+        <button
+          (click)="registrarEgreso(salidaForm.value, ingreso._id)"
+          data-bs-dismiss="modal"
+          class="btn btn-primary"
+          [disabled]="salidaForm.invalid"
+        >
           Registrar
         </button>
 
