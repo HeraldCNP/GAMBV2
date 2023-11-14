@@ -16,7 +16,8 @@
             <div class="card text-center mb-3" style="width: 18rem;">
               <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.titulo }}</h6>
-                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }}</p>
+                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }} <span *ngIf="isNew(document.createdAt)" class="right badge badge-danger"><span class="parpadea text">Nuevo</span>
+                </span></p>
                 <a class="btn btn-info" href="{{ URL+'/'+document.uri }}" target="_blank"> <i class="fas fa-download"></i> Descargar</a>
 
               </div>
