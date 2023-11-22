@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Crear Amortización</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+                <form (ngSubmit)="crearAmorti()" [formGroup]="amortiForm">
+                  <!-- <div class="mb-1">
+                    <label for="gestion" class="form-label">Gestión *</label>
+                    <select id="gestion" formControlName="gestion" class="form-select" required>
+                      <option value="2023" [defaultSelected]="true">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                      <option value="2019">2019</option>
+                    </select>
+                    <div class="form-text" *ngIf="form['gestion'].touched && form['gestion'].invalid">
+                      <div *ngIf="
+                          form['gestion'].errors &&
+                          form['gestion'].errors['required']
+                        ">
+                        * La gestión es Requerida.
+                      </div>
+                      <div *ngIf="
+                          form['gestion'].errors &&
+                          form['gestion'].errors['minlength']
+                        ">
+                        La gestión no puede tener menos de 4 caracteres.
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="mb-1">
+                    <label for="periodo" class="form-label">Periodo *</label>
+                    <input type="text" class="form-control" id="periodo" formControlName="periodo" required />
+                    <div class="form-text" *ngIf="form['periodo'].touched && form['periodo'].invalid">
+                      <div *ngIf="form['periodo'].errors && form['periodo'].errors['required']">
+                        * La periodo es Requerida.
+                      </div>
+                      <div *ngIf="form['periodo'].errors && form['periodo'].errors['minlength']">
+                        El periodo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="monto" class="form-label">Monto *</label>
+                    <input type="text" class="form-control" id="monto" formControlName="monto" required />
+                    <div class="form-text" *ngIf="form['monto'].touched && form['monto'].invalid">
+                      <div *ngIf="form['monto'].errors && form['monto'].errors['required']">
+                        * La monto es Requerida.
+                      </div>
+                      <div *ngIf="form['monto'].errors && form['periodo'].errors['minlength']">
+                        El periodo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="interes" class="form-label">Interes *</label>
+                    <input type="text" class="form-control" id="interes" formControlName="interes" required />
+                    <div class="form-text" *ngIf="form['interes'].touched && form['interes'].invalid">
+                      <div *ngIf="form['interes'].errors && form['interes'].errors['required']">
+                        * La interes es Requerida.
+                      </div>
+                      <div *ngIf="form['interes'].errors && form['periodo'].errors['minlength']">
+                        El periodo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="fechaPago" class="form-label">Fecha de Pago *</label>
+                    <input type="date" class="form-control" id="fechaPago" formControlName="fechaPago" required />
+                    <div class="form-text" *ngIf="form['fechaPago'].touched && form['fechaPago'].invalid">
+                      <div *ngIf="form['fechaPago'].errors && form['fechaPago'].errors['required']">
+                        * La fechaPago es Requerida.
+                      </div>
+                      <div *ngIf="form['fechaPago'].errors && form['periodo'].errors['minlength']">
+                        El periodo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <label for="fuente" class="form-label">Fuente *</label>
+                    <input type="text" class="form-control" id="fuente" formControlName="fuente" required />
+                    <div class="form-text" *ngIf="form['fuente'].touched && form['fuente'].invalid">
+                      <div *ngIf="form['fuente'].errors && form['fuente'].errors['required']">
+                        * La fuente es Requerida.
+                      </div>
+                      <div *ngIf="form['fuente'].errors && form['periodo'].errors['minlength']">
+                        El periodo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label for="archivo" class="form-label">Archivo</label>
+                    <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+                      formControlName="archivo" (change)="onChange($event)" />
+                    <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
+                      <div *ngIf="
+                          form['archivo'].errors &&
+                          form['archivo'].errors['required']
+                        ">
+                        * archivo es Requerido.
+                      </div>
+                    </div>
+                    <div class="progress mt-1" *ngIf="progress > 0">
+                      <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'"
+                        aria-valuemin="0" aria-valuemax="100">
+                        {{ progress + "%" }}
+                      </div>
+                    </div>
+                  </div>
+
+                  {{ amortiForm.value | json }}
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button (click)="cancel()" type="reset" class="btn btn-danger">
+                      Cancelar
+                    </button>
+                    <button [disabled]="amortiForm.invalid" type="submit" class="btn btn-primary">
+                      Registrar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>

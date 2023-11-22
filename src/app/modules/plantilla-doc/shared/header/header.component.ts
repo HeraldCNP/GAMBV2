@@ -41,6 +41,16 @@ export class HeaderComponent {
         },
       ]
     },
+    {
+      label: 'Prestamos',
+      icon: 'fas fa-file-contract',
+      docs: [
+        {
+          label: 'Prestamos',
+          url: '/doc/prestamos/index'
+        },
+      ]
+    },
   ];
 
   constructor(

@@ -6,6 +6,7 @@ import { IndexComponent } from './index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { PlantillasComponent } from './pages/plantillas/plantillas.component';
 import { NormativasComponent } from './pages/normativas/normativas.component';
+import { PrestamosComponent } from './pages/prestamos/prestamos/prestamos.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { NormativasComponent } from './pages/normativas/normativas.component';
     IndexComponent,
     MainComponent,
     PlantillasComponent,
-    NormativasComponent
+    NormativasComponent,
+    PrestamosComponent
   ],
   imports: [
     CommonModule,

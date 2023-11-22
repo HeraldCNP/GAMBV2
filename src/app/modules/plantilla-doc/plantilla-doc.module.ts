@@ -13,6 +13,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { ModelListComponent } from './pages/modelos/model-list/model-list.component';
 import { TiposNormativaComponent } from './pages/normativas/tipos-normativa/tipos-normativa.component';
 import { DocNormativaComponent } from './pages/normativas/doc-normativa/doc-normativa.component';
+import { PrestamosIndexComponent } from './pages/prestamos/prestamos-index/prestamos-index.component';
+import { AmortizacionCreateComponent } from './pages/prestamos/amortizacion-create/amortizacion-create.component';
 
 
 
@@ -26,7 +28,9 @@ import { DocNormativaComponent } from './pages/normativas/doc-normativa/doc-norm
     DocumentIndexComponent,
     ModelListComponent,
     TiposNormativaComponent,
-    DocNormativaComponent
+    DocNormativaComponent,
+    PrestamosIndexComponent,
+    AmortizacionCreateComponent
   ],
   imports: [
     CommonModule,

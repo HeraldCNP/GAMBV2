@@ -6,6 +6,8 @@ import { DocumentIndexComponent } from './pages/documentos/document-index/docume
 import { ModelListComponent } from './pages/modelos/model-list/model-list.component';
 import { DocNormativaComponent } from './pages/normativas/doc-normativa/doc-normativa.component';
 import { TiposNormativaComponent } from './pages/normativas/tipos-normativa/tipos-normativa.component';
+import { PrestamosIndexComponent } from './pages/prestamos/prestamos-index/prestamos-index.component';
+import { AmortizacionCreateComponent } from './pages/prestamos/amortizacion-create/amortizacion-create.component';
 
 const routes: Routes = [
   {
@@ -16,7 +18,8 @@ const routes: Routes = [
       { path: 'modelos/list', component: ModelListComponent },
       { path: 'normativas/tipos/index', component: TiposNormativaComponent},
       { path: 'normativas/doc/index', component: DocNormativaComponent },
-      // { path: 'plantillas/update/:id', component: GacetaUpdateComponent },
+      { path: 'prestamos/index', component: PrestamosIndexComponent },
+      { path: 'plantillas/addAmortizacion/:id', component: AmortizacionCreateComponent },
     ]
   }
 ];
