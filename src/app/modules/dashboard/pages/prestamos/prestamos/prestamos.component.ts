@@ -8,9 +8,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./prestamos.component.css']
 })
 export class PrestamosComponent {
-  prestamos:any = [];
-  tipos:any;
+  prestamos: any = [];
+  tipos: any;
   URL = environment.api;
+  singlePrestamo: any;
+  totalInteres:any;
   private prestamoService = inject(PrestamosService);
 
   ngOnInit(): void {
@@ -28,13 +30,13 @@ export class PrestamosComponent {
   }
 
   splitArray(original: any[], type: string) {
-     console.log(original);
+    console.log(original);
 
-    const creditos:any = [];
-    const fideicomisos:any = [];
+    const creditos: any = [];
+    const fideicomisos: any = [];
 
     original.forEach(item => {
-      if(item.tipo === type){
+      if (item.tipo === type) {
         creditos.push(item);
       } else {
         fideicomisos.push(item);
@@ -42,9 +44,12 @@ export class PrestamosComponent {
     });
 
     return [creditos, fideicomisos];
-
-
-
-
   }
+
+  getPrestamo(prestamo: string) {
+    this.singlePrestamo = prestamo;
+    this.totalInteres = this.singlePrestamo.amortizacion.reduce((acc:any, cur:any) => acc + cur.interes, 0);
+    console.log(this.totalInteres);
+  }
+
 }

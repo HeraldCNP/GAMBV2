@@ -40,9 +40,9 @@ export class EgresoCreateComponent implements OnInit {
       entregado: [''],
       cargo: [''],
       concepto: ['', [Validators.required]],
-      idPersona: [''],
+      idPersona: [this.idUser],
       articulos: ['', [Validators.required]],
-      idUsuario: [this.idUser],
+      // idUsuario: [this.idUser],
     });
 
     this.demoForm = this.fb.group({

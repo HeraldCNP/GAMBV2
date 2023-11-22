@@ -22,7 +22,6 @@
                 <th>Monto</th>
                 <th>Total Pagado</th>
                 <th>Saldo Amortización</th>
-                <th>Interés</th>
                 <th>Estado</th>
                 <th>Reporte</th>
                 <th>Documentos</th>
@@ -37,7 +36,6 @@
                 <td class="off-p text-end">{{ prestamo.monto | currency : "USD" : "" }}</td>
                 <td class="off-p text-end">{{ prestamo.monto - prestamo.saldoA | currency : "USD" : "" }}</td>
                 <td class="off-p text-end">{{ prestamo.saldoA | currency : "USD" : "" }}</td>
-                <td class="off-p text-center">{{ prestamo.interes }}%</td>
                 <!-- <td>{{ prestamo.estado }}</td> -->
                 <!-- <td><a href="{{ URL+'/'+prestamo.uri }}" target="_blank">Descargar</a></td> -->
                 <!-- <td>
@@ -48,8 +46,13 @@
                   <span *ngIf="prestamo.saldoA >= 0" class="badge text-bg-success">Vigente</span>
                   <span *ngIf="prestamo.saldoA <= 0" class="badge text-bg-danger">No Vigente</span>
                 </td>
-                <td></td>
-                <td class="">
+                <td class="text-center">
+                  <button type="button" (click)="getPrestamo(prestamo)" class="" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    <i class="fas fa-print"></i>
+                  </button>
+                </td>
+                <td>
                   <i *ngFor="let file of prestamo.archivos">
 
                     <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.documento }}</a>
@@ -69,6 +72,155 @@
               </div>
             </div>
           </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body" id="content" #content>
+          <div class="pt-4">
+            <div *ngIf="singlePrestamo" class="card fondito1">
+              <div class="d-flex justify-content-between ml-2 mb-0">
+                <div class="p-2 ">
+                  <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+                </div>
+                <div class="text-center ml-5 mt-3 mb-0">
+                  <h3 class="off-m" *ngIf="singlePrestamo.tipo == 'credito'">REPORTE PRESTAMO - {{ 'Crédito' | uppercase }}</h3>
+                  <h3 class="off-m" *ngIf="singlePrestamo.tipo == 'fideicomiso'">REPORTE PRESTAMO - {{ 'Fideicomiso' | uppercase }}</h3>
+                  <p class="off-m">Expresado en Bolivianos</p>
+                </div>
+                <div class="p-3 ">
+                  <!-- <img src="/assets/img/sisal.png" alt="" width="163px" /> -->
+                </div>
+              </div>
+              <!-- <div class="row">
+              <div class="col-md-2">
+                <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h3 class="off-m">DOCUMENTO DE INGRESO A ALMACÉN</h3>
+                <p class="off-m">Expresado en Bolivianos</p>
+              </div>
+              <div class="col-md-2">
+                <img src="/assets/img/sisal.png" alt="" width="163px" />
+              </div>
+            </div> -->
+              <hr class="off-hr" />
+              <div class="d-flex justify-content-start ml-1 mb-0">
+                <div>
+                  <div class=" text-bold pl-1">
+                    NÚMERO: <br />
+                    MONTO:<br />
+                  </div>
+                </div>
+                <div class=" ml-3 mb-0">
+                  <div class=" mb-1">
+                    {{ singlePrestamo.numero }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <b>NOMBRE:</b> {{ singlePrestamo.nombre }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>FECHA DE FIRMA:</b>
+                    {{ singlePrestamo.fechaFirma | date : "longDate" : "UTC" }} <br />
+                    {{ singlePrestamo.monto | currency : "USD" : "" }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <b>TOTAL PAGADO:</b> {{
+                    singlePrestamo.monto - singlePrestamo.saldoA | currency : "USD" : "" }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>SALDO AMORTIZACIÓN:</b> {{ singlePrestamo.saldoA |
+                    currency : "USD" : "" }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>TOTAL INTERES PAGADO:</b> {{ totalInteres |
+                      currency : "USD" : "" }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table table-bordered mb-0" id="table" style="border: 3px">
+                    <thead class="backColor">
+                      <tr>
+                        <th>Periodo</th>
+                        <th>Monto</th>
+                        <th>Interés</th>
+                        <th>Fecha de Pago</th>
+                        <!-- <th>Estado</th> -->
+                        <th>FF-OF</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let amorti of singlePrestamo.amortizacion; let i = index; first as first">
+
+                        <td>{{ amorti.periodo }}</td>
+                        <td>{{ amorti.monto }}</td>
+                        <td>{{ amorti.interes }}</td>
+                        <td>{{ amorti.fechaPago | date:'mediumDate': 'UTC' }}</td>
+                        <!-- <td>
+                          <div class="form-check form-switch">
+                            <span *ngIf="amorti.estado == '1'">
+                              <input class="form-check-input pointer" (change)="changeStatus(amorti._id, !amorti.estado)"
+                                type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Vigente
+                            </span>
+                            <span *ngIf="amorti.estado == '0'">
+                              <input class="form-check-input pointer" (change)="changeStatus(amorti._id, !amorti.estado)"
+                                type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />No Vigente
+                            </span>
+                          </div>
+                        </td> -->
+                        <td>{{ amorti.fuente }}</td>
+                        <!-- <td>{{ prestamo.estado }}</td> -->
+                        <!-- <td><a href="{{ URL+'/'+prestamo.uri }}" target="_blank">Descargar</a></td> -->
+                        <!-- <td>
+                          <span *ngIf="!prestamo.fechaFin" class="badge text-bg-success">Vigente</span>
+                          <span *ngIf="prestamo.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                        </td> -->
+                      </tr>
+
+                      <!-- <tr *ngFor="let articulo of separados; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ articulo.catProgra }}</td>
+                      <td>{{ articulo.partidaGasto }}</td>
+                      <td>{{ articulo.factura }}</td>
+                      <td>{{ articulo.articulo }}</td>
+                      <td>{{ articulo.cantidad }}</td>
+                      <td>{{ articulo.unidadMedida }}</td>
+                      <td>{{ articulo.precio }}</td>
+                      <td>{{ articulo.cantidad * articulo.precio }}</td>
+                    </tr> -->
+                    </tbody>
+                    <tfoot></tfoot>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="mt-4">
+            <div class="d-flex justify-content-around ml-3 mb-0 mt-10">
+              <div class="">
+                <div class="text-center">
+                  MATERIALES Y SUMINISTROS <br />
+                  RECIBIDO POR
+                </div>
+              </div>
+              <div class="">
+                <div class="text-center">
+                  SISTEMA SISAL <br />
+                  REGISTRADO POR
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="modal-footer d-flex justify-content-center">
+          <!-- <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
+          class="btn btn-primary">
+          Imprimir
+        </button> -->
+
+          <!-- <button type="button" (click)="imp()" class="btn btn-primary">Imprimir2</button> -->
         </div>
       </div>
     </div>
