@@ -30,7 +30,7 @@ export class PrestamosIndexComponent {
 
   tipos = [
     {
-      "name": "Credito",
+      "name": "Crédito",
       "slug": "credito",
     },
     {

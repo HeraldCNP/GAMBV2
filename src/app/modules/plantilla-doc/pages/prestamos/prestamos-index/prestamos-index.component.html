@@ -27,16 +27,16 @@
             <table class="table table-sm table-hover">
               <thead>
                 <tr>
-                  <th>Numero</th>
+                  <th>Número</th>
                   <th>Tipo</th>
                   <th>Nombre</th>
                   <th>Fecha de Firma</th>
                   <th>Monto</th>
                   <th>Total Pagado</th>
-                  <th>Saldo Amortizacion</th>
-                  <th>Interes</th>
+                  <th>Saldo Amortización</th>
+                  <th>Interés</th>
                   <th>Estado</th>
-                  <th>Amortizacion</th>
+                  <th>Amortización</th>
                   <th>Archivos</th>
                   <th>Acciones</th>
                 </tr>
@@ -44,14 +44,14 @@
               <tbody>
                 <tr *ngFor="let prestamo of prestamos.serverResponse; let i = index; first as first">
 
-                  <td class="off-p text-end">{{ prestamo.numero }}</td>
+                  <td class="off-p text-center">{{ prestamo.numero }}</td>
                   <td>{{ prestamo.tipo }}</td>
                   <td>{{ prestamo.nombre }}</td>
                   <td>{{ prestamo.fechaFirma | date:'mediumDate': 'UTC' }}</td>
                   <td class="off-p text-end">{{ prestamo.monto | currency : "USD" : "" }}</td>
                   <td class="off-p text-end">{{ prestamo.monto - prestamo.saldoA | currency : "USD" : ""  }}</td>
                   <td class="off-p text-end">{{ prestamo.saldoA | currency : "USD" : "" }}</td>
-                  <td class="off-p text-end">{{ prestamo.interes }}</td>
+                  <td class="off-p text-center">{{ prestamo.interes }}%</td>
                   <!-- <td>{{ prestamo.estado }}</td> -->
                   <!-- <td><a href="{{ URL+'/'+prestamo.uri }}" target="_blank">Descargar</a></td> -->
                   <!-- <td>
@@ -59,16 +59,8 @@
                     <span *ngIf="prestamo.fechaFin" class="badge text-bg-danger">No Vigente</span>
                   </td> -->
                   <td>
-                    <div class="form-check form-switch">
-                      <span *ngIf="prestamo.estado == '1'">
-                        <input class="form-check-input pointer" (change)="changeStatus(prestamo._id, !prestamo.estado)"
-                          type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Vigente
-                      </span>
-                      <span *ngIf="prestamo.estado == '0'">
-                        <input class="form-check-input pointer" (change)="changeStatus(prestamo._id, !prestamo.estado)"
-                          type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />No Vigente
-                      </span>
-                    </div>
+                    <span *ngIf="prestamo.saldoA >= 0" class="badge text-bg-success">Vigente</span>
+                    <span *ngIf="prestamo.saldoA <= 0" class="badge text-bg-danger">No Vigente</span>
                   </td>
                   <td>
                     <i class="fas fa-eye ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalViewAmorti"
@@ -152,7 +144,7 @@
           </div>
 
           <div class="mb-1">
-            <label for="interes" class="form-label">interes *</label>
+            <label for="interes" class="form-label">Interés *</label>
             <input type="number" class="form-control" id="interes" formControlName="interes" required />
             <div class="form-text" *ngIf="form['interes'].touched && form['interes'].invalid">
               <div *ngIf="form['interes'].errors && form['interes'].errors['required']">
@@ -294,7 +286,7 @@
             <tr>
               <th>Periodo</th>
               <th>Monto</th>
-              <th>Interes</th>
+              <th>Interés</th>
               <th>Fecha de Pago</th>
               <!-- <th>Estado</th>
                -->

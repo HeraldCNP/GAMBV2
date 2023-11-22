@@ -1,47 +1,55 @@
-<h1 class="text-center">Prestamos</h1>
+<h1 class="text-center">Préstamos</h1>
 
 
 <div class="accordion" id="accordionPanelsStayOpenExample">
   <div *ngFor="let tipo of tipos; let i=index; let first = first" class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-'+i"
-        aria-expanded="true" [attr.aria-controls]="'panel-'+i">
-        <span class="textHead" *ngIf="tipo[0].tipo == 'credito'">{{ 'Creditos' | uppercase }}</span>
+      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel-'+i" aria-expanded="true" [attr.aria-controls]="'panel-'+i">
+        <span class="textHead" *ngIf="tipo[0].tipo == 'credito'">{{ 'Créditos' | uppercase }}</span>
         <span class="textHead" *ngIf="tipo[0].tipo == 'fideicomiso'">{{ 'Fideicomisos'| uppercase }}</span>
       </button>
     </h2>
     <div [id]="'panel-'+i" class="accordion-collapse collapse show">
       <div class="accordion-body">
         <div class="row">
-          <table class="table table-hover">
+          <table class="table table-sm table-hover">
             <thead>
               <tr>
-                <th>Numero</th>
-                <th>Monto</th>
-                <th>Interes</th>
-                <th>Saldo Amortizacion</th>
-                <th>Tipo</th>
+                <th>Número</th>
                 <th>Nombre</th>
                 <th>Fecha de Firma</th>
+                <th>Monto</th>
+                <th>Total Pagado</th>
+                <th>Saldo Amortización</th>
+                <th>Interés</th>
+                <th>Estado</th>
+                <th>Amortización</th>
+                <th>Archivos</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let prestamo of tipo; let i = index; first as first">
 
-                <td>{{ prestamo.numero }}</td>
-                <td>{{ prestamo.monto }}</td>
-                <td>{{ prestamo.interes }}</td>
-                <td>{{ prestamo.saldoA }}</td>
-                <td>{{ prestamo.tipo }}</td>
+                <td class="text-center">{{ prestamo.numero }}</td>
                 <td>{{ prestamo.nombre }}</td>
-                <td>{{ prestamo.fechaFirma | date:'longDate': 'UTC' }}</td>
+                <td>{{ prestamo.fechaFirma | date:'mediumDate': 'UTC' }}</td>
+                <td class="off-p text-end">{{ prestamo.monto | currency : "USD" : "" }}</td>
+                <td class="off-p text-end">{{ prestamo.monto - prestamo.saldoA | currency : "USD" : "" }}</td>
+                <td class="off-p text-end">{{ prestamo.saldoA | currency : "USD" : "" }}</td>
+                <td class="off-p text-center">{{ prestamo.interes }}%</td>
                 <!-- <td>{{ prestamo.estado }}</td> -->
                 <!-- <td><a href="{{ URL+'/'+prestamo.uri }}" target="_blank">Descargar</a></td> -->
                 <!-- <td>
                   <span *ngIf="!prestamo.fechaFin" class="badge text-bg-success">Vigente</span>
                   <span *ngIf="prestamo.fechaFin" class="badge text-bg-danger">No Vigente</span>
                 </td> -->
-
+                <td>
+                  <span *ngIf="prestamo.saldoA >= 0" class="badge text-bg-success">Vigente</span>
+                  <span *ngIf="prestamo.saldoA <= 0" class="badge text-bg-danger">No Vigente</span>
+                </td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
