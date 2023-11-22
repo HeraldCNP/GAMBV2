@@ -13,7 +13,7 @@
     <div [id]="'panel-'+i" class="accordion-collapse collapse show">
       <div class="accordion-body">
         <div class="row">
-          <table class="table table-sm table-hover">
+          <table class="table table-sm table-hover table-bordered">
             <thead>
               <tr>
                 <th>Número</th>
@@ -24,8 +24,8 @@
                 <th>Saldo Amortización</th>
                 <th>Interés</th>
                 <th>Estado</th>
-                <th>Amortización</th>
-                <th>Archivos</th>
+                <th>Reporte</th>
+                <th>Documentos</th>
               </tr>
             </thead>
             <tbody>
@@ -49,7 +49,14 @@
                   <span *ngIf="prestamo.saldoA <= 0" class="badge text-bg-danger">No Vigente</span>
                 </td>
                 <td></td>
-                <td></td>
+                <td class="">
+                  <i *ngFor="let file of prestamo.archivos">
+
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.documento }}</a>
+                    <br />
+                  </i>
+                  <!-- <a href="{{ URL + '/' + documento.uri }}" target="_blank">{{ documento.archivo }}</a> -->
+                </td>
               </tr>
             </tbody>
           </table>

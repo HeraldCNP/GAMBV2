@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { PrestamosService } from 'src/app/modules/plantilla-doc/services/prestamos.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-prestamos',
@@ -9,6 +10,7 @@ import { PrestamosService } from 'src/app/modules/plantilla-doc/services/prestam
 export class PrestamosComponent {
   prestamos:any = [];
   tipos:any;
+  URL = environment.api;
   private prestamoService = inject(PrestamosService);
 
   ngOnInit(): void {
