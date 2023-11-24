@@ -82,7 +82,7 @@
                       data-bs-target="#modalAddFilePrestamo" (click)="getId(prestamo._id)"></i>
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(prestamo)"></i>
-                    <i (click)="deleteDocumento(prestamo._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                    <i (click)="deletePrestamo(prestamo._id)" class="fas fa-trash-alt ml-3 icono"></i>
                   </td>
                 </tr>
               </tbody>
@@ -97,14 +97,14 @@
 </div>
 
 
-<!-- Modal addFile -->
+<!-- Modal Create Prestamo -->
 <div class="modal fade" id="modalAddFile" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalAddFileLabel"
   aria-hidden="true" *ngIf="!progress">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalAddFileLabel">
-          Añadir Documento
+          Añadir Prestamo
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -119,7 +119,7 @@
 
           <div class="mb-1">
             <label for="numero" class="form-label">Número *</label>
-            <input type="number" class="form-control" id="numero" formControlName="numero" required />
+            <input type="text" class="form-control" id="numero" formControlName="numero" required />
             <div class="form-text" *ngIf="form['numero'].touched && form['numero'].invalid">
               <div *ngIf="form['numero'].errors && form['numero'].errors['required']">
                 * El Número es Requerido.
@@ -217,7 +217,7 @@
 </div>
 
 
-<!-- Modal Create Prestamo -->
+<!-- Modal add Document Prestamo -->
 <div class="modal fade" id="modalAddFilePrestamo" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="modalAddFilePrestamoLabel" aria-hidden="true" *ngIf="!progress">
   <div class="modal-dialog">
@@ -343,86 +343,89 @@
 
 
 <!-- Modal Edit -->
-<!-- <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="modalEditLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalEditLabel">
-          Editar Documento
+          Editar Prestamo
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="editDocumento()" [formGroup]="editForm">
+        <form (ngSubmit)="editPrestamo()" [formGroup]="editForm">
           <div class="mb-1">
-            <label for="tipo_normativa" class="form-label col-auto">Tipo *</label>
-            <ngx-select [allowClear]="true" [items]="tipos.serverResponse" optionTextField="tipo"
-              optionValueField="_id" placeholder="Seleccione una opción" formControlName="tipo_normativa">
+            <label for="tipo" class="form-label col-auto">Tipo *</label>
+            <ngx-select [allowClear]="true" [items]="tipos" optionTextField="name" optionValueField="slug"
+              placeholder="Seleccione una opción" formControlName="tipo">
             </ngx-select>
           </div>
 
-
           <div class="mb-1">
-            <label for="titulo" class="form-label">titulo *</label>
-            <input type="text" class="form-control" id="titulo" formControlName="titulo" required />
-            <div class="form-text" *ngIf="form['titulo'].touched && form['titulo'].invalid">
-              <div *ngIf="
-                  form['titulo'].errors &&
-                  form['titulo'].errors['required']
-                ">
-                * El título es Requerido.
+            <label for="numero" class="form-label">Número *</label>
+            <input type="text" class="form-control" id="numero" formControlName="numero" required />
+            <div class="form-text" *ngIf="form3['numero'].touched && form3['numero'].invalid">
+              <div *ngIf="form3['numero'].errors && form3['numero'].errors['required']">
+                * El Número es Requerido.
               </div>
-              <div *ngIf="
-                  form['titulo'].errors &&
-                  form['titulo'].errors['minlength']
-                ">
-                * El título no puede tener menos de 3 caracteres.
+              <div *ngIf="form['numero'].errors && form['numero'].errors['minlength']">
+                * El Número no puede tener menos de 3 caracteres.
               </div>
             </div>
           </div>
 
           <div class="mb-1">
-            <label for="fecha" class="form-label">Fecha de Aprobación *</label>
-            <input type="date" class="form-control" id="fecha" formControlName="fecha" required>
-            <div class="form-text " *ngIf="form['fecha'].touched && form['fecha'].invalid">
-              <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">*
-                El fecha es requerido.</div>
-              <div *ngIf="form['fecha'].errors && form['fecha'].errors['minlength']">
-                El detalle no puede tener menos de 3 caracteres.</div>
+            <label for="monto" class="form-label">Monto *</label>
+            <input type="number" class="form-control" id="monto" formControlName="monto" required />
+            <div class="form-text" *ngIf="form3['monto'].touched && form3['monto'].invalid">
+              <div *ngIf="form3['monto'].errors && form3['monto'].errors['required']">
+                * El Número es Requerido.
+              </div>
+              <div *ngIf="form3['monto'].errors && form3['monto'].errors['minlength']">
+                * El Número no puede tener menos de 3 caracteres.
+              </div>
             </div>
           </div>
 
           <div class="mb-1">
-            <label for="fechaFin" class="form-label">Fecha de Finalización</label>
-            <input type="date" class="form-control" id="fechaFin" formControlName="fechaFin">
-            <div class="form-text " *ngIf="form['fechaFin'].touched && form['fechaFin'].invalid">
-              <div *ngIf="form['fechaFin'].errors && form['fechaFin'].errors['required']">*
-                El fechaFin es requerido.</div>
-              <div *ngIf="form['fechaFin'].errors && form['fechaFin'].errors['minlength']">
-                El detalle no puede tener menos de 3 caracteres.</div>
+            <label for="interes" class="form-label">Interés *</label>
+            <input type="number" class="form-control" id="interes" formControlName="interes" required />
+            <div class="form-text" *ngIf="form3['interes'].touched && form3['interes'].invalid">
+              <div *ngIf="form3['interes'].errors && form3['interes'].errors['required']">
+                * El Número es Requerido.
+              </div>
+              <div *ngIf="form['interes'].errors && form['interes'].errors['minlength']">
+                * El Número no puede tener menos de 3 caracteres.
+              </div>
             </div>
           </div>
 
-          <div class="mb-2">
-            <label for="archivo" class="form-label">Archivo</label>
-            <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
-              formControlName="archivo" (change)="onChange($event)" />
-            <div class="form-text" *ngIf="form['archivo'].touched && form['archivo'].invalid">
-              <div *ngIf="
-                  form['archivo'].errors &&
-                  form['archivo'].errors['required']
-                ">
-                * archivo es Requerido.
+          <div class="mb-1">
+            <label for="nombre" class="form-label">Nombre *</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" required />
+            <div class="form-text" *ngIf="form3['nombre'].touched && form3['nombre'].invalid">
+              <div *ngIf="form3['nombre'].errors && form3['nombre'].errors['required']">
+                * El Número es Requerido.
               </div>
-            </div>
-            <div class="progress mt-1" *ngIf="progress > 0">
-              <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'" aria-valuemin="0"
-                aria-valuemax="100">
-                {{ progress + "%" }}
+              <div *ngIf="form3['nombre'].errors && form3['nombre'].errors['minlength']">
+                * El Número no puede tener menos de 3 caracteres.
               </div>
             </div>
           </div>
+
+          <div class="mb-1">
+            <label for="fechaFirma" class="form-label">Fecha de Firma *</label>
+            <input type="date" class="form-control" id="fechaFirma" formControlName="fechaFirma">
+            <div class="form-text " *ngIf="form3['fechaFirma'].touched && form3['fechaFirma'].invalid">
+              <div *ngIf="form3['fechaFirma'].errors && form3['fechaFirma'].errors['required']">*
+                El fechaFirma es requerido.</div>
+              <div *ngIf="form3['fechaFirma'].errors && form3['fechaFirma'].errors['minlength']">
+                El fechaFirma no puede tener menos de 3 caracteres.</div>
+            </div>
+          </div>
+
+
           {{ editForm.value | json }}
 
           <div class="modal-footer">
@@ -437,4 +440,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

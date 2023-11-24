@@ -78,11 +78,12 @@ export class PrestamosIndexComponent {
 
 
     this.editForm = this.fb.group({
-      titulo: ['', [Validators.required]],
-      fecha: [''],
-      fechaFin: [''],
-      archivo: [''],
-      tipo_normativa: ['', [Validators.required]],
+      numero: ['', [Validators.required]],
+      monto: [''],
+      interes: [''],
+      tipo: [''],
+      nombre: [''],
+      fechaFirma: [''],
       // idUsuario: ['']
     });
   }
@@ -100,7 +101,7 @@ export class PrestamosIndexComponent {
       });
   }
 
-  getPrestamo(prestamo:any){
+  getPrestamo(prestamo: any) {
     this.prestamoSingle = prestamo;
     // console.log(this.prestamoSingle);
   }
@@ -160,7 +161,7 @@ export class PrestamosIndexComponent {
       );
   }
 
-  borrarArchivo(id:any){
+  borrarArchivo(id: any) {
     // console.log(id);
     Swal.fire({
       title: 'Estas seguro?',
@@ -187,7 +188,7 @@ export class PrestamosIndexComponent {
     })
   }
 
-  deleteDocumento(id: string) {
+  deletePrestamo(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: "¡No podrás revertir esto!",
@@ -199,21 +200,32 @@ export class PrestamosIndexComponent {
       confirmButtonText: '¡Sí, bórralo!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          '¡Eliminado!',
-          'El Documento ha sido eliminado.',
-          'success'
-        )
-        this.prestamoService.deleteDocNormativa(id).subscribe(
-          res => console.log(res),
-          err => console.log('HTTP Error', err),
-          () => this.getPrestamos()
+        this.prestamoService.deletePrestamo(id).subscribe(
+          res => {
+            console.log(res);
+            Swal.fire(
+              '¡Eliminado!',
+              'El Prestamo ha sido eliminado.',
+              'success'
+            )
+          },
+          err => {
+            console.log('HTTP Error', err);
+            Swal.fire(
+              '¡Alto',
+              err.error.serverResponse,
+              'error'
+            )
+          },
+          () => {
+            return this.getPrestamos();
+          }
         );
       }
     })
   }
 
-  deleteAmorti(id: string){
+  deleteAmorti(id: string) {
     Swal.fire({
       title: 'Estas seguro?',
       text: "¡No podrás revertir esto!",
@@ -245,6 +257,10 @@ export class PrestamosIndexComponent {
 
   get form2() {
     return this.addFileForm.controls;
+  }
+
+  get form3() {
+    return this.editForm.controls;
   }
 
   onChange($event: any) {
@@ -299,50 +315,25 @@ export class PrestamosIndexComponent {
 
   }
 
-  cargarDataEdit(documento: any) {
+  cargarDataEdit(prestamo: any) {
     // console.log("Rendi Edit", pei)
-    if (documento.fechaFin) {
-      this.editForm.setValue({
-        titulo: documento.titulo,
-        fecha: documento.fecha.substr(0, 10),
-        fechaFin: documento.fechaFin.substr(0, 10),
-        archivo: null,
-        tipo_normativa: documento.tipo_normativa._id,
-      });
-    } else {
-      this.editForm.setValue({
-        titulo: documento.titulo,
-        fecha: documento.fecha.substr(0, 10),
-        fechaFin: '',
-        archivo: null,
-        tipo_normativa: documento.tipo_normativa._id,
-      });
-    }
-
-    this.idPrestamo = documento._id;
+    this.editForm.setValue({
+      numero: prestamo.numero,
+      monto: prestamo.monto,
+      interes: prestamo.interes,
+      tipo: prestamo.tipo,
+      nombre: prestamo.nombre,
+      fechaFirma: prestamo.fechaFirma.substr(0, 10),
+    });
+    this.idPrestamo = prestamo._id;
   }
 
-  editDocumento() {
-    let fd = new FormData();
 
-    if (this.files[0]) {
-      fd.append('tipo_normativa', this.editForm.value.tipo_normativa);
-      fd.append('titulo', this.editForm.value.titulo);
-      fd.append('fecha', this.editForm.value.fecha);
-      fd.append('fechaFin', this.editForm.value.fechaFin);
-      fd.append('file', this.files[0]);
-    } else {
-      fd.append('tipo_normativa', this.editForm.value.tipo_normativa);
-      fd.append('titulo', this.editForm.value.titulo);
-      fd.append('fecha', this.editForm.value.fecha);
-      fd.append('fechaFin', this.editForm.value.fechaFin);
-    }
 
-    // let fd = new FormData();
+  editPrestamo() {
 
-    console.log(this.idPrestamo)
 
-    this.prestamoService.editarDocNormativa(fd, this.idPrestamo).subscribe(
+    this.prestamoService.editarPrestamo(this.editForm.value, this.idPrestamo).subscribe(
       (res) => {
         console.log(res);
       },
@@ -354,7 +345,7 @@ export class PrestamosIndexComponent {
         this.alertOk(
           'success',
           'Exito',
-          'Documento editado Correctamente',
+          'Prestamo editado Correctamente',
           '2000'
         );
         this.getPrestamos();
@@ -362,7 +353,7 @@ export class PrestamosIndexComponent {
     );
   }
 
-  addAmorti(id:string){
+  addAmorti(id: string) {
     console.log(id);
     this.router.navigate(['doc/plantillas/addAmortizacion', id]);
     // this.router.navigate(['doc/compra/update', id]);

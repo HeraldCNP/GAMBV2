@@ -35,13 +35,13 @@ export class PrestamosService {
       return this.http.post<any>(dir, fd)
     }
 
-    editarDocNormativa(fd: FormData, id: string): Observable<any> {
-      let dir = `${this.URL}/uploadNormativa/${id}`;
-      return this.http.post<any>(dir, fd)
+    editarPrestamo(fd: FormData, id: string): Observable<any> {
+      let dir = `${this.URL}/prestamo/${id}`;
+      return this.http.put<any>(dir, fd)
     }
 
-    deleteDocNormativa(id: any): Observable<any> {
-      let dir = `${this.URL}/normativa/${id}`;
+    deletePrestamo(id: any): Observable<any> {
+      let dir = `${this.URL}/prestamo/${id}`;
       return this.http.delete<any>(dir, id)
     }
 

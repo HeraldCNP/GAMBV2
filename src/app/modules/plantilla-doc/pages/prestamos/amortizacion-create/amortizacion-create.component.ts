@@ -107,7 +107,7 @@ export class AmortizacionCreateComponent {
   }
 
   cancel() {
-    this.router.navigate(['docAdmin/poa/index']);
+    this.router.navigate(['doc/prestamos/index']);
   }
 
 }

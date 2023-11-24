@@ -116,7 +116,7 @@
                 <div>
                   <div class=" text-bold pl-1">
                     NÚMERO: <br />
-                    MONTO:<br />
+                    CRÉDITO:<br />
                   </div>
                 </div>
                 <div class=" ml-3 mb-0">
@@ -126,11 +126,11 @@
                     <b>NOMBRE:</b> {{ singlePrestamo.nombre }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>FECHA DE FIRMA:</b>
                     {{ singlePrestamo.fechaFirma | date : "longDate" : "UTC" }} <br />
                     {{ singlePrestamo.monto | currency : "USD" : "" }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <b>TOTAL PAGADO:</b> {{
+                    <b>AMORTIZACIÓN</b> {{
                     singlePrestamo.monto - singlePrestamo.saldoA | currency : "USD" : "" }}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>SALDO AMORTIZACIÓN:</b> {{ singlePrestamo.saldoA |
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>SALDO:</b> {{ singlePrestamo.saldoA |
                     currency : "USD" : "" }}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>TOTAL INTERES PAGADO:</b> {{ totalInteres |
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>INTERES PAGADO:</b> {{ totalInteres |
                       currency : "USD" : "" }}
                   </div>
                 </div>
@@ -142,7 +142,7 @@
                     <thead class="backColor">
                       <tr>
                         <th>Periodo</th>
-                        <th>Monto</th>
+                        <th>Amortización</th>
                         <th>Interés</th>
                         <th>Fecha de Pago</th>
                         <!-- <th>Estado</th> -->

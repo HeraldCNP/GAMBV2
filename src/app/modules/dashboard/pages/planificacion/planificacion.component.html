@@ -1,0 +1,158 @@
+<h1 class="text-center">PLANIFICACIÓN</h1>
+
+<!-- POA -->
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel-1'" aria-expanded="true" [attr.aria-controls]="'panel-1'">
+        <span class="textHead">POA</span>
+      </button>
+    </h2>
+    <div [id]="'panel-1'" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <div class="row">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Gestión</th>
+                <th>Descripción</th>
+                <th>Documentos</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="this.poas">
+              <tr *ngFor="let poa of poas.serverResponse; let i = index">
+                <td>{{ poa.gestion }}</td>
+                <td>{{ poa.descripcion }}</td>
+                <!-- <td><a href="{{ URL+'/'+poa.uri }}" target="_blank">Descargar</a></td> -->
+                <td class="text-center">
+                  <i *ngFor="let file of poa.archivo">
+
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.descripcion }}</a>
+                    <br />
+                  </i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div *ngFor="let document of tipo.normativa" class="col">
+            <div class="card text-center mb-3" style="width: 18rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.titulo }}</h6>
+                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }}</p>
+                <a class="btn btn-info" href="{{ URL+'/'+document.uri }}" target="_blank"> <i class="fas fa-download"></i> Descargar</a>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PTDI -->
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel-2'" aria-expanded="true" [attr.aria-controls]="'panel-2'">
+        <span class="textHead">PTDI</span>
+      </button>
+    </h2>
+    <div [id]="'panel-2'" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <div class="row">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Gestión</th>
+                <th>Descripción</th>
+                <th>Documento</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="this.ptdis">
+              <tr *ngFor="let ptdi of ptdis.serverResponse; let i = index">
+
+                <td>{{ ptdi.gestion }}</td>
+                <td>{{ ptdi.descripcion }}</td>
+                <!-- <td><a href="{{ URL+'/'+ptdi.uri }}" target="_blank">Descargar</a></td> -->
+                <td class="">
+                  <!-- <i *ngFor="let file of ptdi.archivo">
+                    {{ file.descripcion }}
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank"><i class="fas fa-file-download "></i></a>
+                    <br />
+                  </i> -->
+
+                  <a href="{{ URL + '/' + ptdi.uri }}" target="_blank">{{ ptdi.archivo }}</a>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div *ngFor="let document of tipo.normativa" class="col">
+            <div class="card text-center mb-3" style="width: 18rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.titulo }}</h6>
+                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }}</p>
+                <a class="btn btn-info" href="{{ URL+'/'+document.uri }}" target="_blank"> <i class="fas fa-download"></i> Descargar</a>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PEI -->
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel-3'" aria-expanded="true" [attr.aria-controls]="'panel-3'">
+        <span class="textHead">PEI</span>
+      </button>
+    </h2>
+    <div [id]="'panel-3'" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <div class="row">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Gestión</th>
+                <th>Descripción</th>
+                <th>Documento</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="this.peis">
+              <tr *ngFor="let pei of peis.serverResponse; let i = index">
+                <td>{{ pei.gestion }}</td>
+                <td>{{ pei.descripcion }}</td>
+                <!-- <td><a href="{{ URL+'/'+pei.uri }}" target="_blank">Descargar</a></td> -->
+                <td class="">
+                  <!-- <i *ngFor="let file of pei.archivo">
+                    {{ file.descripcion }}
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank"><i class="fas fa-file-download "></i></a>
+                    <br />
+                  </i> -->
+
+                  <a href="{{ URL + '/' + pei.uri }}" target="_blank">{{ pei.archivo }}</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div *ngFor="let document of tipo.normativa" class="col">
+            <div class="card text-center mb-3" style="width: 18rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.titulo }}</h6>
+                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }}</p>
+                <a class="btn btn-info" href="{{ URL+'/'+document.uri }}" target="_blank"> <i class="fas fa-download"></i> Descargar</a>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
