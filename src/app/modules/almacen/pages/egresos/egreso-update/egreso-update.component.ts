@@ -78,10 +78,11 @@ export class EgresoUpdateComponent {
           'catProgra': product.catProgra,
           'partidaGasto': product.idCompra.idArticulo.idPartida.codigo,
           'articulo': product.idCompra.idArticulo.nombre,
-          'cantidadCompra': product.idCompra.cantidadCompra,
+          'cantidadCompra': product.cantidadSalida,
           'unidadMedida': product.idCompra.idArticulo.unidadDeMedida,
           'precio': product.idCompra.precio,
-          'idSalida': product._id
+          'idSalida': product._id,
+          'idCompra': product.idCompra._id
         };
         // console.log("recorriendo2", productTemp)
         this.listadeArticulos.push(productTemp);
@@ -180,7 +181,6 @@ export class EgresoUpdateComponent {
           this.alertOk('success', 'Exito', 'Salida Editada Correctamente', '2000')
       }
     );
-
   }
 
   alertOk(icon: any, title: any, text: any, timer: any) {
