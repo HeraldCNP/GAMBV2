@@ -8,6 +8,8 @@ import { DocNormativaComponent } from './pages/normativas/doc-normativa/doc-norm
 import { TiposNormativaComponent } from './pages/normativas/tipos-normativa/tipos-normativa.component';
 import { PrestamosIndexComponent } from './pages/prestamos/prestamos-index/prestamos-index.component';
 import { AmortizacionCreateComponent } from './pages/prestamos/amortizacion-create/amortizacion-create.component';
+import { EjecucionPresupuestariaComponent } from './pages/ejecucion-presupuestaria/ejecucion-presupuestaria.component';
+import { EvaluacionComponent } from './pages/evaluacion/evaluacion.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,8 @@ const routes: Routes = [
       { path: 'normativas/doc/index', component: DocNormativaComponent },
       { path: 'prestamos/index', component: PrestamosIndexComponent },
       { path: 'plantillas/addAmortizacion/:id', component: AmortizacionCreateComponent },
+      { path: 'ejecucion-presupuestaria/index', component: EjecucionPresupuestariaComponent },
+      { path: 'evaluacion/index', component: EvaluacionComponent },
     ]
   }
 ];

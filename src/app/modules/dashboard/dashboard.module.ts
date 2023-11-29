@@ -8,6 +8,8 @@ import { PlantillasComponent } from './pages/plantillas/plantillas.component';
 import { NormativasComponent } from './pages/normativas/normativas.component';
 import { PrestamosComponent } from './pages/prestamos/prestamos/prestamos.component';
 import { PlanificacionComponent } from './pages/planificacion/planificacion.component';
+import { EjecucionPresupuestariaComponent } from './pages/ejecucion-presupuestaria/ejecucion-presupuestaria.component';
+import { SeguimientoEvaluacionComponent } from './pages/seguimiento-evaluacion/seguimiento-evaluacion.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { PlanificacionComponent } from './pages/planificacion/planificacion.comp
     PlantillasComponent,
     NormativasComponent,
     PrestamosComponent,
-    PlanificacionComponent
+    PlanificacionComponent,
+    EjecucionPresupuestariaComponent,
+    SeguimientoEvaluacionComponent
   ],
   imports: [
     CommonModule,

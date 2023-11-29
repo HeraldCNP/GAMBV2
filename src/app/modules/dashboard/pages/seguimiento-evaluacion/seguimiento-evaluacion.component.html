@@ -1,54 +1,45 @@
-<h1 class="text-center">Normativas</h1>
+<h1 class="text-center">Seguimiento y Evaluación</h1>
 
 
 <div class="accordion" id="accordionPanelsStayOpenExample">
-  <div *ngFor="let tipo of tipos; let i=index; let first = first" class="accordion-item">
+  <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-'+i"
-        aria-expanded="true" [attr.aria-controls]="'panel-'+i">
-        <span class="textHead">{{ tipo.tipo | uppercase }}</span>
+      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel'" aria-expanded="true" [attr.aria-controls]="'panel'">
+        <span class="textHead">{{ 'Seguimiento y Evaluación'| uppercase }}</span>
       </button>
     </h2>
-    <div [id]="'panel-'+i" class="accordion-collapse collapse">
+    <div [id]="'panel'" class="accordion-collapse collapse show">
       <div class="accordion-body">
         <div class="row">
-          <table class="table table-hover">
+          <table class="table table-sm table-hover table-bordered">
             <thead>
               <tr>
-                <th>N°</th>
-                <th style="width: 900px;">Título</th>
-                <th>Fecha de Aprobación</th>
-                <th>Fecha de Finalización</th>
-                <th>Documento</th>
-                <th>Estado</th>
+                <th>Gestión</th>
+                <th>Mes</th>
+                <th>Titulo</th>
+                <th>Archivos</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let documento of tipo.normativa; let i = index">
-                <td>{{ i+1 }}</td>
+              <tr *ngFor="let documento of evaluaciones.serverResponse; let i = index; first as first">
+
+                <td>{{ documento.gestion }}</td>
+                <td>{{ documento.mes | date:"MMMM" }}</td>
                 <td>{{ documento.titulo }}</td>
-                <td>{{ documento.fecha | date:'mediumDate': 'UTC' }}</td>
-                <td>{{ documento.fechaFin | date:'mediumDate': 'UTC' }}</td>
-                <td><a href="{{ URL+'/'+documento.uri }}" target="_blank">Descargar</a></td>
-                <td>
-                  <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
-                  <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                <td class="">
+                  <i *ngFor="let file of documento.archivos">
+
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.documento }}</a>
+                    <br />
+                  </i>
+                  <!-- <a href="{{ URL + '/' + documento.uri }}" target="_blank">{{ documento.archivo }}</a> -->
                 </td>
                 <!-- <td>
-                  <div class="form-check form-switch">
-                    <span *ngIf="documento.vigente == '1'">
-                      <input class="form-check-input pointer"
-                        (change)="changeStatus(documento._id, !documento.vigente)" type="checkbox" [checked]="true"
-                        role="switch" id="{{ 'toogle' + i }}" />Vigente
-                    </span>
-                    <span *ngIf="documento.vigente == '0'">
-                      <input class="form-check-input pointer"
-                        (change)="changeStatus(documento._id, !documento.vigente)" type="checkbox" [checked]="false"
-                        role="switch" id="{{ 'toogle' + i }}" />No Vigente
-                    </span>
-                  </div>
-                </td>
-                <td>
+                  <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
+                  <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                </td> -->
+                <!-- <td>
                   <div class="form-check form-switch">
                     <span *ngIf="documento.estado == '1'">
                       <input class="form-check-input pointer"
@@ -61,6 +52,14 @@
                         role="switch" id="{{ 'toogle' + i }}" />No
                     </span>
                   </div>
+                </td> -->
+                <!-- <td class="">
+                  <i *ngFor="let file of documento.archivo">
+                    {{ file.descripcion }}
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank"><i class="fas fa-file-download "></i></a>
+                    <br />
+                  </i>
+                  <a href="{{ URL + '/' + documento.uri }}" target="_blank">{{ documento.archivo }}</a>
                 </td> -->
               </tr>
             </tbody>

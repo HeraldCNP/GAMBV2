@@ -1,0 +1,77 @@
+<h1 class="text-center">Ejecución Presupuestaria</h1>
+
+
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel'" aria-expanded="true" [attr.aria-controls]="'panel'">
+        <span class="textHead">{{ 'Ejecución Presupuestaria'| uppercase }}</span>
+      </button>
+    </h2>
+    <div [id]="'panel'" class="accordion-collapse collapse show">
+      <div class="accordion-body">
+        <div class="row">
+          <table class="table table-sm table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Gestión</th>
+                <th>Nombre</th>
+                <th>Archivos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let documento of docEjecucion.serverResponse; let i = index; first as first">
+
+                <td>{{ documento.gestion }}</td>
+                <td>{{ documento.nombre }}</td>
+                <td class="">
+                  <i *ngFor="let file of documento.archivos">
+
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank">{{ file.documento }}</a>
+                    <br />
+                  </i>
+                  <!-- <a href="{{ URL + '/' + documento.uri }}" target="_blank">{{ documento.archivo }}</a> -->
+                </td>
+                <!-- <td>
+                  <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
+                  <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                </td> -->
+                <!-- <td>
+                  <div class="form-check form-switch">
+                    <span *ngIf="documento.estado == '1'">
+                      <input class="form-check-input pointer"
+                        (change)="changeStatus(documento._id, !documento.estado)" type="checkbox" [checked]="true"
+                        role="switch" id="{{ 'toogle' + i }}" />Sí
+                    </span>
+                    <span *ngIf="documento.estado == '0'">
+                      <input class="form-check-input pointer"
+                        (change)="changeStatus(documento._id, !documento.estado)" type="checkbox" [checked]="false"
+                        role="switch" id="{{ 'toogle' + i }}" />No
+                    </span>
+                  </div>
+                </td> -->
+                <!-- <td class="">
+                  <i *ngFor="let file of documento.archivo">
+                    {{ file.descripcion }}
+                    <a href="{{ URL + '/' + file.uri }}" target="_blank"><i class="fas fa-file-download "></i></a>
+                    <br />
+                  </i>
+                  <a href="{{ URL + '/' + documento.uri }}" target="_blank">{{ documento.archivo }}</a>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <!-- <div *ngFor="let document of tipo.normativa" class="col">
+            <div class="card text-center mb-3" style="width: 18rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ document.titulo }}</h6>
+                <p class="card-text">Publicado: {{ document.fecha | date:'shortDate' }}</p>
+                <a class="btn btn-info" href="{{ URL+'/'+document.uri }}" target="_blank"> <i class="fas fa-download"></i> Descargar</a>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>

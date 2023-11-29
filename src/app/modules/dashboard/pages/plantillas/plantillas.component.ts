@@ -36,7 +36,7 @@ export class PlantillasComponent {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     // console.log(diffDays);
-    return diffDays <= 16;
+    return diffDays <= 9;
   }
 
 }

@@ -36,5 +36,25 @@ export class SidebarComponent {
         },
       ]
     },
+    {
+      label: 'Ejecución Presupuestaria',
+      icon: 'fas fa-file-contract',
+      docs: [
+        {
+          label: 'Ejecución Presupuestaria',
+          url: '/doc/ejecucion-presupuestaria/index'
+        },
+      ]
+    },
+    {
+      label: 'Seguimiento y Evaluación',
+      icon: 'fas fa-file-contract',
+      docs: [
+        {
+          label: 'Seguimiento y Evaluación',
+          url: '/doc/evaluacion/index'
+        },
+      ]
+    },
   ];
 }

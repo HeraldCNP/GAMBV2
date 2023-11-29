@@ -1,0 +1,327 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+            <!-- <h3 class="card-title">Documentos de </h3> -->
+            <div class="card-tools">
+              <span class="mr-3">
+                <button data-bs-toggle="modal" data-bs-target="#modalCreateEjecucion" class="btn btn-primary">
+                  Agregar Nuevo
+                </button>
+              </span>
+              <!-- <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div> -->
+            </div>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>Gestión</th>
+                  <th>Mes</th>
+                  <th>Titulo</th>
+                  <th>Archivos</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let documento of docEjecucion.serverResponse; let i = index; first as first">
+
+                  <td>{{ documento.gestion }}</td>
+                  <td>{{ documento.mes | date:"MMMM" }}</td>
+                  <td>{{ documento.titulo }}</td>
+                  <td class="">
+                    <i *ngFor="let file of documento.archivos">
+                      <i (click)="borrarArchivo(file._id)" class="fas fa-trash-alt icono"></i>
+                      {{ file.documento }}
+                      <a href="{{ URL + '/' + file.uri }}" target="_blank"><i
+                          class="fas fa-file-download text-success"></i></a>
+                      <br />
+                    </i>
+                    <!-- <a href="{{ URL + '/' + documento.uri }}" target="_blank">{{ documento.archivo }}</a> -->
+                  </td>
+                  <!-- <td>
+                    <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
+                    <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                  </td> -->
+                  <!-- <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="documento.estado == '1'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(documento._id, !documento.estado)" type="checkbox" [checked]="true"
+                          role="switch" id="{{ 'toogle' + i }}" />Sí
+                      </span>
+                      <span *ngIf="documento.estado == '0'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(documento._id, !documento.estado)" type="checkbox" [checked]="false"
+                          role="switch" id="{{ 'toogle' + i }}" />No
+                      </span>
+                    </div>
+                  </td> -->
+                  <!-- <td class="">
+                    <i *ngFor="let file of documento.archivo">
+                      {{ file.descripcion }}
+                      <a href="{{ URL + '/' + file.uri }}" target="_blank"><i class="fas fa-file-download "></i></a>
+                      <br />
+                    </i>
+                    <a href="{{ URL + '/' + documento.uri }}" target="_blank">{{ documento.archivo }}</a>
+                  </td> -->
+                  <td>
+                    <!-- <i class="fas fa-plus ml-3 icono" data-bs-to ggle="modal" data-bs-target="#modalAddFile"
+                      (click)="getId(documento._id)"></i> -->
+                      <i class="fas fa-file-upload ml-3 icono" data-bs-toggle="modal"
+                      data-bs-target="#modalAddFileEjecucion" (click)="getId(documento._id)"></i>
+                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(documento)"></i>
+                    <i (click)="deleteEvaluacion(documento._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create -->
+<div class="modal fade" id="modalCreateEjecucion" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalCreateEjecucionLabel" aria-hidden="true" *ngIf="!progress">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalCreateEjecucionLabel">
+          Añadir Documento
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="crearEvaluacion(addForm.value)" [formGroup]="addForm">
+          <div class="mb-1">
+            <label for="titulo" class="form-label">Gestión *</label>
+            <select id="gestion" formControlName="gestion" class="form-select" required>
+
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
+              <option value="2012">2012</option>
+              <option value="2011">2011</option>
+              <option value="2010">2010</option>
+              <option value="2009">2009</option>
+              <option value="2008">2008</option>
+              <option value="2007">2007</option>
+              <option value="2006">2006</option>
+            </select>
+            <div class="form-text" *ngIf="form['gestion'].touched && form['gestion'].invalid">
+              <div *ngIf="form['gestion'].errors && form['gestion'].errors['required']">*
+                Gestion es Requerido.</div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="mes" class="form-label">Mes *</label>
+            <input type="month" formControlName="mes" class="form-control">
+            <div class="form-text" *ngIf="form['mes'].touched && form['mes'].invalid">
+              <div *ngIf="form['mes'].errors && form['mes'].errors['required']">*
+                mes es Requerido.</div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="titulo" class="form-label">titulo *</label>
+            <input type="text" class="form-control" id="titulo" formControlName="titulo" required />
+            <div class="form-text" *ngIf="form['titulo'].touched && form['titulo'].invalid">
+              <div *ngIf="
+                  form['titulo'].errors &&
+                  form['titulo'].errors['required']
+                ">
+                * El título es Requerido.
+              </div>
+              <div *ngIf="
+                  form['titulo'].errors &&
+                  form['titulo'].errors['minlength']
+                ">
+                * El título no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+
+          {{ addForm.value | json }}
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="addForm.invalid">
+              Añadir
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalEditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">
+          Editar Documento
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editEvaluacion()" [formGroup]="editForm">
+          <div class="mb-1">
+            <label for="titulo" class="form-label">Gestión *</label>
+            <select id="gestion" formControlName="gestion" class="form-select" required>
+              <option value="2023" [defaultSelected]="true">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
+              <option value="2012">2012</option>
+              <option value="2011">2011</option>
+              <option value="2010">2010</option>
+              <option value="2009">2009</option>
+              <option value="2008">2008</option>
+              <option value="2007">2007</option>
+              <option value="2006">2006</option>
+            </select>
+            <div class="form-text" *ngIf="form3['gestion'].touched && form3['gestion'].invalid">
+              <div *ngIf="form3['gestion'].errors && form3['gestion'].errors['required']">*
+                Gestion es Requerido.</div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="mes" class="form-label">Mes *</label>
+            <input type="month" formControlName="mes" class="form-control">
+            <div class="form-text" *ngIf="form['mes'].touched && form['mes'].invalid">
+              <div *ngIf="form['mes'].errors && form['mes'].errors['required']">*
+                mes es Requerido.</div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="titulo" class="form-label">titulo *</label>
+            <input type="text" class="form-control" id="titulo" formControlName="titulo" required />
+            <div class="form-text" *ngIf="form3['titulo'].touched && form3['titulo'].invalid">
+              <div *ngIf="
+                  form3['titulo'].errors &&
+                  form3['titulo'].errors['required']
+                ">
+                * El título es Requerido.
+              </div>
+              <div *ngIf="
+                  form3['titulo'].errors &&
+                  form3['titulo'].errors['minlength']
+                ">
+                * El título no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+          {{ editForm.value | json }}
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="editForm.invalid">
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal add Document Prestamo -->
+<div class="modal fade" id="modalAddFileEjecucion" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="modalAddFileEjecucionLabel" aria-hidden="true" *ngIf="!progress">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalAddFileEjecucionLabel">
+          Añadir Documento
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addArchivo()" [formGroup]="addFileForm">
+
+
+          <div class="mb-2">
+            <label for="documento" class="form-label">Documento</label>
+            <input class="form-control" id="documento" type="text" name="documento" id="documento" accept="documento/*"
+              formControlName="documento" (change)="onChange($event)" />
+            <div class="form-text" *ngIf="form2['documento'].touched && form2['documento'].invalid">
+              <div *ngIf="form2['documento'].errors && form2['documento'].errors['required']">
+                * archivo es Requerido.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label for="archivo" class="form-label">Archivo</label>
+            <input class="form-control" id="archivo" type="file" name="archivo" id="archivo" accept="archivo/*"
+              formControlName="archivo" (change)="onChange($event)" />
+            <div class="form-text" *ngIf="form2['archivo'].touched && form2['archivo'].invalid">
+              <div *ngIf="form2['archivo'].errors && form2['archivo'].errors['required']">
+                * archivo es Requerido.
+              </div>
+            </div>
+            <div class="progress mt-1" *ngIf="progress > 0">
+              <div class="progress-bar bg-danger" role="progressbar" [style.width]="progress + '%'" aria-valuemin="0"
+                aria-valuemax="100">
+                {{ progress + "%" }}
+              </div>
+            </div>
+          </div>
+          {{ addFileForm.value | json }}
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="addFileForm.invalid">
+              Añadir
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
