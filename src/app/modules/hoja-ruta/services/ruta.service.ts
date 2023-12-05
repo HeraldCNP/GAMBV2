@@ -41,6 +41,7 @@ export class RutaService {
     let dir = `${this.URL}/seguiTotales?destino=${destino}&dategt=${dategt}&datelt=${datelt}`;
     return this.http.get<any>(dir)
   }
+
   getPendientes(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
     const header = this.headers;
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}`;

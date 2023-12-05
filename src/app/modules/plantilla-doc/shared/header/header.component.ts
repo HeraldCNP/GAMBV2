@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class HeaderComponent {
   user: any;
   data: any;
+
 
   menuItems = [
     {
@@ -78,8 +80,8 @@ export class HeaderComponent {
 
   constructor(
     private cookieService: CookieService,
-    private router: Router
-
+    private router: Router,
+    private authService: AuthService
   ) {
 
   }
@@ -89,13 +91,8 @@ export class HeaderComponent {
     this.data = JSON.parse(this.user)
   }
 
-
-
-
-  cerrarSesion() {
-    localStorage.removeItem('user');
-    this.cookieService.delete('token');
-    this.router.navigate(['/'])
+  cerrarSesion(){
+    this.authService.logout()
   }
 
 

@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { ComunicacionesService } from '../../services/comunicaciones.service';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit {
     private cookieService: CookieService,
     private router: Router,
     private comunicacionesService: ComunicacionesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService,
   ) {
     this.searchForm = this.fb.group({
       search: [''],
@@ -32,10 +34,8 @@ export class HeaderComponent implements OnInit {
     this.data = JSON.parse(this.user)
   }
 
-  cerrarSesion() {
-    localStorage.removeItem('user');
-    this.cookieService.delete('token');
-    this.router.navigate(['/'])
+  cerrarSesion(){
+    this.authService.logout()
   }
 
   goSearch() {

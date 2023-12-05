@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-index',
@@ -11,7 +12,8 @@ export class IndexComponent {
   user: any;
   data: any;
   constructor(private cookieService: CookieService,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   itemsMenu = [
     { label: 'Aplicaciones', url: '/dashboard/main', icon: 'fas fa-laptop-code' },
@@ -25,10 +27,8 @@ export class IndexComponent {
     this.data = JSON.parse(this.user)
   }
 
-  cerrarSesion() {
-    localStorage.removeItem('user');
-    this.cookieService.delete('token');
-    this.router.navigate(['/'])
+  cerrarSesion(){
+    this.authService.logout()
   }
 
 }

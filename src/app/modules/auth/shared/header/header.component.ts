@@ -27,9 +27,6 @@ export class HeaderComponent implements OnInit {
     this.data = JSON.parse(this.user)
   }
 
-
-
-
   cerrarSesion(){
     this.authService.logout()
   }
