@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,10 +15,11 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private cookieService: CookieService,
-    private router: Router
-    
-    ) { 
-   
+    private router: Router,
+    private authService: AuthService,
+
+    ) {
+
   }
 
   ngOnInit(): void {
@@ -29,9 +31,7 @@ export class HeaderComponent implements OnInit {
 
 
   cerrarSesion(){
-    localStorage.removeItem('user');
-    this.cookieService.delete('token');
-    this.router.navigate(['/'])
+    this.authService.logout()
   }
 
 }

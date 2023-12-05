@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-edit',
@@ -16,39 +17,39 @@ export class UserEditComponent implements OnInit {
   datosUser :any;
   userId: any;
 
-  editarForm:any;
+  editForm:any;
 
   constructor(
-    private activeRouter: ActivatedRoute, 
-    private router: Router, 
+    private activeRouter: ActivatedRoute,
+    private router: Router,
     private api:AuthService,
     private fb: FormBuilder
     ) { }
 
   ngOnInit(): void {
-    this.userId = this.activeRouter.params.subscribe( ({ id }) =>{
-      this.cargarUser(id);
-    })
 
-    this.editarForm = this.fb.group({
+    this.userId = this.activeRouter.snapshot.paramMap.get('id');
+    this.cargarUser(this.userId);
+
+    this.editForm = this.fb.group({
       ci: ['', [Validators.required]],
       email: ['', [Validators.required]],
       username: ['', [Validators.required]],
       surnames: ['', [Validators.required]],
       password: ['', ],
       birthday: ['', ],
-      roles: ['', [Validators.required]],
-      image:['', [Validators.required]]
+      roles: ['', ],
+      image:['', ]
     })
-    
+
   }
 
   cargarUser(id:string){
     this.api.getSingleUser(id).subscribe(usuario => {
-      this.datosUser = usuario.serverResponse;
+      this.datosUser = usuario;
       console.log(this.datosUser);
       const { ci, email, post, roles, surnames, username } = this.datosUser;
-      this.editarForm.setValue({
+      this.editForm.setValue({
         ci,
         email,
         username,
@@ -58,11 +59,34 @@ export class UserEditComponent implements OnInit {
         'birthday': '',
         'image': '',
       });
-      
+
     })
   }
 
-  editUsuario(form:any){}
 
-  cancel(){}
+
+
+  editUsuario(){
+    this.api.editUser(this.editForm.value, this.userId).subscribe(
+      res => console.log(res),
+      err => console.log('HTTP Error', err),
+      () => {
+        this.router.navigate(['auth/users']),
+          this.alertOk('success', 'Exito', 'Salida Editada Correctamente', '2000')
+      }
+    );
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer
+    })
+  }
+
+  cancel(){
+    this.router.navigate(['auth/users'])
+  }
 }

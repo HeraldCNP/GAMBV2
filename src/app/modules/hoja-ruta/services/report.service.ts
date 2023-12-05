@@ -1,20 +1,34 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
   private readonly URL = environment.api;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  get token(): any {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.authService.logout();
+    }
+    return token;
+  }
+  get headers() {
+    const headers = new HttpHeaders().set('Authorization', `${this.token}`);
+    return headers;
+  }
 
   /*Servicios para Users*/
 
   getAllUsers(): Observable<any> {
     let dir = `${this.URL}/users`;
-    return this.http.get<any>(dir)
+    const header = this.headers;
+    return this.http.get<any>(dir, { headers: header })
       .pipe(map(data => {
         // console.log(data.serverResponse);
         return data.serverResponse

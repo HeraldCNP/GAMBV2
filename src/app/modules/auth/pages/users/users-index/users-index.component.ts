@@ -19,7 +19,7 @@ export class UsersIndexComponent implements OnInit {
     this.api.getAllUsers().subscribe(
       data => {
         this.users = data;
-        console.log(this.users);
+        // console.log(this.users);
       }
     );
   }

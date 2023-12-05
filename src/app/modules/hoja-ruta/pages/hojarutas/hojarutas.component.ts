@@ -96,7 +96,7 @@ export class HojarutasComponent implements OnInit {
     this.cargando = true;
     this.comprasService.getAllFuncionarios().subscribe((data: any) => {
       this.funcionarios = data.serverResponse;
-      console.log("Funcionarios", data)
+      // console.log("Funcionarios", data)
     });
   }
 

@@ -1,14 +1,27 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComprasService {
   private readonly URL = environment.api;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  get token(): any {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.authService.logout();
+    }
+    return token;
+  }
+  get headers() {
+    const headers = new HttpHeaders().set('Authorization', `${this.token}`);
+    return headers;
+  }
 
 
   getAllCatProgras(limit?: number, skip?: number): Observable<any[]> {
@@ -25,8 +38,9 @@ export class ComprasService {
 
   getAllFuncionarios(limit?: number, skip?: number): Observable<any[]> {
     let dir = `${this.URL}/users`;
+    const header = this.headers;
     // console.log(dir);
-    return this.http.get<any>(dir);
+    return this.http.get<any>(dir, { headers: header });
   }
 
   getAllIngresos(limit?: number, skip?: number, idProve?: string, concepto?:string, numeroEntrada?:any, del?:any, al?:any): Observable<any[]> {

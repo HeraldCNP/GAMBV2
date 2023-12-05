@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
           if(dataRes.token){
             this.cookie.set('token', dataRes.token, 0.2, '/');
             localStorage.setItem("user", JSON.stringify( dataRes ))
+            localStorage.setItem("token",  dataRes.token )
             this.errorStatus = false;
             this.router.navigate(['dashboard/main'])
           }else{

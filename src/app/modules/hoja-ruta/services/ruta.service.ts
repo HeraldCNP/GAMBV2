@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Segui } from '../models/seguimiento';
 import { Hojaruta } from '../models/hojaruta';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RutaService {
   private readonly URL = environment.api;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private authService:AuthService) { }
 
+
+  get token(): any {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.authService.logout();
+    }
+    return token;
+  }
+  get headers() {
+    const headers = new HttpHeaders().set('Authorization', `${this.token}`);
+    return headers;
+  }
 
   /*Servicios para Seguimientos*/
   getAllSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any, limit?:number, skip?:number, nuit?:string): Observable<any> {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}&limit=${limit}&skip=${skip}&nuit=${nuit}`;
+    const header = this.headers;
     console.log(dir)
-    return this.http.get<any>(dir)
+    return this.http.get<any>(dir, { headers: header})
   }
 /*   getTotalSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}`;
@@ -28,8 +42,9 @@ export class RutaService {
     return this.http.get<any>(dir)
   }
   getPendientes(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
+    const header = this.headers;
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}`;
-    return this.http.get<any>(dir)
+    return this.http.get<any>(dir, { headers: header})
   }
 
   getHr(id: string): Observable<any> {
@@ -50,7 +65,7 @@ export class RutaService {
   }
 
   getUserPost(post: string): Observable<any> {
-    let dir = `${this.URL}/user/${post}`;
+    let dir = `${this.URL}/userPost/${post}`;
     return this.http.get<any>(dir)
     .pipe( map( data => {
       return data.serverResponse
@@ -85,8 +100,9 @@ export class RutaService {
 
   getAllHojaRuta(nuit?:string, origen?:string, dategt?:any,datelt?:any, limit?:number, skip?:number, order?:string): Observable<any> {
     let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&dategt=${dategt}&datelt=${datelt}&limit=${limit}&skip=${skip}`;
+    const header = this.headers;
     console.log(dir)
-    return this.http.get<any>(dir)
+    return this.http.get<any>(dir, { headers: header })
   }
 
   buscarHoja(search: string): Observable<any> {
