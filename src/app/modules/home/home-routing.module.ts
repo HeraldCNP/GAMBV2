@@ -14,7 +14,7 @@ import { ConsejoComponent } from './pages/consejo/consejo.component';
 import { DefensoriaComponent } from './pages/defensoria/defensoria.component';
 import { SlimComponent } from './pages/slim/slim.component';
 import { GacetaComponent } from './pages/gaceta/gaceta.component';
-import { PoaComponent } from './pages/gestion/poa/poa.component';
+// import { PoaComponent } from './pages/gestion/poa/poa.component';
 import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
 import { PtdiComponent } from './pages/gestion/ptdi/ptdi.component';
 import { PeiComponent } from './pages/gestion/pei/pei.component';
@@ -40,7 +40,7 @@ const routes: Routes = [
       {path: 'defensoria', component: DefensoriaComponent},
       {path: 'slim', component: SlimComponent},
       {path: 'gaceta', component: GacetaComponent},
-      {path: 'gestion/poa', component: PoaComponent},
+      // {path: 'gestion/poa', component: PoaComponent},
       {path: 'gestion/ptdi', component: PtdiComponent},
       {path: 'gestion/pei', component: PeiComponent},
       {path: 'gestion/reglamento', component: ReglamentoComponent},
