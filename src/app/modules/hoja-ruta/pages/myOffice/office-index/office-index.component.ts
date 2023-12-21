@@ -129,6 +129,7 @@ export class OfficeIndexComponent implements OnInit {
     );
   }
 
+
   buscarSeguimientos() {
     this.campo=parseInt(this.campo)
     if(this.campo==this.year-1){

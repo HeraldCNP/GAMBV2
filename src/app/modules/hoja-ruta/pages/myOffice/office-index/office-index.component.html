@@ -138,7 +138,7 @@
                 <td>
                   <i [routerLink]="[
                       '/ruta/derivar',
-                      seguimiento.idhj,
+                      seguimiento.idhj._id,
                       seguimiento._id
                     ]" class="fas fa-share text-primary" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Derivar">
                   </i>
@@ -149,7 +149,7 @@
                     *ngIf="seguimiento.estado === 'RECIBIDO'"></i><br />
                   <i *ngIf="seguimiento.estado === 'RECIBIDO'" [routerLink]="[
                       '/ruta/sendArchivoOfi',
-                      seguimiento.idhj,
+                      seguimiento.idhj._id,
                       seguimiento._id
                     ]" class="fas fa-folder-open" style="color: rgb(238, 128, 94) !important"
                     title="Finalizar Trámite"></i>
@@ -215,8 +215,8 @@
                 </td>
                 <td>
                   <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="seguimi(seguimiento.idhj)" title="Ver Seguimiento"></i>
-                  <i (click)="listAso(seguimiento.idhj)" *ngIf="seguimiento.asociado"
+                    (click)="seguimi(seguimiento.idhj._id)" title="Ver Seguimiento"></i>
+                  <i (click)="listAso(seguimiento.idhj._id)" *ngIf="seguimiento.asociado"
                     class="text-primary fas fa-paperclip" title="Ver Asociados"></i>
                 </td>
                 <td>
