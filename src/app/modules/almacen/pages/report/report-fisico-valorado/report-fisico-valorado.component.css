@@ -1,0 +1,18 @@
+.table-bordered th, .table-bordered td{
+  border: 1px solid #03529b !important;
+}
+
+.table-bordered th{
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.table-bordered td{
+  font-size: 0.7rem;
+  padding-left: 3px;
+}
+
+.derecha{
+  text-align: end;
+  padding-right: 3px;
+}

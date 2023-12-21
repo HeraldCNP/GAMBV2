@@ -54,6 +54,12 @@ export class ReportAlmService {
     return this.http.get<any>(dir);
   }
 
+  getAllCompras(): Observable<any[]> {
+    let dir = `${this.URL}/compras`;
+    // console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
 }
 
 
