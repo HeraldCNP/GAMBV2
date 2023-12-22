@@ -64,6 +64,8 @@ export class DerivarSeguimientoComponent implements OnInit {
   titulo = 'derivar documento';
   params: string = '';
   params2: string = '';
+  clicked = false;
+
   constructor(
     private fb: FormBuilder,
     private activeRouter: ActivatedRoute,
@@ -148,6 +150,7 @@ export class DerivarSeguimientoComponent implements OnInit {
   }
 
   registerSegui() {
+    this.clicked = true;
     const SEGUI: Segui = {
       nuit: this.nuit,
       referencia: this.referenciaHr,
@@ -288,7 +291,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       );
     }
   }
-  
+
   getOrgac() {
     this.apiUnit.getAllUnits().subscribe(
       (data) => {

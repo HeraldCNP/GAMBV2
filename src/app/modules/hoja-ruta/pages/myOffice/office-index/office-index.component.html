@@ -142,7 +142,7 @@
                       seguimiento._id
                     ]" class="fas fa-share text-primary" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Derivar">
                   </i>
-                  <i (click)="reply(seguimiento._id)" class="fas fa-reply-all text-success"
+                  <i (click)="reply(seguimiento._id)" class="fas fa-times-circle text-danger"
                     *ngIf="seguimiento.estado === 'DERIVADO'" title="Eliminar el Último Derivado"></i><br />
                   <i (click)="finalizar(seguimiento._id)" style="color: rgb(131, 117, 56) !important"
                     class="fas fa-briefcase" title="Enviar a mi Maletín"

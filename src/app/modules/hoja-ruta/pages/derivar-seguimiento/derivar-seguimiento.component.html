@@ -16,7 +16,7 @@
                 Copias</i>
             </div>
           </div>
-          <form [formGroup]="derivarForm" (ngSubmit)="registerSegui()" class="mt-0">
+          <form [formGroup]="derivarForm"  class="mt-0">
             <div class="card p-2">
               <label for="destino" class="mb-0">Destino</label>
               <div class="mb-1">
@@ -71,7 +71,8 @@
               <button routerLink="/ruta/office/index" class="btn btn-info text-dark">
                 CANCELAR
               </button>
-              <button type="submit" [disabled]="derivarForm.invalid" class="btn btn-success">
+              <button type="submit" [disabled]="derivarForm.invalid" (click)="registerSegui()"
+              [disabled]="clicked" class="btn btn-success">
                 ACEPTAR
               </button>
             </div>
