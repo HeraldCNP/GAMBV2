@@ -64,6 +64,8 @@ export class ReportFisicoValoradoComponent {
       .subscribe(
         (data: any) => {
           this.entradas = data.serverResponse;
+          console.log(this.entradas);
+
         },
         err => console.log('HTTP Error', err),
         () => {
@@ -109,14 +111,6 @@ export class ReportFisicoValoradoComponent {
 
 
 
-
-      this.totalSaldosIniciales[category] = items.reduce((accumulator: any, item: any) => {
-        if (item.idEntrada.tipo === 'SALDO_2022') {
-          accumulator + (item.cantidadCompra * item.precio)
-        }
-      }, 0);
-
-
       const filtro = items.filter((item: { idEntrada: { tipo: string; }; }) => item.idEntrada.tipo == 'REGULAR');
 
       this.cantidadIngresos[category] = filtro.reduce((accumulator: any, item: { cantidadCompra: any; }) => {
@@ -143,12 +137,15 @@ export class ReportFisicoValoradoComponent {
 
 
       const filtrado = items.filter((item: { idEntrada: { tipo: string; }; }) => item.idEntrada.tipo == 'SALDO_2022');
+      // console.log(filtrado);
+
 
       this.cantidadSaldosIniciales[category] = filtrado.reduce((accumulator: any, item: { cantidadCompra: any; }) => {
         return accumulator + item.cantidadCompra;
       }, 0);
 
       const filtrado2 = items.filter((item: { idEntrada: { tipo: string; }; }) => item.idEntrada.tipo == 'SALDO_2022');
+
 
       this.totalSaldosIniciales[category] = filtrado2.reduce((accumulator: number, item: { cantidadCompra: number; precio: number; }) => {
         return accumulator + (item.cantidadCompra * item.precio)

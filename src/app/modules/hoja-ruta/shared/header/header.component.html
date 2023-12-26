@@ -28,6 +28,11 @@
       <a routerLink="/ruta/reportes" [routerLinkActive]="['active']" class="nav-link">Reportes </a>
     </li>
 
+    <li class="nav-item d-none d-sm-inline-block"
+    *ngIf="(data && data.roles === 'SUPER_USER') || data.post != 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA'">
+    <a routerLink="/ruta/reporte" [routerLinkActive]="['active']" class="nav-link">Reporte</a>
+  </li>
+
   </ul>
 
   <!-- Right navbar links -->

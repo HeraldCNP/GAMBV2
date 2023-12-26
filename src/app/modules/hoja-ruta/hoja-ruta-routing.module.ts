@@ -11,6 +11,7 @@ import { EditHojaComponent } from './pages/edit-hoja/edit-hoja.component';
 import { PendientesComponent } from './pages/pendientes/pendientes.component';
 import { SendArchivoOfiComponent } from './pages/send-archivo-ofi/send-archivo-ofi.component';
 import { ReportComponent } from './pages/report/report.component';
+import { ReporteComponent } from './pages/report/reporte/reporte.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path: 'pendientes', component: PendientesComponent},
       {path: 'hojaRutas', component: HojarutasComponent},
       {path: 'reportes', component: ReportComponent},
+      {path: 'reporte', component: ReporteComponent},
       {path: 'hojaRutas/:search', component: HojarutasComponent},
       {path: 'asociar/:nuit', component: AsociarComponent},
       {path: 'editHoja/:id', component: EditHojaComponent},

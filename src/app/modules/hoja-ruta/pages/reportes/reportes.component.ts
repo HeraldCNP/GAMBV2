@@ -52,6 +52,7 @@ export class ReportesComponent implements OnInit {
     this.obtenertotal()
     console.log(this.repor1)
   }
+
   getSeguimientos() {
     this.api
       .getAllSeguimientos(
@@ -69,6 +70,7 @@ export class ReportesComponent implements OnInit {
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
       });
   }
+
   obtenertotal() {
     // this.loading = true;
     // let RegExp = /[^()]*/g;
@@ -126,7 +128,7 @@ export class ReportesComponent implements OnInit {
           (error) => {
             console.log(error);
           }
-          
+
         );
       });
     })

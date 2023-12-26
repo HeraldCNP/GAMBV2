@@ -1,0 +1,28 @@
+table {
+  width: 100%;
+  font-size: 0.7rem;
+  text-align: center;
+
+  }
+
+.title{
+  font-size: 0.9rem;
+  border: none;
+  margin: 0px;
+  text-align: center;
+}
+
+.subtitle{
+  font-size: 0.8rem;
+  border: none;
+  margin: 0px;
+  text-align: center;
+}
+
+.head{
+  background-color: aquamarine;
+}
+
+.usuario{
+  font-size: 0.3 rem;
+}

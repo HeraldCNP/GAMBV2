@@ -22,6 +22,8 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
 import { Report1OrderPipe } from './pages/report1-order.pipe';
 import { ReportComponent } from './pages/report/report.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { ReporteComponent } from './pages/report/reporte/reporte.component';
+import { NgxPrintModule } from 'ngx-print';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     SendArchivoOfiComponent,
     ReportesComponent,
     Report1OrderPipe,
-    ReportComponent
+    ReportComponent,
+    ReporteComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
     ReactiveFormsModule,
     MomentModule,
     NgxSelectModule,
+    NgxPrintModule,
   ]
 })
 export class HojaRutaModule { }
