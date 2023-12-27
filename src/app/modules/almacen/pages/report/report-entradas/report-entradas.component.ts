@@ -135,11 +135,11 @@ export class ReportEntradasComponent implements OnInit {
     this.categories.forEach((element: any) => {
       console.log(this.separados[element]);
 
-      this.separados[element].sort((a:any, b:any) => {
-        const codigoA = a.idArticulo.idPartida.codigo;
-        const codigoB = b.idArticulo.idPartida.codigo;
-        return codigoA.localeCompare(codigoB);
-      });
+      // this.separados[element].sort((a:any, b:any) => {
+      //   const codigoA = a.idArticulo.idPartida.codigo;
+      //   const codigoB = b.idArticulo.idPartida.codigo;
+      //   return codigoA.localeCompare(codigoB);
+      // });
 
       console.log("ordenados", this.separados[element]);
     });

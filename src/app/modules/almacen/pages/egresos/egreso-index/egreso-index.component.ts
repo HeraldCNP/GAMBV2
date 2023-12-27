@@ -165,7 +165,7 @@ export class EgresoIndexComponent implements OnInit {
       confirmButtonText: '¡Sí, bórralo!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Proyecto ha sido eliminado.', 'success');
+        Swal.fire('¡Eliminado!', 'La salida ha sido eliminada.', 'success');
         this.egresosService.deleteEgreso(id).subscribe(
           (res) => console.log(res),
           (err) => console.log('HTTP Error', err),

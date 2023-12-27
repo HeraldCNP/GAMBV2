@@ -191,7 +191,7 @@
                         <i class="fas fa-print"></i>
                       </button>
                       <i class="fas fa-edit ml-2 icono" (click)="editarSalida(egreso._id)"></i>
-                      <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarEgreso(egreso._id)"></i> -->
+                      <i *ngIf="data && data.roles === 'SUPER_ADMIN'" class="fas fa-trash-alt ml-3 icono" (click)="borrarEgreso(egreso._id)"></i>
                     </div>
                   </td>
                 </tr>
