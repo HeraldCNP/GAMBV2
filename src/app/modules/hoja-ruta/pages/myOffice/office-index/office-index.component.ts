@@ -503,7 +503,7 @@ export class OfficeIndexComponent implements OnInit {
     this.api.getSegui(id).subscribe(
       (data) => {
         this.seguireply = data;
-        this.nuitreply = this.seguireply.idhj;
+        this.nuitreply = this.seguireply.idhj._id;
         console.log("data",data)
         /* this.api.obtenerHoja(this.nuitreply).subscribe((data:any)=>{
           console.log("hoja ruta",data)

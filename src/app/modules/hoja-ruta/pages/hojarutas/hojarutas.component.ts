@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RutaService } from '../../services/ruta.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Hojaruta } from '../../models/hojaruta';
 import Swal from 'sweetalert2';
@@ -55,6 +55,9 @@ export class HojarutasComponent implements OnInit {
   funcionario:any='';
   ori:any;
 
+  asociarForm: any;
+  hojaAsociar : any;
+
   constructor(private api: RutaService,
     private router: Router,
     private fb: FormBuilder,
@@ -67,6 +70,11 @@ export class HojarutasComponent implements OnInit {
       fechadocumento: ['', Validators.required],
       tipodoc: [''],
       contacto: [''],
+    });
+
+    this.asociarForm = new FormGroup({
+      cargo: new FormControl('', Validators.required),
+      nuit: new FormControl('', Validators.required),
     });
   }
 
@@ -539,6 +547,31 @@ export class HojarutasComponent implements OnInit {
         //docResult.output('dataurlnewwindow', {filename: 'comprobante.pdf'});
         docResult.save(`${new Date().toISOString()}_GAMB_HojaDeRuta.pdf`);
       });
+  }
+
+  asociar(hoja:any){
+    console.log(hoja);
+    // console.log(this.data.post);
+    this.asociarForm.patchValue({
+      cargo: this.data.post,
+    });
+
+    this.hojaAsociar = hoja;
+
+  }
+
+  asociar2(){
+
+    this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(
+      (data) => {
+
+        console.log(data);
+
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }

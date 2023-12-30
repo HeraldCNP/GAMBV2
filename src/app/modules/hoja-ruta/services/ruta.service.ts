@@ -141,4 +141,10 @@ export class RutaService {
   addArch(id: string, segui:Segui): Observable<any> {
     return this.http.put(this.URL + '/addarch/' + id, segui);
   }
+
+
+  asociar(id: string, form:any): Observable<any> {
+    return this.http.put(this.URL + '/asociarHR/' + id, form);
+  }
+
 }
