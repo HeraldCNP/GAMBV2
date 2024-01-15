@@ -158,6 +158,8 @@
                       seguimiento.estado === 'FILE OFICINA'
                     " class="fas fa-file-upload" style="color: rgb(230, 70, 176) !important"
                     title="Reactivar el trámite"></i>
+                    <i class="fas fa-paste text-success" data-bs-toggle="modal" data-bs-target="#modalAsociar"
+                    (click)="asociar(seguimiento)" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Asociar"></i>
                 </td>
                 <td>
                   {{ seguimiento.nuit }}
@@ -218,6 +220,8 @@
                     (click)="seguimi(seguimiento.idhj._id)" title="Ver Seguimiento"></i>
                   <i (click)="listAso(seguimiento.idhj._id)" *ngIf="seguimiento.asociado"
                     class="text-primary fas fa-paperclip" title="Ver Asociados"></i>
+                  <i (click)="asociar(seguimiento)" *ngIf="seguimiento.idhj.asociados.length>0"
+                    class="text-info fas fa-paperclip" title="Ver Asociados"></i>
                 </td>
                 <td>
                   <!--<i class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>-->
@@ -248,6 +252,37 @@
           </li>
         </ul>
       </nav>
+    </div>
+  </div>
+</div>
+<!--MODAL ASOCIAR-->
+<div class="modal fade" id="modalAsociar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
+        <h1 class="text-center">Asociar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pb-1">
+        <form [formGroup]="asociarForm" (ngSubmit)="asociar2()">
+          <div class="mb-3">
+            <label *ngIf="hojaAsociar" for="nuit" class="form-label">Hoja de ruta N° {{hojaAsociar.nuit}} con</label>
+            <input type="number" class="form-control" id="nuit" formControlName="nuit">
+          </div>
+          <div class="my-3">
+            <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal"
+              >
+              CANCELAR
+            </button>
+            <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end">
+              ASOCIAR
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+      {{ asociarForm.value | json }}
     </div>
   </div>
 </div>

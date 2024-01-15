@@ -7,6 +7,7 @@ import html2canvas from 'html2canvas';
 import * as moment from 'moment';
 import 'moment/locale/es';
 import { Segui } from '../../../models/seguimiento';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-office-index',
@@ -70,7 +71,15 @@ export class OfficeIndexComponent implements OnInit {
   dategt:any = this.year;
   datelt:any=this.dategt+1;
   campo:any = this.year;
-  constructor(private api: RutaService, private router: Router) {}
+
+  asociarForm: any;
+  hojaAsociar : any;
+  constructor(private api: RutaService, private router: Router) {
+    this.asociarForm = new FormGroup({
+      cargo: new FormControl('', Validators.required),
+      nuit: new FormControl('', Validators.required),
+    });
+  }
 
   ngOnInit(): void {
     this.user = localStorage.getItem('user');
@@ -189,6 +198,8 @@ export class OfficeIndexComponent implements OnInit {
         this.totalSeguimientos = data.totalDocs;
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
         this.obtenertotal()
+        console.log(this.seguimientos);
+        
       });
   }
 
@@ -602,6 +613,31 @@ export class OfficeIndexComponent implements OnInit {
             console.log(error);
           }
         );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  asociar(hoja:any){
+    console.log(hoja);
+    // console.log(this.data.post);
+    this.asociarForm.patchValue({
+      cargo: this.data.post,
+    });
+
+    this.hojaAsociar = hoja.idhj;
+    console.log(this.hojaAsociar);
+
+  }
+  asociar2(){
+
+    this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(
+      (data) => {
+      
+        console.log(data);
+
       },
       (error) => {
         console.log(error);
