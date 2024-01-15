@@ -129,7 +129,7 @@
                 </td>
                 <td>
                   <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="seguimi(hoja._id)" title="Ver Seguimiento"></i>
+                    (click)="segui(hoja._id)" title="Ver Seguimiento"></i>
                   <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0" class="fas fa-paperclip text-primary"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver Asociados"></i>
 
@@ -146,7 +146,7 @@
                   data.roles === 'SECRETARIA'
                 ">
                   <i class="fas fa-print text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                    (click)="seguimi(hoja._id)" title="Imprimir"></i>
+                    (click)="segui(hoja._id)" title="Imprimir"></i>
                 </td>
                 <!-- <td>
                 <i [routerLink]="[]" class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>
@@ -167,9 +167,12 @@
                     *ngIf="hoja.estado !== 'REGISTRADO'" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Asociar"></i> -->
 
-                  <i class="fas fa-paste text-primary" data-bs-toggle="modal" data-bs-target="#modalAsociar"
+                  <i class="fas fa-paste text-success" data-bs-toggle="modal" data-bs-target="#modalAsociar"
                     (click)="asociar(hoja)" *ngIf="hoja.estado !== 'REGISTRADO'" title="Asociar"></i>
-
+                    <i class="fas fa-times-circle text-danger"
+                    *ngIf="hoja.estado === 'ENVIADO'" title="Eliminar el Envio"></i>
+                    <i class="fas fa-search-dollar text-info"
+                    *ngIf="hoja.tipodoc=== 'pago'" title="Ver Beneficiario"></i>
                 </td>
               </tr>
             </tbody>
@@ -194,8 +197,43 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="email" id="defaultForm-email" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+        </div>
 
-<!--MODAL SEGUIMIENTO-->
+        <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <input type="password" id="defaultForm-pass" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-default">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+    Modal Login Form</a>
+</div>
+
+<!--MODAL ASOCIAR-->
 <div class="modal fade" id="modalAsociar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -210,12 +248,12 @@
             <input type="number" class="form-control" id="nuit" formControlName="nuit">
           </div>
           <div class="my-3">
-            <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal"
+            <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal"
               (click)="getHojaRutas()">
-              CERRAR
+              CANCELAR
             </button>
             <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end">
-              ACEPTAR
+              ASOCIAR
             </button>
           </div>
 
@@ -317,21 +355,21 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let seguiss of seguim">
-                        <td *ngIf="idhr === seguiss.idhj">
+                        <td >
                           {{ seguiss.destino }}
                           <br />
                           <p *ngIf="seguiss.recibidox" class="text-capitalize">
                             {{ seguiss.recibidox }}
                           </p>
                         </td>
-                        <td *ngIf="idhr === seguiss.idhj">
+                        <td >
                           {{ seguiss.detalles }}
                           <br />
                           <p *ngIf="seguiss.estado === 'MALETIN'" class="badge badge-warning text-dark">
                             {{ seguiss.smsarchivo }}
                           </p>
                         </td>
-                        <td *ngIf="idhr === seguiss.idhj">
+                        <td>
                           <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
                             <!-- {{ seguiss.fechaderivado | date: "shortDate":"UTC" }} -->
                             {{ seguiss.fechaderivado | amLocale : "es" | amTimeAgo }}
@@ -341,7 +379,7 @@
                             {{ seguiss.fechaderivado | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                           </span>
                         </td>
-                        <td *ngIf="idhr === seguiss.idhj">
+                        <td >
                           <span *ngIf="seguiss.fecharespuesta != null">{{ seguiss.fecharespuesta | amDifference :
                             seguiss.fechaderivado : "seconds" : true | amDuration : "seconds"}}</span>
                           <span *ngIf="
@@ -371,7 +409,7 @@
                               seguiss.estado === 'RECIBIDO'
                             ">Sin Responder</samp>
                         </td>
-                        <td *ngIf="idhr === seguiss.idhj">
+                        <td >
                           <i [ngClass]="
                               seguiss.fecharecepcion === 'SIN RESEPCIONAR'
                                 ? 'badge badge-danger'
@@ -388,7 +426,7 @@
                             </span>
                           </i>
                         </td>
-                        <td [ngSwitch]="seguiss.estado" *ngIf="idhr === seguiss.idhj">
+                        <td [ngSwitch]="seguiss.estado" >
                           <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguiss.estado }}</span>
@@ -853,15 +891,35 @@
             <div class="card-body text-center">
               <span class="titulo"> {{ titulo | uppercase }} </span>
               <p class="fw-bold fa-2x">{{ cant + 1 }}</p>
-              <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
-                <input (click)="isUser(false)" type="radio" class="btn-check" name="btnradio" id="btnradio1"
-                  autocomplete="off" checked>
-                <label class="btn btn-outline-success" for="btnradio1">Interno</label>
-                <input (click)="isUser(true)" type="radio" class="btn-check" name="btnradio" id="btnradio3"
-                  autocomplete="off">
-                <label class="btn btn-outline-success" for="btnradio3">Externo</label>
-              </div>
+
               <form class="mt-3" [formGroup]="hojaForm" (ngSubmit)="registerHojas()">
+                <div class="d-flex justify-content-around">
+  
+                  <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+                    <input (click)="isUser(false)" type="radio" class="btn-check" name="btnradio" id="btnradio1"
+                    autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="btnradio1">Interno</label>
+                    <input (click)="isUser(true)" type="radio" class="btn-check" name="btnradio" id="btnradio3"
+                    autocomplete="off">
+                    <label class="btn btn-outline-success" for="btnradio3">Externo</label>
+                  </div>
+                  <div class="mb-1">
+                    <label for="checkTipoDoc" class="form-label col-auto">Tipo Documento</label>
+    
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" formControlName="tipodoc" id="checkTipoDoc" [value]="tipodoc"
+                        (change)="changeTipoDoc($event)">
+                      <label class="form-check-label" for="checkTipoDoc">Pago</label>
+                    </div>
+                    <!-- <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" formControlName="tipodoc" id="checkTipoDoc" value="otros"
+                        (change)="changeTipoDoc2($event)" checked>
+                      <label class="form-check-label" for="checkTipoDoc">Otros</label>
+                    </div> -->
+                  </div>
+                </div>
+
+
                 <div class="mb-2" *ngIf="isUsuario">
                   <input type="text" formControlName="origen" class="form-control" placeholder="Origen" />
                   <div class="text-danger" *ngIf="
@@ -892,12 +950,11 @@
                     </div>
                   </div> -->
                 </div>
-
                 <div class="mb-2">
-                  <input type="text" formControlName="tipodoc" class="form-control" placeholder="Tipo del Documento" />
+                  <input type="text" formControlName="numCite" class="form-control" placeholder="Número del Cite" />
                   <div class="text-danger" *ngIf="
-                      hojaForm.get('tipodoc')?.hasError('required') &&
-                      hojaForm.get('tipodoc')?.touched
+                      hojaForm.get('numCite')?.hasError('required') &&
+                      hojaForm.get('numCite')?.touched
                     ">
                     <span>El campo <strong>es obligatorios</strong></span>
                   </div>
@@ -907,7 +964,7 @@
 
                 <div class="mb-2">
                   <input type="text" formControlName="contacto" class="form-control"
-                    placeholder="Numero de Telefono o Celular" />
+                    placeholder="Número de Telefono o Celular" />
                 </div>
                 <div class="mb-2">
                   <textarea formControlName="referencia" class="form-control"
@@ -942,6 +999,7 @@
                   </button>
                 </div>
               </form>
+               {{ hojaForm.value | json }}
             </div>
           </div>
         </div>

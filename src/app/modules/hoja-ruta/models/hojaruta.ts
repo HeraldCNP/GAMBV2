@@ -12,6 +12,7 @@ export interface Hojaruta{
     urihoja?: string;
     pathhoja?: string;
     asociado?:string;
+    numCite?:string;
   
   }
   
