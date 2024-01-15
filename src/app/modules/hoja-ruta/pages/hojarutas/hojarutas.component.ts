@@ -170,11 +170,12 @@ export class HojarutasComponent implements OnInit {
       }
     )
 
+
     this.comunicacionesService.termino.subscribe(
       termino => {
         this.cargando = true;
         this.search2 = termino;
-        console.log(this.search2)
+        console.log('buscador', this.search2)
         this.api.buscarHoja(this.search2).subscribe(
           data => {
             if(data.serverResponse){
@@ -572,6 +573,10 @@ export class HojarutasComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  cleanAsociarForm(){
+    this.asociarForm.reset();
   }
 
 }

@@ -1,202 +1,210 @@
 <div class="p-3">
   <div class="row p-0">
-    <div class="card">
-      <div class="card-header d-flex justify-content-between">
-        <div class="d-flex justify-content-between">
-          <div class="border border-dark-subtle rounded d-flex flex-row p-1">
-            Mostrar:
-            <select class="form-select form-select-sm" [(ngModel)]="limit" (change)="getHojaRutas()">
-              <option value="10">10</option>
-              <option value="30">30</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-            registros
-          </div>
-          <div class="border border-dark-subtle rounded d-flex flex-row ml-4 p-1">
-            Gestión:
-            <select class="form-select form-select-sm" [(ngModel)]="campo" (change)="getHojaRutas()">
-              <option value="{{ year }}">{{ year }}</option>
-              <option value="2022">2022</option>
-              <option value="0">Todos</option>
-            </select>
-          </div>
-        </div>
-        <!-- <h3 class="card-title">Lista de Hojas de Ruta</h3> -->
-        <div class="d-flex justify-content-between pt-1">
-          <div *ngIf="year == dategt">
-            <button class="btn btn-success" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem"
-              data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="
-                (data && data.roles === 'SUPER_ADMIN') ||
-                data.roles === 'SECRETARIA'
-              ">
-              NUEVO
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="row animated fadeIn fast" *ngIf="cargando; else yaCargo">
-        <div class="col-md-12">
-          <div class="alert alert-info text-center">
-            <h4 class="alert-heading">Cargando</h4>
-            <i class="fas fa-sync-alt fa-spin"></i><br />
-            <span>Por favor espere</span>
-          </div>
-        </div>
-      </div>
-
-      <ng-template #yaCargo>
-        <div class="card-body text-center">
-          <table class="table table-striped mt-0 table-responsive">
-            <thead>
-              <tr>
-                <th scope="col" *ngIf="
-                  (data && data.roles === 'SUPER_ADMIN') ||
-                  data.roles === 'SECRETARIA'
-                ">
-                  Enviar
-                </th>
-                <th scope="col">Número</th>
-                <th scope="col">Fecha de Recepción</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Fecha de Documento</th>
-                <th scope="col">Orígen</th>
-                <th scope="col">Referencia</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Seguimiento</th>
-                <th scope="col" *ngIf="
-                  (data && data.roles === 'SUPER_ADMIN') ||
-                  data.roles === 'SECRETARIA'
-                ">
-                  Imprimir
-                </th>
-                <!-- <th scope="col">Adjunto</th> -->
-                <th scope="col" *ngIf="
-                  (data && data.roles === 'SUPER_ADMIN') ||
-                  data.roles === 'SECRETARIA'
-                ">
-                  Acciones
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr [ngClass]="
-                hoja.estado === 'REGISTRADO'
-                  ? 'table-danger border-2 border-danger'
-                  : 'table-success border-2 border-success'
-              " *ngFor="let hoja of hojaRutas">
-                <td *ngIf="
-                  (data && data.roles === 'SUPER_ADMIN') ||
-                  data.roles === 'SECRETARIA'
-                ">
-                  <i [routerLink]="['/ruta/derivar', hoja._id]" class="fas fa-space-shuttle text-primary"
-                    *ngIf="hoja.estado === 'RECIBIDO'"></i>
-                  <i [routerLink]="null" class="fas fa-space-shuttle text-primary"
-                    style="color: rgb(171, 178, 241) !important" *ngIf="hoja.estado === 'ENVIADO'"></i>
-                </td>
-                <td>{{ hoja.nuit }}</td>
-                <td>{{ hoja.fecharesepcion | date : "shortDate" : "UTC-4" }}</td>
-                <td>{{ hoja.fecharesepcion | date : "mediumTime" : "UTC-4" }}</td>
-                <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC" }}</td>
-                <td>{{ hoja.origen }}</td>
-
-                <td>{{ hoja.referencia }}</td>
-                <td *ngIf="
-                  (data && data.roles === 'SUPER_ADMIN') ||
-                  data.roles === 'SECRETARIA'
-                " (click)="cambiarestado(hoja._id)" [ngSwitch]="hoja.estado">
-                  <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger">{{ hoja.estado }}</span>
-                  <span *ngSwitchCase="'RECIBIDO'" class="badge est badge-success">{{ hoja.estado }}</span>
-                  <span *ngSwitchCase="'ENVIADO'" class="badge est badge-info">{{
-                    hoja.estado
-                    }}</span>
-                </td>
-                <td [ngSwitch]="hoja.estado" *ngIf="
-                  data.roles === 'ADMIN' ||
-                  data.roles === 'SUPER_USER' ||
-                  data.roles === 'USER'
-                ">
-                  <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger">{{
-                    hoja.estado
-                    }}</span>
-                  <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{
-                    hoja.estado
-                    }}</span>
-                  <span *ngSwitchCase="'ENVIADO'" class="badge badge-info">{{
-                    hoja.estado
-                    }}</span>
-                </td>
-                <td>
-                  <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="seguimi(hoja._id)" title="Ver Seguimiento"></i>
-                  <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0" class="fas fa-paperclip text-primary"
-                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver Asociados"></i>
-
-                  <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary" *ngIf="
-                    (hoja.estado !== 'REGISTRADO' &&
-                      hoja.estado !== 'RECIBIDO' &&
-                      data &&
-                      data.roles === 'SUPER_USER') ||
-                    (data.roles === 'ADMIN' && hoja.estado !== 'REGISTRADO')
-                  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Asociar"></i>
-                </td>
-                <td *ngIf="
-                  (data && data.roles === 'SUPER_ADMIN') ||
-                  data.roles === 'SECRETARIA'
-                ">
-                  <i class="fas fa-print text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                    (click)="seguimi(hoja._id)" title="Imprimir"></i>
-                </td>
-                <!-- <td>
-                <i [routerLink]="[]" class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>
-              </td> -->
-                <td *ngIf="
-                  (data && data.roles === 'SUPER_ADMIN') ||
-                  data.roles === 'SECRETARIA'
-                ">
-                  <i [routerLink]="['/ruta/editHoja/', hoja._id]" class="fas fa-edit text-primary"></i>
-
-                  <i (click)="eliminarHoja(hoja._id)" class="fas fa-trash text-danger"
-                    *ngIf="hoja.estado === 'REGISTRADO'"></i>
-                  <i class="fas fa-trash text-danger" style="color: rgb(216, 139, 103) !important"
-                    *ngIf="hoja.estado === 'ENVIADO'"></i>
-                  <i class="fas fa-trash text-danger" style="color: rgb(250, 146, 98) !important"
-                    *ngIf="hoja.estado === 'RECIBIDO'"></i>
-                  <!-- <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary"
-                    *ngIf="hoja.estado !== 'REGISTRADO'" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Asociar"></i> -->
-
-                  <i class="fas fa-paste text-primary" data-bs-toggle="modal" data-bs-target="#modalAsociar"
-                    (click)="asociar(hoja)" *ngIf="hoja.estado !== 'REGISTRADO'" title="Asociar"></i>
-
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <nav *ngIf="hojaRutas.length > 0" aria-label="Page navigation example" class="mt-2">
-          <ul class="pagination justify-content-center">
-            <li class="page-item pointer" *ngIf="pageOne()">
-              <a class="page-link boton" (click)="paginaAnterior()" aria-label="Anterior">
-                <span aria-hidden="true">&laquo; Anterior</span>
-              </a>
-            </li>
-            <li class="page-item pointer" *ngIf="pageFinish()">
-              <a class="page-link boton" (click)="paginaSiguiente()" aria-label="Siguiente">
-                <span aria-hidden="true">Siguiente &raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </ng-template>
+    <div class="card" *ngIf="data && data.roles === 'SUPER_USER' && search2 === ''; else listado">
+      Buscar
     </div>
+    <ng-template #listado>
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <div class="d-flex justify-content-between">
+            <div class="border border-dark-subtle rounded d-flex flex-row p-1">
+              Mostrar:
+              <select class="form-select form-select-sm" [(ngModel)]="limit" (change)="getHojaRutas()">
+                <option value="10">10</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              registros
+            </div>
+            <div class="border border-dark-subtle rounded d-flex flex-row ml-4 p-1">
+              Gestión:
+              <select class="form-select form-select-sm" [(ngModel)]="campo" (change)="getHojaRutas()">
+                <option value="{{ year }}">{{ year }}</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="0">Todos</option>
+              </select>
+            </div>
+          </div>
+          <!-- <h3 class="card-title">Lista de Hojas de Ruta</h3> -->
+          <div class="d-flex justify-content-between pt-1">
+            <div *ngIf="year == dategt">
+              <button class="btn btn-success" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="
+                  (data && data.roles === 'SUPER_ADMIN') ||
+                  data.roles === 'SECRETARIA'
+                ">
+                NUEVO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row animated fadeIn fast" *ngIf="cargando; else yaCargo">
+          <div class="col-md-12">
+            <div class="alert alert-info text-center">
+              <h4 class="alert-heading">Cargando</h4>
+              <i class="fas fa-sync-alt fa-spin"></i><br />
+              <span>Por favor espere</span>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #yaCargo>
+          <div class="card-body text-center">
+            <table class="table table-striped mt-0 table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col" *ngIf="
+                    (data && data.roles === 'SUPER_ADMIN') ||
+                    data.roles === 'SECRETARIA'
+                  ">
+                    Enviar
+                  </th>
+                  <th scope="col">Número</th>
+                  <th scope="col">Fecha de Recepción</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Fecha de Documento</th>
+                  <th scope="col">Orígen</th>
+                  <th scope="col">Referencia</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Seguimiento</th>
+                  <th scope="col" *ngIf="
+                    (data && data.roles === 'SUPER_ADMIN') ||
+                    data.roles === 'SECRETARIA'
+                  ">
+                    Imprimir
+                  </th>
+                  <!-- <th scope="col">Adjunto</th> -->
+                  <th scope="col" *ngIf="
+                    (data && data.roles === 'SUPER_ADMIN') ||
+                    data.roles === 'SECRETARIA'
+                  ">
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr [ngClass]="
+                  hoja.estado === 'REGISTRADO'
+                    ? 'table-danger border-2 border-danger'
+                    : 'table-success border-2 border-success'
+                " *ngFor="let hoja of hojaRutas">
+                  <td *ngIf="
+                    (data && data.roles === 'SUPER_ADMIN') ||
+                    data.roles === 'SECRETARIA'
+                  ">
+                    <i [routerLink]="['/ruta/derivar', hoja._id]" class="fas fa-space-shuttle text-primary"
+                      *ngIf="hoja.estado === 'RECIBIDO'"></i>
+                    <i [routerLink]="null" class="fas fa-space-shuttle text-primary"
+                      style="color: rgb(171, 178, 241) !important" *ngIf="hoja.estado === 'ENVIADO'"></i>
+                  </td>
+                  <td>{{ hoja.nuit }}</td>
+                  <td>{{ hoja.fecharesepcion | date : "shortDate" : "UTC-4" }}</td>
+                  <td>{{ hoja.fecharesepcion | date : "mediumTime" : "UTC-4" }}</td>
+                  <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC" }}</td>
+                  <td>{{ hoja.origen }}</td>
+
+                  <td>{{ hoja.referencia }}</td>
+                  <td *ngIf="
+                    (data && data.roles === 'SUPER_ADMIN') ||
+                    data.roles === 'SECRETARIA'
+                  " (click)="cambiarestado(hoja._id)" [ngSwitch]="hoja.estado">
+                    <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger">{{ hoja.estado }}</span>
+                    <span *ngSwitchCase="'RECIBIDO'" class="badge est badge-success">{{ hoja.estado }}</span>
+                    <span *ngSwitchCase="'ENVIADO'" class="badge est badge-info">{{
+                      hoja.estado
+                      }}</span>
+                  </td>
+                  <td [ngSwitch]="hoja.estado" *ngIf="
+                    data.roles === 'ADMIN' ||
+                    data.roles === 'SUPER_USER' ||
+                    data.roles === 'USER'
+                  ">
+                    <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger">{{
+                      hoja.estado
+                      }}</span>
+                    <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{
+                      hoja.estado
+                      }}</span>
+                    <span *ngSwitchCase="'ENVIADO'" class="badge badge-info">{{
+                      hoja.estado
+                      }}</span>
+                  </td>
+                  <td>
+                    <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                      (click)="seguimi(hoja._id)" title="Ver Seguimiento"></i>
+                    <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0"
+                      class="fas fa-paperclip text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                      title="Ver Asociados"></i>
+
+                    <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary" *ngIf="
+                      (hoja.estado !== 'REGISTRADO' &&
+                        hoja.estado !== 'RECIBIDO' &&
+                        data &&
+                        data.roles === 'SUPER_USER') ||
+                      (data.roles === 'ADMIN' && hoja.estado !== 'REGISTRADO')
+                    " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Asociar"></i>
+                  </td>
+                  <td *ngIf="
+                    (data && data.roles === 'SUPER_ADMIN') ||
+                    data.roles === 'SECRETARIA'
+                  ">
+                    <i class="fas fa-print text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                      (click)="seguimi(hoja._id)" title="Imprimir"></i>
+                  </td>
+                  <!-- <td>
+                  <i [routerLink]="[]" class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>
+                </td> -->
+                  <td *ngIf="
+                    (data && data.roles === 'SUPER_ADMIN') ||
+                    data.roles === 'SECRETARIA'
+                  ">
+                    <i [routerLink]="['/ruta/editHoja/', hoja._id]" class="fas fa-edit text-primary"></i>
+
+                    <i (click)="eliminarHoja(hoja._id)" class="fas fa-trash text-danger"
+                      *ngIf="hoja.estado === 'REGISTRADO'"></i>
+                    <i class="fas fa-trash text-danger" style="color: rgb(216, 139, 103) !important"
+                      *ngIf="hoja.estado === 'ENVIADO'"></i>
+                    <i class="fas fa-trash text-danger" style="color: rgb(250, 146, 98) !important"
+                      *ngIf="hoja.estado === 'RECIBIDO'"></i>
+                    <!-- <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary"
+                      *ngIf="hoja.estado !== 'REGISTRADO'" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                      title="Asociar"></i> -->
+
+                    <i class="fas fa-paste text-primary" data-bs-toggle="modal" data-bs-target="#modalAsociar"
+                      (click)="asociar(hoja)" *ngIf="hoja.estado !== 'REGISTRADO'" title="Asociar"></i>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav *ngIf="hojaRutas.length > 0" aria-label="Page navigation example" class="mt-2">
+            <ul class="pagination justify-content-center">
+              <li class="page-item pointer" *ngIf="pageOne()">
+                <a class="page-link boton" (click)="paginaAnterior()" aria-label="Anterior">
+                  <span aria-hidden="true">&laquo; Anterior</span>
+                </a>
+              </li>
+              <li class="page-item pointer" *ngIf="pageFinish()">
+                <a class="page-link boton" (click)="paginaSiguiente()" aria-label="Siguiente">
+                  <span aria-hidden="true">Siguiente &raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </ng-template>
+      </div>
+    </ng-template>
+
   </div>
 </div>
 
 
-<!--MODAL SEGUIMIENTO-->
-<div class="modal fade" id="modalAsociar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--MODAL ASOCIAR-->
+<div class="modal fade" id="modalAsociar" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
@@ -211,7 +219,7 @@
           </div>
           <div class="my-3">
             <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal"
-              (click)="getHojaRutas()">
+              (click)="cleanAsociarForm()">
               CERRAR
             </button>
             <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end">
@@ -222,7 +230,7 @@
         </form>
 
       </div>
-      {{ asociarForm.value | json }}
+      <!-- {{ asociarForm.value | json }} -->
     </div>
   </div>
 </div>
