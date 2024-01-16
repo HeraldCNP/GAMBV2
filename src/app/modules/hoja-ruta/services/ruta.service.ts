@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Segui } from '../models/seguimiento';
 import { Hojaruta } from '../models/hojaruta';
 import { AuthService } from '../../auth/services/auth.service';
+import { Logger } from 'html2canvas/dist/types/core/logger';
 
 @Injectable({
   providedIn: 'root'

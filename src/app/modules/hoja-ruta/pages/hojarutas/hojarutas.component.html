@@ -106,61 +106,62 @@
                   <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC" }}</td>
                   <td>{{ hoja.origen }}</td>
 
-                <td>{{ hoja.referencia }}</td>
-                <td *ngIf="
+                  <td>{{ hoja.referencia }}</td>
+                  <td *ngIf="
                   (data && data.roles === 'SUPER_ADMIN') ||
                   data.roles === 'SECRETARIA'
                 " (click)="cambiarestado(hoja._id)" [ngSwitch]="hoja.estado">
-                  <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger">{{ hoja.estado }}</span>
-                  <span *ngSwitchCase="'RECIBIDO'" class="badge est badge-success">{{ hoja.estado }}</span>
-                  <span *ngSwitchCase="'ENVIADO'" class="badge est badge-info">{{
-                    hoja.estado
-                    }}</span>
-                </td>
-                <td [ngSwitch]="hoja.estado" *ngIf="
+                    <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger">{{ hoja.estado }}</span>
+                    <span *ngSwitchCase="'RECIBIDO'" class="badge est badge-success">{{ hoja.estado }}</span>
+                    <span *ngSwitchCase="'ENVIADO'" class="badge est badge-info">{{
+                      hoja.estado
+                      }}</span>
+                  </td>
+                  <td [ngSwitch]="hoja.estado" *ngIf="
                   data.roles === 'ADMIN' ||
                   data.roles === 'SUPER_USER' ||
                   data.roles === 'USER'
                 ">
-                  <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger">{{
-                    hoja.estado
-                    }}</span>
-                  <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{
-                    hoja.estado
-                    }}</span>
-                  <span *ngSwitchCase="'ENVIADO'" class="badge badge-info">{{
-                    hoja.estado
-                    }}</span>
-                </td>
-                <td>
-                  <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    (click)="seguimi(hoja._id)" title="Ver Seguimiento"></i>
-                  <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0" class="fas fa-paperclip text-primary"
-                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver Asociados"></i>
+                    <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger">{{
+                      hoja.estado
+                      }}</span>
+                    <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{
+                      hoja.estado
+                      }}</span>
+                    <span *ngSwitchCase="'ENVIADO'" class="badge badge-info">{{
+                      hoja.estado
+                      }}</span>
+                  </td>
+                  <td>
+                    <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                      (click)="segui(hoja._id)" title="Ver Seguimiento"></i>
+                    <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0"
+                      class="fas fa-paperclip text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                      title="Ver Asociados"></i>
 
-                  <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary" *ngIf="
+                    <i [routerLink]="['/ruta/asociar', hoja.nuit]" class="fas fa-paste text-primary" *ngIf="
                     (hoja.estado !== 'REGISTRADO' &&
                       hoja.estado !== 'RECIBIDO' &&
                       data &&
                       data.roles === 'SUPER_USER') ||
                     (data.roles === 'ADMIN' && hoja.estado !== 'REGISTRADO')
                   " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Asociar"></i>
-                </td>
-                <td *ngIf="
+                  </td>
+                  <td *ngIf="
                   (data && data.roles === 'SUPER_ADMIN') ||
                   data.roles === 'SECRETARIA'
                 ">
-                  <i class="fas fa-print text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                    (click)="seguimi(hoja._id)" title="Imprimir"></i>
-                </td>
-                <!-- <td>
+                    <i class="fas fa-print text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                      (click)="segui(hoja._id)" title="Imprimir"></i>
+                  </td>
+                  <!-- <td>
                 <i [routerLink]="[]" class="fas fa-cloud-download-alt" style="color: rgb(29, 14, 248) !important"></i>
               </td> -->
-                <td *ngIf="
+                  <td *ngIf="
                   (data && data.roles === 'SUPER_ADMIN') ||
                   data.roles === 'SECRETARIA'
                 ">
-                  <i [routerLink]="['/ruta/editHoja/', hoja._id]" class="fas fa-edit text-primary"></i>
+                    <i [routerLink]="['/ruta/editHoja/', hoja._id]" class="fas fa-edit text-primary"></i>
 
                     <i (click)="eliminarHoja(hoja._id)" class="fas fa-trash text-danger"
                       *ngIf="hoja.estado === 'REGISTRADO'"></i>
@@ -172,87 +173,58 @@
                       *ngIf="hoja.estado !== 'REGISTRADO'" data-bs-toggle="tooltip" data-bs-placement="bottom"
                       title="Asociar"></i> -->
 
-                  <i class="fas fa-paste text-primary" data-bs-toggle="modal" data-bs-target="#modalAsociar"
-                    (click)="asociar(hoja)" *ngIf="hoja.estado !== 'REGISTRADO'" title="Asociar"></i>
-
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <nav *ngIf="hojaRutas.length > 0" aria-label="Page navigation example" class="mt-2">
-          <ul class="pagination justify-content-center">
-            <li class="page-item pointer" *ngIf="pageOne()">
-              <a class="page-link boton" (click)="paginaAnterior()" aria-label="Anterior">
-                <span aria-hidden="true">&laquo; Anterior</span>
-              </a>
-            </li>
-            <li class="page-item pointer" *ngIf="pageFinish()">
-              <a class="page-link boton" (click)="paginaSiguiente()" aria-label="Siguiente">
-                <span aria-hidden="true">Siguiente &raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </ng-template>
-    </div>
+                    <i class="fas fa-paste text-primary" data-bs-toggle="modal" data-bs-target="#modalAsociar"
+                      (click)="asociar(hoja)" *ngIf="hoja.estado !== 'REGISTRADO'" title="Asociar"></i>
+                    <i class="fas fa-times-circle text-danger" *ngIf="hoja.estado === 'ENVIADO'"
+                      title="Eliminar el Envio"></i>
+                    <i class="fas fa-search-dollar text-info" *ngIf="hoja.tipodoc === 'pago'"
+                      title="Ver Beneficiario"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav *ngIf="hojaRutas.length > 0" aria-label="Page navigation example" class="mt-2">
+            <ul class="pagination justify-content-center">
+              <li class="page-item pointer" *ngIf="pageOne()">
+                <a class="page-link boton" (click)="paginaAnterior()" aria-label="Anterior">
+                  <span aria-hidden="true">&laquo; Anterior</span>
+                </a>
+              </li>
+              <li class="page-item pointer" *ngIf="pageFinish()">
+                <a class="page-link boton" (click)="paginaSiguiente()" aria-label="Siguiente">
+                  <span aria-hidden="true">Siguiente &raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </ng-template>
+      </div>
+    </ng-template>
   </div>
 </div>
 
-<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+
+<!--MODAL ASOCIAR-->
+<div class="modal fade" id="modalAsociar" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="email" id="defaultForm-email" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
-        </div>
-
-        <div class="md-form mb-4">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
-        </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-default">Login</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="text-center">
-  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
-    Modal Login Form</a>
-</div>
-
-<!--MODAL SEGUIMIENTO-->
-<div class="modal fade" id="modalAsociar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
         <h1 class="text-center">Asociar</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="cleanAsociarForm()"
+          aria-label="Close"></button>
       </div>
       <div class="modal-body pb-1">
         <form [formGroup]="asociarForm" (ngSubmit)="asociar2()">
           <div class="mb-3">
-            <label for="nuit" class="form-label">Hoja de ruta N°</label>
+            <label *ngIf="hojaAsociar" for="nuit" class="form-label">Hoja de ruta N° {{hojaAsociar.nuit}} con</label>
             <input type="number" class="form-control" id="nuit" formControlName="nuit">
           </div>
           <div class="my-3">
             <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal"
-              (click)="getHojaRutas()">
-              CERRAR
+              (click)="cleanAsociarForm()">
+              CANCELAR
             </button>
             <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end">
               ASOCIAR
@@ -357,14 +329,14 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let seguiss of seguim">
-                        <td >
+                        <td>
                           {{ seguiss.destino }}
                           <br />
                           <p *ngIf="seguiss.recibidox" class="text-capitalize">
                             {{ seguiss.recibidox }}
                           </p>
                         </td>
-                        <td >
+                        <td>
                           {{ seguiss.detalles }}
                           <br />
                           <p *ngIf="seguiss.estado === 'MALETIN'" class="badge badge-warning text-dark">
@@ -381,7 +353,7 @@
                             {{ seguiss.fechaderivado | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                           </span>
                         </td>
-                        <td >
+                        <td>
                           <span *ngIf="seguiss.fecharespuesta != null">{{ seguiss.fecharespuesta | amDifference :
                             seguiss.fechaderivado : "seconds" : true | amDuration : "seconds"}}</span>
                           <span *ngIf="
@@ -411,7 +383,7 @@
                               seguiss.estado === 'RECIBIDO'
                             ">Sin Responder</samp>
                         </td>
-                        <td >
+                        <td>
                           <i [ngClass]="
                               seguiss.fecharecepcion === 'SIN RESEPCIONAR'
                                 ? 'badge badge-danger'
@@ -428,7 +400,7 @@
                             </span>
                           </i>
                         </td>
-                        <td [ngSwitch]="seguiss.estado" >
+                        <td [ngSwitch]="seguiss.estado">
                           <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguiss.estado }}</span>
                           <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguiss.estado }}</span>
@@ -899,25 +871,18 @@
 
                   <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
                     <input (click)="isUser(false)" type="radio" class="btn-check" name="btnradio" id="btnradio1"
-                    autocomplete="off" checked>
+                      autocomplete="off">
                     <label class="btn btn-outline-success" for="btnradio1">Interno</label>
                     <input (click)="isUser(true)" type="radio" class="btn-check" name="btnradio" id="btnradio3"
-                    autocomplete="off">
+                      autocomplete="off" checked>
                     <label class="btn btn-outline-success" for="btnradio3">Externo</label>
                   </div>
                   <div class="mb-1">
                     <label for="checkTipoDoc" class="form-label col-auto">Tipo Documento</label>
-
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" formControlName="tipodoc" id="checkTipoDoc" [value]="tipodoc"
-                        (change)="changeTipoDoc($event)">
-                      <label class="form-check-label" for="checkTipoDoc">Pago</label>
+                      <label class="form-check-label" *ngIf="this.hojaForm.value.tipoDoc === 'pago'">Es Pago</label>
+                      <label class="form-check-label" *ngIf="this.hojaForm.value.tipoDoc != 'pago'"></label>
                     </div>
-                    <!-- <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" formControlName="tipodoc" id="checkTipoDoc" value="otros"
-                        (change)="changeTipoDoc2($event)" checked>
-                      <label class="form-check-label" for="checkTipoDoc">Otros</label>
-                    </div> -->
                   </div>
                 </div>
 
@@ -952,6 +917,18 @@
                     </div>
                   </div> -->
                 </div>
+
+                <div class="mb-2" *ngIf="!isUsuario">
+                  <input type="text" formControlName="beneficiarioPago" class="form-control"
+                    placeholder="Benefiario a pagar" />
+                  <div class="text-danger" *ngIf="
+                      hojaForm.get('beneficiarioPago')?.hasError('required') &&
+                      hojaForm.get('beneficiarioPago')?.touched
+                    ">
+                    <span>El Beneficiario <strong>es obligatorio</strong></span>
+                  </div>
+                </div>
+
                 <div class="mb-2">
                   <input type="text" formControlName="numCite" class="form-control" placeholder="Número del Cite" />
                   <div class="text-danger" *ngIf="
@@ -1001,7 +978,7 @@
                   </button>
                 </div>
               </form>
-               {{ hojaForm.value | json }}
+              {{ hojaForm.value | json }}
             </div>
           </div>
         </div>

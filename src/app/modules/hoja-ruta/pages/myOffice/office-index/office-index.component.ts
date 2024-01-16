@@ -199,7 +199,7 @@ export class OfficeIndexComponent implements OnInit {
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
         this.obtenertotal()
         console.log(this.seguimientos);
-        
+
       });
   }
 
@@ -635,12 +635,16 @@ export class OfficeIndexComponent implements OnInit {
 
     this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(
       (data) => {
-      
+
         console.log(data);
 
       },
       (error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.error.serverResponse,
+        });
       }
     );
   }

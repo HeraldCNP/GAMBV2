@@ -50,7 +50,7 @@ export class HojarutasComponent implements OnInit {
   aso: any = [];
   lisaso: string = ' ';
   cargando: boolean = true;
-  isUsuario: boolean = false;
+  isUsuario: boolean = true;
   funcionarios: any;
   funcionario:any='';
   ori:any;
@@ -67,13 +67,15 @@ export class HojarutasComponent implements OnInit {
     private aRouter: ActivatedRoute,
     private comunicacionesService: ComunicacionesService,
     private comprasService: ComprasService) {
+
     this.hojaForm = this.fb.group({
       origen: ['', Validators.required],
       referencia: ['', Validators.required],
       fechadocumento: ['', Validators.required],
-      tipodoc: [''],
+      tipoDoc: [''],
       contacto: [''],
       numCite: [''],
+      beneficiarioPago:['']
     });
 
     this.asociarForm = new FormGroup({
@@ -108,14 +110,14 @@ export class HojarutasComponent implements OnInit {
         cancelButtonText: "No",
       }).then((result) => {
         if (result.isConfirmed) {
-          /* this.api.EditarHoja(idh, HOJA).subscribe(data => {
-          this.getHojaRutas()
-          }, error => {
-            console.log(error);
-          }) */
+          this.hojaForm.value.tipoDoc = 'pago';
+          this.pago = true;
         }
       })
     }
+    // if(this.isUsuario === true){
+    //   this.hojaForm.value.tipoDoc = '';
+    // }
   }
 
   doSelect = (value: any) => {
@@ -149,13 +151,42 @@ export class HojarutasComponent implements OnInit {
     }
     const HOJA: Hojaruta = {
       origen: this.ori,
-      tipodoc: this.tipodoc,
+      tipodoc: this.hojaForm.get('tipoDoc')?.value,
       contacto: this.hojaForm.get('contacto')?.value,
       referencia: this.hojaForm.get('referencia')?.value,
       fechadocumento: this.hojaForm.get('fechadocumento')?.value,
       numCite: this.hojaForm.get('numCite')?.value,
       //nuit: this.totalh,
     };
+
+    console.log(this.pago);
+
+
+    if(this.pago === true){
+      const HOJA: Hojaruta = {
+        origen: this.ori,
+        tipodoc: "pago",
+        contacto: this.hojaForm.get('contacto')?.value,
+        referencia: this.hojaForm.get('referencia')?.value,
+        fechadocumento: this.hojaForm.get('fechadocumento')?.value,
+        numCite: this.hojaForm.get('numCite')?.value,
+        //nuit: this.totalh,
+      };
+    }else{
+      const HOJA: Hojaruta = {
+        origen: this.ori,
+        tipodoc: "2234",
+        contacto: this.hojaForm.get('contacto')?.value,
+        referencia: this.hojaForm.get('referencia')?.value,
+        fechadocumento: this.hojaForm.get('fechadocumento')?.value,
+        numCite: this.hojaForm.get('numCite')?.value,
+        //nuit: this.totalh,
+      };
+    }
+
+    console.log('antes de enviar',HOJA);
+
+
     this.funcionario='';
     this.api.register(HOJA).subscribe(
       (data) => {
@@ -427,6 +458,7 @@ export class HojarutasComponent implements OnInit {
   resetForm() {
     this.hojaForm.reset();
   }
+
   ImprimirPDF() {
     const DATA: any = document.getElementById('htmlData');
     const doc = new jsPDF('p', 'pt', 'letter');
@@ -629,7 +661,12 @@ export class HojarutasComponent implements OnInit {
 
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.error.serverResponse,
+        });
       }
     );
   }

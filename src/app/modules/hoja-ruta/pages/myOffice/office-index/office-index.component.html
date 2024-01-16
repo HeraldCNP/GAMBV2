@@ -255,8 +255,10 @@
     </div>
   </div>
 </div>
+
+
 <!--MODAL ASOCIAR-->
-<div class="modal fade" id="modalAsociar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAsociar" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
@@ -282,14 +284,14 @@
         </form>
 
       </div>
-      {{ asociarForm.value | json }}
+      <!-- {{ asociarForm.value | json }} -->
     </div>
   </div>
 </div>
 
 <!--MODAL SEGUIMIENTO-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modalLargo">
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
         <button type="button" class="btn btn-success p-0 mx-5" (click)="ImprimirPDF()">
