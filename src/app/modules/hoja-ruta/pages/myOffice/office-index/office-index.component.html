@@ -24,6 +24,7 @@
               Gestión:
               <select class="form-select form-select-sm" [(ngModel)]="campo" (change)="getSeguimientos()">
                 <option value="{{ year }}">{{ year }}</option>
+                <option value="2023">2023</option>
                 <option value="2022">2022</option>
                 <option value="0">todos</option>
               </select>
@@ -266,7 +267,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body pb-1">
-        <form [formGroup]="asociarForm" (ngSubmit)="asociar2()">
+        <form [formGroup]="asociarForm">
           <div class="mb-3">
             <label *ngIf="hojaAsociar" for="nuit" class="form-label">Hoja de ruta N° {{hojaAsociar.nuit}} con</label>
             <input type="number" class="form-control" id="nuit" formControlName="nuit">
@@ -276,7 +277,7 @@
               >
               CANCELAR
             </button>
-            <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end">
+            <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end" (click)="consultaAsociar(hojaAsociar.nuit)">
               ASOCIAR
             </button>
           </div>

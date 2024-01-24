@@ -116,7 +116,7 @@ export class ReportEntradasComponent implements OnInit {
 
 
   calculateTotalCost() {
-    return this.entradas.reduce((acc: any, item: any) => acc + (item.precio * item.cantidadCompra), 0);
+    return this.entradas.reduce((acc: any, item: any) => acc + (item.precio * item.stockCompra), 0);
   }
 
   separar() {
@@ -132,22 +132,23 @@ export class ReportEntradasComponent implements OnInit {
     this.separados = itemsByCategory;
     this.categories = Object.keys(itemsByCategory);
 
-    this.categories.forEach((element: any) => {
-      console.log(this.separados[element]);
+    // this.categories.forEach((element: any) => {
+    //   console.log(this.separados[element]);
 
-      // this.separados[element].sort((a:any, b:any) => {
-      //   const codigoA = a.idArticulo.idPartida.codigo;
-      //   const codigoB = b.idArticulo.idPartida.codigo;
-      //   return codigoA.localeCompare(codigoB);
-      // });
+    //   this.separados[element].sort((a:any, b:any) => {
+    //     const codigoA = a.idArticulo.idPartida.codigo;
+    //     const codigoB = b.idArticulo.idPartida.codigo;
+    //     return codigoA.localeCompare(codigoB);
+    //   });
 
-      console.log("ordenados", this.separados[element]);
-    });
+    //   console.log("ordenados", this.separados[element]);
+    // });
+
     this.categoryTotalPrices = this.categories.reduce((accumulator: any, category: any) => {
       const items = itemsByCategory[category];
-      const total = items.reduce((accumulator: any, item: any) => accumulator + (item.precio * item.cantidadCompra), 0);
-      this.cantidades[category] = items.reduce((accumulator: any, item: any) => accumulator + item.cantidadCompra, 0);
-      console.log('totalCanti', this.cantidades);
+      const total = items.reduce((accumulator: any, item: any) => accumulator + (item.precio * item.stockCompra), 0);
+      this.cantidades[category] = items.reduce((accumulator: any, item: any) => accumulator + item.stockCompra, 0);
+      console.log('totalCanti', items);
 
       this.almacenService.searchSegCategoria(category)
         .subscribe(

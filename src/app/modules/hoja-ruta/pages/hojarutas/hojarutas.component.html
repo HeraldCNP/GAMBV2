@@ -1,7 +1,7 @@
 <div class="p-3">
   <div class="row p-0">
     <div class="card" *ngIf="data && data.roles === 'SUPER_USER' && search2 === ''; else listado">
-      Buscar
+
     </div>
     <ng-template #listado>
       <div class="card">
@@ -216,7 +216,7 @@
           aria-label="Close"></button>
       </div>
       <div class="modal-body pb-1">
-        <form [formGroup]="asociarForm" (ngSubmit)="asociar2()">
+        <form [formGroup]="asociarForm">
           <div class="mb-3">
             <label *ngIf="hojaAsociar" for="nuit" class="form-label">Hoja de ruta N° {{hojaAsociar.nuit}} con</label>
             <input type="number" class="form-control" id="nuit" formControlName="nuit">
@@ -226,7 +226,7 @@
               (click)="cleanAsociarForm()">
               CANCELAR
             </button>
-            <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end">
+            <button  [disabled]="asociarForm.invalid" class="btn btn-success float-end" (click)="consultaAsociar(hojaAsociar.nuit)">
               ASOCIAR
             </button>
           </div>
@@ -234,7 +234,7 @@
         </form>
 
       </div>
-      <!-- {{ asociarForm.value | json }} -->
+      {{ asociarForm.value | json }}
     </div>
   </div>
 </div>
@@ -852,9 +852,8 @@
   </div>
 </div>
 
-<!--modal reguister-->
 
-<!-- Modal -->
+<!-- Modal Registro -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl register">
@@ -871,21 +870,20 @@
 
                   <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
                     <input (click)="isUser(false)" type="radio" class="btn-check" name="btnradio" id="btnradio1"
-                      autocomplete="off">
-                    <label class="btn btn-outline-success" for="btnradio1">Interno</label>
+                      autocomplete="off" [checked]=!isUsuario>
+                    <label class="btn btn-outline-success" for="btnradio1">Documento Interno</label>
                     <input (click)="isUser(true)" type="radio" class="btn-check" name="btnradio" id="btnradio3"
-                      autocomplete="off" checked>
-                    <label class="btn btn-outline-success" for="btnradio3">Externo</label>
+                      autocomplete="off" [checked]=isUsuario>
+                    <label class="btn btn-outline-success" for="btnradio3">Documento Externo</label>
                   </div>
-                  <div class="mb-1">
+                  <!-- <div class="mb-1">
                     <label for="checkTipoDoc" class="form-label col-auto">Tipo Documento</label>
                     <div class="form-check form-check-inline">
                       <label class="form-check-label" *ngIf="this.hojaForm.value.tipoDoc === 'pago'">Es Pago</label>
                       <label class="form-check-label" *ngIf="this.hojaForm.value.tipoDoc != 'pago'"></label>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
-
 
                 <div class="mb-2" *ngIf="isUsuario">
                   <input type="text" formControlName="origen" class="form-control" placeholder="Origen" />
@@ -918,9 +916,9 @@
                   </div> -->
                 </div>
 
-                <div class="mb-2" *ngIf="!isUsuario">
+                <div class="mb-2" *ngIf="pago">
                   <input type="text" formControlName="beneficiarioPago" class="form-control"
-                    placeholder="Benefiario a pagar" />
+                    placeholder="Beneficiario a pagar" />
                   <div class="text-danger" *ngIf="
                       hojaForm.get('beneficiarioPago')?.hasError('required') &&
                       hojaForm.get('beneficiarioPago')?.touched
@@ -939,9 +937,8 @@
                   </div>
                 </div>
 
-
-
                 <div class="mb-2">
+
                   <input type="text" formControlName="contacto" class="form-control"
                     placeholder="Número de Telefono o Celular" />
                 </div>
@@ -970,7 +967,7 @@
                 <!-- {{ hojaForm.value | json }} -->
                 <div class="mb-2">
                   <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal"
-                    (click)="getHojaRutas()">
+                    (click)="closeModalCreate()">
                     CERRAR
                   </button>
                   <button type="submit" [disabled]="hojaForm.invalid" class="btn btn-success float-end">

@@ -637,7 +637,8 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
 
         console.log(data);
-
+        this.asociarForm.reset();
+        this.getSeguimientos();
       },
       (error) => {
         Swal.fire({
@@ -647,6 +648,28 @@ export class OfficeIndexComponent implements OnInit {
         });
       }
     );
+  }
+
+  consultaAsociar(hoja:any){
+    Swal.fire({
+      title: 'ASOCIAR',
+      text: `Estas seguro de asociar: ${this.asociarForm.value.nuit}  a la hoja de ruta: ${hoja}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // console.log('si');
+        this.asociar2();
+      }
+      if(result.isDismissed){
+        // console.log('no');
+        this.asociarForm.reset();
+      }
+    })
   }
 
   ImprimirPDF() {

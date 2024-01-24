@@ -31,4 +31,6 @@ export class IndexComponent {
     this.authService.logout()
   }
 
+
+
 }

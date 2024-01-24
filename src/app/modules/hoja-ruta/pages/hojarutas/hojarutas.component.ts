@@ -113,11 +113,14 @@ export class HojarutasComponent implements OnInit {
           this.hojaForm.value.tipoDoc = 'pago';
           this.pago = true;
         }
+        if(result.isDenied){
+          this.pago = false;
+        }
       })
     }
-    // if(this.isUsuario === true){
-    //   this.hojaForm.value.tipoDoc = '';
-    // }
+    if(this.isUsuario === true){
+      this.pago = false;
+    }
   }
 
   doSelect = (value: any) => {
@@ -149,21 +152,13 @@ export class HojarutasComponent implements OnInit {
     }else{
       this.ori = this.hojaForm.get('origen')?.value;
     }
-    const HOJA: Hojaruta = {
-      origen: this.ori,
-      tipodoc: this.hojaForm.get('tipoDoc')?.value,
-      contacto: this.hojaForm.get('contacto')?.value,
-      referencia: this.hojaForm.get('referencia')?.value,
-      fechadocumento: this.hojaForm.get('fechadocumento')?.value,
-      numCite: this.hojaForm.get('numCite')?.value,
-      //nuit: this.totalh,
-    };
+
 
     console.log(this.pago);
 
 
     if(this.pago === true){
-      const HOJA: Hojaruta = {
+      var HOJA: Hojaruta = {
         origen: this.ori,
         tipodoc: "pago",
         contacto: this.hojaForm.get('contacto')?.value,
@@ -173,9 +168,9 @@ export class HojarutasComponent implements OnInit {
         //nuit: this.totalh,
       };
     }else{
-      const HOJA: Hojaruta = {
+      var HOJA: Hojaruta = {
         origen: this.ori,
-        tipodoc: "2234",
+        tipodoc: '',
         contacto: this.hojaForm.get('contacto')?.value,
         referencia: this.hojaForm.get('referencia')?.value,
         fechadocumento: this.hojaForm.get('fechadocumento')?.value,
@@ -184,17 +179,19 @@ export class HojarutasComponent implements OnInit {
       };
     }
 
-    console.log('antes de enviar',HOJA);
+    // console.log('antes de enviar',HOJA);
 
 
     this.funcionario='';
     this.api.register(HOJA).subscribe(
       (data) => {
-        console.log(HOJA);
+        // console.log(HOJA);
 
         this.page = 1;
         this.getHojaRutas()
         this.hojaForm.reset();
+        this.isUsuario = true;
+        this.pago = false;
       },
       (error) => {
         console.log(error);
@@ -202,7 +199,38 @@ export class HojarutasComponent implements OnInit {
     );
   }
 
+
+  // registerNewHojaRuta() {
+  //   let fd = new FormData();
+  //   fd.append('documento', this.addFileForm.value.documento);
+  //   fd.append('file', this.files[0]);
+  //   this.ejecucionService.addArchivo(fd, this.docEjecucionId).subscribe(
+  //     (event) => {
+  //       if (event.type === HttpEventType.UploadProgress) {
+  //         this.progress = Math.round((100 * event.loaded) / event.total);
+  //       }
+  //     },
+  //     (err) => {
+  //       console.log('HTTP Error', err);
+  //       this.progress = 0;
+  //     },
+  //     () => {
+  //       this.progress = 0;
+  //       this.getDocEjecucion();
+  //       this.resetForm();
+  //       this.alertOk(
+  //         'success',
+  //         'Exito',
+  //         'Documento Creado Correctamente',
+  //         '2000'
+  //       );
+  //     }
+  //   );
+  // }
+
+
   getHojaRutas() {
+
     this.cargando = true;
     this.campo=parseInt(this.campo)
     if(this.campo==this.year-1){
@@ -252,6 +280,11 @@ export class HojarutasComponent implements OnInit {
       }
     );
 
+  }
+
+  closeModalCreate(){
+    this.isUsuario = true;
+    console.log(this.isUsuario);
   }
 
   getHojaRuta(){
@@ -652,16 +685,38 @@ export class HojarutasComponent implements OnInit {
 
   }
 
+  consultaAsociar(hoja:any){
+    Swal.fire({
+      title: 'ASOCIAR',
+      text: `Estas seguro de asociar: ${this.asociarForm.value.nuit}  a la hoja de ruta: ${hoja}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // console.log('si');
+        this.asociar2();
+      }
+      if(result.isDenied){
+        // console.log('no');
+        this.asociarForm.reset();
+      }
+    })
+  }
+
   asociar2(){
 
     this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(
       (data) => {
-        this.getHojaRutas()
         console.log(data);
-
+        this.asociarForm.reset();
+        this.getHojaRutas();
       },
       (error) => {
-        // console.log(error);
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -674,5 +729,7 @@ export class HojarutasComponent implements OnInit {
   cleanAsociarForm(){
     this.asociarForm.reset();
   }
+
+
 
 }
