@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card shadow p-3 mb-3 bg-body rounded">
-        <button *ngIf="!cargando" type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
+        <button *ngIf="!cargando" type="button" printTitle="."  [printStyle]="{ '@page': { size: 'landscape !important' } }"
+        [useExistingCss]="true" printSectionId="content" ngxPrint
           class="btn btn-primary">
           Imprimir
         </button>
@@ -24,6 +25,7 @@
             </div>
             <div class="text-center ml-5 mt-3 mb-0">
               <h3 class="off-m">FISICO VALORADO</h3>
+              <h4 class="off-m">Del 01 de Enero de 2023 AL 31 de Diciembre de 2023</h4>
               <p class="off-m">Expresado en Bolivianos</p>
             </div>
             <div class="p-3 ">
@@ -150,6 +152,33 @@
               </tbody>
 
             </table>
+
+            <div class="mt-5 pt-5">
+              <div class="d-flex justify-content-around ml-3 mb-0 mt-5 pt-5">
+
+                <div class="">
+                  <div class="text-center">
+                    Responsable de Area <br />
+                    Financiera
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    Contador General
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    Responsable de Almacen
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    Maxima Autoridad Ejecutiva
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
