@@ -72,6 +72,10 @@ export class OfficeIndexComponent implements OnInit {
   datelt:any=this.dategt+1;
   campo:any = this.year;
 
+  hrPrincipal:any;
+  asociadosHr:any;
+  last:any;
+
   asociarForm: any;
   hojaAsociar : any;
   constructor(private api: RutaService, private router: Router) {
@@ -621,14 +625,14 @@ export class OfficeIndexComponent implements OnInit {
   }
 
   asociar(hoja:any){
-    console.log(hoja);
+
     // console.log(this.data.post);
     this.asociarForm.patchValue({
       cargo: this.data.post,
     });
 
     this.hojaAsociar = hoja.idhj;
-    console.log(this.hojaAsociar);
+    // console.log(this.hojaAsociar);
 
   }
   asociar2(){
@@ -639,6 +643,29 @@ export class OfficeIndexComponent implements OnInit {
         console.log(data);
         this.asociarForm.reset();
         this.getSeguimientos();
+      },
+      (error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.error.serverResponse,
+        });
+      }
+    );
+  }
+
+  verAsociados(hr:any){
+    // console.log('prin1', hr.idhj);
+    this.last = hr.idhj.seguimiento[hr.idhj.seguimiento.length - 1];
+
+    // console.log('ultimo', this.last);
+
+    this.api.getHr(hr.idhj._id).subscribe(
+      (data) => {
+        console.log('prin2', data);
+        this.hrPrincipal = data;
+        this.asociadosHr = data.asociados;
+        console.log(this.asociadosHr);
       },
       (error) => {
         Swal.fire({
