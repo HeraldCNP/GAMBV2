@@ -512,6 +512,9 @@
 <div class="modal fade" id="modalAsociados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modalLargo">
     <div class="modal-content" *ngIf="hrPrincipal">
+      <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <div class="modal-body pb-0">
         <div id="htmlData">
           <div class="segui">
@@ -532,7 +535,7 @@
                 <div class="badge bg-light text-dark text-center fs-5">
 
                   N°:&nbsp;&nbsp;<strong></strong>{{ hrPrincipal.nuit | uppercase }}
-                  <span *ngIf="last.estado == 'RECIBIDO'"> - PRINCIPAL</span>
+                  <span class="badge badge-success" *ngIf="last.estado == 'RECIBIDO' || last.estado=== 'ENVIADO' "> PRINCIPAL</span>
                 </div>
               </div>
             </div>
@@ -577,12 +580,9 @@
                         <th scope="col">Nuit</th>
                         <th scope="col">Origen</th>
                         <th scope="col">Referencia</th>
-                        <th scope="col">Fecha de Recepción</th>
-                        <th scope="col">Hora</th>
-                        <th scope="col">Fecha de documento</th>
                         <th scope="col">Telefono</th>
                         <th scope="col">Tipo de documento</th>
-                        <th scope="col"></th>
+                        <th scope="col">...</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -590,12 +590,9 @@
                         <td>{{ asociado.nuit }}</td>
                         <td>{{ asociado.origen }}</td>
                         <td>{{ asociado.referencia }}</td>
-                        <td>{{ asociado.fecharesepcion | date : "dd/MM/yyyy" }}</td>
-                        <td>{{ asociado.fecharesepcion | date : "HH:MM:ss" }}</td>
-                        <td>{{ asociado.fechadocumento | date : "dd/MM/yyyy" }}</td>
                         <td>{{ asociado.contacto }}</td>
                         <td>{{ hrPrincipal.tipodoc }}</td>
-                        <td *ngIf="last.estado != 'RECIBIDO'"> <span class="badge badge-success"> PRINCIPAL</span><td>
+                        <td *ngIf="asociado.seguimiento[asociado.seguimiento.length-1].estado=== 'RECIBIDO' || asociado.seguimiento[asociado.seguimiento.length-1].estado=== 'ENVIADO' "> <span class="badge badge-success"> PRINCIPAL </span><td>
                       </tr>
                     </tbody>
                   </table>

@@ -657,15 +657,10 @@ export class OfficeIndexComponent implements OnInit {
   verAsociados(hr:any){
     // console.log('prin1', hr.idhj);
     this.last = hr.idhj.seguimiento[hr.idhj.seguimiento.length - 1];
-
-    // console.log('ultimo', this.last);
-
     this.api.getHr(hr.idhj._id).subscribe(
       (data) => {
-        console.log('prin2', data);
         this.hrPrincipal = data;
         this.asociadosHr = data.asociados;
-        console.log(this.asociadosHr);
       },
       (error) => {
         Swal.fire({

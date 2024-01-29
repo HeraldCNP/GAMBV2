@@ -61,6 +61,9 @@ export class HojarutasComponent implements OnInit {
   pago: boolean = false;
   tipodoc:string = "";
 
+  hrPrincipal:any;
+  asociadosHr:any;
+  last:any;
   constructor(private api: RutaService,
     private router: Router,
     private fb: FormBuilder,
@@ -706,7 +709,51 @@ export class HojarutasComponent implements OnInit {
       }
     })
   }
-
+  verAsociados(hr:any){
+    this.last = hr.seguimiento[hr.seguimiento.length - 1];
+    this.api.getHr(hr._id).subscribe(
+      (data) => {
+        this.hrPrincipal = data;
+        this.asociadosHr = data.asociados;
+      },
+      (error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.error.serverResponse,
+        });
+      }
+    );
+  }
+  eliminarEnvio(hr:any){
+    Swal.fire({
+      title: 'Estas seguro de Eliminar?',
+      text: `Se va eliminar el primer registro de Seguimiento`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) { 
+        this.api.eliminarEnvio(hr._id).subscribe(
+          (data) => {
+            console.log(data);
+            this.getHojaRutas();
+          },
+          (error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: error.error.serverResponse,
+            });
+          }
+        );
+      }
+    })
+    
+  }
   asociar2(){
 
     this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(

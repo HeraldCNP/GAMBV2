@@ -74,9 +74,12 @@ export class RutaService {
     } ) )
   }
 
-
+  
   eliminarSegui(id: string): Observable<any> {
     return this.http.delete(this.URL + '/segui/' + id);
+  }
+  eliminarEnvio(id: string): Observable<any> {
+    return this.http.get(this.URL + '/eliminarEnvio/' + id);
   }
   eliminarArc(id: string): Observable<any> {
     return this.http.delete(this.URL + '/arch/' + id);
