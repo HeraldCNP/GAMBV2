@@ -16,7 +16,7 @@ export class ReportEntradasComponent implements OnInit {
 
   entradas: any = [];
   fechaHoy = new Date().toISOString();
-  fechaIni = new Date('01/01/2023').toISOString();
+  fechaIni = new Date(this.obtenerFechaInicial()).toISOString();
 
   idUser: any;
   usuario: any;
@@ -53,6 +53,12 @@ export class ReportEntradasComponent implements OnInit {
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
     });
+  }
+
+  obtenerFechaInicial(){
+    const date = new Date();
+    const year = date.getFullYear();
+    return `01/01/${year}`;
   }
 
   ngOnInit(): void {

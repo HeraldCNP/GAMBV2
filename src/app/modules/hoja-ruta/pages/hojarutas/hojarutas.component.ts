@@ -88,14 +88,12 @@ export class HojarutasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.user = localStorage.getItem("user");
     this.data = JSON.parse(this.user);
 
     this.getHojaRutas();
     // this.getHojaRuta();
     this.cargarFuncionarios();
-
   }
 
   isUser(a:boolean){
@@ -103,13 +101,12 @@ export class HojarutasComponent implements OnInit {
     console.log(this.isUsuario);
     if (this.isUsuario === false){
       Swal.fire({
-        title: 'PAGO',
-        text: "Esta no es Solicitud de Cancelacion?",
+        title: 'ES PAGO?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Es Pago',
+        confirmButtonText: 'Si',
         cancelButtonText: "No",
       }).then((result) => {
         if (result.isConfirmed) {
@@ -164,6 +161,7 @@ export class HojarutasComponent implements OnInit {
       var HOJA: Hojaruta = {
         origen: this.ori,
         tipodoc: "pago",
+        beneficiarioPago: this.hojaForm.get('beneficiarioPago')?.value,
         contacto: this.hojaForm.get('contacto')?.value,
         referencia: this.hojaForm.get('referencia')?.value,
         fechadocumento: this.hojaForm.get('fechadocumento')?.value,
@@ -246,11 +244,13 @@ export class HojarutasComponent implements OnInit {
       this.dategt=this.campo;
       this.datelt=this.year+1;
     }
-    console.log(this.campo)
+    // console.log(this.campo)
     this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(
       data => {
         this.cant=data.nuitok
         this.hojaRutas = data.serverResponse;
+        console.log(this.hojaRutas);
+
         this.totalPages = data.totalpage;
         this.search=" ";
         this.cargando = false;
@@ -709,12 +709,19 @@ export class HojarutasComponent implements OnInit {
       }
     })
   }
+
   verAsociados(hr:any){
     this.last = hr.seguimiento[hr.seguimiento.length - 1];
+    console.log('ultimo', hr);
+
     this.api.getHr(hr._id).subscribe(
       (data) => {
         this.hrPrincipal = data;
         this.asociadosHr = data.asociados;
+
+        console.log('principal', this.hrPrincipal);
+        console.log(this.hrPrincipal);
+
       },
       (error) => {
         Swal.fire({
@@ -725,6 +732,7 @@ export class HojarutasComponent implements OnInit {
       }
     );
   }
+
   eliminarEnvio(hr:any){
     Swal.fire({
       title: 'Estas seguro de Eliminar?',
@@ -736,7 +744,7 @@ export class HojarutasComponent implements OnInit {
       confirmButtonText: 'Si',
       cancelButtonText: "No",
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.api.eliminarEnvio(hr._id).subscribe(
           (data) => {
             console.log(data);
@@ -752,8 +760,9 @@ export class HojarutasComponent implements OnInit {
         );
       }
     })
-    
+
   }
+
   asociar2(){
 
     this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(

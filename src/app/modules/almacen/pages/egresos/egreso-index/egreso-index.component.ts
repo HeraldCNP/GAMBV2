@@ -42,9 +42,9 @@ export class EgresoIndexComponent implements OnInit {
   cargo: string = '';
   glosaSalida: string = '';
   numeroSalida?: any;
-  del: string = new Date('01/01/2023').toISOString();
+  del: string = new Date(this.obtenerFechaInicial()).toISOString();
   al: string = new Date().toISOString();
-  fechaIni = new Date('01/01/2023').toISOString();
+  fechaIni = new Date(this.obtenerFechaInicial()).toISOString();
   fechaHoy = new Date().toISOString();
 
   constructor(private egresosService: EgresosService, private fb: FormBuilder, private router: Router, private almacenService: AlmacenService) {
@@ -60,6 +60,12 @@ export class EgresoIndexComponent implements OnInit {
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
     });
+  }
+
+  obtenerFechaInicial(){
+    const date = new Date();
+    const year = date.getFullYear();
+    return `01/01/${year}`;
   }
 
   ngOnInit(): void {

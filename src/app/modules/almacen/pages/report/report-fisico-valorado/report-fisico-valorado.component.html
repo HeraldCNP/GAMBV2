@@ -79,21 +79,21 @@
                     <td class="off-p">{{ item.idArticulo.codigo }}</td>
                     <td>{{ item.idArticulo.nombre }}</td>
                     <td>{{ item.idArticulo.unidadDeMedida | titlecase }}</td>
-                    <ng-container *ngIf="item.idEntrada.tipo === 'SALDO_2022'">
+                    <ng-container *ngIf="item.idEntrada.tipo === saldoInicial">
                       <td class="derecha">{{ item.cantidadCompra | number : '1.2-2' }}</td>
                       <td class="derecha">{{ item.cantidadCompra * item.precio | currency : "USD" : "" }}</td>
                     </ng-container>
-                    <ng-container *ngIf="item.idEntrada.tipo != 'SALDO_2022'">
+                    <ng-container *ngIf="item.idEntrada.tipo != saldoInicial">
                       <td></td>
                       <td></td>
                     </ng-container>
 
-                    <ng-container *ngIf="item.idEntrada.tipo != 'SALDO_2022'">
+                    <ng-container *ngIf="item.idEntrada.tipo != saldoInicial">
                       <td class="derecha">{{ item.cantidadCompra | number : '1.2-2' }}</td>
                       <td class="derecha">{{ item.cantidadCompra * item.precio | currency : "USD" : "" }}</td>
                     </ng-container>
 
-                    <ng-container *ngIf="item.idEntrada.tipo == 'SALDO_2022'">
+                    <ng-container *ngIf="item.idEntrada.tipo == saldoInicial">
                       <td></td>
                       <td></td>
                     </ng-container>

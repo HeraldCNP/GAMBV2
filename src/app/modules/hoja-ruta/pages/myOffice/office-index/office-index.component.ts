@@ -661,6 +661,8 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         this.hrPrincipal = data;
         this.asociadosHr = data.asociados;
+
+
       },
       (error) => {
         Swal.fire({

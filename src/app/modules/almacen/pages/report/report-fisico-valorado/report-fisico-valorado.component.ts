@@ -10,7 +10,7 @@ import { getLocaleMonthNames } from '@angular/common';
 })
 export class ReportFisicoValoradoComponent {
   fechaHoy = new Date().toISOString();
-  fechaIni = new Date('01/01/2023').toISOString();
+  fechaIni = new Date(this.obtenerFechaInicial()).toISOString();
   idUser: any;
   usuario: any;
   data: any;
@@ -29,6 +29,7 @@ export class ReportFisicoValoradoComponent {
   cantidadSaldos: any = [];
   nameCate: any = [];
 
+  saldoInicial = 'SALDO_' + this.obtenerYear();
 
 
   sumaTotalCantidadIngresos: any;
@@ -50,8 +51,22 @@ export class ReportFisicoValoradoComponent {
 
   }
 
+  obtenerFechaInicial(){
+    const date = new Date();
+    const year = date.getFullYear();
+    return `01/01/${year}`;
+  }
+
+  obtenerYear(){
+    const date = new Date();
+    const year = date.getFullYear();
+    return year;
+  }
+
   ngOnInit(): void {
     this.cargarEntradas();
+
+
   }
 
 
@@ -136,7 +151,7 @@ export class ReportFisicoValoradoComponent {
       this.totalSaldos[category] = items.reduce((accumulator: any, item: any) => accumulator + (item.stockCompra * item.precio), 0);
 
 
-      const filtrado = items.filter((item: { idEntrada: { tipo: string; }; }) => item.idEntrada.tipo == 'SALDO_2022');
+      const filtrado = items.filter((item: { idEntrada: { tipo: string; }; }) => item.idEntrada.tipo == this.saldoInicial);
       // console.log(filtrado);
 
 
@@ -144,7 +159,7 @@ export class ReportFisicoValoradoComponent {
         return accumulator + item.cantidadCompra;
       }, 0);
 
-      const filtrado2 = items.filter((item: { idEntrada: { tipo: string; }; }) => item.idEntrada.tipo == 'SALDO_2022');
+      const filtrado2 = items.filter((item: { idEntrada: { tipo: string; }; }) => item.idEntrada.tipo == this.saldoInicial);
 
 
       this.totalSaldosIniciales[category] = filtrado2.reduce((accumulator: number, item: { cantidadCompra: number; precio: number; }) => {
