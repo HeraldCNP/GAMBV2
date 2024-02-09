@@ -657,6 +657,8 @@ export class OfficeIndexComponent implements OnInit {
   verAsociados(hr:any){
     // console.log('prin1', hr.idhj);
     this.last = hr.idhj.seguimiento[hr.idhj.seguimiento.length - 1];
+    console.log(this.last);
+
     this.api.getHr(hr.idhj._id).subscribe(
       (data) => {
         this.hrPrincipal = data;

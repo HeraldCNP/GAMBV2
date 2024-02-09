@@ -286,6 +286,10 @@ export class AlmacenService {
     return this.http.post<any>(dir, form);
   }
 
+  cerrarGestion(): Observable<any> {
+    let dir = `${this.URL}/cierreGestion`;
+    return this.http.get<any>(dir);
+  }
   /*END catProgras */
 
 }

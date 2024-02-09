@@ -711,16 +711,15 @@ export class HojarutasComponent implements OnInit {
   }
 
   verAsociados(hr:any){
-    this.last = hr.seguimiento[hr.seguimiento.length - 1];
-    console.log('ultimo', hr);
+
 
     this.api.getHr(hr._id).subscribe(
       (data) => {
         this.hrPrincipal = data;
         this.asociadosHr = data.asociados;
-
-        console.log('principal', this.hrPrincipal);
-        console.log(this.hrPrincipal);
+        this.last = this.hrPrincipal.seguimiento[this.hrPrincipal.seguimiento.length - 1];
+        // console.log('principal', this.hrPrincipal);
+        // console.log(this.hrPrincipal);
 
       },
       (error) => {
