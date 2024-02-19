@@ -66,7 +66,7 @@
             </button>
             <button (click)="changeStatus('ENVIADO')" type="button" [ngClass]="estado == 'ENVIADO' ? 'activate' : ''"
               class="btn btn-info btn-sm position-relative mr-4">
-              Sin recibir
+              Sin Recibir
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ totalEnviados }}
                 <span class="visually-hidden">unread messages</span>
@@ -100,7 +100,7 @@
                 (today | amDifference : seguimiento.fechaderivado : 'hours') >
                 12
               ">
-              <div *ngIf="seguimiento.fecharecepcion == 'SIN RESEPCIONAR'"
+              <div *ngIf="seguimiento.fecharecepcion == 'SIN RECEPCIONAR'"
                 class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
                 <strong class="d-flex fs-6"><span>Reciba el documento
                     <i class="fw-bold">{{ seguimiento.nuit }}</i>, si no ha sido entregado fisicamente a su persona,
@@ -175,14 +175,14 @@
                 </td>
                 <td>
                   <i (click)="cambiarEstado(seguimiento._id)" [ngClass]="
-                      seguimiento.fecharecepcion === 'SIN RESEPCIONAR'
+                      seguimiento.fecharecepcion === 'SIN RECEPCIONAR'
                         ? 'badge badge-danger'
                         : ''
                     ">
-                    <span *ngIf="seguimiento.fecharecepcion === 'SIN RESEPCIONAR'">
+                    <span *ngIf="seguimiento.fecharecepcion === 'SIN RECEPCIONAR'">
                       Recibir
                     </span>
-                    <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
+                    <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
                       {{
                       seguimiento.fecharecepcion
                       | amLocal
@@ -190,7 +190,7 @@
                       }}
                     </i>
                     <!--
-                    <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
+                    <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
                       {{
                         seguimiento.fecharecepcion | amLocale: "es" | amTimeAgo
                       }}
@@ -391,11 +391,11 @@
                           </p>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                          <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
 
                             {{ seguiss.fechaderivado | amLocale : "es" | amTimeAgo }}
                           </span><br />
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                          <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
                             <!-- {{ seguiss.fechaderivado | date : "short" : "UTC-4" }} * -->
                             {{
                             seguiss.fechaderivado
@@ -442,16 +442,16 @@
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <i [ngClass]="
-                              seguiss.fecharecepcion === 'SIN RESEPCIONAR'
+                              seguiss.fecharecepcion === 'SIN RECEPCIONAR'
                                 ? 'badge badge-danger'
                                 : ''
                             ">
                             <span *ngIf="
-                                seguiss.fecharecepcion === 'SIN RESEPCIONAR'
+                                seguiss.fecharecepcion === 'SIN RECEPCIONAR'
                               ">
                               {{ seguiss.fecharecepcion }}</span>
                             <span *ngIf="
-                                seguiss.fecharecepcion != 'SIN RESEPCIONAR'
+                                seguiss.fecharecepcion != 'SIN RECEPCIONAR'
                               ">
                               {{
                               seguiss.fecharecepcion
@@ -459,7 +459,7 @@
                               | amTimeAgo
                               }} </span><br />
                             <span *ngIf="
-                                seguiss.fecharecepcion != 'SIN RESEPCIONAR'
+                                seguiss.fecharecepcion != 'SIN RECEPCIONAR'
                               ">
                               <!-- {{ seguiss.fecharecepcion | date : "short" : "UTC-4" }} * -->
                               {{

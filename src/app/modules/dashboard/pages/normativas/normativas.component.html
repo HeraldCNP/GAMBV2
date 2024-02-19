@@ -21,6 +21,7 @@
                 <th>Fecha de Finalización</th>
                 <th>Documento</th>
                 <th>Estado</th>
+                <th>Orden</th>
               </tr>
             </thead>
             <tbody>
@@ -33,6 +34,10 @@
                 <td>
                   <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
                   <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                </td>
+                <td>
+                  <i class="fas fa-arrow-up"></i>
+                  <i class="fas fa-arrow-down"></i>
                 </td>
                 <!-- <td>
                   <div class="form-check form-switch">

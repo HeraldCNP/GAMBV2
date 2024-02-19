@@ -9,7 +9,7 @@
         <span class="textHead">{{ model.tipo | uppercase }}</span>
       </button>
     </h2>
-    <div [id]="'panel-'+i" class="accordion-collapse collapse show">
+    <div [id]="'panel-'+i" class="accordion-collapse collapse">
       <div class="accordion-body">
         <div class="row">
           <div *ngFor="let document of model.documentos" class="col">

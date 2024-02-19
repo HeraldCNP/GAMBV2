@@ -346,11 +346,11 @@
                           </p>
                         </td>
                         <td>
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                          <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
                             <!-- {{ seguiss.fechaderivado | date: "shortDate":"UTC" }} -->
                             {{ seguiss.fechaderivado | amLocale : "es" | amTimeAgo }}
                           </span><br />
-                          <span *ngIf="seguiss.fechaderivado != 'SIN RESEPCIONAR'">
+                          <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
                             <!-- {{ seguiss.fechaderivado | date: "short":"UTC" }} * -->
                             {{ seguiss.fechaderivado | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                           </span>
@@ -387,16 +387,16 @@
                         </td>
                         <td>
                           <i [ngClass]="
-                              seguiss.fecharecepcion === 'SIN RESEPCIONAR'
+                              seguiss.fecharecepcion === 'SIN RECEPCIONAR'
                                 ? 'badge badge-danger'
                                 : ''
                             ">
-                            <span *ngIf="seguiss.fecharecepcion === 'SIN RESEPCIONAR' ">
+                            <span *ngIf="seguiss.fecharecepcion === 'SIN RECEPCIONAR' ">
                               {{ seguiss.fecharecepcion }}</span>
-                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR' ">
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RECEPCIONAR' ">
                               {{ seguiss.fecharecepcion | amLocale : "es" | amTimeAgo }}
                             </span><br />
-                            <span *ngIf="seguiss.fecharecepcion != 'SIN RESEPCIONAR' ">
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RECEPCIONAR' ">
                               <!-- {{ seguiss.fecharecepcion | date: "short":"UTC" }} * -->
                               {{ seguiss.fecharecepcion | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
                             </span>
