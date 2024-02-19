@@ -35,7 +35,7 @@ export class PlantillasComponent {
     const diffTime = Math.abs(today - publishDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    // console.log(diffDays);
+    console.log(diffDays);
     return diffDays <= 9;
   }
 

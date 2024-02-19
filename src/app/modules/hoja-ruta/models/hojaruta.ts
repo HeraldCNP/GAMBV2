@@ -13,4 +13,5 @@ export interface Hojaruta{
     pathhoja?: string;
     asociado?:string;
     numCite?:string;
+    beneficiarioPago?:string;
   }
