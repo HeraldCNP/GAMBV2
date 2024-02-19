@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ReportAlmService } from '../../../services/report-alm.service';
 import { AlmacenService } from '../../../services/almacen.service';
 import { getLocaleMonthNames } from '@angular/common';
+import Swal from 'sweetalert2';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-report-fisico-valorado',
@@ -15,7 +17,7 @@ export class ReportFisicoValoradoComponent {
   usuario: any;
   data: any;
   entradas: any[] = [];
-  cargando: boolean = true;
+  cargando: boolean = false;
   separados: any;
   categories: any;
   totalSaldosIniciales: any = [];
@@ -28,6 +30,9 @@ export class ReportFisicoValoradoComponent {
   totalSaldos: any = [];
   cantidadSaldos: any = [];
   nameCate: any = [];
+
+
+  reportForm: any;
 
   saldoInicial = 'SALDO_' + this.obtenerYear();
 
@@ -44,12 +49,44 @@ export class ReportFisicoValoradoComponent {
   sumaTotalSaldos: any;
   sumaTotalCantidadSaldos: any;
 
-  constructor(private reportAlm: ReportAlmService, private almacenService: AlmacenService) {
+  catProgras: any;
+  nameCat: any;
+
+  catProgra:any;
+  del: string = '';
+  al: string = '';
+
+  constructor(private reportAlm: ReportAlmService, private almacenService: AlmacenService, private fb: FormBuilder) {
     this.usuario = localStorage.getItem('user');
     this.data = JSON.parse(this.usuario);
     this.idUser = this.data.id;
 
+    this.reportForm = this.fb.group({
+      catProgra: [''],
+      del: [this.fechaIni.substr(0, 10)],
+      al: [this.fechaHoy.substr(0, 10)],
+    });
   }
+
+
+  get form() {
+    return this.reportForm.controls;
+  }
+
+
+  cargarCatProgras() {
+
+    this.reportAlm.getAllCatProgras().subscribe((data: any) => {
+      this.catProgras = data.serverResponse;
+      // console.log("Cat Progras", this.catProgras)
+    });
+  }
+
+  public doSelect = (value: any) => {
+    console.log('SingleDemoComponent.doSelect', value);
+    this.nameCat = this.catProgras.find((item: { cat_programatica: string; }) => item.cat_programatica === value);
+    // console.log(this.nameCat)
+  };
 
   obtenerFechaInicial(){
     const date = new Date();
@@ -64,18 +101,22 @@ export class ReportFisicoValoradoComponent {
   }
 
   ngOnInit(): void {
-    this.cargarEntradas();
+    this.cargarCatProgras();
 
 
   }
 
-
-
-
+  obtenerEntradas(form: any) {
+    this.catProgra = form.value.catProgra;
+    this.del = form.value.del;
+    this.al = form.value.al;
+    this.cargarEntradas();
+  }
 
   cargarEntradas() {
+    this.cargando = true;
     this.reportAlm
-      .getAllCompras()
+      .getAllCompras(this.catProgra, this.del, this.al)
       .subscribe(
         (data: any) => {
           this.entradas = data.serverResponse;
@@ -88,7 +129,6 @@ export class ReportFisicoValoradoComponent {
         }
       );
   }
-
 
   separar() {
     // console.log("tratando de ordenar",this.ingreso.productos);
@@ -235,5 +275,31 @@ export class ReportFisicoValoradoComponent {
   }
 
 
+
+  cerrarGestion(){
+    console.log('cerrar');
+    Swal.fire({
+      title: "Desea realizar el cierre de Gestión?",
+      text: "Esta acción generara saldos iniciales y no se podra revertir!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // this.almacenService.cerrarGestion()
+        // .subscribe((data: any) => {
+        //   Swal.fire({
+        //     title: "Exito!",
+        //     text: "la accion se realizo con exito.",
+        //     icon: "success"
+        //   });
+        // });
+
+      }
+    });
+  }
 
 }

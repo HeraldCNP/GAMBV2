@@ -54,8 +54,8 @@ export class ReportAlmService {
     return this.http.get<any>(dir);
   }
 
-  getAllCompras(): Observable<any[]> {
-    let dir = `${this.URL}/compras`;
+  getAllCompras(catProgra?: string, del?: any, al?: any): Observable<any[]> {
+    let dir = `${this.URL}/compras?catProgra=${catProgra}&del=${del}&al=${al}`;
     // console.log(dir);
     return this.http.get<any>(dir);
   }

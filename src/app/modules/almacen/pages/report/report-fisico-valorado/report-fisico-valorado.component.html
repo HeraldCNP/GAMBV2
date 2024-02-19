@@ -2,12 +2,101 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card shadow p-3 mb-3 bg-body rounded">
-        <button *ngIf="!cargando" type="button" printTitle="."  [printStyle]="{ '@page': { size: 'landscape !important' } }"
-        [useExistingCss]="true" printSectionId="content" ngxPrint
-          class="btn btn-primary">
-          Imprimir
-        </button>
+        <div class="d-flex justify-content-between" *ngIf="!cargando">
+          <button type="button" printTitle="."  [printStyle]="{ '@page': { size: 'landscape !important' } }"
+          [useExistingCss]="true" printSectionId="content" ngxPrint
+            class="btn btn-primary shadow">
+            Imprimir
+          </button>
+          <button class="btn btn-warning shadow rounded" (click)="cerrarGestion()"> CIERRE DE GESTIÓN</button>
+        </div>
+
         <h3 class="text-center p-0">Reporte</h3>
+        <div class="card-header d-flex flex-row justify-content-between">
+          <form [formGroup]="reportForm">
+            <div class="row g-3 align-items-center">
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1">
+                  <span class="input-group-text" id="catProgra"><b>Cat. Programatica *</b></span>
+
+                  <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
+                    optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
+                    formControlName="catProgra" (select)="doSelect($event)">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                    </ng-template>
+                    <div class="form-text" *ngIf="
+                        form['catProgra'].touched && form['catProgra'].invalid
+                      ">
+                      <div *ngIf="
+                          form['catProgra'].errors &&
+                          form['catProgra'].errors['required']
+                        ">
+                        * La categoria programatica es Requerida.
+                      </div>
+                    </div>
+                  </ngx-select>
+                </div>
+
+                <!-- <span *ngIf="nameCat" style="font-size: 0.7rem;">{{ nameCat.proyect_acti }}</span> -->
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1 mx-2">
+                  <span class="input-group-text izq" id="del"><b>Del</b></span>
+                  <input class="form-control" type="date" formControlName="del" />
+                  <div class="form-text" *ngIf="form['del'].touched && form['del'].invalid">
+                    <div *ngIf="
+                        form['del'].errors && form['del'].errors['required']
+                      ">
+                      * Fecha Inicial
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm mb-1 mx-2">
+                  <span class="input-group-text izq" id="estado"><b>Al</b></span>
+                  <input class="form-control" type="date" formControlName="al" />
+                  <div class="form-text" *ngIf="form['al'].touched && form['al'].invalid">
+                    <div *ngIf="form['al'].errors && form['al'].errors['required']">
+                      * Fecha Final
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button (click)="obtenerEntradas(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+              Buscar
+            </button>
+            <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
+              class="btn btn-primary" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+              Imprimir
+            </button>
+
+            <!-- <button (click)="imprimir()" class="btn btn-primary"
+              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button> -->
+
+            <!-- <div class="input-group mb-1">
+              <span class="input-group-text izq" id="funcionario"><b> Funcionario</b></span>
+              <select id="funcionario" formControlName="funcionario" class="form-select" required>
+                <option value="" [defaultSelected]="true">Elija una opción</option>
+                <option *ngFor="let user of users" value="{{ user.post }}">{{ user.username }} {{ user.surnames }}
+                </option>
+
+              </select>
+              <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
+                <div *ngIf="form['funcionario'].errors && form['funcionario'].errors['required']">* Debe seleccionar un
+                  funcionario.</div>
+              </div>
+            </div> -->
+          </form>
+        </div>
+        {{ reportForm.value | json }}
+
+
         <div class="row animated fadeIn fast" *ngIf="cargando">
           <div class="col-md-12">
             <div class="alert alert-info text-center">
@@ -17,6 +106,7 @@
             </div>
           </div>
         </div>
+
         <!-- {{ reportForm.value | json }} -->
         <div class="container" id="content" *ngIf="!cargando">
           <div class="d-flex justify-content-between ml-2 mb-0">
