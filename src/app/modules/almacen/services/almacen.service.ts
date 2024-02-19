@@ -140,7 +140,11 @@ export class AlmacenService {
     console.log(dir);
     return this.http.get<any>(dir);
   }
-
+  getProveedores(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/proveedores`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
   createProveedor(form: any): Observable<any> {
     let dir = `${this.URL}/proveedor`;
     return this.http.post<any>(dir, form);

@@ -15,6 +15,10 @@
                   data-bs-target="#staticBackdrop">
                   Nuevo proveedor
                 </button>
+                <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
+                class="btn btn-primary" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+                Imprimir
+              </button>
               </div>
             </div>
             <input class="form-control" type="search" placeholder="Buscar proveedor" (keyup)="buscar(txtTermino.value)"
@@ -94,8 +98,94 @@
         </div>
       </div>
     </div>
+
+    <div class="container" id="content">
+      <div class="d-flex justify-content-between ml-2 mb-0">
+        <div class="p-2 ">
+          <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+        </div>
+        <div class="text-center ml-5 mt-3 mb-0">
+          <h3 class="off-m">PROVEEDORES</h3>
+          <p class="off-m">Lista de Proveedores</p>
+        </div>
+        <div class="p-3 ">
+          <img src="/assets/img/sisal.png" alt="" width="163px" />
+        </div>
+      </div>
+      <div>
+        <table class="table-bordered mb-0 table-responsive">
+          <thead>
+            <tr>
+              <th>Representante</th>
+              <th>Razon Social</th>
+              <th>Nit</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Ciudad</th>
+             <!--  <th>Estado</th>
+              <th>Acciones</th> -->
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let proveedor of listAllProveedores; let i = index">
+              <td>{{ proveedor.representante }}</td>
+              <td>{{ proveedor.razon_social }}</td>
+              <td>{{ proveedor.nit }}</td>
+              <td>{{ proveedor.telefono }}</td>
+              <td>{{ proveedor.direccion }}</td>
+              <td>{{ proveedor.ciudad }}</td>
+              <!-- <td>
+                <div class="form-check form-switch">
+                  <span *ngIf="proveedor.estado == '1'">
+                    <input class="form-check-input pointer"
+                      (change)="changeStatus(proveedor._id, !proveedor.estado)" type="checkbox" [checked]="true"
+                      role="switch" id="{{'toogle'+i}}">Activo
+                  </span>
+                  <span *ngIf="proveedor.estado == '0'">
+                    <input class="form-check-input pointer"
+                      (change)="changeStatus(proveedor._id, !proveedor.estado)" type="checkbox" [checked]="false"
+                      role="switch" id="{{'toogle'+i}}">Inactivo
+                  </span>
+                </div>
+              </td>
+              <td>
+                <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                  (click)="cargarDataEdit(proveedor)"></i>
+                <i class="fas fa-trash-alt ml-3 icono" (click)="borrarProveedor(proveedor._id)"></i>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-between m-0">
+          <span class="fecha" style="font-size: 0.7rem">
+            Fecha de Impresión: {{ date | date : "short" }}
+          </span>
+          <span class="fecha" style="font-size: 0.7rem">
+            Usuario: {{ data.username }} {{ data.surnames }}
+          </span>
+        <!-- <div class="mt-4">
+          <div class="row mt-10">
+            <div class="col-md-6">
+              <div class="text-center">
+                MATERIALES Y SUMINISTROS <br />
+                RECIBIDO POR
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-center">
+                SISTEMA SISAL <br />
+                REGISTRADO POR
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
   </div>
 </div>
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

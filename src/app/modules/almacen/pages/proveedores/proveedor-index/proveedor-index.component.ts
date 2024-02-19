@@ -9,8 +9,12 @@ import { AlmacenService } from '../../../services/almacen.service';
   styleUrls: ['./proveedor-index.component.css'],
 })
 export class ProveedorIndexComponent implements OnInit {
+  user: any;
+  data: any;
+  date = new Date();
   totalProveedores: any = 0;
   proveedores: any = [];
+  listAllProveedores: any = [];
   programas: any = [];
   proveedoresTemp: any = [];
   skip: number = 1;
@@ -24,6 +28,8 @@ export class ProveedorIndexComponent implements OnInit {
   idProveedor: any;
 
   constructor(private almacenService: AlmacenService, private fb: FormBuilder) {
+    this.user = localStorage.getItem('user');
+    this.data = JSON.parse(this.user);
     this.proveedorForm = this.fb.group({
       representante: ['', [Validators.required]],
       razon_social: ['', [Validators.required]],
@@ -46,6 +52,7 @@ export class ProveedorIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarProveedores();
+    this.listProveedores()
   }
 
   cargarProveedores() {
@@ -61,7 +68,14 @@ export class ProveedorIndexComponent implements OnInit {
         this.cargando = false;
       });
   }
-
+  listProveedores() {
+    this.cargando = true;
+    this.almacenService.getProveedores().subscribe((data: any) => {
+      this.listAllProveedores = data.serverResponse;
+      console.log("list",data);
+      console.log("proveedores", this.proveedores)
+    });
+  }
   public doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
   };
@@ -186,4 +200,5 @@ export class ProveedorIndexComponent implements OnInit {
       timer,
     });
   }
+  
 }
