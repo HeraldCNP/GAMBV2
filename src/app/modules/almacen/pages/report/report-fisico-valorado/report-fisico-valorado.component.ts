@@ -4,6 +4,7 @@ import { AlmacenService } from '../../../services/almacen.service';
 import { getLocaleMonthNames } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-fisico-valorado',
@@ -34,7 +35,8 @@ export class ReportFisicoValoradoComponent {
 
   reportForm: any;
 
-  saldoInicial = 'SALDO_' + this.obtenerYear();
+  // saldoInicial = 'SALDO_' + this.obtenerYear();
+  saldoInicial = 'SALDO_INICIAL';
 
 
   sumaTotalCantidadIngresos: any;
@@ -56,7 +58,7 @@ export class ReportFisicoValoradoComponent {
   del: string = '';
   al: string = '';
 
-  constructor(private reportAlm: ReportAlmService, private almacenService: AlmacenService, private fb: FormBuilder) {
+  constructor(private reportAlm: ReportAlmService, private almacenService: AlmacenService, private fb: FormBuilder, private router: Router) {
     this.usuario = localStorage.getItem('user');
     this.data = JSON.parse(this.usuario);
     this.idUser = this.data.id;
@@ -289,17 +291,21 @@ export class ReportFisicoValoradoComponent {
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        // this.almacenService.cerrarGestion()
-        // .subscribe((data: any) => {
-        //   Swal.fire({
-        //     title: "Exito!",
-        //     text: "la accion se realizo con exito.",
-        //     icon: "success"
-        //   });
-        // });
+        this.almacenService.cerrarGestion()
+        .subscribe((data: any) => {
+          Swal.fire({
+            title: "Exito!",
+            text: "la accion se realizo con exito.",
+            icon: "success"
+          });
+          //Redireccion a la vista principal
+          this.router.navigate(['almacen/reporte/index']);
+        });
 
       }
     });
   }
+
+
 
 }
