@@ -252,4 +252,35 @@ export class DocNormativaComponent {
       }
     );
   }
+
+  moveUp(item:any) {
+    console.log('up', item);
+    this.plantillaService.upNormativa(item).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.getDocNormativas();
+      }
+    );
+  }
+
+  moveDown(item:any) {
+    console.log('down', item);
+    this.plantillaService.downNormativa(item).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.getDocNormativas();
+      }
+    );
+  }
+
 }

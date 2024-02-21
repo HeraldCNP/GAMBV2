@@ -71,10 +71,10 @@
               style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
               Buscar
             </button>
-            <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
+            <!-- <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
               class="btn btn-primary" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
               Imprimir
-            </button>
+            </button> -->
 
             <!-- <button (click)="imprimir()" class="btn btn-primary"
               style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button> -->
@@ -277,6 +277,7 @@
             </div>
             <div class="text-center ml-5 mt-3 mb-0">
               <h3 class="off-m">CIERRE DE GESTION {{ del | date : 'yyyy'}}</h3>
+              <b> PERIODO:</b> Del {{ del | date }} AL 31 de diciembre {{ del | date : 'yyyy' }}
               <p class="off-m">Expresado en Bolivianos</p>
             </div>
             <div class="p-3 ">
@@ -298,11 +299,11 @@
           <hr class="off-hr">
 
           <div class="pl-1 pb-1 text-center">
-            <b> PERIODO:</b> Del {{ del | date }} AL {{ al | date }}<br>
+
           </div>
           <div class="row">
             <div class="col-md-12 ">
-              <p class="text-center"><b>Resumen General</b></p>
+              <p class="text-center h3"><b>Resumen General</b></p>
               <div class="d-flex justify-content-center">
                 <table class="table-bordered mb-0" style="margin: 0 auto;">
                   <thead>
@@ -335,9 +336,37 @@
                   </tbody>
                 </table>
 
+
+
               </div>
               <div class="pl-1 pt-2 text-center">
                 <b> RESPONSABLE DE CIERRE:</b> {{ data.username }} {{ data.surnames }}<br>
+              </div>
+
+              <div class="mt-5 pt-5">
+                <div class="d-flex justify-content-around ml-3 mb-0 mt-5 pt-5">
+
+                  <div class="">
+                    <div class="text-center">
+                      Elaborado
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      Revisado
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      Aprobado
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      Validado
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- <div class="my-2"><b>GLOSA:</b> {{ egreso.glosaSalida }}</div> -->
               <div class="d-flex justify-content-between">
@@ -355,7 +384,7 @@
       <div class="modal-footer d-flex justify-content-center">
         <!-- <button type="button" (click)="generatePDFS()" class="btn btn-primary">Imprimir</button> -->
 
-        <button type="button" printTitle="." [useExistingCss]="true" printSectionId="constancia" ngxPrint
+        <button *ngIf="imprimir" type="button" printTitle="." [useExistingCss]="true" printSectionId="constancia" ngxPrint
           class="btn btn-primary">
           Imprimir
         </button >
