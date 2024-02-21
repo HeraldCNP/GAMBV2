@@ -33,9 +33,19 @@ export class ReportService {
         // console.log(data.serverResponse);
         return data.serverResponse
       }))
-
-
   }
+
+  getAllCargos(): Observable<any> {
+    let dir = `${this.URL}/subdir`;
+    const header = this.headers;
+    return this.http.get<any>(dir, { headers: header })
+      .pipe(map(data => {
+        // console.log(data);
+        return data
+      }))
+  }
+
+
 
   addUser(form: any): Observable<any> {
     let dir = `${this.URL}/users`;
@@ -52,8 +62,8 @@ export class ReportService {
   }
 
 
-  getAllSeguimientos(destino?: string, estado?: string, del?: any, al?: any): Observable<any> {
-    let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${del}&datelt${al}`;
+  getAllSeguimientos(destino?: string, recibidox?: string, estado?: string, del?: any, al?: any): Observable<any> {
+    let dir = `${this.URL}/oficina?destino=${destino}&recibidox=${recibidox}&estado=${estado}&dategt=${del}&datelt${al}`;
     const header = this.headers;
     console.log(dir)
     return this.http.get<any>(dir, { headers: header })

@@ -14,9 +14,11 @@ import autoTable from 'jspdf-autotable'
 export class ReportComponent implements OnInit {
   reportForm: any;
   users: any;
+  cargos: any;
   user: any;
   destino: string = '';
   estado: string = '';
+  recibidox: string = '';
   del: string = '';
   al: string = '';
   seguimientos: any = [];
@@ -32,7 +34,8 @@ export class ReportComponent implements OnInit {
     this.data = JSON.parse(this.usuario);
     this.idUser = this.data.id;
     this.reportForm = this.fb.group({
-      funcionario: ['', Validators.required],
+      funcionario: [''],
+      recibidox:[''],
       estado: [''],
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
@@ -41,9 +44,17 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportService.getAllUsers().subscribe((data) => {
-      // console.log(this.users);
+      console.log(data);
       this.users = data;
     });
+
+    this.reportService.getAllCargos().subscribe((data) => {
+      // console.log(data);
+      this.cargos = data;
+    });
+
+
+
   }
 
   get form() {
@@ -52,7 +63,8 @@ export class ReportComponent implements OnInit {
 
   obtenerHojasRutas(form: any) {
     console.log(form.value);
-    this.destino = form.value.funcionario;
+    this.destino = form.value.recibidox;
+    this.recibidox = this.user.username +' '+ this.user.surnames;
     this.estado = form.value.estado;
     this.del = form.value.del;
     this.al = form.value.al;
@@ -74,7 +86,7 @@ export class ReportComponent implements OnInit {
     //   this.datelt=this.year+1;
     // }
     this.reportService
-      .getAllSeguimientos(this.destino, this.estado, this.del, this.al)
+      .getAllSeguimientos(this.destino, this.recibidox, this.estado, this.del, this.al)
       .subscribe((data) => {
         this.seguimientos = data.serverResponse;
         console.log(this.seguimientos);
@@ -105,6 +117,13 @@ export class ReportComponent implements OnInit {
 
     this.user = this.users.find((item: { post: string; }) => item.post === value);
     console.log(this.user)
+  };
+
+  public doSelect2 = (value: any) => {
+    console.log('SingleDemoComponent.doSelect', value);
+
+    this.user = this.users.find((item: { _id: string; }) => item._id === value);
+    console.log('Usuario', this.user)
   };
 
 }

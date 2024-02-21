@@ -32,6 +32,7 @@ export class ReportFisicoValoradoComponent {
   cantidadSaldos: any = [];
   nameCate: any = [];
 
+  imprimir: boolean = false;
 
   reportForm: any;
 
@@ -298,8 +299,7 @@ export class ReportFisicoValoradoComponent {
             text: "la accion se realizo con exito.",
             icon: "success"
           });
-          //Redireccion a la vista principal
-          this.router.navigate(['almacen/reporte/index']);
+          this.imprimir = true;
         });
 
       }

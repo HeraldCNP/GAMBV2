@@ -9,8 +9,8 @@
               <div class="col-auto">
                 <div class="input-group mb-1">
                   <span class="input-group-text" id="plazo"><b>Funcionario</b></span>
-                  <ngx-select [allowClear]="true" [items]="users" optionTextField="username" optionValueField="post"
-                    placeholder="Seleccione un Funcionario" formControlName="funcionario" (select)="doSelect($event)">
+                  <ngx-select [allowClear]="true" [items]="users" optionTextField="username" optionValueField="_id"
+                    placeholder="Seleccione un Funcionario" formControlName="funcionario" (select)="doSelect2($event)">
                     <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                       <span [innerHtml]="text"></span>
                       &nbsp;{{option.data.surnames}}
@@ -27,13 +27,31 @@
                     </div>
                   </div>
                 </div>
-
-
-
-
-
-
               </div>
+
+              <div class="col-auto">
+                <div class="input-group mb-1">
+                  <span class="input-group-text" id="plazo"><b>Cargo</b></span>
+                  <ngx-select [allowClear]="true" [items]="cargos" optionTextField="nombresubdir" optionValueField="nombresubdir"
+                    placeholder="Seleccione un Cargo" formControlName="recibidox" (select)="doSelect($event)">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                      &nbsp;{{option.data.surnames}}
+                    </ng-template>
+                  </ngx-select>
+
+                  <div class="form-text" *ngIf="form['recibidox'].touched && form['recibidox'].invalid">
+                    <div *ngIf="
+                        form['recibidox'].errors &&
+
+                        form['recibidox'].errors['required']
+                      ">
+                      * Debe seleccionar un recibidox.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="col-auto">
                 <div class="input-group mb-1">
                   <span class="input-group-text" id="estado"><b> Estado</b></span>

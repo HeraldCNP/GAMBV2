@@ -127,6 +127,17 @@ export class PlantillaService {
     return this.http.delete<any>(dir, id)
   }
 
+
+  upNormativa(id: string){
+    let dir = `${this.URL}/normativaSum/${id}`;
+    return this.http.put<any>(dir, id)
+  }
+
+  downNormativa(id: string){
+    let dir = `${this.URL}/normativaRes/${id}`;
+    return this.http.put<any>(dir, id)
+  }
+
   /*END Servicios para Documentos de Normativas*/
 
 
