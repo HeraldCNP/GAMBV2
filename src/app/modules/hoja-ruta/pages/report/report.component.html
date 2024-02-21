@@ -140,14 +140,14 @@
                   </td>
                   <td>
                     <i [ngClass]="
-                        seguimiento.fecharecepcion === 'SIN RESEPCIONAR'
+                        seguimiento.fecharecepcion === 'SIN RECEPCIONAR'
                           ? 'badge badge-danger'
                           : ''
                       ">
-                      <span *ngIf="seguimiento.fecharecepcion === 'SIN RESEPCIONAR'">
+                      <span *ngIf="seguimiento.fecharecepcion === 'SIN RECEPCIONAR'">
                         Recibir
                       </span>
-                      <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
+                      <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
                         {{
                         seguimiento.fecharecepcion
                         | amLocal
@@ -155,7 +155,7 @@
                         }}
                       </i>
                       <!--
-                      <i *ngIf="seguimiento.fecharecepcion != 'SIN RESEPCIONAR'">
+                      <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
                         {{
                           seguimiento.fecharecepcion | amLocale: "es" | amTimeAgo
                         }}

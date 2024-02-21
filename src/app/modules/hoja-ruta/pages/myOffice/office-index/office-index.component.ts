@@ -296,7 +296,7 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         this.segui = data;
         let ids = this.segui._id;
-        if (this.segui.fecharecepcion === 'SIN RESEPCIONAR') {
+        if (this.segui.fecharecepcion === 'SIN RECEPCIONAR') {
           Swal.fire({
             title: 'Estás seguro de Recibir?',
             text: '',
