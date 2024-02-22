@@ -37,6 +37,8 @@ import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicio
 import { CounterComponent } from './pages/index/counter/counter.component';
 import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditoria.component';
 import { SearchPublicHrComponent } from './pages/index/search-public-hr/search-public-hr.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListHrComponent } from './pages/list-hr/list-hr.component';
 
 
 
@@ -74,13 +76,16 @@ import { SearchPublicHrComponent } from './pages/index/search-public-hr/search-p
     RendicionComponent,
     CounterComponent,
     AuditoriaComponent,
-    SearchPublicHrComponent
+    SearchPublicHrComponent,
+    ListHrComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     // BrowserAnimationsModule,
-    CarouselModule 
+    CarouselModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

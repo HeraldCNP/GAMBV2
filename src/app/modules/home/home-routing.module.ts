@@ -20,6 +20,7 @@ import { PtdiComponent } from './pages/gestion/ptdi/ptdi.component';
 import { PeiComponent } from './pages/gestion/pei/pei.component';
 import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.component';
 import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditoria.component';
+import { ListHrComponent } from './pages/list-hr/list-hr.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,8 @@ const routes: Routes = [
 
       {path: 'transparencia/rendicion-de-cuentas', component: RendicionComponent},
       {path: 'transparencia/auditoria', component: AuditoriaComponent},
+
+      {path: 'searchHr/:termino', component: ListHrComponent},
 
     ]
   }

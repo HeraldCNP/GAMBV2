@@ -118,6 +118,16 @@ export class HomeService {
 
   }
 
+
+  getHr(termino:any):Observable<any>{
+    let dir = `${this.URL}/searchPublicHR/${termino}`;
+    return this.http.get<any>(dir)
+  }
+
+  obtenerHoja(id: string): Observable<any> {
+    return this.http.get(this.URL + '/hoja/' + id);
+  }
+
   /* End Contador */
 }
 

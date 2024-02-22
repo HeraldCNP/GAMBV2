@@ -7,12 +7,15 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Ingrese Número de Hoja de Ruta"
-          aria-label="Ingrese Número de Hoja de Ruta" aria-describedby="button-addon2">
-        <button class="btn btn-primary" type="button" id="button-addon2">Buscar</button>
-      </div>
+    <div class="col-md-6 offset-md-3">
+      <form [formGroup]="searchForm">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Ingrese Número de Hoja de Ruta"
+            aria-label="Ingrese Número de Hoja de Ruta" aria-describedby="button-addon2" formControlName="termino">
+          <button (click)="getHR()" class="btn btn-primary" type="button" id="button-addon2">Buscar</button>
+        </div>
+      </form>
+      <pre>{{ searchForm.value  | json }}</pre>
     </div>
   </div>
 </div>

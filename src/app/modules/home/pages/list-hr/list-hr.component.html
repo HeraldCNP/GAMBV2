@@ -1,0 +1,90 @@
+<table class="table table-striped mt-0 table-responsive">
+  <thead>
+    <th>Número</th>
+    <th>Orígen</th>
+    <th>Seguimiento</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hoja of hojas">
+      <td>{{ hoja.nuit }}</td>
+      <td>{{ hoja.origen }}</td>
+      <td><i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#modalSeguimiento"
+          title="Ver Seguimiento" (click)="segui(hoja._id)"></i></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!--MODAL SEGUIMIENTO-->
+<div class="modal fade" id="modalSeguimiento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body pb-0">
+        <div id="htmlData">
+          <div class="segui" *ngIf="hojaRuta">
+            <div class="d-flex justify-content-between ml-3 mb-0">
+              <div>
+                <img src="../../../../../assets/img/logo.png" width="50px" class="logo ml-4 mb-0" />
+              </div>
+              <div class="p-3 mt-4">
+                <div class="badge bg-light text-dark text-center fs-5">
+                  N°:&nbsp;&nbsp;<strong></strong>{{ hojaRuta.nuit | uppercase }}
+                </div>
+              </div>
+            </div>
+            <div class=" ">
+              <div class="card border-3 border-primary mb-1">
+                <div class="card-body text-center">
+                  <span class="titulo"> SEGUIMIENTO </span>
+                  <table class="table table-striped table-responsive">
+                    <thead>
+                      <tr>
+                        <th scope="col">Oficina</th>
+                        <th scope="col">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          {{ seguimiento.destino }}
+                          <br />
+                          <p *ngIf="seguimiento.recibidox" class="text-capitalize">
+                            {{ seguimiento.recibidox }}
+                          </p>
+                        </td>
+                        <td [ngSwitch]="seguimiento.estado">
+                          <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{ seguimiento.estado }}</span>
+                          <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguimiento.estado }}</span>
+                          <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguimiento.estado }}</span>
+                          <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}</span> <br> {{ seguimiento.smsarchivo }}
+                          <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark">
+                            <i *ngFor="let fin of seguimiento.archivofi">
+                              {{ fin.status }} <br /></i>
+                          </span>
+                          <span *ngIf="
+                              seguimiento.estado != 'DERIVADO' &&
+                              seguimiento.estado != 'MALETIN' &&
+                              seguimiento.estado != 'RECIBIDO' &&
+                              seguimiento.estado != 'ENVIADO' &&
+                              seguimiento.estado != 'FILE OFICINA'
+                            " class="badge badge-secondary text-dark">{{ seguimiento.estado }}</span>
+                          <br />
+                          <i>{{ seguimiento.copia }}</i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center m-1">
+        <button type="button" class="btn btn-secondary p-1" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
