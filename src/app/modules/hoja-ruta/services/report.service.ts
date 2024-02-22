@@ -63,7 +63,7 @@ export class ReportService {
 
 
   getAllSeguimientos(destino?: string, recibidox?: string, estado?: string, del?: any, al?: any): Observable<any> {
-    let dir = `${this.URL}/oficina?destino=${destino}&recibidox=${recibidox}&estado=${estado}&dategt=${del}&datelt${al}`;
+    let dir = `${this.URL}/oficina?destino=${destino}&recibidox=${recibidox}&estado=${estado}&dategt=${del}&datelt=${al}`;
     const header = this.headers;
     console.log(dir)
     return this.http.get<any>(dir, { headers: header })
