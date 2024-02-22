@@ -36,6 +36,7 @@ import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.compo
 import { RendicionComponent } from './pages/itemTransparencia/rendicion/rendicion.component';
 import { CounterComponent } from './pages/index/counter/counter.component';
 import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditoria.component';
+import { SearchPublicHrComponent } from './pages/index/search-public-hr/search-public-hr.component';
 
 
 
@@ -72,7 +73,8 @@ import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditori
     ReglamentoComponent,
     RendicionComponent,
     CounterComponent,
-    AuditoriaComponent
+    AuditoriaComponent,
+    SearchPublicHrComponent
   ],
   imports: [
     CommonModule,
