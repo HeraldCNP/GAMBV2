@@ -1,4 +1,4 @@
-<div class="row" *ngIf="existe; else elseBlock">
+<div class="row" *ngIf="existe">
   <div class="col-md">
     <h2 class="text-center">Lista de Documentos</h2>
   </div>
@@ -22,18 +22,18 @@
 </div>
 
 
-<ng-template #elseBlock>
-  <div class="container" *ngIf="existe">
-    <div class="row">
-      <div class="col-md">
-        <div class="alert alert-danger text-center mt-2" role="alert">
-            <span>No existe ningun resultado con su termino de busqueda, intente nuevamente</span>
-        </div>
+
+<div class="container" *ngIf="!existe">
+  <div class="row">
+    <div class="col-md">
+      <div class="alert alert-danger text-center mt-2" role="alert">
+        <span>No existe ningun resultado con su termino de busqueda, intente nuevamente</span>
       </div>
     </div>
   </div>
-  <app-search-public-hr></app-search-public-hr>
-</ng-template>
+</div>
+<app-search-public-hr></app-search-public-hr>
+
 
 
 
