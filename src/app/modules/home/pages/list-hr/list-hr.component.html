@@ -13,7 +13,7 @@
         <tr *ngFor="let hoja of hojas">
           <td>{{ hoja.nuit }}</td>
           <td>{{ hoja.origen }}</td>
-          <td><i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#modalSeguimiento"
+          <td><i class="fas fa-eye text-primary" data-bs-toggle="modal" data-bs-target="#modalSeguimiento"
               title="Ver Seguimiento" (click)="segui(hoja._id)"></i></td>
         </tr>
       </tbody>
@@ -58,7 +58,7 @@
             <div class=" ">
               <div class="card border-3 border-primary mb-1">
                 <div class="card-body text-center">
-                  <span class="h4"> SEGUIMIENTO </span>
+                  <span class="h4"> El documento se encuentra en: </span>
                   <table class="table table-striped-columns table-responsive mt-3">
                     <thead>
                       <tr>
