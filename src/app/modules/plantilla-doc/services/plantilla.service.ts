@@ -69,6 +69,16 @@ export class PlantillaService {
     return this.http.delete<any>(dir, id)
   }
 
+  upPlantilla(id: string){
+    let dir = `${this.URL}/documentSum/${id}`;
+    return this.http.put<any>(dir, id)
+  }
+
+  downPlantilla(id: string){
+    let dir = `${this.URL}/documentRes/${id}`;
+    return this.http.put<any>(dir, id)
+  }
+
   /*END Servicios para Documentos*/
 
 

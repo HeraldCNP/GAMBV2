@@ -12,6 +12,7 @@ export class ListHrComponent {
   hojas: any;
   hojaRuta: any;
   seguimiento: any;
+  existe:boolean = false;
 
   constructor(private activeRouter: ActivatedRoute, private api: HomeService) {
 
@@ -24,19 +25,25 @@ export class ListHrComponent {
       )
       .subscribe(resp => {
         this.hojas = resp.serverResponse;
-        console.log(this.hojas)
+        if (this.hojas.length === 0) {
+          console.log('no hay nada');
+        } else {
+          this.existe = true;
+        }
       })
   }
 
   segui(id: any) {
     //this.loading = true;
     this.api.obtenerHoja(id).subscribe(data => {
-      // this.loading = false;
+
       this.hojaRuta = data.serverResponse;
       console.log(this.hojaRuta);
       let n = this.hojaRuta.seguimiento.length - 1;
       this.seguimiento = this.hojaRuta.seguimiento[n];
       console.log('segui', this.seguimiento);
+
+
 
     }, error => {
       console.log(error);

@@ -13,14 +13,18 @@ export class SearchPublicHrComponent {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.searchForm = this.fb.group({
-      // termino: ['', Validators.required]
-      termino: ['']
+      termino: ['', Validators.required]
+      // termino: ['']
     });
   }
 
 
   getHR() {
     this.router.navigate(['searchHr', this.searchForm.value.termino]);
+  }
+
+  get form() {
+    return this.searchForm.controls;
   }
 
 }

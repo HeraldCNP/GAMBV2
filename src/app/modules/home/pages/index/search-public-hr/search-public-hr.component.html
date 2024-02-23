@@ -12,10 +12,18 @@
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Ingrese Número de Hoja de Ruta"
             aria-label="Ingrese Número de Hoja de Ruta" aria-describedby="button-addon2" formControlName="termino">
-          <button (click)="getHR()" class="btn btn-primary" type="button" id="button-addon2">Buscar</button>
+          <button (click)="getHR()" class="btn btn-primary" type="button" id="button-addon2" [disabled]="searchForm.invalid">Buscar</button>
+        </div>
+        <div class="form-text" *ngIf="form['termino'].touched && form['termino'].invalid">
+          <div *ngIf="
+              form['termino'].errors &&
+              form['termino'].errors['required']
+            ">
+            * El termino es Requerido.
+          </div>
         </div>
       </form>
-      <pre>{{ searchForm.value  | json }}</pre>
+      <!-- <pre>{{ searchForm.value  | json }}</pre> -->
     </div>
   </div>
 </div>

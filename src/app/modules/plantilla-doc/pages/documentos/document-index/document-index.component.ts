@@ -221,4 +221,34 @@ export class DocumentIndexComponent {
     );
   }
 
+  moveUp(item:any) {
+    console.log('up', item);
+    this.plantillaService.upPlantilla(item).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.getDocumentos();
+      }
+    );
+  }
+
+  moveDown(item:any) {
+    console.log('down', item);
+    this.plantillaService.downPlantilla(item).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+      },
+      () => {
+        this.getDocumentos();
+      }
+    );
+  }
+
 }

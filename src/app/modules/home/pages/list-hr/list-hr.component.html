@@ -1,33 +1,55 @@
-<table class="table table-striped mt-0 table-responsive">
-  <thead>
-    <th>Número</th>
-    <th>Orígen</th>
-    <th>Seguimiento</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let hoja of hojas">
-      <td>{{ hoja.nuit }}</td>
-      <td>{{ hoja.origen }}</td>
-      <td><i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#modalSeguimiento"
-          title="Ver Seguimiento" (click)="segui(hoja._id)"></i></td>
-    </tr>
-  </tbody>
-</table>
+<div class="row" *ngIf="existe; else elseBlock">
+  <div class="col-md">
+    <h2 class="text-center">Lista de Documentos</h2>
+  </div>
+  <div class="container">
+    <table class="table table-striped mt-0">
+      <thead>
+        <th>Número</th>
+        <th>Orígen</th>
+        <th>Seguimiento</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hoja of hojas">
+          <td>{{ hoja.nuit }}</td>
+          <td>{{ hoja.origen }}</td>
+          <td><i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#modalSeguimiento"
+              title="Ver Seguimiento" (click)="segui(hoja._id)"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<ng-template #elseBlock>
+  <div class="container">
+    <div class="row">
+      <div class="col-md">
+        <div class="alert alert-danger text-center mt-2" role="alert">
+            <span>No existe ningun resultado con su termino de busqueda, intente nuevamente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-search-public-hr></app-search-public-hr>
+</ng-template>
+
 
 
 
 <!--MODAL SEGUIMIENTO-->
 <div class="modal fade" id="modalSeguimiento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body pb-0">
         <div id="htmlData">
           <div class="segui" *ngIf="hojaRuta">
             <div class="d-flex justify-content-between ml-3 mb-0">
               <div>
-                <img src="../../../../../assets/img/logo.png" width="50px" class="logo ml-4 mb-0" />
+                <img class="shadow" src="../../../../../assets/img/logoGamb.png" width="150px" class="logo mb-0" />
               </div>
-              <div class="p-3 mt-4">
+              <div class="mt-2">
                 <div class="badge bg-light text-dark text-center fs-5">
                   N°:&nbsp;&nbsp;<strong></strong>{{ hojaRuta.nuit | uppercase }}
                 </div>
@@ -36,8 +58,8 @@
             <div class=" ">
               <div class="card border-3 border-primary mb-1">
                 <div class="card-body text-center">
-                  <span class="titulo"> SEGUIMIENTO </span>
-                  <table class="table table-striped table-responsive">
+                  <span class="h4"> SEGUIMIENTO </span>
+                  <table class="table table-striped-columns table-responsive mt-3">
                     <thead>
                       <tr>
                         <th scope="col">Oficina</th>
@@ -47,7 +69,7 @@
                     <tbody>
                       <tr>
                         <td>
-                          {{ seguimiento.destino }}
+                          <b>{{ seguimiento.destino }}</b>
                           <br />
                           <p *ngIf="seguimiento.recibidox" class="text-capitalize">
                             {{ seguimiento.recibidox }}
@@ -57,7 +79,8 @@
                           <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{ seguimiento.estado }}</span>
                           <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ seguimiento.estado }}</span>
                           <span *ngSwitchCase="'DERIVADO'" class="badge badge-info">{{ seguimiento.estado }}</span>
-                          <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}</span> <br> {{ seguimiento.smsarchivo }}
+                          <span *ngSwitchCase="'MALETIN'" class="badge badge-warning">{{ seguimiento.estado }}</span>
+                          <br> {{ seguimiento.smsarchivo }}
                           <span *ngSwitchCase="'FILE OFICINA'" class="badge bg text-dark">
                             <i *ngFor="let fin of seguimiento.archivofi">
                               {{ fin.status }} <br /></i>

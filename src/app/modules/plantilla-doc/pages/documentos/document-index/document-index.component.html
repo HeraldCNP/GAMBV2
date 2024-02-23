@@ -32,6 +32,7 @@
                   <th>Fecha de Publicacion</th>
                   <th>Documento</th>
                   <th>Acciones</th>
+                  <th>Orden</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,6 +69,10 @@
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(documento)"></i>
                     <i (click)="deleteDocumento(documento._id)" class="fas fa-trash-alt ml-3 icono"></i>
+                  </td>
+                  <td>
+                    <i (click)="moveUp(documento._id)" class="fas fa-arrow-up icono"></i> &nbsp; {{ documento.numero }}
+                    <i (click)="moveDown(documento._id)" class="fas fa-arrow-down icono"></i>
                   </td>
                 </tr>
               </tbody>
