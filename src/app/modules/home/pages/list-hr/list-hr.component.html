@@ -45,20 +45,15 @@
       <div class="modal-body pb-0">
         <div id="htmlData">
           <div class="segui" *ngIf="hojaRuta">
-            <div class="d-flex justify-content-between ml-3 mb-0">
+            <div class="d-flex justify-content-center ml-3 mb-0">
               <div>
                 <img class="shadow" src="../../../../../assets/img/logoGamb.png" width="150px" class="logo mb-0" />
-              </div>
-              <div class="mt-2">
-                <div class="badge bg-light text-dark text-center fs-5">
-                  N°:&nbsp;&nbsp;<strong></strong>{{ hojaRuta.nuit | uppercase }}
-                </div>
               </div>
             </div>
             <div class=" ">
               <div class="card border-3 border-primary mb-1">
                 <div class="card-body text-center">
-                  <span class="h4"> El documento se encuentra en: </span>
+                  <span class="h5"> El documento N°:&nbsp;<strong></strong>{{ hojaRuta.nuit | uppercase }} se encuentra en: </span>
                   <table class="table table-striped-columns table-responsive mt-3">
                     <thead>
                       <tr>
