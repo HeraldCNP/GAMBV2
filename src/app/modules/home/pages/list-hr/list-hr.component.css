@@ -1,0 +1,14 @@
+@media (max-width: 600px) {
+  .subtitle, .text{
+    font-size: 0.9rem;
+  }
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.subtitle{
+  font-weight: bold;
+  font-size: 1.4rem;
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { HomeService } from '../../services/home.service';
 
@@ -14,7 +14,7 @@ export class ListHrComponent {
   seguimiento: any;
   existe:boolean = false;
 
-  constructor(private activeRouter: ActivatedRoute, private api: HomeService) {
+  constructor(private activeRouter: ActivatedRoute, private api: HomeService, private router: Router) {
 
   }
 
@@ -50,5 +50,11 @@ export class ListHrComponent {
     })
 
   }
+
+  inicio(){
+    this.router.navigate(['']);
+  }
+
+
 
 }
