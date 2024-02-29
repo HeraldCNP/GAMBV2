@@ -6,6 +6,7 @@ import { SessionGuard } from './core/guards/session.guard';
 import { PostComponent } from './modules/home/pages/post/post.component';
 import { LoginComponent } from './login/login.component';
 import { HojaRutaModule } from './modules/hoja-ruta/hoja-ruta.module';
+import { ActFijosModule } from './modules/act-fijos/act-fijos.module';
 
 const routes: Routes = [
   {
@@ -70,6 +71,11 @@ const routes: Routes = [
   {
     path: 'doc',
     loadChildren: () => import('./modules/plantilla-doc/plantilla-doc.module').then(m => m.PlantillaDocModule),
+    canActivate: [SessionGuard]
+  },
+  {
+    path: 'actFijos',
+    loadChildren: () => import('./modules/act-fijos/act-fijos.module').then(m => m.ActFijosModule),
     canActivate: [SessionGuard]
   },
   {

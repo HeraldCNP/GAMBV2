@@ -243,6 +243,22 @@
                     </div>
                   </div>
 
+                  <div class="contenedor-card-item">
+                    <div class="card"
+                      *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+                      <a routerLink="/actFijos">
+                        <div class="imgbox">
+                          <div>
+                            <img class="img-fluid" src="assets/img/private/archivos.jpg" loading="lazy" alt="">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <span class="caption">INGRESAR</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <div>
