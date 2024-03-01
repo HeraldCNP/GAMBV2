@@ -6,6 +6,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { AutorizacionIndexComponent } from './pages/autorizaciones/autorizacion-index/autorizacion-index.component';
+import { AutorizacionCreateComponent } from './pages/autorizaciones/autorizacion-create/autorizacion-create.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 
 @NgModule({
@@ -13,11 +17,16 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     DashboardComponent,
     FooterComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    AutorizacionIndexComponent,
+    AutorizacionCreateComponent
   ],
   imports: [
     CommonModule,
-    ActFijosRoutingModule
+    ActFijosRoutingModule,
+    ReactiveFormsModule,
+    NgxSelectModule,
+    FormsModule,
   ]
 })
 export class ActFijosModule { }

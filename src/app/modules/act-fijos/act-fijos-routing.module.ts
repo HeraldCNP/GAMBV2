@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AutorizacionIndexComponent } from './pages/autorizaciones/autorizacion-index/autorizacion-index.component';
+import { AutorizacionCreateComponent } from './pages/autorizaciones/autorizacion-create/autorizacion-create.component';
 
 const routes: Routes = [
   {
@@ -9,8 +11,8 @@ const routes: Routes = [
     children: [
 
 
-      // { path: 'poa/index', component: PoaIndexComponent },
-      // { path: 'poa/create', component: PoaCreateComponent },
+      { path: 'autorizacion/index', component: AutorizacionIndexComponent },
+      { path: 'autorizacion/create', component: AutorizacionCreateComponent },
       // { path: 'poa/update/:id', component: PoaUpdateComponent },
 
       // { path: 'ptdi/index', component: PtdiIndexComponent },

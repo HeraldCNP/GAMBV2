@@ -1,0 +1,215 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-8">
+        <div class="card shadow p-3 mb-4 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Nueva Autorizacion</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive">
+            <div class="row">
+              <div class="col-md">
+                <form (ngSubmit)="crearAutorizacion(autorizacionForm.value)" [formGroup]="autorizacionForm">
+
+                  <!-- <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="area"><b> Área *</b></span>
+                    <select id="area" formControlName="area" class="form-select" (change)="actualizarSegundoSelect()" required>
+                      <option value="" [defaultSelected]="true">Elija una opción</option>
+                      <option *ngFor="let area of areas.list" value="{{ area.slug }}" >{{ area.name }}</option>
+                    </select>
+                    <div class="form-text" *ngIf="form['area'].touched && form['area'].invalid">
+                      <div *ngIf="form['area'].errors && form['area'].errors['required']">* Area es Requerida.</div>
+                    </div>
+                  </div> -->
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Unidad Solicitante</b></span>
+                    <ngx-select class="sel" [allowClear]="true" [items]="unidades" optionTextField="nombresubdir" optionValueField="_id"
+                      placeholder="Seleccione una unidad solicitante" formControlName="unidadSolicitante" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{option.data.surnames}}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div class="form-text" *ngIf="form['unidadSolicitante'].touched && form['unidadSolicitante'].invalid">
+                      <div *ngIf="
+                          form['unidadSolicitante'].errors &&
+
+                          form['unidadSolicitante'].errors['required']
+                        ">
+                        * Debe seleccionar una unidad Solicitante.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Vehiculo</b></span>
+                    <ngx-select class="sel" [allowClear]="true" [items]="vehiculos" optionTextField="tipo" optionValueField="_id"
+                      placeholder="Seleccione un Vehiculo" formControlName="vehiculo" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;- {{option.data.marca}}
+                        &nbsp;- {{option.data.placa}}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div class="form-text" *ngIf="form['vehiculo'].touched && form['vehiculo'].invalid">
+                      <div *ngIf="
+                          form['vehiculo'].errors &&
+
+                          form['vehiculo'].errors['required']
+                        ">
+                        * Debe seleccionar una Vehiculo.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Conductor</b></span>
+                    <ngx-select class="sel" [allowClear]="true" [items]="conductores" optionTextField="username" optionValueField="_id"
+                      placeholder="Seleccione un Conductor" formControlName="conductor" (select)="doSelect($event)">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{option.data.surnames}}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div class="form-text" *ngIf="form['conductor'].touched && form['conductor'].invalid">
+                      <div *ngIf="
+                          form['conductor'].errors &&
+
+                          form['conductor'].errors['required']
+                        ">
+                        * Debe seleccionar un conductor.
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="destino"><b>Destino *</b></span>
+                    <input id="destino" class="form-control" type="text" formControlName="destino" />
+                    <div class="form-text" *ngIf="form['destino'].touched && form['destino'].invalid">
+                      <div *ngIf="form['destino'].errors && form['destino'].errors['required']">
+                        * El Destino es Requerido.
+                      </div>
+                      <div *ngIf="form['destino'].errors && form['destino'].errors['minlength']">
+                        * El Destino no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Fecha de Salida *</b></span>
+                    <input type="date" class="form-control" id="fechaSalida" formControlName="fechaSalida">
+                    <div class="form-text" *ngIf="form['fechaSalida'].touched && form['fechaSalida'].invalid">
+                      <div *ngIf="form['fechaSalida'].errors && form['fechaSalida'].errors['required']">* fechaSalida
+                        es Requerido.</div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="motivo"><b>motivo *</b></span>
+                    <input id="motivo" class="form-control" type="text" formControlName="motivo" />
+                    <div class="form-text" *ngIf="form['motivo'].touched && form['motivo'].invalid">
+                      <div *ngIf="form['motivo'].errors && form['motivo'].errors['required']">
+                        * El motivo es Requerido.
+                      </div>
+                      <div *ngIf="form['motivo'].errors && form['motivo'].errors['minlength']">
+                        * El motivo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="lugar"><b>Lugar de Archivo *</b></span>
+                    <input id="lugar" class="form-control" type="text" formControlName="lugar" />
+                    <div class="form-text" *ngIf="form['lugar'].touched && form['lugar'].invalid">
+                      <div *ngIf="
+                          form['lugar'].errors &&
+                          form['lugar'].errors['required']
+                        ">
+                        * El Numero de carpeta es Requerido.
+                      </div>
+                      <div *ngIf="
+                          form['lugar'].errors &&
+                          form['lugar'].errors['minlength']
+                        ">
+                        * El Numero de carpeta no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="estante"><b>N° de Estante *</b></span>
+                    <input id="estante" class="form-control" type="number" formControlName="estante" />
+                    <div class="form-text" *ngIf="form['estante'].touched && form['estante'].invalid">
+                      <div *ngIf="form['estante'].errors && form['estante'].errors['required']">
+                        * El estante es Requerido.
+                      </div>
+                      <div *ngIf="form['estante'].errors && form['estante'].errors['minlength']">
+                        * El estante no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="fila"><b>N° de Fila *</b></span>
+                    <input id="fila" class="form-control" type="number" formControlName="fila" />
+                    <div class="form-text" *ngIf="form['fila'].touched && form['fila'].invalid">
+                      <div *ngIf="form['fila'].errors && form['fila'].errors['required']">
+                        * El fila es Requerido.
+                      </div>
+                      <div *ngIf="form['fila'].errors && form['fila'].errors['minlength']">
+                        * El estante no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="input-group mb-1">
+                    <span class="input-group-text izq"><b>Observaciones </b></span>
+                    <textarea id="observaciones" class="form-control" type="text"
+                      formControlName="observaciones"></textarea>
+                    <div class="form-text" *ngIf="form['observaciones'].touched && form['observaciones'].invalid">
+                      <div *ngIf="
+                          form['observaciones'].errors &&
+                          form['observaciones'].errors['required']
+                        ">
+                        * la Glosa es Requerida.
+                      </div>
+                      <div *ngIf="
+                          form['observaciones'].errors &&
+                          form['observaciones'].errors['minlength']
+                        ">
+                        * la observaciones no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button (click)="cancel()" type="reset" class="btn btn-danger">
+                      Cancelar
+                    </button>
+                    <button [disabled]="autorizacionForm.invalid" type="submit" class="btn btn-primary">
+                      Registrar
+                    </button>
+                  </div>
+                </form>
+                {{ autorizacionForm.value | json }}
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
