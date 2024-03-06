@@ -22,6 +22,8 @@ import { ReportArticulosComponent } from './pages/report/report-articulos/report
 import { CatPrograIndexComponent } from './pages/catProgras/cat-progra-index/cat-progra-index.component';
 import { EgresoUpdateComponent } from './pages/egresos/egreso-update/egreso-update.component';
 import { ReportFisicoValoradoComponent } from './pages/report/report-fisico-valorado/report-fisico-valorado.component';
+import { ValeListAutorizacionComponent } from './pages/vales/vale-list-autorizacion/vale-list-autorizacion.component';
+import { ValeCreateComponent } from './pages/vales/vale-create/vale-create.component';
 
 
 const routes: Routes = [
@@ -55,12 +57,9 @@ const routes: Routes = [
       // { path: 'compra/create', component: CompraCreateComponent },
       // { path: 'compra/update/:id', component: CompraUpdateComponent },
 
-      // { path: 'poa/index', component: PoaIndexComponent },
-      // { path: 'poa/create', component: PoaCreateComponent },
-      // { path: 'poa/update/:id', component: PoaUpdateComponent },
-
+      { path: 'vale/listAutorizacion', component: ValeListAutorizacionComponent },
+      { path: 'vale/create/:id', component: ValeCreateComponent },
       // { path: 'ptdi/index', component: PtdiIndexComponent },
-      // { path: 'ptdi/create', component: PtdiCreateComponent },
       // { path: 'ptdi/update/:id', component: PtdiUpdateComponent },
 
       { path: '**', redirectTo: 'dashboard' },

@@ -18,6 +18,7 @@ export class UserEditComponent implements OnInit {
   userId: any;
 
   editForm:any;
+  cargos:any;
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -30,6 +31,7 @@ export class UserEditComponent implements OnInit {
 
     this.userId = this.activeRouter.snapshot.paramMap.get('id');
     this.cargarUser(this.userId);
+    this.cargarCargos();
 
     this.editForm = this.fb.group({
       ci: ['', [Validators.required]],
@@ -39,6 +41,8 @@ export class UserEditComponent implements OnInit {
       password: ['', ],
       birthday: ['', ],
       roles: ['', ],
+      cargo: [''],
+      categoriaLicencia: [''],
       image:['', ]
     })
 
@@ -48,13 +52,16 @@ export class UserEditComponent implements OnInit {
     this.api.getSingleUser(id).subscribe(usuario => {
       this.datosUser = usuario;
       console.log(this.datosUser);
-      const { ci, email, post, roles, surnames, username } = this.datosUser;
-      this.editForm.setValue({
+      const { ci, email, post, roles, surnames, username, cargo, categoriaLicencia } = this.datosUser;
+      this.editForm.patchValue({
         ci,
         email,
         username,
         surnames,
         roles,
+        post,
+        cargo,
+        categoriaLicencia,
         'password': '',
         'birthday': '',
         'image': '',
@@ -63,6 +70,17 @@ export class UserEditComponent implements OnInit {
     })
   }
 
+  cargarCargos(){
+    this.api.getAllCargos()
+      .subscribe((data: any) => {
+        this.cargos = data;
+        console.log('uniSolicitante', this.cargos);
+      });
+  }
+
+  get form() {
+    return this.editForm.controls;
+  }
 
 
 

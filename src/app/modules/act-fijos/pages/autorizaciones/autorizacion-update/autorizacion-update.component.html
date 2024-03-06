@@ -4,25 +4,14 @@
       <div class="col-md-8">
         <div class="card shadow p-3 mb-4 bg-body rounded">
           <div class="card-header">
-            <h3 class="card-title">Nueva Autorizacion</h3>
+            <h3 class="card-title">Editar Autorizacion</h3>
           </div>
 
           <!-- /.card-header -->
           <div class="card-body">
             <div class="row">
               <div class="col-md">
-                <form (ngSubmit)="crearAutorizacion(autorizacionForm.value)" [formGroup]="autorizacionForm">
-
-                  <!-- <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="area"><b> Área *</b></span>
-                    <select id="area" formControlName="area" class="form-select" (change)="actualizarSegundoSelect()" required>
-                      <option value="" [defaultSelected]="true">Elija una opción</option>
-                      <option *ngFor="let area of areas.list" value="{{ area.slug }}" >{{ area.name }}</option>
-                    </select>
-                    <div class="form-text" *ngIf="form['area'].touched && form['area'].invalid">
-                      <div *ngIf="form['area'].errors && form['area'].errors['required']">* Area es Requerida.</div>
-                    </div>
-                  </div> -->
+                <form (ngSubmit)="crearAutorizacion(editForm.value)" [formGroup]="editForm">
 
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="plazo"><b>Unidad Solicitante</b></span>
@@ -35,11 +24,7 @@
                     </ngx-select>
 
                     <div class="form-text" *ngIf="form['unidadSolicitante'].touched && form['unidadSolicitante'].invalid">
-                      <div *ngIf="
-                          form['unidadSolicitante'].errors &&
-
-                          form['unidadSolicitante'].errors['required']
-                        ">
+                      <div *ngIf="form['unidadSolicitante'].errors && form['unidadSolicitante'].errors['required']">
                         * Debe seleccionar una unidad Solicitante.
                       </div>
                     </div>
@@ -78,11 +63,7 @@
                     </ngx-select>
 
                     <div class="form-text" *ngIf="form['conductor'].touched && form['conductor'].invalid">
-                      <div *ngIf="
-                          form['conductor'].errors &&
-
-                          form['conductor'].errors['required']
-                        ">
+                      <div *ngIf="form['conductor'].errors && form['conductor'].errors['required']">
                         * Debe seleccionar un conductor.
                       </div>
                     </div>
@@ -125,82 +106,16 @@
                     </div>
                   </div>
 
-
-                  <!-- <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="lugar"><b>Lugar de Archivo *</b></span>
-                    <input id="lugar" class="form-control" type="text" formControlName="lugar" />
-                    <div class="form-text" *ngIf="form['lugar'].touched && form['lugar'].invalid">
-                      <div *ngIf="
-                          form['lugar'].errors &&
-                          form['lugar'].errors['required']
-                        ">
-                        * El Numero de carpeta es Requerido.
-                      </div>
-                      <div *ngIf="
-                          form['lugar'].errors &&
-                          form['lugar'].errors['minlength']
-                        ">
-                        * El Numero de carpeta no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="estante"><b>N° de Estante *</b></span>
-                    <input id="estante" class="form-control" type="number" formControlName="estante" />
-                    <div class="form-text" *ngIf="form['estante'].touched && form['estante'].invalid">
-                      <div *ngIf="form['estante'].errors && form['estante'].errors['required']">
-                        * El estante es Requerido.
-                      </div>
-                      <div *ngIf="form['estante'].errors && form['estante'].errors['minlength']">
-                        * El estante no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="fila"><b>N° de Fila *</b></span>
-                    <input id="fila" class="form-control" type="number" formControlName="fila" />
-                    <div class="form-text" *ngIf="form['fila'].touched && form['fila'].invalid">
-                      <div *ngIf="form['fila'].errors && form['fila'].errors['required']">
-                        * El fila es Requerido.
-                      </div>
-                      <div *ngIf="form['fila'].errors && form['fila'].errors['minlength']">
-                        * El estante no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div> -->
-
-                  <!-- <div class="input-group mb-1">
-                    <span class="input-group-text izq"><b>Observaciones </b></span>
-                    <textarea id="observaciones" class="form-control" type="text"
-                      formControlName="observaciones"></textarea>
-                    <div class="form-text" *ngIf="form['observaciones'].touched && form['observaciones'].invalid">
-                      <div *ngIf="
-                          form['observaciones'].errors &&
-                          form['observaciones'].errors['required']
-                        ">
-                        * la Glosa es Requerida.
-                      </div>
-                      <div *ngIf="
-                          form['observaciones'].errors &&
-                          form['observaciones'].errors['minlength']
-                        ">
-                        * la observaciones no puede tener menos de 3 caracteres.
-                      </div>
-                    </div>
-                  </div> -->
-
                   <div class="mt-3 d-flex justify-content-around">
                     <button (click)="cancel()" type="reset" class="btn btn-danger">
                       Cancelar
                     </button>
-                    <button [disabled]="autorizacionForm.invalid" type="submit" class="btn btn-primary">
+                    <button [disabled]="editForm.invalid" type="submit" class="btn btn-primary">
                       Registrar
                     </button>
                   </div>
                 </form>
-                {{ autorizacionForm.value | json }}
+                <!-- {{ editForm.value | json }} -->
               </div>
             </div>
           </div>
@@ -211,5 +126,3 @@
     </div>
   </div>
 </div>
-
-

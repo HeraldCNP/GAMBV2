@@ -14,6 +14,7 @@ import { UnitsComponent } from './pages/units/units.component';
 import { ChargesComponent } from './pages/charges/charges.component';
 import { UsersIndexComponent } from './pages/users/users-index/users-index.component';
 import { UserEditComponent } from './pages/users/user-edit/user-edit.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { UserEditComponent } from './pages/users/user-edit/user-edit.component';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxSelectModule
   ]
 })
 export class AuthModule { }

@@ -83,7 +83,7 @@ export class ReporteComponent {
     //   this.datelt=this.year+1;
     // }
     this.reportService
-      .getAllSeguimientos(this.destino, this.estado, this.del, this.al)
+      .getAllSeguimientos2(this.destino, this.estado, this.del, this.al)
       .subscribe((data) => {
         this.seguimientos = data.serverResponse;
         console.log(this.seguimientos);

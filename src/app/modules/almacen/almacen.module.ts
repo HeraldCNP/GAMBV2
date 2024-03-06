@@ -31,6 +31,10 @@ import { ReportArticulosComponent } from './pages/report/report-articulos/report
 import { CatPrograIndexComponent } from './pages/catProgras/cat-progra-index/cat-progra-index.component';
 import { EgresoUpdateComponent } from './pages/egresos/egreso-update/egreso-update.component';
 import { ReportFisicoValoradoComponent } from './pages/report/report-fisico-valorado/report-fisico-valorado.component';
+import { ValeListAutorizacionComponent } from './pages/vales/vale-list-autorizacion/vale-list-autorizacion.component';
+import { ValeIndexComponent } from './pages/vales/vale-index/vale-index.component';
+import { ValeCreateComponent } from './pages/vales/vale-create/vale-create.component';
+import { ValeUpdateComponent } from './pages/vales/vale-update/vale-update.component';
 
 
 
@@ -63,6 +67,10 @@ import { ReportFisicoValoradoComponent } from './pages/report/report-fisico-valo
     CatPrograIndexComponent,
     EgresoUpdateComponent,
     ReportFisicoValoradoComponent,
+    ValeListAutorizacionComponent,
+    ValeIndexComponent,
+    ValeCreateComponent,
+    ValeUpdateComponent,
   ],
   imports: [
     CommonModule,

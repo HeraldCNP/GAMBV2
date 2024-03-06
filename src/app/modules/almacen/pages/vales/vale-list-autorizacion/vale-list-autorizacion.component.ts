@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { AutorizacionService } from '../../../services/autorizacion.service';
 import { Router } from '@angular/router';
+import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-autorizacion-index',
-  templateUrl: './autorizacion-index.component.html',
-  styleUrls: ['./autorizacion-index.component.css']
+  selector: 'app-vale-list-autorizacion',
+  templateUrl: './vale-list-autorizacion.component.html',
+  styleUrls: ['./vale-list-autorizacion.component.css']
 })
-export class AutorizacionIndexComponent {
+export class ValeListAutorizacionComponent {
   idUser: any;
   user: any;
   data: any;
@@ -107,6 +107,10 @@ export class AutorizacionIndexComponent {
         );
       }
     });
+  }
+
+  generarVale(id: string) {
+    this.router.navigate(['/almacen/vale/create', id]);
   }
 
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AutorizacionIndexComponent } from './pages/autorizaciones/autorizacion-index/autorizacion-index.component';
 import { AutorizacionCreateComponent } from './pages/autorizaciones/autorizacion-create/autorizacion-create.component';
+import { AutorizacionUpdateComponent } from './pages/autorizaciones/autorizacion-update/autorizacion-update.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
 
       { path: 'autorizacion/index', component: AutorizacionIndexComponent },
       { path: 'autorizacion/create', component: AutorizacionCreateComponent },
-      // { path: 'poa/update/:id', component: PoaUpdateComponent },
+      { path: 'autorizacion/update/:id', component: AutorizacionUpdateComponent },
 
       // { path: 'ptdi/index', component: PtdiIndexComponent },
       // { path: 'ptdi/create', component: PtdiCreateComponent },

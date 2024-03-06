@@ -10,6 +10,8 @@ import { AutorizacionIndexComponent } from './pages/autorizaciones/autorizacion-
 import { AutorizacionCreateComponent } from './pages/autorizaciones/autorizacion-create/autorizacion-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { NgxPrintModule } from 'ngx-print';
+import { AutorizacionUpdateComponent } from './pages/autorizaciones/autorizacion-update/autorizacion-update.component';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     HeaderComponent,
     SidebarComponent,
     AutorizacionIndexComponent,
-    AutorizacionCreateComponent
+    AutorizacionCreateComponent,
+    AutorizacionUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
     ReactiveFormsModule,
     NgxSelectModule,
     FormsModule,
+    NgxPrintModule,
   ]
 })
 export class ActFijosModule { }

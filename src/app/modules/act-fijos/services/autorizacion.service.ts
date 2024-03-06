@@ -38,7 +38,7 @@ export class AutorizacionService {
   }
 
   getAllConductores(): Observable<any[]> {
-    let dir = `${this.URL}/listUsers`;
+    let dir = `${this.URL}/listUsers?roles=CHOFER`;
     console.log(dir);
     return this.http.get<any>(dir);
   }
@@ -48,5 +48,21 @@ export class AutorizacionService {
     let dir = `${this.URL}/autorizacion`;
     return this.http.post<any>(dir, form);
   }
+
+  getSingleAutorizacion(id: any): Observable<any[]> {
+    var dir = `${this.URL}/autorizacion/${id}`;
+    return this.http.get<any[]>(dir);
+  }
+
+  editAutorizacion(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/autorizacion/${id}`;
+    return this.http.put<any>(dir, form)
+  }
+
+  deleteAutorizacion(id: any) {
+    let dir = `${this.URL}/autorizacion/${id}`;
+    return this.http.delete<any>(dir, id);
+  }
+
 
 }

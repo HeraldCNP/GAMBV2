@@ -120,7 +120,7 @@
                   <th>Encargado</th>
                   <th>Conductor</th>
                   <th>Vehículo</th>
-                  <th>Acciones</th>
+                  <th style="width: 150px;">Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
@@ -152,10 +152,8 @@
                   <td>
                     <!-- <i class="fas fa-eye ml-2 icono" (click)="verArchivos(carpeta)"></i> -->
                     <!-- <i class="fas fa-plus ml-2 icono" (click)="addCarpetaId(carpeta)"></i> -->
-                    <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
-                    (click)="print(autorizacion)"></i>
-                    <i class="fas fa-edit ml-2 icono" (click)="edit(autorizacion._id)"></i>
-                    <i class="fas fa-trash-alt ml-2 icono" (click)="borrarAutorizacion(autorizacion._id)"></i>
+                    <!-- <i class="fas fa-edit ml-2 icono" (click)="edit(autorizacion._id)"></i> -->
+                    <button class="btn btn-info text-sm" (click)="generarVale(autorizacion._id)">Generar Vale<i class="fas fa-print ml-2 icono"></i></button>
                   </td>
                 </tr>
               </tbody>

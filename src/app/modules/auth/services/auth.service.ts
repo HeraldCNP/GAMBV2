@@ -116,4 +116,10 @@ export class AuthService {
     this.router.navigate(['/'])
   }
 
+  getAllCargos(): Observable<any[]> {
+    let dir = `${this.URL}/subdir`;
+    console.log(dir);
+    return this.http.get<any>(dir);
+  }
+
 }

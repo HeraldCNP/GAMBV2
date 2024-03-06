@@ -1,0 +1,19 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { catProgra } from '../interfaces/catProgra.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ValeService {
+  private readonly URL = environment.api;
+  constructor(private http: HttpClient) { }
+
+
+  getCompraOfCombustible(id:string, catProgra:any){
+    let dir = `${this.URL}/searchCombustible/${id}/${catProgra}`;
+    return this.http.get<any>(dir);
+    console.log(dir);
+  }
+}
