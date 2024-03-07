@@ -1,6 +1,5 @@
 .table{
     font-size: 0.9rem;
-    text-align: center;
 }
 .fas {
     cursor: pointer;
@@ -124,4 +123,8 @@
 
   .boton{
     cursor: pointer;
+  }
+
+  .textEstado{
+    font-size: 0.7rem;
   }

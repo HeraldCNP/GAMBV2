@@ -127,6 +127,7 @@
                 <th>Derivado por</th>
                 <th>Origen</th>
                 <th>Referencia</th>
+                <th>Beneficiario</th>
                 <th>Instrucción</th>
                 <th>Fecha Derivado</th>
                 <th>Fecha Recepción</th>
@@ -137,30 +138,17 @@
             <tbody>
               <tr *ngFor="let seguimiento of seguimientos">
                 <td>
-                  <i [routerLink]="[
-                      '/ruta/derivar',
-                      seguimiento.idhj._id,
-                      seguimiento._id
-                    ]" class="fas fa-share text-primary" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Derivar">
+                  <i [routerLink]="['/ruta/derivar', seguimiento.idhj._id, seguimiento._id]" class="fas fa-share text-primary" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Derivar">
                   </i>
-                  <i (click)="reply(seguimiento._id)" class="fas fa-times-circle text-danger"
-                    *ngIf="seguimiento.estado === 'DERIVADO'" title="Eliminar el Último Derivado"></i><br />
+                  <i (click)="reply(seguimiento._id)" class="fas fa-times-circle text-danger" *ngIf="seguimiento.estado === 'DERIVADO'" title="Eliminar el Último Derivado"></i>
                   <i (click)="finalizar(seguimiento._id)" style="color: rgb(131, 117, 56) !important"
                     class="fas fa-briefcase" title="Enviar a mi Maletín"
-                    *ngIf="seguimiento.estado === 'RECIBIDO'"></i><br />
-                  <i *ngIf="seguimiento.estado === 'RECIBIDO'" [routerLink]="[
-                      '/ruta/sendArchivoOfi',
-                      seguimiento.idhj._id,
-                      seguimiento._id
-                    ]" class="fas fa-folder-open" style="color: rgb(238, 128, 94) !important"
+                    *ngIf="seguimiento.estado === 'RECIBIDO'"></i>
+                  <i *ngIf="seguimiento.estado === 'RECIBIDO'" [routerLink]="['/ruta/sendArchivoOfi', seguimiento.idhj._id, seguimiento._id]" class="fas fa-folder-open" style="color: rgb(238, 128, 94) !important"
                     title="Finalizar Trámite"></i>
-                  <i (click)="reactivar(seguimiento._id)" *ngIf="
-                      seguimiento.estado === 'MALETIN' ||
-                      seguimiento.estado === 'FILE OFICINA'
-                    " class="fas fa-file-upload" style="color: rgb(230, 70, 176) !important"
+                  <i (click)="reactivar(seguimiento._id)" *ngIf="seguimiento.estado === 'MALETIN' || seguimiento.estado === 'FILE OFICINA'" class="fas fa-file-upload" style="color: rgb(230, 70, 176) !important"
                     title="Reactivar el trámite"></i>
-                  <i class="fas fa-paste text-success" data-bs-toggle="modal" data-bs-target="#modalAsociar"
-                    (click)="asociar(seguimiento)" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Asociar"></i>
+                  <i class="fas fa-paste text-success" data-bs-toggle="modal" data-bs-target="#modalAsociar"(click)="asociar(seguimiento)" *ngIf="seguimiento.estado === 'RECIBIDO'" title="Asociar"></i>
                 </td>
                 <td>
                   {{ seguimiento.nuit }}
@@ -169,6 +157,7 @@
                 <td>{{ seguimiento.nombre }}</td>
                 <td>{{ seguimiento.origenhr }}</td>
                 <td>{{ seguimiento.referencia }}</td>
+                <td>{{ seguimiento.idhj.beneficiarioPago }}</td>
                 <td>{{ seguimiento.detalles }}</td>
                 <td>
                   {{ seguimiento.fechaderivado | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
@@ -198,7 +187,7 @@
                     -->
                   </i>
                 </td>
-                <td [ngSwitch]="seguimiento.estado">
+                <td class="textEstado" [ngSwitch]="seguimiento.estado">
                   <span *ngSwitchCase="'ENVIADO'" class="badge badge-danger">{{
                     seguimiento.estado
                     }}</span>
@@ -350,7 +339,10 @@
                     <span>Origen: </span>{{ hojaRuta.origen }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Tipo de documento: </span>{{ hojaRuta.tipodoc }}
+                    <span>Beneficiario: </span>{{ hojaRuta.beneficiarioPago }}
+                  </p>
+                  <p class="card-text fw-normal">
+                    <span>Tipo de documento: </span>{{ hojaRuta.tipodoc | uppercase }}
                   </p>
                 </div>
                 <hr class="mt-0" />
