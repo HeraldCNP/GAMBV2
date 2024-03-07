@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComprasService } from '../../../services/compras.service';
 import { ValeService } from '../../../services/vale.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vale-create',
@@ -41,9 +42,6 @@ export class ValeCreateComponent {
       idCompra: [''],
       idProducto: [''],
     });
-
-
-
   }
 
   ngOnInit(): void {
@@ -62,9 +60,27 @@ export class ValeCreateComponent {
     return this.createForm.controls;
   }
 
-  crearVale(form:any){
 
+  crearVale(form: any) {
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    this.valeService.createVale(form).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+
+        this.router.navigate(['almacen/egreso/index']);
+        this.alertOk(
+          'success',
+          'Exito',
+          'Vale Creado Correctamente',
+          '2000'
+        );
+      }
+    );
   }
+
 
   doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
@@ -78,6 +94,16 @@ export class ValeCreateComponent {
   cancel() {
     this.router.navigate(['actFijos/autorizacion/index'])
   }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer,
+    });
+  }
+
 
 
 

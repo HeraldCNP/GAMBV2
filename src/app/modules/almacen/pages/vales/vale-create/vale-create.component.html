@@ -41,6 +41,23 @@
                   </div>
 
                   <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Cantidad Disponible</b></span>
+                    <ngx-select class="sel" [allowClear]="true" [items]="compras" optionTextField="stockCompra" optionValueField="_id"
+                      placeholder="Seleccione Una Categoria Programatica" formControlName="idCompra">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;- (Entrada # {{option.data.idEntrada.numeroEntrada}})
+                      </ng-template>
+                    </ngx-select>
+
+                    <div class="form-text" *ngIf="form['idCompra'].touched && form['idCompra'].invalid">
+                      <div *ngIf="form['idCompra'].errors && form['idCompra'].errors['required']">
+                        * Debe seleccionar Una Categoria Programatica.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
                     <span class="input-group-text izq" id="destino"><b>Cantidad *</b></span>
                     <input id="cantidad" class="form-control" type="text" formControlName="cantidad" />
                     <div class="form-text" *ngIf="form['cantidad'].touched && form['cantidad'].invalid">

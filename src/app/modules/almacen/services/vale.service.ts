@@ -16,4 +16,15 @@ export class ValeService {
     return this.http.get<any>(dir);
     console.log(dir);
   }
+
+  createVale(form:any){
+    let dir = `${this.URL}/vale`;
+    return this.http.post(dir, form)
+  }
+
+  getAllVales(){
+    let dir = `${this.URL}/vales`;
+    return this.http.get<any>(dir);
+  }
+
 }

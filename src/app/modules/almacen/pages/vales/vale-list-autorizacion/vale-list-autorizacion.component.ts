@@ -113,4 +113,8 @@ export class ValeListAutorizacionComponent {
     this.router.navigate(['/almacen/vale/create', id]);
   }
 
+  listarVales() {
+    this.router.navigate(['/almacen/vale/index']);
+  }
+
 }

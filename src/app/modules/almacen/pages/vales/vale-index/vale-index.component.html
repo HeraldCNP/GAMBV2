@@ -1,1 +1,490 @@
-<p>vale-index works!</p>
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-6">
+                <h3 class="card-title">
+                  Total Vales ({{ totalVales }})
+                </h3>
+              </div>
+              <div class="col-md-6 text-end">
+                <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addAutorizacion()">
+                  Crear Nuevo
+                </button> -->
+              </div>
+            </div>
+            <hr>
+            <!-- <form [formGroup]="buscarAutorizacion">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="gestion"><b> Gestion</b></span>
+                    <select id="gestion" formControlName="gestion" class="form-select" required>
+                      <option value="2023" [defaultSelected]="true">2023</option>
+                      <option value="2022">2022</option>
+                      <option value="2021">2021</option>
+                      <option value="2020">2020</option>
+                      <option value="2019">2019</option>
+                      <option value="2018">2018</option>
+                      <option value="2017">2017</option>
+                      <option value="2016">2016</option>
+                      <option value="2015">2015</option>
+                      <option value="2014">2014</option>
+                      <option value="2013">2013</option>
+                      <option value="2012">2012</option>
+                      <option value="2011">2011</option>
+                      <option value="2010">2010</option>
+                      <option value="2009">2009</option>
+                      <option value="2008">2008</option>
+                      <option value="2007">2007</option>
+                      <option value="2006">2006</option>
+                    </select>
+                    <div class="form-text" *ngIf="form5['gestion'].touched && form5['gestion'].invalid">
+                      <div *ngIf="form5['gestion'].errors && form5['gestion'].errors['required']">* Gestion es
+                        Requerido.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="numero"><b>Numero</b></span>
+                    <input class="form-control" type="text" formControlName="numero">
+                    <div class="form-text" *ngIf="form5['numero'].touched && form5['numero'].invalid">
+                      <div *ngIf="form5['numero'].errors && form5['numero'].errors['required']">* Numero</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="nombre"><b>Nombre</b></span>
+                    <input class="form-control" type="text" formControlName="nombre">
+                    <div class="form-text" *ngIf="form5['nombre'].touched && form5['nombre'].invalid">
+                      <div *ngIf="form5['nombre'].errors && form5['nombre'].errors['required']">* nombre
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group mb-1 mx-1">
+                    <span class="input-group-text izq" id="lugar"><b>Lugar</b></span>
+                    <input class="form-control" type="text" formControlName="lugar">
+                    <div class="form-text" *ngIf="form5['lugar'].touched && form5['lugar'].invalid">
+                      <div *ngIf="form5['lugar'].errors && form5['lugar'].errors['required']">* lugar</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button (click)="searchCarpeta(buscarCarpeta)" class="btn btn-primary mr-3"
+                    [disabled]="buscarCarpeta.invalid" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
+                    Buscar
+                  </button>
+                </div>
+
+              </div>
+
+            </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Vale N°</th>
+                  <th>Fecha</th>
+                  <th>Cantidad</th>
+                  <th>Categoria Programatica</th>
+                  <th>Producto</th>
+                  <th>Autorizacion N°</th>
+                  <th>Encargado</th>
+                  <th style="width: 150px;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let vale of vales.serverResponse; let i = index">
+                  <td>{{ vale.numeroVale }}</td>
+                  <td>{{ vale.fecha | date: 'mediumDate' }}</td>
+                  <td>{{ vale.cantidad }}</td>
+                  <td>{{ vale.catProgra }}</td>
+                  <td></td>
+                  <td>{{ vale.autorizacion.numeroAutorizacion }}</td>
+                  <td>{{ vale.encargadoControl.username }} {{ vale.encargadoControl.surnames }}</td>
+                  <!-- <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="carpeta.estado == '1'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="true"
+                          role="switch" id="{{'toogle'+i}}">Activo
+                      </span>
+                      <span *ngIf="carpeta.estado == '0'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="false"
+                          role="switch" id="{{'toogle'+i}}">Inactivo
+                      </span>
+                    </div>
+                  </td> -->
+                  <td>
+                    <!-- <i class="fas fa-eye ml-2 icono" (click)="verArchivos(carpeta)"></i> -->
+                    <!-- <i class="fas fa-plus ml-2 icono" (click)="addCarpetaId(carpeta)"></i> -->
+                    <!-- <i class="fas fa-edit ml-2 icono" (click)="edit(vale._id)"></i> -->
+                    <!-- <button class="btn btn-info text-sm" (click)="generarVale(vale._id)">Generar Vale<i
+                        class="fas fa-print ml-2 icono"></i></button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- *ngIf="txtTermino.value.length === 0" -->
+            <div class="text-center">
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+
+    <div class="modal-content">
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
+          class="btn btn-primary">
+          Imprimir
+        </button>
+      </div>
+      <div class="modal-body" id="content" #content>
+        <div class="">
+          <div *ngIf="vale" class="card fondito1">
+            <div class="d-flex justify-content-between ml-2 mb-0">
+              <div class="p-2">
+                <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+              </div>
+              <div class="text-center ml-5 mt-2 mb-0">
+                <h3 class="off-m">AUTORIZACION SALIDA DE VEHICULOS</h3>
+              </div>
+              <div class="p-3 ">
+                <img src="/assets/img/sisal.png" alt="" width="163px" />
+              </div>
+            </div>
+            <div class="d-flex justify-content-around">
+              <div class="mb-1">
+                <b>FECHA:</b> {{ autorizacion.fecha | date : 'fullDate' : "UTC" }}
+              </div>
+              <div>
+                <b>N°:</b> {{ autorizacion.numeroAutorizacion }}
+              </div>
+              <div>
+                <b>N° DE VALE:</b>
+              </div>
+            </div>
+
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla">
+                <legend class="text-muted"><b>DATOS DEL VEHICULO</b></legend>
+                <table class="table table-striped">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Clase</th>
+                      <th>Marca</th>
+                      <th>Placa</th>
+                      <th>Lugar de Salida</th>
+                      <th>Fecha de Salida</th>
+                      <th>Hora de Salida</th>
+                      <th>Km de Salida</th>
+                      <th>Km de LLegada</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr>
+                      <td>{{ autorizacion.vehiculo.tipo }}</td>
+                      <td>{{ autorizacion.vehiculo.marca }}</td>
+                      <td>{{ autorizacion.vehiculo.placa }}</td>
+                      <td>{{ autorizacion.destino }}</td>
+                      <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
+                      <td>______________</td>
+                      <td>______________</td>
+                      <td>______________</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset>
+            </div>
+
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla mb-2">
+                <legend class="text-muted"><b>DATOS DEL CONDUCTOR</b></legend>
+                <table class="table table-striped">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Cargo</th>
+                      <th>Licencia</th>
+                      <th class="firma">Firma</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr>
+                      <td>{{ autorizacion.conductor.username }} {{ autorizacion.conductor.surnames }}</td>
+                      <td>{{ autorizacion.conductor.post }}</td>
+                      <td>{{ autorizacion.conductor.ci }}</td>
+                      <td>____________________________</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset>
+              <span><b>MOTIVO DE SALIDA:</b> {{ autorizacion.motivo }}</span>
+              <div class="mt-10">
+                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                  <div class="">
+                    <div class="text-center">
+                      <b>Encargado de Control</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Unidad Solicitante</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Jefe de Unidad Solicitante</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla mb-2">
+                <legend class="text-muted"><b>CERTIFICACION DEL PROYECTO O ACTIVIDAD REALIZADA</b></legend>
+                <hr class="mt-4">
+                <hr class="mt-4">
+                <hr class="mt-4">
+                <hr class="mt-4">
+              </fieldset>
+            </div>
+            <div class="container">
+              <div class="d-flex justify-content-around ml-3 mb-0 mb-10">
+                <div class="">
+                  <div class="text-center">
+                    <b>Certificado Por:</b>
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    <b>Sello:</b>
+                  </div>
+                </div>
+                <div class="">
+                </div>
+              </div>
+            </div>
+            <div class="container mt-4 mb-2">
+              <div class="d-flex justify-content-around ml-3 mb-0">
+                <div class="">
+                  <div class="text-center">
+                    <b>Fecha de LLegada:</b> _______________________
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    <b>Hora de LLegada:</b> _______________________
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    <b>Firma:</b> _______________________
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="autorizacion" class="card fondito1 mt-5">
+            <div class="d-flex justify-content-between ml-2 mb-0">
+              <div class="p-2">
+                <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+              </div>
+              <div class="text-center ml-5 mt-2 mb-0">
+                <h3 class="off-m">AUTORIZACION SALIDA DE VEHICULOS</h3>
+
+              </div>
+              <div class="p-3 ">
+                <img src="/assets/img/sisal.png" alt="" width="163px" />
+              </div>
+            </div>
+            <div class="d-flex justify-content-around">
+              <div class="mb-1">
+                <b>FECHA:</b> {{ autorizacion.fecha | date : 'fullDate' : "UTC" }}
+              </div>
+              <div>
+                <b>N°:</b> {{ autorizacion.numeroAutorizacion }}
+              </div>
+              <div>
+                <b>N° DE VALE:</b>
+              </div>
+            </div>
+
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla">
+                <legend class="text-muted"><b>DATOS DEL VEHICULO</b></legend>
+                <table class="table table-striped">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Clase</th>
+                      <th>Marca</th>
+                      <th>Placa</th>
+                      <th>Lugar de Salida</th>
+                      <th>Fecha de Salida</th>
+                      <th>Hora de Salida</th>
+                      <th>Km de Salida</th>
+                      <th>Km de LLegada</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr>
+                      <td>{{ autorizacion.vehiculo.tipo }}</td>
+                      <td>{{ autorizacion.vehiculo.marca }}</td>
+                      <td>{{ autorizacion.vehiculo.placa }}</td>
+                      <td>{{ autorizacion.destino }}</td>
+                      <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
+                      <td>______________</td>
+                      <td>______________</td>
+                      <td>______________</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset>
+            </div>
+
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla mb-2">
+                <legend class="text-muted"><b>DATOS DEL CONDUCTOR</b></legend>
+                <table class="table table-striped">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Cargo</th>
+                      <th>Licencia</th>
+                      <th class="firma">Firma</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr>
+                      <td>{{ autorizacion.conductor.username }} {{ autorizacion.conductor.surnames }}</td>
+                      <td>{{ autorizacion.conductor.post }}</td>
+                      <td>{{ autorizacion.conductor.ci }}</td>
+                      <td>____________________________</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset>
+              <span><b>MOTIVO DE SALIDA:</b> {{ autorizacion.motivo }}</span>
+              <div class="mt-10">
+                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                  <div class="">
+                    <div class="text-center">
+                      <b>Encargado de Control</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Unidad Solicitante</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Jefe de Unidad Solicitante</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla mb-2">
+                <legend class="text-muted"><b>CERTIFICACION DEL PROYECTO O ACTIVIDAD REALIZADA</b></legend>
+                <hr class="mt-4">
+                <hr class="mt-4">
+                <hr class="mt-4">
+                <hr class="mt-4">
+              </fieldset>
+            </div>
+            <div class="container">
+              <div class="d-flex justify-content-around ml-3 mb-0 mb-10">
+                <div class="">
+                  <div class="text-center">
+                    <b>Certificado Por:</b>
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    <b>Sello:</b>
+                  </div>
+                </div>
+                <div class="">
+                </div>
+              </div>
+            </div>
+            <div class="container mt-4 mb-2">
+              <div class="d-flex justify-content-around ml-3 mb-0">
+                <div class="">
+                  <div class="text-center">
+                    <b>Fecha de LLegada:</b> _______________________
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    <b>Hora de LLegada:</b> _______________________
+                  </div>
+                </div>
+                <div class="">
+                  <div class="text-center">
+                    <b>Firma:</b> _______________________
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div> -->
