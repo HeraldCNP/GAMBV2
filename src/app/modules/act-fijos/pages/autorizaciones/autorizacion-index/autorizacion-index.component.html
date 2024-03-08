@@ -240,7 +240,6 @@
                       <th>Clase</th>
                       <th>Marca</th>
                       <th>Placa</th>
-                      <th>Lugar de Salida</th>
                       <th>Fecha de Salida</th>
                       <th>Hora de Salida</th>
                       <th>Km de Salida</th>
@@ -252,7 +251,6 @@
                       <td>{{ autorizacion.vehiculo.tipo }}</td>
                       <td>{{ autorizacion.vehiculo.marca }}</td>
                       <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.destino }}</td>
                       <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
                       <td>______________</td>
                       <td>______________</td>
@@ -285,6 +283,7 @@
                   </tbody>
                 </table>
               </fieldset>
+              <span><b>LUGAR DE SALIDA:</b> {{ autorizacion.destino }}</span><br>
               <span><b>MOTIVO DE SALIDA:</b> {{ autorizacion.motivo }}</span>
               <div class="mt-10">
                 <div class="d-flex justify-content-around ml-3 mb-0 ">
@@ -353,7 +352,7 @@
 
           </div>
 
-          <div *ngIf="autorizacion" class="card fondito1 mt-5">
+          <div *ngIf="autorizacion" class="card fondito1 mt-10">
             <div class="d-flex justify-content-between ml-2 mb-0">
               <div class="p-2">
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
@@ -399,7 +398,6 @@
                       <th>Clase</th>
                       <th>Marca</th>
                       <th>Placa</th>
-                      <th>Lugar de Salida</th>
                       <th>Fecha de Salida</th>
                       <th>Hora de Salida</th>
                       <th>Km de Salida</th>
@@ -411,7 +409,6 @@
                       <td>{{ autorizacion.vehiculo.tipo }}</td>
                       <td>{{ autorizacion.vehiculo.marca }}</td>
                       <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.destino }}</td>
                       <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
                       <td>______________</td>
                       <td>______________</td>
@@ -444,6 +441,7 @@
                   </tbody>
                 </table>
               </fieldset>
+              <span><b>LUGAR DE SALIDA:</b> {{ autorizacion.destino }}</span><br>
               <span><b>MOTIVO DE SALIDA:</b> {{ autorizacion.motivo }}</span>
               <div class="mt-10">
                 <div class="d-flex justify-content-around ml-3 mb-0 ">
@@ -511,6 +509,7 @@
             </div>
 
           </div>
+
 
 
         </div>

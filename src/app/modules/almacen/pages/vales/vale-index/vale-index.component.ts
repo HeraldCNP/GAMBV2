@@ -28,7 +28,7 @@ export class ValeIndexComponent {
   cargando: boolean = true;
   idAutorizacion: any;
   URL = environment.api;
-  autorizacion:any;
+  vale:any;
   date = new Date();
 
 
@@ -74,8 +74,8 @@ export class ValeIndexComponent {
   }
 
   print(element:any){
-    this.autorizacion = element;
-    console.log(this.autorizacion);
+    this.vale = element;
+    console.log(this.vale);
   }
 
   /**

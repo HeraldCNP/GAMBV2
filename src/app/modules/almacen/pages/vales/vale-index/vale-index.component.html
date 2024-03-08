@@ -126,7 +126,7 @@
                   <td>{{ vale.fecha | date: 'mediumDate' }}</td>
                   <td>{{ vale.cantidad }}</td>
                   <td>{{ vale.catProgra }}</td>
-                  <td></td>
+                  <td>{{ vale.idProducto.nombre }}</td>
                   <td>{{ vale.autorizacion.numeroAutorizacion }}</td>
                   <td>{{ vale.encargadoControl.username }} {{ vale.encargadoControl.surnames }}</td>
                   <!-- <td>
@@ -149,6 +149,8 @@
                     <!-- <i class="fas fa-edit ml-2 icono" (click)="edit(vale._id)"></i> -->
                     <!-- <button class="btn btn-info text-sm" (click)="generarVale(vale._id)">Generar Vale<i
                         class="fas fa-print ml-2 icono"></i></button> -->
+                    <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
+                      (click)="print(vale)"></i>
                   </td>
                 </tr>
               </tbody>
@@ -174,7 +176,7 @@
 
 
 <!-- Modal -->
-<!-- <div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
 
     <div class="modal-content">
@@ -192,7 +194,7 @@
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
               </div>
               <div class="text-center ml-5 mt-2 mb-0">
-                <h3 class="off-m">AUTORIZACION SALIDA DE VEHICULOS</h3>
+                <h3 class="off-m">SOLICITUD DE COMBUSTIBLE</h3>
               </div>
               <div class="p-3 ">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
@@ -200,146 +202,112 @@
             </div>
             <div class="d-flex justify-content-around">
               <div class="mb-1">
-                <b>FECHA:</b> {{ autorizacion.fecha | date : 'fullDate' : "UTC" }}
+                <b>AP. PROGRAMATICA:</b> {{ vale.catProgra }}
+              </div>
+              <div class="mb-1">
+                <b>FECHA:</b> {{ vale.fecha | date : 'fullDate' : "UTC" }}
               </div>
               <div>
-                <b>N°:</b> {{ autorizacion.numeroAutorizacion }}
+                <b>N° DE AUTORIZACION:</b> {{ vale.autorizacion.numeroAutorizacion }}
               </div>
               <div>
-                <b>N° DE VALE:</b>
+                <b>N° DE VALE:</b> {{ vale.numeroVale }}
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-around">
+              <div>
+                <b>SOLICITADO POR:</b> {{ vale.autorizacion.unidadSolicitante.user.username }} {{ vale.autorizacion.unidadSolicitante.user.surnames }}
+              </div>
+              <div>
+                <b>CARGO:</b> {{ vale.autorizacion.unidadSolicitante.nombresubdir }}
               </div>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
-                <legend class="text-muted"><b>DATOS DEL VEHICULO</b></legend>
+
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
-                      <th>Clase</th>
-                      <th>Marca</th>
-                      <th>Placa</th>
-                      <th>Lugar de Salida</th>
-                      <th>Fecha de Salida</th>
-                      <th>Hora de Salida</th>
-                      <th>Km de Salida</th>
-                      <th>Km de LLegada</th>
+                      <th>Cantidad Numeral</th>
+                      <th>Cantidad Literal</th>
+                      <th>Unidad</th>
+                      <th>Producto</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ autorizacion.vehiculo.tipo }}</td>
-                      <td>{{ autorizacion.vehiculo.marca }}</td>
-                      <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.destino }}</td>
-                      <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
-                      <td>______________</td>
-                      <td>______________</td>
-                      <td>______________</td>
+                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.idProducto.unidadDeMedida }}</td>
+                      <td>{{ vale.idProducto.nombre }}</td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
+              <span><b>DESTINO:</b> {{ vale.autorizacion.destino }}</span> <br>
+              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion.motivo }}</span>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR</b></legend>
+                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHICULO</b></legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
-                      <th>Nombre</th>
-                      <th>Cargo</th>
+                      <th>Vehiculo</th>
+                      <th>Placa</th>
+                      <th>Chofer</th>
                       <th>Licencia</th>
-                      <th class="firma">Firma</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ autorizacion.conductor.username }} {{ autorizacion.conductor.surnames }}</td>
-                      <td>{{ autorizacion.conductor.post }}</td>
-                      <td>{{ autorizacion.conductor.ci }}</td>
-                      <td>____________________________</td>
+                      <td>{{ vale.autorizacion.vehiculo.tipo }}</td>
+                      <td>{{ vale.autorizacion.vehiculo.placa }}</td>
+                      <td>{{ vale.autorizacion.conductor.username }} {{ vale.autorizacion.conductor.surnames }}</td>
+                      <td>{{ vale.autorizacion.conductor.ci }} {{ vale.autorizacion.conductor.categoriaLicencia }}</td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ autorizacion.motivo }}</span>
+
               <div class="mt-10">
                 <div class="d-flex justify-content-around ml-3 mb-0 ">
                   <div class="">
                     <div class="text-center">
-                      <b>Encargado de Control</b>
+                      <b>Solicitado Por</b>
                     </div>
                   </div>
                   <div class="">
                     <div class="text-center">
-                      <b>Unidad Solicitante</b>
+                      <b>Resp. Almacen</b>
                     </div>
                   </div>
                   <div class="">
                     <div class="text-center">
-                      <b>Jefe de Unidad Solicitante</b>
+                      <b>Autorizado Por</b>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="container mb-2">
-              <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>CERTIFICACION DEL PROYECTO O ACTIVIDAD REALIZADA</b></legend>
-                <hr class="mt-4">
-                <hr class="mt-4">
-                <hr class="mt-4">
-                <hr class="mt-4">
-              </fieldset>
-            </div>
-            <div class="container">
-              <div class="d-flex justify-content-around ml-3 mb-0 mb-10">
-                <div class="">
-                  <div class="text-center">
-                    <b>Certificado Por:</b>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Chofer</b>
+                    </div>
                   </div>
-                </div>
-                <div class="">
-                  <div class="text-center">
-                    <b>Sello:</b>
-                  </div>
-                </div>
-                <div class="">
-                </div>
-              </div>
-            </div>
-            <div class="container mt-4 mb-2">
-              <div class="d-flex justify-content-around ml-3 mb-0">
-                <div class="">
-                  <div class="text-center">
-                    <b>Fecha de LLegada:</b> _______________________
-                  </div>
-                </div>
-                <div class="">
-                  <div class="text-center">
-                    <b>Hora de LLegada:</b> _______________________
-                  </div>
-                </div>
-                <div class="">
-                  <div class="text-center">
-                    <b>Firma:</b> _______________________
-                  </div>
-                </div>
-              </div>
-            </div>
 
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div *ngIf="autorizacion" class="card fondito1 mt-5">
+          <div *ngIf="vale" class="card fondito1 mt-5">
             <div class="d-flex justify-content-between ml-2 mb-0">
               <div class="p-2">
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
               </div>
               <div class="text-center ml-5 mt-2 mb-0">
-                <h3 class="off-m">AUTORIZACION SALIDA DE VEHICULOS</h3>
-
+                <h3 class="off-m">SOLICITUD DE COMBUSTIBLE</h3>
               </div>
               <div class="p-3 ">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
@@ -347,137 +315,220 @@
             </div>
             <div class="d-flex justify-content-around">
               <div class="mb-1">
-                <b>FECHA:</b> {{ autorizacion.fecha | date : 'fullDate' : "UTC" }}
+                <b>AP. PROGRAMATICA:</b> {{ vale.catProgra }}
+              </div>
+              <div class="mb-1">
+                <b>FECHA:</b> {{ vale.fecha | date : 'fullDate' : "UTC" }}
               </div>
               <div>
-                <b>N°:</b> {{ autorizacion.numeroAutorizacion }}
+                <b>N° DE AUTORIZACION:</b> {{ vale.autorizacion.numeroAutorizacion }}
               </div>
               <div>
-                <b>N° DE VALE:</b>
+                <b>N° DE VALE:</b> {{ vale.numeroVale }}
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-around">
+              <div>
+                <b>SOLICITADO POR:</b> {{ vale.autorizacion.unidadSolicitante.user.username }} {{ vale.autorizacion.unidadSolicitante.user.surnames }}
+              </div>
+              <div>
+                <b>CARGO:</b> {{ vale.autorizacion.unidadSolicitante.nombresubdir }}
               </div>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
-                <legend class="text-muted"><b>DATOS DEL VEHICULO</b></legend>
+
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
-                      <th>Clase</th>
-                      <th>Marca</th>
-                      <th>Placa</th>
-                      <th>Lugar de Salida</th>
-                      <th>Fecha de Salida</th>
-                      <th>Hora de Salida</th>
-                      <th>Km de Salida</th>
-                      <th>Km de LLegada</th>
+                      <th>Cantidad Numeral</th>
+                      <th>Cantidad Literal</th>
+                      <th>Unidad</th>
+                      <th>Producto</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ autorizacion.vehiculo.tipo }}</td>
-                      <td>{{ autorizacion.vehiculo.marca }}</td>
-                      <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.destino }}</td>
-                      <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
-                      <td>______________</td>
-                      <td>______________</td>
-                      <td>______________</td>
+                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.idProducto.unidadDeMedida }}</td>
+                      <td>{{ vale.idProducto.nombre }}</td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
+              <span><b>DESTINO:</b> {{ vale.autorizacion.destino }}</span> <br>
+              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion.motivo }}</span>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR</b></legend>
+                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHICULO</b></legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
-                      <th>Nombre</th>
-                      <th>Cargo</th>
+                      <th>Vehiculo</th>
+                      <th>Placa</th>
+                      <th>Chofer</th>
                       <th>Licencia</th>
-                      <th class="firma">Firma</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ autorizacion.conductor.username }} {{ autorizacion.conductor.surnames }}</td>
-                      <td>{{ autorizacion.conductor.post }}</td>
-                      <td>{{ autorizacion.conductor.ci }}</td>
-                      <td>____________________________</td>
+                      <td>{{ vale.autorizacion.vehiculo.tipo }}</td>
+                      <td>{{ vale.autorizacion.vehiculo.placa }}</td>
+                      <td>{{ vale.autorizacion.conductor.username }} {{ vale.autorizacion.conductor.surnames }}</td>
+                      <td>{{ vale.autorizacion.conductor.ci }} {{ vale.autorizacion.conductor.categoriaLicencia }}</td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ autorizacion.motivo }}</span>
+
               <div class="mt-10">
                 <div class="d-flex justify-content-around ml-3 mb-0 ">
                   <div class="">
                     <div class="text-center">
-                      <b>Encargado de Control</b>
+                      <b>Solicitado Por</b>
                     </div>
                   </div>
                   <div class="">
                     <div class="text-center">
-                      <b>Unidad Solicitante</b>
+                      <b>Resp. Almacen</b>
                     </div>
                   </div>
                   <div class="">
                     <div class="text-center">
-                      <b>Jefe de Unidad Solicitante</b>
+                      <b>Autorizado Por</b>
                     </div>
                   </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Chofer</b>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
-            <div class="container mb-2">
-              <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>CERTIFICACION DEL PROYECTO O ACTIVIDAD REALIZADA</b></legend>
-                <hr class="mt-4">
-                <hr class="mt-4">
-                <hr class="mt-4">
-                <hr class="mt-4">
-              </fieldset>
-            </div>
-            <div class="container">
-              <div class="d-flex justify-content-around ml-3 mb-0 mb-10">
-                <div class="">
-                  <div class="text-center">
-                    <b>Certificado Por:</b>
-                  </div>
-                </div>
-                <div class="">
-                  <div class="text-center">
-                    <b>Sello:</b>
-                  </div>
-                </div>
-                <div class="">
-                </div>
+          </div>
+
+          <div *ngIf="vale" class="card fondito1 mt-5">
+            <div class="d-flex justify-content-between ml-2 mb-0">
+              <div class="p-2">
+                <img src="/assets/img/logoGamb.png" alt="" width="175px" />
+              </div>
+              <div class="text-center ml-5 mt-2 mb-0">
+                <h3 class="off-m">SOLICITUD DE COMBUSTIBLE</h3>
+              </div>
+              <div class="p-3 ">
+                <img src="/assets/img/sisal.png" alt="" width="163px" />
               </div>
             </div>
-            <div class="container mt-4 mb-2">
-              <div class="d-flex justify-content-around ml-3 mb-0">
-                <div class="">
-                  <div class="text-center">
-                    <b>Fecha de LLegada:</b> _______________________
-                  </div>
-                </div>
-                <div class="">
-                  <div class="text-center">
-                    <b>Hora de LLegada:</b> _______________________
-                  </div>
-                </div>
-                <div class="">
-                  <div class="text-center">
-                    <b>Firma:</b> _______________________
-                  </div>
-                </div>
+            <div class="d-flex justify-content-around">
+              <div class="mb-1">
+                <b>AP. PROGRAMATICA:</b> {{ vale.catProgra }}
+              </div>
+              <div class="mb-1">
+                <b>FECHA:</b> {{ vale.fecha | date : 'fullDate' : "UTC" }}
+              </div>
+              <div>
+                <b>N° DE AUTORIZACION:</b> {{ vale.autorizacion.numeroAutorizacion }}
+              </div>
+              <div>
+                <b>N° DE VALE:</b> {{ vale.numeroVale }}
               </div>
             </div>
 
+            <div class="d-flex justify-content-around">
+              <div>
+                <b>SOLICITADO POR:</b> {{ vale.autorizacion.unidadSolicitante.user.username }} {{ vale.autorizacion.unidadSolicitante.user.surnames }}
+              </div>
+              <div>
+                <b>CARGO:</b> {{ vale.autorizacion.unidadSolicitante.nombresubdir }}
+              </div>
+            </div>
+
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla">
+
+                <table class="table table-striped">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Cantidad Numeral</th>
+                      <th>Cantidad Literal</th>
+                      <th>Unidad</th>
+                      <th>Producto</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr>
+                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.idProducto.unidadDeMedida }}</td>
+                      <td>{{ vale.idProducto.nombre }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset>
+              <span><b>DESTINO:</b> {{ vale.autorizacion.destino }}</span> <br>
+              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion.motivo }}</span>
+            </div>
+
+            <div class="container mb-2">
+              <fieldset class="border p-2 rounded fieldset-tabla mb-2">
+                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHICULO</b></legend>
+                <table class="table table-striped">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Vehiculo</th>
+                      <th>Placa</th>
+                      <th>Chofer</th>
+                      <th>Licencia</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr>
+                      <td>{{ vale.autorizacion.vehiculo.tipo }}</td>
+                      <td>{{ vale.autorizacion.vehiculo.placa }}</td>
+                      <td>{{ vale.autorizacion.conductor.username }} {{ vale.autorizacion.conductor.surnames }}</td>
+                      <td>{{ vale.autorizacion.conductor.ci }} {{ vale.autorizacion.conductor.categoriaLicencia }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </fieldset>
+
+              <div class="mt-10">
+                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                  <div class="">
+                    <div class="text-center">
+                      <b>Solicitado Por</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Resp. Almacen</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Autorizado Por</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Chofer</b>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
           </div>
+
+
+
 
 
         </div>
@@ -487,4 +538,4 @@
 
     </div>
 
-  </div> -->
+  </div>

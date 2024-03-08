@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { ValeService } from '../../../services/vale.service';
 
 @Component({
   selector: 'app-vale-list-autorizacion',
@@ -31,22 +32,19 @@ export class ValeListAutorizacionComponent {
   autorizacion:any;
   date = new Date();
 
-
-  constructor(private autorizacionService: AutorizacionService, private router: Router,){
+  constructor(private valeService: ValeService, private router: Router,){
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
-
   }
 
   ngOnInit(): void {
     this.cargarAutorizaciones();
   }
 
-
   cargarAutorizaciones() {
     this.cargando = true;
-    this.autorizacionService.getAllAutorizaciones()
+    this.valeService.getAllAutorizaciones()
       .subscribe((data: any) => {
         this.totalAutorizaciones = data.totalDocs;
         this.autorizaciones = data;
@@ -87,27 +85,28 @@ export class ValeListAutorizacionComponent {
     this.router.navigate(['/actFijos/autorizacion/update', id]);
   }
 
-  borrarAutorizacion(id: string) {
-    Swal.fire({
-      title: 'Estas seguro?',
-      text: '¡No podrás revertir esto!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: '¡Sí, bórralo!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('¡Eliminado!', 'El Ingreso ha sido eliminado.', 'success');
-        this.autorizacionService.deleteAutorizacion(id).subscribe(
-          (res) => console.log(res),
-          (err) => console.log('HTTP Error', err),
-          () => this.cargarAutorizaciones()
-        );
-      }
-    });
-  }
+  // borrarAutorizacion(id: string) {
+  //   Swal.fire({
+  //     title: 'Estas seguro?',
+  //     text: '¡No podrás revertir esto!',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     cancelButtonText: 'Cancelar',
+  //     confirmButtonText: '¡Sí, bórralo!',
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire('¡Eliminado!', 'El Ingreso ha sido eliminado.', 'success');
+  //       this.valeService.deleteAutorizacion(id).subscribe(
+  //         (res) => console.log(res),
+  //         (err) => console.log('HTTP Error', err),
+  //         () => this.cargarAutorizaciones()
+  //       );
+  //     }
+  //   });
+
+  // }
 
   generarVale(id: string) {
     this.router.navigate(['/almacen/vale/create', id]);

@@ -27,4 +27,10 @@ export class ValeService {
     return this.http.get<any>(dir);
   }
 
+  getAllAutorizaciones(){
+    let dir = `${this.URL}/listAutorizacion`;
+    return this.http.get<any>(dir);
+  }
+
+
 }

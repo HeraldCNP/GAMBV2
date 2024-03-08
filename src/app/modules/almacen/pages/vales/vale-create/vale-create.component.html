@@ -1,7 +1,7 @@
 <div class="container">
   <div class="m-3">
     <div class="row justify-content-md-center">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="card shadow p-3 mb-4 bg-body rounded">
           <div class="card-header">
             <h3 class="card-title">Editar Autorizacion</h3>
@@ -17,13 +17,14 @@
                     <select id="idProducto" formControlName="idProducto" class="form-select" required>
                       <!-- <option value="2023" [defaultSelected]="true">2023</option> -->
                       <option value="6439b82156cc6b00132c9ab2">Diesel</option>
+                      <option value="642c3e7b3b1ac20013da2571">Gasolina</option>
                     </select>
                     <div class="form-text" *ngIf="form['idProducto'].touched && form['idProducto'].invalid">
                       <div *ngIf="form['idProducto'].errors && form['idProducto'].errors['required']">*
                         idProducto es Requerido.</div>
                     </div>
                   </div>
-                  <div class="input-group mb-1">
+                  <div class="input-group mb-1" *ngIf="createForm.value.idProducto != ''" >
                     <span class="input-group-text izq" id="plazo"><b>Categoria Programatica</b></span>
                     <ngx-select class="sel" [allowClear]="true" [items]="catProgras" optionTextField="cat_programatica" optionValueField="cat_programatica"
                       placeholder="Seleccione Una Categoria Programatica" formControlName="catProgra" (select)="doSelect($event)">
@@ -40,10 +41,10 @@
                     </div>
                   </div>
 
-                  <div class="input-group mb-1">
+                  <div class="input-group mb-1" *ngIf="compras">
                     <span class="input-group-text izq" id="plazo"><b>Cantidad Disponible</b></span>
                     <ngx-select class="sel" [allowClear]="true" [items]="compras" optionTextField="stockCompra" optionValueField="_id"
-                      placeholder="Seleccione Una Categoria Programatica" formControlName="idCompra">
+                      placeholder="Seleccione Una Compra" formControlName="idCompra">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
                         &nbsp;- (Entrada # {{option.data.idEntrada.numeroEntrada}})
@@ -52,7 +53,7 @@
 
                     <div class="form-text" *ngIf="form['idCompra'].touched && form['idCompra'].invalid">
                       <div *ngIf="form['idCompra'].errors && form['idCompra'].errors['required']">
-                        * Debe seleccionar Una Categoria Programatica.
+                        * Debe seleccionar Una Compra.
                       </div>
                     </div>
                   </div>

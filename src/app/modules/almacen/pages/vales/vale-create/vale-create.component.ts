@@ -40,7 +40,7 @@ export class ValeCreateComponent {
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
       idCompra: [''],
-      idProducto: [''],
+      idProducto: ['', [Validators.required]],
     });
   }
 
@@ -70,7 +70,7 @@ export class ValeCreateComponent {
       (err) => console.log('HTTP Error', err),
       () => {
 
-        this.router.navigate(['almacen/egreso/index']);
+        this.router.navigate(['almacen/vale/index']);
         this.alertOk(
           'success',
           'Exito',
@@ -85,8 +85,13 @@ export class ValeCreateComponent {
   doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
     this.valeService.getCompraOfCombustible(this.createForm.value.idProducto, this.createForm.value.catProgra).subscribe((data: any) => {
-      this.compras = data.serverResponse;
-      console.log("Compras", data)
+      if(data.serverResponse.length > 0){
+        this.compras = data.serverResponse;
+      }
+      else{
+        this.compras = null;
+      }
+      console.log("Compras", this.compras)
     });
 
   }
