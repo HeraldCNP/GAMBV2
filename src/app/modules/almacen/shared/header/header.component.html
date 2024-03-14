@@ -6,39 +6,30 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i style="font-size: 1.3rem;" class="fas fa-exchange-alt"></i></a>
         </li>
 
-        <!-- <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/categoria/index" [routerLinkActive]="['active']" class="nav-link">Categorias</a>
-        </li> -->
-        <!-- <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/programa/index" [routerLinkActive]="['active']" class="nav-link">Programas</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/proyecto/index" [routerLinkActive]="['active']" class="nav-link">Proyectos</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/actividad/index" [routerLinkActive]="['active']" class="nav-link">Actividades</a>
-        </li> -->
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/proveedor/index" [routerLinkActive]="['active']" class="nav-link">Proveedores</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/medida/index" [routerLinkActive]="['active']" class="nav-link">Medidas</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/articulo/index" [routerLinkActive]="['active']" class="nav-link">Artículos</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/compra/index" [routerLinkActive]="['active']" class="nav-link">Entradas</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/egreso/index" [routerLinkActive]="['active']" class="nav-link">Salidas</a>
-        </li>
-        <!-- <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/vehiculo/index" [routerLinkActive]="['active']" class="nav-link">Vehículos</a>
-        </li> -->
-        <li class="nav-item d-none d-sm-inline-block">
-          <a routerLink="/almacen/reporte/index" [routerLinkActive]="['active']" class="nav-link">Reportes</a>
-        </li>
+        <ng-container *ngIf="(data.post === 'ALMACENES')">
+          <li class="nav-item d-none d-sm-inline-block">
+            <a routerLink="/almacen/proveedor/index" [routerLinkActive]="['active']" class="nav-link">Proveedores</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a routerLink="/almacen/medida/index" [routerLinkActive]="['active']" class="nav-link">Medidas</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a routerLink="/almacen/articulo/index" [routerLinkActive]="['active']" class="nav-link">Artículos</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a routerLink="/almacen/compra/index" [routerLinkActive]="['active']" class="nav-link">Entradas</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a routerLink="/almacen/egreso/index" [routerLinkActive]="['active']" class="nav-link">Salidas</a>
+          </li>
+          <!-- <li class="nav-item d-none d-sm-inline-block">
+            <a routerLink="/almacen/vehiculo/index" [routerLinkActive]="['active']" class="nav-link">Vehículos</a>
+          </li> -->
+          <li class="nav-item d-none d-sm-inline-block">
+            <a routerLink="/almacen/reporte/index" [routerLinkActive]="['active']" class="nav-link">Reportes</a>
+          </li>
+
+        </ng-container>
 
         <li class="nav-item d-none d-sm-inline-block">
           <a routerLink="/almacen/vale/listAutorizacion" [routerLinkActive]="['active']" class="nav-link">Vales</a>
