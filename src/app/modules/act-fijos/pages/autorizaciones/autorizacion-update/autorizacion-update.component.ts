@@ -35,7 +35,11 @@ export class AutorizacionUpdateComponent {
       conductor: [''],
       destino: ['', [Validators.required]],
       encargadoControl: [this.idUser, [Validators.required]],
+      fecha: [''],
+      fechaLlegada: [''],
       fechaSalida: [''],
+      horaLlegada: [''],
+      horaSalida: [''],
       motivo: ['', [Validators.required]],
       unidadSolicitante: [''],
       vehiculo: [0],
@@ -48,11 +52,15 @@ export class AutorizacionUpdateComponent {
 
       this.editForm.patchValue({
         conductor: this.dataAutorizacion.conductor,
-        fechaSalida: this.dataAutorizacion.fechaSalida.substr(0, 10),
         destino: this.dataAutorizacion.destino,
+        fecha: this.dataAutorizacion.fecha.substr(0, 10),
+        fechaLlegada: this.dataAutorizacion.fechaLlegada.substr(0, 10),
+        fechaSalida: this.dataAutorizacion.fechaSalida.substr(0, 10),
+        horaLlegada: this.dataAutorizacion.horaLlegada,
+        horaSalida: this.dataAutorizacion.horaSalida,
+        motivo: this.dataAutorizacion.motivo,
         unidadSolicitante: this.dataAutorizacion.unidadSolicitante,
         vehiculo: this.dataAutorizacion.vehiculo,
-        motivo: this.dataAutorizacion.motivo,
       });
     });
   }

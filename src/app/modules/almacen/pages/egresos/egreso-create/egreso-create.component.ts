@@ -152,7 +152,6 @@ export class EgresoCreateComponent implements OnInit {
       Swal.fire('Saldo insuficiente')
       this.demoForm.value.cantidadSalida = 0;
     }
-
   }
 
   addSalida(compra: any) {

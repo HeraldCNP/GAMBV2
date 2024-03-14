@@ -19,6 +19,8 @@ export class ValeCreateComponent {
 
   catProgras: any;
   compras:any;
+  noHayStock: boolean = false;
+  compraSingle:any;
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -85,13 +87,13 @@ export class ValeCreateComponent {
   doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
     this.valeService.getCompraOfCombustible(this.createForm.value.idProducto, this.createForm.value.catProgra).subscribe((data: any) => {
-      if(data.serverResponse.length > 0){
-        this.compras = data.serverResponse;
+      if(data.serverResponse.length == 0){
+        this.noHayStock = true;
       }
       else{
-        this.compras = null;
+        this.compras = data.serverResponse;
+        this.noHayStock = false;
       }
-      console.log("Compras", this.compras)
     });
 
   }
@@ -107,6 +109,20 @@ export class ValeCreateComponent {
       text,
       timer,
     });
+  }
+
+  doSelect2 = (id: any) => {
+    this.compraSingle = this.compras.find((objeto: any) => objeto._id === id);
+    console.log('compraSingle', this.compraSingle);
+  }
+  calcularStock() {
+    if(this.compraSingle){
+      if (this.createForm.value.cantidad > this.compraSingle.stockCompra) {
+        Swal.fire('Cantidad insuficiente')
+        this.createForm.value.cantidad = 0;
+      }
+    }
+
   }
 
 

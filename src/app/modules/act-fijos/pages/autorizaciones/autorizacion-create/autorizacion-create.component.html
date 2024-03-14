@@ -88,7 +88,35 @@
                     </div>
                   </div>
 
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Fecha de Salida *</b></span>
+                    <input type="date" class="form-control" id="fechaSalida" formControlName="fechaSalida">
+                    <div class="form-text" *ngIf="form['fechaSalida'].touched && form['fechaSalida'].invalid">
+                      <div *ngIf="form['fechaSalida'].errors && form['fechaSalida'].errors['required']">* Hora de Salida
+                        es Requerido.</div>
+                    </div>
+                    <span class="input-group-text izq" id="plazo"><b>Hora de Salida *</b></span>
+                    <input type="time" class="form-control" id="horaSalida" formControlName="horaSalida">
+                    <div class="form-text" *ngIf="form['horaSalida'].touched && form['horaSalida'].invalid">
+                      <div *ngIf="form['horaSalida'].errors && form['horaSalida'].errors['required']">* Fecha de Salida
+                        es Requerido.</div>
+                    </div>
+                  </div>
 
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Fecha de LLegada *</b></span>
+                    <input type="date" class="form-control" id="fechaLlegada" formControlName="fechaLlegada">
+                    <div class="form-text" *ngIf="form['fechaLlegada'].touched && form['fechaLlegada'].invalid">
+                      <div *ngIf="form['fechaLlegada'].errors && form['fechaLlegada'].errors['required']">* Fecha de LLegada
+                        es Requerido.</div>
+                    </div>
+                    <span class="input-group-text izq" id="plazo"><b>Hora de LLegada *</b></span>
+                    <input type="time" class="form-control" id="horaLlegada" formControlName="horaLlegada">
+                    <div class="form-text" *ngIf="form['horaLlegada'].touched && form['horaLlegada'].invalid">
+                      <div *ngIf="form['horaLlegada'].errors && form['horaLlegada'].errors['required']">* Hora de Llegada
+                        es Requerido.</div>
+                    </div>
+                  </div>
 
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="destino"><b>Destino *</b></span>
@@ -103,17 +131,9 @@
                     </div>
                   </div>
 
-                  <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="plazo"><b>Fecha de Salida *</b></span>
-                    <input type="date" class="form-control" id="fechaSalida" formControlName="fechaSalida">
-                    <div class="form-text" *ngIf="form['fechaSalida'].touched && form['fechaSalida'].invalid">
-                      <div *ngIf="form['fechaSalida'].errors && form['fechaSalida'].errors['required']">* fechaSalida
-                        es Requerido.</div>
-                    </div>
-                  </div>
 
                   <div class="input-group mb-1">
-                    <span class="input-group-text izq" id="motivo"><b>motivo *</b></span>
+                    <span class="input-group-text izq" id="motivo"><b>Motivo *</b></span>
                     <input id="motivo" class="form-control" type="text" formControlName="motivo" />
                     <div class="form-text" *ngIf="form['motivo'].touched && form['motivo'].invalid">
                       <div *ngIf="form['motivo'].errors && form['motivo'].errors['required']">
@@ -125,6 +145,14 @@
                     </div>
                   </div>
 
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Fecha de Autorizacion*</b></span>
+                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                    <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* Fecha de autorizacion
+                        es Requerido.</div>
+                    </div>
+                  </div>
 
                   <!-- <div class="input-group mb-1">
                     <span class="input-group-text izq" id="lugar"><b>Lugar de Archivo *</b></span>
@@ -200,7 +228,7 @@
                     </button>
                   </div>
                 </form>
-                {{ autorizacionForm.value | json }}
+                <!-- {{ autorizacionForm.value | json }} -->
               </div>
             </div>
           </div>

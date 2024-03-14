@@ -97,7 +97,7 @@
             </div>
 
             <div class="input-group mb-3">
-              <select id="categoriaLicencia" formControlName="categoriaLicencia" class="form-select" required>
+              <select id="categoriaLicencia" formControlName="categoriaLicencia" class="form-select">
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
@@ -115,7 +115,7 @@
               <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
               <button [disabled]="editForm.invalid" type="submit" class="btn btn-primary">Registrar</button>
             </div>
-            {{ editForm.value | json }}
+            <!-- {{ editForm.value | json }} -->
           </form>
 
           <!--

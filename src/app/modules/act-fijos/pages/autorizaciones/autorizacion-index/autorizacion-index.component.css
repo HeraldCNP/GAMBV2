@@ -10,13 +10,13 @@
 }
 
 .fieldset-tabla legend {
-  font-size: 1rem; /* Cambiar el tamaño de la fuente de la leyenda */
-  text-align: center;
+  font-size: 1rem; /* Cambiar el tamaño de la fuente de la leyenda */;
   margin: 0px;
   color: #000 !important;
 }
 table{
   margin:0px;
+  font-size: 0.9rem;
 }
 
 table th{
@@ -28,9 +28,18 @@ table th{
 }
 
 .mb-10{
-  margin-bottom: 60px !important;
+  margin-bottom: 100px !important;
 }
 
 .mt-10{
-  margin-top: 60px !important;
+  margin-top: 70px !important;
 }
+
+.table-bordered th, .table-bordered td{
+  border: 1px solid #9b9b9b !important;
+}
+
+.table-hover th, .table-hover td{
+  border: 1px solid #9b9b9b !important;
+}
+

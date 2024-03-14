@@ -21,6 +21,7 @@ export class AutorizacionCreateComponent {
   vehiculos: any;
   conductores: any;
   cant: boolean = false;
+  fechaHoy = new Date().toISOString();
   // areas = {
   //   "list": [
   //     {
@@ -53,7 +54,11 @@ export class AutorizacionCreateComponent {
       conductor: [''],
       destino: ['', [Validators.required]],
       encargadoControl: [this.idUser, [Validators.required]],
+      fecha: [this.fechaHoy.substr(0, 10)],
+      fechaLlegada: [''],
       fechaSalida: [''],
+      horaLlegada: [''],
+      horaSalida: [''],
       motivo: ['', [Validators.required]],
       unidadSolicitante: [''],
       vehiculo: [0],
