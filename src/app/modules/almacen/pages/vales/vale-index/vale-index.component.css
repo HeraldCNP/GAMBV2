@@ -23,6 +23,10 @@ table th{
   padding: 0px !important;
 }
 
+table td{
+  padding: 4px !important;
+}
+
 .firma{
   width: 30%;
 }

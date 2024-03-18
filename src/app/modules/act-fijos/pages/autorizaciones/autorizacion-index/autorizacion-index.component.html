@@ -212,31 +212,20 @@
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
               </div>
               <div class="text-center ml-5 mt-2 mb-0">
-                <h3 class="off-m">AUTORIZACION SALIDA DE VEHICULOS</h3>
+                <h3 class="off-m">AUTORIZACIÓN SALIDA DE VEHÍCULOS</h3>
                 <!-- <p class="off-m">Expresado en Bolivianos</p> -->
               </div>
               <div class="p-3 ">
                 <img src="/assets/img/sisaf.png" alt="" width="163px" />
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-md-2">
-                <img src="/assets/img/logoGamb.png" alt="" width="175px" />
-              </div>
-              <div class="col-md-8 text-center">
-                <h3 class="off-m">DOCUMENTO DE INGRESO A ALMACÉN</h3>
-                <p class="off-m">Expresado en Bolivianos</p>
-              </div>
-              <div class="col-md-2">
-                <img src="/assets/img/sisaf.png" alt="" width="163px" />
-              </div>
-            </div> -->
+
             <div class="d-flex justify-content-around">
               <div class="mb-1">
                 <b>FECHA:</b> {{ autorizacion.fecha | date : 'fullDate' : "UTC" }}
               </div>
               <div>
-                <b>N°:</b> {{ autorizacion.numeroAutorizacion }}
+                <b>N°:</b> AF-{{ autorizacion.numeroAutorizacion }}
               </div>
               <div>
                 <b>N° DE VALE:</b>
@@ -248,7 +237,7 @@
                 <table class="table table-bordered">
                   <thead class="text-center">
                     <tr class="text-center">
-                      <th colspan="3">Vehiculo</th>
+                      <th colspan="3">Vehículo</th>
                       <th colspan="3">Salida</th>
                       <th colspan="3">LLegada</th>
                     </tr>
@@ -283,13 +272,14 @@
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR</b></legend>
+                <legend class="text-muted text-center"><b>DATOS DEL CONDUCTOR</b></legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
                       <th>Nombre</th>
                       <th>Cargo</th>
-                      <th>Licencia</th>
+                      <th>N° de Licencia</th>
+                      <th>Categoria</th>
                       <th class="firma">Firma</th>
                     </tr>
                   </thead>
@@ -297,8 +287,9 @@
                     <tr>
                       <td>{{ autorizacion.conductor.username }} {{ autorizacion.conductor.surnames }}</td>
                       <td>{{ autorizacion.conductor.post }}</td>
-                      <td>{{ autorizacion.conductor.ci }} - {{ autorizacion.conductor.categoriaLicencia }}</td>
-                      <td>____________________________</td>
+                      <td>{{ autorizacion.conductor.ci }}</td>
+                      <td>{{ autorizacion.conductor.categoriaLicencia }}</td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
@@ -327,7 +318,7 @@
             </div>
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>ACTIVIDADES REALIZADAS</b></legend>
+                <legend class="text-muted text-center"><b>ACTIVIDADES REALIZADAS</b></legend>
                 <hr class="mt-4">
                 <hr class="mt-4">
                 <hr class="mt-4">
@@ -369,7 +360,14 @@
                 </div>
               </div>
             </div> -->
-
+            <div class="d-flex justify-content-between m-0 p-0">
+              <span class="fecha" style="font-size: 0.7rem">
+                Fecha de Impresión: {{ date | date : "short" }}
+              </span>
+              <span class="fecha" style="font-size: 0.7rem">
+                Usuario: {{ data.username }} {{ data.surnames }}
+              </span>
+            </div>
           </div>
 
           <div *ngIf="autorizacion" class="card fondito1 mt-10">
@@ -378,31 +376,20 @@
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
               </div>
               <div class="text-center ml-5 mt-2 mb-0">
-                <h3 class="off-m">AUTORIZACION SALIDA DE VEHICULOS</h3>
+                <h3 class="off-m">AUTORIZACIÓN SALIDA DE VEHÍCULOS</h3>
                 <!-- <p class="off-m">Expresado en Bolivianos</p> -->
               </div>
               <div class="p-3 ">
                 <img src="/assets/img/sisaf.png" alt="" width="163px" />
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-md-2">
-                <img src="/assets/img/logoGamb.png" alt="" width="175px" />
-              </div>
-              <div class="col-md-8 text-center">
-                <h3 class="off-m">DOCUMENTO DE INGRESO A ALMACÉN</h3>
-                <p class="off-m">Expresado en Bolivianos</p>
-              </div>
-              <div class="col-md-2">
-                <img src="/assets/img/sisaf.png" alt="" width="163px" />
-              </div>
-            </div> -->
+
             <div class="d-flex justify-content-around">
               <div class="mb-1">
                 <b>FECHA:</b> {{ autorizacion.fecha | date : 'fullDate' : "UTC" }}
               </div>
               <div>
-                <b>N°:</b> {{ autorizacion.numeroAutorizacion }}
+                <b>N°:</b> AF-{{ autorizacion.numeroAutorizacion }}
               </div>
               <div>
                 <b>N° DE VALE:</b>
@@ -414,7 +401,7 @@
                 <table class="table table-bordered">
                   <thead class="text-center">
                     <tr class="text-center">
-                      <th colspan="3">Vehiculo</th>
+                      <th colspan="3">Vehículo</th>
                       <th colspan="3">Salida</th>
                       <th colspan="3">LLegada</th>
                     </tr>
@@ -449,13 +436,14 @@
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR</b></legend>
+                <legend class="text-muted text-center"><b>DATOS DEL CONDUCTOR</b></legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
                       <th>Nombre</th>
                       <th>Cargo</th>
-                      <th>Licencia</th>
+                      <th>N° de Licencia</th>
+                      <th>Categoria</th>
                       <th class="firma">Firma</th>
                     </tr>
                   </thead>
@@ -463,8 +451,9 @@
                     <tr>
                       <td>{{ autorizacion.conductor.username }} {{ autorizacion.conductor.surnames }}</td>
                       <td>{{ autorizacion.conductor.post }}</td>
-                      <td>{{ autorizacion.conductor.ci }} - {{ autorizacion.conductor.categoriaLicencia }}</td>
-                      <td>____________________________</td>
+                      <td>{{ autorizacion.conductor.ci }}</td>
+                      <td>{{ autorizacion.conductor.categoriaLicencia }}</td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
@@ -493,7 +482,7 @@
             </div>
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>ACTIVIDADES REALIZADAS</b></legend>
+                <legend class="text-muted text-center"><b>ACTIVIDADES REALIZADAS</b></legend>
                 <hr class="mt-4">
                 <hr class="mt-4">
                 <hr class="mt-4">
@@ -535,11 +524,15 @@
                 </div>
               </div>
             </div> -->
-
+            <div class="d-flex justify-content-between m-0 p-0">
+              <span class="fecha" style="font-size: 0.7rem">
+                Fecha de Impresión: {{ date | date : "short" }}
+              </span>
+              <span class="fecha" style="font-size: 0.7rem">
+                Usuario: {{ data.username }} {{ data.surnames }}
+              </span>
+            </div>
           </div>
-
-
-
         </div>
 
       </div>
