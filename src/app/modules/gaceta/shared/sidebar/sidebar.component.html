@@ -1,99 +1,162 @@
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4 fondo">
-      <!-- Brand Logo -->
-      <a routerLink="/" class="brand-link">
-        <img src="../../../../../assets/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
-        <span class="brand-text font-weight-light">GAM Betanzos</span>
-      </a>
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4 fondo">
+  <!-- Brand Logo -->
+  <a routerLink="/" class="brand-link">
+    <img src="../../../../../assets/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light">GAM Betanzos</span>
+  </a>
 
-      <!-- Sidebar -->
-      <div class="sidebar">
+  <!-- Sidebar -->
+  <div class="sidebar">
 
 
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
 
 
+        <li class="nav-item">
+          <a routerLink="/docAdmin/gaceta/index" class="nav-link">
+            <i class="fas fa-file"></i>
+            <p>
+              Gaceta Municipal
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/docAdmin/auditoria/index" class="nav-link">
+            <i class="fas fa-file"></i>
+            <p>
+              Auditoría
+            </p>
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link">
+            <i class="nav-icon fas fa-file-contract"></i>
+            <p>
+              Plantillas
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a routerLink="/docAdmin/gaceta/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Gaceta Municipal
-                </p>
+              <a routerLink="/doc/modelos/index" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Modelos</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a routerLink="/doc/documentos/index" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Documentos</p>
+              </a>
+            </li>
+          </ul>
+        </li>
 
+        <li class="nav-item">
+          <a class="nav-link">
+            <i class="nav-icon fas fa-file-contract"></i>
+            <p>
+              Normativas
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/doc/normativas/tipos/index" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tipos</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a routerLink="/doc/normativas/doc/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Normativas
-                </p>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Documentos</p>
               </a>
             </li>
-
-            <li class="nav-item">
-              <a routerLink="/docAdmin/auditoria/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Auditoría
-                </p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a routerLink="/docAdmin/cuentas/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Rendición de Cuentas
-                </p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a routerLink="/docAdmin/ptdi/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Ptdi
-                </p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a routerLink="/docAdmin/pei/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Pei
-                </p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a routerLink="/docAdmin/poa/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Poa
-                </p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a routerLink="/docAdmin/cuentas/index" class="nav-link">
-                <i class="fas fa-file"></i>
-                <p>
-                   Rendición de Cuentas
-                </p>
-              </a>
-            </li>
-
           </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
+        </li>
+
+
+
+        <li class="nav-item">
+          <a routerLink="/doc/prestamos/index" class="nav-link">
+            <i class="fas fa-file-contract"></i>
+            <p>
+              Prestamos
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/doc/ejecucion-presupuestaria/index" class="nav-link">
+            <i class="fas fa-file-contract"></i>
+            <p>
+              Ejecución Presupuestaria
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/doc/evaluacion/index" class="nav-link">
+            <i class="fas fa-file-contract"></i>
+            <p>
+              Seguimiento y Evaluación
+            </p>
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a routerLink="/docAdmin/cuentas/index" class="nav-link">
+            <i class="fas fa-file"></i>
+            <p>
+              Rendición de Cuentas
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/docAdmin/ptdi/index" class="nav-link">
+            <i class="fas fa-file"></i>
+            <p>
+              Ptdi
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/docAdmin/pei/index" class="nav-link">
+            <i class="fas fa-file"></i>
+            <p>
+              Pei
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/docAdmin/poa/index" class="nav-link">
+            <i class="fas fa-file"></i>
+            <p>
+              Poa
+            </p>
+          </a>
+        </li>
+
+
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

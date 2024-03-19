@@ -28,54 +28,6 @@ export class HeaderComponent {
         },
       ]
     },
-    {
-      label: 'Normativas',
-      icon: 'fas fa-file-contract',
-      docs: [
-        {
-          label: 'Tipos',
-          url: '/doc/normativas/tipos/index'
-        },
-
-        {
-          label: 'Documentos',
-          url: '/doc/normativas/doc/index'
-        },
-      ]
-    },
-    {
-      label: 'Prestamos',
-      icon: 'fas fa-file-contract',
-      docs: [
-        {
-          label: 'Lista',
-          url: '/doc/prestamos/index'
-        },
-      ]
-    },
-    {
-      label: 'Ejecución Presupuestaria',
-      icon: 'fas fa-file-contract',
-      docs: [
-        {
-          label: 'Ejecución Presupuestaria',
-          url: '/doc/ejecucion-presupuestaria/index'
-        },
-      ]
-    },
-    {
-      label: 'Seguimiento y Evaluación',
-      icon: 'fas fa-file-contract',
-      docs: [
-        {
-          label: 'Seguimiento y Evaluación',
-          url: '/doc/evaluacion/index'
-        },
-      ]
-    },
-
-
-
   ];
 
   constructor(
