@@ -136,16 +136,16 @@
                 <tr *ngFor="let autorizacion of autorizaciones.serverResponse; let i = index">
                   <td>{{ autorizacion.numeroAutorizacion }}</td>
                   <td>{{ autorizacion.numeroVale }}</td>
-                  <td>{{ autorizacion.fecha | date: 'mediumDate' }}</td>
+                  <td>{{ autorizacion.fecha | date: 'mediumDate' : "UTC" }}</td>
                   <td>{{ autorizacion.motivo }}</td>
                   <td>{{ autorizacion.destino }}</td>
                   <td>{{ autorizacion.unidadSolicitante.nombresubdir }}</td>
                   <td>{{ autorizacion.encargadoControl.username }} {{ autorizacion.encargadoControl.surnames }}</td>
                   <td>{{ autorizacion.conductor.username }} {{ autorizacion.conductor.surnames }}</td>
                   <td>{{ autorizacion.vehiculo.tipo }} - {{ autorizacion.vehiculo.placa }}</td>
-                  <td>{{ autorizacion.fechaSalida | date: 'mediumDate'}}</td>
+                  <td>{{ autorizacion.fechaSalida | date: 'mediumDate' : "UTC"}}</td>
                   <td>{{ autorizacion.horaSalida }}</td>
-                  <td>{{ autorizacion.fechaLlegada | date: 'mediumDate'}}</td>
+                  <td>{{ autorizacion.fechaLlegada | date: 'mediumDate' : "UTC"}}</td>
                   <td>{{ autorizacion.horaLlegada }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
