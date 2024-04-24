@@ -79,6 +79,7 @@ export class ValeCreateComponent {
           'Vale Creado Correctamente',
           '2000'
         );
+        this.createForm.submitted = true;
       }
     );
   }

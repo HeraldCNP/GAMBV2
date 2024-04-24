@@ -521,8 +521,6 @@
                         <th scope="col">Nuit</th>
                         <th scope="col">Origen</th>
                         <th scope="col">Referencia</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Tipo de documento</th>
                         <th>asociado a</th>
                         <th scope="col">...</th>
                       </tr>
@@ -532,8 +530,6 @@
                         <td>{{ hrPrincipal.nuit }}</td>
                         <td>{{ hrPrincipal.origen }}</td>
                         <td>{{ hrPrincipal.referencia }}</td>
-                        <td>{{ hrPrincipal.contacto }}</td>
-                        <td>{{ hrPrincipal.tipodoc }}</td>
                         <td></td>
                         <td><span class="badge badge-success"
                             *ngIf="last.estado == 'RECIBIDO' || last.estado=== 'ENVIADO' "> PRINCIPAL</span></td>
@@ -542,8 +538,6 @@
                         <td>{{ asociado.nuit }}</td>
                         <td>{{ asociado.origen }}</td>
                         <td>{{ asociado.referencia }}</td>
-                        <td>{{ asociado.contacto }}</td>
-                        <td>{{ hrPrincipal.tipodoc }}</td>
                         <td> {{ asociado.seguimiento[asociado.seguimiento.length-1].estado }} </td>
                         <td
                           *ngIf="asociado.seguimiento[asociado.seguimiento.length-1].estado=== 'RECIBIDO' || asociado.seguimiento[asociado.seguimiento.length-1].estado=== 'ENVIADO' ">

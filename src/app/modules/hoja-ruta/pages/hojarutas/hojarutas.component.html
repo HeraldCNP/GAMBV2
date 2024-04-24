@@ -85,7 +85,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr [ngClass]="hoja.estado === 'REGISTRADO' ? 'table-danger border-2 border-danger' : 'table-success border-2 border-success'" *ngFor="let hoja of hojaRutas">
+                <tr
+                  [ngClass]="hoja.estado === 'REGISTRADO' ? 'table-danger border-2 border-danger' : 'table-success border-2 border-success'"
+                  *ngFor="let hoja of hojaRutas">
                   <td *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.roles === 'SECRETARIA'">
                     <i [routerLink]="['/ruta/derivar', hoja._id]" class="fas fa-space-shuttle text-primary"
                       *ngIf="hoja.estado === 'RECIBIDO'"></i>
@@ -101,14 +103,16 @@
 
                   <td>{{ hoja.referencia }}</td>
                   <td>{{ hoja.beneficiarioPago }}</td>
-                  <td class="textEstado" *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.roles === 'SECRETARIA'" (click)="cambiarestado(hoja._id)" [ngSwitch]="hoja.estado">
+                  <td class="textEstado" *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.roles === 'SECRETARIA'"
+                    (click)="cambiarestado(hoja._id)" [ngSwitch]="hoja.estado">
                     <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger">{{ hoja.estado }}</span>
                     <span *ngSwitchCase="'RECIBIDO'" class="badge est badge-success">{{ hoja.estado }}</span>
                     <span *ngSwitchCase="'ENVIADO'" class="badge est badge-info">{{
                       hoja.estado
                       }}</span>
                   </td>
-                  <td class="textEstado" [ngSwitch]="hoja.estado" *ngIf="data.roles === 'ADMIN' || data.roles === 'SUPER_USER' || data.roles === 'USER'">
+                  <td class="textEstado" [ngSwitch]="hoja.estado"
+                    *ngIf="data.roles === 'ADMIN' || data.roles === 'SUPER_USER' || data.roles === 'USER'">
                     <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger">{{ hoja.estado }}</span>
                     <span *ngSwitchCase="'RECIBIDO'" class="badge badge-success">{{ hoja.estado }}</span>
                     <span *ngSwitchCase="'ENVIADO'" class="badge badge-info">{{ hoja.estado }}</span>
@@ -121,7 +125,10 @@
                     <i (click)="listAso(hoja._id)" *ngIf="hoja.asociado.length > 0"
                       class="fas fa-paperclip text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
                       title="Ver Asociados"></i>
-                    <i class="fas fa-paste text-primary" data-bs-toggle="modal" data-bs-target="#modalAsociar"(click)="asociar(hoja)" *ngIf="(hoja.estado !== 'REGISTRADO' && hoja.estado !== 'RECIBIDO' && data && data.roles === 'SUPER_USER') || (data.roles === 'ADMIN' && hoja.estado !== 'REGISTRADO')" title="Asociar"></i>
+                    <i class="fas fa-paste text-primary" data-bs-toggle="modal" data-bs-target="#modalAsociar"
+                      (click)="asociar(hoja)"
+                      *ngIf="(hoja.estado !== 'REGISTRADO' && hoja.estado !== 'RECIBIDO' && data && data.roles === 'SUPER_USER') || (data.roles === 'ADMIN' && hoja.estado !== 'REGISTRADO')"
+                      title="Asociar"></i>
                   </td>
                   <td class="text-center" *ngIf="
                   (data && data.roles === 'SUPER_ADMIN') ||
@@ -974,8 +981,6 @@
                       <th scope="col">Nuit</th>
                       <th scope="col">Origen</th>
                       <th scope="col">Referencia</th>
-                      <th scope="col">Telefono</th>
-                      <th scope="col">Tipo de documento</th>
                       <th>asociado a</th>
                       <th scope="col">...</th>
                     </tr>
@@ -985,8 +990,6 @@
                       <td>{{ hrPrincipal.nuit }}</td>
                       <td>{{ hrPrincipal.origen }}</td>
                       <td>{{ hrPrincipal.referencia }}</td>
-                      <td>{{ hrPrincipal.contacto }}</td>
-                      <td>{{ hrPrincipal.tipodoc }}</td>
                       <td></td>
                       <td><span class="badge badge-success"
                           *ngIf="last.estado == 'RECIBIDO' || last.estado=== 'ENVIADO' "> PRINCIPAL</span></td>
@@ -995,8 +998,6 @@
                       <td>{{ asociado.nuit }}</td>
                       <td>{{ asociado.origen }}</td>
                       <td>{{ asociado.referencia }}</td>
-                      <td>{{ asociado.contacto }}</td>
-                      <td>{{ hrPrincipal.tipodoc }}</td>
                       <td> {{ asociado.seguimiento[asociado.seguimiento.length-1].estado }} </td>
                       <td
                         *ngIf="asociado.seguimiento[asociado.seguimiento.length-1].estado=== 'RECIBIDO' || asociado.seguimiento[asociado.seguimiento.length-1].estado=== 'ENVIADO' ">

@@ -50,18 +50,34 @@ export class AutorizacionUpdateComponent {
       this.dataAutorizacion = data;
       console.log('autorizacion', data);
 
-      this.editForm.patchValue({
-        conductor: this.dataAutorizacion.conductor,
-        destino: this.dataAutorizacion.destino,
-        fecha: this.dataAutorizacion.fecha.substr(0, 10),
-        fechaLlegada: this.dataAutorizacion.fechaLlegada.substr(0, 10),
-        fechaSalida: this.dataAutorizacion.fechaSalida.substr(0, 10),
-        horaLlegada: this.dataAutorizacion.horaLlegada,
-        horaSalida: this.dataAutorizacion.horaSalida,
-        motivo: this.dataAutorizacion.motivo,
-        unidadSolicitante: this.dataAutorizacion.unidadSolicitante,
-        vehiculo: this.dataAutorizacion.vehiculo,
-      });
+      if(this.dataAutorizacion.fechaLlegada){
+        this.editForm.patchValue({
+          conductor: this.dataAutorizacion.conductor._id,
+          destino: this.dataAutorizacion.destino,
+          fecha: this.dataAutorizacion.fecha.substr(0, 10),
+          fechaLlegada: this.dataAutorizacion.fechaLlegada.substr(0, 10),
+          fechaSalida: this.dataAutorizacion.fechaSalida.substr(0, 10),
+          horaLlegada: this.dataAutorizacion.horaLlegada,
+          horaSalida: this.dataAutorizacion.horaSalida,
+          motivo: this.dataAutorizacion.motivo,
+          unidadSolicitante: this.dataAutorizacion.unidadSolicitante._id,
+          vehiculo: this.dataAutorizacion.vehiculo._id,
+        });
+      }else{
+        this.editForm.patchValue({
+          conductor: this.dataAutorizacion.conductor._id,
+          destino: this.dataAutorizacion.destino,
+          fecha: this.dataAutorizacion.fecha.substr(0, 10),
+          fechaLlegada: '',
+          fechaSalida: this.dataAutorizacion.fechaSalida.substr(0, 10),
+          horaLlegada: this.dataAutorizacion.horaLlegada,
+          horaSalida: this.dataAutorizacion.horaSalida,
+          motivo: this.dataAutorizacion.motivo,
+          unidadSolicitante: this.dataAutorizacion.unidadSolicitante._id,
+          vehiculo: this.dataAutorizacion.vehiculo._id,
+        });
+      }
+
     });
   }
 

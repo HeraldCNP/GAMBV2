@@ -261,7 +261,8 @@
                       <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
                       <td>{{ autorizacion.horaSalida }}</td>
                       <td></td>
-                      <td>{{ autorizacion.fechaLlegada | date: 'fullDate' : "UTC" }}</td>
+                      <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'fullDate' : "UTC" }}</td>
+                      <td width="50px" *ngIf="autorizacion.fechaLlegada == null">_______________</td>
                       <td>{{ autorizacion.horaLlegada }}</td>
                       <td></td>
                     </tr>
@@ -425,7 +426,8 @@
                       <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
                       <td>{{ autorizacion.horaSalida }}</td>
                       <td></td>
-                      <td>{{ autorizacion.fechaLlegada | date: 'fullDate' : "UTC" }}</td>
+                      <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'fullDate' : "UTC" }}</td>
+                      <td width="50px" *ngIf="autorizacion.fechaLlegada == null">_______________</td>
                       <td>{{ autorizacion.horaLlegada }}</td>
                       <td></td>
                     </tr>
