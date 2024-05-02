@@ -258,12 +258,12 @@
                       <td>{{ autorizacion.vehiculo.tipo }}</td>
                       <td>{{ autorizacion.vehiculo.marca }}</td>
                       <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
-                      <td>{{ autorizacion.horaSalida }}</td>
+                      <td>{{ autorizacion.fechaSalida | date: 'shortDate' : "UTC" }}</td>
+                      <td>{{ autorizacion.horaSalida ? autorizacion.horaSalida : ' ' }}</td>
                       <td></td>
-                      <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'fullDate' : "UTC" }}</td>
+                      <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'shortDate' : "UTC" }}</td>
                       <td width="50px" *ngIf="autorizacion.fechaLlegada == null">_______________</td>
-                      <td>{{ autorizacion.horaLlegada }}</td>
+                      <td>{{ autorizacion.horaLlegada ? autorizacion.horaSalida : ' ' }}</td>
                       <td></td>
                     </tr>
                   </tbody>
@@ -371,7 +371,8 @@
             </div>
           </div>
 
-          <div *ngIf="autorizacion" class="card fondito1 mt-10">
+          <div *ngIf="autorizacion" class="card fondito1 mt 
+          -10">
             <div class="d-flex justify-content-between ml-2 mb-0">
               <div class="p-2">
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
@@ -423,12 +424,12 @@
                       <td>{{ autorizacion.vehiculo.tipo }}</td>
                       <td>{{ autorizacion.vehiculo.marca }}</td>
                       <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.fechaSalida | date: 'fullDate' : "UTC" }}</td>
-                      <td>{{ autorizacion.horaSalida }}</td>
+                      <td>{{ autorizacion.fechaSalida | date: 'shortDate' : "UTC" }}</td>
+                      <td>{{ autorizacion.horaSalida ? autorizacion.horaSalida : ' ' }}</td>
                       <td></td>
-                      <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'fullDate' : "UTC" }}</td>
+                      <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'shortDate' : "UTC" }}</td>
                       <td width="50px" *ngIf="autorizacion.fechaLlegada == null">_______________</td>
-                      <td>{{ autorizacion.horaLlegada }}</td>
+                      <td>{{ autorizacion.horaLlegada ? autorizacion.horaSalida : ' ' }}</td>
                       <td></td>
                     </tr>
                   </tbody>
@@ -538,8 +539,5 @@
         </div>
 
       </div>
-
-
     </div>
-
   </div>
