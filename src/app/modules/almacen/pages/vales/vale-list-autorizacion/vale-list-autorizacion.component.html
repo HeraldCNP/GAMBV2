@@ -127,8 +127,8 @@
                 <tr *ngFor="let autorizacion of autorizaciones.serverResponse; let i = index">
                   <td>{{ autorizacion.numeroAutorizacion }}</td>
                   <td>{{ autorizacion.numeroVale }}</td>
-                  <td>{{ autorizacion.fecha | date: 'mediumDate' }}</td>
-                  <td>{{ autorizacion.fechaSalida | date: 'mediumDate'}}</td>
+                  <td>{{ autorizacion.fecha | date: 'mediumDate' : "UTC" }}</td>
+                  <td>{{ autorizacion.fechaSalida | date: 'mediumDate' : "UTC"}}</td>
                   <td>{{ autorizacion.motivo }}</td>
                   <td>{{ autorizacion.destino }}</td>
                   <td>{{ autorizacion.unidadSolicitante.nombresubdir }}</td>
