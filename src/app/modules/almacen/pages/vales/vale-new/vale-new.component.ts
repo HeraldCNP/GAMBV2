@@ -27,6 +27,7 @@ export class ValeNewComponent {
   unidades: any;
   vehiculos: any;
   conductores: any;
+  fechaHoy = new Date().toISOString();
 
   constructor(
     private activeRouter: ActivatedRoute,
@@ -41,11 +42,13 @@ export class ValeNewComponent {
     this.idUser = this.data.id;
     this.idAutorizacion = this.activeRouter.snapshot.paramMap.get('id');
 
+
     console.log(this.idAutorizacion);
 
     this.createForm = this.fb.group({
-      autorizacion: [this.idAutorizacion],
-      cantidad: ['', [Validators.required]],
+      // autorizacion: [this.idAutorizacion],
+      cantidad: [0],
+      precio: ['', Validators.required],
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
       motivo: ['', [Validators.required]],
@@ -53,8 +56,9 @@ export class ValeNewComponent {
       // unidadSolicitante: ['', [Validators.required]],
       conductor: ['', [Validators.required]],
       vehiculo: [''],
-      fecha: [''],
+      fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       idProducto: ['', [Validators.required]],
+      // idCompra: [''],
     });
   }
 
@@ -109,6 +113,8 @@ export class ValeNewComponent {
       else{
         this.compras = data.serverResponse;
         this.noHayStock = false;
+        console.log('compras', this.compras);
+        
       }
     });
 

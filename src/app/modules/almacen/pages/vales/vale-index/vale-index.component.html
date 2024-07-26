@@ -124,7 +124,7 @@
                 <tr *ngFor="let vale of vales.serverResponse; let i = index">
                   <td>{{ vale.numeroVale }}</td>
                   <td>{{ vale.createdAt | date: 'mediumDate' : "UTC" }}</td>
-                  <td>{{ vale.cantidad }}</td>
+                  <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
                   <td>{{ vale.catProgra }}</td>
                   <td>{{ vale.idProducto.nombre }}</td>
                   <td>{{ vale.autorizacion?.numeroAutorizacion }}</td>
@@ -210,7 +210,7 @@
             </div>
             <div class="d-flex justify-content-between px-3">
               <div class="mb-1">
-                <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }}
+                <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }} - {{ vale.progra }}
               </div>
               <div class="mb-1">
                 <b>FECHA:</b> {{ vale.createdAt | date : 'fullDate' : "UTC" }}
@@ -638,10 +638,10 @@
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>SOLICITADO POR:</b>  {{ vale.conductor?.username }}
+                <b>SOLICITADO POR:</b>  {{ vale.conductor?.username }} {{ vale.conductor?.surnames }}
               </div>
               <div>
-                <b>CARGO:</b> {{ vale.conductor?.post }}
+                <b>CARGO:</b> {{ vale.conductor?.post | titlecase }}
               </div>
             </div>
 
@@ -657,6 +657,7 @@
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
+                      <th>Monto (Bs)</th>
                       <th>Cantidad Numeral</th>
                       <th>Unidad</th>
                       <th>Producto</th>
@@ -664,7 +665,8 @@
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.precio }}</td>
+                      <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
                       <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
                       <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
                       <td>{{ vale.idProducto.nombre }}</td>
@@ -720,7 +722,7 @@
                   </div>
                   <div class="">
                     <div class="text-center">
-                      <b>Chofer</b>
+                      <b>Recibi Conforme (chofer)</b>
                     </div>
                   </div>
 
@@ -772,6 +774,7 @@
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
+                      <th>Monto (Bs)</th>
                       <th>Cantidad Numeral</th>
                       <th>Unidad</th>
                       <th>Producto</th>
@@ -779,7 +782,8 @@
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ vale.cantidad }}</td>
+                      <td>{{ vale.precio }}</td>
+                      <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
                       <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
                       <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
                       <td>{{ vale.idProducto.nombre }}</td>
@@ -820,17 +824,22 @@
                 <div class="d-flex justify-content-around ml-3 mb-0 ">
                   <div class="">
                     <div class="text-center">
-                      <b>Recibi Conforme (chofer)</b>
+                      <b>Solicitado Por</b>
                     </div>
                   </div>
                   <div class="">
                     <div class="text-center">
-                      <b>Resp. Almacenes</b>
+                      <b>Resp. Almacen</b>
                     </div>
                   </div>
                   <div class="">
                     <div class="text-center">
                       <b>Autorizado Por</b>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="text-center">
+                      <b>Recibi Conforme (chofer)</b>
                     </div>
                   </div>
 

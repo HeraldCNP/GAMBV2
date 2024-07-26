@@ -42,7 +42,7 @@
                       </div>
                     </div>
   
-                    <h4 *ngIf="noHayStock">No hay Stock en esta Categoria Programatica</h4>
+                    <!-- <h4 *ngIf="noHayStock">No hay Stock en esta Categoria Programatica</h4>
   
                     <div class="input-group mb-1" *ngIf="compras">
                       <span class="input-group-text izq" id="plazo"><b>Cantidad Disponible</b></span>
@@ -59,17 +59,17 @@
                           * Debe seleccionar Una Compra.
                         </div>
                       </div>
-                    </div>
+                    </div> -->
   
                     <div class="input-group mb-1">
-                      <span class="input-group-text izq" id="destino"><b>Cantidad *</b></span>
-                      <input id="cantidad" class="form-control" type="text" formControlName="cantidad" (keyup)="calcularStock()" />
-                      <div class="form-text" *ngIf="form['cantidad'].touched && form['cantidad'].invalid">
-                        <div *ngIf="form['cantidad'].errors && form['cantidad'].errors['required']">
-                          * El cantidad es Requerido.
+                      <span class="input-group-text izq" id="precio"><b>Precio (Bs) *</b></span>
+                      <input id="precio" class="form-control" type="number" formControlName="precio" (keyup)="calcularStock()" />
+                      <div class="form-text" *ngIf="form['precio'].touched && form['precio'].invalid">
+                        <div *ngIf="form['precio'].errors && form['precio'].errors['required']">
+                          * El precio es Requerido.
                         </div>
-                        <div *ngIf="form['cantidad'].errors && form['cantidad'].errors['minlength']">
-                          * El cantidad no puede tener menos de 3 caracteres.
+                        <div *ngIf="form['precio'].errors && form['precio'].errors['minlength']">
+                          * El precio no puede tener menos de 3 caracteres.
                         </div>
                       </div>
                     </div>
@@ -77,12 +77,12 @@
                     
                     <div class="input-group mb-1">
                       <span class="input-group-text izq" id="plazo"><b>Vehiculo</b></span>
-                      <ngx-select class="sel" [allowClear]="true" [items]="vehiculos" optionTextField="tipo" optionValueField="_id"
+                      <ngx-select class="sel" [allowClear]="true" [items]="vehiculos" optionTextField="placa" optionValueField="_id"
                         placeholder="Seleccione un Vehiculo" formControlName="vehiculo" (select)="doSelect($event)">
                         <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                           <span [innerHtml]="text"></span>
                           &nbsp;- {{option.data.marca}}
-                          &nbsp;- {{option.data.placa}}
+                          &nbsp;- {{option.data.tipo}}
                         </ng-template>
                       </ngx-select>
   

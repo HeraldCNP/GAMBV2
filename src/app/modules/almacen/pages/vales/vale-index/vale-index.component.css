@@ -38,3 +38,11 @@ table td{
 .mt-10{
   margin-top: 100px !important;
 }
+
+tr td{
+  font-size: 0.8rem;
+}
+
+tr th{
+  font-size: 0.8rem;
+}

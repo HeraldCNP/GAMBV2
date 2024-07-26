@@ -14,7 +14,7 @@ export class ValeService {
   getCompraOfCombustible(id:string, catProgra:any){
     let dir = `${this.URL}/searchCombustible/${id}/${catProgra}`;
     return this.http.get<any>(dir);
-    console.log(dir);
+    // console.log(dir);
   }
 
   createVale(form:any){
