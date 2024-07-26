@@ -25,6 +25,7 @@ import { ReportFisicoValoradoComponent } from './pages/report/report-fisico-valo
 import { ValeListAutorizacionComponent } from './pages/vales/vale-list-autorizacion/vale-list-autorizacion.component';
 import { ValeCreateComponent } from './pages/vales/vale-create/vale-create.component';
 import { ValeIndexComponent } from './pages/vales/vale-index/vale-index.component';
+import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,7 @@ const routes: Routes = [
       { path: 'vale/listAutorizacion', component: ValeListAutorizacionComponent },
       { path: 'vale/create/:id', component: ValeCreateComponent },
       { path: 'vale/index', component: ValeIndexComponent },
+      { path: 'vale/new', component: ValeNewComponent },
       // { path: 'ptdi/update/:id', component: PtdiUpdateComponent },
 
       { path: '**', redirectTo: 'dashboard' },

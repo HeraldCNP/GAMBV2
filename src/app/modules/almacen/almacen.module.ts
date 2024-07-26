@@ -35,6 +35,7 @@ import { ValeListAutorizacionComponent } from './pages/vales/vale-list-autorizac
 import { ValeIndexComponent } from './pages/vales/vale-index/vale-index.component';
 import { ValeCreateComponent } from './pages/vales/vale-create/vale-create.component';
 import { ValeUpdateComponent } from './pages/vales/vale-update/vale-update.component';
+import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
 
 
 
@@ -71,6 +72,7 @@ import { ValeUpdateComponent } from './pages/vales/vale-update/vale-update.compo
     ValeIndexComponent,
     ValeCreateComponent,
     ValeUpdateComponent,
+    ValeNewComponent,
   ],
   imports: [
     CommonModule,

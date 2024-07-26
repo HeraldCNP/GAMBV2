@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ComprasService } from '../../../services/compras.service';
 import { ValeService } from '../../../services/vale.service';
-import Swal from 'sweetalert2';
+import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
 
 @Component({
-  selector: 'app-vale-create',
-  templateUrl: './vale-create.component.html',
-  styleUrls: ['./vale-create.component.css']
+  selector: 'app-vale-new',
+  templateUrl: './vale-new.component.html',
+  styleUrls: ['./vale-new.component.css']
 })
-export class ValeCreateComponent {
+export class ValeNewComponent {
+
   idUser: any;
   user: any;
   data: any;
@@ -22,12 +24,17 @@ export class ValeCreateComponent {
   noHayStock: boolean = false;
   compraSingle:any;
 
+  unidades: any;
+  vehiculos: any;
+  conductores: any;
+
   constructor(
     private activeRouter: ActivatedRoute,
     private fb: FormBuilder,
     private comprasService: ComprasService,
     private router: Router,
-    private valeService: ValeService
+    private valeService: ValeService,
+    private autorizacionService: AutorizacionService
     ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
@@ -41,13 +48,21 @@ export class ValeCreateComponent {
       cantidad: ['', [Validators.required]],
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
-      idCompra: [''],
+      motivo: ['', [Validators.required]],
+      destino: ['', [Validators.required]],
+      // unidadSolicitante: ['', [Validators.required]],
+      conductor: ['', [Validators.required]],
+      vehiculo: [''],
+      fecha: [''],
       idProducto: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
     this.cargarCatProgras();
+    this.cargarUnidadSolicitante();
+    this.cargarConductor();
+    this.cargarVehiculo();
   }
 
 
@@ -127,7 +142,29 @@ export class ValeCreateComponent {
 
   }
 
+  cargarUnidadSolicitante() {
+    this.autorizacionService.getAllUnidadSolicitante()
+      .subscribe((data: any) => {
+        this.unidades = data;
+        console.log('uniSolicitante', this.unidades);
+      });
+  }
 
+  cargarConductor() {
+    this.autorizacionService.getAllConductores()
+      .subscribe((data: any) => {
+        this.conductores = data.serverResponse;
+        console.log('conductores', this.conductores);
+      });
+  }
 
+  cargarVehiculo() {
+    this.autorizacionService.getAllVehiculos()
+      .subscribe((data: any) => {
+        this.vehiculos
+        = data.serverResponse;
+        console.log('vehiculos', this.vehiculos);
+      });
+  }
 
 }

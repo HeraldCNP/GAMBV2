@@ -116,4 +116,8 @@ export class ValeListAutorizacionComponent {
     this.router.navigate(['/almacen/vale/index']);
   }
 
+  newVale() {
+    this.router.navigate(['/almacen/vale/new']);
+  }
+
 }
