@@ -35,13 +35,16 @@ export class ValeCreateComponent {
     this.idAutorizacion = this.activeRouter.snapshot.paramMap.get('id');
 
     console.log(this.idAutorizacion);
+    
 
-    this.createForm = this.fb.group({
+    this.createForm = this.fb.group({ 
       autorizacion: [this.idAutorizacion],
-      cantidad: ['', [Validators.required]],
+      cantidad: [''],
+      precio: [''],
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
       idCompra: [''],
+      radio: ['no'],
       idProducto: ['', [Validators.required]],
     });
   }
@@ -90,6 +93,7 @@ export class ValeCreateComponent {
     this.valeService.getCompraOfCombustible(this.createForm.value.idProducto, this.createForm.value.catProgra).subscribe((data: any) => {
       if(data.serverResponse.length == 0){
         this.noHayStock = true;
+        this.compras = null;
       }
       else{
         this.compras = data.serverResponse;

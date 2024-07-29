@@ -39,11 +39,27 @@
                         * Debe seleccionar Una Categoria Programatica.
                       </div>
                     </div>
+                    
                   </div>
+
+
+
+
 
                   <h4 *ngIf="noHayStock">No hay Stock en esta Categoria Programatica</h4>
 
-                  <div class="input-group mb-1" *ngIf="compras">
+                  <div class="form-check" >
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="si" checked formControlName="radio">
+                    <label class="form-check-label" for="exampleRadios1" class="pr-5">
+                      Si
+                    </label>
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="no" formControlName="radio">
+                    <label class="form-check-label" for="exampleRadios2">
+                      No
+                    </label>
+                  </div>
+
+                  <div class="input-group mb-1" *ngIf="createForm.value.radio == 'si'">
                     <span class="input-group-text izq" id="plazo"><b>Cantidad Disponible</b></span>
                     <ngx-select class="sel" [allowClear]="true" [items]="compras" optionTextField="stockCompra" optionValueField="_id"
                       placeholder="Seleccione Una Compra" formControlName="idCompra" (select)="doSelect2($event)">
@@ -60,7 +76,7 @@
                     </div>
                   </div>
 
-                  <div class="input-group mb-1">
+                  <div class="input-group mb-1" *ngIf="createForm.value.radio == 'si'">
                     <span class="input-group-text izq" id="destino"><b>Cantidad *</b></span>
                     <input id="cantidad" class="form-control" type="text" formControlName="cantidad" (keyup)="calcularStock()" />
                     <div class="form-text" *ngIf="form['cantidad'].touched && form['cantidad'].invalid">
@@ -69,6 +85,19 @@
                       </div>
                       <div *ngIf="form['cantidad'].errors && form['cantidad'].errors['minlength']">
                         * El cantidad no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1" *ngIf="createForm.value.radio == 'no'">
+                    <span class="input-group-text izq" id="precio"><b>Precio *</b></span>
+                    <input id="cantidad" class="form-control" type="text" formControlName="precio" />
+                    <div class="form-text" *ngIf="form['precio'].touched && form['precio'].invalid">
+                      <div *ngIf="form['precio'].errors && form['precio'].errors['required']">
+                        * El precio es Requerido.
+                      </div>
+                      <div *ngIf="form['precio'].errors && form['precio'].errors['minlength']">
+                        * El precio no puede tener menos de 3 caracteres.
                       </div>
                     </div>
                   </div>
@@ -147,7 +176,7 @@
                     </button>
                   </div>
                 </form>
-                <!-- {{ createForm.value | json }} -->
+                {{ createForm.value | json }}
               </div>
             </div>
           </div>
