@@ -117,6 +117,7 @@
                   <th>Producto</th>
                   <th>Autorizacion N°</th>
                   <th>Encargado</th>
+                  <th>Estado</th>
                   <th style="width: 150px;">Acciones</th>
                 </tr>
               </thead>
@@ -143,6 +144,15 @@
                       </span>
                     </div>
                   </td> -->
+                  <td >
+                    <span *ngIf="!vale.idCompra" class="textEstado" (click)="cambiarEstado(vale)" [ngSwitch]="vale.estado">
+                      <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger"  title="Cambiar Estado">{{ vale.estado }} </span>
+                      <span *ngSwitchCase="'PENDIENTE'" class="badge est badge-info">{{ vale.estado }}</span>
+                      <span *ngSwitchCase="'FINALIZADO'" class="badge est badge-success">{{
+                        vale.estado
+                        }}</span>
+                    </span>
+                  </td>
                   <td>
                     <!-- <i class="fas fa-eye ml-2 icono" (click)="verArchivos(carpeta)"></i> -->
                     <!-- <i class="fas fa-plus ml-2 icono" (click)="addCarpetaId(carpeta)"></i> -->
@@ -150,15 +160,16 @@
                     <!-- <button class="btn btn-info text-sm" (click)="generarVale(vale._id)">Generar Vale<i
                         class="fas fa-print ml-2 icono"></i></button> -->
 
-                    <span *ngIf="vale.autorizacion != null">
+                    <span *ngIf="vale.idCompra != null">
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
-                        (click)="print(vale)"></i>
+                        (click)="print(vale)" title="Imprimir"></i>
                     </span>
 
-                    <span *ngIf="vale.autorizacion == null">
+                    <span *ngIf="vale.idCompra == null">
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal2"
-                        (click)="print(vale)"></i>
+                        (click)="print(vale)" title="Imprimir"></i>
                     </span>
+
                   </td>
                 </tr>
               </tbody>
@@ -167,7 +178,7 @@
             <div class="text-center">
               <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
                 <i class="fas fa-chevron-left"></i> Anterior
-              </button> 
+              </button>
               &nbsp;
               {{ page }} de {{ totalPages }}
               &nbsp;
@@ -177,7 +188,7 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 </div>
@@ -629,7 +640,8 @@
                 <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }}
               </div>
               <div class="mb-1">
-                <b>FECHA:</b> {{ vale.createdAt | date : 'fullDate' : "UTC" }}
+                <b>FECHA:</b> <span *ngIf="vale.autorizacion">{{ vale.autorizacion.fecha | date : 'dd/MM/yyyy' }}</span>
+                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' }}</span>
               </div>
               <div>
                 <b>N° DE VALE:</b> {{ vale.numeroVale }}
@@ -638,16 +650,19 @@
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>SOLICITADO POR:</b>  {{ vale.conductor?.username }} {{ vale.conductor?.surnames }}
+                <b>SOLICITADO POR:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.username :
+                vale.conductor?.username }} {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.surnames :
+                vale.conductor?.surnames }}
               </div>
               <div>
-                <b>CARGO:</b> {{ vale.conductor?.post | titlecase }}
+                <b>CARGO:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.post :
+                vale.conductor?.post | titlecase }}
               </div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>DESTINO:</b> {{ vale.destino }}
+                <b>DESTINO:</b> {{ vale.autorizacion ? vale.autorizacion.destino : vale.destino | titlecase }}
               </div>
             </div>
 
@@ -691,16 +706,18 @@
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ vale.vehiculo?.tipo }}</td>
-                      <td>{{ vale.vehiculo?.placa }}</td>
-                      <td>{{ vale.conductor?.username }} {{ vale.conductor?.surnames }}</td>
-                      <td>{{ vale.conductor?.ci }} </td>
-                      <td>{{ vale.conductor?.categoriaLicencia }} </td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.tipo : vale.vehiculo?.tipo }}</td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.placa : vale.vehiculo?.placa }}</td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.username : vale.conductor?.username }} {{
+                        vale.autorizacion ? vale.autorizacion.conductor.surnames : vale.conductor?.surnames }}</td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.ci : vale.conductor?.ci }} </td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.categoriaLicencia :
+                        vale.conductor?.categoriaLicencia }} </td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ vale.motivo }}</span>
+              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion ? vale.autorizacion.motivo : vale.motivo }}</span>
 
 
               <div class="mt-10">
@@ -755,10 +772,11 @@
             </div>
             <div class="d-flex justify-content-between px-3">
               <div class="mb-1">
-                <b>LUGAR:</b> {{ vale.destino }}
+                <b>LUGAR:</b> {{ vale.autorizacion ? vale.autorizacion.destino : vale.destino | titlecase }}
               </div>
               <div class="mb-1">
-                <b>FECHA:</b> {{ vale.createdAt | date : 'fullDate' : "UTC" }}
+                <b>FECHA:</b> <span *ngIf="vale.autorizacion">{{ vale.autorizacion.fecha | date : 'dd/MM/yyyy' }}</span>
+                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' }}</span>
               </div>
             </div>
 
@@ -808,16 +826,18 @@
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ vale.vehiculo?.tipo }}</td>
-                      <td>{{ vale.vehiculo?.placa }}</td>
-                      <td>{{ vale.conductor?.username }} {{ vale.conductor?.surnames }}</td>
-                      <td>{{ vale.conductor?.ci }} </td>
-                      <td>{{ vale.conductor?.categoriaLicencia }} </td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.tipo : vale.vehiculo?.tipo }}</td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.placa : vale.vehiculo?.placa }}</td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.username : vale.conductor?.username }} {{
+                        vale.autorizacion ? vale.autorizacion.conductor.surnames : vale.conductor?.surnames }}</td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.ci : vale.conductor?.ci }} </td>
+                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.categoriaLicencia :
+                        vale.conductor?.categoriaLicencia }} </td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ vale.motivo }}</span>
+              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion ? vale.autorizacion.motivo : vale.motivo }} </span>
 
 
               <div class="mt-10">
@@ -868,4 +888,3 @@
 
   </div>
 </div>
-

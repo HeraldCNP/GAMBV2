@@ -46,3 +46,12 @@ tr td{
 tr th{
   font-size: 0.8rem;
 }
+
+.textEstado{
+  font-size: 0.65rem;
+  cursor: pointer;
+}
+
+.icono{
+  color: blueviolet
+}

@@ -18,7 +18,7 @@ export class ValeIndexComponent {
   valesTemp: any = [];
   skip: number = 1;
   page: number = 1;
-  limit: number = 10;
+  limit: number = 20;
   totalPages: any;
   autorizacionForm: any;
   editForm: any;
@@ -28,11 +28,11 @@ export class ValeIndexComponent {
   cargando: boolean = true;
   idAutorizacion: any;
   URL = environment.api;
-  vale:any;
+  vale: any;
   date = new Date();
 
 
-  constructor(private valeService: ValeService, private router: Router,){
+  constructor(private valeService: ValeService, private router: Router,) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
@@ -46,7 +46,7 @@ export class ValeIndexComponent {
 
   cargarAutorizaciones() {
     this.cargando = true;
-    this.valeService.getAllVales()
+    this.valeService.getAllVales(this.limit, this.skip)
       .subscribe((data: any) => {
         this.totalVales = data.totalDocs;
         this.vales = data;
@@ -69,11 +69,11 @@ export class ValeIndexComponent {
     this.cargarAutorizaciones();
   }
 
-  addAutorizacion(){
+  addAutorizacion() {
     this.router.navigate(['/actFijos/autorizacion/create'])
   }
 
-  print(element:any){
+  print(element: any) {
     this.vale = element;
     console.log(this.vale);
   }
@@ -111,5 +111,32 @@ export class ValeIndexComponent {
 
   generarVale(id: string) {
     this.router.navigate(['/almacen/vale/create', id]);
+  }
+
+  cambiarEstado(vale: any) {
+    console.log(vale);
+    const form: any = {
+      estado: 'PENDIENTE',
+    }
+    
+    if (vale.estado === "REGISTRADO") {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Esta seguro que recibió la factura?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.valeService.cambiarEstado(vale._id, form).subscribe(data => {
+            this.cargarAutorizaciones()
+          }, error => {
+            console.log(error);
+          })
+        }
+      })
+    }
   }
 }

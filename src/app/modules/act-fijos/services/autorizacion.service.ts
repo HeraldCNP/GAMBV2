@@ -19,8 +19,8 @@ export class AutorizacionService {
   //   return this.http.get<any>(dir);
   // }
 
-  getAllAutorizaciones(): Observable<any[]> {
-    let dir = `${this.URL}/autorizaciones`;
+  getAllAutorizaciones(limit?: number, skip?: number): Observable<any[]> {
+    let dir = `${this.URL}/autorizaciones?limit=${limit}&skip=${skip}`;
     console.log(dir);
     return this.http.get<any>(dir);
   }

@@ -18,7 +18,7 @@ export class AutorizacionIndexComponent {
   autorizacionesTemp: any = [];
   skip: number = 1;
   page: number = 1;
-  limit: number = 10;
+  limit: number = 20;
   totalPages: any;
   autorizacionForm: any;
   editForm: any;
@@ -46,7 +46,7 @@ export class AutorizacionIndexComponent {
 
   cargarAutorizaciones() {
     this.cargando = true;
-    this.autorizacionService.getAllAutorizaciones()
+    this.autorizacionService.getAllAutorizaciones(this.limit, this.skip)
       .subscribe((data: any) => {
         this.totalAutorizaciones = data.totalDocs;
         this.autorizaciones = data;

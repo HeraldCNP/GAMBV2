@@ -22,14 +22,19 @@ export class ValeService {
     return this.http.post(dir, form)
   }
 
-  getAllVales(){
-    let dir = `${this.URL}/vales`;
+  getAllVales(limit?: number, skip?: number){
+    let dir = `${this.URL}/vales?limit=${limit}&skip=${skip}`;
     return this.http.get<any>(dir);
   }
 
   getAllAutorizaciones(){
     let dir = `${this.URL}/listAutorizacion`;
     return this.http.get<any>(dir);
+  }
+
+  cambiarEstado(id:string, form:any){
+    let dir = `${this.URL}/vale/${id}`;
+    return this.http.put<any>(dir, form);
   }
 
 
