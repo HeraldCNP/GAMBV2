@@ -36,6 +36,7 @@ import { ValeIndexComponent } from './pages/vales/vale-index/vale-index.componen
 import { ValeCreateComponent } from './pages/vales/vale-create/vale-create.component';
 import { ValeUpdateComponent } from './pages/vales/vale-update/vale-update.component';
 import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
+import { ValeLubriComponent } from './pages/vales/vale-lubri/vale-lubri.component';
 
 
 
@@ -73,6 +74,7 @@ import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
     ValeCreateComponent,
     ValeUpdateComponent,
     ValeNewComponent,
+    ValeLubriComponent,
   ],
   imports: [
     CommonModule,

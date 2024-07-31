@@ -120,4 +120,8 @@ export class ValeListAutorizacionComponent {
     this.router.navigate(['/almacen/vale/new']);
   }
 
+  newValeLubri() {
+    this.router.navigate(['/almacen/vale/lubricantes']);
+  }
+
 }

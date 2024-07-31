@@ -127,7 +127,7 @@
                   <td>{{ vale.createdAt | date: 'mediumDate' : "UTC" }}</td>
                   <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
                   <td>{{ vale.catProgra }}</td>
-                  <td>{{ vale.idProducto.nombre }}</td>
+                  <td>{{ vale.idProducto ? vale.idProducto.nombre : 'Lubricantes' }}</td>
                   <td>{{ vale.autorizacion?.numeroAutorizacion }}</td>
                   <td>{{ vale.encargadoControl.username }} {{ vale.encargadoControl.surnames }}</td>
                   <!-- <td>
@@ -266,7 +266,7 @@
                       <td>{{ vale.cantidad }}</td>
                       <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
                       <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
-                      <td>{{ vale.idProducto.nombre }}</td>
+                      <td>{{ vale.idProducto?.nombre }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -397,7 +397,7 @@
                       <td>{{ vale.cantidad }}</td>
                       <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
                       <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
-                      <td>{{ vale.idProducto.nombre }}</td>
+                      <td>{{ vale.idProducto?.nombre }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -528,7 +528,7 @@
                       <td>{{ vale.cantidad }}</td>
                       <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
                       <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
-                      <td>{{ vale.idProducto.nombre }}</td>
+                      <td>{{ vale.idProducto?.nombre }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -669,7 +669,7 @@
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
 
-                <table class="table table-striped">
+                <table class="table table-striped" *ngIf="vale.idProducto">
                   <thead class="text-center">
                     <tr>
                       <th>Monto (Bs)</th>
@@ -679,12 +679,29 @@
                     </tr>
                   </thead>
                   <tbody class="text-center">
-                    <tr>
+                    <tr >
                       <td>{{ vale.precio }}</td>
                       <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
                       <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
                       <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
                       <td>{{ vale.idProducto.nombre }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="table table-striped" *ngIf="!vale.idProducto">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Cantidad Numeral</th>
+                      <th>Unidad</th>
+                      <th>Producto</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr *ngFor="let producto of vale.productos">
+                      <td>{{ producto.cantidadCompra | number:'1.2-2':'es-ES' }}</td>
+                      <td>{{ producto.unidadMedida | titlecase }}</td>
+                      <td>{{ producto.articulo }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -789,7 +806,7 @@
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
 
-                <table class="table table-striped">
+                <table class="table table-striped" *ngIf="vale.idProducto">
                   <thead class="text-center">
                     <tr>
                       <th>Monto (Bs)</th>
@@ -799,7 +816,7 @@
                     </tr>
                   </thead>
                   <tbody class="text-center">
-                    <tr>
+                    <tr >
                       <td>{{ vale.precio }}</td>
                       <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
                       <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
@@ -808,6 +825,24 @@
                     </tr>
                   </tbody>
                 </table>
+
+                <table class="table table-striped" *ngIf="!vale.idProducto">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Cantidad Numeral</th>
+                      <th>Unidad</th>
+                      <th>Producto</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr *ngFor="let producto of vale.productos">
+                      <td>{{ producto.cantidadCompra | number:'1.2-2':'es-ES' }}</td>
+                      <td>{{ producto.unidadMedida | titlecase }}</td>
+                      <td>{{ producto.articulo }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
               </fieldset>
             </div>
 

@@ -26,6 +26,7 @@ import { ValeListAutorizacionComponent } from './pages/vales/vale-list-autorizac
 import { ValeCreateComponent } from './pages/vales/vale-create/vale-create.component';
 import { ValeIndexComponent } from './pages/vales/vale-index/vale-index.component';
 import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
+import { ValeLubriComponent } from './pages/vales/vale-lubri/vale-lubri.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,7 @@ const routes: Routes = [
       { path: 'vale/create/:id', component: ValeCreateComponent },
       { path: 'vale/index', component: ValeIndexComponent },
       { path: 'vale/new', component: ValeNewComponent },
+      { path: 'vale/lubricantes', component: ValeLubriComponent },
       // { path: 'ptdi/update/:id', component: PtdiUpdateComponent },
 
       { path: '**', redirectTo: 'dashboard' },

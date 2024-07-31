@@ -104,7 +104,7 @@ export class ValeCreateComponent {
   }
 
   cancel() {
-    this.router.navigate(['actFijos/autorizacion/index'])
+    this.router.navigate(['almacen/vale/index'])
   }
 
   alertOk(icon: any, title: any, text: any, timer: any) {

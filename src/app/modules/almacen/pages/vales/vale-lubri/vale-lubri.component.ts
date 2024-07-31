@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { ComprasService } from '../../../services/compras.service';
 import { ValeService } from '../../../services/vale.service';
 import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-vale-new',
-  templateUrl: './vale-new.component.html',
-  styleUrls: ['./vale-new.component.css']
+  selector: 'app-vale-lubri',
+  templateUrl: './vale-lubri.component.html',
+  styleUrls: ['./vale-lubri.component.css']
 })
-export class ValeNewComponent {
+export class ValeLubriComponent {
 
   idUser: any;
   user: any;
@@ -53,7 +53,6 @@ export class ValeNewComponent {
     this.createForm = this.fb.group({
       // autorizacion: [this.idAutorizacion],
       cantidad: [0],
-      precio: ['', Validators.required],
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
       motivo: ['', [Validators.required]],
@@ -62,7 +61,7 @@ export class ValeNewComponent {
       conductor: ['', [Validators.required]],
       vehiculo: [''],
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
-      idProducto: [''],
+      productos: [''],
     });
   }
 
@@ -177,6 +176,72 @@ export class ValeNewComponent {
       });
   }
 
+  buscar(termino: string) {
+    if (termino.length === 0) {
+      this.articulos = this.articulosTemp;
+      return;
+    }
 
+    if (termino.includes('%')) {
+      console.log('La cadena contiene el signo "%".');
+      this.comprasService.getArticulo(termino).subscribe((resp) => {
+        console.log('Resp:', resp);
+        this.articulos = resp;
+        if (this.articulos.serverResponse.length == 1) {
+
+          this.article = this.articulos.serverResponse[0];
+
+          this.addArticulo(this.article)
+        }
+      });
+    } else {
+      this.comprasService.searchArticulo(termino).subscribe((resp) => {
+        console.log('Resp:', resp);
+        this.articulos = resp;
+        if (this.articulos.serverResponse.length == 1) {
+
+          this.article = this.articulos.serverResponse[0];
+
+          this.addArticulo(this.article)
+        }
+      });
+    }
+  }
+
+  cambio(event: any, i: number, field: string) {
+
+    // console.log("valor", event.target.innerText)
+    // console.log("indice", i)
+    // console.log("field", field)
+
+
+    this.productos[i][field] = event.target.innerText;
+
+    this.createForm.patchValue({
+      productos: this.productos
+    })
+
+  }
+
+  removeArticulo(index: number) {
+    console.log('articleIndex', index)
+    // if(index == 0){
+    //   this.listadeArticulos.splice(0, 1);
+    // }
+    this.productos.splice(index, 1);
+  }
+
+  addArticulo(article: any) {
+    console.log('articleAdd', article)
+    this.productos.push({
+      idArticulo: article._id,
+      codigo: article.codigo,
+      partidaGasto: article.idPartida.codigo,
+      articulo: article.nombre,
+      cantidadCompra: 0,
+      unidadMedida: article.unidadDeMedida,
+      precio: 0
+    });
+  }
 
 }

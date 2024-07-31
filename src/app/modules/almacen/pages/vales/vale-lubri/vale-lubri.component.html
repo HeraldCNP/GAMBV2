@@ -1,0 +1,235 @@
+<div class="container">
+    <div class="m-3">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12">
+                <div class="card shadow p-3 mb-4 bg-body rounded">
+                    <div class="card-header">
+                        <h3 class="card-title">Crear Vale para Lubricantes</h3>
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md">
+
+
+                                <div class="panel panel-default">
+                                    <input class="form-control mb-4" list="articulos" type="search"
+                                        placeholder="Buscar Artículo" (keyup.enter)="buscar(txtNombre.value)"
+                                        (blur)="txtNombre.value = ''" #txtNombre />
+
+                                    <datalist id="articulos" *ngIf="articulos">
+                                        <option style="color:blue" *ngFor="let articulo of articulos.serverResponse"
+                                            value="{{articulo.nombre}}">
+                                    </datalist>
+
+                                    <!-- <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
+
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Código</th>
+                                                    <th>Partida de gasto</th>
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Unidad de Medida</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of productos; index as i">
+                                                    <td style="cursor: not-allowed;">
+                                                        {{i + 1}}
+                                                    </td>
+                                                    <td [attr.row]="i" [attr.field]="'codigo'">
+                                                        {{item.codigo}}
+                                                    </td>
+                                                    <td field="partidaGasto">
+                                                        {{item.partidaGasto}}
+                                                    </td>
+                                                    <td [attr.row]="i" [attr.field]="'articulo'">
+                                                        {{item.articulo}}
+                                                    </td>
+                                                    <td contenteditable="true"
+                                                        (blur)="cambio($event, i, 'cantidadCompra')" [attr.row]="i"
+                                                        [attr.field]="'cantidadCompra'">
+                                                        {{item.cantidadCompra}}
+                                                    </td>
+                                                    <td field="unidadDeMedida">
+                                                        {{item.unidadMedida}}
+                                                    </td>
+                                                    <td>
+                                                        <span><i class="fas fa-trash pointer"
+                                                                (click)="removeArticulo(i)"></i></span>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="btn-group">
+                                            <!-- {{ listadeArticulos | json }} -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <form (ngSubmit)="crearVale(createForm.value)" [formGroup]="createForm">
+
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text izq" id="plazo"><b>Categoria
+                                                Programatica</b></span>
+                                        <ngx-select class="sel" [allowClear]="true" [items]="catProgras"
+                                            optionTextField="cat_programatica" optionValueField="cat_programatica"
+                                            placeholder="Seleccione Una Categoria Programatica"
+                                            formControlName="catProgra" (select)="doSelect($event)">
+                                            <ng-template ngx-select-option ngx-select-option-selected let-option
+                                                let-text="text">
+                                                <span [innerHtml]="text"></span>
+                                                &nbsp;- {{option.data.proyect_acti}}
+                                            </ng-template>
+                                        </ngx-select>
+
+                                        <div class="form-text"
+                                            *ngIf="form['catProgra'].touched && form['catProgra'].invalid">
+                                            <div
+                                                *ngIf="form['catProgra'].errors && form['catProgra'].errors['required']">
+                                                * Debe seleccionar Una Categoria Programatica.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <h4 *ngIf="noHayStock">No hay Stock en esta Categoria Programatica</h4>
+    
+                      <div class="input-group mb-1" *ngIf="compras">
+                        <span class="input-group-text izq" id="plazo"><b>Cantidad Disponible</b></span>
+                        <ngx-select class="sel" [allowClear]="true" [items]="compras" optionTextField="stockCompra" optionValueField="_id"
+                          placeholder="Seleccione Una Compra" formControlName="idCompra" (select)="doSelect2($event)">
+                          <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                            <span [innerHtml]="text"></span>
+                            &nbsp;- (Entrada # {{option.data.idEntrada.numeroEntrada}})
+                          </ng-template>
+                        </ngx-select>
+    
+                        <div class="form-text" *ngIf="form['idCompra'].touched && form['idCompra'].invalid">
+                          <div *ngIf="form['idCompra'].errors && form['idCompra'].errors['required']">
+                            * Debe seleccionar Una Compra.
+                          </div>
+                        </div>
+                      </div> -->
+
+
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text izq" id="plazo"><b>Vehiculo</b></span>
+                                        <ngx-select class="sel" [allowClear]="true" [items]="vehiculos"
+                                            optionTextField="placa" optionValueField="_id"
+                                            placeholder="Seleccione un Vehiculo" formControlName="vehiculo"
+                                            (select)="doSelect($event)">
+                                            <ng-template ngx-select-option ngx-select-option-selected let-option
+                                                let-text="text">
+                                                <span [innerHtml]="text"></span>
+                                                &nbsp;- {{option.data.marca}}
+                                                &nbsp;- {{option.data.tipo}}
+                                            </ng-template>
+                                        </ngx-select>
+
+                                        <div class="form-text"
+                                            *ngIf="form['vehiculo'].touched && form['vehiculo'].invalid">
+                                            <div *ngIf="
+                              form['vehiculo'].errors &&
+    
+                              form['vehiculo'].errors['required']
+                            ">
+                                                * Debe seleccionar una Vehiculo.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text izq" id="plazo"><b>Conductor</b></span>
+                                        <ngx-select class="sel" [allowClear]="true" [items]="conductores"
+                                            optionTextField="username" optionValueField="_id"
+                                            placeholder="Seleccione un Conductor" formControlName="conductor"
+                                            (select)="doSelect($event)">
+                                            <ng-template ngx-select-option ngx-select-option-selected let-option
+                                                let-text="text">
+                                                <span [innerHtml]="text"></span>
+                                                &nbsp;{{option.data.surnames}}
+                                            </ng-template>
+                                        </ngx-select>
+
+                                        <div class="form-text"
+                                            *ngIf="form['conductor'].touched && form['conductor'].invalid">
+                                            <div *ngIf="
+                              form['conductor'].errors &&
+    
+                              form['conductor'].errors['required']
+                            ">
+                                                * Debe seleccionar un conductor.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text izq" id="plazo"><b>Fecha de Salida *</b></span>
+                                        <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                                        <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                                            <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* Hora
+                                                de Salida
+                                                es Requerido.</div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text izq" id="destino"><b>Destino *</b></span>
+                                        <input id="destino" class="form-control" type="text"
+                                            formControlName="destino" />
+                                        <div class="form-text"
+                                            *ngIf="form['destino'].touched && form['destino'].invalid">
+                                            <div *ngIf="form['destino'].errors && form['destino'].errors['required']">
+                                                * El Destino es Requerido.
+                                            </div>
+                                            <div *ngIf="form['destino'].errors && form['destino'].errors['minlength']">
+                                                * El Destino no puede tener menos de 3 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text izq" id="motivo"><b>Motivo *</b></span>
+                                        <input id="motivo" class="form-control" type="text" formControlName="motivo" />
+                                        <div class="form-text" *ngIf="form['motivo'].touched && form['motivo'].invalid">
+                                            <div *ngIf="form['motivo'].errors && form['motivo'].errors['required']">
+                                                * El motivo es Requerido.
+                                            </div>
+                                            <div *ngIf="form['motivo'].errors && form['motivo'].errors['minlength']">
+                                                * El motivo no puede tener menos de 3 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mt-3 d-flex justify-content-around">
+                                        <button (click)="cancel()" type="reset" class="btn btn-danger">
+                                            Cancelar
+                                        </button>
+                                        <button [disabled]="createForm.invalid" type="submit" class="btn btn-primary">
+                                            Registrar
+                                        </button>
+                                    </div>
+                                </form>
+                                <!-- {{ createForm.value | json }} -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</div>
