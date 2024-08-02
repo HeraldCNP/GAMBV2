@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree,Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RutaService } from '../services/ruta.service';
 import { OfficeIndexComponent } from '../pages/myOffice/office-index/office-index.component';
@@ -7,7 +7,7 @@ import { OfficeIndexComponent } from '../pages/myOffice/office-index/office-inde
 @Injectable({
   providedIn: 'root'
 })
-export class GuardGuard implements CanActivate {
+export class GuardGuard  {
   
   constructor(
     private RutaService: OfficeIndexComponent,
