@@ -96,10 +96,7 @@
           <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close"
             *ngIf="!alerta"></button>
           <div *ngFor="let seguimiento of totales" class="alerta">
-            <div *ngIf="
-                (today | amDifference : seguimiento.fechaderivado : 'hours') >
-                12
-              ">
+            <div *ngIf="(seguimiento.fechaderivado) > 12">
               <div *ngIf="seguimiento.fecharecepcion == 'SIN RECEPCIONAR'"
                 class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
                 <strong class="d-flex fs-6"><span>Reciba el documento
@@ -160,23 +157,15 @@
                 <td>{{ seguimiento.idhj.beneficiarioPago }}</td>
                 <td>{{ seguimiento.detalles }}</td>
                 <td>
-                  {{ seguimiento.fechaderivado | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
+                  {{ seguimiento.fechaderivado | date : 'short' : "UTC" }}
                 </td>
                 <td>
-                  <i (click)="cambiarEstado(seguimiento._id)" [ngClass]="
-                      seguimiento.fecharecepcion === 'SIN RECEPCIONAR'
-                        ? 'badge badge-danger'
-                        : ''
-                    ">
+                  <i (click)="cambiarEstado(seguimiento._id)" [ngClass]="seguimiento.fecharecepcion === 'SIN RECEPCIONAR' ? 'badge badge-danger' : ''">
                     <span *ngIf="seguimiento.fecharecepcion === 'SIN RECEPCIONAR'">
                       Recibir
                     </span>
                     <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
-                      {{
-                      seguimiento.fecharecepcion
-                      | amLocal
-                      | amDateFormat : "DD-MM-YY HH:mm"
-                      }}
+                      {{ seguimiento.fecharecepcion | date : 'short' : "UTC" }}
                     </i>
                     <!--
                     <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
@@ -203,7 +192,8 @@
                       seguimiento.estado != 'MALETIN' &&
                       seguimiento.estado != 'RECIBIDO' &&
                       seguimiento.estado != 'ENVIADO'
-                    " class="bg badge text-dark">{{ seguimiento.estado }}</span>
+                    " class="bg badge text-dark">{{ seguimiento.estado }}
+                  </span>
                 </td>
                 <td>
                   <i class="fas fa-align-justify text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -324,10 +314,10 @@
                     <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion | date : "dd/MM/yyyy" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date : "HH:MM:ss" }}
+                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date : "HH:MM:ss" : 'UTC'}}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "dd/MM/yyyy" }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "dd/MM/yyyy" : 'UTC' }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -384,81 +374,37 @@
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
                           <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
-
-                            {{ seguiss.fechaderivado | amLocale : "es" | amTimeAgo }}
+                            {{ calcularDias(seguiss.fechaderivado) }} 
                           </span><br />
                           <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
                             <!-- {{ seguiss.fechaderivado | date : "short" : "UTC-4" }} * -->
-                            {{
-                            seguiss.fechaderivado
-                            | amLocal
-                            | amDateFormat : "DD-MM-YY HH:mm"
-                            }}
+                            {{ seguiss.fechaderivado | date : 'short' : "UTC" }}
                           </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <span *ngIf="seguiss.fecharespuesta != null">{{
-                            seguiss.fecharespuesta
-                            | amDifference
-                            : seguiss.fechaderivado
-                            : "seconds"
-                            : true
-                            | amDuration : "seconds"
-                            }}</span>
-                          <span *ngIf="
-                              seguiss.fecharespuesta == null &&
-                              seguiss.estado === 'DERIVADO'
-                            ">{{
-                            seguiss.fecharecepcion
-                            | amDifference
-                            : seguiss.fechaderivado
-                            : "seconds"
-                            : true
-                            | amDuration : "seconds"
-                            }}</span>
-                          <span *ngIf="
-                              seguiss.fecharespuesta == null &&
-                              seguiss.estado === 'MALETIN'
-                            ">{{
-                            seguiss.fecharecepcion
-                            | amDifference
-                            : seguiss.fechaderivado
-                            : "seconds"
-                            : true
-                            | amDuration : "seconds"
-                            }}</span>
-                          <samp *ngIf="
-                              seguiss.estado === 'ENVIADO' ||
-                              seguiss.estado === 'RECIBIDO'
-                            ">Sin Responder</samp>
+                          <span *ngIf="seguiss.fecharespuesta != null">
+                            {{ calcularDiferencia(seguiss.fecharespuesta, seguiss.fechaderivado) }}
+                            <!-- {{ seguiss.fecharespuesta }} {{ seguiss.fechaderivado }} -->
+                          </span>
+                          <span *ngIf="seguiss.fecharespuesta == null && seguiss.estado === 'DERIVADO'">
+                            {{ calcularDiferencia(seguiss.fecharespuesta, seguiss.fechaderivado) }}
+                          </span>
+                          <span *ngIf="seguiss.fecharespuesta == null && seguiss.estado === 'MALETIN'">
+                            {{ calcularDiferencia(seguiss.fecharespuesta, seguiss.fechaderivado) }}
+                          </span>
+                          <span *ngIf="seguiss.estado === 'ENVIADO' || seguiss.estado === 'RECIBIDO'">Sin Responder</span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
-                          <i [ngClass]="
-                              seguiss.fecharecepcion === 'SIN RECEPCIONAR'
-                                ? 'badge badge-danger'
-                                : ''
-                            ">
-                            <span *ngIf="
-                                seguiss.fecharecepcion === 'SIN RECEPCIONAR'
-                              ">
-                              {{ seguiss.fecharecepcion }}</span>
-                            <span *ngIf="
-                                seguiss.fecharecepcion != 'SIN RECEPCIONAR'
-                              ">
-                              {{
-                              seguiss.fecharecepcion
-                              | amLocale : "es"
-                              | amTimeAgo
-                              }} </span><br />
-                            <span *ngIf="
-                                seguiss.fecharecepcion != 'SIN RECEPCIONAR'
-                              ">
+                          <i [ngClass]="seguiss.fecharecepcion === 'SIN RECEPCIONAR' ? 'badge badge-danger' : ''">
+                            <span *ngIf="seguiss.fecharecepcion === 'SIN RECEPCIONAR'">
+                              {{ calcularDias(seguiss.fecharecepcion) }}
+                            </span>
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RECEPCIONAR'">
+                              {{ calcularDias(seguiss.fecharecepcion) }}
+                            </span> <br/>
+                            <span *ngIf="seguiss.fecharecepcion != 'SIN RECEPCIONAR'">
                               <!-- {{ seguiss.fecharecepcion | date : "short" : "UTC-4" }} * -->
-                              {{
-                              seguiss.fecharecepcion
-                              | amLocal
-                              | amDateFormat : "DD-MM-YY HH:mm"
-                              }}
+                              {{ seguiss.fecharecepcion | date : 'short' : "UTC" }}
                             </span>
                           </i>
                         </td>
@@ -489,7 +435,7 @@
               <div>
                 <i class="ml-3">Usuario: {{ data.username }} {{ data.surnames }}</i>
                 <i class="mr-3 float-end">Fecha Descarga:
-                  {{ today | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
+                  {{ today }}
                 </i>
               </div>
             </div>
@@ -551,7 +497,7 @@
               <div>
                 <i class="ml-3">Usuario: {{ data.username }} {{ data.surnames }}</i>
                 <i class="mr-3 float-end">Fecha Descarga:
-                  {{ today | amLocal | amDateFormat : "DD-MM-YY HH:mm" }}
+                  {{ today }}
                 </i>
               </div>
             </div>

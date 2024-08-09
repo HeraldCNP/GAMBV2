@@ -116,27 +116,15 @@
                   <td>{{ seguimiento.referencia }}</td>
                   <td>{{ seguimiento.detalles }}</td>
                   <td>
-                    {{
-                    seguimiento.fechaderivado
-                    | amLocal
-                    | amDateFormat : "DD-MM-YY HH:mm"
-                    }}
+                    {{ seguimiento.fechaderivado | date : "shortDate" : "UTC" }}
                   </td>
                   <td>
-                    <i [ngClass]="
-                        seguimiento.fecharecepcion === 'SIN RECEPCIONAR'
-                          ? 'badge badge-danger'
-                          : ''
-                      ">
+                    <i [ngClass]="seguimiento.fecharecepcion === 'SIN RECEPCIONAR' ? 'badge badge-danger' : ''">
                       <span *ngIf="seguimiento.fecharecepcion === 'SIN RECEPCIONAR'">
                         Recibir
                       </span>
                       <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
-                        {{
-                        seguimiento.fecharecepcion
-                        | amLocal
-                        | amDateFormat : "DD-MM-YY HH:mm"
-                        }}
+                        {{ seguimiento.fecharecepcion | date : "shortDate" : "UTC" }}
                       </i>
                       <!--
                       <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">

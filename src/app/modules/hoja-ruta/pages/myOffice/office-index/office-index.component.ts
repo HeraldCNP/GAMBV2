@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import * as moment from 'moment';
-import 'moment/locale/es';
 import { Segui } from '../../../models/seguimiento';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -19,7 +17,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OfficeIndexComponent implements OnInit {
   user: any;
-  data: any;
+  data: any; 
   seguimientos: any = [];
   totales: any = [];
   status: string = 'RECIBIDO';
@@ -62,7 +60,7 @@ export class OfficeIndexComponent implements OnInit {
   idreply: number = 0;
   ale: any = {};
   alerta: boolean = false;
-  hoy = moment();
+  // hoy = moment();
   nombreus: string = '';
   totales1: Segui[] = [];
   search: string = '';
@@ -108,9 +106,9 @@ export class OfficeIndexComponent implements OnInit {
       if (data.totalDocs > 0) {
         for (let i = 0; i < data.totalDocs; i++) {
           this.ale = this.totales[i];
-          if (this.hoy.diff(this.ale.fechaderivado, 'hours') > 12) {
-            this.alerta = true;
-          }
+          // if (this.hoy.diff(this.ale.fechaderivado, 'hours') > 12) {
+          //   this.alerta = true;
+          // }
         }
       } else {
         this.alerta = false;
@@ -769,4 +767,64 @@ export class OfficeIndexComponent implements OnInit {
         docResult.save(`${new Date().toISOString()}_GAMB_HojaDeRuta.pdf`);
       });
   }
+
+  calcularDias(fechaDerivado: any) {
+    // Convertir las fechas a objetos Date
+    const fechaInicio = new Date(fechaDerivado);
+    const fechaActual = new Date();
+
+    // Calcular la diferencia en milisegundos
+    const diferenciaMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
+
+    // Convertir la diferencia a días (1 día = 86400000 milisegundos)
+    const diferenciaDias = Math.floor(diferenciaMilisegundos / 86400000);
+
+    return `Hace ${diferenciaDias} días`;
+    // console.log(`Han pasado ${diferenciaDias} días desde el ${fechaDerivado}`);
+  }
+
+  calcularDiferencia(fecha1: any, fecha2: any) {
+    // Convertir las fechas a objetos Date
+    const fecha1Obj = new Date(fecha1);
+    const fecha2Obj = new Date(fecha2);
+
+    // Asegurarnos de que fecha1 sea mayor que fecha2
+    if (fecha2Obj > fecha1Obj) {
+      console.error('La fecha 1 debe ser mayor que la fecha 2');
+      return;
+    }
+
+    // Calcular la diferencia en milisegundos
+    const diferenciaMilisegundos = fecha1Obj.getTime() - fecha2Obj.getTime();
+
+    // Calcular la diferencia en días, horas y minutos
+    const milisegundosPorDia = 86400000;
+    const milisegundosPorHora = 3600000;
+    const milisegundosPorMinuto = 60000;
+
+    const diferenciaDias = Math.floor(diferenciaMilisegundos / milisegundosPorDia);
+    const diferenciaHorasRestantes = diferenciaMilisegundos % milisegundosPorDia;
+    const diferenciaHoras = Math.floor(diferenciaHorasRestantes / milisegundosPorHora);
+    const diferenciaMinutos = Math.floor((diferenciaHorasRestantes % milisegundosPorHora) / milisegundosPorMinuto);
+
+    let resultado = "";
+    if (diferenciaDias > 0) {
+      resultado += `${diferenciaDias} día${diferenciaDias !== 1 ? 's' : ''}`;
+    }
+    if (diferenciaHoras > 0) {
+      if (resultado !== "") {
+        resultado += ", ";
+      }
+      resultado += `${diferenciaHoras} hora${diferenciaHoras !== 1 ? 's' : ''}`;
+    }
+    if (diferenciaMinutos > 0 || resultado === "") {
+      if (resultado !== "") {
+        resultado += ", ";
+      }
+      resultado += `${diferenciaMinutos} minuto${diferenciaMinutos !== 1 ? 's' : ''}`;
+    }
+
+    return resultado;
+  }
+
 }
