@@ -31,7 +31,7 @@ export class RutaService {
   getAllSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any, limit?:number, skip?:number, nuit?:string): Observable<any> {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${dategt}&datelt=${datelt}&limit=${limit}&skip=${skip}&nuit=${nuit}`;
     const header = this.headers;
-    console.log(dir)
+    // console.log(dir)
     return this.http.get<any>(dir, { headers: header})
   }
 /*   getTotalSeguimientos(destino?:string, estado?:string, dategt?:any,datelt?:any): Observable<any> {
@@ -106,7 +106,7 @@ export class RutaService {
   getAllHojaRuta(nuit?:string, origen?:string, dategt?:any,datelt?:any, limit?:number, skip?:number, order?:string): Observable<any> {
     let dir = `${this.URL}/hojaruta?nuit=${nuit}&origen=${origen}&dategt=${dategt}&datelt=${datelt}&limit=${limit}&skip=${skip}`;
     const header = this.headers;
-    console.log(dir)
+    // console.log(dir)
     return this.http.get<any>(dir, { headers: header })
   }
 

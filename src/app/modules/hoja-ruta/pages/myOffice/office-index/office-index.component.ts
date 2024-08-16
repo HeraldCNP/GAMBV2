@@ -102,7 +102,7 @@ export class OfficeIndexComponent implements OnInit {
     let estado3 = 'ENVIADO';
     this.api.getPendientes(this.destino, estado3,this.dategt, this.datelt,).subscribe((data) => {
       this.totales = data.serverResponse;
-      console.log(data);
+      // console.log(data);
       if (data.totalDocs > 0) {
         for (let i = 0; i < data.totalDocs; i++) {
           this.ale = this.totales[i];
@@ -200,7 +200,7 @@ export class OfficeIndexComponent implements OnInit {
         this.totalSeguimientos = data.totalDocs;
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
         this.obtenertotal()
-        console.log(this.seguimientos);
+        // console.log(this.seguimientos);
 
       });
   }
