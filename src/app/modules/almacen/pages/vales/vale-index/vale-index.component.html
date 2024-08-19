@@ -641,7 +641,7 @@
               </div>
               <div class="mb-1">
                 <b>FECHA:</b> <span *ngIf="vale.autorizacion">{{ vale.autorizacion.fecha | date : 'dd/MM/yyyy' }}</span>
-                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' }}</span>
+                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' : 'UTC' }}</span>
               </div>
               <div>
                 <b>N° DE VALE:</b> {{ vale.numeroVale }}
@@ -793,7 +793,7 @@
               </div>
               <div class="mb-1">
                 <b>FECHA:</b> <span *ngIf="vale.autorizacion">{{ vale.autorizacion.fecha | date : 'dd/MM/yyyy' }}</span>
-                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' }}</span>
+                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' : 'UTC' }}</span>
               </div>
             </div>
 
