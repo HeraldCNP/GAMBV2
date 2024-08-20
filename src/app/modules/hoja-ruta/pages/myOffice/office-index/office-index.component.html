@@ -157,7 +157,7 @@
                 <td>{{ seguimiento.idhj.beneficiarioPago }}</td>
                 <td>{{ seguimiento.detalles }}</td>
                 <td>
-                  {{ seguimiento.fechaderivado | date : 'short' : "UTC" }}
+                  {{ seguimiento.fechaderivado | date : 'short' : "UTC-4" }}
                 </td>
                 <td>
                   <i (click)="cambiarEstado(seguimiento._id)" [ngClass]="seguimiento.fecharecepcion === 'SIN RECEPCIONAR' ? 'badge badge-danger' : ''">
@@ -165,7 +165,7 @@
                       Recibir
                     </span>
                     <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
-                      {{ seguimiento.fecharecepcion | date : 'short' : "UTC" }}
+                      {{ seguimiento.fecharecepcion | date : 'short' : "UTC-4" }}
                     </i>
                     <!--
                     <i *ngIf="seguimiento.fecharecepcion != 'SIN RECEPCIONAR'">
@@ -314,10 +314,10 @@
                     <span>Fecha de recepcion: </span>{{ hojaRuta.fecharesepcion | date : "dd/MM/yyyy" }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date : "HH:MM:ss" : 'UTC'}}
+                    <span>Hora: </span>{{ hojaRuta.fecharesepcion | date : "HH:MM:ss" : 'UTC-4'}}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "dd/MM/yyyy" : 'UTC' }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "dd/MM/yyyy" : 'UTC-4' }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -378,7 +378,7 @@
                           </span><br />
                           <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
                             <!-- {{ seguiss.fechaderivado | date : "short" : "UTC-4" }} * -->
-                            {{ seguiss.fechaderivado | date : 'short' : "UTC" }}
+                            {{ seguiss.fechaderivado | date : 'short' : "UTC-4" }}
                           </span>
                         </td>
                         <td *ngIf="idhr === seguiss.idhj">
@@ -404,7 +404,7 @@
                             </span> <br/>
                             <span *ngIf="seguiss.fecharecepcion != 'SIN RECEPCIONAR'">
                               <!-- {{ seguiss.fecharecepcion | date : "short" : "UTC-4" }} * -->
-                              {{ seguiss.fecharecepcion | date : 'short' : "UTC" }}
+                              {{ seguiss.fecharecepcion | date : 'short' : "UTC-4" }}
                             </span>
                           </i>
                         </td>

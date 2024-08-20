@@ -98,7 +98,7 @@
                   <td>{{ hoja.numCite }}</td>
                   <td>{{ hoja.fecharesepcion | date : "shortDate" : "UTC-4" }}</td>
                   <td>{{ hoja.fecharesepcion | date : "mediumTime" : "UTC-4" }}</td>
-                  <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC" }}</td>
+                  <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC-4" }}</td>
                   <td>{{ hoja.origen }}</td>
 
                   <td>{{ hoja.referencia }}</td>
@@ -253,16 +253,16 @@
                 <div class="d-flex justify-content-between">
                   <p class="card-text fw-normal">
                     <span>Fecha de recepcion: </span>{{
-                    hojaRuta.fecharesepcion | date : "shortDate" : "UTC"
+                    hojaRuta.fecharesepcion | date : "shortDate" : "UTC-4"
                     }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Hora: </span>{{
-                    hojaRuta.fecharesepcion | date : "mediumTime" : "UTC"
+                    hojaRuta.fecharesepcion | date : "mediumTime" : "UTC-4"
                     }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC" }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -319,13 +319,13 @@
                         </td>
                         <td>
                           <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
-                            <!-- {{ seguiss.fechaderivado | date: "shortDate":"UTC" }} -->
+                            <!-- {{ seguiss.fechaderivado | date: "shortDate":"UTC-4" }} -->
                             {{ calcularDias(seguiss.fechaderivado) }}
                             <!-- {{ seguiss.fechaderivado }} -->
                           </span><br />
                           <span *ngIf="seguiss.fechaderivado != 'SIN RECEPCIONAR'">
-                            <!-- {{ seguiss.fechaderivado | date: "short":"UTC" }} * -->
-                            {{ seguiss.fechaderivado | date : 'short' : "UTC" }}
+                            <!-- {{ seguiss.fechaderivado | date: "short":"UTC-4" }} * -->
+                            {{ seguiss.fechaderivado | date : 'short' : "UTC-4" }}
                           </span>
                         </td>
                         <td>
@@ -350,8 +350,8 @@
                               {{ calcularDias(seguiss.fecharecepcion) }}
                             </span><br />
                             <span *ngIf="seguiss.fecharecepcion != 'SIN RECEPCIONAR' ">
-                              <!-- {{ seguiss.fecharecepcion | date: "short":"UTC" }} * -->
-                              {{ seguiss.fecharecepcion | date : 'short' : "UTC" }}
+                              <!-- {{ seguiss.fecharecepcion | date: "short":"UTC-4" }} * -->
+                              {{ seguiss.fecharecepcion | date : 'short' : "UTC-4" }}
                             </span>
                           </i>
                         </td>
@@ -443,7 +443,7 @@
                     }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC" }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC-4" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
