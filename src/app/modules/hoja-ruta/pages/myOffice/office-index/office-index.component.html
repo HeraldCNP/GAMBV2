@@ -497,7 +497,7 @@
               <div>
                 <i class="ml-3">Usuario: {{ data.username }} {{ data.surnames }}</i>
                 <i class="mr-3 float-end">Fecha Descarga:
-                  {{ today }}
+                  {{ today | date : "short" : "UTC-4" }}
                 </i>
               </div>
             </div>
