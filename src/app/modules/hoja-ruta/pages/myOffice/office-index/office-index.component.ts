@@ -17,7 +17,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OfficeIndexComponent implements OnInit {
   user: any;
-  data: any; 
+  data: any;
   seguimientos: any = [];
   totales: any = [];
   status: string = 'RECIBIDO';
@@ -60,22 +60,22 @@ export class OfficeIndexComponent implements OnInit {
   idreply: number = 0;
   ale: any = {};
   alerta: boolean = false;
-  // hoy = moment();
+  hoy = new Date();
   nombreus: string = '';
   totales1: Segui[] = [];
   search: string = '';
   hojaRutas: any = [];
-  year:any=this.today.getFullYear()
-  dategt:any = this.year;
-  datelt:any=this.dategt+1;
-  campo:any = this.year;
+  year: any = this.today.getFullYear()
+  dategt: any = this.year;
+  datelt: any = this.dategt + 1;
+  campo: any = this.year;
 
-  hrPrincipal:any;
-  asociadosHr:any;
-  last:any;
+  hrPrincipal: any;
+  asociadosHr: any;
+  last: any;
 
   asociarForm: any;
-  hojaAsociar : any;
+  hojaAsociar: any;
   constructor(private api: RutaService, private router: Router) {
     this.asociarForm = new FormGroup({
       cargo: new FormControl('', Validators.required),
@@ -93,28 +93,54 @@ export class OfficeIndexComponent implements OnInit {
     this.getpendientes();
     this.obtenertotal();
   }
-  onclick(id:any){
+
+  onclick(id: any) {
     this.onclick
     console.log("se hizo un click")
     console.log(id)
   }
+
+  calculateHourDifference(dateString1: string, dateString2: any): number {
+    // Convertir las fechas a objetos Date
+    const date1 = new Date(dateString1);
+    const date2 = new Date(dateString2);
+
+    // Calcular la diferencia en milisegundos
+    const diffInMilliseconds = Math.abs(date1.getTime() - date2.getTime());
+
+    // Convertir la diferencia de milisegundos a horas
+    const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
+
+    return diffInHours;
+  }
+
+
   getpendientes() {
     let estado3 = 'ENVIADO';
-    this.api.getPendientes(this.destino, estado3,this.dategt, this.datelt,).subscribe((data) => {
+    this.api.getPendientes(this.destino, estado3, this.dategt, this.datelt,).subscribe((data) => {
       this.totales = data.serverResponse;
-      // console.log(data);
+      console.log(this.totales);
       if (data.totalDocs > 0) {
         for (let i = 0; i < data.totalDocs; i++) {
           this.ale = this.totales[i];
-          // if (this.hoy.diff(this.ale.fechaderivado, 'hours') > 12) {
-          //   this.alerta = true;
-          // }
+
+          const hoursDifference = this.calculateHourDifference(this.ale.fechaderivado, this.hoy);
+          console.log(`Diferencia en horas: ${hoursDifference}`);
+
+          if (hoursDifference > 12) {
+            this.alerta = true;
+          }
+
         }
       } else {
         this.alerta = false;
       }
     });
   }
+
+  // Suponiendo que 'this.hoy' y 'this.ale.fechaderivado' son objetos Date
+
+
   pendintes() {
     return true;
   }
@@ -142,16 +168,16 @@ export class OfficeIndexComponent implements OnInit {
 
 
   buscarSeguimientos() {
-    this.campo=parseInt(this.campo)
-    if(this.campo==this.year-1){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else if(this.campo==this.year){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else{
-      this.dategt=this.campo;
-      this.datelt=this.year+1;
+    this.campo = parseInt(this.campo)
+    if (this.campo == this.year - 1) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else if (this.campo == this.year) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else {
+      this.dategt = this.campo;
+      this.datelt = this.year + 1;
     }
     this.estado = '';
     this.api
@@ -173,16 +199,16 @@ export class OfficeIndexComponent implements OnInit {
   }
 
   getSeguimientos() {
-    this.campo=parseInt(this.campo)
-    if(this.campo==this.year-1){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else if(this.campo==this.year){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else{
-      this.dategt=this.campo;
-      this.datelt=this.year+1;
+    this.campo = parseInt(this.campo)
+    if (this.campo == this.year - 1) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else if (this.campo == this.year) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else {
+      this.dategt = this.campo;
+      this.datelt = this.year + 1;
     }
     this.api
       .getAllSeguimientos(
@@ -201,7 +227,6 @@ export class OfficeIndexComponent implements OnInit {
         this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
         this.obtenertotal()
         // console.log(this.seguimientos);
-
       });
   }
 
@@ -239,40 +264,40 @@ export class OfficeIndexComponent implements OnInit {
   }
 
   obtenertotal() {
-    this.campo=parseInt(this.campo)
-    if(this.campo==this.year-1){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else if(this.campo==this.year){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else{
-      this.dategt=this.campo;
-      this.datelt=this.year+1;
+    this.campo = parseInt(this.campo)
+    if (this.campo == this.year - 1) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else if (this.campo == this.year) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else {
+      this.dategt = this.campo;
+      this.datelt = this.year + 1;
     }
-    this.api.getTotalSeguimientos(this.destino, this.dategt, this.datelt, ).subscribe(
+    this.api.getTotalSeguimientos(this.destino, this.dategt, this.datelt,).subscribe(
       (data) => {
         this.total = data.total;
-        this.totalRecibidos=data.recibido;
+        this.totalRecibidos = data.recibido;
         this.totalDerivados = data.derivado;
-        this.totalEnviados =data.enviado;
-        this.totalMaletin= data.maletin;
+        this.totalEnviados = data.enviado;
+        this.totalMaletin = data.maletin;
         this.totalOfi = data.fileOficina
-                /* this.totalRecibidos = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'RECIBIDO'
-        ).length;
-        this.totalDerivados = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'DERIVADO'
-        ).length;
-        this.totalEnviados = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'ENVIADO'
-        ).length;
-        this.totalMaletin = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'MALETIN'
-        ).length;
-        this.totalOfi = this.totales.filter(
-          (list: { estado: string }) => list.estado === 'FILE OFICINA'
-        ).length; */
+        /* this.totalRecibidos = this.totales.filter(
+  (list: { estado: string }) => list.estado === 'RECIBIDO'
+).length;
+this.totalDerivados = this.totales.filter(
+  (list: { estado: string }) => list.estado === 'DERIVADO'
+).length;
+this.totalEnviados = this.totales.filter(
+  (list: { estado: string }) => list.estado === 'ENVIADO'
+).length;
+this.totalMaletin = this.totales.filter(
+  (list: { estado: string }) => list.estado === 'MALETIN'
+).length;
+this.totalOfi = this.totales.filter(
+  (list: { estado: string }) => list.estado === 'FILE OFICINA'
+).length; */
       },
       (error) => {
         console.log(error);
@@ -284,7 +309,7 @@ export class OfficeIndexComponent implements OnInit {
 
 
   cambiarEstado(id: any) {
-    let hoy:any = new Date();
+    let hoy: any = new Date();
     const SEGUI: Segui = {
       fecharecepcion: hoy,
       estado: this.status,
@@ -412,10 +437,10 @@ export class OfficeIndexComponent implements OnInit {
       confirmButtonText: 'Sì, Reactivar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.api.getSegui(id).subscribe((data)=>{
-          if(data.estado=="FILE OFICINA"){
-            data.archivofi.forEach((element:any) => {
-              this.api.eliminarArc(element._id).subscribe((data)=>{
+        this.api.getSegui(id).subscribe((data) => {
+          if (data.estado == "FILE OFICINA") {
+            data.archivofi.forEach((element: any) => {
+              this.api.eliminarArc(element._id).subscribe((data) => {
               })
             });
           }
@@ -469,13 +494,13 @@ export class OfficeIndexComponent implements OnInit {
                 }).then((result) => {
                   if (result.isConfirmed) {
                     this.api.eliminarSegui(this.res._id).subscribe(
-                      (data) => {},
+                      (data) => { },
                       (error) => {
                         console.log(error);
                       }
                     );
                     this.api.EditarSeguis(id, SEGUID).subscribe(
-                      (data) => {},
+                      (data) => { },
                       (error) => {
                         console.log(error);
                       }
@@ -517,14 +542,14 @@ export class OfficeIndexComponent implements OnInit {
       (data) => {
         this.seguireply = data;
         this.nuitreply = this.seguireply.idhj._id;
-        console.log("data",data)
+        console.log("data", data)
         /* this.api.obtenerHoja(this.nuitreply).subscribe((data:any)=>{
           console.log("hoja ruta",data)
         }) */
         this.api.obtenerHoja(this.nuitreply).subscribe(
-          (data:any) => {
+          (data: any) => {
             this.nuitre = data.serverResponse.seguimiento;
-            console.log("verdaddero",this.nuitre)
+            console.log("verdaddero", this.nuitre)
             if (this.nuitre.length > 1) {
               for (let i = 0; i < this.nuitre.length; i++) {
                 if (i === this.nuitre.length - 2) {
@@ -622,7 +647,7 @@ export class OfficeIndexComponent implements OnInit {
     );
   }
 
-  asociar(hoja:any){
+  asociar(hoja: any) {
 
     // console.log(this.data.post);
     this.asociarForm.patchValue({
@@ -633,7 +658,7 @@ export class OfficeIndexComponent implements OnInit {
     // console.log(this.hojaAsociar);
 
   }
-  asociar2(){
+  asociar2() {
 
     this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(
       (data) => {
@@ -652,7 +677,7 @@ export class OfficeIndexComponent implements OnInit {
     );
   }
 
-  verAsociados(hr:any){
+  verAsociados(hr: any) {
     // console.log('prin1', hr.idhj);
     this.last = hr.idhj.seguimiento[hr.idhj.seguimiento.length - 1];
     console.log(this.last);
@@ -674,7 +699,7 @@ export class OfficeIndexComponent implements OnInit {
     );
   }
 
-  consultaAsociar(hoja:any){
+  consultaAsociar(hoja: any) {
     Swal.fire({
       title: 'ASOCIAR',
       text: `Estas seguro de asociar: ${this.asociarForm.value.nuit}  a la hoja de ruta: ${hoja}`,
@@ -689,7 +714,7 @@ export class OfficeIndexComponent implements OnInit {
         // console.log('si');
         this.asociar2();
       }
-      if(result.isDismissed){
+      if (result.isDismissed) {
         // console.log('no');
         this.asociarForm.reset();
       }
