@@ -119,6 +119,31 @@ export class OfficeIndexComponent implements OnInit {
   }
 
 
+  checkIfDayChanged(dateString: string): boolean {
+    // Convertir la cadena de fecha proporcionada a un objeto Date
+    const providedDate = new Date(dateString);
+      console.log('providedDate',providedDate);
+      
+
+    // Obtener la fecha actual
+    const currentDate = new Date();
+
+    console.log('currentDate',currentDate);
+    
+  
+    // Comparar los días, meses y años de ambas fechas
+    const providedDay = providedDate.getUTCDate();
+    const providedMonth = providedDate.getUTCMonth();
+    const providedYear = providedDate.getUTCFullYear();
+  
+    const currentDay = currentDate.getUTCDate();
+    const currentMonth = currentDate.getUTCMonth();
+    const currentYear = currentDate.getUTCFullYear();
+  
+    // Si alguna de las partes de la fecha es diferente, el día ha cambiado
+    return providedDay !== currentDay || providedMonth !== currentMonth || providedYear !== currentYear;
+  }
+
   getpendientes() {
     let estado3 = 'ENVIADO';
     this.api.getPendientes(this.destino, estado3, this.dategt, this.datelt,).subscribe((data) => {
@@ -127,11 +152,12 @@ export class OfficeIndexComponent implements OnInit {
       if (data.totalDocs > 0) {
         for (let i = 0; i < data.totalDocs; i++) {
           this.ale = this.totales[i];
-          this.hoursDifference = this.calculateHourDifference(this.ale.fechaderivado, this.hoy);
-          // console.log(`Diferencia en horas: ${this.hoursDifference}`);
+          const hasDayChanged = this.checkIfDayChanged(this.ale.fechaderivado);
 
-          if (this.hoursDifference > 12) {
+          if (hasDayChanged) {
             this.alerta = true;
+          }else{
+            this.alerta = false;
           }
 
         }

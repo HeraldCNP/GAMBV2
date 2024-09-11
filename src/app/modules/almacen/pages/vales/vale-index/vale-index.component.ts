@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ValeService } from '../../../services/vale.service';
 import { Router } from '@angular/router';
@@ -29,6 +29,7 @@ export class ValeIndexComponent {
   idAutorizacion: any;
   URL = environment.api;
   vale: any;
+  vale2 = signal<any>(null);
   date = new Date();
 
 
@@ -74,8 +75,14 @@ export class ValeIndexComponent {
   }
 
   print(element: any) {
-    this.vale = element;
     console.log(this.vale);
+    this.vale = element;
+  }
+
+  print2(element: any) {
+    console.log('antes',this.vale2());
+    this.vale2.set(element);
+    console.log(this.vale2());
   }
 
   /**
