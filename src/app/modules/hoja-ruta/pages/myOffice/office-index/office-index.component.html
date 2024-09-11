@@ -96,7 +96,7 @@
           <button type="button" class="btn-close btnale" data-bs-dismiss="alert" aria-label="Close"
             *ngIf="!alerta"></button>
           <div *ngFor="let seguimiento of totales" class="alerta">
-            <div >
+            <div *ngIf="calcHour(seguimiento.fechaderivado) > 12">
               <div *ngIf="seguimiento.fecharecepcion == 'SIN RECEPCIONAR'"
                 class="alert alertita alert-danger alert-dismissible fade show mb-0" role="alert">
                 <strong class="d-flex fs-6"><span>Reciba el documento

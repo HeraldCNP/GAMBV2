@@ -35,6 +35,7 @@ export class OfficeIndexComponent implements OnInit {
   totalPages = 0;
   nuit: string = '';
   order: string = '';
+  hoursDifference: number = 0;
   /*end variables de consulta*/
 
   /* contadores */
@@ -105,6 +106,9 @@ export class OfficeIndexComponent implements OnInit {
     const date1 = new Date(dateString1);
     const date2 = new Date(dateString2);
 
+    // console.log('fecha derivado', date1);
+    // console.log('hoy', date2);
+
     // Calcular la diferencia en milisegundos
     const diffInMilliseconds = Math.abs(date1.getTime() - date2.getTime());
 
@@ -123,11 +127,10 @@ export class OfficeIndexComponent implements OnInit {
       if (data.totalDocs > 0) {
         for (let i = 0; i < data.totalDocs; i++) {
           this.ale = this.totales[i];
+          this.hoursDifference = this.calculateHourDifference(this.ale.fechaderivado, this.hoy);
+          // console.log(`Diferencia en horas: ${this.hoursDifference}`);
 
-          const hoursDifference = this.calculateHourDifference(this.ale.fechaderivado, this.hoy);
-          console.log(`Diferencia en horas: ${hoursDifference}`);
-
-          if (hoursDifference > 12) {
+          if (this.hoursDifference > 12) {
             this.alerta = true;
           }
 
@@ -138,7 +141,13 @@ export class OfficeIndexComponent implements OnInit {
     });
   }
 
-  // Suponiendo que 'this.hoy' y 'this.ale.fechaderivado' son objetos Date
+  calcHour(fecha:any){
+    const horas = this.calculateHourDifference(fecha, this.hoy)
+    console.log('Horas:', horas);
+    return horas
+  } 
+
+
 
 
   pendintes() {
