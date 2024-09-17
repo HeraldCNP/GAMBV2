@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxPrintModule } from 'ngx-print';
 import { AutorizacionUpdateComponent } from './pages/autorizaciones/autorizacion-update/autorizacion-update.component';
+import { LoaderDirective } from 'src/app/core/directives/loader.directive';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AutorizacionUpdateComponent } from './pages/autorizaciones/autorizacion
     NgxSelectModule,
     FormsModule,
     NgxPrintModule,
+    LoaderDirective
   ]
 })
 export class ActFijosModule { }

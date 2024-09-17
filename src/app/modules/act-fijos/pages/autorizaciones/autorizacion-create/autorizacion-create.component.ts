@@ -22,6 +22,7 @@ export class AutorizacionCreateComponent {
   conductores: any;
   cant: boolean = false;
   fechaHoy = new Date().toISOString();
+  funcionario: any;
   // areas = {
   //   "list": [
   //     {
@@ -156,10 +157,12 @@ export class AutorizacionCreateComponent {
   }
 
   public doSelect = (value: any) => {
-    // console.log('SingleDemoComponent.doSelect', value);
-    // let search = this.areas.find((x: { nombre: any; }) => x.nombre == value);
-    // this.tipos = search.tipos;
-    // console.log(this.tipos);
+  
+    console.log('SingleDemoComponent.doSelect', value);
+    let unidad = this.unidades.find((x: { _id: any; }) => x._id == value);
+    this.funcionario = unidad;
+    console.log(this.funcionario);
+    
 
     // this.user = this.users.find((item: { post: string; }) => item.post === value);
     // console.log(this.user)

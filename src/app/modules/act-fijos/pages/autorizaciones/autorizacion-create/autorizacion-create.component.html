@@ -35,15 +35,21 @@
                     </ngx-select>
 
                     <div class="form-text" *ngIf="form['unidadSolicitante'].touched && form['unidadSolicitante'].invalid">
-                      <div *ngIf="
-                          form['unidadSolicitante'].errors &&
-
-                          form['unidadSolicitante'].errors['required']
-                        ">
+                      <div *ngIf="form['unidadSolicitante'].errors && form['unidadSolicitante'].errors['required']">
                         * Debe seleccionar una unidad Solicitante.
                       </div>
                     </div>
                   </div>
+
+                  
+                  @if (funcionario) {
+                    @if (funcionario && funcionario.user) {
+                      <p class="form-text"><b>Funcionario:</b> {{ funcionario.user.username }} {{ funcionario.user.surnames }}</p>
+                    } @else {
+                      <p class="form-text">No existe un funcionario asignado</p>
+                    }
+                  }
+
 
                   <div class="input-group mb-1">
                     <span class="input-group-text izq" id="plazo"><b>Vehiculo</b></span>
@@ -223,7 +229,7 @@
                     <button (click)="cancel()" type="reset" class="btn btn-danger">
                       Cancelar
                     </button>
-                    <button [disabled]="autorizacionForm.invalid" type="submit" class="btn btn-primary">
+                    <button [disabled]="autorizacionForm.invalid" type="submit" appLoader class="btn btn-primary">
                       Registrar
                     </button>
                   </div>
