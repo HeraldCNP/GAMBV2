@@ -15,6 +15,7 @@ import { ChargesComponent } from './pages/charges/charges.component';
 import { UsersIndexComponent } from './pages/users/users-index/users-index.component';
 import { UserEditComponent } from './pages/users/user-edit/user-edit.component';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { LoaderDirective } from 'src/app/core/directives/loader.directive';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     AuthRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxSelectModule
+    NgxSelectModule,
+    LoaderDirective
   ]
 })
 export class AuthModule { }

@@ -44,7 +44,7 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportService.getAllUsers().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.users = data;
     });
 

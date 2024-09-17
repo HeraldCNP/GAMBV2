@@ -23,6 +23,7 @@ import { ReportComponent } from './pages/report/report.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { ReporteComponent } from './pages/report/reporte/reporte.component';
 import { NgxPrintModule } from 'ngx-print';
+import { LoaderDirective } from 'src/app/core/directives/loader.directive';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { NgxPrintModule } from 'ngx-print';
     ReactiveFormsModule,
     NgxSelectModule,
     NgxPrintModule,
+    LoaderDirective
   ]
 })
 export class HojaRutaModule { }

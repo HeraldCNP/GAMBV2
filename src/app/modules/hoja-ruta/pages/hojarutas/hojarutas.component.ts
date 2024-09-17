@@ -154,7 +154,7 @@ export class HojarutasComponent implements OnInit {
     }
 
 
-    console.log(this.pago);
+    // console.log(this.pago);
 
 
     if(this.pago === true){
