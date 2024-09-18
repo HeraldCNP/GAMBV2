@@ -80,7 +80,7 @@ export class ValeIndexComponent {
   }
 
   print2(element: any) {
-    console.log('antes',this.vale2());
+    console.log('antes', this.vale2());
     this.vale2.set(element);
     console.log(this.vale2());
   }
@@ -94,27 +94,31 @@ export class ValeIndexComponent {
     this.router.navigate(['/actFijos/autorizacion/update', id]);
   }
 
-  // borrarAutorizacion(id: string) {
-  //   Swal.fire({
-  //     title: 'Estas seguro?',
-  //     text: '¡No podrás revertir esto!',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     cancelButtonText: 'Cancelar',
-  //     confirmButtonText: '¡Sí, bórralo!',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire('¡Eliminado!', 'El Ingreso ha sido eliminado.', 'success');
-  //       this.valeService.deleteAutorizacion(id).subscribe(
-  //         (res) => console.log(res),
-  //         (err) => console.log('HTTP Error', err),
-  //         () => this.cargarAutorizaciones()
-  //       );
-  //     }
-  //   });
-  // }
+  deleteVale(id: string) {
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, bórralo!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.valeService.deleteVale(id).subscribe(
+          (res) => {
+            Swal.fire('¡Eliminado!', 'El Ingreso ha sido eliminado.', 'success');
+          },
+          (err) => Swal.fire('¡Error!', err.error.serverResponse, 'error').then(() => console.log('HTTP Error', err)),
+
+          () => this.cargarAutorizaciones()
+
+        );
+      }
+    });
+  }
 
   generarVale(id: string) {
     this.router.navigate(['/almacen/vale/create', id]);
@@ -122,14 +126,38 @@ export class ValeIndexComponent {
 
   cambiarEstado(vale: any) {
     console.log(vale);
-    const form: any = {
-      estado: 'PENDIENTE',
-    }
-    
+
+
     if (vale.estado === "REGISTRADO") {
+      const form: any = {
+        estado: 'PENDIENTE',
+      }
       Swal.fire({
         title: '¿Estás seguro?',
         text: "¿Esta seguro que recibió la factura?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.valeService.cambiarEstado(vale._id, form).subscribe(data => {
+            this.cargarAutorizaciones()
+          }, error => {
+            console.log(error);
+          })
+        }
+      })
+    }
+
+    if (vale.estado === "PENDIENTE") {
+      const form: any = {
+        estado: 'REGISTRADO',
+      }
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Esta seguro de cambiar a estado REGISTRADO?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

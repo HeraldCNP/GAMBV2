@@ -49,7 +49,7 @@ export class LoaderDirective implements OnDestroy {
     // Delay disabling the button to allow form validations
     this.timeoutId = setTimeout(() => {
       this.getElBtn().disabled = true;
-    }, 100); // Adjust the delay as needed
+    }, 500); // Adjust the delay as needed
   }
 
   private enableButton(){
