@@ -13,7 +13,7 @@
               <div class="col-md d-flex justify-content-end">
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
-                  Nuevo proveedor
+                  Nuevo Vehiculo
                 </button>
               </div>
             </div>
@@ -44,6 +44,7 @@
                   <th>Placa</th>
                   <th>Tipo</th>
                   <th>Chofer</th>
+                  <th>Destino</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -58,10 +59,11 @@
                       {{ vehiculo.idChofer.username }} {{ vehiculo.idChofer.surnames }}
                     </ng-container>
                   </td>
+                  <td>{{ vehiculo.destino }}</td>
                   <td>
                     <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(vehiculo)"></i>
-                    <i class="fas fa-trash-alt ml-3 icono" (click)="borrarVehiculo(vehiculo._id)"></i>
+                    <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarVehiculo(vehiculo._id)"></i> -->
                   </td>
                 </tr>
               </tbody>
@@ -84,67 +86,69 @@
   </div>
 </div>
 
-<!-- Modal -->
-<!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Create Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">
-          Registrar vehiculo
+          Registrar nuevo vehiculo
+
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="crearProveedor(proveedorForm.value)" [formGroup]="proveedorForm">
+        <form (ngSubmit)="crearVehiculo(vehiculoForm.value)" [formGroup]="vehiculoForm">
           <div class="mb-1">
-            <label for="representante" class="form-label col-md-auto">Representante *</label>
-            <input id="representante" class="form-control" type="text" formControlName="representante" />
+            <label for="marca" class="form-label col-md-auto">Marca *</label>
+            <input id="marca" class="form-control" type="text" formControlName="marca" />
           </div>
 
           <div class="mb-1">
-            <label for="razon_social" class="form-label col-md-auto">Razon Social *</label>
-            <input id="razon_social" class="form-control" type="text" formControlName="razon_social" />
+            <label for="color" class="form-label col-md-auto">Color *</label>
+            <input id="color" class="form-control" type="text" formControlName="color" />
           </div>
 
           <div class="mb-1">
-            <label for="nit" class="form-label col-md-auto">Nit *</label>
-            <input id="nit" class="form-control" type="number" formControlName="nit" />
+            <label for="placa" class="form-label col-md-auto">placa *</label>
+            <input id="placa" class="form-control" type="text" formControlName="placa" />
           </div>
 
           <div class="mb-1">
-            <label for="telefono" class="form-label col-md-auto">Telefono *</label>
-            <input id="telefono" class="form-control" type="number" formControlName="telefono" />
+            <label for="tipo" class="form-label col-md-auto">Tipo *</label>
+            <input id="tipo" class="form-control" type="text" formControlName="tipo" />
           </div>
 
           <div class="mb-1">
-            <label for="direccion" class="form-label col-md-auto">Direccion</label>
-            <input id="direccion" class="form-control" type="text" formControlName="direccion" />
+            <label for="destino" class="form-label col-md-auto">Destino *</label>
+            <input id="destino" class="form-control" type="text" formControlName="destino" />
           </div>
 
           <div class="mb-1">
-            <label for="ciudad" class="form-label col-md-auto">Ciudad</label>
-            <input id="ciudad" class="form-control" type="text" formControlName="ciudad" />
+            <label for="propietario" class="form-label col-md-auto">Propietario *</label>
+            <input id="propietario" class="form-control" type="text" formControlName="propietario" />
           </div>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cerrar
             </button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="proveedorForm.invalid">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="vehiculoForm.invalid"
+              appLoader>
               Registrar
             </button>
           </div>
-          {{ proveedorForm.value | json }}
+          <!-- {{ vehiculoForm.value | json }} -->
         </form>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <!-- End Modal -->
 
 <!-- Modal Edit -->
-<!-- <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="modalEditLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -153,36 +157,36 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="editProveedor(editForm.value)" [formGroup]="editForm">
+        <form (ngSubmit)="editVehiculo(editForm.value)" [formGroup]="editForm">
 
           <div class="mb-1">
-            <label for="representante" class="form-label">Representante:</label>
-            <input type="text" class="form-control" id="representante" formControlName="representante" />
+            <label for="marca" class="form-label col-md-auto">Marca *</label>
+            <input id="marca" class="form-control" type="text" formControlName="marca" />
           </div>
 
           <div class="mb-1">
-            <label for="razon_social" class="form-label">Razon Social:</label>
-            <input type="text" class="form-control" id="razon_social" formControlName="razon_social" />
+            <label for="color" class="form-label col-md-auto">Color *</label>
+            <input id="color" class="form-control" type="text" formControlName="color" />
           </div>
 
           <div class="mb-1">
-            <label for="nit" class="form-label">Nit:</label>
-            <input type="number" class="form-control" id="nit" formControlName="nit" />
+            <label for="placa" class="form-label col-md-auto">placa *</label>
+            <input id="placa" class="form-control" type="text" formControlName="placa" />
           </div>
 
           <div class="mb-1">
-            <label for="telefono" class="form-label">Telefono:</label>
-            <input type="number" class="form-control" id="telefono" formControlName="telefono" />
+            <label for="tipo" class="form-label col-md-auto">Tipo *</label>
+            <input id="tipo" class="form-control" type="text" formControlName="tipo" />
           </div>
 
           <div class="mb-1">
-            <label for="direccion" class="form-label">Dirección:</label>
-            <input type="text" class="form-control" id="direccion" formControlName="direccion" />
+            <label for="destino" class="form-label col-md-auto">Destino *</label>
+            <input id="destino" class="form-control" type="text" formControlName="destino" />
           </div>
 
           <div class="mb-1">
-            <label for="ciudad" class="form-label">Ciudad:</label>
-            <input type="text" class="form-control" id="ciudad" formControlName="ciudad" />
+            <label for="propietario" class="form-label col-md-auto">Propietario *</label>
+            <input id="propietario" class="form-control" type="text" formControlName="propietario" />
           </div>
 
           <div class="modal-footer">
@@ -197,4 +201,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

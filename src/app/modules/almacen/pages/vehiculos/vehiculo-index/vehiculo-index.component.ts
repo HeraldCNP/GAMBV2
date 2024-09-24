@@ -15,7 +15,7 @@ export class VehiculoIndexComponent implements OnInit {
   vehiculosTemp: any = [];
   skip: number = 1;
   page: number = 1;
-  limit: number = 10;
+  limit: number = 0;
   totalPages: any;
   showModal: boolean = true;
   vehiculoForm: any;
@@ -24,22 +24,33 @@ export class VehiculoIndexComponent implements OnInit {
   idVehiculo: any;
   constructor(private almacenService: AlmacenService, private fb: FormBuilder) {
     this.vehiculoForm = this.fb.group({
-      representante: ['', [Validators.required]],
-      razon_social: ['', [Validators.required]],
-      nit: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      direccion: [''],
-      ciudad: [''],
-      usuario: [''],
+      marca: ['', [Validators.required]],
+      color: ['', [Validators.required]],
+      placa: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      destino: ['', [Validators.required]],
+      propietario: ['', [Validators.required]],
+      numMotor: [''],
+      numChasis: [''],
+      estado: [''],
+      observacion: [''],
+      codigoDejurbe: [''],
+      codigoVsiaf: [''],
     });
 
     this.editForm = this.fb.group({
-      representante: ['', [Validators.required]],
-      razon_social: ['', [Validators.required]],
-      nit: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      direccion: [''],
-      ciudad: [''],
+      marca: ['', [Validators.required]],
+      color: ['', [Validators.required]],
+      placa: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      destino: ['', [Validators.required]],
+      propietario: ['', [Validators.required]],
+      numMotor: [''],
+      numChasis: [''],
+      estado: [''],
+      observacion: [''],
+      codigoDejurbe: [''],
+      codigoVsiaf: [''],
     });
   }
 
@@ -87,12 +98,18 @@ export class VehiculoIndexComponent implements OnInit {
   cargarDataEdit(vehiculo: any) {
     // console.log("idProve", vehiculo.representante)
     this.editForm.setValue({
-      representante: vehiculo.representante,
-      razon_social: vehiculo.razon_social,
-      nit: vehiculo.nit,
-      telefono: vehiculo.telefono,
-      direccion: vehiculo.direccion,
-      ciudad: vehiculo.ciudad,
+      marca: vehiculo.marca,
+      color: vehiculo.color || null,
+      placa: vehiculo.placa,
+      tipo: vehiculo.tipo,
+      destino: vehiculo.destino,
+      propietario: vehiculo.propietario || null,
+      estado: vehiculo.estado,
+      numMotor: null,
+      numChasis: null,
+      observacion: null,
+      codigoDejurbe: null,
+      codigoVsiaf: null,
     });
     this.idVehiculo = vehiculo._id;
   }
@@ -119,4 +136,49 @@ export class VehiculoIndexComponent implements OnInit {
     });
   }
 
+
+  resetForm() {
+    this.vehiculoForm.reset();
+  }
+
+  crearVehiculo(form: any) {
+    this.almacenService.createVehiculo(form).subscribe(
+      (res) => {
+        this.alertOk(
+          'success',
+          'Exito',
+          'Vehiculo creado correctamente',
+          '2000'
+        );
+        console.log(res);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => this.cargarVehiculos()
+    );
+  }
+
+  alertOk(icon: any, title: any, text: any, timer: any) {
+    Swal.fire({
+      icon,
+      title,
+      text,
+      timer,
+    });
+  }
+
+  editVehiculo(form: any) {
+    this.almacenService.editVehiculo(form, this.idVehiculo).subscribe(
+      (res) => {
+        this.alertOk(
+          'success',
+          'Exito',
+          'Vehiculo editado correctamente',
+          '2000'
+        );
+        console.log(res);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => this.cargarVehiculos()
+    );
+  }
 }

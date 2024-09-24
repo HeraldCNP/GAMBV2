@@ -1,16 +1,29 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Articulo } from '../interfaces/articulo';
 import { catProgra } from '../interfaces/catProgra.interface';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlmacenService {
   private readonly URL = environment.api;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  get token(): any {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.authService.logout();
+    }
+    return token;
+  }
+  get headers() {
+    const headers = new HttpHeaders().set('Authorization', `${this.token}`);
+    return headers;
+  }
 
   /*Servicios para Categorias*/
   getAllCategorias(limit?: number, skip?: number): Observable<any[]> {
@@ -261,6 +274,17 @@ export class AlmacenService {
     let dir = `${this.URL}/vehiculos?limit=${limit}&skip=${skip}`;
     console.log(dir);
     return this.http.get<any>(dir);
+  }
+
+  createVehiculo(form:any){
+    let dir = `${this.URL}/vehiculo`;
+    const header = this.headers;
+    return this.http.post(dir, form)
+  }
+
+  editVehiculo(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/vehiculo/${id}`;
+    return this.http.put<any>(dir, form)
   }
 
   /*Vehiculos END*/

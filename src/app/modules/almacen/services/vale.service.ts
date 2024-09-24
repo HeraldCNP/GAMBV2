@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { catProgra } from '../interfaces/catProgra.interface';
@@ -38,10 +38,18 @@ export class ValeService {
     return this.http.post(dir, form, { headers: header})
   }
 
-  getAllVales(limit?: number, skip?: number){
-    let dir = `${this.URL}/vales?limit=${limit}&skip=${skip}`;
-        const header = this.headers;
-    return this.http.get<any>(dir, { headers: header});
+  getAllVales(params?:any){
+    let dir = `${this.URL}/vales`;
+    const header = this.headers;
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach(key => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    return this.http.get<any>(dir, { params: httpParams, headers: header});
   }
 
   getAllAutorizaciones(){
@@ -60,6 +68,12 @@ export class ValeService {
     let dir = `${this.URL}/vale/${id}`; 
     const header = this.headers;
     return this.http.delete<any>(dir, { headers: header});
+  }
+
+  finalizarVales(form:any){
+    let dir = `${this.URL}/finalizarVales`;
+    const header = this.headers;
+    return this.http.post(dir, form, { headers: header})
   }
 
 }

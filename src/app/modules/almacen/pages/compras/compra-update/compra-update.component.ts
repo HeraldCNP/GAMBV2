@@ -57,7 +57,7 @@ export class CompraUpdateComponent implements OnInit {
 
     this.comprasService.getSingleCompra(this.compraId).subscribe(data => {
       this.dataCompra = data;
-      console.log(data);
+      console.log(this.dataCompra);
       // console.log(this.dataCompra);
       // this.listadeArticulos = this.dataCompra.productos;
 
@@ -70,7 +70,7 @@ export class CompraUpdateComponent implements OnInit {
         fechaContrato: this.dataCompra.fechaContrato.substr(0, 10),
         idProveedor: this.dataCompra.idProveedor._id,
         idPersona: this.dataCompra.idPersona._id,
-        plazo: this.dataCompra.plazo,
+        plazo: null,
         concepto: this.dataCompra.concepto,
         articulos: null,
         idUsuario: null,

@@ -6,7 +6,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i style="font-size: 1.3rem;" class="fas fa-exchange-alt"></i></a>
         </li>
 
-        <ng-container *ngIf="(data.post === 'ALMACENES')">
+        <ng-container *ngIf="(data.post === 'ALMACENES' || data.roles === 'SUPER_ADMIN')">
           <li class="nav-item d-none d-sm-inline-block">
             <a routerLink="/almacen/proveedor/index" [routerLinkActive]="['active']" class="nav-link">Proveedores</a>
           </li>

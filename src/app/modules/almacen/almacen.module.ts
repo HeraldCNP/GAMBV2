@@ -37,6 +37,7 @@ import { ValeCreateComponent } from './pages/vales/vale-create/vale-create.compo
 import { ValeUpdateComponent } from './pages/vales/vale-update/vale-update.component';
 import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
 import { ValeLubriComponent } from './pages/vales/vale-lubri/vale-lubri.component';
+import { LoaderDirective } from 'src/app/core/directives/loader.directive';
 
 
 
@@ -83,6 +84,7 @@ import { ValeLubriComponent } from './pages/vales/vale-lubri/vale-lubri.componen
     NgxSelectModule,
     FormsModule,
     NgxPrintModule,
+    LoaderDirective
   ]
 })
 export class AlmacenModule { }
