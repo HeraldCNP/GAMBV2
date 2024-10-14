@@ -1,0 +1,144 @@
+<form class="create-form" [formGroup]="dependenciaForm">
+  <h2 mat-dialog-title>{{ inputData.title }}</h2>
+  <mat-dialog-content class="mat-typography">
+
+    <mat-card class="">
+      <mat-card-content>
+        <!-- <mat-form-field class="full-width">
+            <mat-label>Correo Electronico</mat-label>
+            <input type="email" matInput placeholder="Correo Electronico" formControlName="email">
+          </mat-form-field> -->
+
+        <mat-form-field class="full-width">
+          <mat-label>Descripción</mat-label>
+          <input matInput placeholder="Ej. Stria Mcpal Administrativa Financiera" formControlName="descripcion"
+            type="text">
+          <mat-icon matSuffix>mail</mat-icon>
+          <mat-error *ngIf="form['descripcion'].hasError('required') && form['descripcion'].touched">
+            El Nombre Completo es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="form['descripcion'].hasError('descripcion') && form['descripcion'].touched">
+            El Nombre Completo de ser valido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Sigla</mat-label>
+          <input type="text" matInput placeholder="Ej. SMAF" formControlName="sigla">
+          <mat-icon matSuffix>badge</mat-icon>
+
+          <mat-error *ngIf="form['sigla'].hasError('required') && form['sigla'].touched">
+            El Carnet de Itendidad es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="form['sigla'].hasError('minlength') && form['sigla'].touched">
+            El Carnet de Itendidad debe tener minimo 7 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        @if (inputData.id != 0) {
+          <mat-slide-toggle formControlName="isActive">
+            Habilitar/Deshabilitar
+          </mat-slide-toggle>
+        }
+
+
+        <!-- <mat-form-field class="inline right">
+            <mat-label>Expedido</mat-label>
+            <mat-select formControlName="expedido">
+              <mat-option *ngFor="let departamento of departamentos" [value]="departamento.value">
+                {{departamento.label}}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>badge</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="inline">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput [matDatepicker]="fechaNacimiento" formControlName="fechaNacimiento">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="fechaNacimiento"></mat-datepicker-toggle>
+            <mat-datepicker #fechaNacimiento></mat-datepicker>
+          </mat-form-field>
+  
+  
+          <mat-form-field class="inline right">
+            <mat-label>Género</mat-label>
+            <mat-select formControlName="sexo">
+              <mat-option *ngFor="let sexo of sexos" [value]="sexo.value">
+                {{sexo.label}}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>wc</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="inline">
+            <mat-label>Fecha de Vencimiento</mat-label>
+            <input matInput [matDatepicker]="carnetFechaVencimiento" formControlName="carnetFechaVencimiento">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="carnetFechaVencimiento"></mat-datepicker-toggle>
+            <mat-datepicker #carnetFechaVencimiento></mat-datepicker>
+          </mat-form-field>
+  
+          <mat-form-field class="inline right">
+            <mat-label>Tipo de Discapacidad</mat-label>
+            <mat-select formControlName="tipoDiscapacidad">
+              <mat-option *ngFor="let discapacidad of tipos()" [value]="discapacidad.tipo">
+                {{discapacidad.tipo}}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>accessible_forward</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="inline">
+            <mat-label>% de Discapacidad</mat-label>
+            <input type="number" matInput placeholder="" formControlName="porcentajeDiscapacidad">
+            <mat-icon matSuffix>percent</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="inline right">
+            <mat-label>Direccion</mat-label>
+            <input type="text" matInput placeholder="" formControlName="direccion">
+            <mat-icon matSuffix>home</mat-icon>
+          </mat-form-field>
+  
+  
+  
+          <mat-form-field class="inline">
+            <mat-label>Celular</mat-label>
+            <span matPrefix>+591 &nbsp;</span>
+            <input type="number" matInput placeholder="72584525" formControlName="celular">
+            <mat-icon matSuffix>call</mat-icon>
+          </mat-form-field>
+  
+          <mat-form-field class="inline right">
+            <mat-label>Observación</mat-label>
+            <textarea matInput formControlName="observacion"></textarea>
+          </mat-form-field> -->
+
+
+
+        <!-- <mat-form-field class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput placeholder="Contraseña" formControlName="password">
+            <mat-icon matSuffix>password</mat-icon>
+            <mat-error *ngIf="form['password'].hasError('required') && form['password'].touched">
+              La Contraseña es obligatoria.
+            </mat-error>
+            <mat-error *ngIf="form['password'].hasError('minlength') && form['password'].touched">
+              La Contraseña debe tener minimo 6 caracteres.
+            </mat-error>
+          </mat-form-field> -->
+
+      </mat-card-content>
+    </mat-card>
+
+  </mat-dialog-content>
+  {{dependenciaForm.value | json}}
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button (click)="(createDependencia())" *ngIf="inputData.id == 0" mat-raised-button color="primary"
+      [disabled]="dependenciaForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+    <button (click)="editDependencia(inputData.id)" *ngIf="inputData.id != 0" mat-raised-button color="primary"
+      [disabled]="dependenciaForm.invalid"><mat-icon>save</mat-icon>Guardar</button>
+  </mat-dialog-actions>
+</form>

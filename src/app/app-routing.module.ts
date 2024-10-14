@@ -7,6 +7,7 @@ import { PostComponent } from './modules/home/pages/post/post.component';
 import { LoginComponent } from './login/login.component';
 import { HojaRutaModule } from './modules/hoja-ruta/hoja-ruta.module';
 import { ActFijosModule } from './modules/act-fijos/act-fijos.module';
+import { CorrespondenciaModule } from './modules/correspondencia/correspondencia.module';
 
 const routes: Routes = [
   {
@@ -76,6 +77,11 @@ const routes: Routes = [
   {
     path: 'actFijos',
     loadChildren: () => import('./modules/act-fijos/act-fijos.module').then(m => m.ActFijosModule),
+    canActivate: [SessionGuard]
+  },
+  {
+    path: 'correspondencia',
+    loadChildren: () => import('./modules/correspondencia/correspondencia.module').then(m => m.CorrespondenciaModule),
     canActivate: [SessionGuard]
   },
   {

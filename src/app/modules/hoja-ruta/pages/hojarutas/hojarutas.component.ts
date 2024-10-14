@@ -249,7 +249,7 @@ export class HojarutasComponent implements OnInit {
       data => {
         this.cant=data.nuitok
         this.hojaRutas = data.serverResponse;
-        // console.log(this.hojaRutas);
+        console.log(this.hojaRutas);
 
         this.totalPages = data.totalpage;
         this.search=" ";
