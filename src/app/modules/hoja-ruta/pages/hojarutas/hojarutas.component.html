@@ -98,7 +98,7 @@
                   <td>{{ hoja.numCite }}</td>
                   <td>{{ hoja.fecharesepcion | date : "shortDate" : "UTC-4" }}</td>
                   <td>{{ hoja.fecharesepcion | date : "mediumTime" : "UTC-4" }}</td>
-                  <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC-4" }}</td>
+                  <td>{{ hoja.fechadocumento | date : "shortDate" : "UTC" }}</td>
                   <td>{{ hoja.origen }}</td>
 
                   <td>{{ hoja.referencia }}</td>
@@ -262,7 +262,7 @@
                     }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC-4" }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}
@@ -443,7 +443,7 @@
                     }}
                   </p>
                   <p class="card-text fw-normal">
-                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC-4" }}
+                    <span>Fecha de documento: </span>{{ hojaRuta.fechadocumento | date : "shortDate" : "UTC" }}
                   </p>
                   <p class="card-text fw-normal">
                     <span>Telefono: </span>{{ hojaRuta.contacto }}

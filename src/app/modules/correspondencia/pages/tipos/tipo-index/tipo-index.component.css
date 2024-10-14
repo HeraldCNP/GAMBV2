@@ -1,0 +1,11 @@
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Ajusta esta altura según tus necesidades   
+   */
+  }
+
+.btnicon {
+    cursor: pointer;
+}
