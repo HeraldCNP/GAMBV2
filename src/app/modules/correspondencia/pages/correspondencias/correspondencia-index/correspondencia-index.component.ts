@@ -29,7 +29,7 @@ export class CorrespondenciaIndexComponent {
   private _snackBar = inject(MatSnackBar)
 
 
-  displayedColumn: string[] = ['descripcion', 'sigla', 'acciones'];
+  displayedColumn: string[] = ['tipo', 'subTipo', 'cite', 'referencia', 'hojaRuta',  'acciones'];
   dataSource!: MatTableDataSource<any>
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

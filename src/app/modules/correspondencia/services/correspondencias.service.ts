@@ -30,7 +30,7 @@ export class CorrespondenciasService {
 
 
   getCorrespondencias(): Observable<any[]> {
-    let url = `${this.URL}/dependencias`;
+    let url = `${this.URL}/correspondencias`;
     const header = this.headers;
     console.log(url);
     return this.http.get<any[]>(url, {headers: header});

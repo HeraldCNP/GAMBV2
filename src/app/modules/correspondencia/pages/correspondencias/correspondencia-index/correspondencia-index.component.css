@@ -2,6 +2,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh; /* Ajusta esta altura según tus necesidades   
+    height: 50vh;
+    /* Ajusta esta altura según tus necesidades   
    */
-  }
+}
+
+.example-container {
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+}
+
+.danger {
+    color: red;
+}
+
+.warning {
+    color: orange;
+}
+
+.info {
+    color: blue;
+}
+
+.success {
+    color: green;
+}
