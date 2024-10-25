@@ -41,7 +41,6 @@ export class TipoIndexComponent {
   }
 
   cargarTipos() {
-    this.isLoading.set(true);
     this.error.set(null);
     this.tipoService.getTipos()
       .subscribe({

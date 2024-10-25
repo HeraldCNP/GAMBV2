@@ -42,8 +42,8 @@ export class DependenciaIndexComponent {
     this.cargarDependencias();
   }
 
+
   cargarDependencias() {
-    this.isLoading.set(true);
     this.error.set(null);
     this.dependenciaService.getDependencias()
       .subscribe({
