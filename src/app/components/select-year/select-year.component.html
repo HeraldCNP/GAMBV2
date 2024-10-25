@@ -1,0 +1,9 @@
+<mat-form-field [class]="clases">
+    <mat-label>{{ texto }}</mat-label>
+    <mat-select [formControl]="control">
+        @for (year of years; track $index) {
+            <mat-option [value]="year">{{ year }}</mat-option>
+        }
+    </mat-select>
+    <mat-icon matSuffix>calendar_month</mat-icon>
+</mat-form-field>

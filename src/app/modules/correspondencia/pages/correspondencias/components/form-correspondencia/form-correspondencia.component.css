@@ -1,0 +1,18 @@
+.create-form {
+    min-width: 150px;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .inline {
+    width: 50%;
+  }
+  
+  .right{
+    padding-left: 10px;
+  }
+  

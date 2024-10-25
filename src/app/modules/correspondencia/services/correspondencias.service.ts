@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
@@ -36,8 +36,22 @@ export class CorrespondenciasService {
     return this.http.get<any[]>(url, {headers: header});
   }
 
-  createDependencia(data: any): Observable<any> {
-    const url = `${this.URL}/dependencia`;
+  downloadCorrespondencia(name: string): Observable<Blob> {
+    const header = this.headers;
+    return this.http.get(`${this.URL}/plantilla/${name}`, { headers: header, responseType: 'blob' });
+  }
+
+  getFuncionario(cargo:string){
+    const url = `${this.URL}/userPost/${cargo}`;
+    console.log(url);
+    
+    const header = this.headers;
+    return this.http.get<any>(url, {headers: header});
+  }
+
+  
+  createCorrespondencia(data: any): Observable<any> {
+    const url = `${this.URL}/correspondencia`;
     const header = this.headers;
     return this.http.post<any>(url, data, { headers: header });
   } 
@@ -60,4 +74,22 @@ export class CorrespondenciasService {
     const header = this.headers;
     return this.http.delete<any>(url, {headers: header});
   }
+
+  buscarUltimo(params?: any): Observable<any> {
+    const url = `${this.URL}/buscarUltimo`;
+    console.log(params);
+    
+    const header = this.headers;
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach(key => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    // console.log(url);
+    return this.http.get<any>(url, { params: httpParams, headers: header });
+  }
+
 }

@@ -7,6 +7,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxPrintModule } from 'ngx-print';
 import { LoaderDirective } from 'src/app/core/directives/loader.directive';
 import { MaterialModule } from 'src/app/material/material.module';
+import { SelectYearComponent } from 'src/app/components/select-year/select-year.component';
 
 
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, signal, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MaterialModule } from 'src/app/material/material.module';
 import { CorrespondenciasService } from '../../../services/correspondencias.service';
@@ -9,6 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import { FormCorrespondenciaComponent } from '../components/form-correspondencia/form-correspondencia.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-correspondencia-index',
@@ -18,22 +19,26 @@ import { FormCorrespondenciaComponent } from '../components/form-correspondencia
   styleUrl: './correspondencia-index.component.css'
 })
 export class CorrespondenciaIndexComponent {
+  correspondencias: any[] = [];
+  URL = environment.api;
+  constructor(private matDialog: MatDialog) {
 
-  constructor(private matDialog: MatDialog) { }
+  }
 
   private correspondenciaService = inject(CorrespondenciasService)
 
-  private correspondencias = signal<any[]>([]);
-  public isLoading = signal(false);
+
+  isLoading = signal(false);
   private error = signal<string | null>(null);
   private _snackBar = inject(MatSnackBar)
 
 
-  displayedColumn: string[] = ['tipo', 'subTipo', 'cite', 'referencia', 'hojaRuta',  'acciones'];
-  dataSource!: MatTableDataSource<any>
+  displayedColumns: string[] = ['tipo', 'subTipo', 'cite', 'referencia', 'hojaRuta', 'acciones'];
+  dataSource = new MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  beneficiaries = signal<any>(null);
+
+
 
 
 
@@ -42,14 +47,13 @@ export class CorrespondenciaIndexComponent {
   }
 
   cargarCorrespondencias() {
-    this.isLoading.set(true);
     this.error.set(null);
     this.correspondenciaService.getCorrespondencias()
       .subscribe({
         next: (data: any) => {
-          this.correspondencias.set(data.serverResponse);
-          console.log(this.correspondencias());
-          this.dataSource = new MatTableDataSource(this.correspondencias());
+          console.log(data);
+          this.correspondencias = data.serverResponse;
+          this.dataSource = new MatTableDataSource(this.correspondencias);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         },
@@ -63,13 +67,17 @@ export class CorrespondenciaIndexComponent {
       })
   }
 
+
+
+
+
   createCorrespondencia() {
     this.openDialog(0, 'Crear Correspondencia')
   }
 
-    openDialog(id: any, title: any) {
+  openDialog(id: any, title: any) {
     let dialog = this.matDialog.open(FormCorrespondenciaComponent, {
-      width: '600px',
+      width: '700px',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: {
@@ -84,9 +92,9 @@ export class CorrespondenciaIndexComponent {
           Swal.fire('Bien', `Dependencia Editada Correctamente`, 'success')
         }
 
-        if(resp == 'created'){
+        if (resp == 'created') {
           this.cargarCorrespondencias();
-          Swal.fire('Bien', `Dependencia Creada Correctamente`, 'success')
+          Swal.fire('Bien', `Correspondencia Creada Correctamente`, 'success')
         }
       },
       error: (resp: any) => {
@@ -101,11 +109,11 @@ export class CorrespondenciaIndexComponent {
     this.openDialog(id, 'Editar Correspondencia')
   }
 
-  addApoderado(id:string){
+  addApoderado(id: string) {
     // this.openDialog2(id, 'Añadir Apoderado', null)
-  } 
+  }
 
-  editApoderado(id:any, idApoderado: any){
+  editApoderado(id: any, idApoderado: any) {
     // this.openDialog2(id, 'Editar Apoderado', idApoderado)
   }
 
@@ -113,9 +121,9 @@ export class CorrespondenciaIndexComponent {
     // this.openDialog2(null, 'Ver Apoderado', idApoderado)
   }
 
-  hideDependencia(id:string){
+  hideDependencia(id: string) {
     let data = {
-      isActive : false
+      isActive: false
     }
     Swal.fire({
       title: "Estas seguro?",
@@ -128,15 +136,15 @@ export class CorrespondenciaIndexComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.correspondenciaService.editDependencia(data, id)
-        .subscribe({
-          next: () => {
-            this.cargarCorrespondencias();
-          },
-          error: (message: string | undefined) => {
-            Swal.fire('Error', message, 'error')
-          } 
+          .subscribe({
+            next: () => {
+              this.cargarCorrespondencias();
+            },
+            error: (message: string | undefined) => {
+              Swal.fire('Error', message, 'error')
+            }
 
-        })
+          })
         Swal.fire({
           title: "¡Eliminado!",
           text: "Dependencia ha sido eliminada.",
@@ -158,14 +166,14 @@ export class CorrespondenciaIndexComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.correspondenciaService.deleteDependencia(id)
-        .subscribe({
-          next: () => {
-            this.cargarCorrespondencias();
-          },
-          error: (message: string | undefined) => {
-            Swal.fire('Error', message, 'error')
-          }
-        })
+          .subscribe({
+            next: () => {
+              this.cargarCorrespondencias();
+            },
+            error: (message: string | undefined) => {
+              Swal.fire('Error', message, 'error')
+            }
+          })
         Swal.fire({
           title: "¡Eliminado!",
           text: "Dependencia ha sido eliminada.",
@@ -218,6 +226,18 @@ export class CorrespondenciaIndexComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+
+
+  downloadCorrespondencia(name:any){
+    this.correspondenciaService.downloadCorrespondencia(name).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      
+    }, error => {
+      console.error('Error fetching PDF URL', error);
+    });
   }
 
 }

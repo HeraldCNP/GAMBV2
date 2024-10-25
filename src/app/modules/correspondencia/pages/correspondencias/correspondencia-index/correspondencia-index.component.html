@@ -30,7 +30,7 @@
           }@else {
           <section class="example-container mat-elevation-z8" tabindex="0">
             <table mat-table matSort [dataSource]="dataSource">
-              
+
               <ng-container matColumnDef="tipo" sticky>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>tipo</th>
                 <td mat-cell *matCellDef="let row">{{ row.idTipo.nombreTipo }}</td>
@@ -38,12 +38,13 @@
 
               <ng-container matColumnDef="subTipo">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>subTipo</th>
-                <td mat-cell *matCellDef="let row">{{ row.idSubTipo.nombreSubTipo }}</td>
+                <td mat-cell *matCellDef="let row">{{ row.idSubTipo?.nombreSubTipo }}</td>
               </ng-container>
 
               <ng-container matColumnDef="cite">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Cite</th>
-                <td mat-cell *matCellDef="let row">GAMB/{{ row.idTipo.siglaTipo }}/{{ row.idSubTipo.siglaSubTipo }}/{{ row.idDependencia.sigla }} N° {{  row.numCite }}/{{ row.gestion }}</td>
+                <td mat-cell *matCellDef="let row">GAMB/{{ row.idTipo.siglaTipo }}/{{ row.idSubTipo?.siglaSubTipo }}/{{
+                  row.idDependencia.sigla }} N° {{ row.numCite }}/{{ row.gestion }}</td>
               </ng-container>
 
               <ng-container matColumnDef="referencia">
@@ -55,10 +56,6 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Hoja de Ruta</th>
                 <td mat-cell *matCellDef="let row">{{ row.hojaRuta }}</td>
               </ng-container>
-
-
-
-
 
               <!-- <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
@@ -78,32 +75,41 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
                 <td mat-cell *matCellDef="let row" style="width: 180px;">
                   <button class="info" mat-icon-button (click)="editCorrespondencia(row._id)"
-                  matTooltip="Editar dependencia" aria-label="Example icon button with a vertical three dot icon">
+                    matTooltip="Editar dependencia" aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>edit</mat-icon>
                   </button>
 
-                  <button class="danger" mat-icon-button (click)="deleteDependencia(row._id)"
-                  matTooltip="Eliminar" aria-label="Example icon button with a vertical three dot icon">
+                  <button class="danger" mat-icon-button (click)="deleteDependencia(row._id)" matTooltip="Eliminar"
+                    aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>delete</mat-icon>
                   </button>
+
+                  <a href="{{ URL + '/plantilla/' + row.fileName }}" target="_blank">
+                    <button class="info" mat-icon-button matTooltip="Eliminar"
+                      aria-label="Example icon button with a vertical three dot icon">
+                      <mat-icon>sim_card_download</mat-icon>
+                    </button>
+                  </a>
                 </td>
 
               </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumn">
-
-              </tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
               <tr *matNoDataRow>
                 <td class="mat-cell">"{{ termino.value }}" No existe</td>
               </tr>
+
+
             </table>
-            <mat-paginator [pageSizeOptions]="[10 ,25 , 50]" aria-label="Select Page of Users"></mat-paginator>
+
+            <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Select page of users"></mat-paginator>
           </section>
           }
         </mat-card-content>
       </mat-card>
+
     </div>
   </div>
 </div>
