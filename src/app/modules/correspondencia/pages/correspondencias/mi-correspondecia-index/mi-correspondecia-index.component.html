@@ -1,0 +1,126 @@
+<div class="row p-2">
+    <div class="col-md-12">
+      <div class="container">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Lista de Correspondencias</mat-card-title>
+            <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+            <span class="spacer"></span>
+            <mat-dialog-actions>
+              <button mat-mini-fab matTooltip="Crear Nuevo" color="primary"
+                aria-label="Example mini fab with a heart icon" (click)="createCorrespondencia()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-dialog-actions>
+  
+          </mat-card-header>
+          <mat-divider></mat-divider>
+  
+          <mat-form-field>
+            <mat-label>Buscar...</mat-label>
+            <input matInput placeholder="Buscar" search (keyup)="applyFilter($event)" #termino>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+          <mat-divider></mat-divider>
+          <section class="mx-3">
+            <div class="">
+              <mat-button-toggle-group (change)="onOptionSelected($event)">
+                @for (tipo of tipos(); track $index) {
+                  <mat-button-toggle value="{{ tipo._id }}">{{ tipo.nombreTipo | uppercase }}</mat-button-toggle>
+                }
+              </mat-button-toggle-group>
+            </div>
+          </section>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            @if (isLoading()) {
+            <div class="spinner-container">
+              <mat-spinner></mat-spinner>
+            </div>
+            }@else {
+            <section class="example-container mat-elevation-z8" tabindex="0">
+              <table mat-table matSort [dataSource]="dataSource">
+  
+                <ng-container matColumnDef="tipo" sticky>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>tipo</th>
+                  <td mat-cell *matCellDef="let row">{{ row.idTipo.nombreTipo | uppercase }}</td>
+                </ng-container>
+  
+                <ng-container matColumnDef="subTipo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>subTipo</th>
+                  <td mat-cell *matCellDef="let row">{{ row.idSubTipo?.nombreSubTipo | uppercase }}</td>
+                </ng-container>
+  
+                <ng-container matColumnDef="cite">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Cite</th>
+                  <td mat-cell *matCellDef="let row">GAMB/{{ row.idTipo.siglaTipo }}/{{ row.idSubTipo?.siglaSubTipo }}/{{
+                    row.idDependencia.sigla }} N° {{ row.numCite }}/{{ row.gestion }}</td>
+                </ng-container>
+  
+                <ng-container matColumnDef="referencia">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>referencia</th>
+                  <td mat-cell *matCellDef="let row">{{ row.referencia }}</td>
+                </ng-container>
+  
+                <ng-container matColumnDef="hojaRuta">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Hoja de Ruta</th>
+                  <td mat-cell *matCellDef="let row">{{ row.hojaRuta }}</td>
+                </ng-container>
+  
+  
+                <!-- <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                  <td mat-cell *matCellDef="let row">
+                    <span *ngIf="row.estado === true"><span class="badge bg-success">Habilitado</span></span>
+                    <span *ngIf="row.estado === false"><span class="badge bg-danger">Inhabilitado</span></span>
+                  </td>
+                </ng-container> -->
+  
+                <ng-container matColumnDef="observacion">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Observación</th>
+                  <td mat-cell *matCellDef="let row">{{ row.observacion }}</td>
+                </ng-container>
+  
+  
+                <ng-container matColumnDef="acciones" stickyEnd>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                  <td mat-cell *matCellDef="let row" style="width: 180px;">
+                    <button class="info" mat-icon-button (click)="editCorrespondencia(row._id)"
+                      matTooltip="Editar dependencia" aria-label="Example icon button with a vertical three dot icon">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+  
+                    <button class="danger" mat-icon-button (click)="deleteDependencia(row._id)" matTooltip="Eliminar"
+                      aria-label="Example icon button with a vertical three dot icon">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+  
+                    <a href="{{ URL + '/plantilla/' + row.fileName }}" target="_blank">
+                      <button class="info" mat-icon-button matTooltip="Descargar"
+                        aria-label="Example icon button with a vertical three dot icon">
+                        <mat-icon>sim_card_download</mat-icon>
+                      </button>
+                    </a>
+                  </td>
+  
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  
+                <tr *matNoDataRow>
+                  <td class="mat-cell">"{{ termino.value }}" No existe</td>
+                </tr>
+  
+  
+              </table>
+  
+              <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Select page of users"></mat-paginator>
+            </section>
+            }
+          </mat-card-content>
+        </mat-card>
+  
+      </div>
+    </div>
+  </div>

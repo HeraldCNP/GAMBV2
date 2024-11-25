@@ -1,26 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject, signal, ViewChild } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MaterialModule } from 'src/app/material/material.module';
+import { environment } from 'src/environments/environment';
 import { CorrespondenciasService } from '../../../services/correspondencias.service';
+import { TiposService } from '../../../services/tipos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import Swal from 'sweetalert2';
 import { FormCorrespondenciaComponent } from '../components/form-correspondencia/form-correspondencia.component';
-import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { TiposService } from '../../../services/tipos.service';
 
 @Component({
-  selector: 'app-correspondencia-index',
+  selector: 'app-mi-correspondecia-index',
   standalone: true,
   imports: [CommonModule, MaterialModule],
-  templateUrl: './correspondencia-index.component.html',
-  styleUrl: './correspondencia-index.component.css'
+  templateUrl: './mi-correspondecia-index.component.html',
+  styleUrl: './mi-correspondecia-index.component.css'
 })
-export class CorrespondenciaIndexComponent {
+export class MiCorrespondeciaIndexComponent {
 
   idUser: any;
   user: any;
@@ -54,7 +54,8 @@ export class CorrespondenciaIndexComponent {
 
   ngOnInit(): void {
     this.getTipos();
-    this.cargarCorrespondencias();
+    this.params = { idUsuario: this.idUser };
+    this.cargarCorrespondencias(this.params);
     
   }
 
@@ -100,7 +101,10 @@ export class CorrespondenciaIndexComponent {
         }
 
         if (resp == 'created') {
-          this.cargarCorrespondencias();
+          this.params = { 
+            idUsuario: this.idUser,
+          };
+          this.cargarCorrespondencias(this.params);
           Swal.fire('Bien', `Correspondencia Creada Correctamente`, 'success')
         }
       },

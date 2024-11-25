@@ -29,12 +29,22 @@ export class CorrespondenciasService {
   }
 
 
-  getCorrespondencias(): Observable<any[]> {
+  getCorrespondencias(params?: any): Observable<any[]> {
     let url = `${this.URL}/correspondencias`;
     const header = this.headers;
-    console.log(url);
-    return this.http.get<any[]>(url, {headers: header});
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach(key => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    // console.log(params);
+    
+    return this.http.get<any>(url, { params: httpParams, headers: header });
   }
+
 
   downloadCorrespondencia(name: string): Observable<Blob> {
     const header = this.headers;

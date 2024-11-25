@@ -39,7 +39,6 @@ export class FormDependenciaComponent {
   }
 
   public dependenciaForm: FormGroup = this.fb.group({
-    dependencia: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
     sigla: ['', [Validators.required, Validators.minLength(2)]],
     isActive : [true],

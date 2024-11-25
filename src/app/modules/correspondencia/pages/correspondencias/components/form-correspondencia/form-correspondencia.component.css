@@ -1,18 +1,38 @@
 .create-form {
-    min-width: 150px;
-    max-width: 100%;
-    width: 100%;
-  }
-  
-  .full-width {
-    width: 100%;
-  }
-  
-  .inline {
-    width: 50%;
-  }
-  
-  .right{
-    padding-left: 10px;
-  }
-  
+  min-width: 150px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.inline {
+  width: 50%;
+}
+
+.right {
+  padding-left: 10px;
+}
+
+
+.mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+  background-color: #67d46a;
+}
+
+.mat-mdc-radio-button.mat-accent {
+  --mdc-radio-disabled-selected-icon-color: black;
+  --mdc-radio-disabled-unselected-icon-color: black;
+  --mdc-radio-unselected-hover-icon-color: #212121;
+  --mdc-radio-unselected-icon-color: rgba(0, 0, 0, 0.54);
+  --mdc-radio-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54);
+  --mdc-radio-selected-focus-icon-color: #67d46a;
+  --mdc-radio-selected-hover-icon-color: #67d46a;
+  --mdc-radio-selected-icon-color: #67d46a;
+  --mdc-radio-selected-pressed-icon-color: #67d46a;
+  --mat-radio-ripple-color: black;
+  --mat-radio-checked-ripple-color: #67d46a;
+  --mat-radio-disabled-label-color: rgba(0, 0, 0, 0.38);
+  --mat-radio-label-text-color: rgba(0, 0, 0, 0.87);
+}

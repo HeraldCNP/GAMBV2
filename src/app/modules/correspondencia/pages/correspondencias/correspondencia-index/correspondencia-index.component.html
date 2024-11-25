@@ -3,7 +3,7 @@
     <div class="container">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Lista de Dependencias</mat-card-title>
+          <mat-card-title>Lista de Correspondencias</mat-card-title>
           <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
           <span class="spacer"></span>
           <mat-dialog-actions>
@@ -22,6 +22,16 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
         <mat-divider></mat-divider>
+        <section class="mx-3">
+          <div class="">
+            <mat-button-toggle-group (change)="onOptionSelected($event)">
+              @for (tipo of tipos(); track $index) {
+                <mat-button-toggle value="{{ tipo._id }}">{{ tipo.nombreTipo | uppercase }}</mat-button-toggle>
+              }
+            </mat-button-toggle-group>
+          </div>
+        </section>
+        <mat-divider></mat-divider>
         <mat-card-content>
           @if (isLoading()) {
           <div class="spinner-container">
@@ -33,12 +43,12 @@
 
               <ng-container matColumnDef="tipo" sticky>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>tipo</th>
-                <td mat-cell *matCellDef="let row">{{ row.idTipo.nombreTipo }}</td>
+                <td mat-cell *matCellDef="let row">{{ row.idTipo.nombreTipo | uppercase }}</td>
               </ng-container>
 
               <ng-container matColumnDef="subTipo">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>subTipo</th>
-                <td mat-cell *matCellDef="let row">{{ row.idSubTipo?.nombreSubTipo }}</td>
+                <td mat-cell *matCellDef="let row">{{ row.idSubTipo?.nombreSubTipo | uppercase }}</td>
               </ng-container>
 
               <ng-container matColumnDef="cite">
@@ -56,6 +66,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Hoja de Ruta</th>
                 <td mat-cell *matCellDef="let row">{{ row.hojaRuta }}</td>
               </ng-container>
+
 
               <!-- <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
@@ -85,7 +96,7 @@
                   </button>
 
                   <a href="{{ URL + '/plantilla/' + row.fileName }}" target="_blank">
-                    <button class="info" mat-icon-button matTooltip="Eliminar"
+                    <button class="info" mat-icon-button matTooltip="Descargar"
                       aria-label="Example icon button with a vertical three dot icon">
                       <mat-icon>sim_card_download</mat-icon>
                     </button>
