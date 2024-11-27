@@ -13,7 +13,7 @@
           <mat-label>Descripción</mat-label>
           <input matInput placeholder="Ej. Stria Mcpal Administrativa Financiera" formControlName="descripcion"
             type="text">
-          <mat-icon matSuffix>mail</mat-icon>
+          <mat-icon matSuffix>description</mat-icon>
           <mat-error *ngIf="form['descripcion'].hasError('required') && form['descripcion'].touched">
             El Nombre Completo es obligatorio.
           </mat-error>
@@ -25,7 +25,7 @@
         <mat-form-field class="full-width">
           <mat-label>Sigla</mat-label>
           <input type="text" matInput placeholder="Ej. SMAF" formControlName="sigla">
-          <mat-icon matSuffix>badge</mat-icon>
+          <mat-icon matSuffix>abc</mat-icon>
 
           <mat-error *ngIf="form['sigla'].hasError('required') && form['sigla'].touched">
             El Carnet de Itendidad es obligatorio.
@@ -133,7 +133,7 @@
     </mat-card>
 
   </mat-dialog-content>
-  {{dependenciaForm.value | json}}
+  <!-- {{dependenciaForm.value | json}} -->
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>
     <button (click)="(createDependencia())" *ngIf="inputData.id == 0" mat-raised-button color="primary"

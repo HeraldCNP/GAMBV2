@@ -12,6 +12,7 @@ import { FormCorrespondenciaComponent } from '../components/form-correspondencia
 import { environment } from 'src/environments/environment';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { TiposService } from '../../../services/tipos.service';
+import { FormUploadComponent } from '../components/form-upload/form-upload.component';
 
 @Component({
   selector: 'app-correspondencia-index',
@@ -63,7 +64,7 @@ export class CorrespondenciaIndexComponent {
     this.correspondenciaService.getCorrespondencias(params)
       .subscribe({
         next: (data: any) => {
-          // console.log(data);
+          console.log(data);
           this.correspondencias = data.serverResponse;
           this.dataSource = new MatTableDataSource(this.correspondencias);
           this.dataSource.paginator = this.paginator;
@@ -116,8 +117,8 @@ export class CorrespondenciaIndexComponent {
     this.openDialog(id, 'Editar Correspondencia')
   }
 
-  addApoderado(id: string) {
-    // this.openDialog2(id, 'Añadir Apoderado', null)
+  uploadDocument(id: string) {
+    this.openDialog2(id, 'Subir Documento')
   }
 
   editApoderado(id: any, idApoderado: any) {
@@ -193,36 +194,40 @@ export class CorrespondenciaIndexComponent {
 
 
 
-  // openDialog2(id: any, title: any, idApoderado:any) {
-  //   let dialog = this.matDialog.open(FormApoderadoComponent, {
-  //     width: '600px',
-  //     enterAnimationDuration: '500ms',
-  //     exitAnimationDuration: '1000ms',
-  //     data: {
-  //       id: id,
-  //       title: title,
-  //       idApoderado: idApoderado,
-  //     }
-  //   });
-  //   dialog.afterClosed().subscribe({
-  //     next: (resp: any) => {
-  //       if (resp == 'edited') {
-  //         this.cargarBeneficiaries();
-  //         Swal.fire('Bien', `Apoderado Editado Correctamente`, 'success')
-  //       }
+  openDialog2(idCorrespondencia: any, title: any) {
+    let dialog = this.matDialog.open(FormUploadComponent, {
+      width: '600px',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        title: title,
+        idCorrespondencia: idCorrespondencia,
+      }
+    });
+    dialog.afterClosed().subscribe({
+      next: (resp: any) => {
+        if (resp == 'edited') {
+          // this.cargarBeneficiaries();
+          Swal.fire('Bien', `Apoderado Editado Correctamente`, 'success')
+        }
 
-  //       if(resp == 'created'){
-  //         this.cargarBeneficiaries();
-  //         Swal.fire('Bien', `Apoderado Creado Correctamente`, 'success')
-  //       }
-  //     },
-  //     error: (resp: any) => {
-  //       console.log(resp.error.message);
-  //       // Swal.fire('Error', resp, 'error')
-  //       // Swal.fire('Error', resp, 'error')
-  //     }
-  //   })
-  // }
+        if(resp == 'created'){
+          // this.cargarBeneficiaries();
+          Swal.fire('Bien', `Apoderado Creado Correctamente`, 'success')
+        }
+
+        if(resp == 'submited'){
+          this.cargarCorrespondencias();
+          Swal.fire('Bien', `Documento Subido Correctamente`, 'success')
+        }
+      },
+      error: (resp: any) => {
+        console.log(resp.error.message);
+        // Swal.fire('Error', resp, 'error')
+        // Swal.fire('Error', resp, 'error')
+      }
+    })
+  }
 
 
 
@@ -250,7 +255,7 @@ export class CorrespondenciaIndexComponent {
   onOptionSelected(event: MatButtonToggleChange) {
     // console.log('Opción seleccionada:', event.value);
     this.params = { 
-      idUsuario: this.idUser,
+      // idUsuario: this.idUser,
       idTipo: event.value
     };
     this.cargarCorrespondencias(this.params);

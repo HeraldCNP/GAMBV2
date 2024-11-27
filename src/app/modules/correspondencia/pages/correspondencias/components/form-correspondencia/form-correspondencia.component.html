@@ -9,7 +9,7 @@
                 <app-select-year [control]="firstFormGroup.get('gestion')" [texto]="'Gestión'"
                     [clases]="'full-width'"></app-select-year>
 
-            
+
                 <mat-form-field class="full-width">
                     <mat-label>Tipo</mat-label>
                     <mat-select formControlName="idTipo" (selectionChange)="tipoChange($event.value)" required>
@@ -17,7 +17,7 @@
                             {{tipo.nombreTipo | uppercase}}
                         </mat-option>
                     </mat-select>
-                    <mat-icon matSuffix>badge</mat-icon>
+                    <mat-icon matSuffix>format_list_bulleted</mat-icon>
                 </mat-form-field>
 
                 <mat-form-field class="full-width" *ngIf="subTipos()">
@@ -93,6 +93,7 @@
                             </mat-option>
                             }
                         </mat-autocomplete>
+                        <mat-icon matSuffix>person</mat-icon>
                     </mat-form-field>
                 </div>
 
@@ -101,7 +102,7 @@
                         <mat-label>Nombre de Destino</mat-label>
                         <input matInput placeholder="Ej. Stria Mcpal Administrativa Financiera"
                             formControlName="nombreDestino" type="text">
-                        <mat-icon matSuffix>mail</mat-icon>
+                        <mat-icon matSuffix>person</mat-icon>
                         <mat-error
                             *ngIf="formSecond['nombreDestino'].hasError('required') && formSecond['nombreDestino'].touched">
                             El cargo del destino es obligatorio.
@@ -116,7 +117,7 @@
                         <mat-label>Cargo de Destino</mat-label>
                         <input matInput placeholder="Ej. Stria Mcpal Administrativa Financiera"
                             formControlName="cargoDestino" type="text">
-                        <mat-icon matSuffix>mail</mat-icon>
+                        <mat-icon matSuffix>badge</mat-icon>
                         <mat-error
                             *ngIf="formSecond['cargoDestino'].hasError('required') && formSecond['cargoDestino'].touched">
                             El cargo del destino es obligatorio.
@@ -130,7 +131,7 @@
                     <mat-form-field class="full-width">
                         <mat-label>Entidad de Destino</mat-label>
                         <input matInput placeholder="Ej. " formControlName="entidadDestino" type="text">
-                        <mat-icon matSuffix>mail</mat-icon>
+                        <mat-icon matSuffix>assured_workload</mat-icon>
                         <mat-error
                             *ngIf="formSecond['entidadDestino'].hasError('required') && formSecond['entidadDestino'].touched">
                             El cargo del destino es obligatorio.
@@ -146,7 +147,7 @@
                     <mat-form-field class="full-width">
                         <mat-label>Lugar de Destino</mat-label>
                         <input matInput placeholder="Ej. La Paz" formControlName="lugarDestino" type="text">
-                        <mat-icon matSuffix>mail</mat-icon>
+                        <mat-icon matSuffix>pin_drop</mat-icon>
                         <mat-error
                             *ngIf="formSecond['lugarDestino'].hasError('required') && formSecond['lugarDestino'].touched">
                             El cargo del destino es obligatorio.
@@ -177,13 +178,15 @@
                             </mat-option>
                             }
                         </mat-autocomplete>
+                        <mat-icon matSuffix>airline_stops</mat-icon>
+
                     </mat-form-field>
                 </div>
 
                 <mat-form-field class="full-width">
                     <mat-label>Referencia</mat-label>
                     <textarea matInput formControlName="referencia"></textarea>
-                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-icon matSuffix>description</mat-icon>
                     <mat-error
                         *ngIf="formSecond['referencia'].hasError('required') && formSecond['referencia'].touched">
                         La referencia es obligatoria.
@@ -198,7 +201,7 @@
                     <mat-label>Fojas</mat-label>
                     <input matInput placeholder="Ej. Stria Mcpal Administrativa Financiera" formControlName="fsAdjunto"
                         type="text">
-                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>
                     <mat-error *ngIf="formSecond['fsAdjunto'].hasError('required') && formSecond['fsAdjunto'].touched">
                         El cargo del destino es obligatorio.
                     </mat-error>
@@ -211,7 +214,7 @@
                     <mat-label># Hoja de Ruta</mat-label>
                     <input matInput placeholder="Ej. Stria Mcpal Administrativa Financiera" formControlName="hojaRuta"
                         type="number">
-                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-icon matSuffix>123</mat-icon>
                     <mat-error *ngIf="formSecond['hojaRuta'].hasError('required') && formSecond['hojaRuta'].touched">
                         El cargo del destino es obligatorio.
                     </mat-error>
@@ -222,28 +225,29 @@
 
                 <div>
                     <button mat-raised-button matStepperPrevious>Atras</button>
-                    <button mat-raised-button color="primary" [disabled]="secondFormGroup.invalid"
-                        matStepperNext>Siguiente</button>
+                    <!-- <button mat-raised-button color="primary" [disabled]="secondFormGroup.invalid"
+                        matStepperNext>Siguiente</button> -->
+                    <button color="primary" mat-raised-button (click)="createCorrespondencia()" [mat-dialog-close]="true"
+                        [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" cdkFocusInitial>Registrar</button>
                 </div>
                 <pre>{{secondFormGroup.value | json}}</pre>
             </form>
         </mat-step>
-        <mat-step>
+        <!-- <mat-step>
             <ng-template matStepLabel>Done</ng-template>
             <p>You are now done.</p>
             <div>
                 <button mat-button matStepperPrevious>Atras</button>
                 <button mat-button (click)="stepper.reset()">Reset</button>
             </div>
-        </mat-step>
+        </mat-step> -->
 
     </mat-stepper>
 
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    {{ cite() }} hola
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="createCorrespondencia()" [mat-dialog-close]="true"
-        [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" cdkFocusInitial>Registrar</button>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <!-- <button mat-button (click)="createCorrespondencia()" [mat-dialog-close]="true"
+        [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" cdkFocusInitial>Registrar</button> -->
 </mat-dialog-actions>

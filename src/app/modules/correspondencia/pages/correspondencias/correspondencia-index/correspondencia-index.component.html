@@ -42,12 +42,12 @@
             <table mat-table matSort [dataSource]="dataSource">
 
               <ng-container matColumnDef="tipo" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>tipo</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
                 <td mat-cell *matCellDef="let row">{{ row.idTipo.nombreTipo | uppercase }}</td>
               </ng-container>
 
               <ng-container matColumnDef="subTipo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>subTipo</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>SubTipo</th>
                 <td mat-cell *matCellDef="let row">{{ row.idSubTipo?.nombreSubTipo | uppercase }}</td>
               </ng-container>
 
@@ -58,7 +58,7 @@
               </ng-container>
 
               <ng-container matColumnDef="referencia">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>referencia</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Referencia</th>
                 <td mat-cell *matCellDef="let row">{{ row.referencia }}</td>
               </ng-container>
 
@@ -84,8 +84,8 @@
 
               <ng-container matColumnDef="acciones" stickyEnd>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
-                <td mat-cell *matCellDef="let row" style="width: 180px;">
-                  <button class="info" mat-icon-button (click)="editCorrespondencia(row._id)"
+                <td mat-cell *matCellDef="let row" style="width: 250px;">
+                  <button color="primary" mat-icon-button (click)="editCorrespondencia(row._id)"
                     matTooltip="Editar dependencia" aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>edit</mat-icon>
                   </button>
@@ -95,9 +95,21 @@
                     <mat-icon>delete</mat-icon>
                   </button>
 
-                  <a href="{{ URL + '/plantilla/' + row.fileName }}" target="_blank">
+                  <a *ngIf="!row.isUpdated" href="{{ URL + '/plantilla/' + row.fileName }}" target="_blank">
                     <button class="info" mat-icon-button matTooltip="Descargar"
                       aria-label="Example icon button with a vertical three dot icon">
+                      <mat-icon>sim_card_download</mat-icon>
+                    </button>
+                  </a>
+
+                  
+                  <button class="danger" mat-icon-button (click)="uploadDocument(row._id)" matTooltip="Subir documento"
+                    aria-label="Example icon button with a vertical three dot icon">
+                    <mat-icon>upload_file</mat-icon>
+                  </button>
+
+                  <a *ngIf="row.isUpdated" href="{{ URL + '/downloadFile/' + row.fileName }}" target="_blank">
+                    <button class="info" mat-icon-button matTooltip="Descargar 2" aria-label="Example icon button with a vertical three dot icon">
                       <mat-icon>sim_card_download</mat-icon>
                     </button>
                   </a>

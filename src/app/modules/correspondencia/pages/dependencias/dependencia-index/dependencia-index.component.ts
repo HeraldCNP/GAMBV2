@@ -117,7 +117,7 @@ export class DependenciaIndexComponent {
 
   openDialog2(id: any, title: any, idDependencia:any) {
     let dialog = this.matDialog.open(ShowUserComponent, {
-      width: '600px',
+      width: '800px',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: {

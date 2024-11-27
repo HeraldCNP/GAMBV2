@@ -94,18 +94,34 @@ input.ng-valid.ng-touched {
   cursor: pointer;
 }
 
-.fondo{
-  background-color: rgb(1, 116, 57)!important;
+.fondo {
+  background-color: rgb(1, 116, 57) !important;
 }
 
-.w100{
+.w100 {
   width: 100px;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-.spacer{
+.spacer {
   flex: 1 1 auto;
+}
+
+.danger {
+  color: red;
+}
+
+.warning {
+  color: orange;
+}
+
+.info {
+  color: #4587e9;
+}
+
+.success {
+  color: green;
 }

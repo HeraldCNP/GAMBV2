@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class CorrespondenciasService {
 
   private readonly URL = environment.api;
+  formData:any;
 
 
   constructor(private http: HttpClient) {}
@@ -100,6 +101,18 @@ export class CorrespondenciasService {
     }
     // console.log(url);
     return this.http.get<any>(url, { params: httpParams, headers: header });
+  }
+
+  uploadDocument(file: File, id: any): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    const header = this.headers;
+    this.formData = formData.append('file', file);
+    const req = new HttpRequest('PUT', `${this.URL}/uploadCorrespondencia/${id}`, formData, {
+      reportProgress: true,
+      responseType: 'json',
+      headers: this.headers
+    });
+    return this.http.request(req);
   }
 
 }
