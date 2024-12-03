@@ -33,7 +33,7 @@ export class TiposService {
   getTipos(): Observable<Tipo[]> {
     let url = `${this.URL}/tipos`;
     const header = this.headers;
-    console.log(url);
+    // console.log(url);
     return this.http.get<Tipo[]>(url, {headers: header});
   }
 

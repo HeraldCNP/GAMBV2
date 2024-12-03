@@ -41,10 +41,12 @@ export class FormCorrespondenciaComponent implements OnInit {
   dependencias = signal<any>(null);
   tipos = signal<any>(null);
   subTipos = signal<any>(null);
+  dependencia = signal<any>(null);
   funcionarios: any[] = [];
   cite = signal<string>('hu');
   isUser = signal<boolean>(true);
   isVia = signal<boolean>(false);
+  isOtherUnidad = signal<boolean>(false);
   filteredFuncionarios: Observable<any[]>;
   filteredDestinoFuncionarios: Observable<any[]>;
 
@@ -55,10 +57,12 @@ export class FormCorrespondenciaComponent implements OnInit {
     this.user = localStorage.getItem('user');
     this.dataUser = JSON.parse(this.user);
     this.idUser = this.dataUser.id;
+    console.log(this.dataUser);
+    
 
     this.firstFormGroup = this.fb.group({
       gestion: ['', [Validators.required]],
-      idDependencia: ['', Validators.required],
+      idDependencia: [this.dataUser.dependencia, Validators.required],
       idSubTipo: [''],
       idTipo: ['', Validators.required],
     });
@@ -66,10 +70,13 @@ export class FormCorrespondenciaComponent implements OnInit {
     this.secondFormGroup = this.fb.group({
       nombreDestino: ['', Validators.required],
       cargoDestino: ['', Validators.required],
-      fsAdjunto: [''],
+      entidadDestino: [''],
+      lugarDestino: [''],
+      fsAdjunto: ['1'],
       hojaRuta: [''],
       referencia: ['', Validators.required],
       via: [''],
+      genero: ['Señor'],
     });
 
     this.getFuncionarios();
@@ -96,7 +103,7 @@ export class FormCorrespondenciaComponent implements OnInit {
     this.inputData = this.data;
     this.getDependencias();
     this.getTipos();
-
+    this.getDependencia();
   }
 
   private _filterStates(value: any): any[] {
@@ -133,7 +140,17 @@ export class FormCorrespondenciaComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.tipos.set(data.serverResponse);
-          console.log(this.tipos());
+          // console.log(this.tipos());
+        }
+      })
+  }
+
+  getDependencia() {
+    this.dependenciaService.getDependencia(this.dataUser.dependencia)
+      .subscribe({
+        next: (data: any) => {
+          this.dependencia.set(data);
+          console.log(this.dependencia());
         }
       })
   }
@@ -150,7 +167,24 @@ export class FormCorrespondenciaComponent implements OnInit {
   via(Event: any){
     this.isVia.set(Event.checked);
     console.log(this.isVia());
+  }
+
+  otherUnidad(Event: any){
+    this.isOtherUnidad.set(Event.checked);
+    console.log(this.isOtherUnidad());
+  }
+
+  isMr(Event: any) {
     
+    if (Event == 'Señor') {
+      this.secondFormGroup.get('genero').setValue("Señor");
+    }
+  }
+
+  isMrs(Event: any) {
+    if (Event == 'Señora') {
+      this.secondFormGroup.get('genero').setValue("Señora");
+    }
   }
 
   tipoChange(idTipo: string) {
@@ -172,7 +206,7 @@ export class FormCorrespondenciaComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.dependencias.set(data.serverResponse);
-          console.log(this.dependencias());
+          // console.log(this.dependencias());
         }
       })
   }
@@ -182,7 +216,7 @@ export class FormCorrespondenciaComponent implements OnInit {
   getFuncionarios() {
     this.comprasService.getAllFuncionarios().subscribe((data: any) => {
       this.funcionarios = data.serverResponse;
-      console.log("Funcionarios", this.funcionarios)
+      // console.log("Funcionarios", this.funcionarios)
     });
   }
 

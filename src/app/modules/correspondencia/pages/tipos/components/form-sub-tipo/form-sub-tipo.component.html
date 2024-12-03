@@ -13,7 +13,7 @@
             <mat-label>Nombre</mat-label>
             <input matInput placeholder="Ej. Stria Mcpal Administrativa Financiera" formControlName="nombreSubTipo"
               type="text">
-            <mat-icon matSuffix>mail</mat-icon>
+            <mat-icon matSuffix>description</mat-icon>
             <mat-error *ngIf="form['nombreSubTipo'].hasError('required') && form['nombreSubTipo'].touched">
               El Nombre Completo es obligatorio.
             </mat-error>
@@ -25,7 +25,7 @@
           <mat-form-field class="full-width">
             <mat-label>Sigla</mat-label>
             <input type="text" matInput placeholder="Ej. SMAF" formControlName="siglaSubTipo">
-            <mat-icon matSuffix>badge</mat-icon>
+            <mat-icon matSuffix>abc</mat-icon>
   
             <mat-error *ngIf="form['siglaSubTipo'].hasError('required') && form['siglaSubTipo'].touched">
               El Carnet de Itendidad es obligatorio.
@@ -133,7 +133,7 @@
       </mat-card>
   
     </mat-dialog-content>
-    {{subtipoForm.value | json}}
+    <!-- {{subtipoForm.value | json}} -->
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancelar</button>
       <button (click)="(createSubtipo())" *ngIf="inputData.title === 'Crear Sub Tipo'" mat-raised-button color="primary"

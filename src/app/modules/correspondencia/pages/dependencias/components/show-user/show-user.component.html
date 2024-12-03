@@ -1,0 +1,17 @@
+<mat-card appearance="outlined">
+    <mat-card-header>
+        <mat-card-title>{{ inputData.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <mat-list role="list">
+            @for (user of users; track $index) {
+                <mat-list-item role="listitem">{{ user.username | uppercase }} {{ user.surnames | uppercase }} - <span class="text-muted cargo"> {{ user.post | uppercase }}</span></mat-list-item>
+            }
+        </mat-list>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cerrar</button>
+    </mat-dialog-actions>
+</mat-card>

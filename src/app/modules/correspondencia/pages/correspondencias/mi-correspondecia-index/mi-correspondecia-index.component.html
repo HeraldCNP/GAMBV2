@@ -85,7 +85,7 @@
               <ng-container matColumnDef="acciones" stickyEnd>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
                 <td mat-cell *matCellDef="let row" style="width: 250px;">
-                  <button color="primary" mat-icon-button (click)="editCorrespondencia(row._id)"
+                  <button class="info" mat-icon-button (click)="editCorrespondencia(row._id)"
                     matTooltip="Editar dependencia" aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>edit</mat-icon>
                   </button>

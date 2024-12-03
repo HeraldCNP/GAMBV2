@@ -23,7 +23,7 @@ export class SelectYearComponent {
     console.log(this.clases);
     
   }
-
+  
   generateYears(n: any): void {
     const currentYear = new Date().getFullYear();
     this.years = Array.from({ length: n }, (v, i) => currentYear - i);

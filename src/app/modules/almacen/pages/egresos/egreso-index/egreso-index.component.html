@@ -317,7 +317,7 @@
                       <td class="off-p" style="font-size: 0.8rem;">{{ item.idCompra.idArticulo.idPartida.codigo }} - {{
                         item.idCompra.idArticulo.idPartida.denominacion }}</td>
                       <td class="off-p">{{ item.idCompra.idArticulo.nombre }}</td>
-                      <td class="off-p text-center">{{ item.cantidadSalida }}</td>
+                      <td class="off-p text-center">{{ item.cantidadSalida | number: '1.2-2' }}</td>
                       <td class="off-p">{{ item.idCompra.idArticulo.unidadDeMedida | titlecase }}</td>
                       <td class="off-p text-end">{{ item.idCompra.precio | currency: 'USD': '' }}</td>
                       <td class="off-p text-end">{{ item.cantidadSalida * item.idCompra.precio | currency: 'USD': '' }}

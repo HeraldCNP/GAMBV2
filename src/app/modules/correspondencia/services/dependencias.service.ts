@@ -32,7 +32,7 @@ export class DependenciasService {
   getDependencias(): Observable<Dependencia[]> {
     let url = `${this.URL}/dependencias`;
     const header = this.headers;
-    console.log(url);
+    // console.log(url);
     return this.http.get<Dependencia[]>(url, {headers: header});
   }
 

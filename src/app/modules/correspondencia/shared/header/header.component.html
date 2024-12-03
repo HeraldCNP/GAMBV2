@@ -8,23 +8,26 @@
   
           <ng-container *ngIf="(data.post === 'ALMACENES' || data.roles === 'SUPER_ADMIN')">
             <li class="nav-item d-none d-sm-inline-block">
-              <a routerLink="/correspondencia/dependencia/index" [routerLinkActive]="['active']" class="nav-link">Dependencias</a>
+              <a routerLink="/correspondencia/dependencia/index" [routerLinkActive]="['active']" class="nav-link">Unidades Funcionales</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-              <a routerLink="/correspondencia/tipo/index" [routerLinkActive]="['active']" class="nav-link">Tipos</a>
+              <a routerLink="/correspondencia/tipo/index" [routerLinkActive]="['active']" class="nav-link">Tipos de Documentos</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+              <a routerLink="/correspondencia/mi/index" [routerLinkActive]="['active']" class="nav-link">Mi Correspondencia</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
               <a routerLink="/correspondencia/index" [routerLinkActive]="['active']" class="nav-link">Correspondencias</a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
+            <!-- <li class="nav-item d-none d-sm-inline-block">
               <a routerLink="/almacen/reporte/index" [routerLinkActive]="['active']" class="nav-link">Reportes</a>
-            </li>
+            </li> -->
   
           </ng-container>
   
-          <li class="nav-item d-none d-sm-inline-block">
+          <!-- <li class="nav-item d-none d-sm-inline-block">
             <a routerLink="/almacen/vale/listAutorizacion" [routerLinkActive]="['active']" class="nav-link">Vales</a>
-          </li>
+          </li> -->
   
   
           <!-- <li class="nav-item d-none d-sm-inline-block">
@@ -53,7 +56,7 @@
                   <img src="../../../../../assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
                     alt="User Image">
                 </div>
-                <div class="info">
+                <div>
                   {{ data.username }} {{ data.surnames }}
                 </div>
               </div>

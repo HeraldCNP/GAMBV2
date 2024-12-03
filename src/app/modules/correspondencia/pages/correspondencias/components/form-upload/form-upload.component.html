@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>{{ inputData.title }}</h2>
+<mat-dialog-content class="mat-typography">
+
+
+    <mat-form-field class="full">
+        <input matInput [value]="fileName" />
+
+        <input type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" accept=".docx" />
+    </mat-form-field>
+
+    <div *ngIf="currentFile" class="progress-bar">
+        <mat-progress-bar color="accent" [value]="progress"></mat-progress-bar>
+        <span class="progress">{{ progress }}%</span>
+    </div>
+
+    <button mat-flat-button color="primary" [disabled]="!currentFile" (click)="uploadDocument()">
+        Cargar
+    </button>
+
+
+    <div *ngIf="message" class="message">
+        {{ message }}
+    </div>
+
+</mat-dialog-content>

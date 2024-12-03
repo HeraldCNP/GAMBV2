@@ -14,18 +14,8 @@
     overflow: auto;
 }
 
-.danger {
-    color: red;
-}
 
-.warning {
-    color: orange;
-}
 
-.info {
-    color: rgb(154, 45, 255);
-}
-
-.success {
-    color: green;
+.mat-button-toggle-appearance-standard.mat-button-toggle-checked{
+    background-color: #67d46a;
 }

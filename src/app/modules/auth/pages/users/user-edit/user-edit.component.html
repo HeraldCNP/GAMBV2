@@ -73,7 +73,7 @@
 
             <div class="input-group mb-1">
               <ngx-select class="sel" [allowClear]="true" [items]="cargos" optionTextField="nombresubdir" optionValueField="_id"
-                placeholder="Seleccione una unidad" formControlName="cargo" >
+                placeholder="Seleccione un cargo" formControlName="cargo" >
                 <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                   <span [innerHtml]="text"></span>
                   &nbsp;{{option.data.surnames}}
@@ -97,7 +97,7 @@
             </div>
 
             <div class="input-group mb-3">
-              <select id="categoriaLicencia" formControlName="categoriaLicencia" class="form-select">
+              <select id="categoriaLicencia" formControlName="categoriaLicencia" class="form-select" placeholder="Seleccione Tipo de Licencia de Conducir">
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
@@ -107,6 +107,27 @@
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-id-card icon"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-1">
+              <ngx-select class="sel" [allowClear]="true" [items]="dependencias()" optionTextField="descripcion" optionValueField="_id"
+                placeholder="Seleccione Unidad Funcional" formControlName="dependencia" >
+              </ngx-select>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-id-card icon"></span>
+                </div>
+              </div>
+
+              <div class="form-text" *ngIf="form['cargo'].touched && form['cargo'].invalid">
+                <div *ngIf="
+                    form['cargo'].errors &&
+
+                    form['cargo'].errors['required']
+                  ">
+                  * Debe seleccionar una unidad Solicitante.
                 </div>
               </div>
             </div>

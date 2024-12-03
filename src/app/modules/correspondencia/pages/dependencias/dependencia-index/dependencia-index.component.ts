@@ -10,6 +10,7 @@ import { DependenciasService } from '../../../services/dependencias.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormDependenciaComponent } from '../components/form-dependencia/form-dependencia.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ShowUserComponent } from '../components/show-user/show-user.component';
 
 @Component({
   selector: 'app-dependencia-index',
@@ -110,9 +111,41 @@ export class DependenciaIndexComponent {
     // this.openDialog2(id, 'Editar Apoderado', idApoderado)
   }
 
-  verApoderado(idApoderado: any) {
-    // this.openDialog2(null, 'Ver Apoderado', idApoderado)
+  showUsers(idDependencia: any) {
+    this.openDialog2(null, 'Ver Usuarios', idDependencia)
   }
+
+  openDialog2(id: any, title: any, idDependencia:any) {
+    let dialog = this.matDialog.open(ShowUserComponent, {
+      width: '800px',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        id: id,
+        title: title,
+        idDependencia: idDependencia,
+      }
+    });
+    dialog.afterClosed().subscribe({
+      next: (resp: any) => {
+        if (resp == 'edited') {
+          // this.cargarBeneficiaries();
+          Swal.fire('Bien', `Apoderado Editado Correctamente`, 'success')
+        }
+
+        if(resp == 'created'){
+          // this.cargarBeneficiaries();
+          Swal.fire('Bien', `Apoderado Creado Correctamente`, 'success')
+        }
+      },
+      error: (resp: any) => {
+        console.log(resp.error.message);
+        // Swal.fire('Error', resp, 'error')
+        // Swal.fire('Error', resp, 'error')
+      }
+    })
+  }
+
 
   hideDependencia(id:string){
     let data = {
@@ -220,5 +253,6 @@ export class DependenciaIndexComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
 
 }

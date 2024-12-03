@@ -187,7 +187,7 @@ export class ValeIndexComponent {
    */
   edit(id: any) {
     // Redireccionamos a la ruta de editar una autorización con el id pasado
-    this.router.navigate(['/actFijos/autorizacion/update', id]);
+    this.router.navigate(['/almacen/vale/update', id]);
   }
 
   deleteVale(id: string) {

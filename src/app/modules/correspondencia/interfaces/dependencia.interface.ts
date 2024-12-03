@@ -3,5 +3,4 @@ export interface Dependencia {
   sigla: string;
   isActive?: boolean;
   idDependencia?: string;
-
 }
