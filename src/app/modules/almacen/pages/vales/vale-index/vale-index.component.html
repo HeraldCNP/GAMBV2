@@ -165,7 +165,7 @@
               <tbody class="table-group-divider">
                 <tr *ngFor="let vale of vales.serverResponse; let i = index">
                   <td>{{ vale.numeroVale }}</td>
-                  <td>{{ vale.createdAt | date: 'mediumDate' : "UTC" }}</td>
+                  <td>{{ vale.fecha | date: 'mediumDate' : "UTC" }}</td>
                   <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
                   <td>{{ vale.catProgra }}</td>
                   <td>{{ vale.idProducto ? vale.idProducto.nombre : 'Lubricantes' }}</td>

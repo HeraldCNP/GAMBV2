@@ -335,7 +335,7 @@
                         <td class="off-p text-center">{{ item.factura }}</td>
                         <td class="off-p">{{ item.idArticulo.nombre }}</td>
                         <td class="off-p text-center">
-                          {{ item.cantidadCompra }}
+                          {{ item.cantidadCompra | number: '1.2-2' }}
                         </td>
                         <td class="off-p">
                           {{ item.idArticulo.unidadDeMedida | titlecase }}
