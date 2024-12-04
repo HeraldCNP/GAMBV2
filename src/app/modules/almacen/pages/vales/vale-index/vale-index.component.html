@@ -201,9 +201,7 @@
                     <!-- <button class="btn btn-info text-sm" (click)="generarVale(vale._id)">Generar Vale<i
                         class="fas fa-print ml-2 icono"></i></button> -->
 
-                    <span *ngIf="!vale.idCompra && vale.productos?.length == 0">
-                      <i class="fas fa-edit ml-2 icono" (click)="edit(vale._id)" title="Editar"></i>
-                    </span>
+
 
 
 
@@ -216,6 +214,11 @@
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal2"
                         (click)="print(vale)" title="Imprimir"></i>
                     </span>
+
+                    <span *ngIf="!vale.idCompra && vale.productos?.length == 0">
+                      <i class="fas fa-edit ml-2 icono iconoSkyBlue" (click)="edit(vale._id)" title="Editar"></i>
+                    </span>
+
                     <i *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'"
                       class="fas fa-trash ml-2 iconoRed" (click)="deleteVale(vale._id)" title="Eliminar"></i>
                   </td>

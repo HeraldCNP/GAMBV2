@@ -60,3 +60,8 @@ tr th{
   color: red;
   cursor: pointer;
 }
+
+.iconoSkyBlue{
+  cursor: pointer;
+  color: rgb(65, 201, 255);
+}
