@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { catProgra } from '../interfaces/catProgra.interface';
 import { AuthService } from '../../auth/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,17 @@ export class ValeService {
     let dir = `${this.URL}/finalizarVales`;
     const header = this.headers;
     return this.http.post(dir, form, { headers: header})
+  }
+
+  getSingleVale(id:string){
+    let dir = `${this.URL}/vale/${id}`; 
+    const header = this.headers;
+    return this.http.get<any>(dir, { headers: header});
+  }
+
+  editVale(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/vale/${id}`;
+    return this.http.put<any>(dir, form)
   }
 
 }
