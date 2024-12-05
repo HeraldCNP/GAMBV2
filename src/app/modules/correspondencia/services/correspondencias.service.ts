@@ -65,7 +65,13 @@ export class CorrespondenciasService {
     const url = `${this.URL}/correspondencia`;
     const header = this.headers;
     return this.http.post<any>(url, data, { headers: header });
-  } 
+  }
+
+  editCorrespondencia(data: any, id: any): Observable<any> {
+    const url = `${this.URL}/correspondencia/${id}`;
+    const header = this.headers;
+    return this.http.put<any>(url, data, {headers: header});
+  }
 
   getDependencia(id:any){
     const url = `${this.URL}/dependencia/${id}`;
@@ -114,5 +120,7 @@ export class CorrespondenciasService {
     });
     return this.http.request(req);
   }
+
+
 
 }

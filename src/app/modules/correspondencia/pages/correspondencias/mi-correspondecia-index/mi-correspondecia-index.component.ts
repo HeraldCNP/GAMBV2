@@ -55,7 +55,7 @@ export class MiCorrespondeciaIndexComponent {
 
   ngOnInit(): void {
     this.getTipos();
-    this.params = { idUsuario: this.idUser };
+    this.params = { idUsuario: this.idUser, isActive: true };
     this.cargarCorrespondencias(this.params);
     
   }
@@ -97,15 +97,20 @@ export class MiCorrespondeciaIndexComponent {
     dialog.afterClosed().subscribe({
       next: (resp: any) => {
         if (resp == 'edited') {
-          this.cargarCorrespondencias();
+          let params = { 
+            idUsuario: this.idUser,
+            isActive: true
+          };
+          this.cargarCorrespondencias(params);
           Swal.fire('Bien', `Dependencia Editada Correctamente`, 'success')
         }
 
         if (resp == 'created') {
-          this.params = { 
+          let params = { 
             idUsuario: this.idUser,
+            isActive: true
           };
-          this.cargarCorrespondencias(this.params);
+          this.cargarCorrespondencias(params);
           Swal.fire('Bien', `Correspondencia Creada Correctamente`, 'success')
         }
       },
@@ -133,7 +138,7 @@ export class MiCorrespondeciaIndexComponent {
     // this.openDialog2(null, 'Ver Apoderado', idApoderado)
   }
 
-  hideDependencia(id: string) {
+  hideCorrespondencia(id: string) {
     let data = {
       isActive: false
     }
@@ -147,10 +152,11 @@ export class MiCorrespondeciaIndexComponent {
       confirmButtonText: "¡Sí, bórralo!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.correspondenciaService.editDependencia(data, id)
+        this.correspondenciaService.editCorrespondencia(data, id)
           .subscribe({
             next: () => {
-              this.cargarCorrespondencias();
+              let params = { idUsuario: this.idUser, isActive: true };
+              this.cargarCorrespondencias(params);
             },
             error: (message: string | undefined) => {
               Swal.fire('Error', message, 'error')
@@ -224,7 +230,8 @@ export class MiCorrespondeciaIndexComponent {
         }
 
         if(resp == 'submited'){
-          this.cargarCorrespondencias();
+          let params = { idUsuario: this.idUser, isActive: true };
+          this.cargarCorrespondencias(params);
           Swal.fire('Bien', `Documento Subido Correctamente`, 'success')
         }
       },
@@ -263,7 +270,8 @@ export class MiCorrespondeciaIndexComponent {
     // console.log('Opción seleccionada:', event.value);
     this.params = { 
       idUsuario: this.idUser,
-      idTipo: event.value
+      idTipo: event.value,
+      isActive: true
     };
     this.cargarCorrespondencias(this.params);
     // Actualizar otras partes de tu aplicación con el nuevo valor
