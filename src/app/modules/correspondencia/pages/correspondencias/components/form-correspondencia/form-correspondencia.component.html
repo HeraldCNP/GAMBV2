@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>{{ inputData.title }}</h2>
 <mat-dialog-content class="mat-typography">
 
-    <mat-stepper [linear]="false" #stepper>
+    <mat-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="firstFormGroup" [editable]="true">
             <form [formGroup]="firstFormGroup">
                 <ng-template matStepLabel>Paso 1</ng-template>
@@ -54,7 +54,7 @@
                         matStepperNext>Siguiente</button>
                 </div>
 
-                <pre>{{firstFormGroup.value | json}}</pre>
+                <!-- <pre>{{firstFormGroup.value | json}}</pre> -->
             </form>
         </mat-step>
         <mat-step [stepControl]="secondFormGroup" [editable]="true">
@@ -230,7 +230,7 @@
                     <button color="primary" mat-raised-button (click)="createCorrespondencia()" [mat-dialog-close]="true"
                         [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" cdkFocusInitial>Registrar</button>
                 </div>
-                <pre>{{secondFormGroup.value | json}}</pre>
+                <!-- <pre>{{secondFormGroup.value | json}}</pre> -->
             </form>
         </mat-step>
         <!-- <mat-step>

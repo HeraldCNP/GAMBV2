@@ -47,7 +47,7 @@ export class CorrespondenciaIndexComponent {
   tipos = signal<any>(null);
 
 
-  displayedColumns: string[] = ['tipo', 'subTipo', 'cite', 'referencia', 'hojaRuta', 'acciones'];
+  displayedColumns: string[] = ['tipo', 'subTipo', 'cite', 'referencia', 'hojaRuta', 'isActive', 'acciones'];
   dataSource = new MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -129,7 +129,7 @@ export class CorrespondenciaIndexComponent {
     // this.openDialog2(null, 'Ver Apoderado', idApoderado)
   }
 
-  hideDependencia(id: string) {
+  hideCorrespondencia(id: string) {
     let data = {
       isActive: false
     }
@@ -143,7 +143,7 @@ export class CorrespondenciaIndexComponent {
       confirmButtonText: "¡Sí, bórralo!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.correspondenciaService.editDependencia(data, id)
+        this.correspondenciaService.editCorrespondencia(data, id)
           .subscribe({
             next: () => {
               this.cargarCorrespondencias();

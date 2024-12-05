@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { FormTipoComponent } from '../components/form-tipo/form-tipo.component';
 import { FormSubTipoComponent } from '../components/form-sub-tipo/form-sub-tipo.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tipo-index',
@@ -29,9 +30,10 @@ export class TipoIndexComponent {
   public isLoading = signal(false);
   private error = signal<string | null>(null);
   private _snackBar = inject(MatSnackBar)
+  URL = environment.api;
 
 
-  displayedColumn: string[] = ['nombre', 'sigla', 'subTipos', 'acciones'];
+  displayedColumn: string[] = ['nombre', 'sigla', 'subTipos', 'plantilla', 'acciones'];
   dataSource!: MatTableDataSource<Tipo>
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -85,6 +87,11 @@ export class TipoIndexComponent {
         if (resp == 'created') {
           this.cargarTipos();
           Swal.fire('Bien', `Tipo Creado Correctamente`, 'success')
+        }
+
+        if(resp == 'submited'){
+          this.cargarTipos();
+          Swal.fire('Bien', `Plantilla Subida Correctamente`, 'success')
         }
       },
       error: (resp: any) => {

@@ -81,6 +81,14 @@
                 <td mat-cell *matCellDef="let row">{{ row.observacion }}</td>
               </ng-container>
 
+              <ng-container matColumnDef="isActive">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                <td mat-cell *matCellDef="let row">
+                  <span *ngIf="row.isActive === true"><span class="badge bg-success">Activo</span></span>
+                  <span *ngIf="row.isActive === false"><span class="badge bg-danger">Inactivo</span></span>
+                </td>
+              </ng-container>
+
 
               <ng-container matColumnDef="acciones" stickyEnd>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
@@ -90,7 +98,7 @@
                     <mat-icon>edit</mat-icon>
                   </button>
 
-                  <button class="danger" mat-icon-button (click)="deleteDependencia(row._id)" matTooltip="Eliminar"
+                  <button class="danger" mat-icon-button (click)="hideCorrespondencia(row._id)" matTooltip="Eliminar"
                     aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>delete</mat-icon>
                   </button>

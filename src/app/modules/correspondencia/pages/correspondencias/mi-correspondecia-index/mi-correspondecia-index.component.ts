@@ -55,7 +55,7 @@ export class MiCorrespondeciaIndexComponent {
 
   ngOnInit(): void {
     this.getTipos();
-    this.params = { idUsuario: this.idUser };
+    this.params = { idUsuario: this.idUser, isActive: true };
     this.cargarCorrespondencias(this.params);
     
   }

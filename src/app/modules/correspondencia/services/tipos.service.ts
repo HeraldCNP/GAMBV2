@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
@@ -62,6 +62,16 @@ export class TiposService {
     return this.http.delete<any>(url, {headers: header});
   }
 
+  uploadPlantilla(formData:any): Observable<HttpEvent<any>> {
+    const header = this.headers;
+    const req = new HttpRequest('POST', `${this.URL}/tipo`, formData, {
+      reportProgress: true,
+      responseType: 'json',
+      headers: this.headers
+    });
+    return this.http.request(req);
+  }
+
 
   createSubtipo(data: any, id: any): Observable<any> {
     const url = `${this.URL}/addSubTipo/${id}`;
@@ -81,6 +91,8 @@ export class TiposService {
     const header = this.headers;
     return this.http.patch<any>(url, data, {headers: header});
   }
+
+
 
 
 }

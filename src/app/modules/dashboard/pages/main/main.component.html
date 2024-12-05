@@ -7,16 +7,15 @@
         <p class="lead">Desde aquí pódras acceder a los distintos sistemas del Gobierno Autónomo Municipal de
           Betanzos</p>
         <div>
-          <a routerLink="/"><i class="fas fa-home fa-1x mr-2 mt-2 app" style="color: #000 !important"
-              title="Inicio"> Inicio</i></a>
+          <a routerLink="/"><i class="fas fa-home fa-1x mr-2 mt-2 app" style="color: #000 !important" title="Inicio">
+              Inicio</i></a>
         </div>
         <div class="contenedor">
           <div class="contenedor-cards">
 
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_USER' || data.roles === 'SECRETARIA' || data.roles === 'SUPER_ADMIN' || data.roles === 'ADMIN' )">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_USER' || data.roles === 'SECRETARIA' || data.roles === 'SUPER_ADMIN' || data.roles === 'ADMIN' )">
+              <div class="card">
                 <a routerLink="/ruta">
                   <div class="imgbox">
                     <div>
@@ -30,9 +29,11 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )">
+
+
+            <div class="contenedor-card-item"
+              *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'RESP. DE COMUNICACIÓN Y DISEÑO GRAFICO' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' )">
+              <div class="card">
                 <a routerLink="/blog">
                   <div class="imgbox">
                     <div>
@@ -46,8 +47,8 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card" *ngIf="(data && data.roles === 'SUPER_ADMIN')">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_ADMIN')">
+              <div class="card">
                 <a routerLink="/auth">
                   <div class="imgbox">
                     <div>
@@ -61,9 +62,8 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+              <div class="card">
                 <a routerLink="/convenio">
                   <div class="imgbox">
                     <div>
@@ -77,9 +77,8 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
+              <div class="card">
                 <a routerLink="/docAdmin">
                   <div class="imgbox">
                     <div>
@@ -93,9 +92,8 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'ALMACENES' || data.post === 'ASISTENTE DE ALMACENES Y ACTIVOS FIJOS' || data.post === 'RESP. SICOFS Y AUX. DE ACTIVOS FIJOS')">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'ALMACENES' || data.post === 'ASISTENTE DE ALMACENES Y ACTIVOS FIJOS' || data.post === 'RESP. SICOFS Y AUX. DE ACTIVOS FIJOS')">
+              <div class="card">
                 <a routerLink="/almacen">
                   <div class="imgbox">
                     <div>
@@ -109,9 +107,8 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ARCHIVOS' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'DIRECCIÓN DE PLANIFICACIÓN')">
+              <div class="card">
                 <a routerLink="/archivos/carpetas/index">
                   <div class="imgbox">
                     <div>
@@ -125,9 +122,8 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ASISTENTE CONTABLE' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'PRESUPUESTOS TESORERIA Y CREDITO PÚBLICO')">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'ASISTENTE CONTABLE' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'PRESUPUESTOS TESORERIA Y CREDITO PÚBLICO')">
+              <div class="card">
                 <a href="https://bonodiscapacidad.gambetanzos.gob.bo/">
                   <div class="imgbox">
                     <div>
@@ -141,13 +137,27 @@
               </div>
             </div>
 
-            <div class="contenedor-card-item">
-              <div class="card"
-                *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'ACTIVOS FIJOS' || data.post === 'RESP. SICOFS Y AUX. DE ACTIVOS FIJOS')">
+            <div class="contenedor-card-item" *ngIf="(data && data.roles === 'SUPER_ADMIN' || data.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA' || data.post === 'ACTIVOS FIJOS' || data.post === 'RESP. SICOFS Y AUX. DE ACTIVOS FIJOS')">
+              <div class="card">
                 <a routerLink="/actFijos">
                   <div class="imgbox">
                     <div>
                       <img class="img-fluid" src="assets/img/private/activos.jpg" loading="lazy" alt="">
+                    </div>
+                  </div>
+                  <div class="details">
+                    <span class="caption">INGRESAR</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="contenedor-card-item">
+              <div class="card">
+                <a routerLink="/correspondencia">
+                  <div class="imgbox">
+                    <div>
+                      <img class="img-fluid" src="assets/img/private/correspondencias.jpg" loading="lazy" alt="">
                     </div>
                   </div>
                   <div class="details">
