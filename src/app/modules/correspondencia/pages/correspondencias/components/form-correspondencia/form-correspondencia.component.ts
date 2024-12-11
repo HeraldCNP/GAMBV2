@@ -231,10 +231,13 @@ export class FormCorrespondenciaComponent implements OnInit {
 
       nombreDestino: this.secondFormGroup.get('nombreDestino').value,
       cargoDestino: this.secondFormGroup.get('cargoDestino').value,
-      fsAdjunto: this.secondFormGroup.get('fsAdjunto').value,
+      fsAdjunto: this.secondFormGroup.get('fsAdjunto').value, 
+      
       hojaRuta: this.secondFormGroup.get('hojaRuta').value,
       referencia: this.secondFormGroup.get('referencia').value,
       via: this.secondFormGroup.get('via').value,
+      lugarDestino: this.secondFormGroup.get('lugarDestino').value,
+
 
       idUsuario: this.idUser,
     };

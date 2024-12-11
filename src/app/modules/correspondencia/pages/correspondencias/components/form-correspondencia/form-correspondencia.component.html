@@ -230,7 +230,7 @@
                     <button color="primary" mat-raised-button (click)="createCorrespondencia()" [mat-dialog-close]="true"
                         [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" cdkFocusInitial>Registrar</button>
                 </div>
-                <!-- <pre>{{secondFormGroup.value | json}}</pre> -->
+                <pre>{{secondFormGroup.value | json}}</pre>
             </form>
         </mat-step>
         <!-- <mat-step>
