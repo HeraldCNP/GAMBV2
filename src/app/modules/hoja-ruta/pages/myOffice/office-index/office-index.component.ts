@@ -121,27 +121,34 @@ export class OfficeIndexComponent implements OnInit {
 
   checkIfDayChanged(dateString: string): boolean {
     // Convertir la cadena de fecha proporcionada a un objeto Date
+    console.log(dateString);
+    
     const providedDate = new Date(dateString);
-      console.log('providedDate',providedDate);
+      //console.log('fecha derivado',providedDate);
       
 
     // Obtener la fecha actual
     const currentDate = new Date();
-
-    console.log('currentDate',currentDate);
+    const currentDateOf = currentDate.getDate();
     
-  
+    //console.log('fecha actual',currentDate);
+    
+    
+    
     // Comparar los días, meses y años de ambas fechas
-    const providedDay = providedDate.getUTCDate();
+    const providedDay = providedDate.getDate();
+   // console.log('fecha hoy', providedDay);
     const providedMonth = providedDate.getUTCMonth();
     const providedYear = providedDate.getUTCFullYear();
   
-    const currentDay = currentDate.getUTCDate();
+    const currentDay = currentDate.getDate();
+   // console.log('otra fecha', currentDay, currentDate);
+    
     const currentMonth = currentDate.getUTCMonth();
     const currentYear = currentDate.getUTCFullYear();
   
     // Si alguna de las partes de la fecha es diferente, el día ha cambiado
-    return providedDay !== currentDay || providedMonth !== currentMonth || providedYear !== currentYear;
+    return providedDay !== currentDateOf || providedMonth !== currentMonth || providedYear !== currentYear;
   }
 
   getpendientes() {
@@ -153,6 +160,8 @@ export class OfficeIndexComponent implements OnInit {
         for (let i = 0; i < data.totalDocs; i++) {
           this.ale = this.totales[i];
           const hasDayChanged = this.checkIfDayChanged(this.ale.fechaderivado);
+          console.log(hasDayChanged);
+          
 
           if (hasDayChanged) {
             this.alerta = true;
