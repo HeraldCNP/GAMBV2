@@ -114,6 +114,9 @@
             <div class="text-center ml-5 mt-3 mb-0">
               <h3 class="off-m">RESUMEN DE EXISTENCIAS EN ALMACÉN</h3>
               <p class="off-m">Expresado en Bolivianos</p>
+              <i class="subtitle"><b>Desde:</b> {{ fechaIni | date : "longDate" : "UTC" }} <b>Hasta:</b>
+                {{ fechaHoy | date : "longDate" : "UTC" }}</i>
+              <br />
             </div>
             <div class="p-3 ">
               <img src="/assets/img/sisal.png" alt="" width="163px" />
@@ -126,11 +129,9 @@
                   <th class="title" colspan="8">
                     REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }}
                     <br />
-                    <i class="subtitle">Desde: {{ fechaIni | date : "longDate" : "UTC" }} Hasta:
-                      {{ fechaHoy | date : "longDate" : "UTC" }}</i>
-                    <br />
-                    <i class="subtitle">FUNCIONARIO: {{ this.user.username }}
-                      {{ this.user.surnames }} - {{ this.destino }}</i>
+
+                    <i class="subtitle">FUNCIONARIO: {{ this.usuario.username }}
+                      {{ this.usuario.surnames }} - {{ this.destino }}</i>
                   </th>
                 </tr>
                 <tr class="head">

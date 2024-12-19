@@ -45,6 +45,8 @@ export class ReportEntradasComponent implements OnInit {
   constructor(private fb: FormBuilder, private reportAlm: ReportAlmService, private almacenService: AlmacenService) {
     this.usuario = localStorage.getItem('user');
     this.data = JSON.parse(this.usuario);
+    console.log(this.data);
+    
     this.idUser = this.data.id;
 
     this.reportForm = this.fb.group({
