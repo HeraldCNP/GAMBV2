@@ -71,8 +71,8 @@
               <button routerLink="/ruta/office/index" class="btn btn-info text-dark">
                 CANCELAR
               </button>
-              <button type="submit" [disabled]="derivarForm.invalid" (click)="registerSegui()"
-              [disabled]="clicked" class="btn btn-success">
+              <button type="submit" appLoader [disabled]="derivarForm.invalid" (click)="registerSegui()"
+               class="btn btn-success">
                 ACEPTAR
               </button>
             </div>
@@ -82,6 +82,7 @@
     </div>
   </div>
 </div>
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">

@@ -19,7 +19,7 @@
             </div>
             
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
+            <div class="card-body table-responsive">
               <table class="table table-hover">
                 <thead> 
                   <tr>
@@ -28,8 +28,9 @@
                     <th>Email</th>
                     <th>CI</th>
                     <th>Fecha de Registro</th>
-                    <th>Cargo</th>
+                    <th style="width: 300px;">Cargo</th>
                     <th>Rol</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -42,7 +43,7 @@
                     <td>{{ user.registerdate | date }}</td>
                     <td>{{ user.post }}</td>
                     <td>{{ user.roles }}</td>
-                    <td><img width="70px" src="" alt=""></td>
+                    <td><mat-slide-toggle id="toggle1" [checked]="user.isActive" (change)="changeEstado($event, user._id)">{{ user.isActive ? 'Activo' : 'Inactivo' }}</mat-slide-toggle></td>
                     <td>
                       <i (click)="editUser(user)" class="fas fa-edit ml-3 icono"></i>
                       <i (click)="deleteUser(user)" class="fas fa-trash-alt ml-3 icono"></i>

@@ -16,6 +16,7 @@ import { UsersIndexComponent } from './pages/users/users-index/users-index.compo
 import { UserEditComponent } from './pages/users/user-edit/user-edit.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { LoaderDirective } from 'src/app/core/directives/loader.directive';
+import { MaterialModule } from 'src/app/material/material.module';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { LoaderDirective } from 'src/app/core/directives/loader.directive';
     ReactiveFormsModule,
     FormsModule,
     NgxSelectModule,
-    LoaderDirective
+    LoaderDirective,
+    MaterialModule
   ]
 })
 export class AuthModule { }

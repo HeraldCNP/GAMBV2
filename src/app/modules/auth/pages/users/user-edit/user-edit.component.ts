@@ -101,7 +101,7 @@ export class UserEditComponent implements OnInit {
       err => console.log('HTTP Error', err),
       () => {
         this.router.navigate(['auth/users']),
-          this.alertOk('success', 'Exito', 'Salida Editada Correctamente', '2000')
+          this.alertOk('success', 'Exito', 'Usuario Editado Correctamente', '2000')
       }
     );
   }

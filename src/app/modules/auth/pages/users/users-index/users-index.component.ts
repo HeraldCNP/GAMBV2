@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, Event } from '@angular/router';
 import { Usuario } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users-index',
@@ -9,26 +10,60 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./users-index.component.css']
 })
 export class UsersIndexComponent implements OnInit {
-  users:any;
+  users: any;
   constructor(
-    private api:AuthService,
+    private api: AuthService,
     private router: Router,
   ) { }
 
+  private _snackBar = inject(MatSnackBar)
+
+  status: string = 'Activo';
+
   ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers() {
     this.api.getAllUsers().subscribe(
       data => {
         this.users = data;
-        // console.log(this.users);
+        console.log(this.users);
       }
     );
   }
 
-  editUser(user:Usuario){
+  editUser(user: Usuario) {
     this.router.navigate(['auth/users/update', user._id])
   }
 
-  deleteUser(user:Usuario){
+  deleteUser(user: Usuario) {
 
   }
+
+  changeEstado(Event: any, id: string) {
+    console.log(Event.checked);
+    console.log(id);
+
+    this.editUsuario(Event.checked, id);
+  }
+
+  editUsuario(status: boolean, id: string) {
+    let data = {
+      isActive: status
+    }
+    this.api.editUser(data, id).subscribe(
+      res => console.log(res),
+      err => console.log('HTTP Error', err),
+      () => {
+        this.getUsers();
+        this._snackBar.open('Estado Actualizado', 'Cerrar', {
+          duration: 3000
+        });
+      }
+    );
+    
+  }
+
+
 }
