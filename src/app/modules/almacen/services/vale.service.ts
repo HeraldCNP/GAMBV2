@@ -88,4 +88,10 @@ export class ValeService {
     return this.http.put<any>(dir, form)
   }
 
+  addFactura(form:any, id:string){
+    let dir = `${this.URL}/addFactura/${id}`;
+    const header = this.headers;
+    return this.http.put(dir, form, { headers: header})
+  }
+
 }

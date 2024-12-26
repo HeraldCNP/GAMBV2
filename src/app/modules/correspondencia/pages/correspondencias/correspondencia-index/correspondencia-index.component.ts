@@ -79,6 +79,7 @@ export class CorrespondenciaIndexComponent {
         }
       })
   }
+  
   createCorrespondencia() {
     this.openDialog(0, 'Crear Correspondencia')
   }

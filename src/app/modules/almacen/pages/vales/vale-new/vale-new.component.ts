@@ -62,6 +62,7 @@ export class ValeNewComponent {
       conductor: ['', [Validators.required]],
       vehiculo: [''],
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
+      numAntiguo: [''],
       idProducto: [''],
     });
   }
@@ -100,7 +101,7 @@ export class ValeNewComponent {
           'success',
           'Exito',
           'Vale Creado Correctamente',
-          '2000'
+          '2000' 
         );
         this.createForm.submitted = true;
       }

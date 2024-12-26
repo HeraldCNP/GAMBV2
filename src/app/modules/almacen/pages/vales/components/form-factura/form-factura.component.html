@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{ inputData.title }}</h2>
+<mat-dialog-content class="mat-typography">
+
+    <form [formGroup]="facturaForm">
+
+        <mat-form-field class="full-width">
+            <mat-label>N° de factura</mat-label>
+            <input type="number" matInput placeholder="Ej. SMAF" formControlName="numeroFactura">
+            <mat-icon matSuffix>abc</mat-icon>
+
+            <mat-error *ngIf="form['numeroFactura'].hasError('required') && form['numeroFactura'].touched">
+                El Carnet de Itendidad es obligatorio.
+            </mat-error>
+            <mat-error *ngIf="form['numeroFactura'].hasError('minlength') && form['numeroFactura'].touched">
+                El Carnet de Itendidad debe tener minimo 7 caracteres.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Monto</mat-label>
+            <input type="number" matInput placeholder="Ej. SMAF" formControlName="montoFactura">
+            <mat-icon matSuffix>abc</mat-icon>
+
+            <mat-error *ngIf="form['montoFactura'].hasError('required') && form['montoFactura'].touched">
+                El Carnet de Itendidad es obligatorio.
+            </mat-error>
+            <mat-error *ngIf="form['montoFactura'].hasError('minlength') && form['montoFactura'].touched">
+                El Carnet de Itendidad debe tener minimo 7 caracteres.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Fecha de Factura</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fechaFactura">
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form['fechaFactura'].hasError('required') && form['fechaFactura'].touched">
+                El Carnet de Itendidad es obligatorio.
+            </mat-error>
+            <mat-error *ngIf="form['fechaFactura'].hasError('minlength') && form['fechaFactura'].touched">
+                El Carnet de Itendidad debe tener minimo 7 caracteres.
+            </mat-error>
+        </mat-form-field>
+
+
+
+
+        <!-- <pre>{{!facturaForm.valid | json}}</pre> -->
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button color="primary" mat-raised-button (click)="addFactura()"
+        [disabled]="!facturaForm.valid" >Registrar</button>
+    <!-- <button mat-button (click)="createCorrespondencia()" [mat-dialog-close]="true"
+        [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" cdkFocusInitial>Registrar</button> -->
+</mat-dialog-actions>

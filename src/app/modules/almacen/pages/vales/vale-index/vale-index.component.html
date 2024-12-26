@@ -152,12 +152,16 @@
               <thead>
                 <tr>
                   <th>Vale N°</th>
-                  <th>Fecha</th>
-                  <th>Cantidad</th>
-                  <th>Categoria Programatica</th>
+                  <th>Vale N° Antiguo</th>
+                  <th>Fecha de Vale</th>
                   <th>Producto</th>
+                  <th>Cantidad (lt)</th>
+                  <th>Categoria Programatica</th>
                   <th>Autorizacion N°</th>
                   <th>Encargado</th>
+                  <th>Monto Entregado</th>
+                  <th>Monto Gastado</th>
+                  <th>Saldo a Devolver</th>
                   <th>Estado</th>
                   <th style="width: 150px;">Acciones</th>
                 </tr>
@@ -165,12 +169,16 @@
               <tbody class="table-group-divider">
                 <tr *ngFor="let vale of vales.serverResponse; let i = index">
                   <td>{{ vale.numeroVale }}</td>
+                  <td>{{ vale.numAntiguo ? vale.numAntiguo : ''}}</td>
                   <td>{{ vale.fecha | date: 'mediumDate' : "UTC" }}</td>
-                  <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
-                  <td>{{ vale.catProgra }}</td>
                   <td>{{ vale.idProducto ? vale.idProducto.nombre : 'Lubricantes' }}</td>
+                  <td style="text-align: right;">{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
+                  <td style="text-align: center;">{{ vale.catProgra }}</td>
                   <td>{{ vale.autorizacion?.numeroAutorizacion }}</td>
                   <td>{{ vale.encargadoControl.username }} {{ vale.encargadoControl.surnames }}</td>
+                  <td style="text-align: right;">{{ vale.precio | number:'1.2-2':'es-ES' }}</td>
+                  <td style="text-align: right;">{{ vale.cantidadAdquirida | number:'1.2-2':'es-ES' }}</td>
+                  <td style="text-align: right;">{{ vale.saldoDevolucion | number:'1.2-2':'es-ES' }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="carpeta.estado == '1'">
@@ -201,10 +209,6 @@
                     <!-- <button class="btn btn-info text-sm" (click)="generarVale(vale._id)">Generar Vale<i
                         class="fas fa-print ml-2 icono"></i></button> -->
 
-
-
-
-
                     <span *ngIf="vale.idCompra != null">
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
                         (click)="print(vale)" title="Imprimir"></i>
@@ -221,6 +225,9 @@
 
                     <i *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'"
                       class="fas fa-trash ml-2 iconoRed" (click)="deleteVale(vale._id)" title="Eliminar"></i>
+
+                    <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'" -->
+                    <i class="fas fa-plus ml-2 iconoRed" (click)="addFactura(vale._id)" title="Añadir Factura"></i>
                   </td>
                 </tr>
               </tbody>
@@ -892,7 +899,7 @@
                     </tr>
                   </thead>
                   <tbody class="text-center">
-                    <tr *ngFor="let producto of vale.productos; let i = index" >
+                    <tr *ngFor="let producto of vale.productos; let i = index">
                       <td>{{ i + 1 }}</td>
                       <td>{{ producto.articulo }}</td>
                       <td>{{ producto.cantidadCompra | number:'1.2-2':'es-ES' }}</td>

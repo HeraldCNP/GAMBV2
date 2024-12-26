@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder } from '@angular/forms';
 import { ComprasService } from '../../../services/compras.service';
+import { FormFacturaComponent } from '../components/form-factura/form-factura.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-vale-index',
@@ -42,7 +44,7 @@ export class ValeIndexComponent {
 
   totalPrice: any;
 
-  constructor(private valeService: ValeService, private router: Router, private fb: FormBuilder , private comprasService: ComprasService) {
+  constructor(private valeService: ValeService, private router: Router, private fb: FormBuilder, private comprasService: ComprasService, private matDialog: MatDialog) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
@@ -62,11 +64,11 @@ export class ValeIndexComponent {
     this.cargarVales();
   }
 
-  get form () {
+  get form() {
     return this.searchForm.controls;
   }
 
-  obtenerFechaInicial(){
+  obtenerFechaInicial() {
     const date = new Date();
     const year = date.getFullYear();
     return `01/01/${year}`;
@@ -91,10 +93,10 @@ export class ValeIndexComponent {
     }
 
     // console.log('params', params);
-    
-    if(params.estado === 'PENDIENTE'){
+
+    if (params.estado === 'PENDIENTE') {
       this.btnActive = false;
-    }else{
+    } else {
       this.btnActive = true;
     }
 
@@ -107,17 +109,17 @@ export class ValeIndexComponent {
         this.totalPages = data.totalpage;
         console.log(data);
         this.cargando = false;
-        this.totalPrice = null;  
+        this.totalPrice = null;
 
       });
   }
 
-  mostrarTotales(){
+  mostrarTotales() {
     this.totalPrice = this.valesTemp.serverResponse.reduce((acc: any, order: any) => acc + order.precio, 0);
     // console.log(this.totalPrice);
   }
 
-  finalizarVales(){
+  finalizarVales() {
     Swal.fire({
       title: 'Estas seguro?',
       text: '¡No podrás revertir esto!',
@@ -146,7 +148,7 @@ export class ValeIndexComponent {
           }
         );
       }
-    });    
+    });
   }
 
   cambiarPagina(valor: number) {
@@ -162,7 +164,7 @@ export class ValeIndexComponent {
     let params = {
       limit: this.limit,
       skip: this.skip
-    } 
+    }
     this.cargarVales(params);
   }
 
@@ -278,6 +280,40 @@ export class ValeIndexComponent {
       text,
       timer,
     });
+  }
+
+  addFactura(idVale:string) {
+    this.openDialog(idVale, 'Añadir Factura')
+  }
+
+  openDialog(id: any, title: any) {
+    let dialog = this.matDialog.open(FormFacturaComponent, {
+      width: '700px',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        id: id,
+        title: title,
+      }
+    });
+    dialog.afterClosed().subscribe({
+      next: (resp: any) => {
+        if (resp == 'added') {
+          this.cargarVales();
+          // Swal.fire('Bien', `Factura Agregada Correctamente`, 'success')
+        }
+
+        if (resp == 'created') {
+          this.cargarVales();
+          // Swal.fire('Bien', `Factura Creada Correctamente`, 'success')
+        }
+      },
+      error: (resp: any) => {
+        console.log(resp);
+        // Swal.fire('Error', resp, 'error')
+        // Swal.fire('Error', resp, 'error')
+      }
+    })
   }
 
 }

@@ -15,6 +15,20 @@
               <div class="col-md">
                 <form (ngSubmit)="crearVale(createForm.value)" [formGroup]="createForm">
                   <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="precio"><b>Numero Vale Antiguo</b></span>
+                    <input id="text" class="form-control" type="number" formControlName="numAntiguo" />
+                    <div class="form-text" *ngIf="form['numAntiguo'].touched && form['numAntiguo'].invalid">
+                      <div *ngIf="form['numAntiguo'].errors && form['numAntiguo'].errors['required']">
+                        * El numAntiguo es Requerido.
+                      </div>
+                      <div *ngIf="form['numAntiguo'].errors && form['numAntiguo'].errors['minlength']">
+                        * El numAntiguo no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-1">
                     <span class="input-group-text izq" id="idProducto"><b> Articulo *</b></span>
                     <select id="idProducto" formControlName="idProducto" class="form-select">
                       <!-- <option value="2023" [defaultSelected]="true">2023</option> -->
