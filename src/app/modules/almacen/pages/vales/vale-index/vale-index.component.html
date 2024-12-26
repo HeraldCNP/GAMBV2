@@ -1,4 +1,4 @@
-<div class="container">
+<div class="">
   <div class="mt-3">
     <div class="row animated fadeIn fast">
       <div class="col-md-12">
@@ -150,7 +150,7 @@
 
             <table class="table table-hover mb-2">
               <thead>
-                <tr>
+                <tr style="text-align: center;">
                   <th>Vale N°</th>
                   <th>Vale N° Antiguo</th>
                   <th>Fecha de Vale</th>
@@ -160,8 +160,9 @@
                   <th>Autorizacion N°</th>
                   <th>Encargado</th>
                   <th>Monto Entregado</th>
-                  <th>Monto Gastado</th>
-                  <th>Saldo a Devolver</th>
+                  <th>Monto Pagado</th>
+                  <th>Saldo</th>
+                  <th>Saldo Devuelto</th>
                   <th>Estado</th>
                   <th style="width: 150px;">Acciones</th>
                 </tr>
@@ -178,7 +179,9 @@
                   <td>{{ vale.encargadoControl.username }} {{ vale.encargadoControl.surnames }}</td>
                   <td style="text-align: right;">{{ vale.precio | number:'1.2-2':'es-ES' }}</td>
                   <td style="text-align: right;">{{ vale.cantidadAdquirida | number:'1.2-2':'es-ES' }}</td>
-                  <td style="text-align: right;">{{ vale.saldoDevolucion | number:'1.2-2':'es-ES' }}</td>
+                  <td style="text-align: right;">{{ (vale.saldoDevolucion - vale.saldoDevuelto) | number:'1.2-2':'es-ES'
+                    }}</td>
+                  <td style="text-align: right;">{{ vale.saldoDevuelto | number:'1.2-2':'es-ES' }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="carpeta.estado == '1'">
@@ -195,11 +198,11 @@
                   </td> -->
                   <td>
                     <span *ngIf="!vale.idCompra && vale.productos?.length == 0" class="textEstado"
-                      (click)="cambiarEstado(vale)" [ngSwitch]="vale.estado">
-                      <span *ngSwitchCase="'REGISTRADO'" class="badge est badge-danger" title="Cambiar Estado">{{
+                      [ngSwitch]="vale.estado">
+                      <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger" title="Cambiar Estado">{{
                         vale.estado }} </span>
-                      <span *ngSwitchCase="'PENDIENTE'" class="badge est badge-info">{{ vale.estado }}</span>
-                      <span *ngSwitchCase="'FINALIZADO'" class="badge est badge-success">{{ vale.estado }}</span>
+                      <span *ngSwitchCase="'PENDIENTE'" class="badge badge-info">{{ vale.estado }}</span>
+                      <span *ngSwitchCase="'FINALIZADO'" class="badge badge-success">{{ vale.estado }}</span>
                     </span>
                   </td>
                   <td>
@@ -225,9 +228,11 @@
 
                     <i *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'"
                       class="fas fa-trash ml-2 iconoRed" (click)="deleteVale(vale._id)" title="Eliminar"></i>
-
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'" -->
-                    <i class="fas fa-plus ml-2 iconoRed" (click)="addFactura(vale._id)" title="Añadir Factura"></i>
+                    <i class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(vale._id)"
+                      title="Añadir Factura"></i>
+                    <i class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(vale._id)"
+                      title="Añadir Devolución"></i>
                   </td>
                 </tr>
               </tbody>

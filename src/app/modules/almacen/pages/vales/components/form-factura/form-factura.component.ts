@@ -45,7 +45,7 @@ export class FormFacturaComponent {
   // filteredFuncionarios: Observable<any[]>;
   // filteredDestinoFuncionarios: Observable<any[]>;
 
-
+  fechaHoy = new Date().toISOString();
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private ref: MatDialogRef<FormFacturaComponent>) {
@@ -58,7 +58,7 @@ export class FormFacturaComponent {
     this.facturaForm = this.fb.group({
       numeroFactura: ['', [Validators.required]],
       montoFactura: ['', [Validators.required]],
-      fechaFactura: ['', [Validators.required]],
+      fechaFactura: [this.fechaHoy.substr(0, 10), [Validators.required]],
     });
 
 

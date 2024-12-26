@@ -49,7 +49,7 @@ tr th{
 
 .textEstado{
   font-size: 0.65rem;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .icono{
@@ -64,4 +64,9 @@ tr th{
 .iconoSkyBlue{
   cursor: pointer;
   color: rgb(65, 201, 255);
+}
+
+.iconoYellow{
+  cursor: pointer;
+  color: darkorange;
 }

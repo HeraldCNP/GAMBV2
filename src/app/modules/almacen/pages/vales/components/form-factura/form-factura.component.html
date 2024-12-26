@@ -31,8 +31,21 @@
 
         <mat-form-field class="full-width">
             <mat-label>Fecha de Factura</mat-label>
+            <input type="date" matInput formControlName="fechaFactura">
+            <mat-icon matSuffix>abc</mat-icon>
+
+            <mat-error *ngIf="form['fechaFactura'].hasError('required') && form['fechaFactura'].touched">
+                La Fecha de Factura es obligatorio.
+            </mat-error>
+            <mat-error *ngIf="form['fechaFactura'].hasError('minlength') && form['fechaFactura'].touched">
+                La Fecha de Factura debe tener minimo 7 caracteres.
+            </mat-error>
+        </mat-form-field>
+        <!-- 
+        <mat-form-field class="full-width">
+            <mat-label>Fecha de Factura</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="fechaFactura">
-            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="form['fechaFactura'].hasError('required') && form['fechaFactura'].touched">
@@ -41,20 +54,19 @@
             <mat-error *ngIf="form['fechaFactura'].hasError('minlength') && form['fechaFactura'].touched">
                 El Carnet de Itendidad debe tener minimo 7 caracteres.
             </mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
 
 
 
 
-        <!-- <pre>{{!facturaForm.valid | json}}</pre> -->
+        <pre>{{ facturaForm.value | json}}</pre>
     </form>
 
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button color="primary" mat-raised-button (click)="addFactura()"
-        [disabled]="!facturaForm.valid" >Registrar</button>
+    <button color="primary" mat-raised-button (click)="addFactura()" [disabled]="!facturaForm.valid">Registrar</button>
     <!-- <button mat-button (click)="createCorrespondencia()" [mat-dialog-close]="true"
         [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" cdkFocusInitial>Registrar</button> -->
 </mat-dialog-actions>

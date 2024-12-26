@@ -282,7 +282,7 @@ export class ValeIndexComponent {
     });
   }
 
-  addFactura(idVale:string) {
+  addFactura(idVale: string) {
     this.openDialog(idVale, 'Añadir Factura')
   }
 
@@ -316,4 +316,37 @@ export class ValeIndexComponent {
     })
   }
 
+
+  async addDevolution(idVale: string) {
+
+    const { value: montoValor } = await Swal.fire({
+      title: "Ingrese el monto a devolver",
+      input: "number", // Change to 'number' for numeric input
+      inputAttributes: {
+        autocapitalize: "off"
+      },
+      showCancelButton: true,
+      confirmButtonText: "Registrar",
+      showLoaderOnConfirm: true,
+      preConfirm: async (valor) => {
+        if (!valor) {
+          return Swal.showValidationMessage("Ingrese un monto válido");
+        }
+        this.valeService.editVale({ saldoDevuelto: valor }, idVale).subscribe(
+          (res) => {
+            console.log(res);
+
+          },
+          err => console.log('HTTP Error', err),
+          () => {
+            this.cargarVales();
+            this.alertOk('success', 'Exito', 'Monto Devuelto Correctamente', '2000')
+          }
+        );
+
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    });
+
+  }
 }
