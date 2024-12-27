@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -59,6 +59,26 @@ export class ReportAlmService {
     // console.log(dir);
     return this.http.get<any>(dir);
   }
+
+  getVales(params?: any): Observable<any> {
+    const url = `${this.URL}/valesReport`;
+    // console.log(params);
+
+    // const header = this.headers;
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach(key => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    return this.http.get<any>(url, { params: httpParams });
+
+  }
+
+
+
 
 }
 

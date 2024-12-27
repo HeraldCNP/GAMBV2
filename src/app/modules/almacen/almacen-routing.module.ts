@@ -28,6 +28,7 @@ import { ValeIndexComponent } from './pages/vales/vale-index/vale-index.componen
 import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
 import { ValeLubriComponent } from './pages/vales/vale-lubri/vale-lubri.component';
 import { ValeUpdateComponent } from './pages/vales/vale-update/vale-update.component';
+import { ReportValesComponent } from './pages/report/report-vales/report-vales.component';
 
 
 const routes: Routes = [
@@ -58,6 +59,7 @@ const routes: Routes = [
       { path: 'reporte/entradas', component:  ReportEntradasComponent},
       { path: 'reporte/articulos', component:  ReportArticulosComponent},
       { path: 'reporte/fisicoValorado', component:  ReportFisicoValoradoComponent},
+      { path: 'reporte/vales', component:  ReportValesComponent},
       // { path: 'compra/create', component: CompraCreateComponent },
       // { path: 'compra/update/:id', component: CompraUpdateComponent },
 

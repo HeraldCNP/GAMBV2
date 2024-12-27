@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ComprasService } from '../../../services/compras.service';
 import { ValeService } from '../../../services/vale.service';
 import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vale-new',
@@ -20,9 +21,9 @@ export class ValeNewComponent {
   createForm: any;
 
   catProgras: any;
-  compras:any;
+  compras: any;
   noHayStock: boolean = false;
-  compraSingle:any;
+  compraSingle: any;
 
   unidades: any;
   vehiculos: any;
@@ -34,6 +35,8 @@ export class ValeNewComponent {
   article: any;
   productos: any = [];
 
+  private _snackBar = inject(MatSnackBar);
+
   constructor(
     private activeRouter: ActivatedRoute,
     private fb: FormBuilder,
@@ -41,7 +44,7 @@ export class ValeNewComponent {
     private router: Router,
     private valeService: ValeService,
     private autorizacionService: AutorizacionService,
-    ) {
+  ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
@@ -93,7 +96,12 @@ export class ValeNewComponent {
       (res) => {
         console.log(res);
       },
-      (err) => console.log('HTTP Error', err),
+      (err) => {
+        console.log('HTTP Error', err)
+        this._snackBar.open(err.error.serverResponse, 'Cerrar', {
+          duration: 3000
+        });
+      },
       () => {
 
         this.router.navigate(['almacen/vale/index']);
@@ -101,7 +109,7 @@ export class ValeNewComponent {
           'success',
           'Exito',
           'Vale Creado Correctamente',
-          '2000' 
+          '2000'
         );
         this.createForm.submitted = true;
       }
@@ -112,14 +120,14 @@ export class ValeNewComponent {
   doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
     this.valeService.getCompraOfCombustible(this.createForm.value.idProducto, this.createForm.value.catProgra).subscribe((data: any) => {
-      if(data.serverResponse.length == 0){
+      if (data.serverResponse.length == 0) {
         this.noHayStock = true;
       }
-      else{
+      else {
         this.compras = data.serverResponse;
         this.noHayStock = false;
         console.log('compras', this.compras);
-        
+
       }
     });
 
@@ -142,9 +150,9 @@ export class ValeNewComponent {
     this.compraSingle = this.compras.find((objeto: any) => objeto._id === id);
     console.log('compraSingle', this.compraSingle);
   }
-  
+
   calcularStock() {
-    if(this.compraSingle){
+    if (this.compraSingle) {
       if (this.createForm.value.cantidad > this.compraSingle.stockCompra) {
         Swal.fire('Cantidad insuficiente')
         this.createForm.value.cantidad = 0;
@@ -173,7 +181,7 @@ export class ValeNewComponent {
     this.autorizacionService.getAllVehiculos()
       .subscribe((data: any) => {
         this.vehiculos
-        = data.serverResponse;
+          = data.serverResponse;
         console.log('vehiculos', this.vehiculos);
       });
   }
