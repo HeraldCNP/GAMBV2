@@ -115,7 +115,7 @@ export class ValeIndexComponent {
   }
 
   mostrarTotales() {
-    this.totalPrice = this.valesTemp.serverResponse.reduce((acc: any, order: any) => acc + order.precio, 0);
+    this.totalPrice = this.valesTemp.serverResponse.reduce((acc: any, order: any) => acc + order.cantidadAdquirida, 0);
     // console.log(this.totalPrice);
   }
 

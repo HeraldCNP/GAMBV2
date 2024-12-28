@@ -132,6 +132,7 @@
                         <table class="table-bordered mb-0 table-responsive" id="table">
                             <thead>
                                 <tr style="text-align: center;">
+                                    <th>N°</th>
                                     <th>Vale N°</th>
                                     <th>Vale N° Antiguo</th>
                                     <th>Producto</th>
@@ -142,47 +143,86 @@
                                     <th>Saldo Devuelto</th>
                                 </tr>
                             </thead>
+
+                            <!-- {
+                "fecha": "2024-04-04T12:13:58.959Z",
+                "cantidad": 150,
+                "productos": [],
+                "precio": 0,
+                "estado": "REGISTRADO",
+                "cantidadAdquirida": 0,
+                "saldoDevolucion": 0,
+                "saldoDevuelto": 0,
+                "idFacturas": [],
+                "_id": "660e998640cb4e00127ce54f",
+                "autorizacion": "660e98ca40cb4e00127ce3f5",
+                "catProgra": "000 0 002",
+                "encargadoControl": "6253bf6900ae6f0014f7bc23",
+                "idCompra": "660c563c40cb4e00127c780b",
+                "idProducto": "6439b82156cc6b00132c9ab2",
+                "numeroVale": 44,
+                "createdAt": "2024-04-04T12:13:58.959Z",
+                "updatedAt": "2024-12-04T00:49:12.846Z"
+            }  -->
+
                             <tbody>
                                 <ng-container *ngFor="let category of categories">
                                     <tr *ngFor="let item of separados[category]; let i = index">
                                         <td class="off-p">{{ i + 1 }}</td>
-                                        <td>{{ item.idEntrada.numeroEntrada }}</td>
-                                        <td class="off-p" style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem">
-                                            {{ item.catProgra }}
-                                        </td>
-                                        <td>
-                                            {{ item.idArticulo.nombre }}
-                                        </td>
-                                        <td class="off-p">
-                                            {{ item.idArticulo.unidadDeMedida | titlecase }}
-                                        </td>
-                                        <td>{{ item.precio | currency : "USD" : "" }}</td>
-                                        <td>{{ item.stockCompra | number : "1.2-2" }}</td>
-                                        <td class="off-p pr-2 text-end">
+                                        <td>{{ item.numeroVale }}</td>
+                                        <td class="off-p" style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem"> {{ item.numAntiguo ? item.numAntiguo : '' }} </td>
+                                        <td> {{ item.idProducto ? item.idProducto.nombre : 'Lubricantes' }}</td>
+                                        <td class="off-p" style="text-align: right;">{{ item.cantidad | number:'1.2-2':'es-ES' }}</td>
+                                        <td style="text-align: right;">{{ item.precio | number:'1.2-2':'es-ES' }}</td>
+                                        <td style="text-align: right;">{{ item.cantidadAdquirida | number:'1.2-2':'es-ES' }}</td>
+                                        <td style="text-align: right;">{{ (item.saldoDevolucion - item.saldoDevuelto) | number:'1.2-2':'es-ES'
+                                          }}</td>
+                                        <td style="text-align: right;">{{ item.saldoDevuelto | number:'1.2-2':'es-ES' }}</td>
+
+                                        <!-- <td class="off-p pr-2 text-end">
                                             {{ item.stockCompra * item.precio | currency : "USD" : "" }}
-                                        </td>
-
-
+                                        </td> -->
                                     </tr>
                                     <tr>
-                                        <td class="off-p" colspan="6">{{ nameCate[category] }}</td>
+                                        <td class="off-p" colspan="4">{{ nameCate[category] }}</td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ cantidades[category] | number :
-                                            "1.2-2" }}
+                                            <b style="font-weight: bold">Total: </b>{{ cantidades[category] | number : "1.2-2" }}
                                         </td>
-                                        <td class="off-p" class="text-end off-p">
-                                            <b style="font-weight: bold">Sub Total: </b>{{
-                                            categoryTotalPrices[category] | currency : "USD" : ""
-                                            }}
+                                        <td class="off-p" colspan="1" class="text-end off-p">
+                                            <b style="font-weight: bold">Total: </b>{{ montosEntregados[category] | number : "1.2-2" }}
                                         </td>
+                                        <td class="off-p" colspan="1" class="text-end off-p">
+                                            <b style="font-weight: bold">Total: </b>{{ montosPagados[category] | number : "1.2-2" }}
+                                        </td>
+                                        <td class="off-p" colspan="1" class="text-end off-p">
+                                            <b style="font-weight: bold">Total: </b>{{ saldos[category] | number : "1.2-2" }}
+                                        </td>
+                                        <td class="off-p" colspan="1" class="text-end off-p">
+                                            <b style="font-weight: bold">Total: </b>{{ saldosDevueltos[category] | number : "1.2-2" }}
+                                        </td>
+                                        <!-- <td class="off-p" class="text-end off-p">
+                                            <b style="font-weight: bold">Sub Total: </b>{{ categoryTotalPrices[category] | currency : "USD" : "" }}
+                                        </td> -->
                                     </tr>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="7" class="text-end off-p fs-5">
-                                        <b>SUMA TOTAL: </b>
+                                    <td colspan="4" class="text-end off-p fs-5">
+                                        <b>TOTALES: </b>
                                     </td>
                                     <td class="fs-5 off-p pr-2 text-end">
-                                        <b>{{ calculateTotalCost() | currency : "USD" : "" }}</b>
+                                        <b>{{ totalCantidades | currency : "USD" : "" }}</b>
+                                    </td>
+                                    <td class="fs-5 off-p pr-2 text-end">
+                                        <b>{{ totalMontosEntregados | currency : "USD" : "" }}</b>
+                                    </td>
+                                    <td class="fs-5 off-p pr-2 text-end">
+                                        <b>{{ totalMontosPagados | currency : "USD" : "" }}</b>
+                                    </td>
+                                    <td class="fs-5 off-p pr-2 text-end">
+                                        <b>{{ totalSaldos | currency : "USD" : "" }}</b>
+                                    </td>
+                                    <td class="fs-5 off-p pr-2 text-end">
+                                        <b>{{ totalSaldosDevueltos | currency : "USD" : "" }}</b>
                                     </td>
                                 </tr>
                             </tbody>

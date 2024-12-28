@@ -29,7 +29,7 @@ export class ReportValesComponent {
   cargando: boolean = true;
   catProgras: any;
   articles: any;
-  
+
   nameCat: any;
   nameCate: any = [];
   vales = signal<any>(null);
@@ -46,7 +46,19 @@ export class ReportValesComponent {
   separados: any;
   categories: any;
   categoryTotalPrices: any = 0;
+
   cantidades: any = [];
+  montosEntregados: any = [];
+  montosPagados: any = [];
+  saldos: any = [];
+  saldosDevueltos: any = [];
+
+  totalCantidades: any = [];
+  totalMontosEntregados: any = [];
+  totalMontosPagados: any = [];
+  totalSaldos: any = [];
+  totalSaldosDevueltos: any = [];
+
 
   constructor(private fb: FormBuilder, private reportAlm: ReportAlmService, private almacenService: AlmacenService) {
     this.usuario = localStorage.getItem('user');
@@ -109,12 +121,15 @@ export class ReportValesComponent {
     // this.searchForm.get('ci').setValue(this.searchForm.get('ci').trim);
     this.reportAlm.getVales(params).subscribe({
       next: (data: any) => {
-        console.log(data);
-        this.vales.set(data);
+        this.vales.set(data.serverResponse);
+        console.log(this.vales());
       },
       error: (error: any) => {
         console.log(error.error.message);
         // this._snackBar.open(error.error.message, 'Cerrar', { duration: 3000 });
+      },
+      complete: () => {
+        this.separar();
       }
     });
   }
@@ -122,13 +137,22 @@ export class ReportValesComponent {
 
 
 
-  calculateTotalCost() {
-    return this.entradas.reduce((acc: any, item: any) => acc + (item.precio * item.stockCompra), 0);
+  calculateTotal() {
+    this.totalCantidades = this.vales().reduce((acc: any, item: any) => acc + item.cantidad, 0);
+    this.totalMontosEntregados = this.vales().reduce((acc: any, item: any) => acc + item.precio, 0);
+    this.totalMontosPagados = this.vales().reduce((acc: any, item: any) => acc + item.cantidadAdquirida, 0);
+    this.totalSaldos = this.vales().reduce((acc: any, item: any) => acc + (item.saldoDevolucion - item.saldoDevuelto), 0);
+    this.totalSaldosDevueltos = this.vales().reduce((acc: any, item: any) => acc + item.saldoDevuelto, 0);
+
+    // totalMontosEntregados: any = [];
+    // totalMontosPagados: any = [];
+    // totalSaldos: any = [];
+    // totalSaldosDevueltos: any = [];
   }
 
   separar() {
     // console.log("tratando de ordenar",this.ingreso.productos);
-    const itemsByCategory = this.entradas.reduce((accumulator: any, current: any) => {
+    const itemsByCategory = this.vales().reduce((accumulator: any, current: any) => {
       if (!accumulator[current.catProgra]) {
         accumulator[current.catProgra] = [];
       }
@@ -137,8 +161,40 @@ export class ReportValesComponent {
       return accumulator;
     }, {});
     this.separados = itemsByCategory;
+    console.log("separados", this.separados);
+
+
     this.categories = Object.keys(itemsByCategory);
 
+
+    this.categoryTotalPrices = this.categories.reduce((accumulator: any, category: any) => {
+      const items = itemsByCategory[category];
+      const total = items.reduce((accumulator: any, item: any) => accumulator + (item.precio * item.stockCompra), 0);
+      this.cantidades[category] = items.reduce((accumulator: any, item: any) => accumulator + item.cantidad, 0);
+      this.montosEntregados[category] = items.reduce((accumulator: any, item: any) => accumulator + item.precio, 0);
+      this.montosPagados[category] = items.reduce((accumulator: any, item: any) => accumulator + item.cantidadAdquirida, 0);
+      this.saldos[category] = items.reduce((accumulator: any, item: any) => accumulator + (item.saldoDevolucion - item.saldoDevuelto), 0);
+      this.saldosDevueltos[category] = items.reduce((accumulator: any, item: any) => accumulator + item.saldoDevuelto, 0);
+      // console.log('totalCanti', total);
+
+      this.almacenService.searchSegCategoria(category)
+        .subscribe(
+          res => {
+            this.nameCate[category] = res.serverResponse[0].proyect_acti
+          },
+          err => console.log('HTTP Error', err),
+          () => {
+
+          }
+        );
+      accumulator[category] = total;
+
+
+      console.log(accumulator);
+
+      return accumulator;
+    }, {});
+    this.calculateTotal();
     // this.categories.forEach((element: any) => {
     //   console.log(this.separados[element]);
 
@@ -151,31 +207,7 @@ export class ReportValesComponent {
     //   console.log("ordenados", this.separados[element]);
     // });
 
-    this.categoryTotalPrices = this.categories.reduce((accumulator: any, category: any) => {
-      const items = itemsByCategory[category];
-      const total = items.reduce((accumulator: any, item: any) => accumulator + (item.precio * item.stockCompra), 0);
-      this.cantidades[category] = items.reduce((accumulator: any, item: any) => accumulator + item.stockCompra, 0);
-      console.log('totalCanti', items);
 
-      this.almacenService.searchSegCategoria(category)
-        .subscribe(
-          res => {
-            // console.log(this.nameCate[category] = res.serverResponse[0].proyect_acti);
-            this.nameCate[category] = res.serverResponse[0].proyect_acti
-            // console.log(this.nameCat)
-          },
-          err => console.log('HTTP Error', err),
-          () => {
-            // console.log(this.nameCate)
-          }
-        );
-      accumulator[category] = total;
-
-
-      // console.log(accumulator);
-
-      return accumulator;
-    }, {});
     // console.log("sumas", this.categoryTotalPrices)
     // console.log("CategoriasSeparadas", this.categories)
     // console.log("CategoriasAgrupadas", this.separados)

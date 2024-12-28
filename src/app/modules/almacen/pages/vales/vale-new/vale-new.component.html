@@ -43,12 +43,12 @@
                   </div>
                   <div class="input-group mb-1" *ngIf="createForm.value.idProducto != ''">
                     <span class="input-group-text izq" id="plazo"><b>Categoria Programatica</b></span>
-                    <ngx-select class="sel" [allowClear]="true" [items]="catProgras" optionTextField="cat_programatica"
+                    <ngx-select class="sel" [allowClear]="true" [items]="catProgras" optionTextField="proyect_acti"
                       optionValueField="cat_programatica" placeholder="Seleccione Una Categoria Programatica"
                       formControlName="catProgra" (select)="doSelect($event)">
                       <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                         <span [innerHtml]="text"></span>
-                        &nbsp;- {{option.data.proyect_acti}}
+                        &nbsp;- {{option.data.cat_programatica}}
                       </ng-template>
                     </ngx-select>
 
@@ -186,7 +186,7 @@
                     </button>
                   </div>
                 </form>
-                <!-- {{ createForm.value | json }} -->
+                {{ createForm.value | json }}
               </div>
             </div>
           </div>

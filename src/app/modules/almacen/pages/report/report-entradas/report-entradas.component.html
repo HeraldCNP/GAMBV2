@@ -162,13 +162,8 @@
                     <td>{{ item.precio | currency : "USD" : "" }}</td>
                     <td>{{ item.stockCompra | number : "1.2-2" }}</td>
                     <td class="off-p pr-2 text-end">
-                      {{
-                      item.stockCompra * item.precio
-                      | currency : "USD" : ""
-                      }}
+                      {{ item.stockCompra * item.precio | currency : "USD" : "" }}
                     </td>
-
-
                   </tr>
                   <tr>
                     <td class="off-p" colspan="6">{{ nameCate[category] }}</td>
@@ -176,9 +171,7 @@
                       <b style="font-weight: bold">Total: </b>{{ cantidades[category] | number : "1.2-2" }}
                     </td>
                     <td class="off-p" class="text-end off-p">
-                      <b style="font-weight: bold">Sub Total: </b>{{
-                      categoryTotalPrices[category] | currency : "USD" : ""
-                      }}
+                      <b style="font-weight: bold">Sub Total: </b>{{ categoryTotalPrices[category] | currency : "USD" : "" }}
                     </td>
                   </tr>
                 </ng-container>
