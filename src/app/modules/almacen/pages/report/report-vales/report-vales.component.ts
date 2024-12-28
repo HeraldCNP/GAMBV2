@@ -5,6 +5,7 @@ import { AlmacenService } from '../../../services/almacen.service';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { CommonModule } from '@angular/common';
 import { NgxPrintModule } from 'ngx-print';
+import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
 
 @Component({
   selector: 'app-report-vales',
@@ -59,8 +60,11 @@ export class ReportValesComponent {
   totalSaldos: any = [];
   totalSaldosDevueltos: any = [];
 
+  vehiculos: any;
+  conductores: any;
 
-  constructor(private fb: FormBuilder, private reportAlm: ReportAlmService, private almacenService: AlmacenService) {
+
+  constructor(private fb: FormBuilder, private reportAlm: ReportAlmService, private almacenService: AlmacenService, private autorizacionService: AutorizacionService,) {
     this.usuario = localStorage.getItem('user');
     this.data = JSON.parse(this.usuario);
     console.log(this.data);
@@ -68,8 +72,9 @@ export class ReportValesComponent {
     this.idUser = this.data.id;
 
     this.reportForm = this.fb.group({
+      conductor: [''],
+      vehiculo: [''],
       catProgra: [''],
-      idProducto: [''],
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
     });
@@ -86,8 +91,9 @@ export class ReportValesComponent {
     //   // console.log(this.users);
     //   this.users = data;
     // });
-    // this.cargarCatProgras();
-    // this.cargarArticles();
+    this.cargarCatProgras();
+    this.cargarVehiculos();
+    this.cargarConductores();
   }
 
   cargarCatProgras() {
@@ -134,6 +140,21 @@ export class ReportValesComponent {
     });
   }
 
+  cargarConductores() {
+    this.autorizacionService.getAllConductores()
+      .subscribe((data: any) => {
+        this.conductores = data.serverResponse;
+        console.log('conductores', this.conductores);
+      });
+  }
+
+  cargarVehiculos() {
+    this.autorizacionService.getAllVehiculos()
+      .subscribe((data: any) => {
+        this.vehiculos = data.serverResponse;
+        console.log('vehiculos', this.vehiculos);
+      });
+  }
 
 
 
@@ -190,7 +211,7 @@ export class ReportValesComponent {
       accumulator[category] = total;
 
 
-      console.log(accumulator);
+      // console.log(accumulator);
 
       return accumulator;
     }, {});

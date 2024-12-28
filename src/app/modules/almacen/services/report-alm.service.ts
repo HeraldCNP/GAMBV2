@@ -73,6 +73,7 @@ export class ReportAlmService {
         }
       });
     }
+    console.log(httpParams);
     return this.http.get<any>(url, { params: httpParams });
 
   }

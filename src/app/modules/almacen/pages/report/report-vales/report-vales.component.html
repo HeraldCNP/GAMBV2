@@ -18,13 +18,10 @@
                                             let-text="text">
                                             <span [innerHtml]="text"></span>
                                         </ng-template>
-                                        <div class="form-text" *ngIf="
-                          form['catProgra'].touched && form['catProgra'].invalid
-                        ">
-                                            <div *ngIf="
-                            form['catProgra'].errors &&
-                            form['catProgra'].errors['required']
-                          ">
+                                        <div class="form-text"
+                                            *ngIf="form['catProgra'].touched && form['catProgra'].invalid">
+                                            <div
+                                                *ngIf="form['catProgra'].errors && form['catProgra'].errors['required']">
                                                 * La categoria programatica es Requerida.
                                             </div>
                                         </div>
@@ -36,24 +33,47 @@
 
                             <div class="col-auto">
                                 <div class="input-group input-group-sm mb-1">
-                                    <span class="input-group-text" id="idProducto"><b>Artículos *</b></span>
-                                    <ngx-select [allowClear]="true" [items]="articles" optionTextField="nombre"
-                                        optionValueField="_id" placeholder="Seleccione un Articulo"
-                                        formControlName="idProducto" (select)="doSelect($event)">
+                                    <span class="input-group-text" id="plazo"><b>Conductor</b></span>
+                                    <ngx-select class="sel" [allowClear]="true" [items]="conductores"
+                                        optionTextField="username" optionValueField="_id"
+                                        placeholder="Seleccione un Conductor" formControlName="conductor"
+                                        (select)="doSelect($event)">
                                         <ng-template ngx-select-option ngx-select-option-selected let-option
                                             let-text="text">
                                             <span [innerHtml]="text"></span>
+                                            &nbsp;{{option.data.surnames}}
                                         </ng-template>
-                                        <div class="form-text"
-                                            *ngIf="form['idProducto'].touched && form['idProducto'].invalid">
-                                            <div *ngIf="
-                            form['idProducto'].errors &&
-                            form['idProducto'].errors['required']
-                          ">
-                                                * La categoria programatica es Requerida.
-                                            </div>
-                                        </div>
                                     </ngx-select>
+
+                                    <div class="form-text"
+                                        *ngIf="form['conductor'].touched && form['conductor'].invalid">
+                                        <div *ngIf="form['conductor'].errors && form['conductor'].errors['required']">
+                                            * Debe seleccionar un conductor.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="input-group input-group-sm mb-1">
+                                    <span class="input-group-text" id="plazo"><b>Vehiculo</b></span>
+                                    <ngx-select class="sel" [allowClear]="true" [items]="vehiculos"
+                                        optionTextField="placa" optionValueField="_id"
+                                        placeholder="Seleccione un Vehiculo" formControlName="vehiculo"
+                                        (select)="doSelect($event)">
+                                        <ng-template ngx-select-option ngx-select-option-selected let-option
+                                            let-text="text">
+                                            <span [innerHtml]="text"></span>
+                                            &nbsp;- {{option.data.marca}}
+                                            &nbsp;- {{option.data.tipo}}
+                                        </ng-template>
+                                    </ngx-select>
+
+                                    <div class="form-text" *ngIf="form['vehiculo'].touched && form['vehiculo'].invalid">
+                                        <div *ngIf="form['vehiculo'].errors && form['vehiculo'].errors['required']">
+                                            * Debe seleccionar una Vehiculo.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -62,9 +82,7 @@
                                     <span class="input-group-text izq" id="del"><b>Del</b></span>
                                     <input class="form-control" type="date" formControlName="del" />
                                     <div class="form-text" *ngIf="form['del'].touched && form['del'].invalid">
-                                        <div *ngIf="
-                          form['del'].errors && form['del'].errors['required']
-                        ">
+                                        <div *ngIf="form['del'].errors && form['del'].errors['required']">
                                             * Fecha Inicial
                                         </div>
                                     </div>
@@ -83,7 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button (click)="getVales(reportForm)" class="btn btn-primary mr-3"
+                        <button (click)="getVales(reportForm.value)" class="btn btn-primary mr-3"
                             [disabled]="reportForm.invalid"
                             style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">
                             Buscar
@@ -133,6 +151,7 @@
                             <thead>
                                 <tr style="text-align: center;">
                                     <th>N°</th>
+                                    <th>Fecha</th>
                                     <th>Vale N°</th>
                                     <th>Vale N° Antiguo</th>
                                     <th>Producto</th>
@@ -169,44 +188,56 @@
                                 <ng-container *ngFor="let category of categories">
                                     <tr *ngFor="let item of separados[category]; let i = index">
                                         <td class="off-p">{{ i + 1 }}</td>
+                                        <td>{{ item.fecha | date : "longDate" : "UTC" }}</td>
                                         <td>{{ item.numeroVale }}</td>
-                                        <td class="off-p" style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem"> {{ item.numAntiguo ? item.numAntiguo : '' }} </td>
+                                        <td class="off-p" style="font-size: 0.8rem; padding: 0rem 0.11rem 0rem"> {{
+                                            item.numAntiguo ? item.numAntiguo : '' }} </td>
                                         <td> {{ item.idProducto ? item.idProducto.nombre : 'Lubricantes' }}</td>
-                                        <td class="off-p" style="text-align: right;">{{ item.cantidad | number:'1.2-2':'es-ES' }}</td>
+                                        <td class="off-p" style="text-align: right;">{{ item.cantidad |
+                                            number:'1.2-2':'es-ES' }}</td>
                                         <td style="text-align: right;">{{ item.precio | number:'1.2-2':'es-ES' }}</td>
-                                        <td style="text-align: right;">{{ item.cantidadAdquirida | number:'1.2-2':'es-ES' }}</td>
-                                        <td style="text-align: right;">{{ (item.saldoDevolucion - item.saldoDevuelto) | number:'1.2-2':'es-ES'
-                                          }}</td>
-                                        <td style="text-align: right;">{{ item.saldoDevuelto | number:'1.2-2':'es-ES' }}</td>
+                                        <td style="text-align: right;">{{ item.cantidadAdquirida |
+                                            number:'1.2-2':'es-ES' }}</td>
+                                        <td style="text-align: right;">{{ (item.saldoDevolucion - item.saldoDevuelto) |
+                                            number:'1.2-2':'es-ES'
+                                            }}</td>
+                                        <td style="text-align: right;">{{ item.saldoDevuelto | number:'1.2-2':'es-ES' }}
+                                        </td>
 
                                         <!-- <td class="off-p pr-2 text-end">
                                             {{ item.stockCompra * item.precio | currency : "USD" : "" }}
                                         </td> -->
                                     </tr>
                                     <tr>
-                                        <td class="off-p" colspan="4">{{ nameCate[category] }}</td>
+                                        <td class="off-p" colspan="5">{{ nameCate[category] }}</td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ cantidades[category] | number : "1.2-2" }}
+                                            <b style="font-weight: bold">Total: </b>{{ cantidades[category] | number :
+                                            "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ montosEntregados[category] | number : "1.2-2" }}
+                                            <b style="font-weight: bold">Total: </b>{{ montosEntregados[category] |
+                                            number : "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ montosPagados[category] | number : "1.2-2" }}
+                                            <b style="font-weight: bold">Total: </b>{{ montosPagados[category] | number
+                                            : "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ saldos[category] | number : "1.2-2" }}
+                                            <b style="font-weight: bold">Total: </b>{{ saldos[category] | number :
+                                            "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ saldosDevueltos[category] | number : "1.2-2" }}
+                                            <b style="font-weight: bold">Total: </b>{{ saldosDevueltos[category] |
+                                            number : "1.2-2" }}
                                         </td>
                                         <!-- <td class="off-p" class="text-end off-p">
                                             <b style="font-weight: bold">Sub Total: </b>{{ categoryTotalPrices[category] | currency : "USD" : "" }}
                                         </td> -->
                                     </tr>
                                 </ng-container>
+                                @if (totalCantidades) {
                                 <tr>
-                                    <td colspan="4" class="text-end off-p fs-5">
+                                    <td colspan="5" class="text-end off-p fs-5">
                                         <b>TOTALES: </b>
                                     </td>
                                     <td class="fs-5 off-p pr-2 text-end">
@@ -225,6 +256,8 @@
                                         <b>{{ totalSaldosDevueltos | currency : "USD" : "" }}</b>
                                     </td>
                                 </tr>
+                                }
+
                             </tbody>
                             <!-- <tfoot>
                   <tr class="usuario">
