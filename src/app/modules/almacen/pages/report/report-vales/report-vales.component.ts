@@ -188,7 +188,7 @@ export class ReportValesComponent {
     this.totalCantidades = this.vales().reduce((acc: any, item: any) => acc + item.cantidad, 0);
     this.totalMontosEntregados = this.vales().reduce((acc: any, item: any) => acc + item.precio, 0);
     this.totalMontosPagados = this.vales().reduce((acc: any, item: any) => acc + item.cantidadAdquirida, 0);
-    this.totalMontosPagados += 15000;
+    // this.totalMontosPagados += 15000;
     this.totalSaldos = this.vales().reduce((acc: any, item: any) => acc + (item.saldoDevolucion - item.saldoDevuelto), 0);
     this.totalSaldosDevueltos = this.vales().reduce((acc: any, item: any) => acc + item.saldoDevuelto, 0);
 
