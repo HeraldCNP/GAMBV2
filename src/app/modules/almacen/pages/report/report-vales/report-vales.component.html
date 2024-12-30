@@ -55,6 +55,11 @@
                             </div>
 
                             <div class="col-auto">
+                                <mat-checkbox (change)="onCheckboxChange($event)">{{ flag | uppercase }}</mat-checkbox>
+                            </div>
+
+
+                            <div class="col-auto">
                                 <div class="input-group input-group-sm mb-1">
                                     <span class="input-group-text" id="plazo"><b>Vehiculo</b></span>
                                     <ngx-select class="sel" [allowClear]="true" [items]="vehiculos"
@@ -129,7 +134,7 @@
               </div> -->
                     </form>
                 </div>
-                <!-- {{ reportForm.value | json }} -->
+                {{ reportForm.value | json }}
                 <div class="container" id="content">
                     <div class="d-flex justify-content-between ml-2 mb-0">
                         <div class="p-2 ">

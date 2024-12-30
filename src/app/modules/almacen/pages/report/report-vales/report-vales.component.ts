@@ -6,11 +6,13 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { CommonModule } from '@angular/common';
 import { NgxPrintModule } from 'ngx-print';
 import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
+import { MaterialModule } from 'src/app/material/material.module';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-report-vales',
   standalone: true,
-  imports: [ReactiveFormsModule, NgxSelectModule, CommonModule, NgxPrintModule],
+  imports: [ReactiveFormsModule, NgxSelectModule, CommonModule, NgxPrintModule, MaterialModule],
   templateUrl: './report-vales.component.html',
   styleUrl: './report-vales.component.css'
 })
@@ -63,6 +65,8 @@ export class ReportValesComponent {
   vehiculos: any;
   conductores: any;
 
+  flag: string = 'SALDO SIN DIFERENCIA';
+
 
   constructor(private fb: FormBuilder, private reportAlm: ReportAlmService, private almacenService: AlmacenService, private autorizacionService: AutorizacionService,) {
     this.usuario = localStorage.getItem('user');
@@ -75,6 +79,7 @@ export class ReportValesComponent {
       conductor: [''],
       vehiculo: [''],
       catProgra: [''],
+      saldoDevolucion: [null],
       del: [this.fechaIni.substr(0, 10)],
       al: [this.fechaHoy.substr(0, 10)],
     });
@@ -123,6 +128,20 @@ export class ReportValesComponent {
     // console.log(this.nameCat)
   };
 
+
+  onCheckboxChange(event: MatCheckboxChange) {
+    const isChecked = event.checked;
+
+    // Perform your desired actions based on the checked state
+    if (isChecked) {
+      this.flag = 'SALDO CON DIFERENCIA';
+      this.reportForm.get('saldoDevolucion').setValue('0');
+    } else {
+      this.flag = 'SALDO SIN DIFERENCIA';
+      this.reportForm.get('saldoDevolucion').setValue(null);
+    }
+  }
+
   getVales(params?: any): void {
     // this.searchForm.get('ci').setValue(this.searchForm.get('ci').trim);
     this.reportAlm.getVales(params).subscribe({
@@ -162,6 +181,7 @@ export class ReportValesComponent {
     this.totalCantidades = this.vales().reduce((acc: any, item: any) => acc + item.cantidad, 0);
     this.totalMontosEntregados = this.vales().reduce((acc: any, item: any) => acc + item.precio, 0);
     this.totalMontosPagados = this.vales().reduce((acc: any, item: any) => acc + item.cantidadAdquirida, 0);
+    this.totalMontosPagados += 15000;
     this.totalSaldos = this.vales().reduce((acc: any, item: any) => acc + (item.saldoDevolucion - item.saldoDevuelto), 0);
     this.totalSaldosDevueltos = this.vales().reduce((acc: any, item: any) => acc + item.saldoDevuelto, 0);
 

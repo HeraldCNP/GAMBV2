@@ -62,7 +62,7 @@ export class ReportAlmService {
 
   getVales(params?: any): Observable<any> {
     const url = `${this.URL}/valesReport`;
-    // console.log(params);
+    console.log(params);
 
     // const header = this.headers;
     let httpParams = new HttpParams();
