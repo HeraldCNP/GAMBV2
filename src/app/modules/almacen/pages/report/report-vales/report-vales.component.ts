@@ -55,12 +55,14 @@ export class ReportValesComponent {
   montosPagados: any = [];
   saldos: any = [];
   saldosDevueltos: any = [];
+  saldosTotales: any = [];
 
   totalCantidades: any = [];
   totalMontosEntregados: any = [];
   totalMontosPagados: any = [];
   totalSaldos: any = [];
   totalSaldosDevueltos: any = [];
+  totalSaldosTotales: any = [];
 
   vehiculos: any;
   vehiculo: any;
@@ -189,8 +191,9 @@ export class ReportValesComponent {
     this.totalMontosEntregados = this.vales().reduce((acc: any, item: any) => acc + item.precio, 0);
     this.totalMontosPagados = this.vales().reduce((acc: any, item: any) => acc + item.cantidadAdquirida, 0);
     // this.totalMontosPagados += 15000;
-    this.totalSaldos = this.vales().reduce((acc: any, item: any) => acc + (item.saldoDevolucion - item.saldoDevuelto), 0);
+    this.totalSaldos = this.vales().reduce((acc: any, item: any) => acc + item.saldoDevolucion, 0);
     this.totalSaldosDevueltos = this.vales().reduce((acc: any, item: any) => acc + item.saldoDevuelto, 0);
+    this.totalSaldosTotales = this.vales().reduce((acc: any, item: any) => acc + (item.saldoDevolucion - item.saldoDevuelto), 0);
 
     // totalMontosEntregados: any = [];
     // totalMontosPagados: any = [];
@@ -221,8 +224,9 @@ export class ReportValesComponent {
       this.cantidades[category] = items.reduce((accumulator: any, item: any) => accumulator + item.cantidad, 0);
       this.montosEntregados[category] = items.reduce((accumulator: any, item: any) => accumulator + item.precio, 0);
       this.montosPagados[category] = items.reduce((accumulator: any, item: any) => accumulator + item.cantidadAdquirida, 0);
-      this.saldos[category] = items.reduce((accumulator: any, item: any) => accumulator + (item.saldoDevolucion - item.saldoDevuelto), 0);
+      this.saldos[category] = items.reduce((accumulator: any, item: any) => accumulator + item.saldoDevolucion, 0);
       this.saldosDevueltos[category] = items.reduce((accumulator: any, item: any) => accumulator + item.saldoDevuelto, 0);
+      this.saldosTotales[category] = items.reduce((accumulator: any, item: any) => accumulator + (item.saldoDevolucion - item.saldoDevuelto), 0);
       // console.log('totalCanti', total);
 
       this.almacenService.searchSegCategoria(category)

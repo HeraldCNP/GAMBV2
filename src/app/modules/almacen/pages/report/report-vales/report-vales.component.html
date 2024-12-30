@@ -144,11 +144,13 @@
                             <h3 class="off-m">RESUMEN</h3>
                             <p class="off-m">Expresado en Bolivianos</p>
                             @if(nameConductor){
-                                <p class="off-m"><b>Chofer:</b> {{ nameConductor.username }} {{ nameConductor.surnames }} <b>Licencia:</b> {{ nameConductor.ci }} - {{ nameConductor.categoriaLicencia }}</p>
+                            <p class="off-m"><b>Chofer:</b> {{ nameConductor.username }} {{ nameConductor.surnames }}
+                                <b>Licencia:</b> {{ nameConductor.ci }} - {{ nameConductor.categoriaLicencia }}</p>
                             }
 
                             @if(vehiculo){
-                                <p class="off-m"><b>Vehiculo:</b> {{ vehiculo.tipo }} <b>Placa:</b> {{ vehiculo.placa }} <b>Destinado a:</b> {{ vehiculo.destino }}</p>
+                            <p class="off-m"><b>Vehiculo:</b> {{ vehiculo.tipo }} <b>Placa:</b> {{ vehiculo.placa }}
+                                <b>Destinado a:</b> {{ vehiculo.destino }}</p>
                             }
 
                             <i class="subtitle"><b>Desde:</b> {{ fechaIni | date : "longDate" : "UTC" }} <b>Hasta:</b>
@@ -173,6 +175,7 @@
                                     <th>Monto Pagado</th>
                                     <th>Saldo</th>
                                     <th>Saldo Devuelto</th>
+                                    <th>Saldo Total</th>
                                 </tr>
                             </thead>
 
@@ -211,11 +214,12 @@
                                         <td style="text-align: right;">{{ item.precio | number:'1.2-2':'es-ES' }}</td>
                                         <td style="text-align: right;">{{ item.cantidadAdquirida |
                                             number:'1.2-2':'es-ES' }}</td>
-                                        <td style="text-align: right;">{{ (item.saldoDevolucion - item.saldoDevuelto) |
-                                            number:'1.2-2':'es-ES'
+                                        <td style="text-align: right;">{{ item.saldoDevolucion | number:'1.2-2':'es-ES'
                                             }}</td>
                                         <td style="text-align: right;">{{ item.saldoDevuelto | number:'1.2-2':'es-ES' }}
                                         </td>
+                                        <td style="text-align: right;">{{ (item.saldoDevolucion - item.saldoDevuelto) |
+                                            number:'1.2-2':'es-ES' }}</td>
 
                                         <!-- <td class="off-p pr-2 text-end">
                                             {{ item.stockCompra * item.precio | currency : "USD" : "" }}
@@ -228,21 +232,26 @@
                                             "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ montosEntregados[category] |
+                                            <b style="font-weight: bold"></b>{{ montosEntregados[category] |
                                             number : "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ montosPagados[category] | number
+                                            <b style="font-weight: bold"></b>{{ montosPagados[category] | number
                                             : "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ saldos[category] | number :
+                                            <b style="font-weight: bold"></b>{{ saldos[category] | number :
                                             "1.2-2" }}
                                         </td>
                                         <td class="off-p" colspan="1" class="text-end off-p">
-                                            <b style="font-weight: bold">Total: </b>{{ saldosDevueltos[category] |
+                                            <b style="font-weight: bold"></b>{{ saldosDevueltos[category] |
                                             number : "1.2-2" }}
                                         </td>
+                                        <td class="off-p" colspan="1" class="text-end off-p">
+                                            <b style="font-weight: bold"></b>{{ saldosTotales[category] |
+                                            number : "1.2-2" }}
+                                        </td>
+                                        
                                         <!-- <td class="off-p" class="text-end off-p">
                                             <b style="font-weight: bold">Sub Total: </b>{{ categoryTotalPrices[category] | currency : "USD" : "" }}
                                         </td> -->
@@ -267,6 +276,9 @@
                                     </td>
                                     <td class="fs-5 off-p pr-2 text-end">
                                         <b>{{ totalSaldosDevueltos | currency : "USD" : "" }}</b>
+                                    </td>
+                                    <td class="fs-5 off-p pr-2 text-end">
+                                        <b>{{ totalSaldosTotales | currency : "USD" : "" }}</b>
                                     </td>
                                 </tr>
                                 }

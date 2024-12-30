@@ -163,6 +163,7 @@
                   <th>Monto Pagado</th>
                   <th>Saldo</th>
                   <th>Saldo Devuelto</th>
+                  <th>Saldo Total</th>
                   <th>Estado</th>
                   <th style="width: 150px;">Acciones</th>
                 </tr>
@@ -179,9 +180,10 @@
                   <td>{{ vale.encargadoControl.username }} {{ vale.encargadoControl.surnames }}</td>
                   <td style="text-align: right;">{{ vale.precio | number:'1.2-2':'es-ES' }}</td>
                   <td style="text-align: right;">{{ vale.cantidadAdquirida | number:'1.2-2':'es-ES' }}</td>
-                  <td style="text-align: right;">{{ (vale.saldoDevolucion - vale.saldoDevuelto) | number:'1.2-2':'es-ES'
+                  <td style="text-align: right;">{{ vale.saldoDevolucion | number:'1.2-2':'es-ES'
                     }}</td>
                   <td style="text-align: right;">{{ vale.saldoDevuelto | number:'1.2-2':'es-ES' }}</td>
+                  <td style="text-align: right;">{{ (vale.saldoDevolucion - vale.saldoDevuelto) | number:'1.2-2':'es-ES' }}</td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="carpeta.estado == '1'">
