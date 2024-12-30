@@ -65,7 +65,7 @@
                                     <ngx-select class="sel" [allowClear]="true" [items]="vehiculos"
                                         optionTextField="placa" optionValueField="_id"
                                         placeholder="Seleccione un Vehiculo" formControlName="vehiculo"
-                                        (select)="doSelect($event)">
+                                        (select)="doSelect2($event)">
                                         <ng-template ngx-select-option ngx-select-option-selected let-option
                                             let-text="text">
                                             <span [innerHtml]="text"></span>
@@ -134,7 +134,7 @@
               </div> -->
                     </form>
                 </div>
-                {{ reportForm.value | json }}
+                <!-- {{ reportForm.value | json }} -->
                 <div class="container" id="content">
                     <div class="d-flex justify-content-between ml-2 mb-0">
                         <div class="p-2 ">
@@ -143,6 +143,14 @@
                         <div class="text-center ml-5 mt-3 mb-0">
                             <h3 class="off-m">RESUMEN</h3>
                             <p class="off-m">Expresado en Bolivianos</p>
+                            @if(nameConductor){
+                                <p class="off-m"><b>Chofer:</b> {{ nameConductor.username }} {{ nameConductor.surnames }} <b>Licencia:</b> {{ nameConductor.ci }} - {{ nameConductor.categoriaLicencia }}</p>
+                            }
+
+                            @if(vehiculo){
+                                <p class="off-m"><b>Vehiculo:</b> {{ vehiculo.tipo }} <b>Placa:</b> {{ vehiculo.placa }} <b>Destinado a:</b> {{ vehiculo.destino }}</p>
+                            }
+
                             <i class="subtitle"><b>Desde:</b> {{ fechaIni | date : "longDate" : "UTC" }} <b>Hasta:</b>
                                 {{ fechaHoy | date : "longDate" : "UTC" }}</i>
                             <br />

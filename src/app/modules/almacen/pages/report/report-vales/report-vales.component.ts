@@ -33,7 +33,7 @@ export class ReportValesComponent {
   catProgras: any;
   articles: any;
 
-  nameCat: any;
+  nameConductor: any;
   nameCate: any = [];
   vales = signal<any>(null);
 
@@ -63,6 +63,7 @@ export class ReportValesComponent {
   totalSaldosDevueltos: any = [];
 
   vehiculos: any;
+  vehiculo: any;
   conductores: any;
 
   flag: string = 'SALDO SIN DIFERENCIA';
@@ -124,8 +125,14 @@ export class ReportValesComponent {
 
   public doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
-    this.nameCat = this.catProgras.find((item: { cat_programatica: string; }) => item.cat_programatica === value);
-    // console.log(this.nameCat)
+    this.nameConductor = this.conductores.find((item: { _id: string; }) => item._id === value);
+    console.log(this.nameConductor)
+  };
+
+  public doSelect2 = (value: any) => {
+    console.log('SingleDemoComponent.doSelect', value);
+    this.vehiculo = this.vehiculos.find((item: { _id: string; }) => item._id === value);
+    console.log(this.vehiculo)
   };
 
 
