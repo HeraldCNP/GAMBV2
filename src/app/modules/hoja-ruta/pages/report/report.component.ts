@@ -23,7 +23,7 @@ export class ReportComponent implements OnInit {
   al: string = '';
   seguimientos: any = [];
   fechaHoy = new Date().toISOString();
-  fechaIni = new Date('01/01/2023').toISOString();
+  fechaIni = new Date('01/01/2025').toISOString();
 
   idUser: any;
   usuario: any;

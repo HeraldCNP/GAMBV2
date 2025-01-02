@@ -47,7 +47,7 @@ export class CarpetaCreateComponent implements OnInit {
   constructor(private fb: FormBuilder, private carpetaService: CarpetaService, private router: Router, private areaService: AreaService) {
 
     this.carpetaForm = this.fb.group({
-      gestion: ['2023', [Validators.required]],
+      gestion: ['2024', [Validators.required]],
       area: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       subTipo: [''],
