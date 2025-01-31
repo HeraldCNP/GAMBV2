@@ -152,7 +152,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th>Vale N°</th>
-                  <th>Vale N° Antiguo</th>
+  
                   <th>Fecha de Vale</th>
                   <th>Producto</th>
                   <th>Cantidad (lt)</th>
@@ -171,7 +171,7 @@
               <tbody class="table-group-divider">
                 <tr *ngFor="let vale of vales.serverResponse; let i = index">
                   <td>{{ vale.numeroVale }}</td>
-                  <td>{{ vale.numAntiguo ? vale.numAntiguo : ''}}</td>
+
                   <td>{{ vale.fecha | date: 'mediumDate' : "UTC" }}</td>
                   <td>{{ vale.idProducto ? vale.idProducto.nombre : 'Lubricantes' }}</td>
                   <td style="text-align: right;">{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
@@ -752,8 +752,8 @@
                     <tr>
                       <td>{{ vale.idProducto.nombre }}</td>
                       <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
-                      <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
-                      <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
+                     
+                      <td *ngIf="vale.cantidad >= 0">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
                       <td>{{ vale.precio }}</td>
                     </tr>
                   </tbody>
@@ -861,18 +861,32 @@
             </div>
             <div class="d-flex justify-content-between px-3">
               <div class="mb-1">
-                <b>LUGAR:</b> {{ vale.autorizacion ? vale.autorizacion.destino : vale.destino | titlecase }}
+                <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }}
               </div>
               <div class="mb-1">
                 <b>FECHA:</b> <span *ngIf="vale.autorizacion">{{ vale.autorizacion.fecha | date : 'dd/MM/yyyy' : 'UTC'
                   }}</span>
                 <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' : 'UTC' }}</span>
               </div>
+              <div>
+                <b>N° DE VALE:</b> {{ vale.numeroVale }}
+              </div>
+            </div>
+            <div class="d-flex justify-content-between px-3">
+              <div>
+                <b>SOLICITADO POR:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.username :
+                vale.conductor?.username }} {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.surnames :
+                vale.conductor?.surnames }}
+              </div>
+              <div>
+                <b>CARGO:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.post :
+                vale.conductor?.post | titlecase }}
+              </div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>PROVEEDOR:</b> {{ vale.proveedor }}
+                <b>DESTINO:</b> {{ vale.autorizacion ? vale.autorizacion.destino : vale.destino | titlecase }}
               </div>
             </div>
 
@@ -892,8 +906,8 @@
                     <tr>
                       <td>{{ vale.idProducto.nombre }}</td>
                       <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
-                      <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
-                      <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
+                    
+                      <td *ngIf="vale.cantidad >= 0">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
                       <td>{{ vale.precio }}</td>
                     </tr>
                   </tbody>
