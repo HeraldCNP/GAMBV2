@@ -55,7 +55,7 @@ export class ValeNewComponent {
 
     this.createForm = this.fb.group({
       // autorizacion: [this.idAutorizacion],
-      cantidad: [0],
+      cantidad: [0.00],
       precio: ['', Validators.required],
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
@@ -65,7 +65,6 @@ export class ValeNewComponent {
       conductor: ['', [Validators.required]],
       vehiculo: [''],
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
-      numAntiguo: [''],
       idProducto: [''],
     });
   }

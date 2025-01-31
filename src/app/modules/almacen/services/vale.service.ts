@@ -49,8 +49,9 @@ export class ValeService {
           httpParams = httpParams.set(key, params[key]);
         }
       });
-    }
+    } 
     return this.http.get<any>(dir, { params: httpParams, headers: header});
+    
   }
 
   getAllAutorizaciones(){

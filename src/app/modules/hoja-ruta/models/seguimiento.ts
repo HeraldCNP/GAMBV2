@@ -17,5 +17,6 @@ export interface Segui{
     copia?:string;
     oficina?:string;
     nombre?:string;
+    usuario?:string;
   }
   

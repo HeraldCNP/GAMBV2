@@ -61,7 +61,8 @@ export class ValeIndexComponent {
 
   ngOnInit(): void {
     this.cargarCatProgras();
-    this.cargarVales();
+    this.cargarVales(this.searchForm.value);
+    
   }
 
   get form() {
@@ -91,27 +92,25 @@ export class ValeIndexComponent {
         skip: 1,
       }
     }
-
-    // console.log('params', params);
-
     if (params.estado === 'PENDIENTE') {
       this.btnActive = false;
     } else {
       this.btnActive = true;
     }
-
+    
     this.cargando = true;
     this.valeService.getAllVales(params)
-      .subscribe((data: any) => {
-        this.totalVales = data.totalDocs;
-        this.vales = data;
-        this.valesTemp = data;
-        this.totalPages = data.totalpage;
-        console.log(data);
-        this.cargando = false;
-        this.totalPrice = null;
-
-      });
+    .subscribe((data: any) => {
+      this.totalVales = data.totalDocs;
+      this.vales = data;
+      this.valesTemp = data;
+      this.totalPages = data.totalpage;
+      console.log(data);
+      this.cargando = false;
+      this.totalPrice = null;
+      
+    });
+     console.log('params', params);
   }
 
   mostrarTotales() {
@@ -173,13 +172,14 @@ export class ValeIndexComponent {
   }
 
   print(element: any) {
-    console.log(this.vale);
+    console.log('element', element);
     this.vale = element;
+    console.log('VALE',this.vale);
   }
 
   print2(element: any) {
-    console.log('antes', this.vale2());
     this.vale2.set(element);
+    console.log('antes', this.vale2());
     console.log(this.vale2());
   }
 

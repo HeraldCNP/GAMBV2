@@ -64,6 +64,8 @@ export class DerivarSeguimientoComponent implements OnInit {
   titulo = 'derivar documento';
   params: string = '';
   params2: string = '';
+  usuarioEmail: string = '';
+  usuarioEmailC: string = '';
   clicked = false;
 
   constructor(
@@ -117,6 +119,7 @@ export class DerivarSeguimientoComponent implements OnInit {
         .subscribe((data) => {
           this.usuario = data;
           this.params2 = this.usuario.post;
+          this.usuarioEmail = this.usuario.email;
           if (this.params2 === this.data.post) {
             this.flac = 'si';
           } else this.flac = 'no';
@@ -158,6 +161,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       copia: this.copiaSegui,
       asociado: this.asociadoSegui,
       oficina: this.oficinaSegui,
+      usuario:this.usuarioEmail,
       nombre: this.data.username + ' ' + this.data.surnames,
       destino: this.derivarForm.get('destino')?.value,
       detalles: this.derivarForm.get('detalles')?.value,
@@ -236,7 +240,6 @@ export class DerivarSeguimientoComponent implements OnInit {
     this.apiRuta.buscarnuit(this.nuit).subscribe(data => {
       this.seg=data
       this.catco = this.seg.filter((list: { copia: string; }) => list.copia).length;
-      console.log(this.catco)
       this.cant=this.catco+1
       this.copy="copia"+this.cant
       // Creamos objeto para enviarselo al padre
@@ -246,6 +249,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       origenhr: this.origenHr,
       destino:  this.paramsc,
       detalles: this.detallesc,
+      usuario:this.usuarioEmailC,
       copia:this.copy,
       oficina:this.data.post,
       nombre: this.data.username + ' ' + this.data.surnames,
@@ -272,6 +276,7 @@ export class DerivarSeguimientoComponent implements OnInit {
       this.apiRuta.getUserPost(this.paramsc).subscribe((data) => {
         this.userc = data;
         this.params2c = this.userc.post;
+        this.usuarioEmailC = this.userc.email;
         if (this.params2c === this.data.post) {
           this.flac = 'si';
         } else this.flac = 'no';

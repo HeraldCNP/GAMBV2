@@ -39,7 +39,7 @@ export class ValeCreateComponent {
 
     this.createForm = this.fb.group({ 
       autorizacion: [this.idAutorizacion],
-      cantidad: [''],
+      cantidad: [0],
       precio: [''],
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
