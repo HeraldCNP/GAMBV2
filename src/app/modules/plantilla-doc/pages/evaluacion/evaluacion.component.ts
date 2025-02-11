@@ -33,7 +33,7 @@ export class EvaluacionComponent {
 
   constructor() {
     this.addForm = this.fb.group({
-      gestion: [2023],
+      gestion: [''],
       mes: [''],
       titulo: [''],
       // idUsuario: ['']
@@ -53,6 +53,7 @@ export class EvaluacionComponent {
     });
 
     this.gestion = [{
+      2025: "2025",
       2024: "2024",
       2023: "2023",
       2022: "2022",

@@ -28,7 +28,7 @@ export class SinconListComponent {
   constructor(private contaService: ContaService, private activeRouter: ActivatedRoute, private router: Router, private fb: FormBuilder) {
 
     this.buscarForm = this.fb.group({
-      gestion: [2023],
+      gestion: [''],
       numero: [''],
       glosa: [''],
       beneficiario: [''],

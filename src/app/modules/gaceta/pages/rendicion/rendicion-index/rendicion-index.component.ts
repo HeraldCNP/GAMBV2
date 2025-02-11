@@ -26,7 +26,7 @@ export class RendicionIndexComponent implements OnInit {
   poaId: any;
   constructor(private router: Router, private api: GacetaService, private fb: FormBuilder) {
     this.addForm = new FormGroup({
-      gestion: new FormControl(2023, Validators.required),
+      gestion: new FormControl('', Validators.required),
       descripcion: new FormControl('', [
         Validators.required,
         Validators.minLength(3),

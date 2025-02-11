@@ -18,6 +18,7 @@ export class PoaCreateComponent implements OnInit {
 
   files: any;
   progress: number = 0;
+  year = new Date().getFullYear();
 
   constructor(private api: GacetaService, private router: Router) {}
 
@@ -26,8 +27,7 @@ export class PoaCreateComponent implements OnInit {
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
     this.poaForm = new FormGroup({
-      gestion: new FormControl(2023, [
-        Validators.required,
+      gestion: new FormControl(this.year, [
         Validators.minLength(4),
       ]),
       descripcion: new FormControl('', [

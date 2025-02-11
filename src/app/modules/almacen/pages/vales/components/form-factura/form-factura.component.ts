@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { MaterialModule } from 'src/app/material/material.module';
 import { ValeService } from 'src/app/modules/almacen/services/vale.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-factura',
@@ -185,9 +186,24 @@ export class FormFacturaComponent {
         duration: 3000
       });
       this.closeDialog('added');
-    }, error => {
+    }, (error) => {
       console.log(error);
-    })
+      if (error.status === 0) {
+        setTimeout(() => {
+          Swal.fire({
+            icon: "error",
+            title: "Error de Conexión",
+            text: "No se puede conectar con el servidor. Por favor, inténtalo más tarde.",
+          });
+        }, 15);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'ALTO!!!',
+          text: error.error.serverResponse || 'Ocurrió un error inesperado.',
+        });
+      }
+    });
   }
 
 

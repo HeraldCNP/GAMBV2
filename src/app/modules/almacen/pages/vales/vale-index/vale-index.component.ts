@@ -61,7 +61,7 @@ export class ValeIndexComponent {
 
   ngOnInit(): void {
     this.cargarCatProgras();
-    this.cargarVales(this.searchForm.value);
+    this.cargarVales();
     
   }
 

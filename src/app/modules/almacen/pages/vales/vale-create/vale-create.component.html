@@ -88,7 +88,14 @@
                       </div>
                     </div>
                   </div>
-
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"><b>Fecha de Salida *</b></span>
+                    <input type="date" class="form-control" id="fecha" formControlName="fecha">
+                    <div class="form-text" *ngIf="form['fecha'].touched && form['fecha'].invalid">
+                      <div *ngIf="form['fecha'].errors && form['fecha'].errors['required']">* Hora de Salida
+                        es Requerido.</div>
+                    </div>
+                  </div>
                   <div class="input-group mb-1" *ngIf="createForm.value.radio == 'no'">
                     <span class="input-group-text izq" id="precio"><b>Precio *</b></span>
                     <input id="cantidad" class="form-control" type="text" formControlName="precio" />

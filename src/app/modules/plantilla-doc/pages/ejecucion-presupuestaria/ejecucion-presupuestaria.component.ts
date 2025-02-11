@@ -33,7 +33,7 @@ export class EjecucionPresupuestariaComponent {
 
   constructor() {
     this.addForm = this.fb.group({
-      gestion: [2023],
+      gestion: [''],
       nombre: [''],
       // idUsuario: ['']
     });
@@ -51,6 +51,9 @@ export class EjecucionPresupuestariaComponent {
     });
 
     this.gestion = [{
+      2027: "2027",
+      2026: "2026",
+      2025: "2025",
       2024: "2024",
       2023: "2023",
       2022: "2022",

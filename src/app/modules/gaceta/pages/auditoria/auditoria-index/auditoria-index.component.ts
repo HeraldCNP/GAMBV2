@@ -42,7 +42,7 @@ export class AuditoriaIndexComponent implements OnInit {
 
   constructor(private router: Router, private api: GacetaService, private fb: FormBuilder) {
     this.addForm = new FormGroup({
-      gestion: new FormControl('2023', Validators.required),
+      gestion: new FormControl('', Validators.required),
       tipo: new FormControl('', Validators.required),
       resumen: new FormControl('', Validators.required),
       fecha: new FormControl('', [

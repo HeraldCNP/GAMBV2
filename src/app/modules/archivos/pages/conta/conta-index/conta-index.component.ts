@@ -76,7 +76,7 @@ export class ContaIndexComponent implements OnInit {
     });
 
     this.buscarCarpeta = this.fb.group({
-      gestion: [2023],
+      gestion: [''],
       numero: [''],
       nombre: [''],
       lugar: ['']

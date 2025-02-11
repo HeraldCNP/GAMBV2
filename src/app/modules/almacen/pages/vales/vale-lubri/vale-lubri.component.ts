@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComprasService } from '../../../services/compras.service';
 import { ValeService } from '../../../services/vale.service';
 import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vale-lubri',
@@ -33,7 +34,7 @@ export class ValeLubriComponent {
   articulosTemp: any;
   article: any;
   productos: any = [];
-
+ private _snackBar = inject(MatSnackBar);
   constructor(
     private activeRouter: ActivatedRoute,
     private fb: FormBuilder,
@@ -91,7 +92,12 @@ export class ValeLubriComponent {
       (res) => {
         console.log(res);
       },
-      (err) => console.log('HTTP Error', err),
+      (err)=> {
+        console.log('HTTP Error', err)
+        this._snackBar.open(err.error.serverResponse, 'Cerrar', {
+          duration: 3000
+        });
+      },
       () => {
 
         this.router.navigate(['almacen/vale/index']);
