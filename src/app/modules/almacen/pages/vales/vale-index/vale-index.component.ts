@@ -8,6 +8,7 @@ import { ComprasService } from '../../../services/compras.service';
 import { FormFacturaComponent } from '../components/form-factura/form-factura.component';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-vale-index',
   templateUrl: './vale-index.component.html',
@@ -282,6 +283,27 @@ export class ValeIndexComponent {
     });
   }
 
+ /*  printVale(id: any) : void {
+    this.openDialogPrintVale(id, 'Comprobante de Cierre');
+  }
+  openDialogPrintVale(id: any, title: any) {
+      let dialog = this.matDialog.open(PrintValeComponent, {
+        width: '1000px', 
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        data: {
+          id: id,
+          title: title,
+        },
+      });
+      dialog.afterClosed().subscribe({
+        next: (resp: any) => {
+        },
+        error: (resp: any) => {
+          console.log(resp.error.message);
+        },
+      });
+    } */
   addFactura(idVale: string) {
     this.openDialog(idVale, 'Añadir Factura')
   }

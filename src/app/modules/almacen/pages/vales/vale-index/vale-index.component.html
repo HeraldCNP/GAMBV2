@@ -236,6 +236,8 @@
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'" -->
                     <i class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(vale._id)"
                       title="Añadir Factura"></i>
+                     <!--  <i class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="printVale(vale._id)"
+                      title="Añadir Factura"></i> -->
                     <i class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(vale._id)"
                       title="Añadir Devolución"></i>
                   </td>
@@ -853,7 +855,7 @@
                 <img src="/assets/img/logoGamb.png" alt="" width="175px" />
               </div>
               <div class="text-center ml-5 mt-2 mb-0">
-                <h3 class="off-m">AUTORIZACIÓN DE ENTREGA DE COMBUSTIBLE Y LUBRICANTES</h3>
+                <h3 class="off-m">AUTORIZACIÓN DE ENTREGA</h3>
               </div>
               <div class="p-3 ">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
@@ -968,14 +970,10 @@
                 <div class="d-flex justify-content-around ml-3 mb-0 ">
                   <div class="">
                     <div class="text-center">
-                      <b>Solicitado Por</b>
+                      <b>Entregué Conforme</b>
                     </div>
                   </div>
-                  <div class="">
-                    <div class="text-center">
-                      <b>Resp. Almacen</b>
-                    </div>
-                  </div>
+                 
                   <div class="">
                     <div class="text-center">
                       <b>Autorizado Por</b>
