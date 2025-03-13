@@ -214,7 +214,7 @@
                     <!-- <button class="btn btn-info text-sm" (click)="generarVale(vale._id)">Generar Vale<i
                         class="fas fa-print ml-2 icono"></i></button> -->
 
-                    <span *ngIf="vale.idCompra != null">
+                   <!--  <span *ngIf="vale.idCompra != null">
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
                         (click)="print(vale)" title="Imprimir"></i>
                     </span>
@@ -222,8 +222,10 @@
                     <span *ngIf="vale.idCompra == null">
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal2"
                         (click)="print(vale)" title="Imprimir"></i>
-                    </span>
+                    </span> -->
                     
+                    <i class="fas fa-print ml-2 icono" (click)="printVale(vale._id)"
+                    title="Añadir Factura"></i>
                     <!-- colocar despues -->
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0" -->
                      
@@ -236,8 +238,6 @@
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'" -->
                     <i class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(vale._id)"
                       title="Añadir Factura"></i>
-                     <!--  <i class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="printVale(vale._id)"
-                      title="Añadir Factura"></i> -->
                     <i class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(vale._id)"
                       title="Añadir Devolución"></i>
                   </td>

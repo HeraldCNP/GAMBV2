@@ -7,6 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { ComprasService } from '../../../services/compras.service';
 import { FormFacturaComponent } from '../components/form-factura/form-factura.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PrintValeComponent } from '../components/printVale/printVale.component';
 
 
 @Component({
@@ -283,8 +284,8 @@ export class ValeIndexComponent {
     });
   }
 
- /*  printVale(id: any) : void {
-    this.openDialogPrintVale(id, 'Comprobante de Cierre');
+  printVale(id: any) : void {
+    this.openDialogPrintVale(id, 'Imprimir Vale');
   }
   openDialogPrintVale(id: any, title: any) {
       let dialog = this.matDialog.open(PrintValeComponent, {
@@ -303,7 +304,7 @@ export class ValeIndexComponent {
           console.log(resp.error.message);
         },
       });
-    } */
+    }
   addFactura(idVale: string) {
     this.openDialog(idVale, 'Añadir Factura')
   }

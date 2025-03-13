@@ -95,4 +95,16 @@ export class ValeService {
     return this.http.put(dir, form, { headers: header})
   }
 
+  /* printVale(id:string){
+    let dir = `${this.URL}/printVale/${id}`; 
+    const header = this.headers;
+    return this.http.get<any>(dir, { headers: header});
+  } */
+  printVale(id: string): Observable<Blob>  {  
+    const url = `${this.URL}/printVale/${id}`;
+    const header = this.headers;
+    console.log('url', url);
+   // return `${url} { headers: header, responseType: 'blob' }`;
+    return this.http.get(`${url}`, { headers: header, responseType: 'blob' });
+  } 
 }
