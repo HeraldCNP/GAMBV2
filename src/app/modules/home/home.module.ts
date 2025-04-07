@@ -39,6 +39,8 @@ import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditori
 import { SearchPublicHrComponent } from './pages/index/search-public-hr/search-public-hr.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListHrComponent } from './pages/list-hr/list-hr.component';
+import {RecursosHumanosComponent} from './pages/recursosHumanos/recursosHumanos.component';
+
 
 
 
@@ -77,7 +79,8 @@ import { ListHrComponent } from './pages/list-hr/list-hr.component';
     CounterComponent,
     AuditoriaComponent,
     SearchPublicHrComponent,
-    ListHrComponent
+    ListHrComponent,
+    RecursosHumanosComponent
   ],
   imports: [
     CommonModule,

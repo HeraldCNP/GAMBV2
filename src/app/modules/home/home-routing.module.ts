@@ -21,6 +21,7 @@ import { PeiComponent } from './pages/gestion/pei/pei.component';
 import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.component';
 import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditoria.component';
 import { ListHrComponent } from './pages/list-hr/list-hr.component';
+import { RecursosHumanosComponent } from './pages/recursosHumanos/recursosHumanos.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
       {path: 'objetivo', component: ObjetivoComponent},
       {path: 'historia', component: HistoriaComponent},
       {path: 'alcalde', component: AlcaldeComponent},
+      {path: 'recursosHumanos', component: RecursosHumanosComponent},
       {path: 'concejo', component: ConsejoComponent},
       {path: 'defensoria', component: DefensoriaComponent},
       {path: 'slim', component: SlimComponent},
