@@ -3,6 +3,7 @@ import { Router, Event } from '@angular/router';
 import { Usuario } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users-index',
@@ -29,7 +30,26 @@ export class UsersIndexComponent implements OnInit {
       data => {
         this.users = data;
         console.log(this.users);
-      }
+      },
+       (error) => {
+              console.log(error);
+              if (error.status === 0) {
+                setTimeout(() => {
+                  Swal.fire({
+                      icon: "error",
+                      title: "Error de Conexión",
+                      text: "No se puede conectar con el servidor. Por favor, inténtalo más tarde.",
+                  });
+              }, 15);
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: error.error.serverResponse || 'Ocurrió un error inesperado.',
+                });
+              }
+              this.router.navigate(['/', 'login'])
+            }
     );
   }
 

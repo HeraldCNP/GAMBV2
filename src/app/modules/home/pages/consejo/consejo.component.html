@@ -1,101 +1,428 @@
 <div class="page-banner-area photo-4 mb-2">
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="page-banner-menu">
-                    <h2 class="page-banner-title">CONCEJO MUNICIPAL</h2>
-                    <ul>
-                        <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
-                        <li [routerLinkActive]="'active'">Concejo Municipal</li>
-                    </ul>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-banner-menu">
+          <h2 class="page-banner-title">CONCEJO MUNICIPAL</h2>
+          <ul>
+            <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
+            <li [routerLinkActive]="'active'">Concejo Municipal</li>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="blog-area margin-bottom-80">
-    <div class="container">
-        <i class="fas fa-arrow-left atras" (click)="goBack()"> Atras</i>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card my-3 shadow p-3 rounded">
-                    <div class="card-header rounded">
-                        <div class="title my-1  text-center">Nuestros Concejales</div>
-                    </div>
-                    <div class="card-body">
-                        <img src="/assets/img/concejo/1.JPG" width="250px" class="border border-success rounded-circle mx-auto d-block" alt="...">
-                        <p class="card-text text-concejo text-center mx-3">Sr. Isidro Saci Sacaca</p>
-                        <p class="card-text text text-center mx-3">PRESIDENTE CONCEJO MUNICIPAL DE BETANZOS</p>
-                        <p class="text text-center"><b>Sigla Política:</b> MAS - IPSP</p>
-                    </div>
+  <div class="container">
+    <i class="fas fa-arrow-left atras" (click)="goBack()"> Atras</i>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card my-3 shadow p-3 rounded">
+          <div class="card-header rounded">
+            <div class="title my-1 text-center">Nuestros Concejales</div>
+          </div>
+          <div class="card-body">
+            <img
+              src="/assets/img/concejo/1.JPG"
+              width="250px"
+              class="border border-success rounded-circle mx-auto d-block"
+              alt="..."
+            />
+            <p class="card-text text-concejo text-center mx-3">
+              Sr. Isidro Saci Sacaca
+            </p>
+            <p class="card-text text text-center mx-3">
+              PRESIDENTE CONCEJO MUNICIPAL DE BETANZOS
+            </p>
+            <p class="text text-center"><b>Sigla Política:</b> MAS - IPSP</p>
+          </div>
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  COMISIONES
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div class="accordion-body">
+                  <strong>COMISIÓN DE SALUD, DESARROLLO HUMANO Y SOCIAL</strong>
+                  <br />
+                  <strong>SECRETARIO: </strong> <span>Isidro Saci Sacaca</span
+                  ><br />
+                  <br />
+
+                  <strong
+                    >COMISIÓN DE TIERRA Y TERRITORIO, PLANIFICACION Y
+                    ORDENAMIENTO TERRITORIAL Y AUTONOMIAS</strong
+                  >
+                  <br />
+                  <strong>PRESIDENTE: </strong> <span>Isidro Saci Sacaca</span>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card my-3 shadow p-3 rounded">
-                            <div class="card-body">
-                                <img src="/assets/img/concejo/3.JPG" width="250px" class="border border-success rounded-circle mx-auto d-block" alt="...">
-                                <p class="card-text text-concejo text-center mx-3">Sra. Amalia Vedia Sánchez</p>
-                                <p class="card-text text text-center mx-3">VICEPRESIDENTE CONCEJO MUNICIPAL DE BETANZOS</p>
-                                <p class="text text-center"><b>Sigla Política:</b> MAS - IPSP</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card my-3 shadow p-3 rounded">
-                            <div class="card-body">
-                                <img src="/assets/img/concejo/6.JPG" width="250px" class="border border-success rounded-circle mx-auto d-block" alt="...">
-                                <p class="card-text text-concejo text-center mx-3">Sra. Martha Serrano Ayllon</p>
-                                <p class="card-text text text-center mx-3">SECRETARIA CONCEJO MUNICIPAL DE BETANZOS</p>
-                                <p class="text text-center"><b>Sigla Política:</b> MAS - IPSP</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card my-3 shadow p-3 rounded">
-                            <div class="card-body">
-                                <img src="/assets/img/concejo/2.jpg" width="250px" class="border border-success rounded-circle mx-auto d-block" alt="...">
-                                <p class="card-text text-concejo text-center mx-3">Ing. Hilarión Mamanillo Mamani</p>
-                                <p class="card-text text text-center mx-3">CONCEJAL MUNICIPAL DE BETANZOS</p>
-                                <p class="text text-center"><b>Sigla Política:</b> MAS - IPSP</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card my-3 shadow p-3 rounded">
-                            <div class="card-body">
-                                <img src="/assets/img/concejo/5.JPG" width="250px" class="border border-success rounded-circle mx-auto d-block" alt="...">
-                                <p class="card-text text-concejo text-center mx-3">Sra. Elizabeth Condori Janko</p>
-                                <p class="card-text text text-center mx-3">CONCEJAL MUNICIPAL DE BETANZOS</p>
-                                <p class="text text-center"><b>Sigla Política:</b> AS</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card my-3 shadow p-3 rounded">
-                            <div class="card-body">
-                                <img src="/assets/img/concejo/4.JPG" width="250px" class="border border-success rounded-circle mx-auto d-block" alt="...">
-                                <p class="card-text text-concejo text-center mx-3">Sr. Wilder Álvarez Castro</p>
-                                <p class="card-text text text-center mx-3">CONCEJAL MUNICIPAL DE BETANZOS</p>
-                                <p class="text text-center"><b>Sigla Política:</b> MAS - IPSP</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card my-3 shadow p-3 rounded">
-                            <div class="card-body">
-                                <img src="/assets/img/concejo/7.JPG" width="250px" class="border border-success rounded-circle mx-auto d-block" alt="...">
-                                <p class="card-text text-concejo text-center mx-3">Sr. Desiderio Llanos Cordero</p>
-                                <p class="card-text text text-center mx-3">CONCEJAL MUNICIPAL DE BETANZOS</p>
-                                <p class="text text-center"><b>Sigla Política:</b> MOP</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card my-3 shadow p-3 rounded">
+              <div class="card-body">
+                <img
+                  src="/assets/img/concejo/3.JPG"
+                  width="250px"
+                  class="border border-success rounded-circle mx-auto d-block"
+                  alt="..."
+                />
+                <p class="card-text text-concejo text-center mx-3">
+                  Sra. Amalia Vedia Sánchez
+                </p>
+                <p class="card-text text text-center mx-3">
+                  VICEPRESIDENTE CONCEJO MUNICIPAL DE BETANZOS
+                </p>
+                <p class="text text-center">
+                  <b>Sigla Política:</b> MAS - IPSP
+                </p>
+              </div>
+              <!-- concejal Amalia Vedia Sánchez -->
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapsetwo"
+                      aria-expanded="false"
+                      aria-controls="collapsetwo"
+                    >
+                      COMISIONES
+                    </button>
+                  </h2>
+                  <div
+                    id="collapsetwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <strong
+                        >COMISIÓN DE EDUCACIÓN Y SEGURIDAD CIUDADANA</strong
+                      >
+                      <br />
+                      <strong>SECRETARIA: </strong>
+                      <span>Amalia Vedia Sánchez </span><br />
+                      <br />
+
+                      <strong>COMISIÓN DE ECONOMIA Y TRANSPARENCIA</strong>
+                      <br />
+                      <strong>PRESIDENTA: </strong>
+                      <span>Amalia Vedia Sánchez </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card my-3 shadow p-3 rounded">
+              <div class="card-body">
+                <img
+                  src="/assets/img/concejo/6.JPG"
+                  width="250px"
+                  class="border border-success rounded-circle mx-auto d-block"
+                  alt="..."
+                />
+                <p class="card-text text-concejo text-center mx-3">
+                  Sra. Martha Serrano Ayllon
+                </p>
+                <p class="card-text text text-center mx-3">
+                  SECRETARIA CONCEJO MUNICIPAL DE BETANZOS
+                </p>
+                <p class="text text-center">
+                  <b>Sigla Política:</b> MAS - IPSP
+                </p>
+              </div>
+              <!-- concejal Martha Serrano Ayllon -->
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree"
+                      aria-expanded="false"
+                      aria-controls="collapseThree"
+                    >
+                      COMISIONES
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <strong>COMISIÓN DE ÉTICA </strong> <br />
+                      <strong>PRESIDENTA: </strong>
+                      <span>Martha Serrano Ayllon </span><br />
+                      <br />
+
+                      <strong>COMISIÓN DE INFRAESTRUCTURA</strong> <br />
+                      <strong>SECRETARIA: </strong>
+                      <span>Martha Serrano Ayllon </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card my-3 shadow p-3 rounded">
+              <div class="card-body">
+                <img
+                  src="/assets/img/concejo/2.jpg"
+                  width="250px"
+                  class="border border-success rounded-circle mx-auto d-block"
+                  alt="..."
+                />
+                <p class="card-text text-concejo text-center mx-3">
+                  Ing. Hilarión Mamanillo Mamani
+                </p>
+                <p class="card-text text text-center mx-3">
+                  CONCEJAL MUNICIPAL DE BETANZOS
+                </p>
+                <p class="text text-center">
+                  <b>Sigla Política:</b> MAS - IPSP
+                </p>
+              </div>
+              <!-- concejal Ing. Hilarión Mamanillo Mamani -->
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseFour"
+                      aria-expanded="false"
+                      aria-controls="collapseFour"
+                    >
+                      COMISIONES
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseFour"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <strong>COMISIÓN DE ECONOMIA Y TRANSPARENCIA </strong>
+                      <br />
+                      <strong>SECRETARIO: </strong>
+                      <span>Ing. Hilarión Mamanillo Mamani </span><br />
+                      <br />
+
+                      <strong
+                        >COMISIÓN DE DESARROLLO PRODUCTIVO Y MEDIO
+                        AMBIENTE</strong
+                      >
+                      <br />
+                      <strong>PRESIDENTE: </strong>
+                      <span>Ing. Hilarión Mamanillo Mamani</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card my-3 shadow p-3 rounded">
+              <div class="card-body">
+                <img
+                  src="/assets/img/concejo/5.JPG"
+                  width="250px"
+                  class="border border-success rounded-circle mx-auto d-block"
+                  alt="..."
+                />
+                <p class="card-text text-concejo text-center mx-3">
+                  Sra. Elizabeth Condori Janko
+                </p>
+                <p class="card-text text text-center mx-3">
+                  CONCEJAL MUNICIPAL DE BETANZOS
+                </p>
+                <p class="text text-center"><b>Sigla Política:</b> AS</p>
+              </div>
+              <!-- concejal Elizabeth Condori Janko -->
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseFive"
+                      aria-expanded="false"
+                      aria-controls="collapseFive"
+                    >
+                      COMISIONES
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseFive"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <strong
+                        >COMISIÓN DE EDUCACIÓN Y SEGURIDAD CIUDADANA
+                      </strong>
+                      <br />
+                      <strong>PRESIDENTA: </strong>
+                      <span>Elizabeth Condori Janko </span><br />
+                      <br />
+
+                      <strong
+                        >COMISIÓN DE DESARROLLO PRODUCTIVO Y MEDIO
+                        AMBIENTE</strong
+                      >
+                      <br />
+                      <strong>SECRETARIA: </strong>
+                      <span>Elizabeth Condori Janko</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card my-3 shadow p-3 rounded">
+              <div class="card-body">
+                <img
+                  src="/assets/img/concejo/4.JPG"
+                  width="250px"
+                  class="border border-success rounded-circle mx-auto d-block"
+                  alt="..."
+                />
+                <p class="card-text text-concejo text-center mx-3">
+                  Sr. Wilder Álvarez Castro
+                </p>
+                <p class="card-text text text-center mx-3">
+                  CONCEJAL MUNICIPAL DE BETANZOS
+                </p>
+                <p class="text text-center">
+                  <b>Sigla Política:</b> MAS - IPSP
+                </p>
+              </div>
+              <!-- concejal  Wilder Álvarez Castro-->
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseSix"
+                      aria-expanded="false"
+                      aria-controls="collapseSix"
+                    >
+                      COMISIONES
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseSix"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <strong>COMISIÓN DE INFRAESTRUCTURA </strong> <br />
+                      <strong>PRESIDENTE: </strong>
+                      <span>Wilder Álvarez Castro </span><br />
+                      <br />
+
+                      <strong
+                        >COMISIÓN DE TIERRA Y TERRITORIO, PLANIFICACION Y
+                        ORDENAMIENTO TERRITORIAL Y AUTONOMIAS</strong
+                      >
+                      <br />
+                      <strong>SECRETARIO: </strong>
+                      <span>Wilder Álvarez Castro</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card my-3 shadow p-3 rounded">
+              <div class="card-body">
+                <img
+                  src="/assets/img/concejo/7.JPG"
+                  width="250px"
+                  class="border border-success rounded-circle mx-auto d-block"
+                  alt="..."
+                />
+                <p class="card-text text-concejo text-center mx-3">
+                  Sr. Desiderio Llanos Cordero
+                </p>
+                <p class="card-text text text-center mx-3">
+                  CONCEJAL MUNICIPAL DE BETANZOS
+                </p>
+                <p class="text text-center"><b>Sigla Política:</b> MOP</p>
+              </div>
+              <!-- concejal  Desiderio Llanos Cordero-->
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseSeven"
+                      aria-expanded="false"
+                      aria-controls="collapseSeven"
+                    >
+                      COMISIONES
+                    </button>
+                  </h2> 
+                  <div
+                    id="collapseSeven"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <strong>COMISIÓN DE ÉTICA </strong> <br />
+                      <strong>SECRETARIO: </strong>
+                      <span>Desiderio Llanos Cordero </span><br />
+                      <br />
+
+                      <strong
+                        >COMISIÓN DE SALUD, DESARROLLO HUMANO Y SOCIAL</strong
+                      >
+                      <br />
+                      <strong>PRESIDENTE: </strong>
+                      <span>Desiderio Llanos Cordero</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
