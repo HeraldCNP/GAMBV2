@@ -8,6 +8,9 @@ import { PrestamosComponent } from './pages/prestamos/prestamos/prestamos.compon
 import { PlanificacionComponent } from './pages/planificacion/planificacion.component';
 import { EjecucionPresupuestariaComponent } from './pages/ejecucion-presupuestaria/ejecucion-presupuestaria.component';
 import { SeguimientoEvaluacionComponent } from './pages/seguimiento-evaluacion/seguimiento-evaluacion.component';
+import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { SegControlComponent } from './pages/segControl/segControl.component';
+import { PedidosCreateComponent } from './pages/pedidosCreate/pedidosCreate.component';
 
 const routes: Routes = [
   {
@@ -20,6 +23,9 @@ const routes: Routes = [
       { path: 'planificacion', component: PlanificacionComponent },
       { path: 'ejecucion-presupuestaria', component: EjecucionPresupuestariaComponent },
       { path: 'seguimiento-evaluacion', component: SeguimientoEvaluacionComponent },
+      { path: 'solicitud-materiales', component: PedidosComponent },
+      { path: 'seg-control-interno', component: SegControlComponent },
+      {path: 'solicitud-materiales/add', component: PedidosCreateComponent},
       // { path: 'modelos/list', component: ModelListComponent },
       // { path: 'plantillas/update/:id', component: GacetaUpdateComponent },
     ]

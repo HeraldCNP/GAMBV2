@@ -16,6 +16,7 @@ import { RendicionIndexComponent } from './pages/rendicion/rendicion-index/rendi
 import { PeiIndexComponent } from './pages/pei/pei-index/pei-index.component';
 import { ReglamentoIndexComponent } from './pages/reglamento/reglamento-index/reglamento-index.component';
 import { AuditoriaIndexComponent } from './pages/auditoria/auditoria-index/auditoria-index.component';
+import { SegControlComponent } from '../plantilla-doc/pages/segControl/segControl.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'reglamento/index', component: ReglamentoIndexComponent},
 
       { path: 'auditoria/index', component: AuditoriaIndexComponent},
+       { path: 'seguimiento-control/index', component: SegControlComponent },
       // { path: 'ptdi/create', component: PtdiCreateComponent },
       // { path: 'ptdi/update/:id', component: PtdiUpdateComponent },
 

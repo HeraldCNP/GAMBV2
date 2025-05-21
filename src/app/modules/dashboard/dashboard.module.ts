@@ -10,6 +10,11 @@ import { PrestamosComponent } from './pages/prestamos/prestamos/prestamos.compon
 import { PlanificacionComponent } from './pages/planificacion/planificacion.component';
 import { EjecucionPresupuestariaComponent } from './pages/ejecucion-presupuestaria/ejecucion-presupuestaria.component';
 import { SeguimientoEvaluacionComponent } from './pages/seguimiento-evaluacion/seguimiento-evaluacion.component';
+import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { SegControlComponent } from './pages/segControl/segControl.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PedidosCreateComponent } from './pages/pedidosCreate/pedidosCreate.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 
 @NgModule({
@@ -21,11 +26,16 @@ import { SeguimientoEvaluacionComponent } from './pages/seguimiento-evaluacion/s
     PrestamosComponent,
     PlanificacionComponent,
     EjecucionPresupuestariaComponent,
-    SeguimientoEvaluacionComponent
+    SeguimientoEvaluacionComponent,
+    PedidosComponent,
+    SegControlComponent,
+    PedidosCreateComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    NgxSelectModule,
   ]
 })
 export class DashboardModule { }

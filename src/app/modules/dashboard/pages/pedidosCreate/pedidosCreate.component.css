@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+.izq {
+    min-width: 205px;
+  }
+  
+  .sel {
+    min-width: 700px;
+  }

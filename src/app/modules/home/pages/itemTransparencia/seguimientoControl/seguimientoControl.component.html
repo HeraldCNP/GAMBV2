@@ -1,0 +1,60 @@
+<div class="page-banner-area photo-4 ">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-banner-menu">
+          <h2 class="page-banner-title">COMITÉ DE SEGUIMIENTO DE CONTROL INTERNO</h2>
+          <ul>
+            <li><a class="nav-link" [routerLink]="''">Inicio</a></li>
+            <li [routerLinkActive]="'active'">C.S.C.I.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="page-banner-content">
+        <h2 class="page-banner-title">SEGUIMIENTO CONTROL INTERNO G.A.M. BETANZOS</h2>
+        <p >El Comité de Seguimiento de Control Interno C.S.C.I. no se considerará como una unidad organizacional y no emite pronunciamiento previo sobre operaciones concretas al interior de la entidad.</p>
+        <p>El Control Interno coadyuva al logro de objetivos institucionales y cumplimiento de la misión institucional, a través del autocontrol, autorregulación y autogestión para mejorar la capacidad administrativa y sustantiva de la entidad, minimizando de riesgos internos y/o externos que afecten la consecución de los objetivos institucionales.</p>
+      </div>
+    </div>
+  </div>
+ <div class="m-2">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+        
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0 lh-1">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Documento</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let data of segControl.serverResponse; let i = index"
+                >
+                  <td>{{ data.titulo }}</td>
+                  <td>
+                    <a href="{{ URL + '/' + data.uri }}" target="_blank"
+                      >Descargar</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+  </div>

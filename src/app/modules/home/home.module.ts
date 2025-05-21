@@ -40,6 +40,8 @@ import { SearchPublicHrComponent } from './pages/index/search-public-hr/search-p
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListHrComponent } from './pages/list-hr/list-hr.component';
 import {RecursosHumanosComponent} from './pages/recursosHumanos/recursosHumanos.component';
+import { SeguimientoControlComponent } from './pages/itemTransparencia/seguimientoControl/seguimientoControl.component';
+
 
 
 
@@ -80,7 +82,9 @@ import {RecursosHumanosComponent} from './pages/recursosHumanos/recursosHumanos.
     AuditoriaComponent,
     SearchPublicHrComponent,
     ListHrComponent,
-    RecursosHumanosComponent
+    RecursosHumanosComponent,
+    SeguimientoControlComponent
+  
   ],
   imports: [
     CommonModule,

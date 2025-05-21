@@ -258,13 +258,13 @@
                       <td>{{ autorizacion.vehiculo.tipo }}</td>
                       <td>{{ autorizacion.vehiculo.marca }}</td>
                       <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.fechaSalida | date: 'shortDate' : "UTC" }}</td>
+                      <td width="100px">{{ autorizacion.fechaSalida | date: 'shortDate' : "UTC" }}</td>
                       <td>{{ autorizacion.horaSalida ? autorizacion.horaSalida : '' }}</td>
-                      <td></td>
+                      <td width="100px"></td>
                       <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'shortDate' : "UTC" }}</td>
-                      <td width="50px" *ngIf="autorizacion.fechaLlegada == null"></td>
+                      <td width="100px" *ngIf="autorizacion.fechaLlegada == null"></td>
                       <td>{{ autorizacion.horaLlegada ? autorizacion.horaSalida : '' }}</td>
-                      <td></td>
+                      <td width="100px"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -423,13 +423,13 @@
                       <td>{{ autorizacion.vehiculo.tipo }}</td>
                       <td>{{ autorizacion.vehiculo.marca }}</td>
                       <td>{{ autorizacion.vehiculo.placa }}</td>
-                      <td>{{ autorizacion.fechaSalida | date: 'shortDate' : "UTC" }}</td>
+                      <td width="100px">{{ autorizacion.fechaSalida | date: 'shortDate' : "UTC" }}</td>
                       <td>{{ autorizacion.horaSalida ? autorizacion.horaSalida : '' }}</td>
-                      <td></td>
+                      <td width="100px"></td>
                       <td *ngIf="autorizacion.fechaLlegada">{{ autorizacion.fechaLlegada | date: 'shortDate' : "UTC" }}</td>
-                      <td width="50px" *ngIf="autorizacion.fechaLlegada == null"></td>
+                      <td width="100px" *ngIf="autorizacion.fechaLlegada == null"></td>
                       <td>{{ autorizacion.horaLlegada ? autorizacion.horaSalida : '' }}</td>
-                      <td></td>
+                      <td width="100px"></td>
                     </tr>
                   </tbody>
                 </table>

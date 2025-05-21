@@ -1,0 +1,379 @@
+<div class="container">
+  <h1 class="text-center" style="color: #003d75;">
+    COMITÉ DE SEGUIMIENTO DE CONTROL INTERNO
+  </h1>
+  <div class="m-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="card-header">
+           
+            <div class="card-tools d-flex flex-row" *ngIf="(userData &&  userData.roles === 'SUPER_ADMIN' || userData.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+              <!-- <div class="input-group input-group-sm" style="width: 200px">
+                <input type="text" (keyup)="filtrarpedidos()" [(ngModel)]="search" name="table_search"
+                  class="form-control float-right" placeholder="Filtrar" />
+  
+              </div> -->
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#modalAddFile"
+                class="btn btn-primary"
+              >
+                Crear Nuevo
+              </button>
+              <!-- <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div> -->
+            </div>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0 lh-1">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Documento</th>
+                  <th  *ngIf="(userData &&  userData.roles === 'SUPER_ADMIN' || userData.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let data of segControl.serverResponse; let i = index"
+                >
+                  <td>{{ data.titulo }}</td>
+                  <td>
+                    <a href="{{ URL + '/' + data.uri }}" target="_blank"
+                      >Descargar</a
+                    >
+                  </td>
+
+                  <td  *ngIf="(userData &&  userData.roles === 'SUPER_ADMIN' || userData.post === 'STRIA. MUNICIPAL ADMINISTRACION FINANCIERA')">
+                    <samp class="d-flex align-items-center gap-2">
+                       <i
+                      class="fas fa-edit icono text-info "
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalEdit"
+                      (click)="editSegControl(data)"
+                       title="Editar"
+                    ></i>
+                    <i
+                      class="fas fa-trash-alt icono text-danger"
+                      (click)="deleteSegControl(data._id)"
+                       title="Eliminar"
+                    ></i>
+                    <input
+                      class="form-check-input pointer"
+                      type="checkbox"
+                      role="switch"
+                      [checked]="data.estado == '1'"
+                      id="{{ 'toggle' + i }}"
+                      (change)="changeStatus(data._id, !(data.estado == '1'))"
+                    
+                      title="Desactivar/Activar"
+                    />
+                    </samp>
+                   
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Create -->
+<div
+  class="modal fade"
+  id="modalAddFile"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalAddFileLabel"
+  aria-hidden="true"
+  *ngIf="!progress"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalAddFileLabel">
+          Añadir Documento
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="createSegControl()" [formGroup]="addForm">
+          <div class="mb-1">
+            <label for="titulo" class="form-label">Titulo *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="titulo"
+              formControlName="titulo"
+              required
+            />
+            <div
+              class="form-text"
+              *ngIf="form['titulo'].touched && form['titulo'].invalid"
+            >
+              <div
+                *ngIf="
+                  form['titulo'].errors && form['titulo'].errors['required']
+                "
+              >
+                * El título es Requerido.
+              </div>
+              <div
+                *ngIf="
+                  form['titulo'].errors && form['titulo'].errors['minlength']
+                "
+              >
+                * El título no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="fecha" class="form-label">Fecha de Publicacion *</label>
+            <input
+              type="date"
+              class="form-control"
+              id="fecha"
+              formControlName="fecha"
+            />
+            <div
+              class="form-text"
+              *ngIf="form['fecha'].touched && form['fecha'].invalid"
+            >
+              <div
+                *ngIf="form['fecha'].errors && form['fecha'].errors['required']"
+              >
+                * El fecha es requerido.
+              </div>
+              <div
+                *ngIf="
+                  form['fecha'].errors && form['fecha'].errors['minlength']
+                "
+              >
+                El detalle no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label for="archivo" class="form-label">Archivo</label>
+            <input
+              class="form-control"
+              id="archivo"
+              type="file"
+              name="archivo"
+              id="archivo"
+              accept="archivo/*"
+              formControlName="archivo"
+              (change)="onChange($event)"
+            />
+            <div
+              class="form-text"
+              *ngIf="form['archivo'].touched && form['archivo'].invalid"
+            >
+              <div
+                *ngIf="
+                  form['archivo'].errors && form['archivo'].errors['required']
+                "
+              >
+                * archivo es Requerido.
+              </div>
+            </div>
+            <div class="progress mt-1" *ngIf="progress > 0">
+              <div
+                class="progress-bar bg-danger"
+                role="progressbar"
+                [style.width]="progress + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{ progress + "%" }}
+              </div>
+            </div>
+          </div>
+          <!-- {{ addForm.value | json }} -->
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="addForm.invalid"
+            >
+              Añadir
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edit -->
+<div
+  class="modal fade"
+  id="modalEdit"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalEditLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Documento</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editDocumento()" [formGroup]="editForm">
+          <div class="mb-1">
+            <label for="titulo" class="form-label">titulo *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="titulo"
+              formControlName="titulo"
+              required
+            />
+            <div
+              class="form-text"
+              *ngIf="form['titulo'].touched && form['titulo'].invalid"
+            >
+              <div
+                *ngIf="
+                  form['titulo'].errors && form['titulo'].errors['required']
+                "
+              >
+                * El título es Requerido.
+              </div>
+              <div
+                *ngIf="
+                  form['titulo'].errors && form['titulo'].errors['minlength']
+                "
+              >
+                * El título no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="fecha" class="form-label">Fecha de Publicacion *</label>
+            <input
+              type="date"
+              class="form-control"
+              id="fecha"
+              formControlName="fecha"
+              required
+            />
+            <div
+              class="form-text"
+              *ngIf="form['fecha'].touched && form['fecha'].invalid"
+            >
+              <div
+                *ngIf="form['fecha'].errors && form['fecha'].errors['required']"
+              >
+                * El fecha es requerido.
+              </div>
+              <div
+                *ngIf="
+                  form['fecha'].errors && form['fecha'].errors['minlength']
+                "
+              >
+                El detalle no puede tener menos de 3 caracteres.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label for="archivo" class="form-label">Archivo</label>
+            <input
+              class="form-control"
+              id="archivo"
+              type="file"
+              name="archivo"
+              id="archivo"
+              accept="archivo/*"
+              formControlName="archivo"
+              (change)="onChange($event)"
+            />
+            <div
+              class="form-text"
+              *ngIf="form['archivo'].touched && form['archivo'].invalid"
+            >
+              <div
+                *ngIf="
+                  form['archivo'].errors && form['archivo'].errors['required']
+                "
+              >
+                * archivo es Requerido.
+              </div>
+            </div>
+            <div class="progress mt-1" *ngIf="progress > 0">
+              <div
+                class="progress-bar bg-danger"
+                role="progressbar"
+                [style.width]="progress + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{ progress + "%" }}
+              </div>
+            </div>
+          </div>
+          <!-- {{ addForm.value | json }} -->
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="editForm.invalid"
+            >
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

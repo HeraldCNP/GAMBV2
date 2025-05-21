@@ -22,6 +22,7 @@ import { ReglamentoComponent } from './pages/gestion/reglamento/reglamento.compo
 import { AuditoriaComponent } from './pages/itemTransparencia/auditoria/auditoria.component';
 import { ListHrComponent } from './pages/list-hr/list-hr.component';
 import { RecursosHumanosComponent } from './pages/recursosHumanos/recursosHumanos.component';
+import { SeguimientoControlComponent } from './pages/itemTransparencia/seguimientoControl/seguimientoControl.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
       {path: 'transparencia/auditoria', component: AuditoriaComponent},
 
       {path: 'searchHr/:termino', component: ListHrComponent},
+      {path: 'transparencia/seguimientoControl', component: SeguimientoControlComponent},
 
     ]
   }
