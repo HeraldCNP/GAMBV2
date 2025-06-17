@@ -190,7 +190,7 @@
         <form [formGroup]="asociarForm">
           <div class="mb-3">
             <label *ngIf="hojaAsociar" for="nuit" class="form-label">Hoja de ruta N° {{hojaAsociar.nuit}} con</label>
-            <input type="number" class="form-control" id="nuit" formControlName="nuit">
+            <input type="text" class="form-control" id="nuit" formControlName="nuit">
           </div>
           <div class="my-3">
             <button type="button" class="btn btn-secondary float-start" data-bs-dismiss="modal"
@@ -974,7 +974,7 @@
                       <td>{{ hrPrincipal.referencia }}</td>
                       <td></td>
                       <td><span class="badge badge-success"
-                          *ngIf="last.estado == 'RECIBIDO' || last.estado=== 'ENVIADO' "> PRINCIPAL</span></td>
+                          *ngIf="last.estado === 'RECIBIDO' || last.estado=== 'ENVIADO' "> PRINCIPAL</span></td>
                     </tr>
                     <tr *ngFor="let asociado of asociadosHr">
                       <td>{{ asociado.nuit }}</td>

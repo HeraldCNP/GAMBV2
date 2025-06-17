@@ -133,6 +133,13 @@ export class RutaService {
   busacrnuit(nuit: string): Observable<any> {
     return this.http.get(this.URL + '/asociar/' + nuit);
   }
+
+   busacarnuit(nuit: string): Observable<any> {
+    console.log('Buscando NUIT:', nuit);
+    console.log('URL:', this.URL + '/seguiNuit/' + nuit);
+    
+    return this.http.get(this.URL + '/seguiNuit/' + nuit);
+  }
   Asociar(nuit: string, hoja:Hojaruta): Observable<any> {
     return this.http.put(this.URL + '/asociar/' + nuit, hoja);
   }

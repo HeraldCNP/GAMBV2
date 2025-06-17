@@ -708,8 +708,9 @@ this.totalOfi = this.totales.filter(
       (data) => {
 
         console.log(data);
-        this.asociarForm.reset();
-        this.getSeguimientos();
+       /*  this.cleanAsociarForm();
+        this.getSeguimientos(); */
+        this.asociarForm.nuit = "";
       },
       (error) => {
         Swal.fire({
@@ -760,9 +761,12 @@ this.totalOfi = this.totales.filter(
       }
       if (result.isDismissed) {
         // console.log('no');
-        this.asociarForm.reset();
+       this.cleanAsociarForm();
       }
     })
+  }
+  cleanAsociarForm() {
+    this.asociarForm.reset();
   }
 
   ImprimirPDF() {

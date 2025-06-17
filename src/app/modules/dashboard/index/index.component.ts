@@ -20,7 +20,7 @@ export class IndexComponent {
     { label: 'Plantillas', url: '/dashboard/plantillas', icon: 'fas fa-file-alt' },
     { label: 'Normativas', url: '/dashboard/normativas', icon: 'fas fa-file-contract' },
     { label: 'Planificación', url: '/dashboard/planificacion', icon: 'fas fa-chart-pie' },
-    { label: 'Materiales y Suministros', url: '/dashboard/solicitud-materiales', icon: 'fas fa-mail-bulk' },
+   /*  { label: 'Materiales y Suministros', url: '/dashboard/solicitud-materiales', icon: 'fas fa-mail-bulk' }, */
   ]
 
   ngOnInit(): void {

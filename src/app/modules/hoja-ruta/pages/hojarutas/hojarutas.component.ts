@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RutaService } from '../../services/ruta.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Hojaruta } from '../../models/hojaruta';
 import Swal from 'sweetalert2';
@@ -11,7 +16,7 @@ import { ComprasService } from 'src/app/modules/almacen/services/compras.service
 @Component({
   selector: 'app-hojarutas',
   templateUrl: './hojarutas.component.html',
-  styleUrls: ['./hojarutas.component.css']
+  styleUrls: ['./hojarutas.component.css'],
 })
 export class HojarutasComponent implements OnInit {
   user: any;
@@ -21,23 +26,23 @@ export class HojarutasComponent implements OnInit {
   seguim: any = [];
   today = new Date();
   /*variables de consulta*/
-  nuit: string = "";
-  origen: any = "";
-  year:any=this.today.getFullYear()
-  campo:any = this.year;
-  dategt:any = this.year;
-  datelt:any=this.dategt+1;
-  referencia: string = "";
+  nuit: string = '';
+  origen: any = '';
+  year: any = this.today.getFullYear();
+  campo: any = this.year;
+  dategt: any = this.year;
+  datelt: any = this.dategt + 1;
+  referencia: string = '';
 
-  public search: string = "";
-  public search2: string = "";
+  public search: string = '';
+  public search2: string = '';
   limit: number = 10;
   skip: number = 1;
   page: number = 1;
   totalPages = 0;
   /*end variables de consulta*/
   /*variables de estados*/
-  estadoRecibido: string = "RECIBIDO";
+  estadoRecibido: string = 'RECIBIDO';
 
   /*end variables de estados*/
   /*variables de registro*/
@@ -46,31 +51,32 @@ export class HojarutasComponent implements OnInit {
   cant: number = 0;
   totalh: string = '';
   /*end variables de registro*/
-  idhr:string=""
+  idhr: string = '';
   aso: any = [];
   lisaso: string = ' ';
   cargando: boolean = true;
   isUsuario: boolean = true;
   funcionarios: any;
-  funcionario:any='';
-  ori:any;
+  funcionario: any = '';
+  ori: any;
 
   asociarForm: any;
-  hojaAsociar : any;
+  hojaAsociar: any;
 
   pago: boolean = false;
-  tipodoc:string = "";
+  tipodoc: string = '';
 
-  hrPrincipal:any;
-  asociadosHr:any;
-  last:any;
-  constructor(private api: RutaService,
+  hrPrincipal: any;
+  asociadosHr: any;
+  last: any;
+  constructor(
+    private api: RutaService,
     private router: Router,
     private fb: FormBuilder,
     private aRouter: ActivatedRoute,
     private comunicacionesService: ComunicacionesService,
-    private comprasService: ComprasService) {
-
+    private comprasService: ComprasService
+  ) {
     this.hojaForm = this.fb.group({
       origen: ['', Validators.required],
       referencia: ['', Validators.required],
@@ -78,7 +84,7 @@ export class HojarutasComponent implements OnInit {
       tipoDoc: [''],
       contacto: [''],
       numCite: [''],
-      beneficiarioPago:['']
+      beneficiarioPago: [''],
     });
 
     this.asociarForm = new FormGroup({
@@ -88,7 +94,7 @@ export class HojarutasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = localStorage.getItem("user");
+    this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
 
     this.getHojaRutas();
@@ -96,10 +102,10 @@ export class HojarutasComponent implements OnInit {
     this.cargarFuncionarios();
   }
 
-  isUser(a:boolean){
+  isUser(a: boolean) {
     this.isUsuario = a;
     console.log(this.isUsuario);
-    if (this.isUsuario === false){
+    if (this.isUsuario === false) {
       Swal.fire({
         title: 'ES PAGO?',
         icon: 'warning',
@@ -107,27 +113,30 @@ export class HojarutasComponent implements OnInit {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Si',
-        cancelButtonText: "No",
+        cancelButtonText: 'No',
       }).then((result) => {
         if (result.isConfirmed) {
           this.hojaForm.value.tipoDoc = 'pago';
           this.pago = true;
         }
-        if(result.isDenied){
+        if (result.isDenied) {
           this.pago = false;
         }
-      })
+      });
     }
-    if(this.isUsuario === true){
+    if (this.isUsuario === true) {
       this.pago = false;
     }
   }
 
   doSelect = (value: any) => {
-    const elementoEncontrado = this.funcionarios.find((user: { _id: any; }) => user._id == value);
-    this.funcionario = elementoEncontrado.username +' '+ elementoEncontrado.surnames;
+    const elementoEncontrado = this.funcionarios.find(
+      (user: { _id: any }) => user._id == value
+    );
+    this.funcionario =
+      elementoEncontrado.username + ' ' + elementoEncontrado.surnames;
     console.log('SingleDemoComponent.doSelect', this.funcionario);
-  }
+  };
 
   cargarFuncionarios() {
     this.cargando = true;
@@ -141,26 +150,23 @@ export class HojarutasComponent implements OnInit {
     return this.hojaForm.controls;
   }
 
-
   registerHojas() {
-    let finyear=this.year.toString().slice(-2)
-    console.log(finyear)
+    let finyear = this.year.toString().slice(-2);
+    console.log(finyear);
     this.cant = this.cant + 1;
     //this.totalh = this.cant +"-" +finyear;
-    if(this.funcionario!=''){
+    if (this.funcionario != '') {
       this.ori = this.funcionario;
-    }else{
+    } else {
       this.ori = this.hojaForm.get('origen')?.value;
     }
 
-
     // console.log(this.pago);
 
-
-    if(this.pago === true){
+    if (this.pago === true) {
       var HOJA: Hojaruta = {
         origen: this.ori,
-        tipodoc: "pago",
+        tipodoc: 'pago',
         beneficiarioPago: this.hojaForm.get('beneficiarioPago')?.value,
         contacto: this.hojaForm.get('contacto')?.value,
         referencia: this.hojaForm.get('referencia')?.value,
@@ -168,7 +174,7 @@ export class HojarutasComponent implements OnInit {
         numCite: this.hojaForm.get('numCite')?.value,
         //nuit: this.totalh,
       };
-    }else{
+    } else {
       var HOJA: Hojaruta = {
         origen: this.ori,
         tipodoc: '',
@@ -182,14 +188,13 @@ export class HojarutasComponent implements OnInit {
 
     // console.log('antes de enviar',HOJA);
 
-
-    this.funcionario='';
+    this.funcionario = '';
     this.api.register(HOJA).subscribe(
       (data) => {
         // console.log(HOJA);
 
         this.page = 1;
-        this.getHojaRutas()
+        this.getHojaRutas();
         this.hojaForm.reset();
         this.isUsuario = true;
         this.pago = false;
@@ -199,7 +204,6 @@ export class HojarutasComponent implements OnInit {
       }
     );
   }
-
 
   // registerNewHojaRuta() {
   //   let fd = new FormData();
@@ -229,94 +233,93 @@ export class HojarutasComponent implements OnInit {
   //   );
   // }
 
-
   getHojaRutas() {
-
     this.cargando = true;
-    this.campo=parseInt(this.campo)
-    if(this.campo==this.year-1){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else if(this.campo==this.year){
-      this.dategt=this.campo;
-      this.datelt=this.campo+1;
-    }else{
-      this.dategt=this.campo;
-      this.datelt=this.year+1;
+    this.campo = parseInt(this.campo);
+    if (this.campo == this.year - 1) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else if (this.campo == this.year) {
+      this.dategt = this.campo;
+      this.datelt = this.campo + 1;
+    } else {
+      this.dategt = this.campo;
+      this.datelt = this.year + 1;
     }
     // console.log(this.campo)
-    this.api.getAllHojaRuta(this.nuit, this.origen, this.dategt, this.datelt, this.limit, this.skip).subscribe(
-      data => {
-        this.cant=data.nuitok
+    this.api
+      .getAllHojaRuta(
+        this.nuit,
+        this.origen,
+        this.dategt,
+        this.datelt,
+        this.limit,
+        this.skip
+      )
+      .subscribe((data) => {
+        this.cant = data.nuitok;
         this.hojaRutas = data.serverResponse;
         console.log(this.hojaRutas);
 
         this.totalPages = data.totalpage;
-        this.search=" ";
+        this.search = ' ';
         this.cargando = false;
         this.hojaForm.reset();
-      }
-    )
+      });
 
-
-    this.comunicacionesService.termino.subscribe(
-      termino => {
-        this.cargando = true;
-        this.search2 = termino;
-        console.log(this.search2)
-        this.api.buscarHoja(this.search2).subscribe(
-          data => {
-            if(data.serverResponse){
-              this.hojaRutas = data.serverResponse;
-              // console.log("result", this.hojaRutas)
-              this.totalPages=1;
-              this.cargando = false;
-            }else{
-              this.hojaRutas = [];
-            }
-          },
-          error => {
-            console.log(error);
+    this.comunicacionesService.termino.subscribe((termino) => {
+      this.cargando = true;
+      this.search2 = termino;
+      console.log(this.search2);
+      this.api.buscarHoja(this.search2).subscribe(
+        (data) => {
+          if (data.serverResponse) {
+            this.hojaRutas = data.serverResponse;
+            // console.log("result", this.hojaRutas)
+            this.totalPages = 1;
+            this.cargando = false;
+          } else {
             this.hojaRutas = [];
           }
-        )
-      }
-    );
-
+        },
+        (error) => {
+          console.log(error);
+          this.hojaRutas = [];
+        }
+      );
+    });
   }
 
-  closeModalCreate(){
+  closeModalCreate() {
     this.isUsuario = true;
     console.log(this.isUsuario);
   }
 
-  getHojaRuta(){
-
-    this.aRouter.params.subscribe (params => {
+  getHojaRuta() {
+    this.aRouter.params.subscribe((params) => {
       var search = params['search'];
       this.search = search;
       // console.log(search)
-      if(search != undefined){
+      if (search != undefined) {
         this.api.buscarHoja(this.search).subscribe(
-          data => {
-            if(data.serverResponse){
+          (data) => {
+            if (data.serverResponse) {
               this.hojaRutas = data.serverResponse;
-              this.totalPages=1;
-            }else{
+              this.totalPages = 1;
+            } else {
               this.hojaRutas = [];
-              search=" ";
+              search = ' ';
             }
           },
-          error => {
+          (error) => {
             console.log(error);
             this.hojaRutas = [];
-            search=" ";
+            search = ' ';
           }
-        )
+        );
       }
     });
   }
-
 
   paginaAnterior() {
     this.skip--;
@@ -345,35 +348,41 @@ export class HojarutasComponent implements OnInit {
     this.getHojaRutas();
   }
 
-  cambiarestado(id: any){
-    this.api.obtenerHoja(id).subscribe(data => {
-      this.hojaRuta = data.serverResponse;
-      let idh = this.hojaRuta._id;
-      const HOJA: Hojaruta = {
-        estado: this.estadoRecibido,
+  cambiarestado(id: any) {
+    this.api.obtenerHoja(id).subscribe(
+      (data) => {
+        this.hojaRuta = data.serverResponse;
+        let idh = this.hojaRuta._id;
+        const HOJA: Hojaruta = {
+          estado: this.estadoRecibido,
+        };
+        if (this.hojaRuta.estado === 'REGISTRADO') {
+          Swal.fire({
+            title: 'Estás seguro Recibir?',
+            text: 'Esta seguro de recibir el trámite?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Recibir',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.api.EditarHoja(idh, HOJA).subscribe(
+                (data) => {
+                  this.getHojaRutas();
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+            }
+          });
+        }
+      },
+      (error) => {
+        console.log(error);
       }
-      if (this.hojaRuta.estado === "REGISTRADO"){
-        Swal.fire({
-          title: 'Estás seguro Recibir?',
-          text: "Esta seguro de recibir el trámite?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, Recibir'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.api.EditarHoja(idh, HOJA).subscribe(data => {
-            this.getHojaRutas()
-            }, error => {
-              console.log(error);
-            })
-          }
-        })
-      }
-    }, error => {
-      console.log(error);
-    })
+    );
   }
 
   listAso(id: any) {
@@ -409,17 +418,29 @@ export class HojarutasComponent implements OnInit {
     );
   }
 
-  segui(idh: any){
+  segui(idh: any) {
     //this.loading = true;
-    this.idhr=idh
-    this.api.obtenerHoja(idh).subscribe(data => {
-     // this.loading = false;
-      this.hojaRuta = data.serverResponse;
-      this.seguim=this.hojaRuta.seguimiento
-    }, error => {
-      console.log(error);
-    })
-
+    this.idhr = idh;
+    this.api.obtenerHoja(idh).subscribe(
+      (data) => {
+        // this.loading = false;
+        this.hojaRuta = data.serverResponse;
+        this.seguim = this.hojaRuta.seguimiento;
+        if (this.seguim.length === 0) {
+          this.api.busacarnuit(this.hojaRuta.nuit).subscribe(
+            (data) => {
+              this.seguim = data;
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   /* seguimi(idh: any){
     //this.loading = true;
@@ -455,39 +476,43 @@ export class HojarutasComponent implements OnInit {
       if (result.isConfirmed) {
         this.api.eliminarHoja(id).subscribe(
           (data) => {
-            this.getHojaRutas()
+            this.getHojaRutas();
           },
           (error) => {
             console.log(error);
           }
         );
-        Swal.fire(
-          'Eliminado!',
-          'El tramite se ha eliminado',
-          'success'
-        );
-       // this.router.navigate(['/ruta/office/index']);
-
+        Swal.fire('Eliminado!', 'El tramite se ha eliminado', 'success');
+        // this.router.navigate(['/ruta/office/index']);
       }
     });
   }
 
   changeTipoDoc(value: any) {
-    if(this.pago == true){
-      this.hojaForm.value.tipodoc = "";
-      this.tipodoc="";
+    if (this.pago == true) {
+      this.hojaForm.value.tipodoc = '';
+      this.tipodoc = '';
       this.pago = false;
-      console.log('tipo1', this.pago, this.hojaForm.value.tipodoc, this.tipodoc);
-    }else{
-      this.hojaForm.value.tipodoc = "pago";
-      this.tipodoc="pago";
+      console.log(
+        'tipo1',
+        this.pago,
+        this.hojaForm.value.tipodoc,
+        this.tipodoc
+      );
+    } else {
+      this.hojaForm.value.tipodoc = 'pago';
+      this.tipodoc = 'pago';
       this.pago = true;
-      console.log('tipo2', this.pago, this.hojaForm.value.tipodoc, this.tipodoc);
+      console.log(
+        'tipo2',
+        this.pago,
+        this.hojaForm.value.tipodoc,
+        this.tipodoc
+      );
     }
-
   }
 
- /*  changeTipoDoc2(value: any) {
+  /*  changeTipoDoc2(value: any) {
     //this.pago = false;
     // console.log('tipo', this.tipo);
   } */
@@ -576,7 +601,7 @@ export class HojarutasComponent implements OnInit {
     };
     html2canvas(DATA, options)
       .then((canvas) => {
-        const imgp:any = canvas.toDataURL('image/PNG');
+        const imgp: any = canvas.toDataURL('image/PNG');
 
         // Add image Canvas to PDFx
         const bufferX = 3;
@@ -602,7 +627,6 @@ export class HojarutasComponent implements OnInit {
       });
   }
 
-
   ImprimirHR() {
     const DATA: any = document.getElementById('htmlData1');
     const doc = new jsPDF('p', 'pt', 'letter');
@@ -612,9 +636,7 @@ export class HojarutasComponent implements OnInit {
     };
     html2canvas(DATA, options)
       .then((canvas) => {
-        const imgp:any = canvas.toDataURL('image/PNG');
-
-
+        const imgp: any = canvas.toDataURL('image/PNG');
 
         // Add image Canvas to PDFx
         const bufferX = 3;
@@ -677,7 +699,7 @@ export class HojarutasComponent implements OnInit {
       });
   }
 
-  asociar(hoja:any){
+  asociar(hoja: any) {
     console.log(hoja);
     // console.log(this.data.post);
     this.asociarForm.patchValue({
@@ -685,10 +707,9 @@ export class HojarutasComponent implements OnInit {
     });
 
     this.hojaAsociar = hoja;
-
   }
 
-  consultaAsociar(hoja:any){
+  consultaAsociar(hoja: any) {
     Swal.fire({
       title: 'ASOCIAR',
       text: `Estas seguro de asociar: ${this.asociarForm.value.nuit}  a la hoja de ruta: ${hoja}`,
@@ -697,42 +718,40 @@ export class HojarutasComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si',
-      cancelButtonText: "No",
+      cancelButtonText: 'No',
     }).then((result) => {
       if (result.isConfirmed) {
         // console.log('si');
         this.asociar2();
       }
-      if(result.isDenied){
+      if (result.isDenied) {
         // console.log('no');
-        this.asociarForm.reset();
+        this.cleanAsociarForm();
       }
-    })
+    });
   }
 
-  verAsociados(hr:any){
-
-
+  verAsociados(hr: any) {
     this.api.getHr(hr._id).subscribe(
       (data) => {
         this.hrPrincipal = data;
         this.asociadosHr = data.asociados;
-        this.last = this.hrPrincipal.seguimiento[this.hrPrincipal.seguimiento.length - 1];
-        // console.log('principal', this.hrPrincipal);
-        // console.log(this.hrPrincipal);
-
+        this.last =this.hrPrincipal.seguimiento[this.hrPrincipal.seguimiento.length - 1];
+        console.log('last', this.last);
+        console.log('principal', this.hrPrincipal);
+        console.log('asociados', this.asociadosHr);
       },
       (error) => {
         Swal.fire({
-          icon: "error",
-          title: "Error",
+          icon: 'error',
+          title: 'Error',
           text: error.error.serverResponse,
         });
       }
     );
   }
 
-  eliminarEnvio(hr:any){
+  eliminarEnvio(hr: any) {
     Swal.fire({
       title: 'Estas seguro de Eliminar?',
       text: `Se va eliminar el primer registro de Seguimiento`,
@@ -741,7 +760,7 @@ export class HojarutasComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si',
-      cancelButtonText: "No",
+      cancelButtonText: 'No',
     }).then((result) => {
       if (result.isConfirmed) {
         this.api.eliminarEnvio(hr._id).subscribe(
@@ -751,37 +770,35 @@ export class HojarutasComponent implements OnInit {
           },
           (error) => {
             Swal.fire({
-              icon: "error",
-              title: "Error",
+              icon: 'error',
+              title: 'Error',
               text: error.error.serverResponse,
             });
           }
         );
       }
-    })
-
+    });
   }
 
-  asociar2(){
-
+  asociar2() {
     this.api.asociar(this.hojaAsociar.nuit, this.asociarForm.value).subscribe(
       (data) => {
         console.log(data);
-        this.asociarForm.reset();
-        this.getHojaRutas();
+       /*  this.cleanAsociarForm();
+        this.getHojaRutas(); */
       },
       (error) => {
         console.log(error);
         Swal.fire({
-          icon: "error",
-          title: "Error",
+          icon: 'error',
+          title: 'Error',
           text: error.error.serverResponse,
         });
       }
     );
   }
 
-  cleanAsociarForm(){
+  cleanAsociarForm() {
     this.asociarForm.reset();
   }
 
@@ -791,7 +808,8 @@ export class HojarutasComponent implements OnInit {
     const fechaActual = new Date();
 
     // Calcular la diferencia en milisegundos
-    const diferenciaMilisegundos = fechaActual.getTime() - fechaInicio.getTime();
+    const diferenciaMilisegundos =
+      fechaActual.getTime() - fechaInicio.getTime();
 
     // Convertir la diferencia a días (1 día = 86400000 milisegundos)
     const diferenciaDias = Math.floor(diferenciaMilisegundos / 86400000);
@@ -819,34 +837,39 @@ export class HojarutasComponent implements OnInit {
     const milisegundosPorHora = 3600000;
     const milisegundosPorMinuto = 60000;
 
-    const diferenciaDias = Math.floor(diferenciaMilisegundos / milisegundosPorDia);
-    const diferenciaHorasRestantes = diferenciaMilisegundos % milisegundosPorDia;
-    const diferenciaHoras = Math.floor(diferenciaHorasRestantes / milisegundosPorHora);
-    const diferenciaMinutos = Math.floor((diferenciaHorasRestantes % milisegundosPorHora) / milisegundosPorMinuto);
+    const diferenciaDias = Math.floor(
+      diferenciaMilisegundos / milisegundosPorDia
+    );
+    const diferenciaHorasRestantes =
+      diferenciaMilisegundos % milisegundosPorDia;
+    const diferenciaHoras = Math.floor(
+      diferenciaHorasRestantes / milisegundosPorHora
+    );
+    const diferenciaMinutos = Math.floor(
+      (diferenciaHorasRestantes % milisegundosPorHora) / milisegundosPorMinuto
+    );
 
-    let resultado = "";
+    let resultado = '';
     if (diferenciaDias > 0) {
       resultado += `${diferenciaDias} día${diferenciaDias !== 1 ? 's' : ''}`;
     }
     if (diferenciaHoras > 0) {
-      if (resultado !== "") {
-        resultado += ", ";
+      if (resultado !== '') {
+        resultado += ', ';
       }
       resultado += `${diferenciaHoras} hora${diferenciaHoras !== 1 ? 's' : ''}`;
     }
-    if (diferenciaMinutos > 0 || resultado === "") {
-      if (resultado !== "") {
-        resultado += ", ";
+    if (diferenciaMinutos > 0 || resultado === '') {
+      if (resultado !== '') {
+        resultado += ', ';
       }
-      resultado += `${diferenciaMinutos} minuto${diferenciaMinutos !== 1 ? 's' : ''}`;
+      resultado += `${diferenciaMinutos} minuto${
+        diferenciaMinutos !== 1 ? 's' : ''
+      }`;
     }
 
     // console.log(resultado);
-    
 
     return resultado;
   }
-
-
-
 }

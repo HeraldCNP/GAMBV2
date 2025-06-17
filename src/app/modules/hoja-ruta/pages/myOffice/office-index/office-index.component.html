@@ -259,16 +259,16 @@
     <div class="modal-content">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
         <h1 class="text-center">Asociar</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="cleanAsociarForm()" aria-label="Close"></button>
       </div>
       <div class="modal-body pb-1">
         <form [formGroup]="asociarForm">
           <div class="mb-3">
             <label *ngIf="hojaAsociar" for="nuit" class="form-label">Hoja de ruta N° {{hojaAsociar.nuit}} con</label>
-            <input type="number" class="form-control" id="nuit" formControlName="nuit">
+            <input type="text" class="form-control" id="nuit" formControlName="nuit">
           </div>
           <div class="my-3">
-            <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal">
+            <button type="button" class="btn btn-danger float-start" data-bs-dismiss="modal"  (click)="cleanAsociarForm()">
               CANCELAR
             </button>
             <button type="submit" [disabled]="asociarForm.invalid" class="btn btn-success float-end"
@@ -464,7 +464,7 @@
 
 <!--MODAL ASOCIADOS-->
 <div class="modal fade" id="modalAsociados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modalLargo">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content" *ngIf="hrPrincipal">
       <div class="modal-header pt-1 pb-1 d-flex justify-content-around">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
