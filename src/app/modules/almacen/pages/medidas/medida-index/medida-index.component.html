@@ -40,14 +40,14 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Simbolo</th>
+                  <th>Símbolo</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr *ngFor="let medida of medidas.serverResponse; let i = index">
-                  <td>{{ medida.unidadMedida }}</td>
-                  <td>{{ medida.simbolo }}</td>
+                  <td>{{ medida.unidadMedida | uppercase }}</td>
+                  <td>{{ medida.simbolo | uppercase }}</td>
                   <td>
                     <!-- <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
                       (click)="cargarDataEdit(medida)"></i> -->

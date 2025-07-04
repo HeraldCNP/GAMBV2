@@ -8,12 +8,12 @@ import { ComprasService } from '../../../services/compras.service';
 import { FormFacturaComponent } from '../components/form-factura/form-factura.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PrintValeComponent } from '../components/printVale/printVale.component';
-
+import { PrintValeDetailComponent } from '../components/printValeDetail/printValeDetail.component';
 
 @Component({
   selector: 'app-vale-index',
   templateUrl: './vale-index.component.html',
-  styleUrls: ['./vale-index.component.css']
+  styleUrls: ['./vale-index.component.css'],
 })
 export class ValeIndexComponent {
   idUser: any;
@@ -46,7 +46,13 @@ export class ValeIndexComponent {
 
   totalPrice: any;
 
-  constructor(private valeService: ValeService, private router: Router, private fb: FormBuilder, private comprasService: ComprasService, private matDialog: MatDialog) {
+  constructor(
+    private valeService: ValeService,
+    private router: Router,
+    private fb: FormBuilder,
+    private comprasService: ComprasService,
+    private matDialog: MatDialog
+  ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
@@ -64,7 +70,6 @@ export class ValeIndexComponent {
   ngOnInit(): void {
     this.cargarCatProgras();
     this.cargarVales();
-    
   }
 
   get form() {
@@ -81,28 +86,25 @@ export class ValeIndexComponent {
     this.cargando = true;
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
       this.catProgras = data.serverResponse;
-      console.log("Cat Progras", data)
+      console.log('Cat Progras', data);
     });
   }
 
-
   cargarVales(params?: any) {
-
     if (!params) {
       params = {
         limit: 20,
         skip: 1,
-      }
+      };
     }
     if (params.estado === 'PENDIENTE') {
       this.btnActive = false;
     } else {
       this.btnActive = true;
     }
-    
+
     this.cargando = true;
-    this.valeService.getAllVales(params)
-    .subscribe((data: any) => {
+    this.valeService.getAllVales(params).subscribe((data: any) => {
       this.totalVales = data.totalDocs;
       this.vales = data;
       this.valesTemp = data;
@@ -110,13 +112,15 @@ export class ValeIndexComponent {
       console.log(data);
       this.cargando = false;
       this.totalPrice = null;
-      
     });
-     console.log('params', params);
+    console.log('params', params);
   }
 
   mostrarTotales() {
-    this.totalPrice = this.valesTemp.serverResponse.reduce((acc: any, order: any) => acc + order.cantidadAdquirida, 0);
+    this.totalPrice = this.valesTemp.serverResponse.reduce(
+      (acc: any, order: any) => acc + order.cantidadAdquirida,
+      0
+    );
     // console.log(this.totalPrice);
   }
 
@@ -132,22 +136,23 @@ export class ValeIndexComponent {
       confirmButtonText: '¡Sí, Registrar!',
     }).then((result) => {
       if (result.isConfirmed) {
-
-        this.valeService.finalizarVales(this.valesTemp.serverResponse).subscribe(
-          (res) => {
-            console.log(res);
-          },
-          (err) => console.log('HTTP Error', err),
-          () => {
-            this.alertOk(
-              'success',
-              'Exito',
-              'Vales Finalizados Correctamente',
-              '2000'
-            );
-            this.cargarVales();
-          }
-        );
+        this.valeService
+          .finalizarVales(this.valesTemp.serverResponse)
+          .subscribe(
+            (res) => {
+              console.log(res);
+            },
+            (err) => console.log('HTTP Error', err),
+            () => {
+              this.alertOk(
+                'success',
+                'Exito',
+                'Vales Finalizados Correctamente',
+                '2000'
+              );
+              this.cargarVales();
+            }
+          );
       }
     });
   }
@@ -164,19 +169,19 @@ export class ValeIndexComponent {
 
     let params = {
       limit: this.limit,
-      skip: this.skip
-    }
+      skip: this.skip,
+    };
     this.cargarVales(params);
   }
 
   addAutorizacion() {
-    this.router.navigate(['/actFijos/autorizacion/create'])
+    this.router.navigate(['/actFijos/autorizacion/create']);
   }
 
   print(element: any) {
     console.log('element', element);
     this.vale = element;
-    console.log('VALE',this.vale);
+    console.log('VALE', this.vale);
   }
 
   print2(element: any) {
@@ -206,15 +211,20 @@ export class ValeIndexComponent {
       confirmButtonText: '¡Sí, bórralo!',
     }).then((result) => {
       if (result.isConfirmed) {
-
         this.valeService.deleteVale(id).subscribe(
           (res) => {
-            Swal.fire('¡Eliminado!', 'El Ingreso ha sido eliminado.', 'success');
+            Swal.fire(
+              '¡Eliminado!',
+              'El Ingreso ha sido eliminado.',
+              'success'
+            );
           },
-          (err) => Swal.fire('¡Error!', err.error.serverResponse, 'error').then(() => console.log('HTTP Error', err)),
+          (err) =>
+            Swal.fire('¡Error!', err.error.serverResponse, 'error').then(() =>
+              console.log('HTTP Error', err)
+            ),
 
           () => this.cargarVales()
-
         );
       }
     });
@@ -227,51 +237,56 @@ export class ValeIndexComponent {
   cambiarEstado(vale: any) {
     console.log(vale);
 
-
-    if (vale.estado === "REGISTRADO") {
+    if (vale.estado === 'REGISTRADO') {
       const form: any = {
         estado: 'PENDIENTE',
-      }
+      };
       Swal.fire({
         title: '¿Estás seguro?',
-        text: "¿Esta seguro que recibió la factura?",
+        text: '¿Esta seguro que recibió la factura?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si'
+        confirmButtonText: 'Si',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.valeService.cambiarEstado(vale._id, form).subscribe(data => {
-            this.cargarVales()
-          }, error => {
-            console.log(error);
-          })
+          this.valeService.cambiarEstado(vale._id, form).subscribe(
+            (data) => {
+              this.cargarVales();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         }
-      })
+      });
     }
 
-    if (vale.estado === "PENDIENTE") {
+    if (vale.estado === 'PENDIENTE') {
       const form: any = {
         estado: 'REGISTRADO',
-      }
+      };
       Swal.fire({
         title: '¿Estás seguro?',
-        text: "¿Esta seguro de cambiar a estado REGISTRADO?",
+        text: '¿Esta seguro de cambiar a estado REGISTRADO?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si'
+        confirmButtonText: 'Si',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.valeService.cambiarEstado(vale._id, form).subscribe(data => {
-            this.cargarVales()
-          }, error => {
-            console.log(error);
-          })
+          this.valeService.cambiarEstado(vale._id, form).subscribe(
+            (data) => {
+              this.cargarVales();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         }
-      })
+      });
     }
   }
 
@@ -284,29 +299,48 @@ export class ValeIndexComponent {
     });
   }
 
-  printVale(id: any) : void {
+  printVale(id: any): void {
     this.openDialogPrintVale(id, 'Imprimir Vale');
   }
   openDialogPrintVale(id: any, title: any) {
-      let dialog = this.matDialog.open(PrintValeComponent, {
-        width: '1000px', 
-        enterAnimationDuration: '500ms',
-        exitAnimationDuration: '1000ms',
-        data: {
-          id: id,
-          title: title,
-        },
-      });
-      dialog.afterClosed().subscribe({
-        next: (resp: any) => {
-        },
-        error: (resp: any) => {
-          console.log(resp.error.message);
-        },
-      });
-    }
+    let dialog = this.matDialog.open(PrintValeComponent, {
+      width: '1000px',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        id: id,
+        title: title,
+      },
+    });
+    dialog.afterClosed().subscribe({
+      next: (resp: any) => {},
+      error: (resp: any) => {
+        console.log(resp.error.message);
+      },
+    });
+  }
+  printValeDetalle(id: any): void {
+    this.openDialogPrintValeDetalle(id, 'Imprimir Detalle del Vale');
+  }
+  openDialogPrintValeDetalle(id: any, title: any) {
+    let dialog = this.matDialog.open(PrintValeDetailComponent, {
+      width: '1000px',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        id: id,
+        title: title,
+      },
+    });
+    dialog.afterClosed().subscribe({
+      next: (resp: any) => {},
+      error: (resp: any) => {
+        console.log(resp.error.message);
+      },
+    });
+  }
   addFactura(idVale: string) {
-    this.openDialog(idVale, 'Añadir Factura')
+    this.openDialog(idVale, 'Añadir Factura');
   }
 
   openDialog(id: any, title: any) {
@@ -317,7 +351,7 @@ export class ValeIndexComponent {
       data: {
         id: id,
         title: title,
-      }
+      },
     });
     dialog.afterClosed().subscribe({
       next: (resp: any) => {
@@ -335,41 +369,41 @@ export class ValeIndexComponent {
         console.log(resp);
         // Swal.fire('Error', resp, 'error')
         // Swal.fire('Error', resp, 'error')
-      }
-    })
+      },
+    });
   }
 
-
   async addDevolution(idVale: string) {
-
     const { value: montoValor } = await Swal.fire({
-      title: "Ingrese el monto a devolver",
-      input: "number", // Change to 'number' for numeric input
+      title: 'Ingrese el monto a devolver',
+      input: 'number', // Change to 'number' for numeric input
       inputAttributes: {
-        autocapitalize: "off"
+        autocapitalize: 'off',
       },
       showCancelButton: true,
-      confirmButtonText: "Registrar",
+      confirmButtonText: 'Registrar',
       showLoaderOnConfirm: true,
       preConfirm: async (valor) => {
         if (!valor) {
-          return Swal.showValidationMessage("Ingrese un monto válido");
+          return Swal.showValidationMessage('Ingrese un monto válido');
         }
         this.valeService.editVale({ saldoDevuelto: valor }, idVale).subscribe(
           (res) => {
             console.log(res);
-
           },
-          err => console.log('HTTP Error', err),
+          (err) => console.log('HTTP Error', err),
           () => {
             this.cargarVales();
-            this.alertOk('success', 'Exito', 'Monto Devuelto Correctamente', '2000')
+            this.alertOk(
+              'success',
+              'Exito',
+              'Monto Devuelto Correctamente',
+              '2000'
+            );
           }
         );
-
       },
-      allowOutsideClick: () => !Swal.isLoading()
+      allowOutsideClick: () => !Swal.isLoading(),
     });
-
   }
 }

@@ -59,7 +59,8 @@
                 <tr>
                   <th scope="col" *ngIf="
                     (data && data.roles === 'SUPER_ADMIN') ||
-                    data.roles === 'SECRETARIA'
+                    data.roles === 'SECRETARIA' ||
+                  data.post === 'RECAUDACIONES'
                   ">
                     Enviar
                   </th>
@@ -89,7 +90,9 @@
                 <tr
                   [ngClass]="hoja.estado === 'REGISTRADO' ? 'table-danger border border-danger' : 'table-success border border-success'"
                   *ngFor="let hoja of hojaRutas">
-                  <td *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.roles === 'SECRETARIA'">
+                  <td *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.roles === 'SECRETARIA'  ||
+                  data.post === 'RECAUDACIONES'
+                  ">
                     <i [routerLink]="['/ruta/derivar', hoja._id]" class="fas fa-space-shuttle text-primary"
                       *ngIf="hoja.estado === 'RECIBIDO'"></i>
                     <i [routerLink]="null" class="fas fa-space-shuttle text-primary"

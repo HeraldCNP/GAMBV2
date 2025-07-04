@@ -225,7 +225,7 @@
                     </span> -->
                     
                     <i class="fas fa-print ml-2 icono" (click)="printVale(vale._id)"
-                    title="Añadir Factura"></i>
+                    title="Imprimir Vale"></i>
                     <!-- colocar despues -->
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0" -->
                      
@@ -236,10 +236,12 @@
                     <i *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'"
                       class="fas fa-trash ml-2 iconoRed" (click)="deleteVale(vale._id)" title="Eliminar"></i>
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'" -->
-                    <i class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(vale._id)"
+                    <i *ngIf="!vale.idCompra && vale.productos?.length == 0" class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(vale._id)"
                       title="Añadir Factura"></i>
-                    <i class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(vale._id)"
+                    <i *ngIf="vale.precio && vale.productos?.length == 0" class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(vale._id)"
                       title="Añadir Devolución"></i>
+                      <i *ngIf="vale.precio && vale.productos?.length == 0" class="fas fa-money-check ml-2 icono" (click)="printValeDetalle(vale._id)"
+                    title="Imprimir Vale"></i>
                   </td>
                 </tr>
               </tbody>

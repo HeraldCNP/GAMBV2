@@ -107,4 +107,12 @@ export class ValeService {
    // return `${url} { headers: header, responseType: 'blob' }`;
     return this.http.get(`${url}`, { headers: header, responseType: 'blob' });
   } 
+
+   printValeDetail(id: string): Observable<Blob>  {  
+    const url = `${this.URL}/printDetailFact/${id}`;
+    const header = this.headers;
+    console.log('url', url);
+   // return `${url} { headers: header, responseType: 'blob' }`;
+    return this.http.get(`${url}`, { headers: header, responseType: 'blob' });
+  } 
 }

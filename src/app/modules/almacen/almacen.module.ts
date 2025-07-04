@@ -41,6 +41,7 @@ import { LoaderDirective } from 'src/app/core/directives/loader.directive';
 import { MaterialModule } from 'src/app/material/material.module';
 import { PrintValeComponent } from './pages/vales/components/printVale/printVale.component';
 import { SafePipe } from '../../core/pipes/safe.pipe';
+import { PrintValeDetailComponent } from './pages/vales/components/printValeDetail/printValeDetail.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { SafePipe } from '../../core/pipes/safe.pipe';
     ValeNewComponent,
     ValeLubriComponent,
     PrintValeComponent,
-    SafePipe
+    SafePipe,
+    PrintValeDetailComponent
   ],
   imports: [
     CommonModule,

@@ -17,6 +17,9 @@ export class EntiCreateComponent implements OnInit {
     codigo: ['', [Validators.required, Validators.minLength(1)] ],
     sigla: ['', [Validators.required, Validators.minLength(3)] ],
     denominacion: ['', [Validators.required, Validators.minLength(3)] ],
+    telefono: ['' ],
+    cuenta: ['' ],
+    nit: [''],
   })
   constructor(
     private fb: FormBuilder,
