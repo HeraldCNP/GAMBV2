@@ -14,7 +14,7 @@ import { PostComponent } from './pages/post/post.component';
 import { AsideComponent } from './pages/post/aside/aside.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { NewComponent } from './pages/index/new/new.component';
-import { DomseguroPipe } from '../../core/pipes/domseguro.pipe';
+import { DomseguroPipe } from '../../shared/pipes/domseguro.pipe';
 import { InfoComponent } from './pages/index/info/info.component';
 import { MisionComponent } from './pages/mision/mision.component';
 import { ObjetivoComponent } from './pages/objetivo/objetivo.component';

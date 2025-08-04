@@ -1,0 +1,307 @@
+<div class="container">
+  <div class="pt-3">
+    <div class="row animated fadeIn fast justify-content-md-center">
+      <div class="col-md-12">
+        <div class="card bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-8">
+                <h3 class="card-title">
+                  Total Registros de F.F.-O.F. ({{ totalData }})
+                </h3>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#medida"
+                >
+                  Registrar Nuevo F.F.-O.F.
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row animated fadeIn fast justify-content-md-center"
+      *ngIf="cargando"
+    >
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row animated fadeIn fast justify-content-md-center"
+      *ngIf="!cargando"
+    >
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Código / F.F.- O.F.</th>
+                  <th>Denominación</th>
+                  <th>Sigla</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let fuente of fuentes; let i = index">
+                  <td>{{ fuente.ffof }}</td>
+                  <td>{{ fuente.denominacion }}</td>
+                  <td>{{ fuente.sigla }}</td>
+                  <td>
+                    <i
+                      class="fas fa-edit ml-3 icono iconoSkyBlue"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(fuente)"
+                    ></i>
+                    <i
+                      class="fas fa-trash-alt ml-3 icono iconoRed"
+                      (click)="borraFuente(fuente._id)"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create -->
+<div
+  class="modal fade"
+  id="medida"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="medidaLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="medidaLabel">
+          Registrar Nueva F.F.-O.F.
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addFuente(fuenteForm.value)" [formGroup]="fuenteForm">
+         <div class="mb-1">
+            <label for="idff" class="form-label col-md-auto"
+              >Fuente de Financiamiento *</label
+            >
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="ff"
+              optionTextField="codigo"
+              optionValueField="_id"
+              placeholder="Seleccione un Tipo De Fondo"
+              formControlName="idff"
+               (select)="doSelect($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+                 &nbsp;- {{ option.data.denominacion }}
+              </ng-template>
+            </ngx-select>
+            <div
+              class="form-text"
+              *ngIf="
+                form['idff'].touched &&
+                form['idff'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form['idff'].errors &&
+                  form['idff'].errors['required']
+                "
+              >
+                *Debe seleccionar un Tipo Fondo.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="idof" class="form-label col-md-auto"
+              >Ornanismo Financiador *</label
+            >
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="ofin"
+              optionTextField="codigo"
+              optionValueField="_id"
+              placeholder="Seleccione un Tipo De Fondo"
+              formControlName="idof"
+               (select)="doSelect2($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+                 &nbsp;- {{ option.data.denominacion }}
+              </ng-template>
+            </ngx-select>
+            <div
+              class="form-text"
+              *ngIf="
+                form['idof'].touched &&
+                form['idof'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form['idof'].errors &&
+                  form['idof'].errors['required']
+                "
+              >
+                *Debe seleccionar un Tipo Fondo.
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="form-label col-md-auto">Código de F.F.- O.F.:</label>
+            <span>{{ ffCodigo }}-{{ ofinCodigo }} </span>
+          </div>
+           <div>
+            <label class="form-label col-md-auto">Denominación de  F.F.- O.F.:</label>
+            <span>{{ ffDenominacion }} - {{ ofinDenominacion }} </span>
+          </div>
+           <div>
+            <label class="form-label col-md-auto">Sigla de F.F.- O.F.:</label>
+            <span>{{ ffSigla }} - {{ ofinSigla }} </span>
+          </div>
+
+    <!--  {{ fuenteForm.value | json }} -->
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cerrar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="fuenteForm.invalid"
+            >
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal edit -->
+
+<div
+  class="modal fade"
+  id="modalEdit"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalEditLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">
+          Editar F.F.-O.F.
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editFuente(editForm.value)" [formGroup]="editForm">
+          <div class="mb-1">
+            <label for="ffof" class="form-label">FF-OF:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ffof"
+              formControlName="ffof"
+            />
+          </div>
+
+          <div>
+            <label for="sigla" class="form-label">Sigla:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="sigla"
+              formControlName="sigla"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="denominacion" class="form-label">Denominacion:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="denominacion"
+              formControlName="denominacion"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

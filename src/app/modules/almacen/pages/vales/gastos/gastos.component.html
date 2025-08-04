@@ -1,0 +1,382 @@
+<div class="">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="card p-1 bg-body rounded">
+          <div class="card-body">
+            <div class="row ">
+              <div class="col-md-6">
+                <h3 class="card-title">
+                  <!--  Total gastos ({{ totalgastos }}) -->
+                </h3>
+              </div>
+              <div class="col-md-6 text-end">
+                <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addAutorizacion()">
+                  Crear Nuevo
+                </button> -->
+              </div>
+            </div>
+            <hr />
+            <form [formGroup]="searchForm">
+              <div class="row form-smaller">
+                <!-- <div class="col-auto">
+                  <span class="" ><b>Categoría Programática</b></span>
+                  <div class="input-group input-group-sm  ">
+                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
+                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
+                      formControlName="catProgra">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{option.data.proyect_acti}})
+                      </ng-template>
+                      <div class="form-text " *ngIf="form['catProgra'].touched && form['catProgra'].invalid">
+                        <div *ngIf="form['catProgra'].errors && form['catProgra'].errors['required']">
+                          * La categoria programatica es Requerida.
+                        </div>
+                      </div>
+                    </ngx-select>
+                  </div>
+                </div> -->
+
+                <div class="col-md-2">
+                  <span class=""><b>Tipo de Gasto</b></span>
+                  <div class="input-group input-group-sm ">
+                    <ngx-select
+                      [allowClear]="true"
+                      [items]="gastoFondos"
+                      optionTextField="denominacion"
+                      optionValueField="denominacion"
+                      placeholder="Seleccione un tipo de gasto"
+                      formControlName="tipoGasto"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <span class=""><b>Tipo de Fondo</b></span>
+                  <div class="input-group input-group-sm">
+                    <ngx-select
+                      [allowClear]="true"
+                      [items]="tipoFondos"
+                      optionTextField="denominacion"
+                      optionValueField="_id"
+                      placeholder="Seleccione un Tipo De Fondo"
+                      formControlName="tipoFondo"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <span class=""><b>Número Desembolso</b></span>
+                  <div class="input-group input-group-sm ">
+                    <ngx-select
+                      [allowClear]="true"
+                      [items]="desembolsos"
+                      optionTextField="numDesembolso"
+                      optionValueField="numDesembolso"
+                      placeholder="Seleccione Desembolso N°"
+                      formControlName="numDesembolso"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{ option.data.tipoDesembolso }}
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+
+                 <div class="col-md-2">
+                  <span class=""><b>FF-OF</b></span>
+                  <div class="input-group input-group-sm ">
+                    <ngx-select
+                      [allowClear]="true"
+                      [items]="fuentes"
+                      optionTextField="ffof"
+                      optionValueField="ffof"
+                      placeholder="Seleccione FF-OF"
+                      formControlName="fuente"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{ option.data.denominacion }}
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <span class=""><b> Estado</b></span>
+                  <div class="input-group input-group-sm "  style="width: 200px">
+                    <select
+                      formControlName="estado"
+                      class="form-select"                     
+                    >
+                      <option value="" [defaultSelected]="true">
+                        Seleccione un Estado
+                      </option>
+                      <option value="PENDIENTE">PENDIENTE</option>
+                      <option value="EJECUTADO">EJECUTADO</option>
+                      <option value="FINALIZADO">FINALIZADO</option>
+                    </select>
+                  </div>
+                </div>
+
+               
+
+                <!--  <div class="col-md-2">
+                  <div class="input-group input-group-sm  ">
+                    <span class="input-group-text izq" id="numeroVale"
+                      ><b>Vale #</b></span
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      formControlName="numeroVale"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['numeroVale'].touched && form['numeroVale'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['numeroVale'].errors &&
+                          form['numeroVale'].errors['required']
+                        "
+                      >
+                        * Numero Vale
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div class="col-auto">
+                  <span class="" id="deFecha"><b>Fecha Inicio</b></span>
+                  <div class="input-group input-group-sm  ">
+                    <input
+                      style="width: 100px"
+                      class="form-control"
+                      type="date"
+                      formControlName="deFecha"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <span class="" id="alFecha"><b>Fecha Fin</b></span>
+                  <div class="input-group input-group-sm  ">
+                    <input
+                      style="width: 100px"
+                      class="form-control"
+                      type="date"
+                      formControlName="alFecha"
+                    />
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="text-center p-0">
+                <button
+                  (click)="cargarGastos(searchForm.value)"
+                  class="btn btn-primary m-1"
+                  [disabled]="searchForm.invalid"
+                  style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-font-size: 0.75rem;
+                  "
+                >
+                  Buscar
+                </button>
+                <!--  <button (click)="mostrarTotales()" class="btn btn-primary mr-3" [disabled]="btnActive"
+                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;">
+                  Calcular
+                </button> -->
+                <!-- @if (totalPrice) {
+                <button (click)="finalizarVales()" class="btn btn-primary mr-3"
+                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;" appLoader>
+                  Registrar
+                </button>
+                } -->
+              </div>
+            </form>
+
+           <!--  {{ searchForm.value | json }} -->
+            <!--    @if (totalPrice) {
+            <p>Precio Total: Bs. {{ totalPrice | currency : "USD" : "" }}</p>
+            } -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr style="text-align: center">
+                  <th>N° Desembolso</th>
+                  <th>Fecha Pago</th>
+                  <th>Tipo de Fondo</th>
+                  <th>Tipo de Gasto</th>
+                  <th>Ap. Programatica</th>
+                  <!--  <th>Descrip. Ap. Prog.</th> -->
+                  <th>FF-OF</th>
+                  <th>Partida de Gasto</th>
+                  <!--   <th>Descrip. Partida</th> -->
+                  <th>Solicitado por:</th>
+                  <th>Monto</th>
+                  <th>N° de Vale</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let gasto of gastos; let i = index">
+                  <td>{{ gasto.numDesembolso }}</td>
+                  <td>
+                    {{ gasto.fechaRegistro | date : "mediumDate" : "UTC" }}
+                  </td>
+                  <td>{{ gasto.tipoFondo }}</td>
+                  <td style="text-align: center">{{ gasto.tipoGasto }}</td>
+                  <td style="text-align: center">{{ gasto.catProgra }}</td>
+                  <!--  <td>{{ gasto.nameCatProg }}</td> -->
+                  <td style="text-align: center">{{ gasto.fuente }}</td>
+                  <td style="text-align: center">{{ gasto.partida }}</td>
+                  <!--  <td>{{ gasto.idPartida.denominacion }}</td> -->
+                  <td>{{ gasto.solicitante }}</td>
+                  <td style="text-align: right">
+                    {{ gasto.montoGasto | number : "1.2-2" : "es-ES" }}
+                  </td>
+                  <td style="text-align: center">
+                    {{ gasto.idCombustible?.numeroVale ?? "" }}
+                  </td>
+                  <!-- <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="carpeta.estado == '1'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="true"
+                          role="switch" id="{{'toogle'+i}}">Activo
+                      </span>
+                      <span *ngIf="carpeta.estado == '0'">
+                        <input class="form-check-input pointer"
+                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="false"
+                          role="switch" id="{{'toogle'+i}}">Inactivo
+                      </span>
+                    </div>
+                  </td> -->
+                  <td style="text-align: center">
+                    <span class="textEstado" [ngSwitch]="gasto.estado">
+                      <span
+                        *ngSwitchCase="'PENDIENTE'"
+                        class="badge badge-danger"
+                        title="Cambiar Estado"
+                        >{{ gasto.estado }}
+                      </span>
+                      <span
+                        *ngSwitchCase="'EJECUTADO'"
+                        class="badge badge-info"
+                        >{{ gasto.estado }}</span
+                      >
+                      <span
+                        *ngSwitchCase="'FINALIZADO'"
+                        class="badge badge-success"
+                        >{{ gasto.estado }}</span
+                      >
+                    </span>
+                  </td>
+                  <td>
+                    <!-- <i class="fas fa-eye ml-2 icono" (click)="verArchivos(carpeta)"></i> -->
+                    <!-- <i class="fas fa-plus ml-2 icono" (click)="addCarpetaId(carpeta)"></i> -->
+
+                    <!-- <button class="btn btn-info text-sm" (click)="generargasto(gasto._id)">Generar gasto<i
+                        class="fas fa-print ml-2 icono"></i></button> -->
+
+                    <!--  <span *ngIf="gasto.idCompra != null">
+                      <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
+                        (click)="print(gasto)" title="Imprimir"></i>
+                    </span>
+
+                    <span *ngIf="gasto.idCompra == null">
+                      <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal2"
+                        (click)="print(gasto)" title="Imprimir"></i>
+                    </span> -->
+
+                    <!--  <i class="fas fa-print ml-2 icono" (click)="printgasto(gasto._id)"
+                    title="Imprimir gasto"></i> -->
+                    <!-- colocar despues -->
+                    <!-- *ngIf="!gasto.idCompra && gasto.productos?.length == 0" -->
+
+                    <!--  <span >
+                      <i class="fas fa-edit ml-2 icono iconoSkyBlue" (click)="edit(gasto._id)" title="Editar"></i>
+                    </span> -->
+
+                    <!--  <i *ngIf="!gasto.idCompra && gasto.productos?.length == 0 && gasto.estado == 'REGISTRADO'" -->
+                    <!--    class="fas fa-trash ml-2 iconoRed" (click)="deletegasto(gasto._id)" title="Eliminar"></i> -->
+                    <!-- *ngIf="!gasto.idCompra && gasto.productos?.length == 0 && gasto.estado == 'REGISTRADO'" -->
+                    <!--  <i *ngIf="!gasto.idCompra && gasto.productos?.length == 0" class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(gasto._id)"
+                      title="Añadir Factura"></i>
+                    <i *ngIf="gasto.precio && gasto.productos?.length == 0" class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(gasto._id)"
+                      title="Añadir Devolución"></i>
+                      <i *ngIf="gasto.precio && gasto.productos?.length == 0" class="fas fa-money-check ml-2 icono" (click)="printgastoDetalle(gasto._id)"
+                    title="Imprimir Detalle del gasto"></i> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- *ngIf="txtTermino.value.length === 0" -->
+            <!--     <div class="text-center">
+              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

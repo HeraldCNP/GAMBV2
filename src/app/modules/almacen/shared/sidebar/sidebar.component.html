@@ -1,75 +1,155 @@
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4 fondo">
-      <!-- Brand Logo -->
-      <a routerLink="/" class="brand-link">
-        <img src="../../../../../assets/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
-        <span class="brand-text font-weight-light">GAM Betanzos</span>
-      </a>
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4 fondo">
+  <!-- Brand Logo -->
+  <a routerLink="/" class="brand-link">
+    <img
+      src="../../../../../assets/img/logo.png"
+      alt="AdminLTE Logo"
+      class="brand-image img-circle elevation-3"
+      style="opacity: 0.8"
+    />
+    <span class="brand-text font-weight-light">GAM Betanzos</span>
+  </a>
 
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false"
+      >
+        <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
 
+        <li class="nav-item">
+          <a routerLink="/almacen/proveedor/index" class="nav-link">
+            <i class="nav-icon fas fa-truck-moving"></i>
+            <p>Proveedores</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/almacen/medida/index" class="nav-link">
+            <i class="nav-icon fas fa-ruler-combined"></i>
+            <p>Medidas</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/almacen/articulo/index" class="nav-link">
+            <i class="nav-icon fas fa-box-open"></i>
+            <p>Articulos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/almacen/compra/index" class="nav-link">
+            <i class="nav-icon fas fa-plus"></i>
+            <p>Entradas</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/almacen/egreso/index" class="nav-link">
+            <i class="nav-icon fas fa-minus"></i>
+            <p>Salidas</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/almacen/vehiculo/index" class="nav-link">
+            <i class="nav-icon fas fa-car"></i>
+            <p>Vehículos</p>
+          </a>
+        </li>
 
-
+         <li class="nav-item" [ngClass]="{ 'menu-open': valesOpen }">
+          <a
+            class="nav-link"
+            (click)="toggleValesMenu()"
+          >
+            <i class="fas fa-receipt nav-icon"></i>
+            <p class="space">
+              Vales
+              <i
+                class="right fas"
+                [ngClass]="{
+                  'fa-angle-left': !valesOpen,
+                  'fa-angle-down': valesOpen
+                }"
+              ></i>
+            </p>
+          </a>
+          <ul
+            class="nav nav-treeview pl-3"
+            [style.display]="valesOpen ? 'block' : 'none'"
+          >
             <li class="nav-item">
-              <a routerLink="/almacen/proveedor/index" class="nav-link">
-                <i class="nav-icon fas fa-truck-moving"></i>
-                <p>
-                  Proveedores
-                </p>
+              <a routerLink="/almacen/vale/index" class="nav-link">
+                <i class="fas fa-list nav-icon"></i>
+                <p class="space">Listado de Vales</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/almacen/medida/index" class="nav-link">
-                <i class="nav-icon fas fa-ruler-combined"></i>
-                <p>
-                  Medidas
-                </p>
+              <a routerLink="/almacen/vale/listAutorizacion" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p class="space">Generar Vales</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/almacen/articulo/index" class="nav-link">
-                <i class="nav-icon fas fa-box-open"></i>
-                <p>
-                  Articulos
-                </p>
+              <a routerLink="/almacen/reporte/vales" class="nav-link">
+                <i class="fas fa-chart-bar nav-icon"></i>
+                <p class="space">Reportes</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a routerLink="/almacen/compra/index" class="nav-link">
-                <i class="nav-icon fas fa-plus"></i>
-                <p>
-                  Entradas
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="/almacen/egreso/index" class="nav-link">
-                <i class="nav-icon fas fa-minus"></i>
-                <p>
-                  Salidas
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="/almacen/vehiculo/index" class="nav-link">
-                <i class="nav-icon fas fa-car"></i>
-                <p>
-                  Vehículos
-                </p>
-              </a>
-            </li>
-
           </ul>
-        </nav>
-        <br>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
+        </li>
+
+        <li class="nav-item" [ngClass]="{ 'menu-open': gastosOpen }">
+          <a
+            class="nav-link"
+            (click)="toggleGastosMenu()"
+          >
+            <i class="fas fa-file-invoice-dollar nav-icon"></i>
+            <p class="space">
+              Gastos
+              <i
+                class="right fas"
+                [ngClass]="{
+                  'fa-angle-left': !gastosOpen,
+                  'fa-angle-down': gastosOpen
+                }"
+              ></i>
+            </p>
+          </a>
+          <ul
+            class="nav nav-treeview pl-3"
+            [style.display]="gastosOpen ? 'block' : 'none'"
+          >
+            <li class="nav-item">
+              <a routerLink="/almacen/gastos" class="nav-link">
+                <i class="fas fa-list nav-icon"></i>
+                <p class="space">Listado de Gastos</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/almacen/create-gasto" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p class="space">Crear Nuevo Gasto</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/almacen/reporte-gastos" class="nav-link">
+                <i class="fas fa-chart-bar nav-icon"></i>
+                <p class="space">Reportes</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        
+      </ul>
+    </nav>
+    <br />
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

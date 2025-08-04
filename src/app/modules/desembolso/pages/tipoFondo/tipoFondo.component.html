@@ -1,0 +1,166 @@
+<div class="container">
+  <div class="pt-3">
+    <div class="row animated fadeIn fast justify-content-md-center">
+      <div class="col-md-8">
+        <div class="card  bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-8">
+                <h3 class="card-title">
+                  Total Registro de Tipos de Fondos ({{ totalData }})
+                </h3>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#medida">
+                  Registrar Nuevo Tipo de Fondo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast justify-content-md-center" *ngIf="cargando">
+      <div class="col-md-8">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast justify-content-md-center" *ngIf="!cargando">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let tipo of tipoFondos; let i = index">
+                  <td>{{ tipo.denominacion | uppercase }}</td>
+                  <td>
+                    <i class="fas fa-edit ml-3 icono iconoSkyBlue" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(tipo)"></i>
+                    <i class="fas fa-trash-alt ml-3 icono iconoRed" (click)="borraTipoFondo(tipo._id)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="medida" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="medidaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="medidaLabel">
+          Registrar Nueva Tipo de Fondo
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addTipoFondo(tipoFondosForm.value)" [formGroup]="tipoFondosForm">
+          <div class="mb-1">
+            <label for="denominacion" class="form-label col-md-auto">Denominación *</label>
+            <input id="denominacion" class="form-control" type="text" formControlName="denominacion" />
+            <div class="form-text" *ngIf="form2['denominacion'].touched && form2['denominacion'].invalid">
+              <div *ngIf="
+                  form2['denominacion'].errors &&
+                  form2['denominacion'].errors['required']
+                ">
+                * Denominación es Requerida.
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+              Cerrar
+            </button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="tipoFondosForm.invalid">
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+
+
+
+
+
+
+
+<!-- Modal edit -->
+
+ <div
+  class="modal fade"
+  id="modalEdit"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalEditLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEditLabel">Editar Tipo de Fondo</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editTipoFondo(editForm.value)" [formGroup]="editForm">
+
+          <div class="mb-1">
+            <label for="denominacion" class="form-label">Denominacion:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="denominacion"
+              formControlName="denominacion"
+            />
+          </div>
+        
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -86,7 +86,6 @@ export class ValeIndexComponent {
     this.cargando = true;
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
       this.catProgras = data.serverResponse;
-      console.log('Cat Progras', data);
     });
   }
 
@@ -109,11 +108,9 @@ export class ValeIndexComponent {
       this.vales = data;
       this.valesTemp = data;
       this.totalPages = data.totalpage;
-      console.log(data);
       this.cargando = false;
       this.totalPrice = null;
     });
-    console.log('params', params);
   }
 
   mostrarTotales() {
@@ -179,14 +176,11 @@ export class ValeIndexComponent {
   }
 
   print(element: any) {
-    console.log('element', element);
     this.vale = element;
-    console.log('VALE', this.vale);
   }
 
   print2(element: any) {
     this.vale2.set(element);
-    console.log('antes', this.vale2());
     console.log(this.vale2());
   }
 

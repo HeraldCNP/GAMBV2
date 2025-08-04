@@ -1,0 +1,452 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-4 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Registrar Nuevo Gasto</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md">
+                <form (ngSubmit)="createGasto()" [formGroup]="createForm">
+
+              <!--     <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Tipo de Gasto</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="gastoFondos"
+                      optionTextField="denominacion"
+                      optionValueField="_id"
+                      placeholder="Seleccione un tipo de gasto"
+                      formControlName="idGastoFondo"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                      </ng-template>
+                    </ngx-select>
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['idGastoFondo'].touched &&
+                        form['idGastoFondo'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['idGastoFondo'].errors &&
+                          form['idGastoFondo'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar tipo de gasto.
+                      </div>
+                    </div>
+                  </div> -->
+
+                   <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="idGastoFondo"
+                      ><b> Tipo de Gasto *</b></span
+                    >
+                    <select
+                      id="idGastoFondo"
+                      formControlName="idGastoFondo"
+                      class="form-select"
+                    >
+                      <!-- <option value="2023" [defaultSelected]="true">2023</option> -->
+                      <option value="6866f7fa00031001e6de7c97">Mantenimiento</option>
+                      <option value="6866f80b00031001e6de7c99">Repuestos</option>
+                    </select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['idGastoFondo'].touched && form['idGastoFondo'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['idGastoFondo'].errors &&
+                          form['idGastoFondo'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar tipo de gasto.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="input-group mb-1"
+                    *ngIf="createForm.value.idGastoFondo != ''"
+                  >
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Categoria Programatica</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="catProgras"
+                      optionTextField="proyect_acti"
+                      optionValueField="cat_programatica"
+                      placeholder="Seleccione Una Categoria Programatica"
+                      formControlName="catProgra"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;- {{ option.data.cat_programatica }}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['catProgra'].touched && form['catProgra'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['catProgra'].errors &&
+                          form['catProgra'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar Una Categoria Programatica.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="input-group mb-1"
+                    *ngIf="createForm.value.idGastoFondo != ''"
+                  >
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Tipo de Fondo</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="desembolsos"
+                      optionTextField="numDesembolso"
+                      optionValueField="_id"
+                      placeholder="Seleccione Desembolso N°"
+                      formControlName="idDesembolso"
+                      (select)="doSelect3($event)"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{ option.data.tipoDesembolso }}
+                      </ng-template>
+                    </ngx-select>
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['idDesembolso'].touched &&
+                        form['idDesembolso'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['idDesembolso'].errors &&
+                          form['idDesembolso'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar el N° de tipo fondo.
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="input-group mb-1"
+                    *ngIf="createForm.value.idGastoFondo != ''"
+                  >
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>F.F.- O.F.</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="fuentes"
+                      optionTextField="ffof"
+                      optionValueField="_id"
+                      placeholder="Seleccione Desembolso N°"
+                      formControlName="idDesemFuente"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{ option.data.denominacion }}
+                      </ng-template>
+                    </ngx-select>
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['idDesemFuente'].touched &&
+                        form['idDesemFuente'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['idDesemFuente'].errors &&
+                          form['idDesemFuente'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar desembolso N°.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="precio"
+                      ><b>Monto (Bs) *</b></span
+                    >
+                    <input
+                      id="precio"
+                      class="form-control"
+                      type="number"
+                      formControlName="precio"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="form['precio'].touched && form['precio'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['precio'].errors &&
+                          form['precio'].errors['required']
+                        "
+                      >
+                        * El precio es Requerido.
+                      </div>
+                      <div
+                        *ngIf="
+                          form['precio'].errors &&
+                          form['precio'].errors['minlength']
+                        "
+                      >
+                        * El precio no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Vehiculo</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="vehiculos"
+                      optionTextField="placa"
+                      optionValueField="_id"
+                      placeholder="Seleccione un Vehiculo"
+                      formControlName="vehiculo"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;- {{ option.data.marca }} &nbsp;-
+                        {{ option.data.tipo }}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['vehiculo'].touched && form['vehiculo'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['vehiculo'].errors &&
+                          form['vehiculo'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar una Vehiculo.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Conductor</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="conductores"
+                      optionTextField="username"
+                      optionValueField="_id"
+                      placeholder="Seleccione un Conductor"
+                      formControlName="conductor"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{ option.data.surnames }}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['conductor'].touched && form['conductor'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['conductor'].errors &&
+                          form['conductor'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar un conductor.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Fecha de Registro *</b></span
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="fecha"
+                      formControlName="fecha"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="form['fecha'].touched && form['fecha'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['fecha'].errors &&
+                          form['fecha'].errors['required']
+                        "
+                      >
+                        * Fecha es Requerido.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="descripcion"
+                      ><b>Glosa </b></span
+                    >
+                    <input
+                      id="descripcion"
+                      class="form-control"
+                      type="text"
+                      formControlName="descripcion"
+                    />
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text" id="plazo"
+                      ><b>Proveedor *</b></span
+                    >
+                    <ngx-select
+                      style="min-width: 450px"
+                      [allowClear]="true"
+                      [items]="proveedores"
+                      optionTextField="representante"
+                      optionValueField="_id"
+                      placeholder="Seleccione un Proveedor"
+                      formControlName="idProveedor"
+                   
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;({{ option.data.razon_social }})
+                      </ng-template>
+                    </ngx-select>
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['idProveedor'].touched &&
+                        form['idProveedor'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['idProveedor'].errors &&
+                          form['idProveedor'].errors['required']
+                        "
+                      >
+                        * El proveedor es Requerido.
+                      </div>
+                    </div>
+                   <!--  <div class="align-self-end ml-2">
+                      <button
+                        type="button"
+                        class="btn btn-info text-white"
+                        data-bs-toggle="modal"
+                        data-bs-target="#proveedor"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div> -->
+                  </div>
+
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button
+                      (click)="cancel()"
+                      type="reset"
+                      class="btn btn-danger"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      [disabled]="createForm.invalid"
+                      type="submit"
+                      class="btn btn-primary"
+                      appLoader
+                    >
+                      Registrar
+                    </button>
+                  </div>
+                </form>
+                {{ createForm.value | json }}
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>

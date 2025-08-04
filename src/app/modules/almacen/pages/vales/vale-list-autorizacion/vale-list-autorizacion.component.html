@@ -11,9 +11,9 @@
                 </h3>
               </div>
               <div class="col-md-6 text-end">
-                <button type="button" class="btn btn-primary btn-sm mr-3" (click)="listarVales()">
+              <!--   <button type="button" class="btn btn-primary btn-sm mr-3" (click)="listarVales()">
                   Lista de Vales
-                </button>
+                </button> -->
                 <button type="button" class="btn btn-primary btn-sm mr-3" (click)="newVale()">
                   Generar vale sin Autorización
                 </button>
@@ -118,7 +118,6 @@
               <thead>
                 <tr>
                   <th>Autorización N°</th>
-                  <th>Vale N°</th>
                   <th>Fecha</th>
                   <th>Fecha de Salida</th>
                   <th>Motivo</th>
@@ -133,7 +132,6 @@
               <tbody class="table-group-divider">
                 <tr *ngFor="let autorizacion of autorizaciones.serverResponse; let i = index">
                   <td>{{ autorizacion.numeroAutorizacion }}</td>
-                  <td>{{ autorizacion.numeroVale }}</td>
                   <td>{{ autorizacion.fecha | date: 'mediumDate' : "UTC" }}</td>
                   <td>{{ autorizacion.fechaSalida | date: 'mediumDate' : "UTC"}}</td>
                   <td>{{ autorizacion.motivo }}</td>

@@ -11,13 +11,23 @@
                 </h3>
               </div>
               <div class="col-md d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-sm" (click)="addArticulo()">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  (click)="addArticulo()"
+                >
                   Nuevo Artículo
                 </button>
               </div>
             </div>
-            <input class="form-control" type="search" placeholder="Buscar Artículo" (keyup)="buscar(txtTermino.value)"
-              (blur)="buscar('')" #txtTermino />
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Buscar Artículo"
+              (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')"
+              #txtTermino
+            />
           </div>
         </div>
       </div>
@@ -48,7 +58,12 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let articulo of articulos.serverResponse; let i = index">
+                <tr
+                  *ngFor="
+                    let articulo of articulos.serverResponse;
+                    let i = index
+                  "
+                >
                   <td>{{ articulo.idPartida.codigo }}</td>
                   <td>{{ articulo.codigo }}</td>
                   <td>{{ articulo.nombre }}</td>
@@ -67,21 +82,33 @@
                     </div>
                   </td> -->
                   <td>
-                    <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                      (click)="cargarDataEdit(articulo)"></i>
+                    <i
+                      class="fas fa-edit ml-3 icono"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(articulo)"
+                    ></i>
                     <!-- <i class="fas fa-trash-alt ml-3 icono" (click)="borrarArticulo(articulo._id)"></i> -->
                   </td>
                 </tr>
               </tbody>
             </table>
             <div class="text-center" *ngIf="txtTermino.value.length === 0">
-              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+              <button
+                (click)="cambiarPagina(-1)"
+                *ngIf="page > 1"
+                class="btn btn-info text-sm"
+              >
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
               &nbsp;
               {{ page }} de {{ totalPages }}
               &nbsp;
-              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+              <button
+                (click)="cambiarPagina(1)"
+                *ngIf="page < totalPages"
+                class="btn btn-info text-sm"
+              >
                 Siguiente <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -92,42 +119,64 @@
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
 <!-- Modal edit -->
 
-<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="modalEditLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="modalEdit"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalEditLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalEditLabel">Editar Artículo</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <form (ngSubmit)="editArticulo(editForm.value)" [formGroup]="editForm">
           <div class="mb-1">
-            <label for="idPartida" class="form-label col-auto">Partida de Gasto *</label>
+            <label for="idPartida" class="form-label col-auto"
+              >Partida de Gasto *</label
+            >
             <!-- Para Mandar id // optionValueField="_id" -->
-            <ngx-select [allowClear]="true" [items]="partidas" optionTextField="codigo" optionValueField="_id"
-              placeholder="Seleccione una Partida de Gasto" formControlName="idPartida" (select)="doSelect($event)">
-              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+            <ngx-select
+              [allowClear]="true"
+              [items]="partidas"
+              optionTextField="codigo"
+              optionValueField="_id"
+              placeholder="Seleccione una Partida de Gasto"
+              formControlName="idPartida"
+              (select)="doSelect($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
                 <span [innerHtml]="text"></span>
-                &nbsp;({{option.data.denominacion}})
+                &nbsp;({{ option.data.denominacion }})
               </ng-template>
             </ngx-select>
-            <div class="form-text" *ngIf="form['idPartida'].touched && form['idPartida'].invalid">
-              <div *ngIf="
-                          form['idPartida'].errors &&
-                          form['idPartida'].errors['required']
-                        ">
+            <div
+              class="form-text"
+              *ngIf="form['idPartida'].touched && form['idPartida'].invalid"
+            >
+              <div
+                *ngIf="
+                  form['idPartida'].errors &&
+                  form['idPartida'].errors['required']
+                "
+              >
                 * La partida de gasto es Requerida.
               </div>
             </div>
@@ -135,32 +184,62 @@
 
           <div class="mb-1">
             <label for="codigo" class="form-label">codigo:</label>
-            <input type="text" class="form-control" id="codigo" formControlName="codigo" (blur)="buscarCode()" />
+            <input
+              type="text"
+              class="form-control"
+              id="codigo"
+              formControlName="codigo"
+              (blur)="buscarCode()"
+            />
           </div>
 
           <div class="mb-1">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" id="nombre" formControlName="nombre" />
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              formControlName="nombre"
+            />
           </div>
-
-
 
           <div class="mb-1 d-flex">
             <div class="flex-grow-1 flex-fill">
-              <label for="unidadDeMedida" class="form-label col-auto">Unidad de Medida *</label>
+              <label for="unidadDeMedida" class="form-label col-auto"
+                >Unidad de Medida *</label
+              >
               <!-- Para Mandar id // optionValueField="_id" -->
-              <ngx-select [allowClear]="true" [items]="medidas" optionTextField="unidadMedida" optionValueField="unidadMedida"
-                placeholder="Seleccione una Unidad de Medida" formControlName="unidadDeMedida">
-                <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+              <ngx-select
+                [allowClear]="true"
+                [items]="medidas"
+                optionTextField="unidadMedida"
+                optionValueField="unidadMedida"
+                placeholder="Seleccione una Unidad de Medida"
+                formControlName="unidadDeMedida"
+              >
+                <ng-template
+                  ngx-select-option
+                  ngx-select-option-selected
+                  let-option
+                  let-text="text"
+                >
                   <span [innerHtml]="text"></span>
-                  &nbsp;({{option.data.simbolo}})
+                  &nbsp;({{ option.data.simbolo }})
                 </ng-template>
               </ngx-select>
-              <div class="form-text" *ngIf="form['unidadDeMedida'].touched && form['unidadDeMedida'].invalid">
-                <div *ngIf="
+              <div
+                class="form-text"
+                *ngIf="
+                  form['unidadDeMedida'].touched &&
+                  form['unidadDeMedida'].invalid
+                "
+              >
+                <div
+                  *ngIf="
                     form['unidadDeMedida'].errors &&
                     form['unidadDeMedida'].errors['required']
-                  ">
+                  "
+                >
                   * La unidad de medida es Requerida.
                 </div>
               </div>
@@ -168,10 +247,18 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
               Cancelar
             </button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
               Editar
             </button>
           </div>

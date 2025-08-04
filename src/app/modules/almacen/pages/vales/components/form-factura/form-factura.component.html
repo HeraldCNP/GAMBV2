@@ -5,27 +5,27 @@
 
         <mat-form-field class="full-width">
             <mat-label>N° de factura</mat-label>
-            <input type="number" matInput placeholder="Ej. SMAF" formControlName="numeroFactura">
+            <input type="number" matInput placeholder="Ej. 12345" formControlName="numeroFactura">
             <mat-icon matSuffix>abc</mat-icon>
 
             <mat-error *ngIf="form['numeroFactura'].hasError('required') && form['numeroFactura'].touched">
-                El Carnet de Itendidad es obligatorio.
+                El Nunero de Factura es obligatorio.
             </mat-error>
             <mat-error *ngIf="form['numeroFactura'].hasError('minlength') && form['numeroFactura'].touched">
-                El Carnet de Itendidad debe tener minimo 7 caracteres.
+                El Nunero de Factura debe tener minimo 7 caracteres.
             </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width">
             <mat-label>Monto</mat-label>
-            <input type="number" matInput placeholder="Ej. SMAF" formControlName="montoFactura">
+            <input type="number" matInput placeholder="Ej. 200" formControlName="montoFactura">
             <mat-icon matSuffix>abc</mat-icon>
 
             <mat-error *ngIf="form['montoFactura'].hasError('required') && form['montoFactura'].touched">
-                El Carnet de Itendidad es obligatorio.
+                El Monto es obligatorio.
             </mat-error>
             <mat-error *ngIf="form['montoFactura'].hasError('minlength') && form['montoFactura'].touched">
-                El Carnet de Itendidad debe tener minimo 7 caracteres.
+                El Monto debe tener minimo 7 caracteres.
             </mat-error>
         </mat-form-field>
 

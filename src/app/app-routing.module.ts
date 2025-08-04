@@ -84,6 +84,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/correspondencia/correspondencia.module').then(m => m.CorrespondenciaModule),
     canActivate: [SessionGuard]
   },
+
+   {
+    path: 'desembolso',
+    loadChildren: () => import('./modules/desembolso/desembolso.module').then(m => m.DesembolsoModule),
+    canActivate: [SessionGuard]
+  },
   {
     path: '**',
     redirectTo:''

@@ -1,0 +1,552 @@
+<div class="container">
+  <div class="mt-3">
+    <div class="row animated fadeIn fast">
+      <div class="col-md-12">
+        <div class="card p-3 bg-body rounded">
+          <div class="card-body">
+            <div class="row my-2">
+              <div class="col-md-8">
+                <h3 class="card-title">
+                  Total de Desembolso de Fondos ({{ totalData }})
+                </h3>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#medida"
+                >
+                  Crear Nuevo Desembolso de Fondos
+                </button>
+              </div>
+            </div>
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Buscar Artículo"
+              (keyup)="buscar(txtTermino.value)"
+              (blur)="buscar('')"
+              #txtTermino
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="cargando">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fas fa-sync-alt fa-spin"></i><br />
+          <span>Por favor espere</span>
+        </div>
+      </div>
+    </div>
+    <div class="row animated fadeIn fast" *ngIf="!cargando">
+      <div class="col-md-12">
+        <div class="card shadow">
+          <div class="card-body">
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th>Fecha de Desembolso</th>
+                  <th>Beneficiario</th>
+                  <th>Monto Solicitado</th>
+                  <th>Monto Asisgmado</th>
+                  <th>Monto Ejecutado</th>
+                  <th>Tipo de Fondo</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let desembolso of desembolsos; let i = index">
+                  <td>{{ desembolso.numero }}</td>
+                  <td>
+                    {{
+                      desembolso.fechaDesembolso | date : "mediumDate" : "UTC"
+                    }}
+                  </td>
+                  <td>
+                    {{ desembolso.beneficiario.username | uppercase }}
+                    {{ desembolso.beneficiario.surnames | uppercase }}
+                  </td>
+                  <td>
+                    {{ desembolso.montoTotal | number : "1.2-2" : "es-ES" }}
+                  </td>
+                  <td>
+                    {{
+                      desembolso.montoAsignado ?? 0 | number : "1.2-2" : "es-ES"
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      desembolso.montoGasto ?? 0 | number : "1.2-2" : "es-ES"
+                    }}
+                  </td>
+                  <td>{{ desembolso.tipoDesembolso }}</td>
+                  <td>{{ desembolso.estado }}</td>
+                  <!-- <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="desembolso.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(desembolso._id, !desembolso.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{'toogle'+i}}">Activo
+                      </span>
+                      <span *ngIf="desembolso.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(desembolso._id, !desembolso.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{'toogle'+i}}">Inactivo
+                      </span>
+                    </div>
+                  </td> -->
+                  <td>
+                    <!-- <i class="fas fa-edit ml-3 icono" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                      (click)="cargarDataEdit(desembolso)"></i> -->
+                    <i
+                      class="fas fa-trash-alt ml-3 icono iconoRed"
+                      (click)="borrardesembolso(desembolso._id)"
+                    ></i>
+                    <i
+                      class="fas fa-folder-plus ml-2 icono"
+                      title="Agregar Fuente"
+                      data-bs-toggle="modal"
+                      data-bs-target="#fuente"
+                      (click)="cargarDataFuente(desembolso)"
+                    ></i>
+                    <i
+                      class="fas fa-file-pdf ml-2 icono iconoRed"
+                      title="Imprimir"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imprimir"
+                      (click)="print(desembolso._id)"
+                    ></i>
+                    <i
+                      class="fas fa-file-pdf ml-2 icono iconoRed"
+                      title="Imprimir"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imprimir"
+                      (click)="printGasto(desembolso._id)"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center" *ngIf="txtTermino.value.length === 0">
+              <button
+                (click)="cambiarPagina(-1)"
+                *ngIf="page > 1"
+                class="btn btn-info text-sm"
+              >
+                <i class="fas fa-chevron-left"></i> Anterior
+              </button>
+              &nbsp;
+              {{ page }} de {{ totalPages }}
+              &nbsp;
+              <button
+                (click)="cambiarPagina(1)"
+                *ngIf="page < totalPages"
+                class="btn btn-info text-sm"
+              >
+                Siguiente <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="medida"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="medidaLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="medidaLabel">
+          Registrar Nuevo Desembolso de Fondos
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          (ngSubmit)="addDesembolso(desembolsoForm.value)"
+          [formGroup]="desembolsoForm"
+        >
+          <div class="mb-1">
+            <label for="numero" class="form-label col-md-auto">Número *</label>
+            <input
+              id="numero"
+              class="form-control"
+              type="number"
+              formControlName="numero"
+            />
+            <div
+              class="form-text"
+              *ngIf="form2['numero'].touched && form2['numero'].invalid"
+            >
+              <div
+                *ngIf="
+                  form2['numero'].errors && form2['numero'].errors['required']
+                "
+              >
+                * Número de Desembolso es Requerida
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="fechaDesembolso" class="form-label col-md-auto"
+              >Fecha de Desembolso de Fondo *</label
+            >
+            <input
+              id="fechaDesembolso"
+              class="form-control"
+              type="date"
+              formControlName="fechaDesembolso"
+            />
+            <div
+              class="form-text"
+              *ngIf="
+                form2['fechaDesembolso'].touched &&
+                form2['fechaDesembolso'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form2['fechaDesembolso'].errors &&
+                  form2['fechaDesembolso'].errors['required']
+                "
+              >
+                *Fecha de Desembolso es Requerida.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="montoTotal" class="form-label col-md-auto"
+              >Monto Solicitado *</label
+            >
+            <input
+              id="montoTotal"
+              class="form-control"
+              type="number"
+              formControlName="montoTotal"
+            />
+            <div
+              class="form-text"
+              *ngIf="form2['montoTotal'].touched && form2['montoTotal'].invalid"
+            >
+              <div
+                *ngIf="
+                  form2['montoTotal'].errors &&
+                  form2['montoTotal'].errors['required']
+                "
+              >
+                *Monto de Solicitado es Requerida.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="beneficiario" class="form-label col-md-auto"
+              >Beneficiario Solicitante *</label
+            >
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="funcionarios"
+              optionTextField="username"
+              optionValueField="_id"
+              placeholder="Seleccione un Beneficiario"
+              formControlName="beneficiario"
+              (select)="doSelect($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+                &nbsp;{{ option.data.surnames }}
+              </ng-template>
+            </ngx-select>
+            <div
+              class="form-text"
+              *ngIf="
+                form2['beneficiario'].touched && form2['beneficiario'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form2['beneficiario'].errors &&
+                  form2['beneficiario'].errors['required']
+                "
+              >
+                *Debe seleccionar un Beneficiario.
+              </div>
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="idTipoDesembolso" class="form-label col-md-auto"
+              >Tipo de Fondo *</label
+            >
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="tipoFondos"
+              optionTextField="denominacion"
+              optionValueField="_id"
+              placeholder="Seleccione un Tipo De Fondo"
+              formControlName="idTipoDesembolso"
+              (select)="doSelect2($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+              </ng-template>
+            </ngx-select>
+            <div
+              class="form-text"
+              *ngIf="
+                form2['idTipoDesembolso'].touched &&
+                form2['idTipoDesembolso'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form2['idTipoDesembolso'].errors &&
+                  form2['idTipoDesembolso'].errors['required']
+                "
+              >
+                *Debe seleccionar un Tipo Fondo.
+              </div>
+            </div>
+          </div>
+          <!--   {{ desembolsoForm.value | json }} -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cerrar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="desembolsoForm.invalid"
+            >
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal agregar Fuente -->
+<div
+  class="modal fade"
+  id="fuente"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="fuenteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="fuenteLabel">
+          Registrar Nueva Gasto de Fondo
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          (ngSubmit)="addDesembolsoFuente(fuenteForm.value)"
+          [formGroup]="fuenteForm"
+        >
+          <div class="mb-1">
+            <label for="fechaDesembolso" class="form-label"
+              >Fecha de Desembolso:</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="fechaDesembolso"
+              formControlName="fechaDesembolso"
+            />
+          </div>
+
+          <div class="mb-1">
+            <label for="beneficiario" class="form-label">Beneficiario Solicitante:</label>
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="funcionarios"
+              optionTextField="username"
+              optionValueField="_id"
+              placeholder="Seleccione un Beneficiario"
+              formControlName="beneficiario"
+              (select)="doSelect($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+                &nbsp;{{ option.data.surnames }}
+              </ng-template>
+            </ngx-select>
+          </div>
+
+          <div class="mb-1">
+            <label for="idFuente" class="form-label col-md-auto"
+              >Tipo de Fondo *</label
+            >
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="fuentes"
+              optionTextField="ffof"
+              optionValueField="_id"
+              placeholder="Seleccione un idFuente"
+              formControlName="idFuente"
+              (select)="doSelect3($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+                &nbsp;{{ option.data.denominacion }}
+              </ng-template>
+            </ngx-select>
+            <div
+              class="form-text"
+              *ngIf="form['idFuente'].touched && form['idFuente'].invalid"
+            >
+              <div
+                *ngIf="
+                  form2['idFuente'].errors &&
+                  form2['idFuente'].errors['required']
+                "
+              >
+                *Debe seleccionar un tipoDesembolso.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="montoTotal" class="form-label col-md-auto"
+              >Monto Solicitado *</label
+            >
+            <input
+              id="montoTotal"
+              class="form-control"
+              type="number"
+              formControlName="montoTotal"
+            />
+            <div
+              class="form-text"
+              *ngIf="form2['montoTotal'].touched && form2['montoTotal'].invalid"
+            >
+              <div
+                *ngIf="
+                  form2['montoTotal'].errors &&
+                  form2['montoTotal'].errors['required']
+                "
+              >
+                * Monto es Requerida.
+              </div>
+            </div>
+          </div>
+          <!--  {{ fuenteForm.value | json }} -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cerrar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="fuenteForm.invalid"
+            >
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Imprimir -->
+<div
+  class="modal fade"
+  id="imprimir"
+  tabindex="-1"
+  aria-labelledby="imprimirLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <!-- Tamaño grande para el PDF -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imprimirLabel">Vista previa del PDF</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body" style="height: 80vh">
+        <iframe
+          [src]="pdfUrl | safe : 'resourceUrl'"
+          width="100%"
+          height="100%"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>

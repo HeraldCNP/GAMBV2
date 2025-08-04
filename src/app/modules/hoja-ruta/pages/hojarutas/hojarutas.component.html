@@ -60,7 +60,7 @@
                   <th scope="col" *ngIf="
                     (data && data.roles === 'SUPER_ADMIN') ||
                     data.roles === 'SECRETARIA' ||
-                  data.post === 'RECAUDACIONES'
+                  data.post === 'ASISTENTE DE RECAUDACIONES Y ALMACENES'
                   ">
                     Enviar
                   </th>
@@ -91,7 +91,7 @@
                   [ngClass]="hoja.estado === 'REGISTRADO' ? 'table-danger border border-danger' : 'table-success border border-success'"
                   *ngFor="let hoja of hojaRutas">
                   <td *ngIf="(data && data.roles === 'SUPER_ADMIN') || data.roles === 'SECRETARIA'  ||
-                  data.post === 'RECAUDACIONES'
+                  data.post === 'ASISTENTE DE RECAUDACIONES Y ALMACENES'
                   ">
                     <i [routerLink]="['/ruta/derivar', hoja._id]" class="fas fa-space-shuttle text-primary"
                       *ngIf="hoja.estado === 'RECIBIDO'"></i>

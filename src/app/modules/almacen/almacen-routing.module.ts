@@ -29,6 +29,9 @@ import { ValeNewComponent } from './pages/vales/vale-new/vale-new.component';
 import { ValeLubriComponent } from './pages/vales/vale-lubri/vale-lubri.component';
 import { ValeUpdateComponent } from './pages/vales/vale-update/vale-update.component';
 import { ReportValesComponent } from './pages/report/report-vales/report-vales.component';
+import { GastosComponent } from './pages/vales/gastos/gastos.component';
+import { NewGastoComponent } from './pages/vales/newGasto/newGasto.component';
+import { ReporteGastosComponent } from './pages/vales/reporteGastos/reporteGastos.component';
 
 
 const routes: Routes = [
@@ -69,6 +72,9 @@ const routes: Routes = [
       { path: 'vale/new', component: ValeNewComponent },
       { path: 'vale/lubricantes', component: ValeLubriComponent },
       { path: 'vale/update/:id', component: ValeUpdateComponent },
+      { path: 'gastos', component: GastosComponent },
+      { path: 'create-gasto', component: NewGastoComponent },
+      { path: 'reporte-gastos', component: ReporteGastosComponent },
 
       { path: '**', redirectTo: 'dashboard' },
     ]

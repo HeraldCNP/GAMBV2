@@ -6,14 +6,14 @@ import { ComprasService } from '../../../services/compras.service';
 import { ValeService } from '../../../services/vale.service';
 import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DesembolsoService } from 'src/app/modules/desembolso/services/desembolso.service';
 
 @Component({
   selector: 'app-vale-new',
   templateUrl: './vale-new.component.html',
-  styleUrls: ['./vale-new.component.css']
+  styleUrls: ['./vale-new.component.css'],
 })
 export class ValeNewComponent {
-
   idUser: any;
   user: any;
   data: any;
@@ -35,6 +35,10 @@ export class ValeNewComponent {
   article: any;
   productos: any = [];
 
+  gastoFondos: any = [];
+  fuentes: any;
+  desembolsos: any = [];
+
   private _snackBar = inject(MatSnackBar);
 
   constructor(
@@ -44,18 +48,18 @@ export class ValeNewComponent {
     private router: Router,
     private valeService: ValeService,
     private autorizacionService: AutorizacionService,
+    private desembolsoService: DesembolsoService
   ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
     this.idUser = this.data.id;
     this.idAutorizacion = this.activeRouter.snapshot.paramMap.get('id');
 
-
     console.log(this.idAutorizacion);
 
     this.createForm = this.fb.group({
       // autorizacion: [this.idAutorizacion],
-      cantidad: [0.00],
+      cantidad: [0.0],
       precio: ['', Validators.required],
       catProgra: ['', [Validators.required]],
       encargadoControl: [this.idUser],
@@ -66,6 +70,9 @@ export class ValeNewComponent {
       vehiculo: [''],
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       idProducto: [''],
+      idGastoFondo: ['6866f68000031001e6de7c95'],
+      idDesembolso: ['', [Validators.required]],
+      idDesemFuente: ['', [Validators.required]],
     });
   }
 
@@ -74,20 +81,19 @@ export class ValeNewComponent {
     this.cargarUnidadSolicitante();
     this.cargarConductor();
     this.cargarVehiculo();
+    this.cargarGastosFondos();
+    this.cargarDesembolsos();
   }
-
 
   cargarCatProgras() {
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
       this.catProgras = data.serverResponse;
-      console.log("Cat Progras", this.catProgras)
     });
   }
 
   get form() {
     return this.createForm.controls;
   }
-
 
   crearVale(form: any) {
     // console.log(this.finanForm.value.monto.replace(/\./g, ''));
@@ -96,44 +102,38 @@ export class ValeNewComponent {
         console.log(res);
       },
       (err) => {
-        console.log('HTTP Error', err)
+        console.log('HTTP Error', err);
         this._snackBar.open(err.error.serverResponse, 'Cerrar', {
-          duration: 3000
+          duration: 3000,
         });
       },
       () => {
-
         this.router.navigate(['almacen/vale/index']);
-        this.alertOk(
-          'success',
-          'Exito',
-          'Vale Creado Correctamente',
-          '2000'
-        );
+        this.alertOk('success', 'Exito', 'Vale Creado Correctamente', '2000');
         this.createForm.submitted = true;
       }
     );
   }
 
-
   doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
-    this.valeService.getCompraOfCombustible(this.createForm.value.idProducto, this.createForm.value.catProgra).subscribe((data: any) => {
-      if (data.serverResponse.length == 0) {
-        this.noHayStock = true;
-      }
-      else {
-        this.compras = data.serverResponse;
-        this.noHayStock = false;
-        console.log('compras', this.compras);
-
-      }
-    });
-
-  }
+    this.valeService
+      .getCompraOfCombustible(
+        this.createForm.value.idProducto,
+        this.createForm.value.catProgra
+      )
+      .subscribe((data: any) => {
+        if (data.serverResponse.length == 0) {
+          this.noHayStock = true;
+        } else {
+          this.compras = data.serverResponse;
+          this.noHayStock = false;
+        }
+      });
+  };
 
   cancel() {
-    this.router.navigate(['almacen/vale/index'])
+    this.router.navigate(['almacen/vale/index']);
   }
 
   alertOk(icon: any, title: any, text: any, timer: any) {
@@ -147,44 +147,64 @@ export class ValeNewComponent {
 
   doSelect2 = (id: any) => {
     this.compraSingle = this.compras.find((objeto: any) => objeto._id === id);
-    console.log('compraSingle', this.compraSingle);
-  }
+  };
 
   calcularStock() {
     if (this.compraSingle) {
       if (this.createForm.value.cantidad > this.compraSingle.stockCompra) {
-        Swal.fire('Cantidad insuficiente')
+        Swal.fire('Cantidad insuficiente');
         this.createForm.value.cantidad = 0;
       }
     }
-
   }
 
   cargarUnidadSolicitante() {
-    this.autorizacionService.getAllUnidadSolicitante()
+    this.autorizacionService
+      .getAllUnidadSolicitante()
       .subscribe((data: any) => {
         this.unidades = data;
-        console.log('uniSolicitante', this.unidades);
       });
   }
 
   cargarConductor() {
-    this.autorizacionService.getAllConductores()
-      .subscribe((data: any) => {
-        this.conductores = data.serverResponse;
-        console.log('conductores', this.conductores);
-      });
+    this.autorizacionService.getAllConductores().subscribe((data: any) => {
+      this.conductores = data.serverResponse;
+    });
   }
 
   cargarVehiculo() {
-    this.autorizacionService.getAllVehiculos()
-      .subscribe((data: any) => {
-        this.vehiculos
-          = data.serverResponse;
-        console.log('vehiculos', this.vehiculos);
-      });
+    this.autorizacionService.getAllVehiculos().subscribe((data: any) => {
+      this.vehiculos = data.serverResponse;
+    });
   }
 
+    doSelect3 = (id: any) => {
+    let desembolso = this.desembolsos.find((objeto: any) => objeto._id === id);
+    let original = desembolso.idFuentes;
+    this.fuentes = original.map((item: { [x: string]: any; idFuente: any }) => {
+      const { ffof, denominacion } = item.idFuente;
+      const { idFuente, ...resto } = item;
 
+      return {
+        ...resto,
+        ffof,
+        denominacion,
+      };
+    });
+  };
+
+    cargarGastosFondos() {
+    this.desembolsoService.getGastosFondos().subscribe((data: any) => {
+      this.gastoFondos = data;
+    });
+  }
+  cargarDesembolsos(params?:any) {
+    params = params || {};
+    params.deMonto = 1;
+    params.isClosed = 'false';
+    this.desembolsoService.queryDesembolso(params).subscribe((data: any) => {
+      this.desembolsos = data;
+    });
+  }
 
 }

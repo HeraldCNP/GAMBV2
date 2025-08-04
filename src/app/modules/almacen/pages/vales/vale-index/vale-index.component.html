@@ -6,9 +6,7 @@
           <div class="card-body">
             <div class="row my-2">
               <div class="col-md-6">
-                <h3 class="card-title">
-                  Total Vales ({{ totalVales }})
-                </h3>
+                <h3 class="card-title">Total Vales ({{ totalVales }})</h3>
               </div>
               <div class="col-md-6 text-end">
                 <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addAutorizacion()">
@@ -16,23 +14,44 @@
                 </button> -->
               </div>
             </div>
-            <hr>
+            <hr />
             <form [formGroup]="searchForm">
               <div class="row">
-
                 <div class="col-auto">
                   <div class="input-group input-group-sm mb-1 mx-1">
-                    <span class="input-group-text" id="idProve"><b>Cat. Prog.*</b></span>
+                    <span class="input-group-text" id="idProve"
+                      ><b>Cat. Prog.*</b></span
+                    >
 
-                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
-                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
-                      formControlName="catProgra">
-                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                    <ngx-select
+                      [allowClear]="true"
+                      [items]="catProgras"
+                      optionTextField="codigo"
+                      optionValueField="cat_programatica"
+                      placeholder="Seleccione una Categoría Programatica"
+                      formControlName="catProgra"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
                         <span [innerHtml]="text"></span>
-                        &nbsp;({{option.data.proyect_acti}})
+                        &nbsp;({{ option.data.proyect_acti }})
                       </ng-template>
-                      <div class="form-text" *ngIf="form['catProgra'].touched && form['catProgra'].invalid">
-                        <div *ngIf="form['catProgra'].errors && form['catProgra'].errors['required']">
+                      <div
+                        class="form-text"
+                        *ngIf="
+                          form['catProgra'].touched && form['catProgra'].invalid
+                        "
+                      >
+                        <div
+                          *ngIf="
+                            form['catProgra'].errors &&
+                            form['catProgra'].errors['required']
+                          "
+                        >
                           * La categoria programatica es Requerida.
                         </div>
                       </div>
@@ -44,28 +63,60 @@
 
                 <div class="col-md-2">
                   <div class="input-group input-group-sm mb-1 mx-1">
-                    <span class="input-group-text" id="gestion"><b> Estado</b></span>
-                    <select id="gestion" formControlName="estado" class="form-select">
-                      <option value="" [defaultSelected]="true">Seleccione un Estado</option>
+                    <span class="input-group-text" id="gestion"
+                      ><b> Estado</b></span
+                    >
+                    <select
+                      id="gestion"
+                      formControlName="estado"
+                      class="form-select"
+                    >
+                      <option value="" [defaultSelected]="true">
+                        Seleccione un Estado
+                      </option>
                       <option value="REGISTRADO">REGISTRADO</option>
                       <option value="PENDIENTE">PENDIENTE</option>
                       <option value="FINALIZADO">FINALIZADO</option>
                     </select>
-                    <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                      <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* estado es
-                        Requerido.
+                    <div
+                      class="form-text"
+                      *ngIf="form['estado'].touched && form['estado'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['estado'].errors &&
+                          form['estado'].errors['required']
+                        "
+                      >
+                        * estado es Requerido.
                       </div>
                     </div>
                   </div>
                 </div>
 
-
                 <div class="col-md-2">
                   <div class="input-group input-group-sm mb-1 mx-1">
-                    <span class="input-group-text izq" id="numeroVale"><b>Vale #</b></span>
-                    <input class="form-control" type="text" formControlName="numeroVale">
-                    <div class="form-text" *ngIf="form['numeroVale'].touched && form['numeroVale'].invalid">
-                      <div *ngIf="form['numeroVale'].errors && form['numeroVale'].errors['required']">* Numero Vale
+                    <span class="input-group-text izq" id="numeroVale"
+                      ><b>Vale #</b></span
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      formControlName="numeroVale"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['numeroVale'].touched && form['numeroVale'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['numeroVale'].errors &&
+                          form['numeroVale'].errors['required']
+                        "
+                      >
+                        * Numero Vale
                       </div>
                     </div>
                   </div>
@@ -84,10 +135,24 @@
 
                 <div class="col-auto">
                   <div class="input-group input-group-sm mb-1 mx-1">
-                    <span class="input-group-text izq" id="del"><b>Del</b></span>
-                    <input style="width: 100px" class="form-control" type="date" formControlName="del" />
-                    <div class="form-text" *ngIf="form['del'].touched && form['del'].invalid">
-                      <div *ngIf="form['del'].errors && form['del'].errors['required']">
+                    <span class="input-group-text izq" id="del"
+                      ><b>Del</b></span
+                    >
+                    <input
+                      style="width: 100px"
+                      class="form-control"
+                      type="date"
+                      formControlName="del"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="form['del'].touched && form['del'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['del'].errors && form['del'].errors['required']
+                        "
+                      >
                         * Fecha Inicial
                       </div>
                     </div>
@@ -96,34 +161,67 @@
 
                 <div class="col-auto">
                   <div class="input-group input-group-sm mb-1 mx-1">
-                    <span class="input-group-text izq" id="estado"><b>Al</b></span>
-                    <input style="width: 100px" class="form-control" type="date" formControlName="al" />
-                    <div class="form-text" *ngIf="form['al'].touched && form['al'].invalid">
-                      <div *ngIf="form['al'].errors && form['al'].errors['required']">
+                    <span class="input-group-text izq" id="estado"
+                      ><b>Al</b></span
+                    >
+                    <input
+                      style="width: 100px"
+                      class="form-control"
+                      type="date"
+                      formControlName="al"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="form['al'].touched && form['al'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['al'].errors && form['al'].errors['required']
+                        "
+                      >
                         * Fecha Final
                       </div>
                     </div>
                   </div>
                 </div>
-
               </div>
-              <hr>
+              <hr />
               <div class="text-center">
-                <button (click)="cargarVales(searchForm.value)" class="btn btn-primary mr-3"
-                  [disabled]="searchForm.invalid" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;">
+                <button
+                  (click)="cargarVales(searchForm.value)"
+                  class="btn btn-primary mr-3"
+                  [disabled]="searchForm.invalid"
+                  style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-font-size: 0.75rem;
+                  "
+                >
                   Buscar
                 </button>
-                <button (click)="mostrarTotales()" class="btn btn-primary mr-3" [disabled]="btnActive"
-                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;">
+                <button
+                  (click)="mostrarTotales()"
+                  class="btn btn-primary mr-3"
+                  [disabled]="btnActive"
+                  style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-font-size: 0.75rem;
+                  "
+                >
                   Calcular
                 </button>
                 @if (totalPrice) {
-                <button (click)="finalizarVales()" class="btn btn-primary mr-3"
-                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;" appLoader>
+                <button
+                  (click)="finalizarVales()"
+                  class="btn btn-primary mr-3"
+                  style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-font-size: 0.75rem;
+                  "
+                  appLoader
+                >
                   Registrar
                 </button>
                 }
-
               </div>
             </form>
             <!-- {{ searchForm.value | json }} -->
@@ -147,12 +245,11 @@
       <div class="col-md-12">
         <div class="card shadow">
           <div class="card-body">
-
             <table class="table table-hover mb-2">
               <thead>
-                <tr style="text-align: center;">
+                <tr style="text-align: center">
                   <th>Vale N°</th>
-  
+
                   <th>Fecha de Vale</th>
                   <th>Producto</th>
                   <th>Cantidad (lt)</th>
@@ -165,25 +262,46 @@
                   <th>Saldo Devuelto</th>
                   <th>Saldo Total</th>
                   <th>Estado</th>
-                  <th style="width: 150px;">Acciones</th>
+                  <th style="width: 150px">Acciones</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr *ngFor="let vale of vales.serverResponse; let i = index">
                   <td>{{ vale.numeroVale }}</td>
 
-                  <td>{{ vale.fecha | date: 'mediumDate' : "UTC" }}</td>
-                  <td>{{ vale.idProducto ? vale.idProducto.nombre : 'Lubricantes' }}</td>
-                  <td style="text-align: right;">{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
-                  <td style="text-align: center;">{{ vale.catProgra }}</td>
+                  <td>{{ vale.fecha | date : "mediumDate" : "UTC" }}</td>
+                  <td>
+                    {{
+                      vale.idProducto ? vale.idProducto.nombre : "Lubricantes"
+                    }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ vale.cantidad | number : "1.2-2" : "es-ES" }}
+                  </td>
+                  <td style="text-align: center">{{ vale.catProgra }}</td>
                   <td>{{ vale.autorizacion?.numeroAutorizacion }}</td>
-                  <td>{{ vale.encargadoControl.username }} {{ vale.encargadoControl.surnames }}</td>
-                  <td style="text-align: right;">{{ vale.precio | number:'1.2-2':'es-ES' }}</td>
-                  <td style="text-align: right;">{{ vale.cantidadAdquirida | number:'1.2-2':'es-ES' }}</td>
-                  <td style="text-align: right;">{{ vale.saldoDevolucion | number:'1.2-2':'es-ES'
-                    }}</td>
-                  <td style="text-align: right;">{{ vale.saldoDevuelto | number:'1.2-2':'es-ES' }}</td>
-                  <td style="text-align: right;">{{ (vale.saldoDevolucion - vale.saldoDevuelto) | number:'1.2-2':'es-ES' }}</td>
+                  <td>
+                    {{ vale.encargadoControl.username }}
+                    {{ vale.encargadoControl.surnames }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ vale.precio | number : "1.2-2" : "es-ES" }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ vale.cantidadAdquirida | number : "1.2-2" : "es-ES" }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ vale.saldoDevolucion | number : "1.2-2" : "es-ES" }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ vale.saldoDevuelto | number : "1.2-2" : "es-ES" }}
+                  </td>
+                  <td style="text-align: right">
+                    {{
+                      vale.saldoDevolucion - vale.saldoDevuelto
+                        | number : "1.2-2" : "es-ES"
+                    }}
+                  </td>
                   <!-- <td>
                     <div class="form-check form-switch">
                       <span *ngIf="carpeta.estado == '1'">
@@ -199,12 +317,27 @@
                     </div>
                   </td> -->
                   <td>
-                    <span *ngIf="!vale.idCompra && vale.productos?.length == 0" class="textEstado"
-                      [ngSwitch]="vale.estado">
-                      <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger" title="Cambiar Estado">{{
-                        vale.estado }} </span>
-                      <span *ngSwitchCase="'PENDIENTE'" class="badge badge-info">{{ vale.estado }}</span>
-                      <span *ngSwitchCase="'FINALIZADO'" class="badge badge-success">{{ vale.estado }}</span>
+                    <span
+                      *ngIf="!vale.idCompra && vale.productos?.length == 0"
+                      class="textEstado"
+                      [ngSwitch]="vale.estado"
+                    >
+                      <span
+                        *ngSwitchCase="'REGISTRADO'"
+                        class="badge badge-danger"
+                        title="Cambiar Estado"
+                        >{{ vale.estado }}
+                      </span>
+                      <span
+                        *ngSwitchCase="'PENDIENTE'"
+                        class="badge badge-info"
+                        >{{ vale.estado }}</span
+                      >
+                      <span
+                        *ngSwitchCase="'FINALIZADO'"
+                        class="badge badge-success"
+                        >{{ vale.estado }}</span
+                      >
                     </span>
                   </td>
                   <td>
@@ -214,7 +347,7 @@
                     <!-- <button class="btn btn-info text-sm" (click)="generarVale(vale._id)">Generar Vale<i
                         class="fas fa-print ml-2 icono"></i></button> -->
 
-                   <!--  <span *ngIf="vale.idCompra != null">
+                    <!--  <span *ngIf="vale.idCompra != null">
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
                         (click)="print(vale)" title="Imprimir"></i>
                     </span>
@@ -223,38 +356,73 @@
                       <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal2"
                         (click)="print(vale)" title="Imprimir"></i>
                     </span> -->
-                    
-                    <i class="fas fa-print ml-2 icono" (click)="printVale(vale._id)"
-                    title="Imprimir Vale"></i>
+
+                    <i
+                      class="fas fa-print ml-2 icono"
+                      (click)="printVale(vale._id)"
+                      title="Imprimir Vale"
+                    ></i>
                     <!-- colocar despues -->
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0" -->
-                     
-                    <span >
-                      <i class="fas fa-edit ml-2 icono iconoSkyBlue" (click)="edit(vale._id)" title="Editar"></i>
+
+                    <span>
+                      <i
+                        class="fas fa-edit ml-2 icono iconoSkyBlue"
+                        (click)="edit(vale._id)"
+                        title="Editar"
+                      ></i>
                     </span>
 
-                    <i *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'"
-                      class="fas fa-trash ml-2 iconoRed" (click)="deleteVale(vale._id)" title="Eliminar"></i>
+                    <i
+                      *ngIf="
+                        !vale.idCompra &&
+                        vale.productos?.length == 0 &&
+                        vale.estado == 'REGISTRADO'
+                      "
+                      class="fas fa-trash ml-2 iconoRed"
+                      (click)="deleteVale(vale._id)"
+                      title="Eliminar"
+                    ></i>
                     <!-- *ngIf="!vale.idCompra && vale.productos?.length == 0 && vale.estado == 'REGISTRADO'" -->
-                    <i *ngIf="!vale.idCompra && vale.productos?.length == 0" class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(vale._id)"
-                      title="Añadir Factura"></i>
-                    <i *ngIf="vale.precio && vale.productos?.length == 0" class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(vale._id)"
-                      title="Añadir Devolución"></i>
-                      <i *ngIf="vale.precio && vale.productos?.length == 0" class="fas fa-money-check ml-2 icono" (click)="printValeDetalle(vale._id)"
-                    title="Imprimir Vale"></i>
+                    <i
+                      *ngIf="!vale.idCompra && vale.productos?.length == 0"
+                      class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue"
+                      (click)="addFactura(vale._id)"
+                      title="Añadir Factura"
+                    ></i>
+                    <i
+                      *ngIf="vale.precio && vale.productos?.length == 0"
+                      class="fas fa-coins ml-2 iconoYellow"
+                      (click)="addDevolution(vale._id)"
+                      title="Añadir Devolución"
+                    ></i>
+                    <i
+                      *ngIf="vale.precio && vale.productos?.length == 0"
+                      class="fas fa-money-check ml-2 icono"
+                      (click)="printValeDetalle(vale._id)"
+                      title="Imprimir Detalle del Vale"
+                    ></i>
                   </td>
                 </tr>
               </tbody>
             </table>
             <!-- *ngIf="txtTermino.value.length === 0" -->
             <div class="text-center">
-              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
+              <button
+                (click)="cambiarPagina(-1)"
+                *ngIf="page > 1"
+                class="btn btn-info text-sm"
+              >
                 <i class="fas fa-chevron-left"></i> Anterior
               </button>
               &nbsp;
               {{ page }} de {{ totalPages }}
               &nbsp;
-              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
+              <button
+                (click)="cambiarPagina(1)"
+                *ngIf="page < totalPages"
+                class="btn btn-info text-sm"
+              >
                 Siguiente <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -265,15 +433,25 @@
   </div>
 </div>
 
-
 <!-- Modal -->
-<div class="modal fade" id="printModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="printModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl">
-
     <div class="modal-content">
       <div class="modal-footer d-flex justify-content-center">
-        <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content" ngxPrint
-          class="btn btn-primary">
+        <button
+          type="button"
+          printTitle="."
+          [useExistingCss]="true"
+          printSectionId="content"
+          ngxPrint
+          class="btn btn-primary"
+        >
           Imprimir
         </button>
       </div>
@@ -287,44 +465,45 @@
               <div class="text-center ml-5 mt-2 mb-0">
                 <h3 class="off-m">SOLICITUD DE COMBUSTIBLE</h3>
               </div>
-              <div class="p-3 ">
+              <div class="p-3">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
               </div>
             </div>
             <div class="d-flex justify-content-between px-3">
               <div class="mb-1">
-                <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }} - {{ vale.progra }}
+                <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }} -
+                {{ vale.progra }}
               </div>
               <div class="mb-1">
-                <b>FECHA:</b> {{ vale.autorizacion?.fechaSalida | date : 'fullDate' : "UTC" }}
+                <b>FECHA:</b>
+                {{ vale.autorizacion?.fechaSalida | date : "fullDate" : "UTC" }}
               </div>
               <div>
-                <b>N° DE AUTORIZACIÓN:</b> AF-{{ vale.autorizacion?.numeroAutorizacion }}
+                <b>N° DE AUTORIZACIÓN:</b> AF-{{
+                  vale.autorizacion?.numeroAutorizacion
+                }}
               </div>
-              <div>
-                <b>N° DE VALE:</b> {{ vale.numeroVale }}
-              </div>
+              <div><b>N° DE VALE:</b> {{ vale.numeroVale }}</div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>SOLICITADO POR:</b> {{ vale.autorizacion?.unidadSolicitante.user.username }} {{
-                vale.autorizacion?.unidadSolicitante.user.surnames }}
+                <b>SOLICITADO POR:</b>
+                {{ vale.autorizacion?.unidadSolicitante.user.username }}
+                {{ vale.autorizacion?.unidadSolicitante.user.surnames }}
               </div>
               <div>
-                <b>CARGO:</b> {{ vale.autorizacion?.unidadSolicitante.nombresubdir }}
+                <b>CARGO:</b>
+                {{ vale.autorizacion?.unidadSolicitante.nombresubdir }}
               </div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
-              <div>
-                <b>DESTINO:</b> {{ vale.autorizacion?.destino }}
-              </div>
+              <div><b>DESTINO:</b> {{ vale.autorizacion?.destino }}</div>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
-
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -337,8 +516,12 @@
                     <tr>
                       <td>{{ vale.idProducto?.nombre }}</td>
                       <td>{{ vale.cantidad }}</td>
-                      <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
-                      <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
+                      <td *ngIf="vale.cantidad === 1">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}
+                      </td>
+                      <td *ngIf="vale.cantidad > 1">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}s
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -347,7 +530,9 @@
 
             <div class="container mb-1">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHÍCULO</b></legend>
+                <legend class="text-muted">
+                  <b>DATOS DEL CONDUCTOR - VEHÍCULO</b>
+                </legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -362,18 +547,24 @@
                     <tr>
                       <td>{{ vale.autorizacion?.vehiculo?.tipo }}</td>
                       <td>{{ vale.autorizacion?.vehiculo.placa }}</td>
-                      <td>{{ vale.autorizacion?.conductor.username }} {{ vale.autorizacion?.conductor.surnames }}</td>
-                      <td>{{ vale.autorizacion?.conductor.ci }} </td>
-                      <td>{{ vale.autorizacion?.conductor.categoriaLicencia }} </td>
+                      <td>
+                        {{ vale.autorizacion?.conductor.username }}
+                        {{ vale.autorizacion?.conductor.surnames }}
+                      </td>
+                      <td>{{ vale.autorizacion?.conductor.ci }}</td>
+                      <td>
+                        {{ vale.autorizacion?.conductor.categoriaLicencia }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion?.motivo }}</span>
-
+              <span
+                ><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion?.motivo }}</span
+              >
 
               <div class="mt-10">
-                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                <div class="d-flex justify-content-around ml-3 mb-0">
                   <div class="">
                     <div class="text-center">
                       <b>Solicitado Por</b>
@@ -394,11 +585,8 @@
                       <b>Chofer</b>
                     </div>
                   </div>
-
                 </div>
               </div>
-
-
             </div>
             <div class="d-flex justify-content-between m-0 p-0">
               <span class="fecha" style="font-size: 0.7rem">
@@ -409,7 +597,7 @@
               </span>
             </div>
           </div>
-          <hr>
+          <hr />
           <div *ngIf="vale" class="card fondito1">
             <div class="d-flex justify-content-between ml-2 mb-0">
               <div class="p-2">
@@ -418,7 +606,7 @@
               <div class="text-center ml-5 mt-2 mb-0">
                 <h3 class="off-m">SOLICITUD DE COMBUSTIBLE</h3>
               </div>
-              <div class="p-3 ">
+              <div class="p-3">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
               </div>
             </div>
@@ -427,35 +615,35 @@
                 <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }}
               </div>
               <div class="mb-1">
-                <b>FECHA:</b> {{ vale.autorizacion?.fechaSalida | date : 'fullDate' : "UTC" }}
+                <b>FECHA:</b>
+                {{ vale.autorizacion?.fechaSalida | date : "fullDate" : "UTC" }}
               </div>
               <div>
-                <b>N° DE AUTORIZACIÓN:</b> AF-{{ vale.autorizacion?.numeroAutorizacion }}
+                <b>N° DE AUTORIZACIÓN:</b> AF-{{
+                  vale.autorizacion?.numeroAutorizacion
+                }}
               </div>
-              <div>
-                <b>N° DE VALE:</b> {{ vale.numeroVale }}
-              </div>
+              <div><b>N° DE VALE:</b> {{ vale.numeroVale }}</div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>SOLICITADO POR:</b> {{ vale.autorizacion?.unidadSolicitante.user.username }} {{
-                vale.autorizacion?.unidadSolicitante.user.surnames }}
+                <b>SOLICITADO POR:</b>
+                {{ vale.autorizacion?.unidadSolicitante.user.username }}
+                {{ vale.autorizacion?.unidadSolicitante.user.surnames }}
               </div>
               <div>
-                <b>CARGO:</b> {{ vale.autorizacion?.unidadSolicitante.nombresubdir }}
+                <b>CARGO:</b>
+                {{ vale.autorizacion?.unidadSolicitante.nombresubdir }}
               </div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
-              <div>
-                <b>DESTINO:</b> {{ vale.autorizacion?.destino }}
-              </div>
+              <div><b>DESTINO:</b> {{ vale.autorizacion?.destino }}</div>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
-
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -468,8 +656,12 @@
                     <tr>
                       <td>{{ vale.idProducto?.nombre }}</td>
                       <td>{{ vale.cantidad }}</td>
-                      <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
-                      <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
+                      <td *ngIf="vale.cantidad === 1">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}
+                      </td>
+                      <td *ngIf="vale.cantidad > 1">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}s
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -478,7 +670,9 @@
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHÍCULO</b></legend>
+                <legend class="text-muted">
+                  <b>DATOS DEL CONDUCTOR - VEHÍCULO</b>
+                </legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -493,18 +687,24 @@
                     <tr>
                       <td>{{ vale.autorizacion?.vehiculo.tipo }}</td>
                       <td>{{ vale.autorizacion?.vehiculo.placa }}</td>
-                      <td>{{ vale.autorizacion?.conductor.username }} {{ vale.autorizacion?.conductor.surnames }}</td>
-                      <td>{{ vale.autorizacion?.conductor.ci }} </td>
-                      <td>{{ vale.autorizacion?.conductor.categoriaLicencia }} </td>
+                      <td>
+                        {{ vale.autorizacion?.conductor.username }}
+                        {{ vale.autorizacion?.conductor.surnames }}
+                      </td>
+                      <td>{{ vale.autorizacion?.conductor.ci }}</td>
+                      <td>
+                        {{ vale.autorizacion?.conductor.categoriaLicencia }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion?.motivo }}</span>
-
+              <span
+                ><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion?.motivo }}</span
+              >
 
               <div class="mt-10">
-                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                <div class="d-flex justify-content-around ml-3 mb-0">
                   <div class="">
                     <div class="text-center">
                       <b>Solicitado Por</b>
@@ -525,11 +725,8 @@
                       <b>Chofer</b>
                     </div>
                   </div>
-
                 </div>
               </div>
-
-
             </div>
             <div class="d-flex justify-content-between m-0 p-0">
               <span class="fecha" style="font-size: 0.7rem">
@@ -540,7 +737,7 @@
               </span>
             </div>
           </div>
-          <hr>
+          <hr />
           <div *ngIf="vale" class="card fondito1">
             <div class="d-flex justify-content-between ml-2 mb-0">
               <div class="p-2">
@@ -549,7 +746,7 @@
               <div class="text-center ml-5 mt-2 mb-0">
                 <h3 class="off-m">SOLICITUD DE COMBUSTIBLE</h3>
               </div>
-              <div class="p-3 ">
+              <div class="p-3">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
               </div>
             </div>
@@ -558,35 +755,35 @@
                 <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }}
               </div>
               <div class="mb-1">
-                <b>FECHA:</b> {{ vale.autorizacion?.fechaSalida | date : 'fullDate' : "UTC" }}
+                <b>FECHA:</b>
+                {{ vale.autorizacion?.fechaSalida | date : "fullDate" : "UTC" }}
               </div>
               <div>
-                <b>N° DE AUTORIZACIÓN:</b> AF-{{ vale.autorizacion?.numeroAutorizacion }}
+                <b>N° DE AUTORIZACIÓN:</b> AF-{{
+                  vale.autorizacion?.numeroAutorizacion
+                }}
               </div>
-              <div>
-                <b>N° DE VALE:</b> {{ vale.numeroVale }}
-              </div>
+              <div><b>N° DE VALE:</b> {{ vale.numeroVale }}</div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>SOLICITADO POR:</b> {{ vale.autorizacion?.unidadSolicitante.user.username }} {{
-                vale.autorizacion?.unidadSolicitante.user.surnames }}
+                <b>SOLICITADO POR:</b>
+                {{ vale.autorizacion?.unidadSolicitante.user.username }}
+                {{ vale.autorizacion?.unidadSolicitante.user.surnames }}
               </div>
               <div>
-                <b>CARGO:</b> {{ vale.autorizacion?.unidadSolicitante.nombresubdir }}
+                <b>CARGO:</b>
+                {{ vale.autorizacion?.unidadSolicitante.nombresubdir }}
               </div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
-              <div>
-                <b>DESTINO:</b> {{ vale.autorizacion?.destino }}
-              </div>
+              <div><b>DESTINO:</b> {{ vale.autorizacion?.destino }}</div>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
-
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -599,8 +796,12 @@
                     <tr>
                       <td>{{ vale.idProducto?.nombre }}</td>
                       <td>{{ vale.cantidad }}</td>
-                      <td *ngIf="vale.cantidad === 1">{{ vale.idProducto.unidadDeMedida | titlecase }}</td>
-                      <td *ngIf="vale.cantidad > 1">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
+                      <td *ngIf="vale.cantidad === 1">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}
+                      </td>
+                      <td *ngIf="vale.cantidad > 1">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}s
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -609,7 +810,9 @@
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHÍCULO</b></legend>
+                <legend class="text-muted">
+                  <b>DATOS DEL CONDUCTOR - VEHÍCULO</b>
+                </legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -624,18 +827,24 @@
                     <tr>
                       <td>{{ vale.autorizacion?.vehiculo.tipo }}</td>
                       <td>{{ vale.autorizacion?.vehiculo.placa }}</td>
-                      <td>{{ vale.autorizacion?.conductor.username }} {{ vale.autorizacion?.conductor.surnames }}</td>
-                      <td>{{ vale.autorizacion?.conductor.ci }} </td>
-                      <td>{{ vale.autorizacion?.conductor.categoriaLicencia }} </td>
+                      <td>
+                        {{ vale.autorizacion?.conductor.username }}
+                        {{ vale.autorizacion?.conductor.surnames }}
+                      </td>
+                      <td>{{ vale.autorizacion?.conductor.ci }}</td>
+                      <td>
+                        {{ vale.autorizacion?.conductor.categoriaLicencia }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion?.motivo }}</span>
-
+              <span
+                ><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion?.motivo }}</span
+              >
 
               <div class="mt-10">
-                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                <div class="d-flex justify-content-around ml-3 mb-0">
                   <div class="">
                     <div class="text-center">
                       <b>Solicitado Por</b>
@@ -656,11 +865,8 @@
                       <b>Chofer</b>
                     </div>
                   </div>
-
                 </div>
               </div>
-
-
             </div>
             <div class="d-flex justify-content-between m-0 p-0">
               <span class="fecha" style="font-size: 0.7rem">
@@ -671,30 +877,35 @@
               </span>
             </div>
           </div>
-
         </div>
-
       </div>
-
-
     </div>
-
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="printModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="printModal2"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-xl">
-
     <div class="modal-content">
       <div class="modal-footer d-flex justify-content-center">
-        <button type="button" printTitle="." [useExistingCss]="true" printSectionId="content2" ngxPrint
-          class="btn btn-primary">
+        <button
+          type="button"
+          printTitle="."
+          [useExistingCss]="true"
+          printSectionId="content2"
+          ngxPrint
+          class="btn btn-primary"
+        >
           Imprimir
         </button>
       </div>
       <div class="modal-body" id="content2" #content>
-
         <div class="">
           <div *ngIf="vale" class="card fondito1">
             <div class="d-flex justify-content-between ml-2 mb-0">
@@ -704,7 +915,7 @@
               <div class="text-center ml-5 mt-2 mb-0">
                 <h3 class="off-m">SOLICITUD DE COMBUSTIBLE Y LUBRICANTES</h3>
               </div>
-              <div class="p-3 ">
+              <div class="p-3">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
               </div>
             </div>
@@ -713,36 +924,54 @@
                 <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }}
               </div>
               <div class="mb-1">
-                <b>FECHA:</b> <span *ngIf="vale.autorizacion">{{ vale.autorizacion.fecha | date : 'dd/MM/yyyy' : 'UTC'
-                  }}</span>
-                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' : 'UTC' }}</span>
+                <b>FECHA:</b>
+                <span *ngIf="vale.autorizacion">{{
+                  vale.autorizacion.fecha | date : "dd/MM/yyyy" : "UTC"
+                }}</span>
+                <span *ngIf="!vale.autorizacion">{{
+                  vale.fecha | date : "dd/MM/yyyy" : "UTC"
+                }}</span>
+              </div>
+              <div><b>N° DE VALE:</b> {{ vale.numeroVale }}</div>
+            </div>
+
+            <div class="d-flex justify-content-between px-3">
+              <div>
+                <b>SOLICITADO POR:</b>
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.unidadSolicitante.user.username
+                    : vale.conductor?.username
+                }}
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.unidadSolicitante.user.surnames
+                    : vale.conductor?.surnames
+                }}
               </div>
               <div>
-                <b>N° DE VALE:</b> {{ vale.numeroVale }}
+                <b>CARGO:</b>
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.unidadSolicitante.user.post
+                    : (vale.conductor?.post | titlecase)
+                }}
               </div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>SOLICITADO POR:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.username :
-                vale.conductor?.username }} {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.surnames :
-                vale.conductor?.surnames }}
-              </div>
-              <div>
-                <b>CARGO:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.post :
-                vale.conductor?.post | titlecase }}
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-between px-3">
-              <div>
-                <b>DESTINO:</b> {{ vale.autorizacion ? vale.autorizacion.destino : vale.destino | titlecase }}
+                <b>DESTINO:</b>
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.destino
+                    : (vale.destino | titlecase)
+                }}
               </div>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
-
                 <table class="table table-striped" *ngIf="vale.idProducto">
                   <thead class="text-center">
                     <tr>
@@ -755,9 +984,11 @@
                   <tbody class="text-center">
                     <tr>
                       <td>{{ vale.idProducto.nombre }}</td>
-                      <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
-                     
-                      <td *ngIf="vale.cantidad >= 0">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
+                      <td>{{ vale.cantidad | number : "1.2-2" : "es-ES" }}</td>
+
+                      <td *ngIf="vale.cantidad >= 0">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}s
+                      </td>
                       <td>{{ vale.precio }}</td>
                     </tr>
                   </tbody>
@@ -776,7 +1007,11 @@
                     <tr *ngFor="let producto of vale.productos; let i = index">
                       <td>{{ i + 1 }}</td>
                       <td>{{ producto.articulo }}</td>
-                      <td>{{ producto.cantidadCompra | number:'1.2-2':'es-ES' }}</td>
+                      <td>
+                        {{
+                          producto.cantidadCompra | number : "1.2-2" : "es-ES"
+                        }}
+                      </td>
                       <td>{{ producto.unidadMedida | titlecase }}</td>
                     </tr>
                   </tbody>
@@ -786,7 +1021,9 @@
 
             <div class="container mb-1">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHÍCULO</b></legend>
+                <legend class="text-muted">
+                  <b>DATOS DEL CONDUCTOR - VEHÍCULO</b>
+                </legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -799,22 +1036,59 @@
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.tipo : vale.vehiculo?.tipo }}</td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.placa : vale.vehiculo?.placa }}</td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.username : vale.conductor?.username }} {{
-                        vale.autorizacion ? vale.autorizacion.conductor.surnames : vale.conductor?.surnames }}</td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.ci : vale.conductor?.ci }} </td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.categoriaLicencia :
-                        vale.conductor?.categoriaLicencia }} </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.vehiculo?.tipo
+                            : vale.vehiculo?.tipo
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.vehiculo?.placa
+                            : vale.vehiculo?.placa
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.username
+                            : vale.conductor?.username
+                        }}
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.surnames
+                            : vale.conductor?.surnames
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.ci
+                            : vale.conductor?.ci
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.categoriaLicencia
+                            : vale.conductor?.categoriaLicencia
+                        }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion ? vale.autorizacion.motivo : vale.motivo }}</span>
-
+              <span
+                ><b>MOTIVO DE SALIDA:</b>
+                {{
+                  vale.autorizacion ? vale.autorizacion.motivo : vale.motivo
+                }}</span
+              >
 
               <div class="mt-10">
-                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                <div class="d-flex justify-content-around ml-3 mb-0">
                   <div class="">
                     <div class="text-center">
                       <b>Solicitado Por</b>
@@ -835,11 +1109,8 @@
                       <b>Recibi Conforme (chofer)</b>
                     </div>
                   </div>
-
                 </div>
               </div>
-
-
             </div>
             <div class="d-flex justify-content-between m-0 p-0">
               <span class="fecha" style="font-size: 0.7rem">
@@ -859,7 +1130,7 @@
               <div class="text-center ml-5 mt-2 mb-0">
                 <h3 class="off-m">AUTORIZACIÓN DE ENTREGA</h3>
               </div>
-              <div class="p-3 ">
+              <div class="p-3">
                 <img src="/assets/img/sisal.png" alt="" width="163px" />
               </div>
             </div>
@@ -868,35 +1139,53 @@
                 <b>AP. PROGRAMÁTICA:</b> {{ vale.catProgra }}
               </div>
               <div class="mb-1">
-                <b>FECHA:</b> <span *ngIf="vale.autorizacion">{{ vale.autorizacion.fecha | date : 'dd/MM/yyyy' : 'UTC'
-                  }}</span>
-                <span *ngIf="!vale.autorizacion">{{ vale.fecha | date : 'dd/MM/yyyy' : 'UTC' }}</span>
+                <b>FECHA:</b>
+                <span *ngIf="vale.autorizacion">{{
+                  vale.autorizacion.fecha | date : "dd/MM/yyyy" : "UTC"
+                }}</span>
+                <span *ngIf="!vale.autorizacion">{{
+                  vale.fecha | date : "dd/MM/yyyy" : "UTC"
+                }}</span>
               </div>
-              <div>
-                <b>N° DE VALE:</b> {{ vale.numeroVale }}
-              </div>
+              <div><b>N° DE VALE:</b> {{ vale.numeroVale }}</div>
             </div>
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>SOLICITADO POR:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.username :
-                vale.conductor?.username }} {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.surnames :
-                vale.conductor?.surnames }}
+                <b>SOLICITADO POR:</b>
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.unidadSolicitante.user.username
+                    : vale.conductor?.username
+                }}
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.unidadSolicitante.user.surnames
+                    : vale.conductor?.surnames
+                }}
               </div>
               <div>
-                <b>CARGO:</b> {{ vale.autorizacion ? vale.autorizacion.unidadSolicitante.user.post :
-                vale.conductor?.post | titlecase }}
+                <b>CARGO:</b>
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.unidadSolicitante.user.post
+                    : (vale.conductor?.post | titlecase)
+                }}
               </div>
             </div>
 
             <div class="d-flex justify-content-between px-3">
               <div>
-                <b>DESTINO:</b> {{ vale.autorizacion ? vale.autorizacion.destino : vale.destino | titlecase }}
+                <b>DESTINO:</b>
+                {{
+                  vale.autorizacion
+                    ? vale.autorizacion.destino
+                    : (vale.destino | titlecase)
+                }}
               </div>
             </div>
 
             <div class="container mb-2">
               <fieldset class="border p-2 rounded fieldset-tabla">
-
                 <table class="table table-striped" *ngIf="vale.idProducto">
                   <thead class="text-center">
                     <tr>
@@ -909,9 +1198,11 @@
                   <tbody class="text-center">
                     <tr>
                       <td>{{ vale.idProducto.nombre }}</td>
-                      <td>{{ vale.cantidad | number:'1.2-2':'es-ES' }}</td>
-                    
-                      <td *ngIf="vale.cantidad >= 0">{{ vale.idProducto.unidadDeMedida | titlecase }}s</td>
+                      <td>{{ vale.cantidad | number : "1.2-2" : "es-ES" }}</td>
+
+                      <td *ngIf="vale.cantidad >= 0">
+                        {{ vale.idProducto.unidadDeMedida | titlecase }}s
+                      </td>
                       <td>{{ vale.precio }}</td>
                     </tr>
                   </tbody>
@@ -930,18 +1221,23 @@
                     <tr *ngFor="let producto of vale.productos; let i = index">
                       <td>{{ i + 1 }}</td>
                       <td>{{ producto.articulo }}</td>
-                      <td>{{ producto.cantidadCompra | number:'1.2-2':'es-ES' }}</td>
+                      <td>
+                        {{
+                          producto.cantidadCompra | number : "1.2-2" : "es-ES"
+                        }}
+                      </td>
                       <td>{{ producto.unidadMedida | titlecase }}</td>
                     </tr>
                   </tbody>
                 </table>
-
               </fieldset>
             </div>
 
             <div class="container mb-1">
               <fieldset class="border p-2 rounded fieldset-tabla mb-2">
-                <legend class="text-muted"><b>DATOS DEL CONDUCTOR - VEHÍCULO</b></legend>
+                <legend class="text-muted">
+                  <b>DATOS DEL CONDUCTOR - VEHÍCULO</b>
+                </legend>
                 <table class="table table-striped">
                   <thead class="text-center">
                     <tr>
@@ -954,28 +1250,63 @@
                   </thead>
                   <tbody class="text-center">
                     <tr>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.tipo : vale.vehiculo?.tipo }}</td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.vehiculo?.placa : vale.vehiculo?.placa }}</td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.username : vale.conductor?.username }} {{
-                        vale.autorizacion ? vale.autorizacion.conductor.surnames : vale.conductor?.surnames }}</td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.ci : vale.conductor?.ci }} </td>
-                      <td>{{ vale.autorizacion ? vale.autorizacion.conductor.categoriaLicencia :
-                        vale.conductor?.categoriaLicencia }} </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.vehiculo?.tipo
+                            : vale.vehiculo?.tipo
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.vehiculo?.placa
+                            : vale.vehiculo?.placa
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.username
+                            : vale.conductor?.username
+                        }}
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.surnames
+                            : vale.conductor?.surnames
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.ci
+                            : vale.conductor?.ci
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          vale.autorizacion
+                            ? vale.autorizacion.conductor.categoriaLicencia
+                            : vale.conductor?.categoriaLicencia
+                        }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </fieldset>
-              <span><b>MOTIVO DE SALIDA:</b> {{ vale.autorizacion ? vale.autorizacion.motivo : vale.motivo }} </span>
-
+              <span
+                ><b>MOTIVO DE SALIDA:</b>
+                {{ vale.autorizacion ? vale.autorizacion.motivo : vale.motivo }}
+              </span>
 
               <div class="mt-10">
-                <div class="d-flex justify-content-around ml-3 mb-0 ">
+                <div class="d-flex justify-content-around ml-3 mb-0">
                   <div class="">
                     <div class="text-center">
                       <b>Entregué Conforme</b>
                     </div>
                   </div>
-                 
+
                   <div class="">
                     <div class="text-center">
                       <b>Autorizado Por</b>
@@ -986,11 +1317,8 @@
                       <b>Recibi Conforme (chofer)</b>
                     </div>
                   </div>
-
                 </div>
               </div>
-
-
             </div>
             <div class="d-flex justify-content-between m-0 p-0">
               <span class="fecha" style="font-size: 0.7rem">
@@ -1001,14 +1329,8 @@
               </span>
             </div>
           </div>
-
-
         </div>
-
       </div>
-
-
     </div>
-
   </div>
 </div>
