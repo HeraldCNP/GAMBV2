@@ -128,7 +128,7 @@
                     </div>
                   </div>
 
-                  <div
+                 <!--  <div
                     class="input-group mb-1"
                     *ngIf="createForm.value.idGastoFondo != ''"
                   >
@@ -171,12 +171,12 @@
                         * Debe seleccionar el N° de tipo fondo.
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div
                     class="input-group mb-1"
                     *ngIf="createForm.value.idGastoFondo != ''"
                   >
-                    <span class="input-group-text izq" id="plazo"
+                    <span class="input-group-text izq" id="idFuente"
                       ><b>F.F.- O.F.</b></span
                     >
                     <ngx-select
@@ -185,8 +185,8 @@
                       [items]="fuentes"
                       optionTextField="ffof"
                       optionValueField="_id"
-                      placeholder="Seleccione Desembolso N°"
-                      formControlName="idDesemFuente"
+                      placeholder="Seleccione FF-OF"
+                      formControlName="idFuente"
                     >
                       <ng-template
                         ngx-select-option
@@ -201,17 +201,17 @@
                     <div
                       class="form-text"
                       *ngIf="
-                        form['idDesemFuente'].touched &&
-                        form['idDesemFuente'].invalid
+                        form['idFuente'].touched &&
+                        form['idFuente'].invalid
                       "
                     >
                       <div
                         *ngIf="
-                          form['idDesemFuente'].errors &&
-                          form['idDesemFuente'].errors['required']
+                          form['idFuente'].errors &&
+                          form['idFuente'].errors['required']
                         "
                       >
-                        * Debe seleccionar desembolso N°.
+                        * Debe seleccionar FF-OF.
                       </div>
                     </div>
                   </div>

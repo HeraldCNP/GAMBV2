@@ -41,7 +41,6 @@ export class ValeCreateComponent {
     this.idUser = this.data.id;
     this.idAutorizacion = this.activeRouter.snapshot.paramMap.get('id');
 
-    console.log(this.idAutorizacion);
 
     this.createForm = this.fb.group({
       autorizacion: [this.idAutorizacion],
@@ -54,8 +53,8 @@ export class ValeCreateComponent {
       idProducto: ['', [Validators.required]],
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       idGastoFondo: ['6866f68000031001e6de7c95'],
-      idDesembolso: [''],
-      idDesemFuente: [''],
+      idTipoDesembolso: ['6866ab0ba7f78500a418421e'],
+      idFuente: [''],
     });
   }
 
@@ -63,6 +62,7 @@ export class ValeCreateComponent {
     this.cargarCatProgras();
     this.cargarGastosFondos();
     this.cargarDesembolsos();
+    this.cargarFuentes();
   }
 
   obtenerFechaInicial() {
@@ -125,6 +125,12 @@ export class ValeCreateComponent {
     );
   }
 
+    cargarFuentes() {
+    this.desembolsoService.getFuentes().subscribe((data: any) => {
+      console.log('fuentes', data);
+      this.fuentes = data;     
+    });
+  }
   doSelect = (value: any) => {
     this.valeService
       .getCompraOfCombustible(

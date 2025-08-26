@@ -133,7 +133,7 @@
                     </div>
                   </div> -->
 
-                  <div
+                <!--   <div
                     class="input-group mb-1"
                     *ngIf="createForm.value.idProducto != ''"
                   >
@@ -148,7 +148,7 @@
                       optionValueField="_id"
                       placeholder="Seleccione Desembolso N°"
                       formControlName="idDesembolso"
-                      (select)="doSelect3($event)"
+                     
                     >
                       <ng-template
                         ngx-select-option
@@ -176,7 +176,7 @@
                         * Debe seleccionar el N° de tipo fondo.
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div
                     class="input-group mb-1"
                     *ngIf="createForm.value.idProducto != ''"
@@ -191,7 +191,7 @@
                       optionTextField="ffof"
                       optionValueField="_id"
                       placeholder="Seleccione Desembolso N°"
-                      formControlName="idDesemFuente"
+                      formControlName="idFuente"
                     >
                       <ng-template
                         ngx-select-option
@@ -206,14 +206,14 @@
                     <div
                       class="form-text"
                       *ngIf="
-                        form['idDesemFuente'].touched &&
-                        form['idDesemFuente'].invalid
+                        form['idFuente'].touched &&
+                        form['idFuente'].invalid
                       "
                     >
                       <div
                         *ngIf="
-                          form['idDesemFuente'].errors &&
-                          form['idDesemFuente'].errors['required']
+                          form['idFuente'].errors &&
+                          form['idFuente'].errors['required']
                         "
                       >
                         * Debe seleccionar desembolso N°.

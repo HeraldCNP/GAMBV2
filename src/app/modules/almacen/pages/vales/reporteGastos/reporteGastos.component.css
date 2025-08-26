@@ -1,3 +1,86 @@
-:host {
-  display: block;
+.off-hr{
+  margin: 0.2rem;
+}
+
+.fieldset-tabla {
+  /* background-color: #f5f5f5;  */
+  border-color: #292626 !important;
+  border-width: 1px !important;
+  padding: 0px !important;
+}
+
+.fieldset-tabla legend {
+  font-size: 1rem; /* Cambiar el tamaño de la fuente de la leyenda */
+  text-align: center;
+  margin: 0px;
+  color: #000 !important;
+}
+table{
+  margin:0px;
+}
+
+table th{
+  padding: 0px !important;
+}
+
+table td{
+  padding: 4px !important;
+}
+
+.firma{
+  width: 30%;
+}
+
+.mb-10{
+  margin-bottom: 60px !important;
+}
+
+.mt-10{
+  margin-top: 100px !important;
+}
+
+tr td{
+  font-size: 0.8rem;
+}
+
+tr th{
+  font-size: 0.8rem;
+}
+
+.textEstado{
+  font-size: 0.65rem;
+  /* cursor: pointer; */
+}
+
+.icono{
+  color: blueviolet
+}
+
+.iconoRed{
+  color: red;
+  cursor: pointer;
+}
+.iconoRed2{
+  color: rgb(219, 175, 175);
+  cursor: pointer;
+}
+
+.iconoSkyBlue{
+  cursor: pointer;
+  color: rgb(65, 201, 255);
+}
+
+.iconoYellow{
+  cursor: pointer;
+  color: darkorange;
+}
+form {
+  font-size: 0.8rem; /* Más pequeño */
+}
+
+.form-smaller {
+  font-size: 0.8rem;
+}
+.form-smaller .form-label {
+  font-size: 0.8rem;
 }

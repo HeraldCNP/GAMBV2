@@ -3,12 +3,14 @@ import { environment } from 'src/environments/environment';
 import { ValeService } from '../../../services/vale.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ComprasService } from '../../../services/compras.service';
 import { FormFacturaComponent } from '../components/form-factura/form-factura.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PrintValeComponent } from '../components/printVale/printVale.component';
 import { PrintValeDetailComponent } from '../components/printValeDetail/printValeDetail.component';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { DesembolsoService } from 'src/app/modules/desembolso/services/desembolso.service';
 
 @Component({
   selector: 'app-vale-index',
@@ -38,6 +40,8 @@ export class ValeIndexComponent {
   vale2 = signal<any>(null);
   date = new Date();
   searchForm: any;
+  descargoForm: any;
+  funcionarios: any;
 
   fechaIni = new Date(this.obtenerFechaInicial()).toISOString();
   fechaHoy = new Date().toISOString();
@@ -51,7 +55,9 @@ export class ValeIndexComponent {
     private router: Router,
     private fb: FormBuilder,
     private comprasService: ComprasService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private authService: AuthService,
+    private desembolsoService: DesembolsoService
   ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
@@ -65,11 +71,18 @@ export class ValeIndexComponent {
       numeroVale: [''],
       productos: false,
     });
+     this.descargoForm = this.fb.group({
+      numero: ['', [Validators.required]],
+      fechaDescargo: [this.fechaHoy.substr(0, 10), [Validators.required]],
+      encargado: ['', [Validators.required]],
+
+    });
   }
 
   ngOnInit(): void {
     this.cargarCatProgras();
     this.cargarVales();
+    this.cargarFuncionarios();
   }
 
   get form() {
@@ -89,6 +102,49 @@ export class ValeIndexComponent {
     });
   }
 
+  get form2() {
+    return this.descargoForm.controls;
+  }
+
+    cargarFuncionarios(params?: any) {
+    //params.isActive= true;
+    this.authService.listUsers(params).subscribe((data: any) => {
+      this.funcionarios = data.serverResponse;
+    });
+  }
+
+  addDescargo(form: any) {
+    let gastosId = this.valesTemp.serverResponse.map((item: any) => item.idGasto?._id);
+    form.montoDescargo = this.totalPrice;
+    form.valesTemp = this.valesTemp.serverResponse;
+    form.idTipoDesembolso = '6866ab0ba7f78500a418421e';
+    form.gastos = gastosId;
+    this.desembolsoService.addDescargo(form).subscribe(
+      (res: any) => {
+        console.log(res);
+        Swal.fire({
+          icon: 'success',
+          title: 'Descargo Registrado',
+          text: 'El descargo se ha registrado correctamente.',
+        });
+        this.resetForm();
+        this.cargarVales();
+      },
+      (err) => {
+        console.error('Error al registrar el descargo:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo registrar el descargo. Inténtalo de nuevo.',
+        });
+      }
+    );
+    
+  }
+
+    resetForm() {
+    this.descargoForm.reset();
+  }
   cargarVales(params?: any) {
     if (!params) {
       params = {

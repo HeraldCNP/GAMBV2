@@ -1,14 +1,44 @@
 <div class="">
-  <div class="mt-3">
+  <div class="p-1">
     <div class="row animated fadeIn fast">
       <div class="col-md-12">
         <div class="card p-1 bg-body rounded">
           <div class="card-body">
-            <div class="row ">
-              <div class="col-md-6">
-                <h3 class="card-title">
-                  <!--  Total gastos ({{ totalgastos }}) -->
+            <div class="row">
+              <div class="col-md-3">
+                <h3 class="card-title" style="color: #003d75">
+                  Monto Total en Gastos
+                  {{ gastos.montoTotalGasto | number : "1.2-2" : "es-ES" }} Bs.-
                 </h3>
+              </div>
+              <div class="col-md-2">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <table class="table table-hover m-0">
+                      <thead>
+                        <tr>
+                          <th>N°</th>
+                          <th>FF-OF</th>
+                          <th>Sigla</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-group-divider">
+                        <tr
+                          *ngFor="
+                            let fuente of gastos.resumenPorFuente;
+                            let i = index
+                          "
+                        >
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ fuente._id }}</td>
+                          <td>
+                            {{ fuente.totalMonto | number : "1.2-2" : "es-ES" }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
               <div class="col-md-6 text-end">
                 <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addAutorizacion()">
@@ -19,7 +49,7 @@
             <hr />
             <form [formGroup]="searchForm">
               <div class="row form-smaller">
-                <!-- <div class="col-auto">
+                <div class="col-auto">
                   <span class="" ><b>Categoría Programática</b></span>
                   <div class="input-group input-group-sm  ">
                     <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
@@ -36,11 +66,11 @@
                       </div>
                     </ngx-select>
                   </div>
-                </div> -->
+                </div>
 
                 <div class="col-md-2">
                   <span class=""><b>Tipo de Gasto</b></span>
-                  <div class="input-group input-group-sm ">
+                  <div class="input-group input-group-sm">
                     <ngx-select
                       [allowClear]="true"
                       [items]="gastoFondos"
@@ -68,7 +98,7 @@
                       [allowClear]="true"
                       [items]="tipoFondos"
                       optionTextField="denominacion"
-                      optionValueField="_id"
+                      optionValueField="denominacion"
                       placeholder="Seleccione un Tipo De Fondo"
                       formControlName="tipoFondo"
                     >
@@ -84,7 +114,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-2">
+                <!--  <div class="col-md-2">
                   <span class=""><b>Número Desembolso</b></span>
                   <div class="input-group input-group-sm ">
                     <ngx-select
@@ -107,10 +137,10 @@
                     </ngx-select>
                   </div>
                 </div>
-
-                 <div class="col-md-2">
+ -->
+                <div class="col-md-2">
                   <span class=""><b>FF-OF</b></span>
-                  <div class="input-group input-group-sm ">
+                  <div class="input-group input-group-sm">
                     <ngx-select
                       [allowClear]="true"
                       [items]="fuentes"
@@ -134,22 +164,18 @@
 
                 <div class="col-md-2">
                   <span class=""><b> Estado</b></span>
-                  <div class="input-group input-group-sm "  style="width: 200px">
-                    <select
-                      formControlName="estado"
-                      class="form-select"                     
-                    >
+                  <div class="input-group input-group-sm" style="width: 200px">
+                    <select formControlName="estado" class="form-select">
                       <option value="" [defaultSelected]="true">
                         Seleccione un Estado
                       </option>
                       <option value="PENDIENTE">PENDIENTE</option>
                       <option value="EJECUTADO">EJECUTADO</option>
                       <option value="FINALIZADO">FINALIZADO</option>
+                      <option value="CONSOLIDADO">CONSOLIDADO</option>
                     </select>
                   </div>
                 </div>
-
-               
 
                 <!--  <div class="col-md-2">
                   <div class="input-group input-group-sm  ">
@@ -181,7 +207,7 @@
 
                 <div class="col-auto">
                   <span class="" id="deFecha"><b>Fecha Inicio</b></span>
-                  <div class="input-group input-group-sm  ">
+                  <div class="input-group input-group-sm">
                     <input
                       style="width: 100px"
                       class="form-control"
@@ -193,7 +219,7 @@
 
                 <div class="col-auto">
                   <span class="" id="alFecha"><b>Fecha Fin</b></span>
-                  <div class="input-group input-group-sm  ">
+                  <div class="input-group input-group-sm">
                     <input
                       style="width: 100px"
                       class="form-control"
@@ -204,10 +230,10 @@
                 </div>
               </div>
               <hr />
-              <div class="text-center p-0">
+              <div class="text-center ">
                 <button
                   (click)="cargarGastos(searchForm.value)"
-                  class="btn btn-primary m-1"
+                  class="btn btn-primary mr-3"
                   [disabled]="searchForm.invalid"
                   style="
                     --bs-btn-padding-y: 0.25rem;
@@ -216,6 +242,24 @@
                 >
                   Buscar
                 </button>
+                <!--  <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#medida"
+                   style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-font-size: 0.75rem;
+                  "
+                >
+                  Crear Nuevo Desembolso de Fondos
+                </button> -->
+                <div class="fw-bold text-center">
+                    <a                
+                      class="fas fa-file-pdf ml-2 icono iconoRed"
+                       (click)="printGasto(searchForm.value)"                    
+                    ></a>
+                </div>
                 <!--  <button (click)="mostrarTotales()" class="btn btn-primary mr-3" [disabled]="btnActive"
                   style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;">
                   Calcular
@@ -253,7 +297,8 @@
             <table class="table table-hover mb-2">
               <thead>
                 <tr style="text-align: center">
-                  <th>N° Desembolso</th>
+                  <th>N°</th>
+                  <th>N° Descargo</th>
                   <th>Fecha Pago</th>
                   <th>Tipo de Fondo</th>
                   <th>Tipo de Gasto</th>
@@ -270,8 +315,9 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let gasto of gastos; let i = index">
-                  <td>{{ gasto.numDesembolso }}</td>
+                <tr *ngFor="let gasto of gastos.gastos; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{gasto.numDescargo?? "" }}</td>
                   <td>
                     {{ gasto.fechaRegistro | date : "mediumDate" : "UTC" }}
                   </td>
@@ -380,3 +426,212 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="medida"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="medidaLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="medidaLabel">
+          Registrar Nuevo Desembolso de Fondos
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          (ngSubmit)="addDescargo(descargoForm.value)"
+          [formGroup]="descargoForm"
+        >
+          <div class="mb-1">
+            <label for="numero" class="form-label col-md-auto">Número *</label>
+            <input
+              id="numero"
+              class="form-control"
+              type="number"
+              formControlName="numero"
+            />
+            <div
+              class="form-text"
+              *ngIf="form2['numero'].touched && form2['numero'].invalid"
+            >
+              <div
+                *ngIf="
+                  form2['numero'].errors && form2['numero'].errors['required']
+                "
+              >
+                * Número de Desembolso es Requerida
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="fechaDescargo" class="form-label col-md-auto"
+              >Fecha de Desembolso de Fondo *</label
+            >
+            <input
+              id="fechaDescargo"
+              class="form-control"
+              type="date"
+              formControlName="fechaDescargo"
+            />
+            <div
+              class="form-text"
+              *ngIf="
+                form2['fechaDescargo'].touched &&
+                form2['fechaDescargo'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form2['fechaDescargo'].errors &&
+                  form2['fechaDescargo'].errors['required']
+                "
+              >
+                *Fecha de Desembolso es Requerida.
+              </div>
+            </div>
+          </div>
+
+        <!--   <div class="mb-1">
+            <label for="montoTotal" class="form-label col-md-auto"
+              >Monto Solicitado *</label
+            >
+            <input
+              id="montoTotal"
+              class="form-control"
+              type="number"
+              formControlName="montoTotal"
+            />
+            <div
+              class="form-text"
+              *ngIf="form2['montoTotal'].touched && form2['montoTotal'].invalid"
+            >
+              <div
+                *ngIf="
+                  form2['montoTotal'].errors &&
+                  form2['montoTotal'].errors['required']
+                "
+              >
+                *Monto de Solicitado es Requerida.
+              </div>
+            </div>
+          </div> -->
+
+          <div class="mb-1">
+            <label for="encargado" class="form-label col-md-auto"
+              >encargado Solicitante *</label
+            >
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="funcionarios"
+              optionTextField="username"
+              optionValueField="_id"
+              placeholder="Seleccione un encargado"
+              formControlName="encargado"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+                &nbsp;{{ option.data.surnames }}
+              </ng-template>
+            </ngx-select>
+            <div
+              class="form-text"
+              *ngIf="
+                form2['encargado'].touched && form2['encargado'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form2['encargado'].errors &&
+                  form2['encargado'].errors['required']
+                "
+              >
+                *Debe seleccionar un encargado.
+              </div>
+            </div>
+          </div>
+          <!-- <div class="mb-1">
+            <label for="idTipoDesembolso" class="form-label col-md-auto"
+              >Tipo de Fondo *</label
+            >
+            <ngx-select
+              class="sel"
+              [allowClear]="true"
+              [items]="tipoFondos"
+              optionTextField="denominacion"
+              optionValueField="_id"
+              placeholder="Seleccione un Tipo De Fondo"
+              formControlName="idTipoDesembolso"
+              (select)="doSelect2($event)"
+            >
+              <ng-template
+                ngx-select-option
+                ngx-select-option-selected
+                let-option
+                let-text="text"
+              >
+                <span [innerHtml]="text"></span>
+              </ng-template>
+            </ngx-select>
+            <div
+              class="form-text"
+              *ngIf="
+                form2['idTipoDesembolso'].touched &&
+                form2['idTipoDesembolso'].invalid
+              "
+            >
+              <div
+                *ngIf="
+                  form2['idTipoDesembolso'].errors &&
+                  form2['idTipoDesembolso'].errors['required']
+                "
+              >
+                *Debe seleccionar un Tipo Fondo.
+              </div>
+            </div>
+          </div> -->
+          <!--   {{ descargoForm.value | json }} -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cerrar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              [disabled]="descargoForm.invalid"
+            >
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->

@@ -49,10 +49,12 @@ export class NewGastoComponent {
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       idProducto: [''],
       idGastoFondo: ['', [Validators.required]],
-      idDesembolso: ['', [Validators.required]],
-      idDesemFuente: ['', [Validators.required]],
+    /*   idDesembolso: ['', [Validators.required]],
+      idDesemFuente: ['', [Validators.required]], */
+      idTipoDesembolso: ['6866ab0ba7f78500a418421e'],
       descripcion: [''],
       idProveedor: [''],
+      idFuente: [''],
     });
   }
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class NewGastoComponent {
     this.cargarVehiculo();
     this.cargarGastosFondos();
     this.cargarDesembolsos();
+    this.cargarFuentes();
   }
 
   createGasto() {
@@ -165,4 +168,10 @@ export class NewGastoComponent {
       };
     });
   };
+   cargarFuentes() {
+    this.desembolsoService.getFuentes().subscribe((data: any) => {
+      console.log('fuentes', data);
+      this.fuentes = data;     
+    });
+  }
 }

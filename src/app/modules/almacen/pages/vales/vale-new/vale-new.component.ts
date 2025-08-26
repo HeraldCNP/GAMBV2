@@ -71,8 +71,8 @@ export class ValeNewComponent {
       fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
       idProducto: [''],
       idGastoFondo: ['6866f68000031001e6de7c95'],
-      idDesembolso: ['', [Validators.required]],
-      idDesemFuente: ['', [Validators.required]],
+      idTipoDesembolso: ['6866ab0ba7f78500a418421e'],
+      idFuente: [''],
     });
   }
 
@@ -83,6 +83,7 @@ export class ValeNewComponent {
     this.cargarVehiculo();
     this.cargarGastosFondos();
     this.cargarDesembolsos();
+    this.cargarFuentes();
   }
 
   cargarCatProgras() {
@@ -204,6 +205,12 @@ export class ValeNewComponent {
     params.isClosed = 'false';
     this.desembolsoService.queryDesembolso(params).subscribe((data: any) => {
       this.desembolsos = data;
+    });
+  }
+   cargarFuentes() {
+    this.desembolsoService.getFuentes().subscribe((data: any) => {
+      console.log('fuentes', data);
+      this.fuentes = data;     
     });
   }
 

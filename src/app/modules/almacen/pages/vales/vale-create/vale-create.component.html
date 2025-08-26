@@ -170,7 +170,7 @@
                     </div>
                   </div> -->
 
-                  <div
+                 <!--  <div
                     class="input-group mb-1"
                     *ngIf="
                       createForm.value.idProducto != '' &&
@@ -216,7 +216,7 @@
                         * Debe seleccionar el N° de tipo fondo.
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div
                     class="input-group mb-1"
                     *ngIf="
@@ -233,8 +233,8 @@
                       [items]="fuentes"
                       optionTextField="ffof"
                       optionValueField="_id"
-                      placeholder="Seleccione Desembolso N°"
-                      formControlName="idDesemFuente"
+                      placeholder="Seleccione FF-OF"
+                      formControlName="idFuente"
                     >
                       <ng-template
                         ngx-select-option
@@ -248,14 +248,14 @@
                     </ngx-select>
                     <div
                       class="form-text"
-                      *ngIf="form['idDesemFuente'].touched && form['idDesemFuente'].invalid"
+                      *ngIf="form['idFuente'].touched && form['idFuente'].invalid"
                     >
                       <div
                         *ngIf="
-                          form['idDesemFuente'].errors && form['idDesemFuente'].errors['required']
+                          form['idFuente'].errors && form['idFuente'].errors['required']
                         "
                       >
-                        * Debe seleccionar desembolso N°.
+                        * Debe seleccionar FF-OF.
                       </div>
                     </div>
                   </div>

@@ -182,7 +182,6 @@ export class DesembolsoService {
     let dir = `${this.URL}/queryGastos`;
     const header = this.headers;
     let httpParams = new HttpParams();
-    console.log('params', params);
     if (params) {
       Object.keys(params).forEach((key) => {
         if (params[key]) {
@@ -192,6 +191,21 @@ export class DesembolsoService {
     }
     return this.http.get<any>(dir, { params: httpParams, headers: header });
   }
+  printGasto(params?: any): Observable<Blob> {
+  const dir = `${this.URL}/printQueryGastos`;
+  let httpParams = new HttpParams();
+  const header = this.headers;
+  console.log('params', params);
+  if (params) {
+    Object.keys(params).forEach((key) => {
+      if (params[key]) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+  }
+
+  return this.http.get(dir, { params: httpParams, headers: header, responseType: 'blob' });
+}
   //------Fuente Finan---------//
 
   getFuenteFinanciadores() {
@@ -203,5 +217,37 @@ export class DesembolsoService {
   getOrgFinanciadores() {
     let dir = `${this.URL}/organismoFinanciadores`;
     return this.http.get(dir, { headers: this.headers });
+  }
+
+  //-------DESCARGO---------//
+
+  getDescargos() {
+    let dir = `${this.URL}/descargos`;
+    return this.http.get(dir, { headers: this.headers });
+  }
+  addDescargo(form: any) {
+    let dir = `${this.URL}/descargo`;
+    return this.http.post(dir, form, { headers: this.headers });
+  }
+    queryDescargos(params?: any) {
+    let dir = `${this.URL}/queryDescargos`;
+    const header = this.headers;
+    let httpParams = new HttpParams();
+    console.log('params', params);
+    if (params) {
+      Object.keys(params).forEach((key) => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    return this.http.get<any>(dir, { params: httpParams, headers: header });
+  }
+  printDescargoGasto(id: string): Observable<Blob> {
+    const url = `${this.URL}/printDescargo/${id}`;
+    const header = this.headers;
+    console.log('url', url);
+    // return `${url} { headers: header, responseType: 'blob' }`;
+    return this.http.get(`${url}`, { headers: header, responseType: 'blob' });
   }
 }
