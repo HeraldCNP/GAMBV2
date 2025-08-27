@@ -6,6 +6,7 @@ import { DesembolsoService } from 'src/app/modules/desembolso/services/desembols
 import { ComprasService } from '../../../services/compras.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import Swal from 'sweetalert2';
+import { ConvenioService } from 'src/app/modules/convenio/services/convenio.service';
 
 @Component({
   selector: 'app-gastos',
@@ -26,6 +27,7 @@ export class GastosComponent {
 
   gastoFondos: any = [];
   fuentes: any = [];
+  descargos: any = [];
   desembolsos: any = [];
   tipoFondos: any = [];
   descargoForm: any;
@@ -33,13 +35,17 @@ export class GastosComponent {
   gastoTemp: any = [];
   montoTotalGastos: any = 0;
   resumenFuente: any;
+  busquedaAvanzadaVisible: boolean = false;
+  partidas: any = [];
+  idDescargo: any;
   constructor(
     private gastoService: DesembolsoService,
     private comprasService: ComprasService,
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private partida: ConvenioService,
   ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
@@ -50,11 +56,12 @@ export class GastosComponent {
       tipoFondo: [''],
       fuente: [''],
       partida: [''],
-      numDesembolso: [''],
+      numDescargo: [''],
       catProgra: [''],
       estado: [''],
       deFecha: [this.fechaIni.substr(0, 10)],
       alFecha: [this.fechaHoy.substr(0, 10)],
+      encargado: [''],
     });
     this.descargoForm = this.fb.group({
       numero: ['', [Validators.required]],
@@ -70,6 +77,7 @@ export class GastosComponent {
     this.cargarTipoFondos();
     this.cargarFuentes();
     this.cargarFuncionarios({ isActive: true });
+    this.getPartidas();
   }
 
   cargarGastos(params?: any) {
@@ -92,6 +100,24 @@ export class GastosComponent {
     return this.searchForm.controls;
   }
 
+  doSelect = (id: any, params?: any) => {
+    let desembolso = this.tipoFondos.find((objeto: any) => objeto.denominacion === id);
+    params = params || {};
+    params.idTipoDesembolso = desembolso._id;
+    this.gastoService.queryDescargos(params).subscribe((data: any) => {
+      this.descargos = data;
+      let original = data;
+      console.log('original', original);
+    });
+  };
+
+  doSelect1 = (id: any, params?: any) => {
+    console.log('id', id);
+    this.idDescargo = id;  
+    console.log('idDescargo', this.idDescargo);
+    
+  };
+
   cargarCatProgras() {
     this.cargando = true;
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
@@ -110,6 +136,21 @@ export class GastosComponent {
   }
   resetForm() {
     this.descargoForm.reset();
+
+  }
+  resetFormSearch() {
+    this.searchForm.reset({
+      tipoGasto: '',
+      tipoFondo: '',
+      fuente: '',
+      partida: '',
+      numDesembolso: '',
+      catProgra: '',
+      estado: '',
+      deFecha: this.fechaIni.substr(0, 10),
+      alFecha: this.fechaHoy.substr(0, 10),
+    })
+    this.cargarGastos();
   }
   cargarFuncionarios(params?: any) {
     //params.isActive= true;
@@ -118,6 +159,18 @@ export class GastosComponent {
     });
   }
 
+  busquedaAvanzada() {
+    this.busquedaAvanzadaVisible = !this.busquedaAvanzadaVisible;
+    console.log(this.busquedaAvanzadaVisible);
+    
+  }
+getPartidas() {
+    this.partida.getAllPartidas().subscribe(data => {
+      this.partidas = data;
+      // console.log("partidas", this.partidas)
+      // console.log("partidas", data)
+    })
+  }
   addDescargo(form: any) {
     let combustible = this.gastoTemp.gastos.filter(
       (item: any) =>

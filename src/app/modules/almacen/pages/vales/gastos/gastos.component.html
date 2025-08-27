@@ -4,180 +4,123 @@
       <div class="col-md-12">
         <div class="card p-1 bg-body rounded">
           <div class="card-body">
-            <div class="row">
-              <div class="col-md-3">
-                <h3 class="card-title" style="color: #003d75">
-                  Monto Total en Gastos
-                  {{ gastos.montoTotalGasto | number : "1.2-2" : "es-ES" }} Bs.-
-                </h3>
-              </div>
-              <div class="col-md-2">
-                <div class="card shadow">
-                  <div class="card-body">
-                    <table class="table table-hover m-0">
-                      <thead>
-                        <tr>
-                          <th>N°</th>
-                          <th>FF-OF</th>
-                          <th>Sigla</th>
-                        </tr>
-                      </thead>
-                      <tbody class="table-group-divider">
-                        <tr
-                          *ngFor="
-                            let fuente of gastos.resumenPorFuente;
-                            let i = index
-                          "
-                        >
-                          <td>{{ i + 1 }}</td>
-                          <td>{{ fuente._id }}</td>
-                          <td>
-                            {{ fuente.totalMonto | number : "1.2-2" : "es-ES" }}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 text-end">
-                <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addAutorizacion()">
-                  Crear Nuevo
-                </button> -->
-              </div>
-            </div>
-            <hr />
-            <form [formGroup]="searchForm">
-              <div class="row form-smaller">
-                <div class="col-auto">
-                  <span class="" ><b>Categoría Programática</b></span>
-                  <div class="input-group input-group-sm  ">
-                    <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
-                      optionValueField="cat_programatica" placeholder="Seleccione una Categoría Programatica"
-                      formControlName="catProgra">
-                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                        <span [innerHtml]="text"></span>
-                        &nbsp;({{option.data.proyect_acti}})
-                      </ng-template>
-                      <div class="form-text " *ngIf="form['catProgra'].touched && form['catProgra'].invalid">
-                        <div *ngIf="form['catProgra'].errors && form['catProgra'].errors['required']">
-                          * La categoria programatica es Requerida.
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button btnAccordion"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne"
+                    aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne"
+                  >
+                    Filtrar Búsqueda - Monto Total en Gastos
+                    {{ gastos.montoTotalGasto | number : "1.2-2" : "es-ES" }}
+                    Bs.-
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="panelsStayOpen-headingOne"
+                >
+                  <div class="accordion-body">
+                    <form [formGroup]="searchForm">
+                      <div class="row form-smaller">
+                        <div class="col-auto">
+                          <span class=""><b>Tipo de Gasto</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select
+                              [allowClear]="true"
+                              [items]="gastoFondos"
+                              optionTextField="denominacion"
+                              optionValueField="denominacion"
+                              placeholder="Seleccione tipo de gasto"
+                              formControlName="tipoGasto"
+                            >
+                              <ng-template
+                                ngx-select-option
+                                ngx-select-option-selected
+                                let-option
+                                let-text="text"
+                              >
+                                <span [innerHtml]="text"></span>
+                              </ng-template>
+                            </ngx-select>
+                          </div>
                         </div>
-                      </div>
-                    </ngx-select>
-                  </div>
-                </div>
 
-                <div class="col-md-2">
-                  <span class=""><b>Tipo de Gasto</b></span>
-                  <div class="input-group input-group-sm">
-                    <ngx-select
-                      [allowClear]="true"
-                      [items]="gastoFondos"
-                      optionTextField="denominacion"
-                      optionValueField="denominacion"
-                      placeholder="Seleccione un tipo de gasto"
-                      formControlName="tipoGasto"
-                    >
-                      <ng-template
-                        ngx-select-option
-                        ngx-select-option-selected
-                        let-option
-                        let-text="text"
-                      >
-                        <span [innerHtml]="text"></span>
-                      </ng-template>
-                    </ngx-select>
-                  </div>
-                </div>
+                        <div class="col-auto">
+                          <span class=""><b>Tipo de Fondo</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select
+                              [allowClear]="true"
+                              [items]="tipoFondos"
+                              optionTextField="denominacion"
+                              optionValueField="denominacion"
+                              placeholder="Seleccione Tipo de Fondo"
+                              formControlName="tipoFondo"
+                              (select)="doSelect($event)"
+                            >
+                              <ng-template
+                                ngx-select-option
+                                ngx-select-option-selected
+                                let-option
+                                let-text="text"
+                              >
+                                <span [innerHtml]="text"></span>
+                              </ng-template>
+                            </ngx-select>
+                          </div>
+                        </div>
 
-                <div class="col-md-2">
-                  <span class=""><b>Tipo de Fondo</b></span>
-                  <div class="input-group input-group-sm">
-                    <ngx-select
-                      [allowClear]="true"
-                      [items]="tipoFondos"
-                      optionTextField="denominacion"
-                      optionValueField="denominacion"
-                      placeholder="Seleccione un Tipo De Fondo"
-                      formControlName="tipoFondo"
-                    >
-                      <ng-template
-                        ngx-select-option
-                        ngx-select-option-selected
-                        let-option
-                        let-text="text"
-                      >
-                        <span [innerHtml]="text"></span>
-                      </ng-template>
-                    </ngx-select>
-                  </div>
-                </div>
+                        <div class="col-auto" *ngIf="descargos.length > 0">
+                          <span class=""><b>Número Descargo</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select
+                              [allowClear]="true"
+                              [items]="descargos"
+                              optionTextField="numDescargo"
+                              optionValueField="numDescargo"
+                              placeholder="Seleccione N° Descargo"
+                              formControlName="numDescargo"
+                              (select)="doSelect1($event)"
+                            >
+                              <ng-template
+                                ngx-select-option
+                                ngx-select-option-selected
+                                let-option
+                                let-text="text"
+                              >
+                                <span [innerHtml]="text"></span>
+                              </ng-template>
+                            </ngx-select>
+                          </div>
+                        </div>
 
-                <!--  <div class="col-md-2">
-                  <span class=""><b>Número Desembolso</b></span>
-                  <div class="input-group input-group-sm ">
-                    <ngx-select
-                      [allowClear]="true"
-                      [items]="desembolsos"
-                      optionTextField="numDesembolso"
-                      optionValueField="numDesembolso"
-                      placeholder="Seleccione Desembolso N°"
-                      formControlName="numDesembolso"
-                    >
-                      <ng-template
-                        ngx-select-option
-                        ngx-select-option-selected
-                        let-option
-                        let-text="text"
-                      >
-                        <span [innerHtml]="text"></span>
-                        &nbsp;{{ option.data.tipoDesembolso }}
-                      </ng-template>
-                    </ngx-select>
-                  </div>
-                </div>
- -->
-                <div class="col-md-2">
-                  <span class=""><b>FF-OF</b></span>
-                  <div class="input-group input-group-sm">
-                    <ngx-select
-                      [allowClear]="true"
-                      [items]="fuentes"
-                      optionTextField="ffof"
-                      optionValueField="ffof"
-                      placeholder="Seleccione FF-OF"
-                      formControlName="fuente"
-                    >
-                      <ng-template
-                        ngx-select-option
-                        ngx-select-option-selected
-                        let-option
-                        let-text="text"
-                      >
-                        <span [innerHtml]="text"></span>
-                        &nbsp;{{ option.data.denominacion }}
-                      </ng-template>
-                    </ngx-select>
-                  </div>
-                </div>
+                        <div class="col-auto">
+                          <span class=""><b>Estado</b></span>
+                          <div
+                            class="input-group input-group-sm"
+                            style="width: 160px"
+                          >
+                            <select
+                              formControlName="estado"
+                              class="form-select"
+                            >
+                              <option value="" [defaultSelected]="true">
+                                Seleccione Estado
+                              </option>
+                              <option value="PENDIENTE">PENDIENTE</option>
+                              <option value="EJECUTADO">EJECUTADO</option>
+                              <option value="FINALIZADO">FINALIZADO</option>
+                              <option value="CONSOLIDADO">CONSOLIDADO</option>
+                            </select>
+                          </div>
+                        </div>
 
-                <div class="col-md-2">
-                  <span class=""><b> Estado</b></span>
-                  <div class="input-group input-group-sm" style="width: 200px">
-                    <select formControlName="estado" class="form-select">
-                      <option value="" [defaultSelected]="true">
-                        Seleccione un Estado
-                      </option>
-                      <option value="PENDIENTE">PENDIENTE</option>
-                      <option value="EJECUTADO">EJECUTADO</option>
-                      <option value="FINALIZADO">FINALIZADO</option>
-                      <option value="CONSOLIDADO">CONSOLIDADO</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!--  <div class="col-md-2">
+                        <!--  <div class="col-md-2">
                   <div class="input-group input-group-sm  ">
                     <span class="input-group-text izq" id="numeroVale"
                       ><b>Vale #</b></span
@@ -205,82 +148,293 @@
                   </div>
                 </div> -->
 
-                <div class="col-auto">
-                  <span class="" id="deFecha"><b>Fecha Inicio</b></span>
-                  <div class="input-group input-group-sm">
-                    <input
-                      style="width: 100px"
-                      class="form-control"
-                      type="date"
-                      formControlName="deFecha"
-                    />
-                  </div>
-                </div>
+                        <div class="col-md-1">
+                          <span class="" id="deFecha"><b>Fecha Inicio</b></span>
+                          <div class="input-group input-group-sm">
+                            <input
+                              style="width: 100px"
+                              class="form-control"
+                              type="date"
+                              formControlName="deFecha"
+                            />
+                          </div>
+                        </div>
 
-                <div class="col-auto">
-                  <span class="" id="alFecha"><b>Fecha Fin</b></span>
-                  <div class="input-group input-group-sm">
-                    <input
-                      style="width: 100px"
-                      class="form-control"
-                      type="date"
-                      formControlName="alFecha"
-                    />
+                        <div class="col-md-1">
+                          <span class="" id="alFecha"><b>Fecha Fin</b></span>
+                          <div class="input-group input-group-sm">
+                            <input
+                              style="width: 100px"
+                              class="form-control"
+                              type="date"
+                              formControlName="alFecha"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <button
+                            (click)="busquedaAvanzada()"
+                            class="btn btn-primary"
+                            [disabled]="searchForm.invalid"
+                            style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            "
+                          >
+                            Busqueda Avanzada
+                          </button>
+                        </div>
+                        <div class="col-auto">
+                          <button
+                            (click)="cargarGastos(searchForm.value)"
+                            class="btn btn-success"
+                            [disabled]="searchForm.invalid"
+                            style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            "
+                          >
+                            Buscar
+                          </button>
+                        </div>
+                        <div class="col-auto">
+                          <button
+                            (click)="resetFormSearch()"
+                            class="btn btn-info"
+                            [disabled]="searchForm.invalid"
+                            style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            "
+                          >
+                            Limpiar
+                          </button>
+                        </div>
+                        <div class="col-auto">
+                          <a
+                            class="fas fa-file-pdf ml-2 icono iconoRed"
+                            (click)="printGasto(searchForm.value)"
+                          ></a>
+                        </div>
+                        <!-- <div class="col-auto">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#medida"
+                            style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            "
+                          >
+                            Generar Descargo
+                          </button>
+                        </div> -->
+                      </div>
+
+                      <div
+                        class="row form-smaller"
+                        *ngIf="busquedaAvanzadaVisible"
+                      >
+                        <div class="col-auto">
+                          <span class=""><b>Categoría Programática</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select
+                              [allowClear]="true"
+                              [items]="catProgras"
+                              optionTextField="codigo"
+                              optionValueField="cat_programatica"
+                              placeholder="Seleccione Categoría Programatica"
+                              formControlName="catProgra"
+                            >
+                              <ng-template
+                                ngx-select-option
+                                ngx-select-option-selected
+                                let-option
+                                let-text="text"
+                              >
+                                <span [innerHtml]="text"></span>
+                                &nbsp;({{ option.data.proyect_acti }})
+                              </ng-template>
+                            </ngx-select>
+                          </div>
+                        </div>
+
+                        <div class="col-auto">
+                          <span class=""><b>FF-OF</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select
+                              [allowClear]="true"
+                              [items]="fuentes"
+                              optionTextField="ffof"
+                              optionValueField="ffof"
+                              placeholder="Seleccione FF-OF"
+                              formControlName="fuente"
+                            >
+                              <ng-template
+                                ngx-select-option
+                                ngx-select-option-selected
+                                let-option
+                                let-text="text"
+                              >
+                                <span [innerHtml]="text"></span>
+                                &nbsp;{{ option.data.denominacion }}
+                              </ng-template>
+                            </ngx-select>
+                          </div>
+                        </div>
+
+                        <div class="col-auto">
+                          <span class=""><b>Partida de Gasto</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select
+                              class="sel"
+                              [allowClear]="true"
+                              [items]="partidas"
+                              optionTextField="codigo"
+                              optionValueField="_id"
+                              placeholder="Seleccione Partida de Gasto"
+                              formControlName="partida"
+                            >
+                              <ng-template
+                                ngx-select-option
+                                ngx-select-option-selected
+                                let-option
+                                let-text="text"
+                              >
+                                <span [innerHtml]="text"></span>
+                                &nbsp;- {{ option.data.denominacion }}
+                              </ng-template>
+                            </ngx-select>
+                          </div>
+                        </div>
+
+                        <div class="col-auto">
+                          <span class=""><b>Encargado</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select
+                              class="sel"
+                              [allowClear]="true"
+                              [items]="funcionarios"
+                              optionTextField="username"
+                              optionValueField="_id"
+                              placeholder="Seleccione Encargado"
+                              formControlName="encargado"
+                            >
+                              <ng-template
+                                ngx-select-option
+                                ngx-select-option-selected
+                                let-option
+                                let-text="text"
+                              >
+                                <span [innerHtml]="text"></span>
+                                &nbsp;{{ option.data.surnames }}
+                              </ng-template>
+                            </ngx-select>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
-              <hr />
-              <div class="text-center ">
-                <button
-                  (click)="cargarGastos(searchForm.value)"
-                  class="btn btn-primary mr-3"
-                  [disabled]="searchForm.invalid"
-                  style="
-                    --bs-btn-padding-y: 0.25rem;
-                    --bs-btn-font-size: 0.75rem;
-                  "
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                  <button
+                    class="accordion-button collapsed btnAccordion"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo"
+                  >
+                    Resumen por Fuente de Financiamiento - Organismo Financiador
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseTwo"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingTwo"
                 >
-                  Buscar
-                </button>
-                <!--  <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#medida"
-                   style="
-                    --bs-btn-padding-y: 0.25rem;
-                    --bs-btn-font-size: 0.75rem;
-                  "
-                >
-                  Crear Nuevo Desembolso de Fondos
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <h3 class="card-title" style="color: #003d75">
+                          Monto Total en Gastos
+                          {{
+                            gastos.montoTotalGasto | number : "1.2-2" : "es-ES"
+                          }}
+                          Bs.-
+                        </h3>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="card shadow">
+                          <div class="card-body">
+                            <table class="table table-hover m-0">
+                              <thead>
+                                <tr>
+                                  <th>N°</th>
+                                  <th>FF-OF</th>
+                                  <th>Sigla</th>
+                                </tr>
+                              </thead>
+                              <tbody class="table-group-divider">
+                                <tr
+                                  *ngFor="
+                                    let fuente of gastos.resumenPorFuente;
+                                    let i = index
+                                  "
+                                >
+                                  <td>{{ i + 1 }}</td>
+                                  <td>{{ fuente._id }}</td>
+                                  <td>
+                                    {{
+                                      fuente.totalMonto
+                                        | number : "1.2-2" : "es-ES"
+                                    }}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 text-end">
+                        <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addAutorizacion()">
+                  Crear Nuevo
                 </button> -->
-                <div class="fw-bold text-center">
-                    <a                
-                      class="fas fa-file-pdf ml-2 icono iconoRed"
-                       (click)="printGasto(searchForm.value)"                    
-                    ></a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <!--  <button (click)="mostrarTotales()" class="btn btn-primary mr-3" [disabled]="btnActive"
-                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;">
-                  Calcular
-                </button> -->
-                <!-- @if (totalPrice) {
-                <button (click)="finalizarVales()" class="btn btn-primary mr-3"
-                  style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;" appLoader>
-                  Registrar
-                </button>
-                } -->
               </div>
-            </form>
-
-           <!--  {{ searchForm.value | json }} -->
-            <!--    @if (totalPrice) {
-            <p>Precio Total: Bs. {{ totalPrice | currency : "USD" : "" }}</p>
-            } -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                  <button
+                    class="accordion-button collapsed btnAccordion"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree"
+                  >
+                    Imprimir Reportes
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingThree"
+                >
+                  <div class="accordion-body">report</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- {{ searchForm.value | json }} -->
     <div class="row animated fadeIn fast" *ngIf="cargando">
       <div class="col-md-12">
         <div class="alert alert-info text-center">
@@ -317,7 +471,7 @@
               <tbody class="table-group-divider">
                 <tr *ngFor="let gasto of gastos.gastos; let i = index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{gasto.numDescargo?? "" }}</td>
+                  <td>{{ gasto.numDescargo ?? "" }}</td>
                   <td>
                     {{ gasto.fechaRegistro | date : "mediumDate" : "UTC" }}
                   </td>
@@ -427,7 +581,6 @@
   </div>
 </div>
 
-
 <!-- Modal -->
 <div
   class="modal fade"
@@ -491,8 +644,7 @@
             <div
               class="form-text"
               *ngIf="
-                form2['fechaDescargo'].touched &&
-                form2['fechaDescargo'].invalid
+                form2['fechaDescargo'].touched && form2['fechaDescargo'].invalid
               "
             >
               <div
@@ -506,7 +658,7 @@
             </div>
           </div>
 
-        <!--   <div class="mb-1">
+          <!--   <div class="mb-1">
             <label for="montoTotal" class="form-label col-md-auto"
               >Monto Solicitado *</label
             >
@@ -556,9 +708,7 @@
             </ngx-select>
             <div
               class="form-text"
-              *ngIf="
-                form2['encargado'].touched && form2['encargado'].invalid
-              "
+              *ngIf="form2['encargado'].touched && form2['encargado'].invalid"
             >
               <div
                 *ngIf="
