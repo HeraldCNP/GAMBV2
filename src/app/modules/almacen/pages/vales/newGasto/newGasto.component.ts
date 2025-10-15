@@ -55,6 +55,8 @@ export class NewGastoComponent {
       descripcion: [''],
       idProveedor: [''],
       idFuente: [''],
+      encargado: ['RENE VEDIA MAMANI'],
+      idEncargado: ['6253bf6900ae6f0014f7bc23'],
     });
   }
   ngOnInit(): void {

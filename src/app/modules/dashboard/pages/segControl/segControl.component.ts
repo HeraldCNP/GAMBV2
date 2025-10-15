@@ -18,11 +18,11 @@ import { HttpEventType } from '@angular/common/http';
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SegControlComponent implements OnInit {
-  user:any;
-  userData:any;
+  user: any;
+  userData: any;
   segControl: any = [];
   progress: number = 0;
-idDocumento: any;
+  idDocumento: any;
   addForm: any;
   editForm: any;
   status: any;
@@ -40,7 +40,7 @@ idDocumento: any;
       archivo: [''],
     });
 
-     this.editForm = this.fb.group({
+    this.editForm = this.fb.group({
       titulo: [''],
       fecha: [''],
       archivo: [''],
@@ -48,8 +48,8 @@ idDocumento: any;
   }
 
   ngOnInit(): void {
-    this.user = localStorage.getItem("user");
-    this.userData = JSON.parse(this.user)
+    this.user = localStorage.getItem('user');
+    this.userData = JSON.parse(this.user);
     this.getSegControl();
   }
 
@@ -112,22 +112,20 @@ idDocumento: any;
   onChange($event: any) {
     this.files = $event.target.files;
   }
-   changeStatus(id: any, estado: any) {
+  changeStatus(id: any, estado: any) {
     let fd = new FormData();
     fd.append('estado', estado);
-    console.log(estado)
-    this.api.changeEstado(id, fd)
-      .subscribe(
-        (        res: any) => {
-          console.log(res)
-        },
-        (        err: any) => console.log('HTTP Error', err),
-        () => {
-          this.getSegControl();
-        }
-      );
+    console.log(estado);
+    this.api.changeEstado(id, fd).subscribe(
+      (res: any) => {
+        console.log(res);
+      },
+      (err: any) => console.log('HTTP Error', err),
+      () => {
+        this.getSegControl();
+      }
+    );
   }
-
 
   resetForm() {
     this.addForm.reset();
@@ -141,7 +139,7 @@ idDocumento: any;
     });
     this.idDocumento = data._id;
   }
-   editDocumento() {
+  editDocumento() {
     let fd = new FormData();
 
     if (this.files[0]) {
@@ -154,9 +152,7 @@ idDocumento: any;
     }
 
     this.api.editarSegControl(fd, this.idDocumento).subscribe(
-      (res: any) => {
-
-      },
+      (res: any) => {},
       (err: any) => {
         console.log('HTTP Error', err);
       },
@@ -172,7 +168,6 @@ idDocumento: any;
       }
     );
   }
-
 
   deleteSegControl(id: string) {
     Swal.fire({

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { ConvenioService } from 'src/app/modules/convenio/services/convenio.service';
 
 @Component({
   selector: 'app-reporte-gastos',
@@ -22,20 +24,26 @@ export class ReporteGastosComponent {
   fechaIni = new Date(this.obtenerFechaInicial()).toISOString();
   fechaHoy = new Date().toISOString();
   catProgras: any;
-
+  funcionarios: any;
+  busquedaAvanzadaVisible: boolean = false;
+  partidas: any = [];
   gastoFondos: any = [];
   fuentes: any = [];
   desembolsos: any = [];
+  descargos: any = [];
   tipoFondos: any = [];
   idDescargo: any;
- URL = environment.api;
+  encargado = 'RENE VEDIA MAMANI';
+
+  URL = environment.api;
   constructor(
     private gastoService: DesembolsoService,
     private comprasService: ComprasService,
-
+    private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private partida: ConvenioService
   ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
@@ -50,16 +58,21 @@ export class ReporteGastosComponent {
       estado: [''],
       deFecha: [this.fechaIni.substr(0, 10)],
       alFecha: [this.fechaHoy.substr(0, 10)],
+      solicitante: [''],
+      partida: [''],
+      encargado: [this.encargado],
     });
   }
 
   ngOnInit(): void {
-    this.cargarGastos();
+    this.cargarGastos({encargado: this.encargado});
     this.cargarCatProgras();
     this.cargarGastosFondos();
     // this.cargarDesembolsos();
     this.cargarTipoFondos();
     this.cargarFuentes();
+    this.cargarFuncionarios({ isActive: true });
+    this.getPartidas();
   }
 
   cargarGastos(params?: any) {
@@ -67,7 +80,6 @@ export class ReporteGastosComponent {
     this.gastoService.queryGastos(params).subscribe((data: any) => {
       this.gastos = data;
       this.cargando = false;
-      console.log('gastos', data);
     });
   }
   obtenerFechaInicial() {
@@ -107,40 +119,106 @@ export class ReporteGastosComponent {
       this.fuentes = data;
     });
   }
-  doSelect = (id: any, params?: any) => {
-    let desembolso = this.tipoFondos.find((objeto: any) => objeto._id === id);
-    params = params || {};
-    params.idTipoDesembolso = desembolso._id;
-    this.gastoService.queryDescargos(params).subscribe((data: any) => {
-      this.desembolsos = data;
-      let original = data;
-      console.log('original', original);
+
+  printGasto(params?: any) {
+    this.gastoService.printGasto(params).subscribe((blob: Blob) => {
+      const file = new Blob([blob], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña
     });
-  };
-   doSelect1 = (id: any, params?: any) => {
-    console.log('id', id);
-    this.idDescargo = id;  
-    console.log('idDescargo', this.idDescargo);
-    
-  };
-   printGasto(id: any) {
+  }
+  /* printGasto(id: any) {
     const url = this.gastoService.printDesembolsoGasto(id).subscribe((blob) => {
       const file = new Blob([blob], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL, '_blank');
-     /*  this.pdfUrl = fileURL;
-      console.log(this.pdfUrl); */
-      
     });
-  }
-   print(id: any) {
+  } */
+  print(id: any) {
     const url = this.gastoService.printDescargoGasto(id).subscribe((blob) => {
       const file = new Blob([blob], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL, '_blank');
       /* this.pdfUrl = fileURL;
       console.log(this.pdfUrl); */
-      
     });
   }
+  printResumenGasto(params?: any) {
+    this.gastoService.queryPrintgasto(params).subscribe((blob: Blob) => {
+      const file = new Blob([blob], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña
+    });
+  }
+
+  resetFormSearch() {
+    this.searchForm.reset({
+      tipoGasto: '',
+      tipoFondo: '',
+      fuente: '',
+      partida: '',
+      numDesembolso: '',
+      catProgra: '',
+      estado: '',
+      deFecha: this.fechaIni.substr(0, 10),
+      alFecha: this.fechaHoy.substr(0, 10),
+      solicitante: '',
+      encargado: 'RENE VEDIA MAMANI',
+    });
+    this.cargarGastos();
+  }
+  cargarFuncionarios(params?: any) {
+    //params.isActive= true;
+    this.authService.listUsers(params).subscribe((data: any) => {
+      this.funcionarios = data.serverResponse;
+    });
+  }
+
+  busquedaAvanzada() {
+    this.busquedaAvanzadaVisible = !this.busquedaAvanzadaVisible;
+    console.log(this.busquedaAvanzadaVisible);
+  }
+  getPartidas() {
+    this.partida.getAllPartidas().subscribe((data) => {
+      this.partidas = data;
+      // console.log("partidas", this.partidas)
+      // console.log("partidas", data)
+    });
+  }
+
+  doSelect = (id: any, params?: any) => {
+    let desembolso = this.tipoFondos.find(
+      (objeto: any) => objeto.denominacion === id
+    );
+    params = params || {};
+    params.idTipoDesembolso = desembolso._id;
+    this.gastoService.queryDescargos(params).subscribe((data: any) => {
+      this.descargos = data;
+      let original = data;
+      console.log('original', original);
+    });
+  };
+  doSelect1 = (numDescargo: string, params?: any) => {
+    console.log('id', numDescargo);
+
+    // Si quieres obtener el objeto completo:
+    const descargoSeleccionado = this.descargos.find(
+      (d: any) => d.numDescargo === numDescargo
+    );
+    console.log('Objeto completo:', descargoSeleccionado);
+    this.idDescargo = descargoSeleccionado._id;
+
+    console.log('idDescargo', this.idDescargo);
+  };
+   doSelect2 = (id: string, params?: any) => {
+   
+   // Si quieres obtener el objeto completo:
+   const solicitanteSeleccionado = this.funcionarios.find(
+     (d: any) => d._id === id
+    );
+    let solictante = solicitanteSeleccionado.username + ' ' + solicitanteSeleccionado.surnames;
+    this.searchForm.value.solicitante = solictante;
+    console.log(solicitanteSeleccionado._id);
+    
+  };
 }

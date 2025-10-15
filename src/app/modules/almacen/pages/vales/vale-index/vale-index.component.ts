@@ -189,8 +189,9 @@ export class ValeIndexComponent {
       confirmButtonText: '¡Sí, Registrar!',
     }).then((result) => {
       if (result.isConfirmed) {
+        let vales = this.valesTemp.serverResponse.map((item: any) => item._id);
         this.valeService
-          .finalizarVales(this.valesTemp.serverResponse)
+          .finalizarVales(vales)
           .subscribe(
             (res) => {
               console.log(res);

@@ -7,6 +7,7 @@ import { ComprasService } from '../../../services/compras.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import Swal from 'sweetalert2';
 import { ConvenioService } from 'src/app/modules/convenio/services/convenio.service';
+import { ValeService } from '../../../services/vale.service';
 
 @Component({
   selector: 'app-gastos',
@@ -38,14 +39,16 @@ export class GastosComponent {
   busquedaAvanzadaVisible: boolean = false;
   partidas: any = [];
   idDescargo: any;
+  encargado = 'RENE VEDIA MAMANI';
   constructor(
     private gastoService: DesembolsoService,
+    private valeService: ValeService,
     private comprasService: ComprasService,
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
     private matDialog: MatDialog,
-    private partida: ConvenioService,
+    private partida: ConvenioService
   ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
@@ -61,7 +64,9 @@ export class GastosComponent {
       estado: [''],
       deFecha: [this.fechaIni.substr(0, 10)],
       alFecha: [this.fechaHoy.substr(0, 10)],
-      encargado: [''],
+      solicitante: [''],
+      borrador: [true],
+      encargado: [this.encargado],
     });
     this.descargoForm = this.fb.group({
       numero: ['', [Validators.required]],
@@ -70,7 +75,7 @@ export class GastosComponent {
     });
   }
   ngOnInit(): void {
-    this.cargarGastos();
+    this.cargarGastos({encargado: this.encargado});
     this.cargarCatProgras();
     this.cargarGastosFondos();
     this.cargarDesembolsos();
@@ -88,7 +93,6 @@ export class GastosComponent {
       this.montoTotalGastos = data.montoTotalGasto;
       this.resumenFuente = data.resumenPorFuente;
       this.cargando = false;
-      console.log('gastos', data);
     });
   }
   obtenerFechaInicial() {
@@ -101,7 +105,9 @@ export class GastosComponent {
   }
 
   doSelect = (id: any, params?: any) => {
-    let desembolso = this.tipoFondos.find((objeto: any) => objeto.denominacion === id);
+    let desembolso = this.tipoFondos.find(
+      (objeto: any) => objeto.denominacion === id
+    );
     params = params || {};
     params.idTipoDesembolso = desembolso._id;
     this.gastoService.queryDescargos(params).subscribe((data: any) => {
@@ -113,11 +119,20 @@ export class GastosComponent {
 
   doSelect1 = (id: any, params?: any) => {
     console.log('id', id);
-    this.idDescargo = id;  
+    this.idDescargo = id;
     console.log('idDescargo', this.idDescargo);
+  };
+ doSelect2 = (id: string, params?: any) => {
+   
+   // Si quieres obtener el objeto completo:
+   const solicitanteSeleccionado = this.funcionarios.find(
+     (d: any) => d._id === id
+    );
+    let solictante = solicitanteSeleccionado.username + ' ' + solicitanteSeleccionado.surnames;
+    this.searchForm.value.solicitante = solictante;
+    console.log(solicitanteSeleccionado._id);
     
   };
-
   cargarCatProgras() {
     this.cargando = true;
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
@@ -130,13 +145,12 @@ export class GastosComponent {
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña
     });
-}
+  }
   get form2() {
     return this.descargoForm.controls;
   }
   resetForm() {
     this.descargoForm.reset();
-
   }
   resetFormSearch() {
     this.searchForm.reset({
@@ -149,7 +163,10 @@ export class GastosComponent {
       estado: '',
       deFecha: this.fechaIni.substr(0, 10),
       alFecha: this.fechaHoy.substr(0, 10),
-    })
+      borrador: true,
+      solicitante: '',
+      encargado: 'RENE VEDIA MAMANI',
+    });
     this.cargarGastos();
   }
   cargarFuncionarios(params?: any) {
@@ -162,48 +179,139 @@ export class GastosComponent {
   busquedaAvanzada() {
     this.busquedaAvanzadaVisible = !this.busquedaAvanzadaVisible;
     console.log(this.busquedaAvanzadaVisible);
-    
   }
-getPartidas() {
-    this.partida.getAllPartidas().subscribe(data => {
+  getPartidas() {
+    this.partida.getAllPartidas().subscribe((data) => {
       this.partidas = data;
       // console.log("partidas", this.partidas)
       // console.log("partidas", data)
-    })
+    });
   }
-  addDescargo(form: any) {
-    let combustible = this.gastoTemp.gastos.filter(
-      (item: any) =>
-        item.idCombustible !== undefined && item.idCombustible !== null
-    );
-    let vales = combustible.map((item: any) => item.idCombustible);
-    let gastos = this.gastoTemp.gastos.map((item: any) => item._id);
-    form.montoDescargo = this.montoTotalGastos;
-    // form.vales = vales;
-    form.idTipoDesembolso = '6866ab0ba7f78500a418421e';
-    form.gastos = gastos;
-    //form.resumenFuente = this.resumenFuente
-    console.log('form', form);
-    this.gastoService.addDescargo(form).subscribe(
+
+  changeStatus(id: any, estado: boolean, gasto: any) {
+    let fd = new FormData();
+
+    // si estado es true → EJECUTADO, si es false → EN ESPERA
+    const nuevoEstado = estado ? 'EJECUTADO' : 'EN ESPERA';
+
+    fd.append('estado', nuevoEstado);
+    console.log('estado', nuevoEstado);
+    gasto.estado = nuevoEstado;
+
+    this.gastoService.changeEstado(id, fd).subscribe(
       (res: any) => {
         console.log(res);
-        Swal.fire({
-          icon: 'success',
-          title: 'Descargo Registrado',
-          text: 'El descargo se ha registrado correctamente.',
-        });
-        this.resetForm();
-        this.cargarGastos();
+        // opcional: actualizar el objeto en memoria
+        // gasto.estado = nuevoEstado;
       },
-      (err) => {
-        console.error('Error al registrar el descargo:', err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'No se pudo registrar el descargo. Inténtalo de nuevo.',
-        });
+      (err: any) => console.log('HTTP Error', err),
+      () => {
+        // this.getSegControl();
       }
     );
+  }
+  addDescargo(form: any) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir este cambio!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, Registrar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let combustible = this.gastoTemp.gastos.filter(
+          (item: any) =>
+            item.idCombustible !== undefined && item.idCombustible !== null
+        );
+        let vales = combustible.map((item: any) => item.idCombustible._id);
+        let gastos = this.gastoTemp.gastos.map((item: any) => item._id);
+
+        form.montoDescargo = this.montoTotalGastos;
+        form.idTipoDesembolso = '6866ab0ba7f78500a418421e';
+        form.gastos = gastos;
+
+        console.log('form', form);
+        console.log('vales', vales);
+
+        this.valeService.finalizarVales(vales).subscribe(
+          (res: any) => {
+            console.log(res);
+          },
+          (err) => console.log('HTTP Error', err),
+          () => {}
+        );
+
+        this.gastoService.addDescargo(form).subscribe(
+          (res: any) => {
+            console.log(res);
+            Swal.fire({
+              icon: 'success',
+              title: 'Descargo Registrado',
+              text: 'El descargo se ha registrado correctamente.',
+              timer: 2000,
+              showConfirmButton: false,
+            });
+            this.resetForm();
+            this.cargarGastos();
+          },
+          (err) => {
+            console.error('Error al registrar el descargo:', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudo registrar el descargo. Inténtalo de nuevo.',
+            });
+          }
+        );
+      }
+    });
+  }
+  ingresoSalida() {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir este cambio!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, Registrar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let combustible = this.gastoTemp.gastos.filter(
+          (item: any) =>
+            item.idCombustible !== undefined && item.idCombustible !== null
+        );
+        let vales = combustible.map((item: any) => item.idCombustible._id);
+        console.log('vales', vales);
+
+        this.valeService.finalizarVales(vales).subscribe(
+          (res: any) => {
+            console.log(res);
+             Swal.fire({
+              icon: 'success',
+              title: 'Generado Ingreso y Salida',
+              text: 'se ha registrado correctamente.',
+              timer: 2000,
+              showConfirmButton: false,
+            });
+            this.resetForm();
+            this.cargarGastos();
+          },
+         (err) => {
+            console.error('Error al registrar el descargo:', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudo registrar el ingreso salida. Inténtalo de nuevo.',
+            });
+          }
+        );
+      }
+    });
   }
   cargarGastosFondos() {
     this.gastoService.getGastosFondos().subscribe((data: any) => {

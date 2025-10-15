@@ -2,7 +2,7 @@
   <div class="p-1">
     <div class="row animated fadeIn fast">
       <div class="col-md-12">
-        <div class="card p-1 bg-body rounded">
+        <div class="card bg-body rounded">
           <div class="card-body">
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <div class="accordion-item">
@@ -15,9 +15,12 @@
                     aria-expanded="true"
                     aria-controls="panelsStayOpen-collapseOne"
                   >
-                    Filtrar Búsqueda - Monto Total en Gastos
-                    {{ gastos.montoTotalGasto | number : "1.2-2" : "es-ES" }}
-                    Bs.-
+                    Filtrar Búsqueda - Monto Total en Gastos &nbsp;
+                    <b> {{ gastos.montoTotalGasto | number : "1.2-2" : "es-ES" }}
+                    Bs.- </b>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <span>Encargado: &nbsp; </span>
+                    <span><b>{{ encargado}}</b> </span>
                   </button>
                 </h2>
                 <div
@@ -112,10 +115,10 @@
                               <option value="" [defaultSelected]="true">
                                 Seleccione Estado
                               </option>
-                              <option value="PENDIENTE">PENDIENTE</option>
                               <option value="EJECUTADO">EJECUTADO</option>
-                              <option value="FINALIZADO">FINALIZADO</option>
-                              <option value="CONSOLIDADO">CONSOLIDADO</option>
+                              <option value="EN ESPERA">EN ESPERA</option>
+                              <option value="PENDIENTE">PENDIENTE</option>
+                              <option value="DESCARGO">DESCARGO</option>
                             </select>
                           </div>
                         </div>
@@ -210,13 +213,17 @@
                             Limpiar
                           </button>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto center text-center">
                           <a
-                            class="fas fa-file-pdf ml-2 icono iconoRed"
+                            class="fas fa-file-pdf icono iconoRed"
                             (click)="printGasto(searchForm.value)"
-                          ></a>
+                             title="Vista Previa"
+                          ><br> <p >Vista Previa</p></a>
                         </div>
-                        <!-- <div class="col-auto">
+                        <div
+                          class="col-auto"
+                          *ngIf="searchForm.value.estado === 'EJECUTADO'"
+                        >
                           <button
                             type="button"
                             class="btn btn-primary btn-sm"
@@ -229,9 +236,26 @@
                           >
                             Generar Descargo
                           </button>
+                        </div>
+
+                        <!-- <div
+                          class="col-auto"
+                          *ngIf="searchForm.value.estado === 'DESCARGO'"
+                        >
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-sm"
+                            (click)="ingresoSalida()"
+                            style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            "
+                          >
+                            Generar Ingreso Salida
+                          </button>
                         </div> -->
                       </div>
-
+ <!-- {{ searchForm.value | json }} -->
                       <div
                         class="row form-smaller"
                         *ngIf="busquedaAvanzadaVisible"
@@ -292,7 +316,7 @@
                               [allowClear]="true"
                               [items]="partidas"
                               optionTextField="codigo"
-                              optionValueField="_id"
+                              optionValueField="codigo"
                               placeholder="Seleccione Partida de Gasto"
                               formControlName="partida"
                             >
@@ -319,7 +343,8 @@
                               optionTextField="username"
                               optionValueField="_id"
                               placeholder="Seleccione Encargado"
-                              formControlName="encargado"
+                              formControlName="solicitante"
+                              (select)="doSelect2($event)"
                             >
                               <ng-template
                                 ngx-select-option
@@ -328,7 +353,7 @@
                                 let-text="text"
                               >
                                 <span [innerHtml]="text"></span>
-                                &nbsp;{{ option.data.surnames }}
+                                &nbsp;{{ option.data.surnames }}                               
                               </ng-template>
                             </ngx-select>
                           </div>
@@ -375,7 +400,7 @@
                                 <tr>
                                   <th>N°</th>
                                   <th>FF-OF</th>
-                                  <th>Sigla</th>
+                                  <th>Monto</th>
                                 </tr>
                               </thead>
                               <tbody class="table-group-divider">
@@ -398,11 +423,6 @@
                             </table>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-md-6 text-end">
-                        <!-- <button type="button" class="btn btn-primary btn-sm" (click)="addAutorizacion()">
-                  Crear Nuevo
-                </button> -->
                       </div>
                     </div>
                   </div>
@@ -434,7 +454,7 @@
         </div>
       </div>
     </div>
-    <!-- {{ searchForm.value | json }} -->
+    <!--  {{ searchForm.value | json }} -->
     <div class="row animated fadeIn fast" *ngIf="cargando">
       <div class="col-md-12">
         <div class="alert alert-info text-center">
@@ -489,20 +509,7 @@
                   <td style="text-align: center">
                     {{ gasto.idCombustible?.numeroVale ?? "" }}
                   </td>
-                  <!-- <td>
-                    <div class="form-check form-switch">
-                      <span *ngIf="carpeta.estado == '1'">
-                        <input class="form-check-input pointer"
-                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="true"
-                          role="switch" id="{{'toogle'+i}}">Activo
-                      </span>
-                      <span *ngIf="carpeta.estado == '0'">
-                        <input class="form-check-input pointer"
-                          (change)="changeStatus(carpeta._id, !carpeta.estado)" type="checkbox" [checked]="false"
-                          role="switch" id="{{'toogle'+i}}">Inactivo
-                      </span>
-                    </div>
-                  </td> -->
+
                   <td style="text-align: center">
                     <span class="textEstado" [ngSwitch]="gasto.estado">
                       <span
@@ -517,13 +524,37 @@
                         >{{ gasto.estado }}</span
                       >
                       <span
-                        *ngSwitchCase="'FINALIZADO'"
+                        *ngSwitchCase="'DESCARGO'"
                         class="badge badge-success"
+                        >{{ gasto.estado }}</span
+                      >
+                      <span
+                        *ngSwitchCase="'EN ESPERA'"
+                        class="badge badge-warning"
                         >{{ gasto.estado }}</span
                       >
                     </span>
                   </td>
                   <td>
+                    <input
+                      *ngIf="
+                        gasto.estado === 'EJECUTADO' ||
+                        gasto.estado === 'EN ESPERA'
+                      "
+                      class="form-check-input pointer"
+                      type="checkbox"
+                      role="switch"
+                      [checked]="gasto.estado === 'EJECUTADO'"
+                      id="{{ 'toggle' + i }}"
+                      (change)="
+                        changeStatus(
+                          gasto._id,
+                          !(gasto.estado === 'EJECUTADO'),
+                          gasto
+                        )
+                      "
+                      title="En Espera/Ejecutado"
+                    />
                     <!-- <i class="fas fa-eye ml-2 icono" (click)="verArchivos(carpeta)"></i> -->
                     <!-- <i class="fas fa-plus ml-2 icono" (click)="addCarpetaId(carpeta)"></i> -->
 
@@ -594,9 +625,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="medidaLabel">
-          Registrar Nuevo Desembolso de Fondos
-        </h1>
+        <h1 class="modal-title fs-5" id="medidaLabel">Generar Descargo</h1>
         <button
           type="button"
           class="btn-close"
@@ -610,7 +639,9 @@
           [formGroup]="descargoForm"
         >
           <div class="mb-1">
-            <label for="numero" class="form-label col-md-auto">Número *</label>
+            <label for="numero" class="form-label col-md-auto"
+              >Número de descargo*</label
+            >
             <input
               id="numero"
               class="form-control"
@@ -626,14 +657,14 @@
                   form2['numero'].errors && form2['numero'].errors['required']
                 "
               >
-                * Número de Desembolso es Requerida
+                * Número de descargo es requerida
               </div>
             </div>
           </div>
 
           <div class="mb-1">
             <label for="fechaDescargo" class="form-label col-md-auto"
-              >Fecha de Desembolso de Fondo *</label
+              >Fecha de descargo *</label
             >
             <input
               id="fechaDescargo"
@@ -685,7 +716,7 @@
 
           <div class="mb-1">
             <label for="encargado" class="form-label col-md-auto"
-              >encargado Solicitante *</label
+              >Encargado Solicitante *</label
             >
             <ngx-select
               class="sel"
