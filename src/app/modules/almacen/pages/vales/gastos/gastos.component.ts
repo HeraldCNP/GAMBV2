@@ -334,4 +334,8 @@ export class GastosComponent {
       this.fuentes = data;
     });
   }
+   edit(id: any) {
+    // Redireccionamos a la ruta de editar una autorización con el id pasado
+    this.router.navigate(['/almacen/edit-gasto', id]);
+  }
 }

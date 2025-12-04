@@ -4,7 +4,7 @@
         <div class="col-md-6">
           <div class="card shadow p-3 mb-5 bg-body rounded">
             <div class="card-header">
-              <h3 class="card-title">Crear Entidad</h3>
+              <h3 class="card-title">Actualizar Entidad de {{datosEntidad.denominacion}}</h3>
             </div>
     
             <!-- /.card-header -->
@@ -12,6 +12,28 @@
               <div class="row">
                 <div class="col-md">
                   <form (ngSubmit)="editarEntidad(editarForm.value)" [formGroup]="editarForm">
+
+                      <div class="input-group mb-1">
+                        <span class="input-group-text izq" id="tipoEntidad"><b> Tipo de Entidad *</b></span>
+                        <select id="tipoEntidad" formControlName="tipoEntidad" class="form-select">
+                          <!-- <option value="2023" [defaultSelected]="true">2023</option> -->
+                          <option value="Pública">Pública</option>
+                          <option value="Comunidad">Comunidad</option>
+                          <option value="Otra">Otra</option>
+                        </select>
+    
+                        <div class="form-text" *ngIf="
+                            form['tipoEntidad'].touched && form['tipoEntidad'].invalid
+                          ">
+                          <div *ngIf="
+                              form['tipoEntidad'].errors &&
+                              form['tipoEntidad'].errors['required']
+                            ">
+                            * Debe seleccionar tipo de entidad.
+                          </div>
+                        </div>
+                      </div>
+
                     <div class="mb-1">
                       <label for="codigo" class="form-label">Codigo *</label>
                       <input type="text" class="form-control" id="codigo" formControlName="codigo" required>
@@ -42,11 +64,37 @@
                           no puede tener menos de 3 caracteres.</div>
                       </div>
                     </div>
+
+                     <div class="mb-1">
+                      <label for="telefono" class="form-label">Telefono *</label>
+                      <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                     
+                    </div>
+
+                     <div class="mb-1">
+                      <label for="nit" class="form-label">Nit *</label>
+                      <input type="text" class="form-control" id="nit" formControlName="nit" >
+                     
+                    </div>
+
+                     <div class="mb-1">
+                      <label for="cuenta" class="form-label">Cuenta *</label>
+                      <input type="text" class="form-control" id="cuenta" formControlName="cuenta" >
+                     
+                    </div>
+
+                    <div class="mb-1">
+                      <label for="cuenta" class="form-label">Entidad Seleccionada *</label>
+                      <select id="estado" formControlName="estado" class="form-select">
+                        <option [ngValue]="true">Activa</option>
+                        <option [ngValue]="false">Inactiva</option>   
+                      </select>
+                    </div>
   
   
                     <div class="mt-3 d-flex justify-content-around">
                       <button (click)="cancel()" type="reset" class="btn btn-danger">Cancelar</button>
-                      <button [disabled]="editarForm.invalid" type="submit" class="btn btn-primary">Registrar</button>
+                      <button [disabled]="editarForm.invalid" type="submit" class="btn btn-primary">Actualizar</button>
                     </div>
                   </form>
                 </div>

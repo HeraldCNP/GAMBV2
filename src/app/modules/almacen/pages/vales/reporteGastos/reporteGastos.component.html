@@ -379,156 +379,6 @@
       </div>
     </div>
   </div>
-  <!--   <div class="card shadow p-3 m-2 bg-body rounded">
-    <form [formGroup]="searchForm">
-      <div class="row form-smaller">
-        <div class="col-md-2">
-          <span class=""><b>Tipo de Gasto</b></span>
-          <div class="input-group input-group-sm">
-            <ngx-select
-              [allowClear]="true"
-              [items]="gastoFondos"
-              optionTextField="denominacion"
-              optionValueField="denominacion"
-              placeholder="Seleccione tipo de gasto"
-              formControlName="tipoGasto"
-            >
-              <ng-template
-                ngx-select-option
-                ngx-select-option-selected
-                let-option
-                let-text="text"
-              >
-                <span [innerHtml]="text"></span>
-              </ng-template>
-            </ngx-select>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <span class=""><b>Tipo de Fondo</b></span>
-          <div class="input-group input-group-sm">
-            <ngx-select
-              [allowClear]="true"
-              [items]="tipoFondos"
-              optionTextField="denominacion"
-              optionValueField="_id"
-              placeholder="Seleccione Tipo De Fondo"
-              formControlName="tipoFondo"
-              (select)="doSelect($event)"
-            >
-              <ng-template
-                ngx-select-option
-                ngx-select-option-selected
-                let-option
-                let-text="text"
-              >
-                <span [innerHtml]="text"></span>
-              </ng-template>
-            </ngx-select>
-          </div>
-        </div>
-
-        <div class="col-md-2" *ngIf="descargos.length > 0">
-          <span class=""><b>Número Descargo</b></span>
-          <div class="input-group input-group-sm">
-            <ngx-select
-              [allowClear]="true"
-              [items]="descargos"
-              optionTextField="numDescargo"
-              optionValueField="_id"
-              placeholder="Seleccione N° Descargo"
-              formControlName="numDescargo"
-              (select)="doSelect1($event)"
-            >
-              <ng-template
-                ngx-select-option
-                ngx-select-option-selected
-                let-option
-                let-text="text"
-              >
-                <span [innerHtml]="text"></span>
-              </ng-template>
-            </ngx-select>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <span class=""><b>FF-OF</b></span>
-          <div class="input-group input-group-sm">
-            <ngx-select
-              [allowClear]="true"
-              [items]="fuentes"
-              optionTextField="ffof"
-              optionValueField="ffof"
-              placeholder="Seleccione FF-OF"
-              formControlName="fuente"
-            >
-              <ng-template
-                ngx-select-option
-                ngx-select-option-selected
-                let-option
-                let-text="text"
-              >
-                <span [innerHtml]="text"></span>
-                &nbsp;{{ option.data.denominacion }}
-              </ng-template>
-            </ngx-select>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <span class=""><b>Estado</b></span>
-          <div class="input-group input-group-sm" style="width: 200px">
-            <select formControlName="estado" class="form-select">
-              <option value="" [defaultSelected]="true">
-                Seleccione Estado
-              </option>
-              <option value="EJECUTADO">EJECUTADO</option>
-              <option value="EN ESPERA">EN ESPERA</option>
-              <option value="PENDIENTE">PENDIENTE</option>
-              <option value="DESCARGO">DESCARGO</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-auto">
-          <span class="" id="deFecha"><b>Fecha Inicio</b></span>
-          <div class="input-group input-group-sm">
-            <input
-              style="width: 100px"
-              class="form-control"
-              type="date"
-              formControlName="deFecha"
-            />
-          </div>
-        </div>
-
-        <div class="col-auto">
-          <span class="" id="alFecha"><b>Fecha Fin</b></span>
-          <div class="input-group input-group-sm">
-            <input
-              style="width: 100px"
-              class="form-control"
-              type="date"
-              formControlName="alFecha"
-            />
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="text-center p-0">
-        <button
-          (click)="cargarGastos(searchForm.value)"
-          class="btn btn-primary m-1"
-          [disabled]="searchForm.invalid"
-          style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem"
-        >
-          Buscar
-        </button>
-      </div>
-    </form>
-  </div> -->
 
   <div class="container">
     <div class="card shadow p-3 mb-5 bg-body rounded">
@@ -565,7 +415,7 @@
                 <div class="fw-bold text-center">
                   <a
                     class="fas fa-file-pdf ml-2 icono iconoRed"
-                    (click)="printGasto(idDescargo)"
+                    (click)="printGastoRepuesManteni(searchForm.value)"
                   ></a>
                 </div>
                 <span class="">Descargar</span>
@@ -588,7 +438,7 @@
                 <span class="">Descargar</span>
               </div>
             </li>
-            <li
+          <!--   <li
               class="list-group-item d-flex justify-content-between align-items-start"
             >
               <div class="ms-2 me-auto">
@@ -596,7 +446,7 @@
                 Cras justo odio
               </div>
               <span class="badge bg-primary rounded-pill">14</span>
-            </li>
+            </li> -->
           </ol>
         </div>
       </div>

@@ -127,6 +127,13 @@ export class ReporteGastosComponent {
       window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña
     });
   }
+  printGastoRepuesManteni(params?: any) {
+    this.gastoService.printGastoRepuesManteni(params).subscribe((blob: Blob) => {
+      const file = new Blob([blob], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña
+    });
+  }
   /* printGasto(id: any) {
     const url = this.gastoService.printDesembolsoGasto(id).subscribe((blob) => {
       const file = new Blob([blob], { type: 'application/pdf' });

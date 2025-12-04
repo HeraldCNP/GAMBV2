@@ -88,6 +88,11 @@ export class ValeService {
     let dir = `${this.URL}/vale/${id}`;
     return this.http.put<any>(dir, form)
   }
+   editGasto(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/gasto/${id}`;
+    const header = this.headers;
+    return this.http.patch<any>(dir, form, { headers: header})
+  }
 
   addFactura(form:any, id:string){
     let dir = `${this.URL}/addFactura/${id}`;

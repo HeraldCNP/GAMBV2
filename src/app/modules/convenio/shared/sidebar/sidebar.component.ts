@@ -12,4 +12,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  entidadesOpen: boolean = false;
+toggleEntidadesMenu() {
+  this.entidadesOpen = !this.entidadesOpen;
+}
 }

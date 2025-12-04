@@ -45,6 +45,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { GastosComponent } from './pages/vales/gastos/gastos.component';
 import { NewGastoComponent } from './pages/vales/newGasto/newGasto.component';
 import { ReporteGastosComponent } from './pages/vales/reporteGastos/reporteGastos.component';
+import { EditGasto } from './pages/vales/edit-gasto/edit-gasto';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { ReporteGastosComponent } from './pages/vales/reporteGastos/reporteGasto
     PrintValeDetailComponent,
     GastosComponent,
     NewGastoComponent,
-    ReporteGastosComponent
+    ReporteGastosComponent,
+    EditGasto
   ],
   imports: [
     CommonModule,

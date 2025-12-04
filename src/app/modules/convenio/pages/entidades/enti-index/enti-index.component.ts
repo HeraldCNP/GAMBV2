@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class EntiIndexComponent implements OnInit {
   entidades: any[] = [];
+entidadesData: any[] = [];
+cargando: boolean = true;
   URL = environment.api;
   constructor(
     private api: ConvenioService,
@@ -19,6 +21,7 @@ export class EntiIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEntidades();
+    this.cargarEntidades();
   }
 
   getEntidades() {
@@ -27,6 +30,16 @@ export class EntiIndexComponent implements OnInit {
         this.entidades = res;
         console.log(res)
       });
+  }
+
+   cargarEntidades(params?: any) {
+    this.cargando = true;
+    params = params || {estado: true};
+    this.api.queryEntidades(params).subscribe((data: any) => {
+      console.log(data);
+      this.entidadesData = data.entidades;
+      this.cargando = false;
+    });
   }
 
   addEntidad() {

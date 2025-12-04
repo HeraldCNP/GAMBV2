@@ -144,7 +144,7 @@ export class GastoFondoComponent {
   cargarDataEdit(gastoFondo: any) {
     this.editForm.setValue({
       denominacion: gastoFondo.denominacion,
-      idPartida: gastoFondo.idPartida?._id?? '',
+      idPartida: gastoFondo.idPartida?._id ?? '',
     });
     this.idGastoFondo = gastoFondo._id;
   }

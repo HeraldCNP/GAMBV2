@@ -107,24 +107,6 @@ export class ConveIndexComponent implements OnInit {
     return restante + "días";
   }
 
-  // getSeguimientos() {
-  //   this.api
-  //     .getAllSeguimientos(
-  //       this.destino,
-  //       this.estado,
-  //       this.limit,
-  //       this.skip,
-  //       this.nuit
-  //     )
-  //     .subscribe((data) => {
-  //       this.seguimientos = data.serverResponse;
-  //       this.nuit = '';
-  //       this.totalSeguimientos = data.totalDocs;
-  //       this.totalPages = Math.ceil(this.totalSeguimientos / this.limit);
-  //     });
-  // }
-
-
   filtrarConvenios() {
     // this.estado = '';
     this.api

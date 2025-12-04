@@ -1,15 +1,28 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConvenioService {
   private readonly URL = environment.api;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,  private authService: AuthService) { }
   /*Services for Representante*/
+
+   get token(): any {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.authService.logout();
+    }
+    return token;
+  }
+   get headers() {
+      const headers = new HttpHeaders().set('Authorization', `${this.token}`);
+      return headers;
+    }
   crearRepresentante(form:any):Observable<any>{
     let dir = `${this.URL}/repres`;
     return this.http.post<any>(dir, form)
@@ -40,6 +53,20 @@ export class ConvenioService {
     let dir = `${this.URL}/entidad`;
     return this.http.get<any[]>(dir)
   }
+
+   queryEntidades(params?: any) {
+      let dir = `${this.URL}/queryEntidades`;
+      const header = this.headers;
+      let httpParams = new HttpParams();
+      if (params) {
+        Object.keys(params).forEach((key) => {
+          if (params[key]) {
+            httpParams = httpParams.set(key, params[key]);
+          }
+        });
+      }
+      return this.http.get<any>(dir, { params: httpParams, headers: header });
+    }
   
   getAllEntitys():Observable<any[]>{
     let dir = `${this.URL}/entity`;

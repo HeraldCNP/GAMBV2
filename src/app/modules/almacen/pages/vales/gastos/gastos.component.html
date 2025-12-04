@@ -576,9 +576,9 @@
                     <!-- colocar despues -->
                     <!-- *ngIf="!gasto.idCompra && gasto.productos?.length == 0" -->
 
-                    <!--  <span >
+                     <span *ngIf="gasto.estado !== 'DESCARGO'">
                       <i class="fas fa-edit ml-2 icono iconoSkyBlue" (click)="edit(gasto._id)" title="Editar"></i>
-                    </span> -->
+                    </span>
 
                     <!--  <i *ngIf="!gasto.idCompra && gasto.productos?.length == 0 && gasto.estado == 'REGISTRADO'" -->
                     <!--    class="fas fa-trash ml-2 iconoRed" (click)="deletegasto(gasto._id)" title="Eliminar"></i> -->
@@ -815,4 +815,3 @@
     </div>
   </div>
 </div>
-<!-- End Modal -->

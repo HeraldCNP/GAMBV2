@@ -60,30 +60,47 @@
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link">
-            <i class="fas fa-images nav-icon"></i>
+         <li class="nav-item" [ngClass]="{ 'menu-open': entidadesOpen }">
+          <a
+            class="nav-link"
+            (click)="toggleEntidadesMenu()"
+          >
+            <i class="fas fa-building nav-icon"></i>
             <p class="space">
-               Entidades
-              <i class="right fas fa-angle-left"></i>
+              Entidades
+              <i
+                class="right fas"
+                [ngClass]="{
+                  'fa-angle-left': !entidadesOpen,
+                  'fa-angle-down': entidadesOpen
+                }"
+              ></i>
             </p>
           </a>
-          <ul class="nav nav-treeview">
+          <ul
+            class="nav nav-treeview pl-3"
+            [style.display]="entidadesOpen ? 'block' : 'none'"
+          >
             <li class="nav-item">
-              <a routerLink="convenio/index" class="nav-link">
+              <a routerLink="entidad/list" class="nav-link">
                 <i class="fas fa-list nav-icon"></i>
-                <p class="space">Listado de Entidades</p>
+                <p class="space">Lista de Entidades</p>
+              </a>
+            </li>
+             <li class="nav-item">
+              <a routerLink="entidad/index" class="nav-link">
+                <i class="fas fa-tasks nav-icon"></i>
+                <p class="space">Entidades Seleccionadas</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="convenio/create" class="nav-link">
-                <i class="fas fa-plus nav-icon"></i>
-                <p class="space">Crear Nuevo</p>
+              <a routerLink="representante/index" class="nav-link">
+                <i class="fas fa-user-tie nav-icon"></i>
+                <p class="space">Representantes</p>
               </a>
             </li>
           </ul>
         </li>
-
         <!-- <li class="nav-header">AREA 2</li> -->
 
       </ul>

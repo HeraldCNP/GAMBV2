@@ -1,7 +1,7 @@
-<div class="m-3">
+<div class="m-1">
   <div class="row">
     <div class="col-md-12">
-      <div class="card shadow p-3 mb-5 bg-body rounded">
+      <div class="card shadow p-1 mb-5 bg-body rounded">
         <div class="card-header">
           <h3 class="card-title">Lista de Convenios</h3>
           <div class="card-tools d-flex flex-row">
@@ -10,7 +10,7 @@
                 class="form-control float-right" placeholder="Filtrar" />
 
             </div>
-            <button (click)="addConvenio()" class="btn btn-primary ml-5">Agregar Nuevo</button>
+            <button (click)="addConvenio()" class="btn btn-primary ml-5">Agregar Nuevo Convenio</button>
             <!-- <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">
@@ -23,17 +23,17 @@
         </div>
 
         <!-- /.card-header -->
-        <div class="card-body table-responsive p-0 lh-1">
-          <table class="table table-active table-success table-striped">
-            <thead>
+        <div class="card-body table-responsive p-1 lh-1">
+          <table class="table  table-hover  table-striped">
+            <thead class="text-center">
               <tr>
                 <th>Acciones</th>
                 <th>Fecha Firma</th>
-                <th>Convenio N°</th>
+                <th>Número/Código</th>
                 <th>Nombre</th>
-                <!-- <th>Objeto</th> -->
-                <th>Entidades</th>
-                <!--<th>Transferencias</th>-->
+                <th>Proyecto/Actividad</th>
+                <th>Entidades Suscritas</th>
+                <!-- <th>Transferencias</th> -->
                 <th>Fecha de Finalización</th>
                 <th>Estado</th>
                 <th>Documentos</th>
@@ -71,7 +71,7 @@
                 </td>
                 <td>{{ convenio.codigo }}</td>
                 <td>{{ convenio.nombre }}</td>
-                <!-- <td>{{ convenio.objeto }}</td> -->
+                <td>{{ convenio.objeto }}</td>
                 <td class="text-nowrap">
                   <i *ngFor="let entidad of convenio.financiadoras">
                     {{ entidad.tipo }} - {{ entidad.entidad.denominacion }} - {{entidad.monto }} Bs<br>
