@@ -2,6 +2,59 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card shadow p-1 mb-5 bg-body rounded">
+        <div class="accordion-body">
+          <form [formGroup]="searchForm">
+            <div class="row form-smaller">
+              <!-- <div class="col-auto">
+                <span class=""><b>Tipo de Gasto</b></span>
+                <div class="input-group input-group-sm">
+                  <ngx-select [allowClear]="true" [items]="convenios" optionTextField="denominacion"
+                    optionValueField="denominacion" placeholder="Seleccione tipo de gasto" formControlName="tipoGasto">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                    </ng-template>
+                  </ngx-select>
+                </div>
+              </div> -->
+
+            <!--   <div class="col-auto">
+                <span class=""><b>Tipo de Fondo</b></span>
+                <div class="input-group input-group-sm">
+                  <ngx-select [allowClear]="true" [items]="convenios" optionTextField="denominacion"
+                    optionValueField="denominacion" placeholder="Seleccione Tipo de Fondo" formControlName="tipoFondo">
+                    <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                      <span [innerHtml]="text"></span>
+                    </ng-template>
+                  </ngx-select>
+                </div>
+              </div> -->
+          <!--     <div class="col-auto">
+                <button (click)="getConvenios()" class="btn btn-success" [disabled]="searchForm.invalid"
+                  style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            ">
+                  Buscar
+                </button>
+              </div> -->
+              <!-- <div class="col-auto">
+                <button (click)="resetFormSearch()" class="btn btn-info" [disabled]="searchForm.invalid" style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            ">
+                  Limpiar
+                </button>
+              </div>
+              <div class="col-auto center text-center">
+                <a class="fas fa-file-pdf icono iconoRed" (click)="printGasto(searchForm.value)"
+                  title="Vista Previa"><br>
+                  <p>Vista Previa</p>
+                </a>
+              </div> -->
+            </div>
+            <!-- {{ searchForm.value | json }} -->
+          </form>
+        </div>
         <div class="card-header">
           <h3 class="card-title">Lista de Convenios</h3>
           <div class="card-tools d-flex flex-row">
@@ -49,12 +102,21 @@
                       aria-expanded="false">
                     </button>
                     <ul class="dropdown-menu">
-                      <li *ngIf="convenio.estado == 'REGISTRADO' && convenio.firma"><a class="dropdown-item" (click)="changeStatus(convenio._id)"> <i class="fas fa-check-square mr-3 icono">  Aprobar</i> </a></li>
-                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="addTransfe(convenio._id)"> <i class="fas fa-hand-holding-usd mr-3 icono">  Registrar Transferencias</i> </a></li>
-                      <li *ngIf="convenio.estado == 'VIGENTE'"><a class="dropdown-item" (click)="seeTransfe(convenio._id)"> <i class="fas fa-money-check-alt mr-3 icono"> Ver Transferencias</i>  </a></li>
-                      <li><a class="dropdown-item" (click)="addFile(convenio._id)"> <i class="fas fa-folder-plus mr-3 icono">  Añadir Archivo</i> </a></li>
-                      <li><a class="dropdown-item" (click)="updateConvenio(convenio._id)"> <i class="fas fa-edit mr-3 icono">  Modificar</i> </a></li>
-                      <li><a class="dropdown-item" (click)="deleteConvenio(convenio._id)"> <i class="fas fa-trash-alt mr-3 icono">  Eliminar</i> </a></li>
+                      <li *ngIf="convenio.estado == 'REGISTRADO' && convenio.firma"><a class="dropdown-item"
+                          (click)="changeStatus(convenio._id)"> <i class="fas fa-check-square mr-3 icono"> Aprobar</i>
+                        </a></li>
+                      <li *ngIf="convenio.estado == 'SUSCRITO'"><a class="dropdown-item"
+                          (click)="addTransfe(convenio._id)"> <i class="fas fa-hand-holding-usd mr-3 icono"> Registrar
+                            Transferencias</i> </a></li>
+                      <li *ngIf="convenio.estado == 'SUSCRITO'"><a class="dropdown-item"
+                          (click)="seeTransfe(convenio._id)"> <i class="fas fa-money-check-alt mr-3 icono"> Ver
+                            Transferencias</i> </a></li>
+                      <li><a class="dropdown-item" (click)="addFile(convenio._id)"> <i
+                            class="fas fa-folder-plus mr-3 icono"> Añadir Archivo</i> </a></li>
+                      <li><a class="dropdown-item" (click)="updateConvenio(convenio._id)"> <i
+                            class="fas fa-edit mr-3 icono"> Modificar</i> </a></li>
+                      <li><a class="dropdown-item" (click)="deleteConvenio(convenio._id)"> <i
+                            class="fas fa-trash-alt mr-3 icono"> Eliminar</i> </a></li>
                       <!-- <li><a class="dropdown-item">Action three</a></li> -->
                     </ul>
 
@@ -65,7 +127,7 @@
                   <i (click)="addFile(convenio._id)" class="fas fa-folder-plus ml-3 icono"></i>
                   <i (click)="addTransfe(convenio._id)" class="fas fa-hand-holding-usd ml-3 icono"></i> -->
                 </td>
-                <td >
+                <td>
                   <i *ngIf="convenio.firma">{{ convenio.firma | date:'shortDate': 'UTC' }} </i>
                   <i *ngIf="!convenio.firma">Sin firma</i>
                 </td>
@@ -83,24 +145,48 @@
                   </i>
                 </td> -->
 
-                <td >
-                  <samp *ngIf="convenio.firma"> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }}</samp>
+                <td>
+                  <samp *ngIf="convenio.firma"> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate'
+                    }}</samp>
                   <i *ngIf="!convenio.firma">En Registro</i>
                 </td>
                 <td>
-                  <span *ngSwitchCase="'REGISTRADO'" class="badge text-bg-warning">{{ convenio.estado }}</span>
-                  <span *ngSwitchCase="'VIGENTE'" class="badge text-bg-success">{{ convenio.estado }}</span>
+                  <span *ngSwitchCase="'REGISTRADO'" class="badge text-bg-warning textEstado">{{ convenio.estado
+                    }}</span>
+                  <span *ngSwitchCase="'SUSCRITO'" class="badge text-bg-success">{{ convenio.estado }}</span>
                 </td>
-                <td>
+                <td class="text-nowrap">
                   <i *ngFor="let file of convenio.files">
                     <a href="{{ URL+'/'+file.uriconvenio }}" target="_blank">{{file.typefile}}</a>
-                     <br>
+                    <br>
                   </i>
                 </td>
-                <td >
-                  <span *ngIf="convenio.estado == 'VIGENTE'">{{ calcDias(convenio.fechafin)  }} </span>
-                </td>
+                <td>
 
+                  <!-- ⭐ Caso A: Conclusión sin fecha -->
+                  <span *ngIf="convenio.conclusion && convenio.fechafin === null" class="badge text-bg-warning">
+                    Hasta Conclusión
+                  </span>
+
+                  <!-- ⭐ Caso B: Tiene fecha y está vencido -->
+                  <span *ngIf="convenio.fechafin && calcDias(convenio.fechafin) === 'vencido'"
+                    class="badge text-bg-danger">
+                    Vencido
+                  </span>
+
+                  <!-- ⭐ Caso C: Tiene fecha y faltan días -->
+                  <span *ngIf="convenio.fechafin && calcDias(convenio.fechafin) !== 'vencido' && !convenio.conclusion"
+                    class="badge text-bg-info">
+                    En {{ calcDias(convenio.fechafin) }} días
+                  </span>
+
+                  <!-- ⭐ Caso D: Conclusión CON fecha futura -->
+                  <span *ngIf="convenio.conclusion && convenio.fechafin && calcDias(convenio.fechafin) !== 'vencido'"
+                    class="badge text-bg-warning">
+                    Hasta Conclusión
+                  </span>
+
+                </td>
               </tr>
             </tbody>
           </table>
@@ -112,32 +198,3 @@
   </div>
 </div>
 
-
-
-
-<!-- <div class="container">
-  <div class="row">
-      <div class="col-md">
-          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default" *ngFor="let convenio of convenios; let i=index">
-                  <div class="panel-heading" role="tab" id="{{'h'+i}}">
-                      <h4 class="panel-title">
-                          <a role="button" data-toggle="collapse" data-parent="#accordion" [attr.href]="'#f'+i" aria-expanded="true" aria-controls="" [attr.aria-controls] = "'f'+i">
-                              En fecha: {{ convenio.firma | date:'shortDate': 'UTC' }} se realizó el convenio: {{ convenio.codigo }} - {{ convenio.nombre }}
-                          </a>
-                      </h4>
-                  </div>
-                  <div id="{{'f'+i}}" class="panel-collapse collapse in" role="tabpanel" [attr.aria-labelledby]="'h'+i">
-                      <div class="panel-body">
-                          <p><b>OBJETO: </b> {{ convenio.objeto }}</p>
-                          <hr>
-                          <p> <b>PARTES SUSCRIBIENTES: </b> <span *ngFor="let entidad of convenio.entidades">{{ entidad.entidad }} - </span> </p>
-                          <hr>
-                          <p><b>VIGENCIA:</b> {{ convenio.plazo }} días  <b>VENCIMIENTO:</b> {{ sumarDias(convenio.firma, convenio.plazo) | date: 'shortDate' }} - {{ i }} </p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</div> -->

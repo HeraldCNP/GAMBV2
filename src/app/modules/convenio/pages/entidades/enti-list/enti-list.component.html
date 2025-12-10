@@ -1,56 +1,124 @@
 <div class="container">
-    <div class="m-3">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card shadow p-3 mb-5 bg-body rounded">
-            <div class="card-header">
-              <h3 class="card-title">Lista de Entidades</h3>
-              <div class="card-tools">
-                <span class="mr-3">
-                  <!-- <button (click)="selectEntidad()" class="btn btn-primary">Agregar Entidad</button> -->
-                </span>
-                <button (click)="addEntidad()" class="btn btn-info">Agregar Nueva Entidad</button>
-                <!-- <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div> -->
-              </div>
-            </div>
-  
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th>Codigo</th>
-                    <th>Denominacion</th>
-                    <th>Sigla</th>
+  <div class="m-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+          <div class="accordion-body">
+            <form [formGroup]="searchForm">
+              <div class="row form-smaller">
+                <div class="col-4">
+                  <span class=""><b>Entidad</b></span>
+                  <div class="input-group ">
+                    <ngx-select class="w-100" [allowClear]="true" [items]="entidades" optionTextField="denominacion"
+                      optionValueField="denominacion" placeholder="Seleccione Entidad" formControlName="denominacion">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
 
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let entidad of entidades">
-                    <td>{{ entidad.codigo }}</td>
-                    <td>{{ entidad.denominacion }}</td>
-                    <td>{{ entidad.sigla }}</td>
-                    <td>
-                      <i (click)="updateEntidad(entidad._id)" class="fas fa-edit ml-3 icono"></i>
-                      <!-- <i (click)="deleteEntidad(entidad._id)" class="fas fa-trash-alt ml-3 icono"></i> -->
-                      <!-- <i (click)="addRepresentante(entidad._id)" class="fas fa-user-plus ml-3 icono"></i> -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
+                <div class="col-auto">
+                  <span class=""><b>Código</b></span>
+                  <div class="input-group input-group-sm">
+                    <ngx-select [allowClear]="true" [items]="entidades" optionTextField="codigo"
+                      optionValueField="codigo" placeholder="Seleccione Código" formControlName="codigo">
+                      <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                        <span [innerHtml]="text"></span>
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <span class=""><b>Tipo de Entidad</b></span>
+                  <div class="input-group input-group-sm" style="width: 190px">
+                    <select formControlName="tipoEntidad" class="form-select">
+                      <option value="" [defaultSelected]="true">
+                        Seleccione Tipo de Entidad
+                      </option>
+                      <option value="Pública">Pública</option>
+                      <option value="Privada">Privada</option>
+                      <option value="ONG">ONG</option>
+                      <option value="Comunidad">Comunidad</option>
+                      <option value="Otra">Otra</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-auto">
+                  <br> <span class="pr-4 mr-1"><b>Entidades Suscritas</b></span>
+                  <input class="form-check-input pointer big-checkbox" type="checkbox" role="switch"
+                    id="flexSwitchCheckDefault" formControlName="estado" title="Entidad Suscrita" />
+                </div>
+
+                <div class="col-auto">
+                  <br> <button (click)="cargarEntidades(searchForm.value)" class="btn btn-success"
+                    [disabled]="searchForm.invalid" style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            ">
+                    Buscar
+                  </button>
+                </div>
+                <div class="col-auto">
+                  <br><button (click)="resetFormSearch()" class="btn btn-info" [disabled]="searchForm.invalid" style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            ">
+                    Limpiar
+                  </button>
+                </div>
+                <div class="col-auto center text-center">
+                  <br><a class="fas fa-file-pdf fa-lg icono iconoRed" (click)="printEntidades(searchForm.value)" title="Imprimir"><br>
+                  </a>
+                </div>
+              </div>
+              <!-- {{ searchForm.value | json }} -->
+            </form>
           </div>
-          <!-- /.card -->
+          <div class="card-header">
+            <h3 class="card-title">Lista de Entidades</h3>
+            <div class="card-tools">
+              <button (click)="addEntidad()" class="btn btn-info"
+                style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem;">
+                <i class="fas fa-plus iconoPlus"></i> Agregar Nueva Entidad
+              </button>
+            </div>
+
+
+
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th>Codigo</th>
+                  <th>Denominacion</th>
+                  <th>Sigla</th>
+
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let entidad of entidades">
+                  <td>{{ entidad.codigo }}</td>
+                  <td>{{ entidad.denominacion }}</td>
+                  <td>{{ entidad.sigla }}</td>
+                  <td>
+                    <i (click)="updateEntidad(entidad._id)" class="fas fa-edit ml-3 icono"></i>
+                    <!-- <i (click)="deleteEntidad(entidad._id)" class="fas fa-trash-alt ml-3 icono"></i> -->
+                    <!-- <i (click)="addRepresentante(entidad._id)" class="fas fa-user-plus ml-3 icono"></i> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
+        <!-- /.card -->
       </div>
     </div>
   </div>
+</div>

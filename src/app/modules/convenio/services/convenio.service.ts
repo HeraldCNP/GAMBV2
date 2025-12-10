@@ -68,6 +68,24 @@ export class ConvenioService {
       return this.http.get<any>(dir, { params: httpParams, headers: header });
     }
   
+     printEntidades(params?: any): Observable<Blob> {
+    const dir = `${this.URL}/printQueryEntidades`;
+    let httpParams = new HttpParams();
+    const header = this.headers;
+    console.log('params', params);
+    if (params) {
+      Object.keys(params).forEach((key) => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    return this.http.get(dir, {
+      params: httpParams,
+      headers: header,
+      responseType: 'blob',
+    });
+  }
   getAllEntitys():Observable<any[]>{
     let dir = `${this.URL}/entity`;
     return this.http.get<any[]>(dir)

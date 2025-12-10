@@ -90,6 +90,7 @@ export class ValeService {
   }
    editGasto(form: any, id: any): Observable<any> {
     let dir = `${this.URL}/gasto/${id}`;
+    console.log('id', id , 'fd',form);
     const header = this.headers;
     return this.http.patch<any>(dir, form, { headers: header})
   }

@@ -23,7 +23,7 @@ export class ConveUpdateComponent implements OnInit {
   showModal: boolean = true;
   editarForm: any = new FormGroup({
     convenio: new FormControl('', Validators.required),
-    codigo: new FormControl('', Validators.required),
+    codigo: new FormControl(''),
     nombre: new FormControl('', Validators.required),
     objeto: new FormControl(''),
     entidades: new FormArray([]),

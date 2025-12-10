@@ -133,7 +133,7 @@ export class DesembolsoService {
     return this.http.delete(dir, { headers: this.headers });
   }
   changeEstado(id: any, fd: FormData): any {
-    let dir = `${this.URL}/gasto/${id}`;
+    let dir = `${this.URL}/gastoEstado/${id}`;
     return this.http.patch<any>(dir, fd);
   }
 

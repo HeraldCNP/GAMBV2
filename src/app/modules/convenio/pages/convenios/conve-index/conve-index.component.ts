@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ConvenioService } from '../../../services/convenio.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-conve-index',
@@ -20,10 +21,18 @@ export class ConveIndexComponent implements OnInit {
   limit: number = 10;
   skip: number = 1;
   finFecha:any;
+  searchForm: any;
   constructor(
     private api: ConvenioService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private fb: FormBuilder,
+  ) { 
+     this.searchForm = this.fb.group({
+      tipoGasto: [''],
+      tipoFondo: [''],
+      estado: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.getConvenios()
@@ -95,17 +104,20 @@ export class ConveIndexComponent implements OnInit {
     return fechaFin.toISOString();
   }
 
-  calcDias(fechaFin: any){
-    let hoy = new Date().getTime();
-    let fin = new Date(fechaFin).getTime();
-    let diff = fin - hoy;
-    let restante = Math.ceil(diff / (1000 * 3600 * 24));
-    if(restante < 0){
-      let restante = "vencido"
-      return restante;
-    }
-    return restante + "días";
+ calcDias(fechaFin: any) {
+  if (!fechaFin) return null;   // ⛔ evita marcar vencido
+
+  let hoy = new Date().getTime();
+  let fin = new Date(fechaFin).getTime();
+  let diff = fin - hoy;
+  let restante = Math.ceil(diff / (1000 * 3600 * 24));
+
+  if (restante < 0) {
+    return 'vencido';
   }
+  return restante;
+}
+
 
   filtrarConvenios() {
     // this.estado = '';
@@ -125,7 +137,7 @@ export class ConveIndexComponent implements OnInit {
 
   changeStatus(id: string) {
     this.api.getSingleConvenio(id).subscribe(data => {
-      this.finFecha = this.sumarDias(data.firma, data.plazo)
+      //this.finFecha = this.sumarDias(data.firma, data.plazo)
     })
     Swal.fire({
       title: '¿Deseas aprobar este convenio?',
@@ -145,9 +157,9 @@ export class ConveIndexComponent implements OnInit {
         )
         
         let fd = new FormData();
-        fd.append('estado', "VIGENTE");
-        fd.append('fechafin', this.finFecha);
-        console.log(fd.get('fechafin'))
+        fd.append('estado', "SUSCRITO");
+        //fd.append('fechafin', this.finFecha);
+        //console.log(fd.get('fechafin'))
         this.api.editarEstado(fd, id).subscribe(
           res => {
             // console.log(res)

@@ -7,47 +7,29 @@
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button
-                    class="accordion-button btnAccordion"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne"
-                    aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseOne"
-                  >
+                  <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
                     Filtrar Búsqueda - Monto Total en Gastos &nbsp;
                     <b> {{ gastos.montoTotalGasto | number : "1.2-2" : "es-ES" }}
-                    Bs.- </b>
+                      Bs.- </b>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <span>Encargado: &nbsp; </span>
                     <span><b>{{ encargado}}</b> </span>
                   </button>
                 </h2>
-                <div
-                  id="panelsStayOpen-collapseOne"
-                  class="accordion-collapse collapse show"
-                  aria-labelledby="panelsStayOpen-headingOne"
-                >
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                  aria-labelledby="panelsStayOpen-headingOne">
                   <div class="accordion-body">
                     <form [formGroup]="searchForm">
                       <div class="row form-smaller">
                         <div class="col-auto">
                           <span class=""><b>Tipo de Gasto</b></span>
                           <div class="input-group input-group-sm">
-                            <ngx-select
-                              [allowClear]="true"
-                              [items]="gastoFondos"
-                              optionTextField="denominacion"
-                              optionValueField="denominacion"
-                              placeholder="Seleccione tipo de gasto"
-                              formControlName="tipoGasto"
-                            >
-                              <ng-template
-                                ngx-select-option
-                                ngx-select-option-selected
-                                let-option
-                                let-text="text"
-                              >
+                            <ngx-select [allowClear]="true" [items]="gastoFondos" optionTextField="denominacion"
+                              optionValueField="denominacion" placeholder="Seleccione tipo de gasto"
+                              formControlName="tipoGasto">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                                 <span [innerHtml]="text"></span>
                               </ng-template>
                             </ngx-select>
@@ -57,21 +39,10 @@
                         <div class="col-auto">
                           <span class=""><b>Tipo de Fondo</b></span>
                           <div class="input-group input-group-sm">
-                            <ngx-select
-                              [allowClear]="true"
-                              [items]="tipoFondos"
-                              optionTextField="denominacion"
-                              optionValueField="denominacion"
-                              placeholder="Seleccione Tipo de Fondo"
-                              formControlName="tipoFondo"
-                              (select)="doSelect($event)"
-                            >
-                              <ng-template
-                                ngx-select-option
-                                ngx-select-option-selected
-                                let-option
-                                let-text="text"
-                              >
+                            <ngx-select [allowClear]="true" [items]="tipoFondos" optionTextField="denominacion"
+                              optionValueField="denominacion" placeholder="Seleccione Tipo de Fondo"
+                              formControlName="tipoFondo" (select)="doSelect($event)">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                                 <span [innerHtml]="text"></span>
                               </ng-template>
                             </ngx-select>
@@ -81,21 +52,10 @@
                         <div class="col-auto" *ngIf="descargos.length > 0">
                           <span class=""><b>Número Descargo</b></span>
                           <div class="input-group input-group-sm">
-                            <ngx-select
-                              [allowClear]="true"
-                              [items]="descargos"
-                              optionTextField="numDescargo"
-                              optionValueField="numDescargo"
-                              placeholder="Seleccione N° Descargo"
-                              formControlName="numDescargo"
-                              (select)="doSelect1($event)"
-                            >
-                              <ng-template
-                                ngx-select-option
-                                ngx-select-option-selected
-                                let-option
-                                let-text="text"
-                              >
+                            <ngx-select [allowClear]="true" [items]="descargos" optionTextField="numDescargo"
+                              optionValueField="numDescargo" placeholder="Seleccione N° Descargo"
+                              formControlName="numDescargo" (select)="doSelect1($event)">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                                 <span [innerHtml]="text"></span>
                               </ng-template>
                             </ngx-select>
@@ -104,14 +64,8 @@
 
                         <div class="col-auto">
                           <span class=""><b>Estado</b></span>
-                          <div
-                            class="input-group input-group-sm"
-                            style="width: 160px"
-                          >
-                            <select
-                              formControlName="estado"
-                              class="form-select"
-                            >
+                          <div class="input-group input-group-sm" style="width: 160px">
+                            <select formControlName="estado" class="form-select">
                               <option value="" [defaultSelected]="true">
                                 Seleccione Estado
                               </option>
@@ -154,86 +108,55 @@
                         <div class="col-md-1">
                           <span class="" id="deFecha"><b>Fecha Inicio</b></span>
                           <div class="input-group input-group-sm">
-                            <input
-                              style="width: 100px"
-                              class="form-control"
-                              type="date"
-                              formControlName="deFecha"
-                            />
+                            <input style="width: 100px" class="form-control" type="date" formControlName="deFecha" />
                           </div>
                         </div>
 
                         <div class="col-md-1">
                           <span class="" id="alFecha"><b>Fecha Fin</b></span>
                           <div class="input-group input-group-sm">
-                            <input
-                              style="width: 100px"
-                              class="form-control"
-                              type="date"
-                              formControlName="alFecha"
-                            />
+                            <input style="width: 100px" class="form-control" type="date" formControlName="alFecha" />
                           </div>
                         </div>
                         <div class="col-auto">
-                          <button
-                            (click)="busquedaAvanzada()"
-                            class="btn btn-primary"
-                            [disabled]="searchForm.invalid"
+                          <button (click)="busquedaAvanzada()" class="btn btn-primary" [disabled]="searchForm.invalid"
                             style="
                               --bs-btn-padding-y: 0.25rem;
                               --bs-btn-font-size: 0.75rem;
-                            "
-                          >
+                            ">
                             Busqueda Avanzada
                           </button>
                         </div>
                         <div class="col-auto">
-                          <button
-                            (click)="cargarGastos(searchForm.value)"
-                            class="btn btn-success"
-                            [disabled]="searchForm.invalid"
-                            style="
+                          <button (click)="cargarGastos(searchForm.value)" class="btn btn-success"
+                            [disabled]="searchForm.invalid" style="
                               --bs-btn-padding-y: 0.25rem;
                               --bs-btn-font-size: 0.75rem;
-                            "
-                          >
+                            ">
                             Buscar
                           </button>
                         </div>
                         <div class="col-auto">
-                          <button
-                            (click)="resetFormSearch()"
-                            class="btn btn-info"
-                            [disabled]="searchForm.invalid"
+                          <button (click)="resetFormSearch()" class="btn btn-info" [disabled]="searchForm.invalid"
                             style="
                               --bs-btn-padding-y: 0.25rem;
                               --bs-btn-font-size: 0.75rem;
-                            "
-                          >
+                            ">
                             Limpiar
                           </button>
                         </div>
                         <div class="col-auto center text-center">
-                          <a
-                            class="fas fa-file-pdf icono iconoRed"
-                            (click)="printGasto(searchForm.value)"
-                             title="Vista Previa"
-                          ><br> <p >Vista Previa</p></a>
+                          <a class="fas fa-file-pdf icono iconoRed" (click)="printGasto(searchForm.value)"
+                            title="Vista Previa"><br>
+                            <p>Vista Previa</p>
+                          </a>
                         </div>
-                        <div
-                          class="col-auto"
-                          *ngIf="searchForm.value.estado === 'EJECUTADO'"
-                        >
-                          <button
-                            type="button"
-                            class="btn btn-primary btn-sm"
-                            data-bs-toggle="modal"
-                            data-bs-target="#medida"
-                            style="
+                        <div class="col-auto" *ngIf="searchForm.value.estado === 'EJECUTADO'">
+                          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#medida" style="
                               --bs-btn-padding-y: 0.25rem;
                               --bs-btn-font-size: 0.75rem;
-                            "
-                          >
+                            ">
                             Generar Descargo
                           </button>
                         </div>
@@ -255,28 +178,15 @@
                           </button>
                         </div> -->
                       </div>
- <!-- {{ searchForm.value | json }} -->
-                      <div
-                        class="row form-smaller"
-                        *ngIf="busquedaAvanzadaVisible"
-                      >
+                      <!-- {{ searchForm.value | json }} -->
+                      <div class="row form-smaller" *ngIf="busquedaAvanzadaVisible">
                         <div class="col-auto">
                           <span class=""><b>Categoría Programática</b></span>
                           <div class="input-group input-group-sm">
-                            <ngx-select
-                              [allowClear]="true"
-                              [items]="catProgras"
-                              optionTextField="codigo"
-                              optionValueField="cat_programatica"
-                              placeholder="Seleccione Categoría Programatica"
-                              formControlName="catProgra"
-                            >
-                              <ng-template
-                                ngx-select-option
-                                ngx-select-option-selected
-                                let-option
-                                let-text="text"
-                              >
+                            <ngx-select [allowClear]="true" [items]="catProgras" optionTextField="codigo"
+                              optionValueField="cat_programatica" placeholder="Seleccione Categoría Programatica"
+                              formControlName="catProgra">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                                 <span [innerHtml]="text"></span>
                                 &nbsp;({{ option.data.proyect_acti }})
                               </ng-template>
@@ -287,20 +197,9 @@
                         <div class="col-auto">
                           <span class=""><b>FF-OF</b></span>
                           <div class="input-group input-group-sm">
-                            <ngx-select
-                              [allowClear]="true"
-                              [items]="fuentes"
-                              optionTextField="ffof"
-                              optionValueField="ffof"
-                              placeholder="Seleccione FF-OF"
-                              formControlName="fuente"
-                            >
-                              <ng-template
-                                ngx-select-option
-                                ngx-select-option-selected
-                                let-option
-                                let-text="text"
-                              >
+                            <ngx-select [allowClear]="true" [items]="fuentes" optionTextField="ffof"
+                              optionValueField="ffof" placeholder="Seleccione FF-OF" formControlName="fuente">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                                 <span [innerHtml]="text"></span>
                                 &nbsp;{{ option.data.denominacion }}
                               </ng-template>
@@ -311,21 +210,10 @@
                         <div class="col-auto">
                           <span class=""><b>Partida de Gasto</b></span>
                           <div class="input-group input-group-sm">
-                            <ngx-select
-                              class="sel"
-                              [allowClear]="true"
-                              [items]="partidas"
-                              optionTextField="codigo"
-                              optionValueField="codigo"
-                              placeholder="Seleccione Partida de Gasto"
-                              formControlName="partida"
-                            >
-                              <ng-template
-                                ngx-select-option
-                                ngx-select-option-selected
-                                let-option
-                                let-text="text"
-                              >
+                            <ngx-select class="sel" [allowClear]="true" [items]="partidas" optionTextField="codigo"
+                              optionValueField="codigo" placeholder="Seleccione Partida de Gasto"
+                              formControlName="partida">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                                 <span [innerHtml]="text"></span>
                                 &nbsp;- {{ option.data.denominacion }}
                               </ng-template>
@@ -336,24 +224,12 @@
                         <div class="col-auto">
                           <span class=""><b>Encargado</b></span>
                           <div class="input-group input-group-sm">
-                            <ngx-select
-                              class="sel"
-                              [allowClear]="true"
-                              [items]="funcionarios"
-                              optionTextField="username"
-                              optionValueField="_id"
-                              placeholder="Seleccione Encargado"
-                              formControlName="solicitante"
-                              (select)="doSelect2($event)"
-                            >
-                              <ng-template
-                                ngx-select-option
-                                ngx-select-option-selected
-                                let-option
-                                let-text="text"
-                              >
+                            <ngx-select class="sel" [allowClear]="true" [items]="funcionarios"
+                              optionTextField="username" optionValueField="_id" placeholder="Seleccione Encargado"
+                              formControlName="solicitante" (select)="doSelect2($event)">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                                 <span [innerHtml]="text"></span>
-                                &nbsp;{{ option.data.surnames }}                               
+                                &nbsp;{{ option.data.surnames }}
                               </ng-template>
                             </ngx-select>
                           </div>
@@ -365,29 +241,21 @@
               </div>
               <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                  <button
-                    class="accordion-button collapsed btnAccordion"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseTwo"
-                    aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseTwo"
-                  >
+                  <button class="accordion-button collapsed btnAccordion" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
                     Resumen por Fuente de Financiamiento - Organismo Financiador
                   </button>
                 </h2>
-                <div
-                  id="panelsStayOpen-collapseTwo"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="panelsStayOpen-headingTwo"
-                >
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingTwo">
                   <div class="accordion-body">
                     <div class="row">
                       <div class="col-md-3">
                         <h3 class="card-title" style="color: #003d75">
                           Monto Total en Gastos
                           {{
-                            gastos.montoTotalGasto | number : "1.2-2" : "es-ES"
+                          gastos.montoTotalGasto | number : "1.2-2" : "es-ES"
                           }}
                           Bs.-
                         </h3>
@@ -404,18 +272,16 @@
                                 </tr>
                               </thead>
                               <tbody class="table-group-divider">
-                                <tr
-                                  *ngFor="
+                                <tr *ngFor="
                                     let fuente of gastos.resumenPorFuente;
                                     let i = index
-                                  "
-                                >
+                                  ">
                                   <td>{{ i + 1 }}</td>
                                   <td>{{ fuente._id }}</td>
                                   <td>
                                     {{
-                                      fuente.totalMonto
-                                        | number : "1.2-2" : "es-ES"
+                                    fuente.totalMonto
+                                    | number : "1.2-2" : "es-ES"
                                     }}
                                   </td>
                                 </tr>
@@ -430,22 +296,14 @@
               </div>
               <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                  <button
-                    class="accordion-button collapsed btnAccordion"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseThree"
-                    aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseThree"
-                  >
+                  <button class="accordion-button collapsed btnAccordion" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
                     Imprimir Reportes
                   </button>
                 </h2>
-                <div
-                  id="panelsStayOpen-collapseThree"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="panelsStayOpen-headingThree"
-                >
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingThree">
                   <div class="accordion-body">report</div>
                 </div>
               </div>
@@ -512,99 +370,33 @@
 
                   <td style="text-align: center">
                     <span class="textEstado" [ngSwitch]="gasto.estado">
-                      <span
-                        *ngSwitchCase="'PENDIENTE'"
-                        class="badge badge-danger"
-                        title="Cambiar Estado"
-                        >{{ gasto.estado }}
+                      <span *ngSwitchCase="'PENDIENTE'" class="badge badge-danger" title="Cambiar Estado">{{
+                        gasto.estado }}
                       </span>
-                      <span
-                        *ngSwitchCase="'EJECUTADO'"
-                        class="badge badge-info"
-                        >{{ gasto.estado }}</span
-                      >
-                      <span
-                        *ngSwitchCase="'DESCARGO'"
-                        class="badge badge-success"
-                        >{{ gasto.estado }}</span
-                      >
-                      <span
-                        *ngSwitchCase="'EN ESPERA'"
-                        class="badge badge-warning"
-                        >{{ gasto.estado }}</span
-                      >
+                      <span *ngSwitchCase="'EJECUTADO'" class="badge badge-info">{{ gasto.estado }}</span>
+                      <span *ngSwitchCase="'DESCARGO'" class="badge badge-success">{{ gasto.estado }}</span>
+                      <span *ngSwitchCase="'EN ESPERA'" class="badge badge-warning">{{ gasto.estado }}</span>
                     </span>
                   </td>
                   <td>
-                    <input
-                      *ngIf="
+                    <input *ngIf="
                         gasto.estado === 'EJECUTADO' ||
                         gasto.estado === 'EN ESPERA'
-                      "
-                      class="form-check-input pointer"
-                      type="checkbox"
-                      role="switch"
-                      [checked]="gasto.estado === 'EJECUTADO'"
-                      id="{{ 'toggle' + i }}"
-                      (change)="
+                      " class="form-check-input pointer" type="checkbox" role="switch"
+                      [checked]="gasto.estado === 'EJECUTADO'" id="{{ 'toggle' + i }}" (change)="
                         changeStatus(
                           gasto._id,
                           !(gasto.estado === 'EJECUTADO'),
                           gasto
                         )
-                      "
-                      title="En Espera/Ejecutado"
-                    />
-                    <!-- <i class="fas fa-eye ml-2 icono" (click)="verArchivos(carpeta)"></i> -->
-                    <!-- <i class="fas fa-plus ml-2 icono" (click)="addCarpetaId(carpeta)"></i> -->
-
-                    <!-- <button class="btn btn-info text-sm" (click)="generargasto(gasto._id)">Generar gasto<i
-                        class="fas fa-print ml-2 icono"></i></button> -->
-
-                    <!--  <span *ngIf="gasto.idCompra != null">
-                      <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal"
-                        (click)="print(gasto)" title="Imprimir"></i>
-                    </span>
-
-                    <span *ngIf="gasto.idCompra == null">
-                      <i class="fas fa-print ml-2 icono " data-bs-toggle="modal" data-bs-target="#printModal2"
-                        (click)="print(gasto)" title="Imprimir"></i>
-                    </span> -->
-
-                    <!--  <i class="fas fa-print ml-2 icono" (click)="printgasto(gasto._id)"
-                    title="Imprimir gasto"></i> -->
-                    <!-- colocar despues -->
-                    <!-- *ngIf="!gasto.idCompra && gasto.productos?.length == 0" -->
-
-                     <span *ngIf="gasto.estado !== 'DESCARGO'">
+                      " title="En Espera/Ejecutado" />
+                    <span *ngIf="gasto.estado !== 'DESCARGO'">
                       <i class="fas fa-edit ml-2 icono iconoSkyBlue" (click)="edit(gasto._id)" title="Editar"></i>
                     </span>
-
-                    <!--  <i *ngIf="!gasto.idCompra && gasto.productos?.length == 0 && gasto.estado == 'REGISTRADO'" -->
-                    <!--    class="fas fa-trash ml-2 iconoRed" (click)="deletegasto(gasto._id)" title="Eliminar"></i> -->
-                    <!-- *ngIf="!gasto.idCompra && gasto.productos?.length == 0 && gasto.estado == 'REGISTRADO'" -->
-                    <!--  <i *ngIf="!gasto.idCompra && gasto.productos?.length == 0" class="fas fa-file-invoice-dollar ml-2 iconoSkyBlue" (click)="addFactura(gasto._id)"
-                      title="Añadir Factura"></i>
-                    <i *ngIf="gasto.precio && gasto.productos?.length == 0" class="fas fa-coins ml-2 iconoYellow" (click)="addDevolution(gasto._id)"
-                      title="Añadir Devolución"></i>
-                      <i *ngIf="gasto.precio && gasto.productos?.length == 0" class="fas fa-money-check ml-2 icono" (click)="printgastoDetalle(gasto._id)"
-                    title="Imprimir Detalle del gasto"></i> -->
                   </td>
                 </tr>
               </tbody>
             </table>
-            <!-- *ngIf="txtTermino.value.length === 0" -->
-            <!--     <div class="text-center">
-              <button (click)="cambiarPagina(-1)" *ngIf="page > 1" class="btn btn-info text-sm">
-                <i class="fas fa-chevron-left"></i> Anterior
-              </button>
-              &nbsp;
-              {{ page }} de {{ totalPages }}
-              &nbsp;
-              <button (click)="cambiarPagina(1)" *ngIf="page < totalPages" class="btn btn-info text-sm">
-                Siguiente <i class="fas fa-chevron-right"></i>
-              </button>
-            </div> -->
           </div>
         </div>
       </div>
@@ -613,77 +405,38 @@
 </div>
 
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="medida"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="medidaLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="medida" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="medidaLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="medidaLabel">Generar Descargo</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form
-          (ngSubmit)="addDescargo(descargoForm.value)"
-          [formGroup]="descargoForm"
-        >
+        <form (ngSubmit)="addDescargo(descargoForm.value)" [formGroup]="descargoForm">
           <div class="mb-1">
-            <label for="numero" class="form-label col-md-auto"
-              >Número de descargo*</label
-            >
-            <input
-              id="numero"
-              class="form-control"
-              type="number"
-              formControlName="numero"
-            />
-            <div
-              class="form-text"
-              *ngIf="form2['numero'].touched && form2['numero'].invalid"
-            >
-              <div
-                *ngIf="
+            <label for="numero" class="form-label col-md-auto">Número de descargo*</label>
+            <input id="numero" class="form-control" type="number" formControlName="numero" />
+            <div class="form-text" *ngIf="form2['numero'].touched && form2['numero'].invalid">
+              <div *ngIf="
                   form2['numero'].errors && form2['numero'].errors['required']
-                "
-              >
+                ">
                 * Número de descargo es requerida
               </div>
             </div>
           </div>
 
           <div class="mb-1">
-            <label for="fechaDescargo" class="form-label col-md-auto"
-              >Fecha de descargo *</label
-            >
-            <input
-              id="fechaDescargo"
-              class="form-control"
-              type="date"
-              formControlName="fechaDescargo"
-            />
-            <div
-              class="form-text"
-              *ngIf="
+            <label for="fechaDescargo" class="form-label col-md-auto">Fecha de descargo *</label>
+            <input id="fechaDescargo" class="form-control" type="date" formControlName="fechaDescargo" />
+            <div class="form-text" *ngIf="
                 form2['fechaDescargo'].touched && form2['fechaDescargo'].invalid
-              "
-            >
-              <div
-                *ngIf="
+              ">
+              <div *ngIf="
                   form2['fechaDescargo'].errors &&
                   form2['fechaDescargo'].errors['required']
-                "
-              >
+                ">
                 *Fecha de Desembolso es Requerida.
               </div>
             </div>
@@ -715,38 +468,19 @@
           </div> -->
 
           <div class="mb-1">
-            <label for="encargado" class="form-label col-md-auto"
-              >Encargado Solicitante *</label
-            >
-            <ngx-select
-              class="sel"
-              [allowClear]="true"
-              [items]="funcionarios"
-              optionTextField="username"
-              optionValueField="_id"
-              placeholder="Seleccione un encargado"
-              formControlName="encargado"
-            >
-              <ng-template
-                ngx-select-option
-                ngx-select-option-selected
-                let-option
-                let-text="text"
-              >
+            <label for="encargado" class="form-label col-md-auto">Encargado Solicitante *</label>
+            <ngx-select class="sel" [allowClear]="true" [items]="funcionarios" optionTextField="username"
+              optionValueField="_id" placeholder="Seleccione un encargado" formControlName="encargado">
+              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                 <span [innerHtml]="text"></span>
                 &nbsp;{{ option.data.surnames }}
               </ng-template>
             </ngx-select>
-            <div
-              class="form-text"
-              *ngIf="form2['encargado'].touched && form2['encargado'].invalid"
-            >
-              <div
-                *ngIf="
+            <div class="form-text" *ngIf="form2['encargado'].touched && form2['encargado'].invalid">
+              <div *ngIf="
                   form2['encargado'].errors &&
                   form2['encargado'].errors['required']
-                "
-              >
+                ">
                 *Debe seleccionar un encargado.
               </div>
             </div>
@@ -793,20 +527,10 @@
           </div> -->
           <!--   {{ descargoForm.value | json }} -->
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              (click)="resetForm()"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
               Cerrar
             </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-              [disabled]="descargoForm.invalid"
-            >
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="descargoForm.invalid">
               Registrar
             </button>
           </div>

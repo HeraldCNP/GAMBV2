@@ -89,7 +89,14 @@ tr th{
   cursor: pointer;
   color: darkorange;
 }
+
+.iconoPlus{
+  cursor: pointer;
+  color: rgb(255, 0, 200);
+}
 form {
   font-size: 0.8rem; /* Más pequeño */
 }
-
+.big-checkbox {
+  transform: scale(1.6);   
+}
