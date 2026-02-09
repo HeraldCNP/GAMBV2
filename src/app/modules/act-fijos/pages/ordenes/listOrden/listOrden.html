@@ -2,7 +2,7 @@
   <div class="p-1">
     <div class="row animated fadeIn fast">
       <div class="col-md-12">
-        <div class="card bg-body rounded">
+       <!--  <div class="card bg-body rounded">
           <div class="card-body">
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <div class="accordion-item">
@@ -77,34 +77,6 @@
                           </div>
                         </div>
 
-                        <!--  <div class="col-md-2">
-                  <div class="input-group input-group-sm  ">
-                    <span class="input-group-text izq" id="numeroVale"
-                      ><b>Vale #</b></span
-                    >
-                    <input
-                      class="form-control"
-                      type="text"
-                      formControlName="numeroVale"
-                    />
-                    <div
-                      class="form-text"
-                      *ngIf="
-                        form['numeroVale'].touched && form['numeroVale'].invalid
-                      "
-                    >
-                      <div
-                        *ngIf="
-                          form['numeroVale'].errors &&
-                          form['numeroVale'].errors['required']
-                        "
-                      >
-                        * Numero Vale
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
                         <div class="col-md-1">
                           <span class="" id="deFecha"><b>Fecha Inicio</b></span>
                           <div class="input-group input-group-sm">
@@ -161,24 +133,8 @@
                           </button>
                         </div>
 
-                        <!-- <div
-                          class="col-auto"
-                          *ngIf="searchForm.value.estado === 'DESCARGO'"
-                        >
-                          <button
-                            type="button"
-                            class="btn btn-primary btn-sm"
-                            (click)="ingresoSalida()"
-                            style="
-                              --bs-btn-padding-y: 0.25rem;
-                              --bs-btn-font-size: 0.75rem;
-                            "
-                          >
-                            Generar Ingreso Salida
-                          </button>
-                        </div> -->
+                  
                       </div>
-                      <!-- {{ searchForm.value | json }} -->
                       <div class="row form-smaller" *ngIf="busquedaAvanzadaVisible">
                         <div class="col-auto">
                           <span class=""><b>Categoría Programática</b></span>
@@ -309,7 +265,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!--  {{ searchForm.value | json }} -->
@@ -330,16 +286,16 @@
               <thead>
                 <tr style="text-align: center">
                   <th>N°</th>
-                  <th>N° Descargo</th>
-                  <th>Fecha Pago</th>
-                  <th>Tipo de Fondo</th>
-                  <th>Tipo de Gasto</th>
+                  <th>N° de Orden</th>
+                  <th>Fecha</th>
                   <th>Ap. Programatica</th>
-                  <!--  <th>Descrip. Ap. Prog.</th> -->
-                  <th>FF-OF</th>
-                  <th>Partida de Gasto</th>
-                  <!--   <th>Descrip. Partida</th> -->
-                  <th>Solicitado por:</th>
+                  <th>Glosa</th>
+                  <th>Unidad Solicitante</th>
+                  <th>Encargado</th>
+                  <th>Conductor</th>
+                  <th>Vehiculo</th>
+                  <th>Fecha Entrada</th>
+                  <th>Fecha Salida:</th>
                   <th>Monto</th>
                   <th>N° de Vale</th>
                   <th>Estado</th>
@@ -347,39 +303,50 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
-                <tr *ngFor="let gasto of gastos.gastos; let i = index">
+                <tr *ngFor="let orden of ordenes; let i = index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ gasto.numDescargo ?? "" }}</td>
+                  <td>{{ orden.numeroOrden ?? "" }}</td>
                   <td>
-                    {{ gasto.fechaRegistro | date : "mediumDate" : "UTC" }}
+                    {{ orden.fecha | date : "mediumDate" : "UTC" }}
                   </td>
-                  <td>{{ gasto.tipoFondo }}</td>
-                  <td style="text-align: center">{{ gasto.tipoGasto }}</td>
-                  <td style="text-align: center">{{ gasto.catProgra }}</td>
-                  <!--  <td>{{ gasto.nameCatProg }}</td> -->
-                  <td style="text-align: center">{{ gasto.fuente }}</td>
-                  <td style="text-align: center">{{ gasto.partida }}</td>
-                  <!--  <td>{{ gasto.idPartida.denominacion }}</td> -->
-                  <td>{{ gasto.solicitante }}</td>
+                  <td style="text-align: center">{{ orden.catProgra }}</td>
+                  <td>{{ orden.descripcion }}</td>
+                  <td>{{ orden.unidadSolicitante?.nombresubdir ?? "No Asignado" }}</td>
+                  <td style="text-align: center">{{ orden.encargadoControl.username }} {{ orden.encargadoControl.surnames }}</td>
+                  <td style="text-align: center">{{ orden.conductor.username }} {{ orden.conductor.surnames }}</td>
+                  <td style="text-align: center">{{ orden.vehiculo.tipo }} {{ orden.vehiculo.placa }}</td>
+                   <td>
+                    {{ orden.fechaEntrada | date : "mediumDate" : "UTC" }}
+                  </td>
+                   <td>
+                    {{ orden.fechaSalida | date : "mediumDate" : "UTC" }}
+                  </td>
                   <td style="text-align: right">
-                    {{ gasto.montoGasto | number : "1.2-2" : "es-ES" }}
+                    {{ orden.precio | number : "1.2-2" : "es-ES" }}
                   </td>
                   <td style="text-align: center">
-                    {{ gasto.idCombustible?.numeroVale ?? "" }}
+                    {{ orden.idCombustible?.numeroVale ?? "" }}
                   </td>
 
                   <td style="text-align: center">
-                    <span class="textEstado" [ngSwitch]="gasto.estado">
-                      <span *ngSwitchCase="'PENDIENTE'" class="badge badge-danger" title="Cambiar Estado">{{
-                        gasto.estado }}
+                    <span class="textEstado" [ngSwitch]="orden.estado">
+                      <span *ngSwitchCase="'REGISTRADO'" class="badge badge-danger" title="Cambiar Estado">{{
+                        orden.estado }}
                       </span>
-                      <span *ngSwitchCase="'EJECUTADO'" class="badge badge-info">{{ gasto.estado }}</span>
-                      <span *ngSwitchCase="'DESCARGO'" class="badge badge-success">{{ gasto.estado }}</span>
-                      <span *ngSwitchCase="'EN ESPERA'" class="badge badge-warning">{{ gasto.estado }}</span>
+                      <span *ngSwitchCase="'EJECUTADO'" class="badge badge-info">{{ orden.estado }}</span>
+                      <span *ngSwitchCase="'DESCARGO'" class="badge badge-success">{{ orden.estado }}</span>
+                      <span *ngSwitchCase="'EN ESPERA'" class="badge badge-warning">{{ orden.estado }}</span>
                     </span>
                   </td>
                   <td>
-                    <input *ngIf="
+                     <i
+                      class="fas fa-file-pdf ml-2 icono iconoRed"
+                      title="Imprimir"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imprimir"
+                      (click)="printOrden(orden._id)"
+                    ></i>
+                    <!-- <input *ngIf="
                         gasto.estado === 'EJECUTADO' ||
                         gasto.estado === 'EN ESPERA'
                       " class="form-check-input pointer" type="checkbox" role="switch"
@@ -389,14 +356,14 @@
                           !(gasto.estado === 'EJECUTADO'),
                           gasto
                         )
-                      " title="En Espera/Ejecutado" />
-                    <span *ngIf="gasto.estado !== 'DESCARGO' || gasto.tipoGasto !== 'Combustible'">
-                      <i class="fas fa-edit ml-2 icono iconoSkyBlue" (click)="edit(gasto._id)" title="Editar"></i>
+                      " title="En Espera/Ejecutado" /> -->
+                    <span *ngIf="orden.estado !== 'EJECUTADO'">
+                      <i class="fas fa-file-export ml-2 icono iconoSkyBlue" (click)="edit(orden._id)" title="Generar Gasto"></i>
                     </span>
-                      <span *ngIf="gasto.estado !== 'DESCARGO' || gasto.tipoGasto !== 'Combustible'">
+                     <!--  <span *ngIf="gasto.estado !== 'DESCARGO' || gasto.tipoGasto !== 'Combustible'">
                       <i class="fas fa-plus-square ml-2 icono"  data-bs-toggle="modal"
                       data-bs-target="#modalAddFactura" (click)="cargarDataGasto(gasto)" title="Agregar Factura"></i>
-                    </span>
+                    </span> -->
                   </td>
                 </tr>
               </tbody>
@@ -408,145 +375,41 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="medida" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="medidaLabel" aria-hidden="true">
-  <div class="modal-dialog">
+
+<!-- Modal Imprimir -->
+<div
+  class="modal fade"
+  id="imprimir"
+  tabindex="-1"
+  aria-labelledby="imprimirLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <!-- Tamaño grande para el PDF -->
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="medidaLabel">Generar Descargo</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="imprimirLabel">Vista previa del PDF</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
       </div>
-      <div class="modal-body">
-        <form (ngSubmit)="addDescargo(descargoForm.value)" [formGroup]="descargoForm">
-          <div class="mb-1">
-            <label for="numero" class="form-label col-md-auto">Número de descargo*</label>
-            <input id="numero" class="form-control" type="number" formControlName="numero" />
-            <div class="form-text" *ngIf="form2['numero'].touched && form2['numero'].invalid">
-              <div *ngIf="
-                  form2['numero'].errors && form2['numero'].errors['required']
-                ">
-                * Número de descargo es requerida
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-1">
-            <label for="fechaDescargo" class="form-label col-md-auto">Fecha de descargo *</label>
-            <input id="fechaDescargo" class="form-control" type="date" formControlName="fechaDescargo" />
-            <div class="form-text" *ngIf="
-                form2['fechaDescargo'].touched && form2['fechaDescargo'].invalid
-              ">
-              <div *ngIf="
-                  form2['fechaDescargo'].errors &&
-                  form2['fechaDescargo'].errors['required']
-                ">
-                *Fecha de Desembolso es Requerida.
-              </div>
-            </div>
-          </div>
-
-          <!--   <div class="mb-1">
-            <label for="montoTotal" class="form-label col-md-auto"
-              >Monto Solicitado *</label
-            >
-            <input
-              id="montoTotal"
-              class="form-control"
-              type="number"
-              formControlName="montoTotal"
-            />
-            <div
-              class="form-text"
-              *ngIf="form2['montoTotal'].touched && form2['montoTotal'].invalid"
-            >
-              <div
-                *ngIf="
-                  form2['montoTotal'].errors &&
-                  form2['montoTotal'].errors['required']
-                "
-              >
-                *Monto de Solicitado es Requerida.
-              </div>
-            </div>
-          </div> -->
-
-          <div class="mb-1">
-            <label for="encargado" class="form-label col-md-auto">Encargado Solicitante *</label>
-            <ngx-select class="sel" [allowClear]="true" [items]="funcionarios" optionTextField="username"
-              optionValueField="_id" placeholder="Seleccione un encargado" formControlName="encargado">
-              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
-                <span [innerHtml]="text"></span>
-                &nbsp;{{ option.data.surnames }}
-              </ng-template>
-            </ngx-select>
-            <div class="form-text" *ngIf="form2['encargado'].touched && form2['encargado'].invalid">
-              <div *ngIf="
-                  form2['encargado'].errors &&
-                  form2['encargado'].errors['required']
-                ">
-                *Debe seleccionar un encargado.
-              </div>
-            </div>
-          </div>
-          <!-- <div class="mb-1">
-            <label for="idTipoDesembolso" class="form-label col-md-auto"
-              >Tipo de Fondo *</label
-            >
-            <ngx-select
-              class="sel"
-              [allowClear]="true"
-              [items]="tipoFondos"
-              optionTextField="denominacion"
-              optionValueField="_id"
-              placeholder="Seleccione un Tipo De Fondo"
-              formControlName="idTipoDesembolso"
-              (select)="doSelect2($event)"
-            >
-              <ng-template
-                ngx-select-option
-                ngx-select-option-selected
-                let-option
-                let-text="text"
-              >
-                <span [innerHtml]="text"></span>
-              </ng-template>
-            </ngx-select>
-            <div
-              class="form-text"
-              *ngIf="
-                form2['idTipoDesembolso'].touched &&
-                form2['idTipoDesembolso'].invalid
-              "
-            >
-              <div
-                *ngIf="
-                  form2['idTipoDesembolso'].errors &&
-                  form2['idTipoDesembolso'].errors['required']
-                "
-              >
-                *Debe seleccionar un Tipo Fondo.
-              </div>
-            </div>
-          </div> -->
-          <!--   {{ descargoForm.value | json }} -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
-              Cerrar
-            </button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="descargoForm.invalid">
-              Registrar
-            </button>
-          </div>
-        </form>
+      <div class="modal-body" style="height: 80vh">
+        <iframe
+          [src]="pdfUrl | safe : 'resourceUrl'"
+          width="100%"
+          height="100%"
+          frameborder="0"
+        ></iframe>
       </div>
     </div>
   </div>
 </div>
 
-
 <!-- Modal Agregar factura -->
-
+<!-- 
 <div
   class="modal fade"
   id="modalAddFactura"
@@ -623,4 +486,6 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+

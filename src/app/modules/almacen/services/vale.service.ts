@@ -100,6 +100,12 @@ export class ValeService {
     const header = this.headers;
     return this.http.put(dir, form, { headers: header})
   }
+addFacturaGasto(form:any,){
+    let dir = `${this.URL}/addFactura`;
+    const header = this.headers;
+    return this.http.post(dir, form, { headers: header})
+  }
+  
 
   /* printVale(id:string){
     let dir = `${this.URL}/printVale/${id}`; 

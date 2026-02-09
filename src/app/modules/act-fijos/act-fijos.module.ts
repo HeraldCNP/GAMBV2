@@ -13,6 +13,13 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { NgxPrintModule } from 'ngx-print';
 import { AutorizacionUpdateComponent } from './pages/autorizaciones/autorizacion-update/autorizacion-update.component';
 import { LoaderDirective } from 'src/app/core/directives/loader.directive';
+import { Gastos } from './pages/gastos/gastos';
+import { ListOrden } from './pages/ordenes/listOrden/listOrden';
+import { NewOrden } from './pages/ordenes/newOrden/newOrden';
+import { SharedModule } from "../../shared/shared.module";
+import { AddGasto } from './pages/addGasto/addGasto';
+import { GastoReport } from './pages/gastoReport/gastoReport';
+import { GastoEdit } from './pages/gastoEdit/gastoEdit';
 
 
 @NgModule({
@@ -23,7 +30,13 @@ import { LoaderDirective } from 'src/app/core/directives/loader.directive';
     SidebarComponent,
     AutorizacionIndexComponent,
     AutorizacionCreateComponent,
-    AutorizacionUpdateComponent
+    AutorizacionUpdateComponent,
+    Gastos,
+    ListOrden,
+    NewOrden,
+    AddGasto,
+    GastoReport,
+    GastoEdit
   ],
   imports: [
     CommonModule,
@@ -32,7 +45,8 @@ import { LoaderDirective } from 'src/app/core/directives/loader.directive';
     NgxSelectModule,
     FormsModule,
     NgxPrintModule,
-    LoaderDirective
-  ]
+    LoaderDirective,
+    SharedModule
+]
 })
 export class ActFijosModule { }

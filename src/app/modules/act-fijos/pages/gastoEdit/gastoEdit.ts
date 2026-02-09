@@ -1,20 +1,22 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ValeService } from '../../../services/vale.service';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ComprasService } from '../../../services/compras.service';
-import { AutorizacionService } from 'src/app/modules/act-fijos/services/autorizacion.service';
-import Swal from 'sweetalert2';
-import { DesembolsoService } from 'src/app/modules/desembolso/services/desembolso.service';
+import { FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Validators } from 'ngx-editor';
+import { ComprasService } from 'src/app/modules/almacen/services/compras.service';
+import { ValeService } from 'src/app/modules/almacen/services/vale.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ConvenioService } from 'src/app/modules/convenio/services/convenio.service';
+import { DesembolsoService } from 'src/app/modules/desembolso/services/desembolso.service';
+import Swal from 'sweetalert2';
+import { AutorizacionService } from '../../services/autorizacion.service';
 
 @Component({
-  selector: 'app-edit-gasto',
-  templateUrl: './edit-gasto.html',
-  styleUrl: './edit-gasto.css',
+  selector: 'app-gasto-edit',
+  templateUrl: './gastoEdit.html',
+  styleUrl: './gastoEdit.css',
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditGasto {
+export class GastoEdit { 
   idUser: any;
   user: any;
   data: any;
@@ -204,7 +206,7 @@ export class EditGasto {
   }
 
   cancel() {
-    this.router.navigate(['almacen/gastos']);
+    this.router.navigate(['actFijos/gastos']);
   }
 
   editGasto(data: any) {
@@ -215,7 +217,7 @@ export class EditGasto {
       res => console.log(res),
       err => console.log('HTTP Error', err),
       () => {
-        this.router.navigate(['almacen/gastos']),
+        this.router.navigate(['actFijos/gastos']),
           this.alertOk('success', 'Exito', 'Ingreso Editado Correctamente', '2000')
       }
     );

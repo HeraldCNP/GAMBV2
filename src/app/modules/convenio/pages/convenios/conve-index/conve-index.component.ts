@@ -14,45 +14,87 @@ export class ConveIndexComponent implements OnInit {
   convenios: any = [];
   URL = environment.api;
   search: any;
-
+  cargando: boolean = true;
   destino: any = '';
   estado: string = '';
   nombre: string = '';
   limit: number = 10;
   skip: number = 1;
+  page: number = 1;
+  totalPages: any;
   finFecha:any;
   searchForm: any;
+  entidades: any[] = [];
   constructor(
     private api: ConvenioService,
     private router: Router,
     private fb: FormBuilder,
   ) { 
-     this.searchForm = this.fb.group({
-      tipoGasto: [''],
-      tipoFondo: [''],
-      estado: [''],
+    this.searchForm = this.fb.group({
+      codigo: [''],
+      conclusion: [],
+      vencimiento: [''],
+      convenio: [''],
+      financiamiento: [],
+      fechafin: [''],
+      objeto: [''],
+      estado: [],
+      isActive: [],
+      entidadFinan: [''],
     });
   }
 
   ngOnInit(): void {
     this.getConvenios()
+    this.cargarEntidades();
   }
 
   addConvenio() {
     this.router.navigate(['convenio/convenio/create'])
   }
 
+    cargarEntidades(params?: any) {
+    this.api.queryEntidades(params).subscribe((data: any) => {
+      this.entidades = data.entidades;
+    });
+  }
 
-  getConvenios() {
-    this.api.getAllConvenios().subscribe(
+   resetFormSearch() {
+    this.searchForm.reset({
+      codigo: '',
+      vencimiento: '',
+      conclusion: '',
+      convenio: '',
+      financiamiento: '',
+      fechafin: '',
+      objeto: '',
+      estado: '',
+      isActive: '',
+      entidadFinan: '',
+    });
+    this.getConvenios();
+  }
+  getConvenios(params?: any) {
+    console.log('params', params);
+    this.cargando = true;
+    this.api.getAllConvenios(params).subscribe(
       res => {
         this.convenios = res;
+        this.totalPages = res.totalpage;
+
+        this.cargando = false;
         console.log("conves", this.convenios)
       }
     );
   }
 
-
+ printEntidades(params?: any) {
+    this.api.printEntidades(params).subscribe((blob: Blob) => {
+      const file = new Blob([blob], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña
+    });
+  }
 
   updateConvenio(id: string) {
     this.router.navigate(['convenio/convenio/update', id])
@@ -173,5 +215,23 @@ export class ConveIndexComponent implements OnInit {
         )
       }
     })
+  }
+   cambiarPagina(valor: number, search: any) {
+    this.skip += valor;
+    this.page += valor;
+    if (this.page < 0) {
+      this.skip = 0;
+    } else if (this.page > this.totalPages) {
+      this.skip -= valor;
+      this.page -= valor;
+    }
+
+     const params = {
+    ...search,          // 🔑 filtros
+    limit: this.limit,
+    skip: this.skip,
+  };
+    console.log('params', params, 'search', search  );
+    this.getConvenios(params);
   }
 }

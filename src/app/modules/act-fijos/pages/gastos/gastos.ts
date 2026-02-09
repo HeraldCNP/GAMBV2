@@ -1,22 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { DesembolsoService } from 'src/app/modules/desembolso/services/desembolso.service';
-import { ComprasService } from '../../../services/compras.service';
+import { Validators } from 'ngx-editor';
+import { ComprasService } from 'src/app/modules/almacen/services/compras.service';
+import { ValeService } from 'src/app/modules/almacen/services/vale.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import Swal from 'sweetalert2';
 import { ConvenioService } from 'src/app/modules/convenio/services/convenio.service';
-import { ValeService } from '../../../services/vale.service';
+import { DesembolsoService } from 'src/app/modules/desembolso/services/desembolso.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gastos',
-  templateUrl: './gastos.component.html',
-  styleUrl: './gastos.component.css',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './gastos.html',
+  styleUrl: './gastos.css',
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GastosComponent {
-  idUser: any;
+export class Gastos {
+ idUser: any;
   user: any;
   data: any;
   gastos: any = [];
@@ -41,7 +42,7 @@ export class GastosComponent {
   partidas: any = [];
   idDescargo: any;
   idGasto:any ='';
-  encargado = 'RENE VEDIA MAMANI';
+  encargado = 'FATIMA JHOSELYN LOPEZ GIL';
   constructor(
     private gastoService: DesembolsoService,
     private valeService: ValeService,
@@ -98,6 +99,8 @@ export class GastosComponent {
     this.cargando = true;
     this.gastoService.queryGastos(params).subscribe((data: any) => {
       this.gastos = data;
+      console.log(this.gastos);
+      
       this.gastoTemp = data;
       this.montoTotalGastos = data.montoTotalGasto;
       this.resumenFuente = data.resumenPorFuente;
@@ -229,7 +232,7 @@ export class GastosComponent {
       alFecha: this.fechaHoy.substr(0, 10),
       borrador: true,
       solicitante: '',
-      encargado: 'RENE VEDIA MAMANI',
+      encargado: 'FATIMA JHOSELYN LOPEZ GIL',
     });
     this.cargarGastos({encargado: this.encargado});
   }
@@ -304,7 +307,7 @@ export class GastosComponent {
           (res: any) => {
             console.log(res);
           },
-          (err) => console.log('HTTP Error', err),
+          (err: any) => console.log('HTTP Error', err),
           () => {}
         );
 
@@ -321,7 +324,7 @@ export class GastosComponent {
             this.resetForm();
             this.cargarGastos({encargado: this.encargado});
           },
-          (err) => {
+          (err: any) => {
             console.error('Error al registrar el descargo:', err);
             Swal.fire({
               icon: 'error',
@@ -400,6 +403,6 @@ export class GastosComponent {
   }
    edit(id: any) {
     // Redireccionamos a la ruta de editar una autorización con el id pasado
-    this.router.navigate(['/almacen/edit-gasto', id]);
+    this.router.navigate(['/actFijos/gastoEdit', id]);
   }
 }

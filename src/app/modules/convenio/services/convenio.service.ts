@@ -142,9 +142,22 @@ export class ConvenioService {
       return this.http.post<any>(dir, form)
     }
   
-    getAllConvenios():Observable<any[]>{
+   /*  getAllConvenios():Observable<any[]>{
       let dir = `${this.URL}/convenios`;
       return this.http.get<any[]>(dir)
+    } */
+     getAllConvenios(params?: any) {
+      let dir = `${this.URL}/convenios`;
+      const header = this.headers;
+      let httpParams = new HttpParams();
+      if (params) {
+        Object.keys(params).forEach((key) => {
+          if (params[key]) {
+            httpParams = httpParams.set(key, params[key]);
+          }
+        });
+      }
+      return this.http.get<any>(dir, { params: httpParams, headers: header });
     }
 
     getSingleConvenio(id:any):Observable<any>{

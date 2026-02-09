@@ -341,7 +341,7 @@
                   <!--   <th>Descrip. Partida</th> -->
                   <th>Solicitado por:</th>
                   <th>Monto</th>
-                  <th>N° de Vale</th>
+                  <th>N° de Orden</th>
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
@@ -365,7 +365,7 @@
                     {{ gasto.montoGasto | number : "1.2-2" : "es-ES" }}
                   </td>
                   <td style="text-align: center">
-                    {{ gasto.idCombustible?.numeroVale ?? "" }}
+                    {{ gasto.idOrden?.numeroOrden ?? "" }}
                   </td>
 
                   <td style="text-align: center">
@@ -618,7 +618,7 @@
               Agregar
             </button>
           </div>
-             {{ addFactForm.value | json }}
+            <!--  {{ addFactForm.value | json }} -->
         </form>
       </div>
     </div>

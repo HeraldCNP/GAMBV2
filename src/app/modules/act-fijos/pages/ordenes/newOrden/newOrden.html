@@ -1,0 +1,521 @@
+<div class="container">
+  <div class="m-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-12">
+        <div class="card shadow p-3 mb-4 bg-body rounded">
+          <div class="card-header">
+            <h3 class="card-title">Crear orden de compra</h3>
+          </div>
+
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md">
+                <span class=""><b>REPUESTOS Y ACCESORIOS</b></span>
+                <div class="panel-body p-1 panel-default">
+                  <input
+                    class="form-control mb-1"
+                    list="articulos"
+                    type="search"
+                    placeholder="Buscar Artículo"
+                    (keyup.enter)="buscar(txtNombre.value)"
+                    (blur)="txtNombre.value = ''"
+                    #txtNombre
+                  />
+
+                  <datalist id="articulos" *ngIf="articulos">
+                    <option
+                      style="color: blue"
+                      *ngFor="let articulo of articulos.serverResponse"
+                      value="{{ articulo.nombre }}"
+                    ></option>
+                  </datalist>
+
+                  <!-- <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
+
+                  <div class="panel-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Código</th>
+                          <th>Partida de gasto</th>
+                          <th>Producto</th>
+                          <th>Cantidad</th>
+                          <th>Unidad de Medida</th>
+                            <th>P. Unitario</th>
+                          <th>P. Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of productos; index as i">
+                          <td style="cursor: not-allowed">{{ i + 1 }}</td>
+                          <td [attr.row]="i" [attr.field]="'codigo'">
+                            {{ item.codigo }}
+                          </td>
+                          <td field="partidaGasto">{{ item.partidaGasto }}</td>
+                          <td [attr.row]="i" [attr.field]="'articulo'">
+                            {{ item.articulo }}
+                          </td>
+                          <td
+                            contenteditable="true"
+                            (blur)="cambio($event, i, 'cantidadCompra')"
+                            [attr.row]="i"
+                            [attr.field]="'cantidadCompra'"
+                          >
+                            {{ item.cantidadCompra }}
+                          </td>
+                          <td field="unidadDeMedida">
+                            {{ item.unidadMedida }}
+                          </td>
+                          <td
+                            contenteditable="true"
+                            (blur)="cambio($event, i, 'precio')"
+                            [attr.row]="i"
+                            [attr.field]="'precio'"
+                          >
+                            {{ item.precio }}
+                          </td>
+                          <td
+                          >
+                            {{ item.precio * item.cantidadCompra }}
+                          </td>
+                          <td>
+                            <span
+                              ><i
+                                class="fas fa-trash pointer"
+                                (click)="removeArticulo(i)"
+                              ></i
+                            ></span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="p-0 m-0">
+                         <tr>
+                          <td colspan="9" class="text-end fs-6"> <b>TOTAL GENERAL: </b></td>
+                          <td class="fs-6"><b>{{ calculateTotalCost() }}</b></td>
+                        </tr>
+                      <!-- {{ productos | json }} -->
+                    </div>
+                  </div>
+                </div>
+
+                  <span class=""><b>SERVICIOS EJECUTADOS</b></span>
+                <div class="panel-body panel-default p-1">
+                  <input
+                    class="form-control mb-1"
+                    list="articulos"
+                    type="text"
+                    placeholder="Describa el Servicio Ejecutado"
+                    (keyup.enter)="addService(txtService.value)"
+                    (blur)="txtService.value = ''"
+                    #txtService
+                  />
+
+                  <datalist id="articulos" *ngIf="servicios">
+                    <option
+                      style="color: blue"
+                      *ngFor="let servicio of servicios"
+                      value="{{ servicio.articulo }}"
+                    ></option>
+                  </datalist>
+
+                  <!-- <button class="btn btn-info btn-sm my-3" (click)="addArticulo(article)" type="button">Añadir</button> -->
+
+                  <div class="panel-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Detalle o Causa</th>
+                          <th>Cantidad</th>
+                          <th>Unidad de Medida</th>
+                          <th>P. Unitario</th>
+                          <th>P. Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of servicios; index as i">
+                          <td style="cursor: not-allowed">{{ i + 1 }}</td>
+                          <td [attr.row]="i" [attr.field]="'servicio'">
+                            {{ item.servicio }}
+                          </td>
+                          <td
+                            contenteditable="true"
+                            (blur)="cambioServ($event, i, 'cantidadServicio')"
+                            [attr.row]="i"
+                            [attr.field]="'cantidadServicio'"
+                          >
+                            {{ item.cantidadServicio }}
+                          </td>
+                          <td  contenteditable="true"
+                            (blur)="cambioServ($event, i, 'unidadMedidaSer')"
+                            [attr.row]="i"
+                            [attr.field]="'unidadMedidaSer'">
+                            {{ item.unidadMedidaSer }}
+                          </td>
+                          <td
+                            contenteditable="true"
+                            (blur)="cambioServ($event, i, 'precioServ')"
+                            [attr.row]="i"
+                            [attr.field]="'precioServ'"
+                          >
+                            {{ item.precioServ }}
+                          </td>
+                          <td
+                            contenteditable="true"
+                            (blur)="cambioServ($event, i, 'cantidadServicio')"
+                            [attr.row]="i"
+                            [attr.field]="'cantidadServicio'"
+                          >
+                            {{ item.cantidadServicio * item.precioServ }}
+                          </td>
+                          <td>
+                            <span
+                              ><i
+                                class="fas fa-trash pointer"
+                                (click)="removeServicio(i)"
+                              ></i
+                            ></span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                      <div class="p-0 m-0">
+                         <tr>
+                          <td colspan="9" class="text-end fs-6"> <b>TOTAL GENERAL: </b></td>
+                          <td class="fs-6"><b>{{ calculateTotalServ() }}</b></td>
+                        </tr>
+                      <!-- {{ productos | json }} -->
+                    </div>
+                  </div>
+                </div>
+                <form
+                  (ngSubmit)="crearOrden(createForm.value)"
+                  [formGroup]="createForm"
+                >
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="descripcion"
+                      ><b>Glosa *</b></span
+                    >
+                    <input
+                      id="descripcion"
+                      class="form-control"
+                      type="text"
+                      formControlName="descripcion"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="form['descripcion'].touched && form['descripcion'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['descripcion'].errors &&
+                          form['descripcion'].errors['required']
+                        "
+                      >
+                        * El descripcion es Requerido.
+                      </div>
+                      <div
+                        *ngIf="
+                          form['descripcion'].errors &&
+                          form['descripcion'].errors['minlength']
+                        "
+                      >
+                        * El descripcion no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="tipoServicio"
+                      ><b> Tipo de Servicio *</b></span
+                    >
+                    <select
+                      id="tipoServicio"
+                      formControlName="tipoServicio"
+                      class="form-select"
+                    >
+                      <!-- <option value="2023" [defaultSelected]="true">2023</option> -->
+                      <option value="MECANICO">Mecánico</option>
+                      <option value="CHAPERIO">Chaperio</option>
+                      <option value="TORNERIA">Tornería</option>
+                      <option value="ELECTRICO">Eléctrico</option>
+                      <option value="LAVADO">Lavado</option>
+                      <option value="LUBRICACION">Lubricación</option>
+                      <option value="SOLDADURA">Soldadura</option>
+                      <option value="LLANTERIA">Llantaría</option>
+                      <option value="PREVENTIVO">Preventivo</option>
+                      <option value="CORRECTIVO">Correctivo</option>
+                      <option value="OTRO">Otro</option>
+                    </select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['tipoServicio'].touched && form['tipoServicio'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['tipoServicio'].errors &&
+                          form['tipoServicio'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar tipo de servicio.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Categoria Programatica</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="catProgras"
+                      optionTextField="cat_programatica"
+                      optionValueField="cat_programatica"
+                      placeholder="Seleccione Una Categoria Programatica"
+                      formControlName="catProgra"
+                      (select)="doSelect($event)"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;- {{ option.data.proyect_acti }}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['catProgra'].touched && form['catProgra'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['catProgra'].errors &&
+                          form['catProgra'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar Una Categoria Programatica.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Unidad Solicitante</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="unidades"
+                      optionTextField="nombresubdir"
+                      optionValueField="_id"
+                      placeholder="Seleccione una unidad solicitante"
+                      formControlName="unidadSolicitante"
+                      (select)="doSelect($event)"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{option.data.surnames}}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="form['unidadSolicitante'].touched && form['unidadSolicitante'].invalid"
+                    >
+                      <div
+                        *ngIf="form['unidadSolicitante'].errors && form['unidadSolicitante'].errors['required']"
+                      >
+                        * Debe seleccionar una unidad Solicitante.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Vehiculo</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="vehiculos"
+                      optionTextField="placa"
+                      optionValueField="_id"
+                      placeholder="Seleccione un Vehiculo"
+                      formControlName="vehiculo"
+                      (select)="doSelect($event)"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;- {{ option.data.marca }} &nbsp;- {{
+                        option.data.tipo }}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['vehiculo'].touched && form['vehiculo'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['vehiculo'].errors &&
+                          form['vehiculo'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar una Vehiculo.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Conductor</b></span
+                    >
+                    <ngx-select
+                      class="sel"
+                      [allowClear]="true"
+                      [items]="conductores"
+                      optionTextField="username"
+                      optionValueField="_id"
+                      placeholder="Seleccione un Conductor"
+                      formControlName="conductor"
+                      (select)="doSelect($event)"
+                    >
+                      <ng-template
+                        ngx-select-option
+                        ngx-select-option-selected
+                        let-option
+                        let-text="text"
+                      >
+                        <span [innerHtml]="text"></span>
+                        &nbsp;{{ option.data.surnames }}
+                      </ng-template>
+                    </ngx-select>
+
+                    <div
+                      class="form-text"
+                      *ngIf="
+                        form['conductor'].touched && form['conductor'].invalid
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          form['conductor'].errors &&
+                          form['conductor'].errors['required']
+                        "
+                      >
+                        * Debe seleccionar un conductor.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="plazo"
+                      ><b>Fecha de Salida *</b></span
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="fecha"
+                      formControlName="fecha"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="form['fecha'].touched && form['fecha'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['fecha'].errors &&
+                          form['fecha'].errors['required']
+                        "
+                      >
+                        * Hora de Salida es Requerido.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-1">
+                    <span class="input-group-text izq" id="precio"
+                      ><b>Monto (Bs) *</b></span
+                    >
+                    <input
+                      id="precio"
+                      class="form-control"
+                      type="number"
+                      formControlName="precio"
+                      (keyup)="calcularStock()"
+                    />
+                    <div
+                      class="form-text"
+                      *ngIf="form['precio'].touched && form['precio'].invalid"
+                    >
+                      <div
+                        *ngIf="
+                          form['precio'].errors &&
+                          form['precio'].errors['required']
+                        "
+                      >
+                        * El precio es Requerido.
+                      </div>
+                      <div
+                        *ngIf="
+                          form['precio'].errors &&
+                          form['precio'].errors['minlength']
+                        "
+                      >
+                        * El precio no puede tener menos de 3 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-3 d-flex justify-content-around">
+                    <button
+                      (click)="cancel()"
+                      type="reset"
+                      class="btn btn-danger"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      [disabled]="createForm.invalid"
+                      type="submit"
+                      class="btn btn-primary"
+                    >
+                      Registrar
+                    </button>
+                  </div>
+                </form>
+                <!-- {{ createForm.value | json }} -->
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>

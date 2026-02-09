@@ -1,0 +1,96 @@
+.textHead{
+  font-size: 0.9rem !important;
+}
+
+.btnAccordion{
+  padding: 7px 25px;
+}
+
+thead{
+  color: rgb(63, 127, 245);
+  opacity: 0.7;
+  font-size: 0.9rem;
+
+}
+
+thead tr th{
+  padding: 5px 5px;
+}
+
+.off-hr{
+  margin: 0.2rem;
+}
+
+.fieldset-tabla {
+  /* background-color: #f5f5f5;  */
+  border-color: #292626 !important;
+  border-width: 1px !important;
+  padding: 0px !important;
+}
+
+.fieldset-tabla legend {
+  font-size: 1rem; /* Cambiar el tamaño de la fuente de la leyenda */
+  text-align: center;
+  margin: 0px;
+  color: #000 !important;
+}
+table{
+  margin:0px;
+}
+
+table th{
+  padding: 0px !important;
+}
+
+table td{
+  padding: 4px !important;
+}
+
+.firma{
+  width: 30%;
+}
+
+.mb-10{
+  margin-bottom: 60px !important;
+}
+
+.mt-10{
+  margin-top: 100px !important;
+}
+
+tr td{
+  font-size: 0.8rem;
+}
+
+tr th{
+  font-size: 0.8rem;
+}
+
+.textEstado{
+  font-size: 0.65rem;
+  /* cursor: pointer; */
+}
+
+.icono{
+  color: blueviolet
+}
+
+.iconoRed{
+  color: red;
+  cursor: pointer;
+}
+
+.iconoSkyBlue{
+  cursor: pointer;
+  color: rgb(65, 201, 255);
+}
+
+.iconoYellow{
+  cursor: pointer;
+  color: darkorange;
+}
+form {
+  font-size: 0.8rem; /* Más pequeño */
+}
+
+
