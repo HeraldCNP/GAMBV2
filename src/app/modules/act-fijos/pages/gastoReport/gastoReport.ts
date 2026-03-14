@@ -34,6 +34,7 @@ export class GastoReport {
   tipoFondos: any = [];
   idDescargo: any;
   encargado = 'FATIMA JHOSELYN LOPEZ GIL';
+  idEncargado = '6253bf3000ae6f0014f7bc1d';
 
   URL = environment.api;
   constructor(
@@ -198,6 +199,9 @@ export class GastoReport {
       (objeto: any) => objeto.denominacion === id
     );
     params = params || {};
+    params.encargado = this.idEncargado;
+    params.deFecha = this.searchForm.value.deFecha;
+    params.alFecha = this.searchForm.value.alFecha;
     params.idTipoDesembolso = desembolso._id;
     this.gastoService.queryDescargos(params).subscribe((data: any) => {
       this.descargos = data;

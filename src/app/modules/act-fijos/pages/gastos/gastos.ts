@@ -43,6 +43,7 @@ export class Gastos {
   idDescargo: any;
   idGasto:any ='';
   encargado = 'FATIMA JHOSELYN LOPEZ GIL';
+  idEncargado = '6253bf3000ae6f0014f7bc1d';
   constructor(
     private gastoService: DesembolsoService,
     private valeService: ValeService,
@@ -175,6 +176,9 @@ export class Gastos {
       (objeto: any) => objeto.denominacion === id
     );
     params = params || {};
+    params.encargado = this.idEncargado;
+    params.deFecha = this.searchForm.value.deFecha;
+    params.alFecha = this.searchForm.value.alFecha;
     params.idTipoDesembolso = desembolso._id;
     this.gastoService.queryDescargos(params).subscribe((data: any) => {
       this.descargos = data;
@@ -207,6 +211,13 @@ export class Gastos {
   }
   printGasto(params?: any) {
     this.gastoService.printGasto(params).subscribe((blob: Blob) => {
+      const file = new Blob([blob], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña
+    });
+  }
+    printRepMant(params?: any) {
+    this.gastoService.printRepMant(params).subscribe((blob: Blob) => {
       const file = new Blob([blob], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL, '_blank'); // abre el PDF en nueva pestaña

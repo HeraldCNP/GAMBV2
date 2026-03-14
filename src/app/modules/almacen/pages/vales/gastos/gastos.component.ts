@@ -42,6 +42,7 @@ export class GastosComponent {
   idDescargo: any;
   idGasto:any ='';
   encargado = 'RENE VEDIA MAMANI';
+  idEncargado = '6253bf6900ae6f0014f7bc23';
   constructor(
     private gastoService: DesembolsoService,
     private valeService: ValeService,
@@ -96,6 +97,7 @@ export class GastosComponent {
 
   cargarGastos(params?: any) {
     this.cargando = true;
+
     this.gastoService.queryGastos(params).subscribe((data: any) => {
       this.gastos = data;
       this.gastoTemp = data;
@@ -172,7 +174,14 @@ export class GastosComponent {
       (objeto: any) => objeto.denominacion === id
     );
     params = params || {};
+
+    params.enacargado = this.idEncargado;
+    params.deFecha = this.searchForm.value.deFecha;
+    params.alFecha = this.searchForm.value.alFecha;
+    // params.deGestion = 2026;
+    // params.alGestion = 2026;
     params.idTipoDesembolso = desembolso._id;
+    
     this.gastoService.queryDescargos(params).subscribe((data: any) => {
       this.descargos = data;
       let original = data;

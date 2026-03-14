@@ -39,7 +39,7 @@
                     </div>
                   </div> -->
 
-                                   <!--  <div class="input-group mb-1">
+                                    <!--  <div class="input-group mb-1">
                                         <span class="input-group-text izq" id="idTipoGasto"><b>Tipo de Gasto</b></span>
                                         <ngx-select class="sel" [allowClear]="true" [items]="gastoFondos"
                                             optionTextField="denominacion" optionValueField="_id"
@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
 
-                                  <!--   <div class="input-group mb-1">
+                                    <!--   <div class="input-group mb-1">
                                         <span class="input-group-text izq" id="idPartida"><b>Partida de Gasto</b></span>
                                         <ngx-select class="sel" [allowClear]="true" [items]="partidas"
                                             optionTextField="codigo" optionValueField="_id"
@@ -141,14 +141,11 @@
                                                 *</b></span>
                                         <input id="precio" class="form-control" type="number"
                                             formControlName="precio" />
-                                        <div class="form-text"
-                                            *ngIf="form['precio'].touched && form['precio'].invalid">
-                                            <div
-                                                *ngIf="form['precio'].errors && form['precio'].errors['required']">
+                                        <div class="form-text" *ngIf="form['precio'].touched && form['precio'].invalid">
+                                            <div *ngIf="form['precio'].errors && form['precio'].errors['required']">
                                                 * El precio es Requerido.
                                             </div>
-                                            <div
-                                                *ngIf="form['precio'].errors && form['precio'].errors['minlength']">
+                                            <div *ngIf="form['precio'].errors && form['precio'].errors['minlength']">
                                                 * El montoGasto no puede tener menos de 3 caracteres.
                                             </div>
                                         </div>
@@ -261,6 +258,50 @@
                                         </div>
                                     </div>
 
+                                     <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="exampleRadios"
+                      id="exampleRadios1"
+                      value="si"
+                      checked
+                      formControlName="radio"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="exampleRadios1"
+                      class="pr-5"
+                    >
+                      Con Factura
+                    </label>
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="exampleRadios"
+                      id="exampleRadios2"
+                      value="no"
+                      formControlName="radio"
+                    />
+                    <label class="form-check-label" for="exampleRadios2" class="pr-5">
+                      Sin Factura
+                    </label>
+                  </div>
+
+                    <div class="input-group mb-1" *ngIf="createForm.get('radio')?.value === 'si'">
+                                        <span class="input-group-text izq" id="factura"><b>Número de la factura
+                                                *</b></span>
+                                        <input id="factura" class="form-control" type="number"
+                                            formControlName="factura" />
+                                        <div class="form-text" *ngIf="form['factura'].touched && form['factura'].invalid">
+                                            <div *ngIf="form['factura'].errors && form['factura'].errors['required']">
+                                                * El factura es Requerido.
+                                            </div>
+                                            <div *ngIf="form['factura'].errors && form['factura'].errors['minlength']">
+                                                * El montoGasto no puede tener menos de 3 caracteres.
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="mt-3 d-flex justify-content-around">
                                         <button (click)="cancel()" type="reset" class="btn btn-danger">
@@ -284,3 +325,63 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Proveedor -->
+<div class="modal fade" id="proveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="proveedorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="proveedorLabel">
+                    Registrar Proveedor
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="crearProveedor(proveedorForm.value)" [formGroup]="proveedorForm">
+                    <div class="mb-1">
+                        <label for="representante" class="form-label col-md-auto">Representante *</label>
+                        <input id="representante" class="form-control" type="text" formControlName="representante" />
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="razon_social" class="form-label col-md-auto">Razon Social *</label>
+                        <input id="razon_social" class="form-control" type="text" formControlName="razon_social" />
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="nit" class="form-label col-md-auto">Nit *</label>
+                        <input id="nit" class="form-control" type="number" formControlName="nit" />
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="telefono" class="form-label col-md-auto">Telefono *</label>
+                        <input id="telefono" class="form-control" type="number" formControlName="telefono" />
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="direccion" class="form-label col-md-auto">Dirección</label>
+                        <input id="direccion" class="form-control" type="text" formControlName="direccion" />
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="ciudad" class="form-label col-md-auto">Ciudad</label>
+                        <input id="ciudad" class="form-control" type="text" formControlName="ciudad" />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
+                            Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                            [disabled]="proveedorForm.invalid">
+                            Registrar
+                        </button>
+                    </div>
+                    {{ proveedorForm.value | json }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->

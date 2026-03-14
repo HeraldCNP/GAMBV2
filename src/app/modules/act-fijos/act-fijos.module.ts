@@ -20,6 +20,7 @@ import { SharedModule } from "../../shared/shared.module";
 import { AddGasto } from './pages/addGasto/addGasto';
 import { GastoReport } from './pages/gastoReport/gastoReport';
 import { GastoEdit } from './pages/gastoEdit/gastoEdit';
+import { EditOrden } from './pages/editOrden/editOrden';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { GastoEdit } from './pages/gastoEdit/gastoEdit';
     NewOrden,
     AddGasto,
     GastoReport,
-    GastoEdit
+    GastoEdit,
+    EditOrden
   ],
   imports: [
     CommonModule,

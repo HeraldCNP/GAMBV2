@@ -10,6 +10,7 @@ import { NewOrden } from './pages/ordenes/newOrden/newOrden';
 import { AddGasto } from './pages/addGasto/addGasto';
 import { GastoReport } from './pages/gastoReport/gastoReport';
 import { GastoEdit } from './pages/gastoEdit/gastoEdit';
+import { EditOrden } from './pages/editOrden/editOrden';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'addGasto/:id', component: AddGasto },
       { path: 'gastoReport', component: GastoReport },
       { path: 'gastoEdit/:id', component: GastoEdit },
+      { path: 'editOrden/:id', component: EditOrden },
 
 
       // { path: 'ptdi/index', component: PtdiIndexComponent },

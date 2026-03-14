@@ -218,6 +218,25 @@ export class DesembolsoService {
     });
   }
 
+  printRepMant(params?: any): Observable<Blob> {
+    const dir = `${this.URL}/printRepMant`;
+    let httpParams = new HttpParams();
+    const header = this.headers;
+    console.log('params', params);
+    if (params) {
+      Object.keys(params).forEach((key) => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    return this.http.get(dir, {
+      params: httpParams,
+      headers: header,
+      responseType: 'blob',
+    });
+  }
+
   printGastoRepuesManteni(params?: any): Observable<Blob> {
     const dir = `${this.URL}/printDescargoRepuManteni`;
     let httpParams = new HttpParams();

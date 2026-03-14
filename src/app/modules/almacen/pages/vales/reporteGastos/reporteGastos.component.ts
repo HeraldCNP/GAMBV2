@@ -34,6 +34,7 @@ export class ReporteGastosComponent {
   tipoFondos: any = [];
   idDescargo: any;
   encargado = 'RENE VEDIA MAMANI';
+  idEncargado = '6253bf6900ae6f0014f7bc23';
 
   URL = environment.api;
   constructor(
@@ -198,6 +199,10 @@ export class ReporteGastosComponent {
       (objeto: any) => objeto.denominacion === id
     );
     params = params || {};
+    params.enacargado = this.idEncargado;
+   
+    params.deFecha = this.searchForm.value.deFecha;
+    params.alFecha = this.searchForm.value.alFecha;
     params.idTipoDesembolso = desembolso._id;
     this.gastoService.queryDescargos(params).subscribe((data: any) => {
       this.descargos = data;

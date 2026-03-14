@@ -57,4 +57,10 @@ export class ListOrden {
     // Redireccionamos a la ruta de editar una autorización con el id pasado
     this.router.navigate(['/actFijos/addGasto', id]);
   }
+   
+   editOrden(id: any) {
+    // Redireccionamos a la ruta de editar una orden con el id pasado
+    this.router.navigate(['/actFijos/editOrden', id]);
+  }
+
  }

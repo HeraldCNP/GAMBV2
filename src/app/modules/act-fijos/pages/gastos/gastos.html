@@ -151,6 +151,12 @@
                             <p>Vista Previa</p>
                           </a>
                         </div>
+                         <div class="col-auto center text-center">
+                          <a class="fas fa-file-pdf icono iconoRed" (click)="printRepMant(searchForm.value)"
+                            title="Vista Previa"><br>
+                            <p>Vista Previa</p>
+                          </a>
+                        </div>
                         <div class="col-auto" *ngIf="searchForm.value.estado === 'EJECUTADO'">
                           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                             data-bs-target="#medida" style="
@@ -618,7 +624,7 @@
               Agregar
             </button>
           </div>
-            <!--  {{ addFactForm.value | json }} -->
+             {{ addFactForm.value | json }}
         </form>
       </div>
     </div>

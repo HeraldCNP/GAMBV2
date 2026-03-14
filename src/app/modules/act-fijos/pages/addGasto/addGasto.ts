@@ -9,6 +9,8 @@ import { AutorizacionService } from '../../services/autorizacion.service';
 import { ConvenioService } from 'src/app/modules/convenio/services/convenio.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import Swal from 'sweetalert2';
+import { AlmacenService } from 'src/app/modules/almacen/services/almacen.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-add-gasto',
@@ -44,7 +46,9 @@ export class AddGasto {
 
   createForm = this.fb.group({
     // autorizacion: [this.idAutorizacion],
+    radio: ['no'],
     precio: ['', Validators.required],
+    factura: [''],
     catProgra: ['', [Validators.required]],
     conductor: ['', [Validators.required]],
     unidadSolicitante: ['', [Validators.required]],
@@ -64,6 +68,8 @@ export class AddGasto {
 
   });
 
+  
+
   // fechaHoy:string = "2023/02/02";
 
   constructor(
@@ -77,6 +83,7 @@ export class AddGasto {
     private gastoService: DesembolsoService,
     private authService: AuthService,
     private partida: ConvenioService,
+    private almacenService: AlmacenService
   ) {
     this.user = localStorage.getItem('user');
     this.data = JSON.parse(this.user);
@@ -110,7 +117,17 @@ export class AddGasto {
         // proveedor: this.dataOrden.proveedor?._id ?? ''
       });
 
-    })
+    });
+
+     this.proveedorForm = this.fb.group({
+          representante: ['', [Validators.required]],
+          razon_social: ['', [Validators.required]],
+          nit: ['', [Validators.required]],
+          telefono: ['', [Validators.required]],
+          direccion: [''],
+          ciudad: [''],
+          usuario: [''],
+        });
   }
 
   ngOnInit(): void {
@@ -152,6 +169,43 @@ export class AddGasto {
               // this.getSegControl();
             }
           );
+          if(form.radio === 'si') {
+
+            const dataOrden = {
+            montFactura: form.precio,
+            numeroFactura: form.factura,
+            fechafactura: form.fecha,
+            idGasto: data.serverResponse._id
+          };
+           this.valeService.addFacturaGasto(dataOrden).subscribe(
+                (res: any) => {
+                  console.log(res);
+                  this.alertOk(
+                    'success',
+                    'Exito',
+                    'Desembolso Creado Correctamente',
+                    '2000'
+                  );
+                },
+               (error) => {      
+                       if (error.status === 0) {
+                         setTimeout(() => {
+                           Swal.fire({
+                             icon: 'error',
+                             title: 'Error de Conexión',
+                             text: 'No se puede conectar con el servidor. Por favor, inténtalo más tarde.',
+                           });
+                         }, 15);
+                       } else {
+                         Swal.fire({
+                           icon: 'error',
+                           title: 'ALTO!!!',
+                           text: error.error.serverResponse || 'Ocurrió un error inesperado.',
+                         });
+                       }
+                     }
+              );
+          }
           this.router.navigate(['actFijos/gastos']);
         },
         (error: any) => {
@@ -203,6 +257,43 @@ export class AddGasto {
               // this.getSegControl();
             }
           );
+           if(form.radio === 'si') {
+
+            const dataOrden = {
+            montFactura: form.precio,
+            numeroFactura: form.factura,
+            fechafactura: form.fecha,
+            idGasto:  data.serverResponse._id
+          };
+           this.valeService.addFacturaGasto(dataOrden).subscribe(
+                (res: any) => {
+                  console.log(res);
+                  this.alertOk(
+                    'success',
+                    'Exito',
+                    'Desembolso Creado Correctamente',
+                    '2000'
+                  );
+                },
+               (error) => {      
+                       if (error.status === 0) {
+                         setTimeout(() => {
+                           Swal.fire({
+                             icon: 'error',
+                             title: 'Error de Conexión',
+                             text: 'No se puede conectar con el servidor. Por favor, inténtalo más tarde.',
+                           });
+                         }, 15);
+                       } else {
+                         Swal.fire({
+                           icon: 'error',
+                           title: 'ALTO!!!',
+                           text: error.error.serverResponse || 'Ocurrió un error inesperado.',
+                         });
+                       }
+                     }
+              );
+          }
           this.router.navigate(['actFijos/gastos']);
         },
         (error: any) => {
@@ -225,8 +316,6 @@ export class AddGasto {
         }
       );
     }
-
-
   }
   get form() {
     return this.createForm.controls;
@@ -279,5 +368,28 @@ export class AddGasto {
       console.log('fuentes', data);
       this.fuentes = data;
     });
+  }
+
+  crearProveedor(form: any) {
+    // console.log(this.finanForm.value.monto.replace(/\./g, ''));
+    this.almacenService.createProveedor(form).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => console.log('HTTP Error', err),
+      () => {
+        this.proveedorForm.reset();
+        this.alertOk(
+          'success',
+          'Exito',
+          'Proveedor creado Correctamente',
+          '2000'
+        );
+        this.cargarProveedores();
+      }
+    );
+  }
+  resetForm() {
+    this.proveedorForm.reset();
   }
 }
