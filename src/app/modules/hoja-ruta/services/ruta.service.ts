@@ -116,12 +116,13 @@ export class RutaService {
 
   getTotalHojaRuta(dategt?:any,datelt?:any): Observable<any> {
     let dir = `${this.URL}/totales?dategt=${dategt}&datelt=${datelt}`;
-    console.log(dir)
     return this.http.get<any>(dir)
   }
 
   obtenerOrg(params: string): Observable<any> {
     return this.http.get(this.URL + '/org/' + params).pipe( map( data => {
+      console.log(data);
+      
       return data
     } ) )
   }
@@ -139,6 +140,12 @@ export class RutaService {
     console.log('URL:', this.URL + '/seguiNuit/' + nuit);
     
     return this.http.get(this.URL + '/seguiNuit/' + nuit);
+  }
+   busacarnuitIdhj(idHj: string): Observable<any> {
+    console.log('Buscando ID:', idHj);
+    console.log('URL:', this.URL + '/seguiIdhj/' + idHj);
+    
+    return this.http.get(this.URL + '/seguiIdhj/' + idHj);  
   }
   Asociar(nuit: string, hoja:Hojaruta): Observable<any> {
     return this.http.put(this.URL + '/asociar/' + nuit, hoja);

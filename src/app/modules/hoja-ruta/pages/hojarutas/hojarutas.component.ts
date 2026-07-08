@@ -425,11 +425,14 @@ export class HojarutasComponent implements OnInit {
       (data) => {
         // this.loading = false;
         this.hojaRuta = data.serverResponse;
+        console.log("hojaR", this.hojaRuta);
+        
         this.seguim = this.hojaRuta.seguimiento;
         if (this.seguim.length === 0) {
-          this.api.busacarnuit(this.hojaRuta.nuit).subscribe(
+          this.api.busacarnuitIdhj(this.hojaRuta._id).subscribe(
             (data) => {
               this.seguim = data;
+              console.log("segui",this.seguim);
             },
             (error) => {
               console.log(error);
@@ -437,6 +440,7 @@ export class HojarutasComponent implements OnInit {
           );
         }
       },
+      
       (error) => {
         console.log(error);
       }

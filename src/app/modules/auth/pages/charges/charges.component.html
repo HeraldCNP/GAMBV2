@@ -8,9 +8,10 @@
   
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <table class="table table-hover text-nowrap">
+            <table class="table table-hover">
               <thead>
                 <tr>
+                  <th>Estado</th>
                   <th>Nombre</th>
                   <th>Archivo Oficina</th>
                   <th>Sigla</th>
@@ -18,7 +19,19 @@
               </thead>
               <tbody>
                   
-                <tr *ngFor="let char of charge.subdirecciones">
+                <tr *ngFor="let char of charge.subdirecciones; let i = index">
+                  <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="char.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(char._id, !char.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Activo
+                      </span>
+                      <span *ngIf="char.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(char._id, !char.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />Inactivo
+                      </span>
+                    </div>
+                  </td>
                   <td>{{ char.nombresubdir }}</td>
                   <td>{{ char.archivofi }}</td>
                   <td>{{ char.sigla }}</td>

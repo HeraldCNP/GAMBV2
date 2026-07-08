@@ -11,5 +11,15 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  tiposOpen: boolean = false;
+  documentosOpen: boolean = false;
+
+  toggleTiposMenu() {
+    this.tiposOpen = !this.tiposOpen;
+  }
+
+  toggleDocumentosMenu() {
+    this.documentosOpen = !this.documentosOpen;
+  }
 
 }

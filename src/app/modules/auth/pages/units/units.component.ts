@@ -94,4 +94,20 @@ export class UnitsComponent implements OnInit {
   onRegisterCharge(id:any){
   this.router.navigate(['auth/charge/index', id])
   }
+
+   changeStatus(id: any, estado: any) {
+    let fd = new FormData();
+    fd.append('estado', estado);
+    console.log(estado);
+    this.api.changeEstadoUni(id, fd).subscribe(   
+      (res: any) => {
+     
+      },
+      (err: any) => console.log('HTTP Error', err),
+      () => {
+        this.getUnits();
+        this.alertOk('success', 'Exito', 'Estado Actualizado Correctamente', '2000');
+      }
+    );
+  }
 }

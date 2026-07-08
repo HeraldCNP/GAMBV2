@@ -96,24 +96,26 @@ export class DerivarSeguimientoComponent implements OnInit {
 
   getUnits() {
     this.apiUnit.getAllUnits().subscribe((res) => {
-      this.units = res;
+      this.units = (res || []).filter((unit: { estado: boolean }) => unit.estado === true);
     });
   }
-  getSub() {
-    if (this.params !== null) {
-      this.apiRuta.obtenerOrg(this.params).subscribe(
-        (data) => {
-          this.cargos = data.subdirecciones;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
+ getSub() {
+  if (this.params !== null) {
+    this.apiRuta.obtenerOrg(this.params).subscribe(
+      (data) => {
+        this.cargos = (data?.subdirecciones || []).filter(
+          (sub: any) => sub.estado === true
+        );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
+}
 
   getUser() {
-    if (this.params !== null) {
+    if (this.params !== null) {    
       this.apiRuta
         .getUserPost(this.derivarForm.get('destino')?.value)
         .subscribe((data) => {

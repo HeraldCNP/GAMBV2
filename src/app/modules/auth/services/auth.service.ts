@@ -70,6 +70,17 @@ export class AuthService {
     return this.http.get<any>(dir, id);
   }
 
+  changeEstadoDir(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/subdirEstado/${id}`;
+    return this.http.put<any>(dir, fd)
+  }
+
+   changeEstadoUni(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/org/${id}`;
+    return this.http.put<any>(dir, fd)
+  }
+
+
   sendCharge(unit: any, id: any): Observable<any> {
     console.log(unit);
     let dir = `${this.URL}/subdir/${id}`;
