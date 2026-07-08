@@ -82,7 +82,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -100,7 +100,7 @@
                   <label for="nombre" class="form-label col-md-auto">Nombre *</label>
                   <input id="nombre" class="form-control" type="text" formControlName="nombre" />
                 </div>
-      
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
                     Cerrar
@@ -116,7 +116,7 @@
         </div>
       </div>
       <!-- End Modal -->
-      
+
       <!-- Modal Edit -->
       <div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="modalEditLabel" aria-hidden="true">
@@ -128,12 +128,12 @@
             </div>
             <div class="modal-body">
               <form (ngSubmit)="editArea(editForm.value)" [formGroup]="editForm">
-      
+
                 <div class="mb-1">
                   <label for="nombre" class="form-label">Nombre:</label>
                   <input type="text" class="form-control" id="nombre" formControlName="nombre" />
                 </div>
-      
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cancelar
@@ -147,7 +147,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Modal Create Tipo -->
       <div class="modal fade" id="modalTipo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -165,7 +165,7 @@
                   <label for="tipos" class="form-label col-md-auto">tipos *</label>
                   <input id="tipos" class="form-control" type="text" formControlName="tipos" />
                 </div>
-      
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetForm()">
                     Cerrar
@@ -181,7 +181,7 @@
         </div>
       </div>
       <!-- End Modal -->
-      
+
       <!-- Modal List tipos -->
       <div class="modal fade" id="verTipos" tabindex="-1" aria-labelledby="verTiposLabel" aria-hidden="true">
         <div class="modal-dialog">
