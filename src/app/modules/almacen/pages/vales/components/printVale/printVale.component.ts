@@ -10,7 +10,7 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { SafePipe } from 'src/app/core/pipes/safe.pipe';
+import { SafePipe } from 'src/app/shared/pipes/safe.pipe';
 import { ValeService } from 'src/app/modules/almacen/services/vale.service';
 
 @Component({

@@ -28,9 +28,10 @@ export class RepreCreateComponent implements OnInit {
     this.entidadId = this.activeRouter.snapshot.paramMap.get('id');
     this.api.getSingleEntidad(this.entidadId).subscribe(data => {
       this.datoEntidad = data;
-      // console.log(this.datoEntidad);
+      console.log("Id:",this.entidadId);
+      console.log("Dato Entidad:",this.datoEntidad);
       this.representanteForm = this.fb.group({
-        entidad: [this.datoEntidad._id, [Validators.required]],
+        entidad: [this.datoEntidad._id],
         nombre: ['', [Validators.required, Validators.minLength(3)]],
         apellidos: ['', [Validators.required, Validators.minLength(3)]],
         cargo: ['', [Validators.required]],

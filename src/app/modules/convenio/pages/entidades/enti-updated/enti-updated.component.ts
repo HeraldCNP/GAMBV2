@@ -16,9 +16,14 @@ export class EntiUpdatedComponent implements OnInit {
   entidadId: any;
   representantes:any = [];
   editarForm: any = new FormGroup({
+    tipoEntidad: new FormControl('', Validators.required),
     codigo: new FormControl('', Validators.required),
     denominacion: new FormControl('', Validators.required),
     sigla: new FormControl('', Validators.required),
+    telefono: new FormControl(''),
+    cuenta: new FormControl(''),
+    nit: new FormControl(''),
+    estado: new FormControl(),
   })
   constructor(
     private fb: FormBuilder,
@@ -33,9 +38,14 @@ export class EntiUpdatedComponent implements OnInit {
       this.datosEntidad = data;
       // console.log(this.datosEntidad);
       this.editarForm.setValue({
-        'codigo': this.datosEntidad.codigo,
-        'denominacion': this.datosEntidad.denominacion,
-        'sigla': this.datosEntidad.sigla,
+        'codigo': this.datosEntidad.codigo || '',
+        'denominacion': this.datosEntidad.denominacion || '',
+        'sigla': this.datosEntidad.sigla || '',
+        'telefono': this.datosEntidad.telefono || '',
+        'cuenta': this.datosEntidad.cuenta || '',
+        'nit': this.datosEntidad.nit || '',
+        'estado': this.datosEntidad.estado,
+        'tipoEntidad': this.datosEntidad.tipoEntidad || '',
       });
     })
   }

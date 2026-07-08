@@ -40,7 +40,12 @@ import { ValeLubriComponent } from './pages/vales/vale-lubri/vale-lubri.componen
 import { LoaderDirective } from 'src/app/core/directives/loader.directive';
 import { MaterialModule } from 'src/app/material/material.module';
 import { PrintValeComponent } from './pages/vales/components/printVale/printVale.component';
-import { SafePipe } from '../../core/pipes/safe.pipe';
+import { PrintValeDetailComponent } from './pages/vales/components/printValeDetail/printValeDetail.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { GastosComponent } from './pages/vales/gastos/gastos.component';
+import { NewGastoComponent } from './pages/vales/newGasto/newGasto.component';
+import { ReporteGastosComponent } from './pages/vales/reporteGastos/reporteGastos.component';
+import { EditGasto } from './pages/vales/edit-gasto/edit-gasto';
 
 
 @NgModule({
@@ -78,7 +83,11 @@ import { SafePipe } from '../../core/pipes/safe.pipe';
     ValeNewComponent,
     ValeLubriComponent,
     PrintValeComponent,
-    SafePipe
+    PrintValeDetailComponent,
+    GastosComponent,
+    NewGastoComponent,
+    ReporteGastosComponent,
+    EditGasto
   ],
   imports: [
     CommonModule,
@@ -88,7 +97,9 @@ import { SafePipe } from '../../core/pipes/safe.pipe';
     FormsModule,
     NgxPrintModule,
     LoaderDirective,
-    MaterialModule
+    MaterialModule,
+    SharedModule
+    
   ]
 })
 export class AlmacenModule { }

@@ -17,12 +17,24 @@
             </thead>
             <tbody>
                 
-              <tr *ngFor="let unit of units">
+              <tr *ngFor="let unit of units ; let i = index">
                 <td>{{ unit.nombredir }}</td>
                 <td>
                   <i (click)="onRegisterCharge(unit._id)" class="fas fa-list-alt ml-3 icono"></i>
                   <i (click)="onDeleteUnit(unit._id)" class="fas fa-trash-alt ml-3 icono"></i>
                 </td>
+                 <td>
+                    <div class="form-check form-switch">
+                      <span *ngIf="unit.estado == '1'">
+                        <input class="form-check-input pointer" (change)="changeStatus(unit._id, !unit.estado)"
+                          type="checkbox" [checked]="true" role="switch" id="{{ 'toogle' + i }}" />Activo
+                      </span>
+                      <span *ngIf="unit.estado == '0'">
+                        <input class="form-check-input pointer" (change)="changeStatus(unit._id, !unit.estado)"
+                          type="checkbox" [checked]="false" role="switch" id="{{ 'toogle' + i }}" />Inactivo
+                      </span>
+                    </div>
+                  </td>
               </tr>
             </tbody>
           </table>

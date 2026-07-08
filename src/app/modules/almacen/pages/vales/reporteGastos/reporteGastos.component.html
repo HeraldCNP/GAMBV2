@@ -1,0 +1,455 @@
+<div class="animated fadeIn fast">
+  <div class="card-header">
+    <h1 class="text-center" style="color: #003d75">Reporte de Gastos</h1>
+  </div>
+  <div class="card-body">
+    <p class="text-center">
+      Aquí puede generar un reporte de los gastos realizados en el sistema.
+    </p>
+  </div>
+  <div class="row animated fadeIn fast">
+    <div class="col-md-12">
+      <div class="card bg-body rounded">
+        <div class="card-body">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button btnAccordion"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseOne"
+                >
+                  Filtrar Búsqueda - Monto Total en Gastos &nbsp;
+                  <b>
+                    {{
+                      gastos.montoTotalGasto | number : "1.2-2" : "es-ES"
+                    }}
+                    Bs.-
+                  </b>
+                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                  <span>Encargado: &nbsp; </span>
+                  <span
+                    ><b>{{ encargado }}</b>
+                  </span>
+                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapseOne"
+                class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingOne"
+              >
+                <div class="accordion-body">
+                  <form [formGroup]="searchForm">
+                    <div class="row form-smaller">
+                      <div class="col-auto">
+                        <span class=""><b>Tipo de Gasto</b></span>
+                        <div class="input-group input-group-sm">
+                          <ngx-select
+                            [allowClear]="true"
+                            [items]="gastoFondos"
+                            optionTextField="denominacion"
+                            optionValueField="denominacion"
+                            placeholder="Seleccione tipo de gasto"
+                            formControlName="tipoGasto"
+                          >
+                            <ng-template
+                              ngx-select-option
+                              ngx-select-option-selected
+                              let-option
+                              let-text="text"
+                            >
+                              <span [innerHtml]="text"></span>
+                            </ng-template>
+                          </ngx-select>
+                        </div>
+                      </div>
+
+                      <div class="col-auto">
+                        <span class=""><b>Tipo de Fondo</b></span>
+                        <div class="input-group input-group-sm">
+                          <ngx-select
+                            [allowClear]="true"
+                            [items]="tipoFondos"
+                            optionTextField="denominacion"
+                            optionValueField="denominacion"
+                            placeholder="Seleccione Tipo de Fondo"
+                            formControlName="tipoFondo"
+                            (select)="doSelect($event)"
+                          >
+                            <ng-template
+                              ngx-select-option
+                              ngx-select-option-selected
+                              let-option
+                              let-text="text"
+                            >
+                              <span [innerHtml]="text"></span>
+                            </ng-template>
+                          </ngx-select>
+                        </div>
+                      </div>
+
+                      <div class="col-auto" *ngIf="descargos.length > 0">
+                        <span class=""><b>Número Descargo</b></span>
+                        <div class="input-group input-group-sm">
+                          <ngx-select
+                            [allowClear]="true"
+                            [items]="descargos"
+                            optionTextField="numDescargo"
+                            optionValueField="numDescargo"
+                            placeholder="Seleccione N° Descargo"
+                            formControlName="numDescargo"
+                            (select)="doSelect1($event)"
+                          >
+                            <ng-template
+                              ngx-select-option
+                              ngx-select-option-selected
+                              let-option
+                              let-text="text"
+                            >
+                              <span [innerHtml]="text"></span>
+                            </ng-template>
+                          </ngx-select>
+                        </div>
+                      </div>
+
+                      <div class="col-auto">
+                        <span class=""><b>Estado</b></span>
+                        <div
+                          class="input-group input-group-sm"
+                          style="width: 160px"
+                        >
+                          <select formControlName="estado" class="form-select">
+                            <option value="" [defaultSelected]="true">
+                              Seleccione Estado
+                            </option>
+                            <option value="EJECUTADO">EJECUTADO</option>
+                            <option value="EN ESPERA">EN ESPERA</option>
+                            <option value="PENDIENTE">PENDIENTE</option>
+                            <option value="DESCARGO">DESCARGO</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <span class="" id="deFecha"><b>Fecha Inicio</b></span>
+                        <div class="input-group input-group-sm">
+                          <input
+                            style="width: 100px"
+                            class="form-control"
+                            type="date"
+                            formControlName="deFecha"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-1">
+                        <span class="" id="alFecha"><b>Fecha Fin</b></span>
+                        <div class="input-group input-group-sm">
+                          <input
+                            style="width: 100px"
+                            class="form-control"
+                            type="date"
+                            formControlName="alFecha"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <button
+                          (click)="busquedaAvanzada()"
+                          class="btn btn-primary"
+                          [disabled]="searchForm.invalid"
+                          style="
+                            --bs-btn-padding-y: 0.25rem;
+                            --bs-btn-font-size: 0.75rem;
+                          "
+                        >
+                          Busqueda Avanzada
+                        </button>
+                      </div>
+                      <div class="col-auto">
+                        <button
+                          (click)="cargarGastos(searchForm.value)"
+                          class="btn btn-success"
+                          [disabled]="searchForm.invalid"
+                          style="
+                            --bs-btn-padding-y: 0.25rem;
+                            --bs-btn-font-size: 0.75rem;
+                          "
+                        >
+                          Calcular
+                        </button>
+                      </div>
+                      <div class="col-auto">
+                        <button
+                          (click)="resetFormSearch()"
+                          class="btn btn-info"
+                          [disabled]="searchForm.invalid"
+                          style="
+                            --bs-btn-padding-y: 0.25rem;
+                            --bs-btn-font-size: 0.75rem;
+                          "
+                        >
+                          Limpiar
+                        </button>
+                      </div>
+                      <div class="col-auto center text-center">
+                        <a
+                          class="fas fa-file-pdf icono iconoRed"
+                          (click)="printGasto(searchForm.value)"
+                        ><br> <p>Imprimir PDF</p></a> 
+                      </div>
+                    </div>
+                    <!--   {{ searchForm.value | json }} -->
+                    <div
+                      class="row form-smaller"
+                      *ngIf="busquedaAvanzadaVisible"
+                    >
+                      <div class="col-auto">
+                        <span class=""><b>Categoría Programática</b></span>
+                        <div class="input-group input-group-sm">
+                          <ngx-select
+                            [allowClear]="true"
+                            [items]="catProgras"
+                            optionTextField="codigo"
+                            optionValueField="cat_programatica"
+                            placeholder="Seleccione Categoría Programatica"
+                            formControlName="catProgra"
+                          >
+                            <ng-template
+                              ngx-select-option
+                              ngx-select-option-selected
+                              let-option
+                              let-text="text"
+                            >
+                              <span [innerHtml]="text"></span>
+                              &nbsp;({{ option.data.proyect_acti }})
+                            </ng-template>
+                          </ngx-select>
+                        </div>
+                      </div>
+
+                      <div class="col-auto">
+                        <span class=""><b>FF-OF</b></span>
+                        <div class="input-group input-group-sm">
+                          <ngx-select
+                            [allowClear]="true"
+                            [items]="fuentes"
+                            optionTextField="ffof"
+                            optionValueField="ffof"
+                            placeholder="Seleccione FF-OF"
+                            formControlName="fuente"
+                          >
+                            <ng-template
+                              ngx-select-option
+                              ngx-select-option-selected
+                              let-option
+                              let-text="text"
+                            >
+                              <span [innerHtml]="text"></span>
+                              &nbsp;{{ option.data.denominacion }}
+                            </ng-template>
+                          </ngx-select>
+                        </div>
+                      </div>
+
+                      <div class="col-auto">
+                        <span class=""><b>Partida de Gasto</b></span>
+                        <div class="input-group input-group-sm">
+                          <ngx-select
+                            class="sel"
+                            [allowClear]="true"
+                            [items]="partidas"
+                            optionTextField="codigo"
+                            optionValueField="codigo"
+                            placeholder="Seleccione Partida de Gasto"
+                            formControlName="partida"
+                          >
+                            <ng-template
+                              ngx-select-option
+                              ngx-select-option-selected
+                              let-option
+                              let-text="text"
+                            >
+                              <span [innerHtml]="text"></span>
+                              &nbsp;- {{ option.data.denominacion }}
+                            </ng-template>
+                          </ngx-select>
+                        </div>
+                      </div>
+
+                      <div class="col-auto">
+                        <span class=""><b>Encargado</b></span>
+                        <div class="input-group input-group-sm">
+                          <ngx-select
+                            class="sel"
+                            [allowClear]="true"
+                            [items]="funcionarios"
+                            optionTextField="username"
+                            optionValueField="_id"
+                            placeholder="Seleccione Encargado"
+                            formControlName="solicitante"
+                            (select)="doSelect2($event)"
+                          >
+                            <ng-template
+                              ngx-select-option
+                              ngx-select-option-selected
+                              let-option
+                              let-text="text"
+                            >
+                              <span [innerHtml]="text"></span>
+                              &nbsp;{{ option.data.surnames }}
+                            </ng-template>
+                          </ngx-select>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button
+                  class="accordion-button collapsed btnAccordion"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="panelsStayOpen-collapseTwo"
+                >
+                  Resumen por Fuente de Financiamiento - Organismo Financiador
+                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapseTwo"
+                class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingTwo"
+              >
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <h3 class="card-title" style="color: #003d75">
+                        Monto Total en Gastos
+                        {{
+                          gastos.montoTotalGasto | number : "1.2-2" : "es-ES"
+                        }}
+                        Bs.-
+                      </h3>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="card shadow">
+                        <div class="card-body">
+                          <table class="table table-hover m-0">
+                            <thead>
+                              <tr>
+                                <th>N°</th>
+                                <th>FF-OF</th>
+                                <th>Monto</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                              <tr
+                                *ngFor="
+                                  let fuente of gastos.resumenPorFuente;
+                                  let i = index
+                                "
+                              >
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ fuente._id }}</td>
+                                <td>
+                                  {{
+                                    fuente.totalMonto
+                                      | number : "1.2-2" : "es-ES"
+                                  }}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card shadow p-3 mb-5 bg-body rounded">
+      <div class="card-header">
+        <div class="card-body table-responsive p-0 lh-1">
+          <ol class="list-group list-group-numbered">
+            <li
+              [ngClass]="{ disabled: !idDescargo }"
+              class="list-group-item d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Reporte detallado del Descargo</div>
+                Debe seleccionar Tipo de Fondo y Número de Descargo
+              </div>
+              <div class="ms-2">
+                <div class="fw-bold text-center">
+                  <a
+                    class="fas fa-file-pdf ml-2 icono iconoRed"
+                    (click)="print(idDescargo)"
+                  ></a>
+                </div>
+                <span class="">Descargar</span>
+              </div>
+            </li>
+            <li
+              [ngClass]="{ disabled: !idDescargo }"
+              class="list-group-item d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Reporte detallado del Desmbolso</div>
+                Debe seleccionar Tipo de Fondo y Número de Desembolso
+              </div>
+              <div class="ms-2">
+                <div class="fw-bold text-center">
+                  <a
+                    class="fas fa-file-pdf ml-2 icono iconoRed"
+                    (click)="printGastoRepuesManteni(searchForm.value)"
+                  ></a>
+                </div>
+                <span class="">Descargar</span>
+              </div>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Resumen de Saldos</div>
+                Para filtrar el reporte, debe seleccionar los camposque desee
+              </div>
+              <div class="ms-2">
+                <div class="fw-bold text-center">
+                  <a
+                    class="fas fa-file-pdf ml-2 icono iconoRed"
+                    (click)="printResumenGasto(searchForm.value)"
+                  ></a>
+                </div>
+                <span class="">Descargar</span>
+              </div>
+            </li>
+          <!--   <li
+              class="list-group-item d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Subheading</div>
+                Cras justo odio
+              </div>
+              <span class="badge bg-primary rounded-pill">14</span>
+            </li> -->
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

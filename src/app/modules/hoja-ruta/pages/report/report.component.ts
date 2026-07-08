@@ -13,8 +13,8 @@ import autoTable from 'jspdf-autotable'
 })
 export class ReportComponent implements OnInit {
   reportForm: any;
-  users: any;
-  cargos: any;
+  users: any= [];
+  cargos: any= [];
   user: any;
   destino: string = '';
   estado: string = '';
@@ -23,7 +23,7 @@ export class ReportComponent implements OnInit {
   al: string = '';
   seguimientos: any = [];
   fechaHoy = new Date().toISOString();
-  fechaIni = new Date('01/01/2025').toISOString();
+  fechaIni = new Date('01/01/2026').toISOString();
 
   idUser: any;
   usuario: any;
@@ -34,17 +34,17 @@ export class ReportComponent implements OnInit {
     this.data = JSON.parse(this.usuario);
     this.idUser = this.data.id;
     this.reportForm = this.fb.group({
-      funcionario: [''],
-      recibidox:[''],
+      destino: [''],
+      usuario:[''],
       estado: [''],
-      del: [this.fechaIni.substr(0, 10)],
-      al: [this.fechaHoy.substr(0, 10)],
+      deFecha: [this.fechaIni.substr(0, 10)],
+      alFecha: [this.fechaHoy.substr(0, 10)],
     });
   }
 
   ngOnInit(): void {
     this.reportService.getAllUsers().subscribe((data) => {
-      // console.log(data);
+      console.log(data);
       this.users = data;
     });
 
@@ -62,31 +62,27 @@ export class ReportComponent implements OnInit {
   }
 
   obtenerHojasRutas(form: any) {
-    console.log(form.value);
-    this.destino = form.value.recibidox;
-    this.recibidox = this.user.username +' '+ this.user.surnames;
+    this.destino = form.value.destino;
+    this.usuario = form.value.usuario;
     this.estado = form.value.estado;
-    this.del = form.value.del;
-    this.al = form.value.al;
-    this.fechaHoy = this.al,
-    this.fechaIni = this.del
+    this.del = form.value.deFecha;
+    this.al = form.value.alFecha ;
     this.getSeguimientos();
   }
 
-  getSeguimientos() {
-    // this.campo=parseInt(this.campo)
-    // if(this.campo==this.year-1){
-    //   this.dategt=this.campo;
-    //   this.datelt=this.campo+1;
-    // }else if(this.campo==this.year){
-    //   this.dategt=this.campo;
-    //   this.datelt=this.campo+1;
-    // }else{
-    //   this.dategt=this.campo;
-    //   this.datelt=this.year+1;
-    // }
+  resetFormSearch() {
+    this.reportForm.reset({
+     destino: '',
+      usuario:'',
+      estado: '',
+      deFecha: this.fechaIni.substr(0, 10),
+      alFecha: this.fechaHoy.substr(0, 10),
+    });
+   
+  }
+  getSeguimientos(params?: any) {
     this.reportService
-      .getAllSeguimientos(this.destino, this.recibidox, this.estado, this.del, this.al)
+      .queryGastos(params)
       .subscribe((data) => {
         this.seguimientos = data.serverResponse;
         console.log(this.seguimientos);
@@ -115,14 +111,14 @@ export class ReportComponent implements OnInit {
   public doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
 
-    this.user = this.users.find((item: { post: string; }) => item.post === value);
-    console.log(this.user)
+    // this.user = this.users.find((item: { post: string; }) => item.post === value);
+    // console.log(this.user)
   };
 
   public doSelect2 = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
 
-    this.user = this.users.find((item: { _id: string; }) => item._id === value);
+    this.user = this.users.find((item: { ci: string; }) => item.ci === value);
     console.log('Usuario', this.user)
   };
 

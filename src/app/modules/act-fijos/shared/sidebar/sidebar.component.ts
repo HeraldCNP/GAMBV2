@@ -6,5 +6,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
+  
+  ngOnInit(): void {
+  }
+  autorizacionOpen: boolean = false;
+  ordenOpen: boolean = false;
+  gastosOpen: boolean = false;
+
+
+  toggleGastosMenu() {
+    this.gastosOpen = !this.gastosOpen;
+  }
+
+  toggleAutorizacionMenu() {
+    this.autorizacionOpen = !this.autorizacionOpen;
+  }
+
+  toggleOrdenMenu() {
+    this.ordenOpen = !this.ordenOpen;
+  }
+
 
 }

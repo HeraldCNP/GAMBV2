@@ -327,21 +327,6 @@ export class OfficeIndexComponent implements OnInit {
         this.totalEnviados = data.enviado;
         this.totalMaletin = data.maletin;
         this.totalOfi = data.fileOficina
-        /* this.totalRecibidos = this.totales.filter(
-  (list: { estado: string }) => list.estado === 'RECIBIDO'
-).length;
-this.totalDerivados = this.totales.filter(
-  (list: { estado: string }) => list.estado === 'DERIVADO'
-).length;
-this.totalEnviados = this.totales.filter(
-  (list: { estado: string }) => list.estado === 'ENVIADO'
-).length;
-this.totalMaletin = this.totales.filter(
-  (list: { estado: string }) => list.estado === 'MALETIN'
-).length;
-this.totalOfi = this.totales.filter(
-  (list: { estado: string }) => list.estado === 'FILE OFICINA'
-).length; */
       },
       (error) => {
         console.log(error);
@@ -708,8 +693,9 @@ this.totalOfi = this.totales.filter(
       (data) => {
 
         console.log(data);
-        this.asociarForm.reset();
-        this.getSeguimientos();
+       /*  this.cleanAsociarForm();
+        this.getSeguimientos(); */
+        this.asociarForm.nuit = "";
       },
       (error) => {
         Swal.fire({
@@ -760,9 +746,12 @@ this.totalOfi = this.totales.filter(
       }
       if (result.isDismissed) {
         // console.log('no');
-        this.asociarForm.reset();
+       this.cleanAsociarForm();
       }
     })
+  }
+  cleanAsociarForm() {
+    this.asociarForm.reset();
   }
 
   ImprimirPDF() {

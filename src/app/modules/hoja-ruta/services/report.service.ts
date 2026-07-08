@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -68,6 +68,20 @@ export class ReportService {
     console.log(dir)
     return this.http.get<any>(dir, { headers: header })
   }
+
+  queryGastos(params?: any) {
+      let dir = `${this.URL}/oficina`;
+      const header = this.headers;
+      let httpParams = new HttpParams();
+      if (params) {
+        Object.keys(params).forEach((key) => {
+          if (params[key]) {
+            httpParams = httpParams.set(key, params[key]);
+          }
+        });
+      }
+      return this.http.get<any>(dir, { params: httpParams, headers: header });
+    }
 
   getAllSeguimientos2(destino?: string, estado?: string, del?: any, al?: any): Observable<any> {
     let dir = `${this.URL}/oficina?destino=${destino}&estado=${estado}&dategt=${del}&datelt=${al}`;

@@ -6,6 +6,7 @@ export const environment = {
   production: true,
   // api: "http://159.223.119.115:8000/api"
   api: "http://192.168.1.196:8000/api"
+ // api: "http://192.168.1.114:8000/api"
 };
 
 /*

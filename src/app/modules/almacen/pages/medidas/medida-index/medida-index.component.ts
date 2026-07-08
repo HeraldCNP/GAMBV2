@@ -7,7 +7,7 @@ import { AlmacenService } from '../../../services/almacen.service';
 @Component({
   selector: 'app-medida-index',
   templateUrl: './medida-index.component.html',
-  styleUrls: ['./medida-index.component.css']
+  styleUrls: ['./medida-index.component.css'],
 })
 export class MedidaIndexComponent implements OnInit {
   idUser: any;
@@ -27,7 +27,11 @@ export class MedidaIndexComponent implements OnInit {
   cargando: boolean = true;
   idMedida: any;
 
-  constructor(private almacenService: AlmacenService, private fb: FormBuilder, private router: Router) {
+  constructor(
+    private almacenService: AlmacenService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.medidaForm = this.fb.group({
       unidadMedida: ['', [Validators.required]],
       simbolo: ['', [Validators.required]],
@@ -40,15 +44,16 @@ export class MedidaIndexComponent implements OnInit {
 
   cargarMedidas() {
     this.cargando = true;
-    this.almacenService.getAllMedidas(this.limit, this.skip)
-        .subscribe((data: any) => {
-          this.totalMedidas = data.totalDocs;
-          this.medidas = data;
-          this.medidasTemp = data;
-          this.totalPages = data.totalpage;
-          console.log(data);
-          this.cargando = false;
-        });
+    this.almacenService
+      .getAllMedidas(this.limit, this.skip)
+      .subscribe((data: any) => {
+        this.totalMedidas = data.totalDocs;
+        this.medidas = data;
+        this.medidasTemp = data;
+        this.totalPages = data.totalpage;
+        console.log(data);
+        this.cargando = false;
+      });
   }
 
   buscar(termino: string) {
@@ -64,7 +69,7 @@ export class MedidaIndexComponent implements OnInit {
 
   doSelect = (value: any) => {
     console.log('SingleDemoComponent.doSelect', value);
-  }
+  };
 
   get form2() {
     return this.medidaForm.controls;
@@ -85,7 +90,6 @@ export class MedidaIndexComponent implements OnInit {
     }
     this.cargarMedidas();
   }
-
 
   borrarMedida(id: string) {
     Swal.fire({
@@ -119,12 +123,7 @@ export class MedidaIndexComponent implements OnInit {
       () => {
         this.medidaForm.reset();
         this.cargarMedidas();
-        this.alertOk(
-          'success',
-          'Exito',
-          'Medida Creada Correctamente',
-          '2000'
-        );
+        this.alertOk('success', 'Exito', 'Medida Creada Correctamente', '2000');
       }
     );
   }
@@ -137,8 +136,4 @@ export class MedidaIndexComponent implements OnInit {
       timer,
     });
   }
-
-
-
-
 }

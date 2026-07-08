@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { LoginI } from '../models/login.interface';
 import { ResponseI } from '../models/response.interface';
@@ -70,6 +70,17 @@ export class AuthService {
     return this.http.get<any>(dir, id);
   }
 
+  changeEstadoDir(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/subdirEstado/${id}`;
+    return this.http.put<any>(dir, fd)
+  }
+
+   changeEstadoUni(id: any, fd: FormData): Observable<any> {
+    let dir = `${this.URL}/org/${id}`;
+    return this.http.put<any>(dir, fd)
+  }
+
+
   sendCharge(unit: any, id: any): Observable<any> {
     console.log(unit);
     let dir = `${this.URL}/subdir/${id}`;
@@ -121,5 +132,18 @@ export class AuthService {
     console.log(dir);
     return this.http.get<any>(dir);
   }
+    listUsers(params?: any): Observable<any> {
+      let dir = `${this.URL}/listUsers`;
+      const header = this.headers;
+      let httpParams = new HttpParams();
+      if (params) {
+        Object.keys(params).forEach(key => {
+          if (params[key]) {
+            httpParams = httpParams.set(key, params[key]);
+          }
+        });
+      } 
+      return this.http.get<any>(dir, { params: httpParams, headers: header});
+    }
 
 }

@@ -128,7 +128,6 @@ export class EgresoCreateComponent implements OnInit {
     id ? this.existe = true : this.existe = false;
   }
 
-
   buscar(termino: string) {
     if (termino.length === 0) {
       this.articulos = this.articulosTemp;

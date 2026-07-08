@@ -1,0 +1,106 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4 fondo">
+  <!-- Brand Logo -->
+  <a routerLink="/" class="brand-link">
+    <img
+      src="../../../../../assets/img/logo.png"
+      alt="AdminLTE Logo"
+      class="brand-image img-circle elevation-3"
+      style="opacity: 0.8"
+    />
+    <span class="brand-text font-weight-light">GAM Betanzos</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="true"
+      >
+        <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a routerLink="/desembolso" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/desembolso/index" class="nav-link">
+            <i class="nav-icon fas fa-hand-holding-usd"></i>
+            <p>Desembolso de Fondos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/desembolso/tipo-fondos" class="nav-link">
+            <i class="nav-icon fas fa-file-invoice-dollar"></i>
+            <p>Tipo de Fondos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/desembolso/gasto-fondo" class="nav-link">
+            <i class="nav-icon fas fa-money-check-alt"></i>
+            <p>Gasto de Fondo</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/desembolso/fuentes" class="nav-link">
+            <i class="nav-icon fas fa-landmark"></i>
+            <p>F.F. - O.F.</p>
+          </a>
+        </li>
+
+        <!--  <li class="nav-item" *ngIf="data.roles === 'SUPER_ADMIN'">
+          <a routerLink="/correspondencia/tipo/index" class="nav-link">
+            <i class="nav-icon fas fa-file"></i>
+            <p>
+              Tipos de Documentos
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/correspondencia/mi/index" class="nav-link">
+            <i class="nav-icon fas fa-envelope-open-text"></i>
+            <p>
+              Mi Correspondencia
+            </p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="data.roles === 'SUPER_ADMIN'">
+          <a routerLink="/correspondencia/index" class="nav-link">
+            <i class="nav-icon fas fa-envelope-open-text"></i>
+            <p>
+              Correspondencias
+            </p>
+          </a>
+        </li>
+ -->
+
+        <!-- <li class="nav-item">
+          <a routerLink="/almacen/egreso/index" class="nav-link">
+            <i class="nav-icon fas fa-minus"></i>
+            <p>
+              Salidas
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/almacen/vehiculo/index" class="nav-link">
+            <i class="nav-icon fas fa-car"></i>
+            <p>
+              Vehículos
+            </p>
+          </a>
+        </li> -->
+      </ul>
+    </nav>
+    <br />
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

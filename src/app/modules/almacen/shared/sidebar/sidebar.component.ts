@@ -13,7 +13,16 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+gastosOpen: boolean = false;
+valesOpen: boolean = false;
 
+toggleGastosMenu() {
+  this.gastosOpen = !this.gastosOpen;
+}
+
+toggleValesMenu() {
+  this.valesOpen = !this.valesOpen;
+}
 
 
 }

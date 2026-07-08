@@ -88,12 +88,24 @@ export class ValeService {
     let dir = `${this.URL}/vale/${id}`;
     return this.http.put<any>(dir, form)
   }
+   editGasto(form: any, id: any): Observable<any> {
+    let dir = `${this.URL}/gasto/${id}`;
+    console.log('id', id , 'fd',form);
+    const header = this.headers;
+    return this.http.patch<any>(dir, form, { headers: header})
+  }
 
   addFactura(form:any, id:string){
     let dir = `${this.URL}/addFactura/${id}`;
     const header = this.headers;
     return this.http.put(dir, form, { headers: header})
   }
+addFacturaGasto(form:any,){
+    let dir = `${this.URL}/addFactura`;
+    const header = this.headers;
+    return this.http.post(dir, form, { headers: header})
+  }
+  
 
   /* printVale(id:string){
     let dir = `${this.URL}/printVale/${id}`; 
@@ -102,6 +114,14 @@ export class ValeService {
   } */
   printVale(id: string): Observable<Blob>  {  
     const url = `${this.URL}/printVale/${id}`;
+    const header = this.headers;
+    console.log('url', url);
+   // return `${url} { headers: header, responseType: 'blob' }`;
+    return this.http.get(`${url}`, { headers: header, responseType: 'blob' });
+  } 
+
+   printValeDetail(id: string): Observable<Blob>  {  
+    const url = `${this.URL}/printDetailFact/${id}`;
     const header = this.headers;
     console.log('url', url);
    // return `${url} { headers: header, responseType: 'blob' }`;

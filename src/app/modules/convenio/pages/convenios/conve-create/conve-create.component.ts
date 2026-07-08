@@ -18,12 +18,13 @@ declare function currencyInput(): void;
 export class ConveCreateComponent implements OnInit {
   URL = environment.api;
   entidades2: any = [];
+  entidadesData: any[] = [];
   montoTotal: any = 0;
   example: any = [];
-  convenio:any;
+  convenio: any;
   convenioForm: any;
   finanForm: any;
-
+  finFecha: any;
   items: any[] = ["1", "2"];
 
   itemId: any = 3;
@@ -40,17 +41,21 @@ export class ConveCreateComponent implements OnInit {
     private router: Router
   ) {
     this.convenioForm = this.fb.group({
-      codigo: ['', [Validators.required, Validators.minLength(1)]],
+      convenio: ['Intergubernativo', [Validators.required]],
+      codigo: [''],
       nombre: ['', [Validators.required, Validators.minLength(3)]],
-      objeto: [''],
+      objeto: ['', [Validators.required, Validators.minLength(3)]],
       // entidades: this.fb.array([
       //   this.fb.group({
       //     entidad: ['', [Validators.required]],
       //     monto: ['', [Validators.required]]
       //   })
       // ]),
-      firma: [''],
-      plazo: ['', [Validators.required]],
+      firma: [this.getFechaActual()],
+      plazo: ['', ],
+      fechafin:  ['' ],  // <-- aquí
+      financiamiento: [false],
+      conclusion:[false],
     });
 
     this.finanForm = this.fb.group({
@@ -61,15 +66,28 @@ export class ConveCreateComponent implements OnInit {
 
 
     this.getEntidades();
+    this.cargarEntidades();
   }
 
   get form() {
     return this.convenioForm.controls;
   }
+ngOnInit() {
+  this.callCurrency();
 
-  ngOnInit() {
-    this.callCurrency()
-  }
+  this.convenioForm.get('firma')?.valueChanges.subscribe(() => {
+    this.calcularFechaFin();
+  });
+
+  this.convenioForm.get('plazo')?.valueChanges.subscribe(() => {
+    this.calcularFechaFin();
+  });
+
+  this.convenioForm.get('fechafin')?.valueChanges.subscribe(() => {
+    this.calcularPlazo();
+  });
+}
+
 
   //para llamar inputs type currency o moneda
   callCurrency() {
@@ -78,6 +96,49 @@ export class ConveCreateComponent implements OnInit {
       // console.log("Hola Mundo");
     }, 1000);
   }
+
+  getFechaActual(): string {
+  const hoy = new Date();
+  const year = hoy.getFullYear();
+  const month = ('0' + (hoy.getMonth() + 1)).slice(-2);
+  const day = ('0' + hoy.getDate()).slice(-2);
+
+  return `${year}-${month}-${day}`;
+}
+
+
+ calcularFechaFin() {
+  const fechaFirma = this.convenioForm.get('firma')?.value;
+  const plazoDias = Number(this.convenioForm.get('plazo')?.value);
+
+  if (!fechaFirma || !plazoDias) return;
+
+  const fecha = new Date(fechaFirma);
+  fecha.setDate(fecha.getDate() + plazoDias);
+
+  const year = fecha.getFullYear();
+  const month = ('0' + (fecha.getMonth() + 1)).slice(-2);
+  const day = ('0' + fecha.getDate()).slice(-2);
+
+  this.convenioForm.get('fechafin')?.setValue(`${year}-${month}-${day}`, { emitEvent: false });
+}
+
+calcularPlazo() {
+  const fechaFirma = this.convenioForm.get('firma')?.value;
+  const fechaFin = this.convenioForm.get('fechafin')?.value;
+
+  if (!fechaFirma || !fechaFin) return;
+
+  const inicio = new Date(fechaFirma);
+  const fin = new Date(fechaFin);
+
+  const diffTime = fin.getTime() - inicio.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  this.convenioForm.get('plazo')?.setValue(diffDays, { emitEvent: false });
+}
+
+
 
   crearConvenio(form: any) {
     this.api.crearConvenio(form)
@@ -110,8 +171,15 @@ export class ConveCreateComponent implements OnInit {
       });
 
   }
+  cargarEntidades(params?: any) {
+    params = params || { estado: true };
+    this.api.queryEntidades(params).subscribe((data: any) => {
+      console.log(data);
+      this.entidadesData = data.entidades;
+    });
+  }
 
-  getConvenio(id:string){
+  getConvenio(id: string) {
     this.api.getSingleConvenio(id).subscribe
       (res => {
         this.convenio = res;
@@ -144,7 +212,7 @@ export class ConveCreateComponent implements OnInit {
         err => console.log('HTTP Error', err),
         () => {
           this.finanForm.reset();
-          this.getConvenio(this.convenioId)     
+          this.getConvenio(this.convenioId)
         }
       );
   }

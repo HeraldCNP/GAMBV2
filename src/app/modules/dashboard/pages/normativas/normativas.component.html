@@ -1,22 +1,30 @@
 <h1 class="text-center">Normativas</h1>
 
-
 <div class="accordion" id="accordionPanelsStayOpenExample">
-  <div *ngFor="let tipo of tipos; let i=index; let first = first" class="accordion-item">
+  <div
+    *ngFor="let tipo of tipos; let i = index; let first = first"
+    class="accordion-item"
+  >
     <h2 class="accordion-header">
-      <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#panel-'+i"
-        aria-expanded="true" [attr.aria-controls]="'panel-'+i">
+      <button
+        class="accordion-button btnAccordion"
+        type="button"
+        data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#panel-' + i"
+        aria-expanded="true"
+        [attr.aria-controls]="'panel-' + i"
+      >
         <span class="textHead">{{ tipo.tipo | uppercase }}</span>
       </button>
     </h2>
-    <div [id]="'panel-'+i" class="accordion-collapse collapse">
+    <div [id]="'panel-' + i" class="accordion-collapse collapse">
       <div class="accordion-body">
         <div class="row">
           <table class="table table-hover">
             <thead>
               <tr>
                 <th>N°</th>
-                <th style="width: 900px;">Título</th>
+                <th style="width: 900px">Título</th>
                 <th>Fecha de Aprobación</th>
                 <th>Fecha de Finalización</th>
                 <th>Documento</th>
@@ -25,14 +33,24 @@
             </thead>
             <tbody>
               <tr *ngFor="let documento of tipo.normativa; let i = index">
-                <td>{{ i+1 }}</td>
+                <td>{{ i + 1 }}</td>
                 <td>{{ documento.titulo }}</td>
-                <td>{{ documento.fecha | date:'mediumDate': 'UTC' }}</td>
-                <td>{{ documento.fechaFin | date:'mediumDate': 'UTC' }}</td>
-                <td><a href="{{ URL+'/'+documento.uri }}" target="_blank">Descargar</a></td>
+                <td>{{ documento.fecha | date : "mediumDate" : "UTC" }}</td>
+                <td>{{ documento.fechaFin | date : "mediumDate" : "UTC" }}</td>
                 <td>
-                  <span *ngIf="!documento.fechaFin" class="badge text-bg-success">Vigente</span>
-                  <span *ngIf="documento.fechaFin" class="badge text-bg-danger">No Vigente</span>
+                  <a href="{{ URL + '/' + documento.uri }}" target="_blank"
+                    >Descargar</a
+                  >
+                </td>
+                <td>
+                  <span
+                    *ngIf="!documento.fechaFin"
+                    class="badge text-bg-success"
+                    >Vigente</span
+                  >
+                  <span *ngIf="documento.fechaFin" class="badge text-bg-danger"
+                    >No Vigente</span
+                  >
                 </td>
                 <!-- <td>
                   <div class="form-check form-switch">
@@ -78,3 +96,4 @@
       </div>
     </div>
   </div>
+</div>

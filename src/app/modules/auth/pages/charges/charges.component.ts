@@ -36,10 +36,11 @@ export class ChargesComponent implements OnInit {
   }
 
   getUnit(id:any){
+    console.log('id',id);
     this.api.getUnit(id).subscribe
     (res => {
+      console.log("res", res);
       this.charge = res;
-      console.log(res)
     });
   }
 
@@ -91,5 +92,19 @@ export class ChargesComponent implements OnInit {
   //     }
   //   })
   // }
-
+ changeStatus(id: any, estado: any) {
+    let fd = new FormData();
+    fd.append('estado', estado);
+    console.log(estado);
+    this.api.changeEstadoDir(id, fd).subscribe(   
+      (res: any) => {
+     
+      },
+      (err: any) => console.log('HTTP Error', err),
+      () => {
+        this.getUnit(this.unitId);
+        this.alertOk('success', 'Exito', 'Estado Actualizado Correctamente', '2000');
+      }
+    );
+  }
 }

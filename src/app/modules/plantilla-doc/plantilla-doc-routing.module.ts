@@ -10,6 +10,7 @@ import { PrestamosIndexComponent } from './pages/prestamos/prestamos-index/prest
 import { AmortizacionCreateComponent } from './pages/prestamos/amortizacion-create/amortizacion-create.component';
 import { EjecucionPresupuestariaComponent } from './pages/ejecucion-presupuestaria/ejecucion-presupuestaria.component';
 import { EvaluacionComponent } from './pages/evaluacion/evaluacion.component';
+//import { SegControlComponent } from '../gaceta/pages/segControl/segControl.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'plantillas/addAmortizacion/:id', component: AmortizacionCreateComponent },
       { path: 'ejecucion-presupuestaria/index', component: EjecucionPresupuestariaComponent },
       { path: 'evaluacion/index', component: EvaluacionComponent },
+     // { path: 'seguimiento-control/index', component: SegControlComponent },
     ]
   }
 ];

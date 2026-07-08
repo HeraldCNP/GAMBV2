@@ -55,6 +55,6 @@ export class SidebarComponent {
           url: '/doc/evaluacion/index'
         },
       ]
-    },
+    }
   ];
 }

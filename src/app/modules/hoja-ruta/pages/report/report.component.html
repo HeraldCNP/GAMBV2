@@ -7,21 +7,21 @@
           <form [formGroup]="reportForm">
             <div class="row g-3 align-items-center">
               <div class="col-auto">
-                <div class="input-group mb-1">
-                  <span class="input-group-text" id="plazo"><b>Funcionario</b></span>
-                  <ngx-select [allowClear]="true" [items]="users" optionTextField="username" optionValueField="_id"
-                    placeholder="Seleccione un Funcionario" formControlName="funcionario" (select)="doSelect2($event)">
+                <div class="mb-1">
+                  <span class="" id="plazo"><b>Funcionario</b></span>
+                  <ngx-select [allowClear]="true" [items]="users" optionTextField="username" optionValueField="ci"
+                    placeholder="Seleccione un Funcionario" formControlName="usuario" (select)="doSelect2($event)">
                     <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                       <span [innerHtml]="text"></span>
                       &nbsp;{{option.data.surnames}}
                     </ng-template>
                   </ngx-select>
 
-                  <div class="form-text" *ngIf="form['funcionario'].touched && form['funcionario'].invalid">
+                  <div class="form-text" *ngIf="form['usuario'].touched && form['usuario'].invalid">
                     <div *ngIf="
-                        form['funcionario'].errors &&
+                        form['usuario'].errors &&
 
-                        form['funcionario'].errors['required']
+                        form['usuario'].errors['required']
                       ">
                       * Debe seleccionar un funcionario.
                     </div>
@@ -30,31 +30,32 @@
               </div>
 
               <div class="col-auto">
-                <div class="input-group mb-1">
-                  <span class="input-group-text" id="plazo"><b>Cargo</b></span>
-                  <ngx-select [allowClear]="true" [items]="cargos" optionTextField="nombresubdir" optionValueField="nombresubdir"
-                    placeholder="Seleccione un Cargo" formControlName="recibidox" (select)="doSelect($event)">
+                <div class="mb-1">
+                  <span class="" id="plazo"><b>Cargo</b></span>
+                  <ngx-select [allowClear]="true" [items]="cargos" optionTextField="nombresubdir"
+                    optionValueField="nombresubdir" placeholder="Seleccione un Cargo" formControlName="destino"
+                    (select)="doSelect($event)">
                     <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
                       <span [innerHtml]="text"></span>
                       &nbsp;{{option.data.surnames}}
                     </ng-template>
                   </ngx-select>
 
-                  <div class="form-text" *ngIf="form['recibidox'].touched && form['recibidox'].invalid">
+                  <div class="form-text" *ngIf="form['destino'].touched && form['destino'].invalid">
                     <div *ngIf="
-                        form['recibidox'].errors &&
+                        form['destino'].errors &&
 
-                        form['recibidox'].errors['required']
+                        form['destino'].errors['required']
                       ">
-                      * Debe seleccionar un recibidox.
+                      * Debe seleccionar un destino.
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="col-auto">
-                <div class="input-group mb-1">
-                  <span class="input-group-text" id="estado"><b> Estado</b></span>
+                <div class="mb-1">
+                  <span class="" id="estado"><b> Estado</b></span>
                   <select id="estado" formControlName="estado" class="form-select" required>
                     <option value="" [defaultSelected]="true">Elija una opción</option>
                     <option value="DERIVADO">DERIVADO</option>
@@ -69,32 +70,41 @@
                 </div>
               </div>
               <div class="col-auto">
-                <div class="input-group mb-1 mx-2">
-                  <span class="input-group-text izq" id="estado"><b>Del</b></span>
-                  <input class="form-control" type="date" formControlName="del">
-                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha Inicial</div>
+                <div class=" mb-1 mx-2">
+                  <span class=" izq" id="estado"><b>Del</b></span>
+                  <input class="form-control" type="date" formControlName="deFecha">
+                  <div class="form-text" *ngIf="form['deFecha'].touched && form['deFecha'].invalid">
+                    <div *ngIf="form['deFecha'].errors && form['deFecha'].errors['required']">* Fecha Inicial</div>
                   </div>
                 </div>
               </div>
               <div class="col-auto">
-                <div class="input-group mb-1 mx-2">
-                  <span class="input-group-text izq" id="estado"><b>Al</b></span>
-                  <input class="form-control" type="date" formControlName="al">
-                  <div class="form-text" *ngIf="form['estado'].touched && form['estado'].invalid">
-                    <div *ngIf="form['estado'].errors && form['estado'].errors['required']">* Fecha Final</div>
+                <div class=" mx-2">
+                  <span class=" izq" id="estado"><b>Al</b></span>
+                  <input class="form-control" type="date" formControlName="alFecha">
+                  <div class="form-text" *ngIf="form['alFecha'].touched && form['alFecha'].invalid">
+                    <div *ngIf="form['alFecha'].errors && form['alFecha'].errors['required']">* Fecha Final</div>
                   </div>
                 </div>
               </div>
             </div>
-            <button (click)="obtenerHojasRutas(reportForm)" class="btn btn-primary mr-3" [disabled]="reportForm.invalid" 
-              style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem" appLoader>
+            <button (click)="getSeguimientos(reportForm.value)" class="btn btn-primary mr-3"
+              [disabled]="reportForm.invalid" style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem"
+              >
               Buscar
             </button>
 
             <button (click)="imprimir()" class="btn btn-primary"
               style="--bs-btn-padding-y: 0.25rem; --bs-btn-font-size: 0.75rem">Descargar</button>
 
+
+              <button (click)="resetFormSearch()" class="btn btn-info ml-3" [disabled]="reportForm.invalid" style="
+                              --bs-btn-padding-y: 0.25rem;
+                              --bs-btn-font-size: 0.75rem;
+                            ">
+                Limpiar
+              </button>
+          
             <!-- <div class="input-group mb-1">
               <span class="input-group-text izq" id="funcionario"><b> Funcionario</b></span>
               <select id="funcionario" formControlName="funcionario" class="form-select" required>
@@ -113,17 +123,17 @@
 
           </form>
         </div>
-        <!-- {{ reportForm.value | json }} -->
+       <!--  {{ reportForm.value | json }} -->
         <div class="card-body">
           <div>
             <table class="table table-striped table-responsive" id="table">
 
               <thead>
-                <tr *ngIf="user">
-                  <th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ this.estado }} <br> <i
-                      class="subtitle">Desde: {{ fechaIni | date:'longDate': 'UTC' }} Hasta: {{ fechaHoy |
-                      date:'longDate': 'UTC' }}</i> <br> <i class="subtitle">FUNCIONARIO: {{ this.user.username }} {{
-                      this.user.surnames }} - {{ this.destino }}</i> </th>
+                <tr>
+                  <th class="title" colspan="8">REPORTE DE CORRESPONDENCIA - ESTADO: {{ reportForm.value.estado }} <br>
+                    <i class="subtitle">Desde: {{ reportForm.value.deFecha | date:'longDate': 'UTC' }} - Hasta: {{ reportForm.value.alFecha  |
+                      date:'longDate': 'UTC' }}</i> <br> <i class="subtitle">FUNCIONARIO: {{ this.user?.username }} {{
+                      this.user?.surnames }} - {{ reportForm.value.destino }}</i> </th>
 
                 </tr>
                 <tr class="head">

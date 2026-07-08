@@ -45,13 +45,15 @@ export class ConveTransfeComponent implements OnInit {
 
   ngOnInit(): void {
     this.convenioId = this.activeRouter.snapshot.paramMap.get('id');
+    console.log(this.convenioId);
+    
     this.getconvenio();
   }
   
   getconvenio() {
     if (this.convenioId) {
       this.api.getSingleConvenio(this.convenioId).subscribe(data => {
-        console.log(data.financiadoras)
+        console.log("caonvenio",data.financiadoras)
         data.financiadoras.forEach((finan: any) => {
           if (finan.entidad.codigo == 1508) {
             this.gamb = finan;

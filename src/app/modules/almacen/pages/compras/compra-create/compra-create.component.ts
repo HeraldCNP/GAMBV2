@@ -57,7 +57,6 @@ export class CompraCreateComponent implements OnInit {
     });
 
     this.proveedorForm = this.fb.group({
-      compania: [''],
       representante: ['', [Validators.required]],
       razon_social: ['', [Validators.required]],
       nit: ['', [Validators.required]],
