@@ -39,6 +39,7 @@ export class ValeNewComponent {
   fuentes: any;
   desembolsos: any = [];
 
+
   private _snackBar = inject(MatSnackBar);
 
   constructor(
@@ -73,12 +74,13 @@ export class ValeNewComponent {
       idGastoFondo: ['6866f68000031001e6de7c95'],
       idTipoDesembolso: ['6866ab0ba7f78500a418421e'],
       idFuente: [''],
-      encargado: ['RENE VEDIA MAMANI'],
-      idEncargado: ['6253bf6900ae6f0014f7bc23'],
+       encargado: [this.data.username + ' ' + this.data.surnames],
+      idEncargado: [this.data.id],
     });
   }
 
   ngOnInit(): void {
+  
     this.cargarCatProgras();
     this.cargarUnidadSolicitante();
     this.cargarConductor();

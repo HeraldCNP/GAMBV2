@@ -46,6 +46,7 @@ import { GastosComponent } from './pages/vales/gastos/gastos.component';
 import { NewGastoComponent } from './pages/vales/newGasto/newGasto.component';
 import { ReporteGastosComponent } from './pages/vales/reporteGastos/reporteGastos.component';
 import { EditGasto } from './pages/vales/edit-gasto/edit-gasto';
+import { Descargo } from './pages/descargo/descargo';
 
 
 @NgModule({
@@ -87,7 +88,9 @@ import { EditGasto } from './pages/vales/edit-gasto/edit-gasto';
     GastosComponent,
     NewGastoComponent,
     ReporteGastosComponent,
-    EditGasto
+    EditGasto,
+    Descargo,
+  
   ],
   imports: [
     CommonModule,

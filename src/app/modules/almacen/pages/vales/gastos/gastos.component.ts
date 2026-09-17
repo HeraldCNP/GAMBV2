@@ -41,8 +41,8 @@ export class GastosComponent {
   partidas: any = [];
   idDescargo: any;
   idGasto:any ='';
-  encargado = 'RENE VEDIA MAMANI';
-  idEncargado = '6253bf6900ae6f0014f7bc23';
+  encargado:any = '';
+  idEncargado:any = '';
   constructor(
     private gastoService: DesembolsoService,
     private valeService: ValeService,
@@ -70,11 +70,12 @@ export class GastosComponent {
       solicitante: [''],
       borrador: [true],
       encargado: [this.encargado],
+      idEncargado: [this.idEncargado],
     });
     this.descargoForm = this.fb.group({
       numero: ['', [Validators.required]],
       fechaDescargo: [this.fechaHoy.substr(0, 10), [Validators.required]],
-      encargado: ['', [Validators.required]],
+      encargado: [this.encargado, [Validators.required]],
     });
 
     this.addFactForm = this.fb.group({
@@ -85,6 +86,9 @@ export class GastosComponent {
     });
   }
   ngOnInit(): void {
+    this.encargado = this.data.username + ' ' + this.data.surnames;
+    this.idEncargado = this.data._id;
+
     this.cargarGastos({encargado: this.encargado});
     this.cargarCatProgras();
     this.cargarGastosFondos();
@@ -205,6 +209,18 @@ export class GastosComponent {
     console.log(solicitanteSeleccionado._id);
     
   };
+
+   doSelect3 = (id: string, params?: any) => {
+   
+   // Si quieres obtener el objeto completo:
+   const encargadoSeleccionado = this.funcionarios.find(
+     (d: any) => d._id === id
+    );
+    let encargado = encargadoSeleccionado.username + ' ' + encargadoSeleccionado.surnames;
+    this.searchForm.value.encargado = encargado;
+    console.log(encargadoSeleccionado._id);
+    
+  };
   cargarCatProgras() {
     this.cargando = true;
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
@@ -238,7 +254,8 @@ export class GastosComponent {
       alFecha: this.fechaHoy.substr(0, 10),
       borrador: true,
       solicitante: '',
-      encargado: 'RENE VEDIA MAMANI',
+      encargado: this.encargado,
+      idEncargado: this.idEncargado,
     });
     this.cargarGastos({encargado: this.encargado});
   }

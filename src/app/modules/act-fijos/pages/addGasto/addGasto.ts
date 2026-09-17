@@ -44,35 +44,7 @@ export class AddGasto {
   servicios: any = [];
   cargando: boolean = true;
 
-  createForm = this.fb.group({
-    // autorizacion: [this.idAutorizacion],
-    radio: ['no'],
-    precio: ['', Validators.required],
-    factura: [''],
-    catProgra: ['', [Validators.required]],
-    conductor: ['', [Validators.required]],
-    unidadSolicitante: ['', [Validators.required]],
-    vehiculo: ['', [Validators.required]],
-    fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
-    idGastoFondo: ['',],
-    /*   idDesembolso: ['', [Validators.required]],
-    idDesemFuente: ['', [Validators.required]], */
-    idTipoDesembolso: ['6866ab0ba7f78500a418421e'],
-    descripcion: [''],
-    idFuente: [''],
-    encargado: ['FATIMA JHOSELYN LOPEZ GIL'],
-    idEncargado: ['6253bf3000ae6f0014f7bc1d'],
-    proveedor: ['', Validators.required],
-    idOrden: [''],
-
-
-  });
-
-  
-
-  // fechaHoy:string = "2023/02/02";
-
-  constructor(
+   constructor(
     private activeRouter: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
@@ -105,6 +77,8 @@ export class AddGasto {
       this.createForm.patchValue({
         // cantidad: this.dataOrden.gestion,
         precio: this.dataOrden.precio,
+        encargado: this.data.username + ' ' + this.data.surnames,
+        idEncargado: this.data.id,
         catProgra: this.dataOrden.catProgra,
         conductor: this.dataOrden.conductor._id ?? '',
         //unidadSolicitante: this.dataOrden.idSolicitante?._id ?? '',
@@ -129,6 +103,35 @@ export class AddGasto {
           usuario: [''],
         });
   }
+  createForm = this.fb.group({
+    // autorizacion: [this.idAutorizacion],
+    radio: ['no'],
+    precio: ['', Validators.required],
+    factura: [''],
+    catProgra: ['', [Validators.required]],
+    conductor: ['', [Validators.required]],
+    unidadSolicitante: ['', [Validators.required]],
+    vehiculo: ['', [Validators.required]],
+    fecha: [this.fechaHoy.substr(0, 10), [Validators.required]],
+    idGastoFondo: ['',],
+    /*   idDesembolso: ['', [Validators.required]],
+    idDesemFuente: ['', [Validators.required]], */
+    idTipoDesembolso: ['6866ab0ba7f78500a418421e'],
+    descripcion: [''],
+    idFuente: [''],
+    encargado: [''],
+    idEncargado: [''],
+    proveedor: ['', Validators.required],
+    idOrden: [''],
+
+
+  });
+
+  
+
+  // fechaHoy:string = "2023/02/02";
+
+ 
 
   ngOnInit(): void {
 

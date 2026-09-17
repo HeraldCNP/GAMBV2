@@ -1,0 +1,214 @@
+<div class="animated fadeIn fast">
+    <div class="card-header">
+        <h1 class="text-center" style="color: #003d75">Reporte de Descargos</h1>
+    </div>
+    <div class="card-body">
+        <p class="text-center">
+            Aquí puede generar un reporte de los descargos realizados en el sistema.
+        </p>
+    </div>
+    <div class="row animated fadeIn fast">
+        <div class="col-md-12">
+            <div class="card bg-body rounded">
+                <div class="card-body">
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button btnAccordion" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                    aria-controls="panelsStayOpen-collapseOne">
+                                    Filtrar Búsqueda - Monto Total en Descargos &nbsp;
+                                    
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <span>Encargado: &nbsp; </span>
+                                    <span><b>{{ encargado }}</b>
+                                    </span>
+
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <span>Ojo: &nbsp; </span>
+                                    <span><b>Para operar el sistema debe tener encargado asignado por la MAE</b> </span>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                                aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                    <form [formGroup]="searchForm">
+                                        <div class="row form-smaller">
+
+                                            <div class="col-auto">
+                                                <span class=""><b>Tipo de Fondo</b></span>
+                                                <div class="input-group input-group-sm">
+                                                    <ngx-select [allowClear]="true" [items]="tipoFondos"
+                                                        optionTextField="denominacion" optionValueField="_id"
+                                                        placeholder="Seleccione Tipo de Fondo"
+                                                        formControlName="idTipoDesembolso">
+                                                        <ng-template ngx-select-option ngx-select-option-selected
+                                                            let-option let-text="text">
+                                                            <span [innerHtml]="text"></span>
+                                                        </ng-template>
+                                                    </ngx-select>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- <div class="col-auto">
+                                                <span class=""><b>Estado</b></span>
+                                                <div class="input-group input-group-sm" style="width: 160px">
+                                                    <select formControlName="estado" class="form-select">
+                                                        <option value="" [defaultSelected]="true">
+                                                            Seleccione Estado
+                                                        </option>
+                                                        <option value="EJECUTADO">EJECUTADO</option>
+                                                        <option value="EN ESPERA">EN ESPERA</option>
+                                                        <option value="PENDIENTE">PENDIENTE</option>
+                                                        <option value="DESCARGO">DESCARGO</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-md-1">
+                                                <span class="" id="deFecha"><b>Fecha Inicio</b></span>
+                                                <div class="input-group input-group-sm">
+                                                    <input style="width: 100px" class="form-control" type="date"
+                                                        formControlName="deFecha" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <span class="" id="alFecha"><b>Fecha Fin</b></span>
+                                                <div class="input-group input-group-sm">
+                                                    <input style="width: 100px" class="form-control" type="date"
+                                                        formControlName="alFecha" />
+                                                </div>
+                                            </div>
+
+                                             <div class="col-auto">
+                                                <span class=""><b>Encargado</b></span>
+                                                <div class="input-group input-group-sm">
+                                                    <ngx-select class="sel" [allowClear]="true" [items]="funcionarios"
+                                                        optionTextField="username" optionValueField="_id"
+                                                        placeholder="Seleccione Encargado" formControlName="encargado"
+                                                        >
+                                                        <ng-template ngx-select-option ngx-select-option-selected
+                                                            let-option let-text="text">
+                                                            <span [innerHtml]="text"></span>
+                                                            &nbsp;{{ option.data.surnames }}
+                                                        </ng-template>
+                                                    </ngx-select>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="col-auto">
+                                                <button (click)="cargarDescargos(searchForm.value)" class="btn btn-success"
+                                                    [disabled]="searchForm.invalid" style="
+                            --bs-btn-padding-y: 0.25rem;
+                            --bs-btn-font-size: 0.75rem;
+                          ">
+                                                    Busacar...
+                                                </button>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <button (click)="resetFormSearch()" class="btn btn-info"
+                                                    [disabled]="searchForm.invalid" style="
+                            --bs-btn-padding-y: 0.25rem;
+                            --bs-btn-font-size: 0.75rem;
+                          ">
+                                                    Limpiar
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <!-- {{ searchForm.value | json }} -->
+                                                                             
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" container " >
+          <div class="col-md-12">
+            <div class="card shadow">
+              <div class="card-body">
+                <table class="table table-hover mb-2">
+                  <thead>
+                    <tr>
+                      <th>Número</th>
+                      <th>Descargo</th>
+                      <th>Fecha de Descargo</th>
+                      <th>Encargado</th>
+                      <th>Monto Ejecutado</th>
+                      <th>Tipo de Fondo</th>
+                      <th>Estado</th>
+                      <th>Imprimir</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <tr *ngFor="let descargo of descargos; let i = index">
+                      <td>{{ descargo.numero }}</td>
+                      <td>
+                        {{ descargo.numDescargo }}
+                      </td>
+                      <td>
+                        {{
+                          descargo.fechaDescargo | date : "mediumDate" : "UTC"
+                        }}
+                      </td>
+                      <td>
+                        {{ descargo.encargado.username | uppercase }}
+                        {{ descargo.encargado.surnames | uppercase }}
+                      </td>
+                     
+                      <td>
+                        {{
+                          descargo.montoDescargo ?? 0 | number : "1.2-2" : "es-ES"
+                        }}
+                      </td>
+                      <td>{{ descargo.tipoDesembolso }}</td>
+                      <td>{{ descargo.estado }}</td>
+                      
+                      <td>
+                        
+                       
+                        <i
+                          class="fas fa-file-pdf ml-2 icono iconoRed"
+                          title="Imprimir"
+                          data-bs-toggle="modal"
+                          data-bs-target="#imprimir"
+                          (click)="print(descargo._id)"
+                        ></i>
+                        
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <div class="text-center" *ngIf="txtTermino.value.length === 0">
+                  <button
+                    (click)="cambiarPagina(-1)"
+                    *ngIf="page > 1"
+                    class="btn btn-info text-sm"
+                  >
+                    <i class="fas fa-chevron-left"></i> Anterior
+                  </button>
+                  &nbsp;
+                  {{ page }} de {{ totalPages }}
+                  &nbsp;
+                  <button
+                    (click)="cambiarPagina(1)"
+                    *ngIf="page < totalPages"
+                    class="btn btn-info text-sm"
+                  >
+                    Siguiente <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+</div>

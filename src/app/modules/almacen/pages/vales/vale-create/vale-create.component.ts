@@ -55,8 +55,8 @@ export class ValeCreateComponent {
       idGastoFondo: ['6866f68000031001e6de7c95'],
       idTipoDesembolso: ['6866ab0ba7f78500a418421e'],
       idFuente: [''],
-      encargado: ['RENE VEDIA MAMANI'],
-      idEncargado: ['6253bf6900ae6f0014f7bc23'],
+      encargado: [this.data.username + ' ' + this.data.surnames],
+      idEncargado: [this.data.id],
     });
   }
 

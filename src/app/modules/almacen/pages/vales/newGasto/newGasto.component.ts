@@ -31,6 +31,11 @@ export class NewGastoComponent {
   desembolsos: any = [];
   proveedores: any;
 
+   idUser: any;
+  user: any;
+  data: any;
+  encargado:any = '';
+  idEncargado:any = '';
   constructor(
     private activeRouter: ActivatedRoute,
     private fb: FormBuilder,
@@ -40,6 +45,8 @@ export class NewGastoComponent {
     private autorizacionService: AutorizacionService,
     private desembolsoService: DesembolsoService
   ) {
+    this.user = localStorage.getItem('user');
+    this.data = JSON.parse(this.user);
     this.createForm = this.fb.group({
       // autorizacion: [this.idAutorizacion],
       precio: ['', Validators.required],
@@ -60,6 +67,8 @@ export class NewGastoComponent {
     });
   }
   ngOnInit(): void {
+     this.encargado = this.data.username + ' ' + this.data.surnames;
+    this.idEncargado = this.data._id;
     this.cargarCatProgras();
     //this.cargarUnidadSolicitante();
     this.cargarConductor();

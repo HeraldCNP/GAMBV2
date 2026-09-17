@@ -42,8 +42,8 @@ export class Gastos {
   partidas: any = [];
   idDescargo: any;
   idGasto:any ='';
-  encargado = 'FATIMA JHOSELYN LOPEZ GIL';
-  idEncargado = '6253bf3000ae6f0014f7bc1d';
+  encargado:any = '';
+  idEncargado:any = '';
   constructor(
     private gastoService: DesembolsoService,
     private valeService: ValeService,
@@ -86,6 +86,10 @@ export class Gastos {
     });
   }
   ngOnInit(): void {
+
+    this.encargado = this.data.username + ' ' + this.data.surnames;
+    this.idEncargado = this.data._id;
+    
     this.cargarGastos({encargado: this.encargado});
     this.cargarCatProgras();
     this.cargarGastosFondos();
@@ -203,6 +207,18 @@ export class Gastos {
     console.log(solicitanteSeleccionado._id);
     
   };
+
+  doSelect3 = (id: string, params?: any) => {
+   
+   // Si quieres obtener el objeto completo:
+   const encargadoSeleccionado = this.funcionarios.find(
+     (d: any) => d._id === id
+    );
+    let encargado = encargadoSeleccionado.username + ' ' + encargadoSeleccionado.surnames;
+    this.searchForm.value.encargado = encargado;
+    console.log(encargadoSeleccionado._id);
+    
+  };
   cargarCatProgras() {
     this.cargando = true;
     this.comprasService.getAllCatProgras().subscribe((data: any) => {
@@ -243,7 +259,7 @@ export class Gastos {
       alFecha: this.fechaHoy.substr(0, 10),
       borrador: true,
       solicitante: '',
-      encargado: 'FATIMA JHOSELYN LOPEZ GIL',
+      encargado: this.encargado,
     });
     this.cargarGastos({encargado: this.encargado});
   }

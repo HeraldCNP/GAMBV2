@@ -33,8 +33,8 @@ export class GastoReport {
   descargos: any = [];
   tipoFondos: any = [];
   idDescargo: any;
-  encargado = 'FATIMA JHOSELYN LOPEZ GIL';
-  idEncargado = '6253bf3000ae6f0014f7bc1d';
+  encargado:any = '';
+  idEncargado:any = '';
 
   URL = environment.api;
   constructor(
@@ -62,10 +62,13 @@ export class GastoReport {
       solicitante: [''],
       partida: [''],
       encargado: [this.encargado],
+      idEncargado: [this.idEncargado],
     });
   }
 
   ngOnInit(): void {
+    this.encargado = this.data.username + ' ' + this.data.surnames;
+    this.idEncargado = this.data._id;
     this.cargarGastos({encargado: this.encargado});
     this.cargarCatProgras();
     this.cargarGastosFondos();
@@ -230,6 +233,18 @@ export class GastoReport {
     let solictante = solicitanteSeleccionado.username + ' ' + solicitanteSeleccionado.surnames;
     this.searchForm.value.solicitante = solictante;
     console.log(solicitanteSeleccionado._id);
+    
+  };
+
+   doSelect3 = (id: string, params?: any) => {
+   
+   // Si quieres obtener el objeto completo:
+   const encargadoSeleccionado = this.funcionarios.find(
+     (d: any) => d._id === id
+    );
+    let encargado = encargadoSeleccionado.username + ' ' + encargadoSeleccionado.surnames;
+    this.searchForm.value.encargado = encargado;
+    console.log(encargadoSeleccionado._id);
     
   };
 }

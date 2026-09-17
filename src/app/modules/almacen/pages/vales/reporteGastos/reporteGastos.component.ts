@@ -33,8 +33,8 @@ export class ReporteGastosComponent {
   descargos: any = [];
   tipoFondos: any = [];
   idDescargo: any;
-  encargado = 'RENE VEDIA MAMANI';
-  idEncargado = '6253bf6900ae6f0014f7bc23';
+  encargado: any = '';
+  idEncargado: any = '';;
 
   URL = environment.api;
   constructor(
@@ -66,7 +66,10 @@ export class ReporteGastosComponent {
   }
 
   ngOnInit(): void {
-    this.cargarGastos({encargado: this.encargado});
+    this.encargado = this.data.username + ' ' + this.data.surnames;
+    this.idEncargado = this.data._id;
+
+    this.cargarGastos({ encargado: this.encargado });
     this.cargarCatProgras();
     this.cargarGastosFondos();
     // this.cargarDesembolsos();
@@ -171,7 +174,8 @@ export class ReporteGastosComponent {
       deFecha: this.fechaIni.substr(0, 10),
       alFecha: this.fechaHoy.substr(0, 10),
       solicitante: '',
-      encargado: 'RENE VEDIA MAMANI',
+      encargado: this.encargado,
+      idEncargado: this.idEncargado,
     });
     this.cargarGastos();
   }
@@ -200,7 +204,7 @@ export class ReporteGastosComponent {
     );
     params = params || {};
     params.enacargado = this.idEncargado;
-   
+
     params.deFecha = this.searchForm.value.deFecha;
     params.alFecha = this.searchForm.value.alFecha;
     params.idTipoDesembolso = desembolso._id;
@@ -222,15 +226,27 @@ export class ReporteGastosComponent {
 
     console.log('idDescargo', this.idDescargo);
   };
-   doSelect2 = (id: string, params?: any) => {
-   
-   // Si quieres obtener el objeto completo:
-   const solicitanteSeleccionado = this.funcionarios.find(
-     (d: any) => d._id === id
+  doSelect2 = (id: string, params?: any) => {
+
+    // Si quieres obtener el objeto completo:
+    const solicitanteSeleccionado = this.funcionarios.find(
+      (d: any) => d._id === id
     );
     let solictante = solicitanteSeleccionado.username + ' ' + solicitanteSeleccionado.surnames;
     this.searchForm.value.solicitante = solictante;
     console.log(solicitanteSeleccionado._id);
-    
+
+  };
+
+  doSelect3 = (id: string, params?: any) => {
+
+    // Si quieres obtener el objeto completo:
+    const encargadoSeleccionado = this.funcionarios.find(
+      (d: any) => d._id === id
+    );
+    let encargado = encargadoSeleccionado.username + ' ' + encargadoSeleccionado.surnames;
+    this.searchForm.value.encargado = encargado;
+    console.log(encargadoSeleccionado._id);
+
   };
 }

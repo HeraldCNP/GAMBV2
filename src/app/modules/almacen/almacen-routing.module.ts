@@ -33,6 +33,7 @@ import { GastosComponent } from './pages/vales/gastos/gastos.component';
 import { NewGastoComponent } from './pages/vales/newGasto/newGasto.component';
 import { ReporteGastosComponent } from './pages/vales/reporteGastos/reporteGastos.component';
 import { EditGasto } from './pages/vales/edit-gasto/edit-gasto';
+import { Descargo } from './pages/descargo/descargo';
 
 
 const routes: Routes = [
@@ -77,6 +78,7 @@ const routes: Routes = [
       { path: 'create-gasto', component: NewGastoComponent },
       { path: 'reporte-gastos', component: ReporteGastosComponent },
       { path: 'edit-gasto/:id', component: EditGasto },
+      { path: 'descargos', component: Descargo },
 
       { path: '**', redirectTo: 'dashboard' },
     ]

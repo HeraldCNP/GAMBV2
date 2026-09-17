@@ -34,6 +34,9 @@
                   <span
                     ><b>{{ encargado }}</b>
                   </span>
+                   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <span>Ojo: &nbsp; </span>
+                    <span><b>Para operar el sistema debe tener encargado asignado por la MAE</b> </span>
                 </button>
               </h2>
               <div
@@ -279,31 +282,33 @@
                         </div>
                       </div>
 
-                      <div class="col-auto">
-                        <span class=""><b>Encargado</b></span>
-                        <div class="input-group input-group-sm">
-                          <ngx-select
-                            class="sel"
-                            [allowClear]="true"
-                            [items]="funcionarios"
-                            optionTextField="username"
-                            optionValueField="_id"
-                            placeholder="Seleccione Encargado"
-                            formControlName="solicitante"
-                            (select)="doSelect2($event)"
-                          >
-                            <ng-template
-                              ngx-select-option
-                              ngx-select-option-selected
-                              let-option
-                              let-text="text"
-                            >
-                              <span [innerHtml]="text"></span>
-                              &nbsp;{{ option.data.surnames }}
-                            </ng-template>
-                          </ngx-select>
+                       <div class="col-auto">
+                          <span class=""><b>Solicitante</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select class="sel" [allowClear]="true" [items]="funcionarios"
+                              optionTextField="username" optionValueField="_id" placeholder="Seleccione Solicitante"
+                              formControlName="solicitante" (select)="doSelect2($event)">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                                <span [innerHtml]="text"></span>
+                                &nbsp;{{ option.data.surnames }}
+                              </ng-template>
+                            </ngx-select>
+                          </div>
                         </div>
-                      </div>
+
+                        <div class="col-auto">
+                          <span class=""><b>Encargado</b></span>
+                          <div class="input-group input-group-sm">
+                            <ngx-select class="sel" [allowClear]="true" [items]="funcionarios"
+                              optionTextField="username" optionValueField="_id" placeholder="Seleccione Encargado"
+                              formControlName="encargado" (select)="doSelect3($event)">
+                              <ng-template ngx-select-option ngx-select-option-selected let-option let-text="text">
+                                <span [innerHtml]="text"></span>
+                                &nbsp;{{ option.data.surnames }}
+                              </ng-template>
+                            </ngx-select>
+                          </div>
+                        </div>
                     </div>
                   </form>
                 </div>
